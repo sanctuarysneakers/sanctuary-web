@@ -12,7 +12,8 @@ def get_sneakers():
     """
     chrome_options = Options()
     chrome_options.add_argument("--start-maximized")
-    driver = webdriver.Chrome('C:\\Users\\erich\\OneDrive\\Desktop\\Misc\\sole_steal\\chromedriver', options=chrome_options)
+    driver = webdriver.Chrome('C:\\Users\\erich\\OneDrive\\Desktop\\Misc\\sole_steal\\chromedriver',
+                              options=chrome_options)
     driver.get('https://www.grailed.com/designers/jordan-brand/hi-top-sneakers')
 
     sneakers = []
@@ -31,11 +32,17 @@ def get_sneakers():
         # Get sneakers currently on page and add to sneakers list
         feed = driver.find_elements_by_class_name('feed-item')
         for item in feed:
-            split = item.text.strip().split('\n')
-            if len(split) > 3:
-                sneaker = Sneaker(split[1], split[2], split[3], split[4])
-                sneakers.append(sneaker)
-
+            info = item.get_attribute('innerHTML').split(">")
+            if len(info) > 1:
+                img_url = info[5]
+                print(info)
+                print(img_url)
+                item_url = info[0]
+                item_url = "https://www.grailed.com" + item_url[9:-43]
+                split = item.text.strip().split('\n')
+                if len(split) > 3:
+                    sneaker = Sneaker(split[1], split[2], split[3], split[4], item_url, img_url)
+                    sneakers.append(sneaker)
         # Wait to load page
         time.sleep(0.5)
 
@@ -46,3 +53,6 @@ def get_sneakers():
         last_height = new_height
 
     return sneakers
+
+
+x = get_sneakers()
