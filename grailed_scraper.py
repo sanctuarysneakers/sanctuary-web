@@ -19,7 +19,6 @@ def get_sneakers():
     driver = webdriver.Chrome('C:\\Users\\erich\\OneDrive\\Desktop\\Misc\\sole_steal\\chromedriver',
                               options=chrome_options)
     driver.get('https://www.grailed.com/designers/jordan-brand/hi-top-sneakers')
-
     sneakers = []
 
     # Find number of sneakers that we will scrape from grailed
@@ -34,12 +33,11 @@ def get_sneakers():
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         # Get sneakers currently on page and add to sneakers list
         feed = driver.find_elements_by_class_name('feed-item')
-        images = WebDriverWait(driver, 10).until(
-            EC.visibility_of_all_elements_located((By.CSS_SELECTOR, ".feed-item .listing-cover-photo>img")))
-        print(len(images))
-        for image in images:
-            print(image.get_attribute("src"))
         for item in feed:
+            # img_list =[my_elem.get_attribute("src") for my_elem in WebDriverWait(driver, 20).until(
+            #    EC.visibility_of_all_elements_located((By.CSS_SELECTOR, ".feed-item .listing-cover-photo>img")))]
+            img = [item.get_attribute("src") for my_elem in WebDriverWait(driver, 20).until(
+                   EC.visibility_of_all_elements_located((By.CSS_SELECTOR, ".feed-item .listing-cover-photo>img")))]
             info = item.get_attribute('innerHTML').split(">")
             item_url = info[0]
             item_url = "https://www.grailed.com" + item_url[9:-43]
@@ -48,6 +46,7 @@ def get_sneakers():
             split = item.text.strip().split('\n')
             if len(split) > 3:
                 sneaker = Sneaker(split[1], split[2], split[3], split[4], item_url, None)
+                print(sneaker)
                 sneakers.append(sneaker)
         # Wait to load page
         time.sleep(0.5)
