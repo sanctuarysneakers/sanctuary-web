@@ -39,7 +39,8 @@ def get_sneakers():
             item_url = info[0]
             item_url = "https://www.grailed.com" + item_url[9:-43]
             xpath = "/html/body/div[3]/div[6]/div[3]/div[3]/div[2]/div[2]/div[" + str(i) + "]/a/div[2]/img"
-            img = WebDriverWait(driver, 20).until(
+            print("xpath: ", xpath)
+            img = WebDriverWait(driver, 10).until(
                 EC.visibility_of_element_located((By.XPATH, xpath)))
             img = img.get_attribute('src')
             # Create Sneaker object for this pair of shoes
@@ -51,7 +52,6 @@ def get_sneakers():
             i += 1
         # Wait to load page
         time.sleep(0.5)
-
         # Calculate new scroll height and compare with last scroll height
         new_height = driver.execute_script("return document.body.scrollHeight")
         if new_height == last_height:
@@ -59,25 +59,6 @@ def get_sneakers():
         last_height = new_height
 
     return sneakers
-
-
-def get_image(item_url):
-    chrome_options = Options()
-    chrome_options.add_argument("--start-maximized")
-    img_driver = webdriver.Chrome('C:\\Users\\erich\\OneDrive\\Desktop\\Misc\\sole_steal\\chromedriver',
-                                  options=chrome_options)
-    try:
-        print("It gets here")
-        time.sleep(0.5)
-        img_driver.get(item_url)
-    except urllib3.exceptions.MaxRetryError():
-        print("It finds it")
-        time.sleep(0.5)
-        img_driver.get(item_url)
-    img = img_driver.find_element_by_xpath(
-        '/html/body/div[7]/div/div[2]/div[2]/div/div/div[1]/div[1]/div[2]/ul/li[1]/div/img')
-    img_driver.quit()
-    return img.get_attribute('src')
 
 
 x = get_sneakers()
