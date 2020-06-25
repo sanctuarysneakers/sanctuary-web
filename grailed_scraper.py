@@ -1,4 +1,5 @@
 import time
+import urllib3
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import WebDriverWait
@@ -27,27 +28,27 @@ def get_sneakers():
 
     # Get scroll height
     last_height = driver.execute_script("return document.body.scrollHeight")
-
+    i = 1
     while True and len(sneakers) < sneaker_count:
         # Scroll down to bottom
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         # Get sneakers currently on page and add to sneakers list
         feed = driver.find_elements_by_class_name('feed-item')
         for item in feed:
-            # img_list =[my_elem.get_attribute("src") for my_elem in WebDriverWait(driver, 20).until(
-            #    EC.visibility_of_all_elements_located((By.CSS_SELECTOR, ".feed-item .listing-cover-photo>img")))]
-            img = [item.get_attribute("src") for my_elem in WebDriverWait(driver, 20).until(
-                   EC.visibility_of_all_elements_located((By.CSS_SELECTOR, ".feed-item .listing-cover-photo>img")))]
             info = item.get_attribute('innerHTML').split(">")
             item_url = info[0]
             item_url = "https://www.grailed.com" + item_url[9:-43]
-
+            xpath = "/html/body/div[3]/div[6]/div[3]/div[3]/div[2]/div[2]/div[" + str(i) + "]/a/div[2]/img"
+            img = WebDriverWait(driver, 20).until(
+                EC.visibility_of_element_located((By.XPATH, xpath)))
+            img = img.get_attribute('src')
             # Create Sneaker object for this pair of shoes
             split = item.text.strip().split('\n')
             if len(split) > 3:
-                sneaker = Sneaker(split[1], split[2], split[3], split[4], item_url, None)
+                sneaker = Sneaker(split[1], split[2], split[3], split[4], item_url, img)
                 print(sneaker)
                 sneakers.append(sneaker)
+            i += 1
         # Wait to load page
         time.sleep(0.5)
 
@@ -58,6 +59,25 @@ def get_sneakers():
         last_height = new_height
 
     return sneakers
+
+
+def get_image(item_url):
+    chrome_options = Options()
+    chrome_options.add_argument("--start-maximized")
+    img_driver = webdriver.Chrome('C:\\Users\\erich\\OneDrive\\Desktop\\Misc\\sole_steal\\chromedriver',
+                                  options=chrome_options)
+    try:
+        print("It gets here")
+        time.sleep(0.5)
+        img_driver.get(item_url)
+    except urllib3.exceptions.MaxRetryError():
+        print("It finds it")
+        time.sleep(0.5)
+        img_driver.get(item_url)
+    img = img_driver.find_element_by_xpath(
+        '/html/body/div[7]/div/div[2]/div[2]/div/div/div[1]/div[1]/div[2]/ul/li[1]/div/img')
+    img_driver.quit()
+    return img.get_attribute('src')
 
 
 x = get_sneakers()

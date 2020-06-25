@@ -9,4 +9,4 @@ class Sneaker:
 
     def __str__(self):
         return ('Brand: ' + self.brand + '\n' + 'Size: ' + self.size + '\n' + 'Model: ' + self.model + '\n' + 'Price : '
-                + self.price + '\n' + 'URL: ' + self.url + '\n' + 'Image URL: ' + 'self.img_url')
+                + self.price + '\n' + 'URL: ' + self.url + '\n' + 'Image URL: ' + self.img_url)
