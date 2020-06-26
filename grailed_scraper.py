@@ -38,10 +38,14 @@ def get_sneakers():
             info = item.get_attribute('innerHTML').split(">")
             item_url = info[0]
             item_url = "https://www.grailed.com" + item_url[9:-43]
-            xpath = "/html/body/div[3]/div[6]/div[3]/div[3]/div[2]/div[2]/div[" + str(i) + "]/a/div[2]/img"
+            xpath = "//html/body/div[3]/div[6]/div[3]/div[3]/div[2]/div[2]/div[" + str(i) + "]/a/div[2]/img"
             print("xpath: ", xpath)
-            img = WebDriverWait(driver, 10).until(
-                EC.visibility_of_element_located((By.XPATH, xpath)))
+            img_div = item.find_element_by_class_name('listing-cover-photo ')
+            print(img_div.get_attribute('innerHTML'))
+            img = WebDriverWait(img_div, 10).until(
+                EC.visibility_of_element_located((By.TAG_NAME, 'img')))
+            # img = WebDriverWait(driver, 10).until(
+            #     EC.visibility_of_element_located((By.XPATH, xpath)))
             img = img.get_attribute('src')
             # Create Sneaker object for this pair of shoes
             split = item.text.strip().split('\n')
