@@ -54,6 +54,8 @@ def get_sneakers():
         print(len(feed), len(shoe_images))
 
 
+    # TODO: loop through all the shoe_items and create a Sneaker object for each one 
+
 get_sneakers()
 
 driver.quit()
