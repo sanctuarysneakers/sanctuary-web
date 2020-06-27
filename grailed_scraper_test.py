@@ -42,6 +42,8 @@ def get_sneakers():
     # Print the number of shoes
     print(len(shoe_items))
 
+    # TODO: loop through all the shoe_items and create a Sneaker object for each one
+
 get_sneakers()
 
 driver.quit()
