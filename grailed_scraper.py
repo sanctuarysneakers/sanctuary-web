@@ -1,4 +1,5 @@
 import time
+import pandas as pd
 import urllib3
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
@@ -38,20 +39,17 @@ def get_sneakers():
             info = item.get_attribute('innerHTML').split(">")
             item_url = info[0]
             item_url = "https://www.grailed.com" + item_url[9:-43]
-            xpath = "//html/body/div[3]/div[6]/div[3]/div[3]/div[2]/div[2]/div[" + str(i) + "]/a/div[2]/img"
-            print("xpath: ", xpath)
-            img_div = item.find_element_by_class_name('listing-cover-photo ')
-            print(img_div.get_attribute('innerHTML'))
-            img = WebDriverWait(img_div, 10).until(
-                EC.visibility_of_element_located((By.TAG_NAME, 'img')))
-            # img = WebDriverWait(driver, 10).until(
-            #     EC.visibility_of_element_located((By.XPATH, xpath)))
-            img = img.get_attribute('src')
+            # xpath = "//html/body/div[3]/div[6]/div[3]/div[3]/div[2]/div[2]/div[" + str(i) + "]/a/div[2]/img"
+            # img_div = item.find_element_by_class_name('listing-cover-photo ')
+            # print(img_div.get_attribute('innerHTML'))
+            # img = WebDriverWait(img_div, 10).until(
+            #     ec.visibility_of_element_located((By.TAG_NAME, 'img')))
+            # img = img.get_attribute('src')
             # Create Sneaker object for this pair of shoes
             split = item.text.strip().split('\n')
             if len(split) > 3:
-                sneaker = Sneaker(split[1], split[2], split[3], split[4], item_url, img)
-                print(sneaker)
+                split[1] = split[1].replace('×', 'x')
+                sneaker = Sneaker(split[1], split[2], split[3], split[4], item_url, 'temp')
                 sneakers.append(sneaker)
             i += 1
         # Wait to load page
@@ -65,4 +63,28 @@ def get_sneakers():
     return sneakers
 
 
-x = get_sneakers()
+def sneakers_to_df(sneaker_list):
+    """ Converts a list of Sneaker objects to a Pandas DataFrame in which each row is 1 pair of
+    sneakers.
+
+    Arguments:
+        (List[Sneaker]) sneakers: A list of Sneaker objects.
+
+    Returns:
+        (DataFrame): A DataFrame containing all of the sneakers passed in.
+    """
+    sneaker_df = pd.DataFrame(columns=['id', 'brand', 'model', 'size', 'price', 'url', 'img'])
+    i = 0
+    for sneaker in sneaker_list:
+        print(sneaker.brand)
+        sneaker_df = sneaker_df.append({'id': i, 'brand': sneaker.brand, 'model': sneaker.model, 'size': sneaker.size,
+                                        'price': sneaker.price, 'url': sneaker.url, 'img': sneaker.img_url},
+                                       ignore_index=True)
+        i += 1
+    # replace with your own path to get csv
+    # sneaker_df.to_csv(r'C:\Users\erich\OneDrive\Desktop\Misc\sneakers.csv', index=False, header=True)
+    return sneaker_df
+
+
+sneakers_ = get_sneakers()
+sneakers_df = sneakers_to_df(sneakers_)
