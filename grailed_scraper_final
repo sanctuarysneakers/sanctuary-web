@@ -36,6 +36,7 @@ def create_db_table():
         pass
 
 def scroll_to_bottom(page_scrolls):
+    ''' Scrolls to the bottom of the page to load all the feed items '''
 
     SCROLL_PAUSE_TIME = 0.5
 
@@ -60,6 +61,7 @@ def scroll_to_bottom(page_scrolls):
         i += 1
 
 def item_info(item):
+    ''' Scrapes information about each item, and returns as a dictionary '''
     
     info = {}
 
@@ -92,6 +94,9 @@ def item_info(item):
     return info
 
 def insert_items(feed):
+    ''' Loops through all items in the feed and inserts them into the db
+    if they don't already exist. If a certain item already exists in the db,
+    it updates price if it has changed. '''
     
     for item in feed:
         # Get link (PRIMARY KEY)
