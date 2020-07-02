@@ -4,6 +4,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.support import expected_conditions as ec
 import time
 import pandas as pd
 import sqlite3
@@ -49,7 +50,8 @@ def scroll_to_bottom(page_scrolls):
 
     # Wait until login window pops up and manually close
     time.sleep(7)
-
+    temp = WebDriverWait(driver, 10).until(ec.visibility_of_element_located((By.CLASS_NAME, 'close')))
+    # Close the popup using temp somehow (solution pending)
     SCROLL_PAUSE_TIME = 1.0
     
     # Amount of scrolls to the bottom of page
