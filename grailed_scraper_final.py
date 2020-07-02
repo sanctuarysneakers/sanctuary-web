@@ -1,13 +1,12 @@
 from bs4 import BeautifulSoup
 from selenium import webdriver
-from selenium.webdriver import ActionChains
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver import ActionChains
 import time
-import pandas as pd
 import sqlite3
 from sqlite3 import OperationalError, IntegrityError
 
@@ -18,7 +17,6 @@ driver.get('https://www.grailed.com/designers/jordan-brand/hi-top-sneakers')
 # Setup connection to database
 conn = sqlite3.connect("sneakers.db")
 c = conn.cursor()
-
 
 def create_db_table():
     try:
@@ -39,37 +37,6 @@ def create_db_table():
         pass
 
 
-def scroll_to_bottom(page_scrolls):
-    """Scrolls to the bottom of the page to load all the feed items.
-
-    Arguments:
-        (int) page_scrolls: The number of page scrolls to execute.
-
-    Returns:
-        No return value.
-    """
-
-    # Wait until login window pops up and manually close
-    time.sleep(7)
-    popup_close = WebDriverWait(driver, 10).until(ec.visibility_of_element_located((By.CLASS_NAME, 'close')))
-    actionChains = ActionChains(driver)
-    actionChains.double_click(popup_close).perform()
-    SCROLL_PAUSE_TIME = 1.0
-    
-    # Amount of scrolls to the bottom of page
-    i = 0
-
-    while i < page_scrolls:
-        # Scroll down to bottom
-        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-
-        # Wait to load page
-        time.sleep(SCROLL_PAUSE_TIME)
-
-        i += 1
-        print("Scroll:", i)
-
-
 def item_info(item):
     """ Returns a dictionary containing the given sneakers information.
 
@@ -79,6 +46,7 @@ def item_info(item):
     Returns:
         (Dict) info: A dictionary containing all of the information the item.
     """
+
     info = {"brand": item.find('p', {'class': 'listing-designer truncate'}).text,
             "model": item.find('p', {'class': 'truncate listing-title'}).text,
             "size": float(item.find('p', {'class': 'listing-size sub-title'}).text)}
@@ -86,21 +54,20 @@ def item_info(item):
     try:
         price = float(item.find('p', {'class': 'sub-title original-price'}).text[1:].replace(',', ''))
         old_price = None
-    except NoSuchElementException:
+    except AttributeError:
         price = float(item.find('p', {'class':'sub-title new-price'}).text[1:].replace(',', ''))
         old_price = float(item.find('p', {'class':'sub-title original-price strike-through'}).text[1:].replace(',', ''))
     info["price"] = price
     info["old_price"] = old_price
 
     try:
-        img = item.find('img')['srcset']
-    except NoSuchElementException:
+        img = item.find('img')['src']
+    except TypeError:
         img = "N/A"
         print(item)
     info["img"] = img
 
     return info
-
 
 def insert_items(feed):
     """ Inserts feed items into db.
@@ -120,7 +87,7 @@ def insert_items(feed):
         # Get link (PRIMARY KEY)
         try:
             url = "grailed.com" + item.find('a')['href']
-        except NoSuchElementException:
+        except TypeError:
             # Empty item
             continue
 
@@ -142,6 +109,13 @@ def insert_items(feed):
         
     conn.commit()
 
+def close_popup():
+    # Closes login popup
+    driver.find_element_by_id("app").click()
+    popup_close = WebDriverWait(driver, 10).until(ec.visibility_of_element_located((By.CLASS_NAME, 'close'))) 
+    actionChains = ActionChains(driver)
+    actionChains.double_click(popup_close).perform()
+    time.sleep(1)
 
 def run_scraper(page_scrolls):
     """ Runs the Grailed Scraper.
@@ -152,22 +126,27 @@ def run_scraper(page_scrolls):
     Returns:
         No return value.
     """
-    # Scroll to the bottom of page page_scroll times
-    scroll_to_bottom(page_scrolls)
 
-    # Get page html to scrape with bs4
-    page_html = driver.page_source
-    soup = BeautifulSoup(page_html, "lxml")
-    
-    # Get all the feed items and store in list
-    feed = soup.find_all('div', {'class':'feed-item'})
-    
-    # Insert items into db if they don't already exist
-    insert_items(feed)
+    close_popup()
+
+    for _ in range(page_scrolls):
+        # Scroll to the bottom of page
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(1)
+
+        # Get page html to scrape with bs4
+        page_html = driver.page_source
+        soup = BeautifulSoup(page_html, "lxml")
+        
+        # Get all the feed items and store in list
+        feed = soup.find_all('div', {'class':'feed-item'})
+        
+        # Insert items into db if they don't already exist
+        insert_items(feed)
 
 
 create_db_table()
-run_scraper(300)
+run_scraper(10)
 
 
 driver.quit()
