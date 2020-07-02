@@ -1,21 +1,23 @@
+from bs4 import BeautifulSoup
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.support import expected_conditions as ec
 import time
 import pandas as pd
 import sqlite3
-from sqlite3 import OperationalError
-from sqlite3 import IntegrityError
+from sqlite3 import OperationalError, IntegrityError
 
-# Setup chromedriver
+# Setup webdriver
 driver = webdriver.Chrome(ChromeDriverManager().install())
 driver.get('https://www.grailed.com/designers/jordan-brand/hi-top-sneakers')
 
 # Setup connection to database
 conn = sqlite3.connect("sneakers.db")
 c = conn.cursor()
+
 
 def create_db_table():
     try:
@@ -35,103 +37,135 @@ def create_db_table():
     except OperationalError:
         pass
 
+
 def scroll_to_bottom(page_scrolls):
-    ''' Scrolls to the bottom of the page to load all the feed items '''
+    """Scrolls to the bottom of the page to load all the feed items.
 
-    SCROLL_PAUSE_TIME = 0.5
+    Arguments:
+        (int) page_scrolls: The number of page scrolls to execute.
 
-    # Get scroll height
-    last_height = driver.execute_script("return document.body.scrollHeight")
+    Returns:
+        No return value.
+    """
+
+    # Wait until login window pops up and manually close
+    time.sleep(7)
+    temp = WebDriverWait(driver, 10).until(ec.visibility_of_element_located((By.CLASS_NAME, 'close')))
+    # Close the popup using temp somehow (solution pending)
+    SCROLL_PAUSE_TIME = 1.0
     
     # Amount of scrolls to the bottom of page
     i = 0
-    while (i < page_scrolls):
+
+    while i < page_scrolls:
         # Scroll down to bottom
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
         # Wait to load page
         time.sleep(SCROLL_PAUSE_TIME)
 
-        # Calculate new scroll height and compare with last scroll height
-        new_height = driver.execute_script("return document.body.scrollHeight")
-        if (new_height == last_height):
-            break
-        last_height = new_height
-
         i += 1
+        print("Scroll:", i)
+
 
 def item_info(item):
-    ''' Scrapes information about each item, and returns as a dictionary '''
-    
-    info = {}
+    """ Returns a dictionary containing the given sneakers information.
 
-    # Get brand
-    info["brand"] = item.find_element_by_xpath(".//p[@class='listing-designer truncate']").text
-    
-    # Get model (name)
-    info["model"] = item.find_element_by_xpath(".//p[@class='truncate listing-title']").text
-    
-    # Get size
-    info["size"] = float(item.find_element_by_xpath('.//p[@class="listing-size sub-title"]').text)
+    Arguments:
+        (WebElement) item: A specific webelement w/the feed-item class.
 
-    # Get current price and old price
+    Returns:
+        (Dict) info: A dictionary containing all of the information the item.
+    """
+    info = {"brand": item.find('p', {'class': 'listing-designer truncate'}).text,
+            "model": item.find('p', {'class': 'truncate listing-title'}).text,
+            "size": float(item.find('p', {'class': 'listing-size sub-title'}).text)}
+
     try:
-        price = float(item.find_element_by_xpath('.//p[@class="sub-title original-price"]').text[1:].replace(',', ''))
+        price = float(item.find('p', {'class': 'sub-title original-price'}).text[1:].replace(',', ''))
         old_price = None
     except NoSuchElementException:
-        price = float(item.find_element_by_xpath('.//p[@class="sub-title new-price"]').text[1:].replace(',', ''))
-        old_price = float(item.find_element_by_xpath('.//p[@class="sub-title original-price strike-through"]').text[1:].replace(',', ''))
+        price = float(item.find('p', {'class':'sub-title new-price'}).text[1:].replace(',', ''))
+        old_price = float(item.find('p', {'class':'sub-title original-price strike-through'}).text[1:].replace(',', ''))
     info["price"] = price
     info["old_price"] = old_price
 
-    # Get image (doesn't work for all)
     try:
-        img = item.find_element_by_xpath(".//div[@class='listing-cover-photo ']/img").get_attribute("src")
+        img = item.find('img')['srcset']
     except NoSuchElementException:
         img = "N/A"
+        print(item)
     info["img"] = img
 
     return info
 
+
 def insert_items(feed):
-    ''' Loops through all items in the feed and inserts them into the db
+    """ Inserts feed items into db.
+
+    Loops through all items in the feed and inserts them into the db
     if they don't already exist. If a certain item already exists in the db,
-    it updates price if it has changed. '''
+    it updates price if it has changed.
+
+    Arguments:
+        List[WebElement] feed: A list containing every pair of Air Jordans on Grailed.
+
+    Returns:
+        No return value.
+    """
     
     for item in feed:
         # Get link (PRIMARY KEY)
-        url = item.find_element_by_xpath('./a').get_attribute("href")
+        try:
+            url = "grailed.com" + item.find('a')['href']
+        except NoSuchElementException:
+            # Empty item
+            continue
 
         # Check if the item already exists in db
         c.execute("SELECT * FROM sneakers WHERE url = ?;", (url,))
         conn.commit()
         result = c.fetchall()
 
-        if (len(result) == 0):  # Item isnt't already in db
+        if len(result) == 0:  # Item isnt't already in db
             data = item_info(item)
 
             c.execute("""INSERT INTO sneakers (url,brand,model,size,current_price,old_price,image) 
-                VALUES (?,?,?,?,?,?,?)""", (url, data["brand"], data["model"], data["size"], data["price"], data["old_price"], data["img"]))
+                VALUES (?,?,?,?,?,?,?)""", (url, data["brand"], data["model"], data["size"], data["price"],
+                                            data["old_price"], data["img"]))
+            print("added new item")
         else:
-            ### TODO: check if prices have changed
-            pass
+            # TODO: check if prices have changed
+            print("item already in db")
         
     conn.commit()
 
-def run_scraper(page_scrolls):
 
-    # Scroll to the bottom of page N times
+def run_scraper(page_scrolls):
+    """ Runs the Grailed Scraper.
+
+    Arguments:
+        (int) page_scrolls: The number of scrolls necessary to reach the bottom of the page.
+
+    Returns:
+        No return value.
+    """
+    # Scroll to the bottom of page page_scroll times
     scroll_to_bottom(page_scrolls)
+
+    # Get page html to scrape with bs4
+    page_html = driver.page_source
+    soup = BeautifulSoup(page_html, "lxml")
     
     # Get all the feed items and store in list
-    feed = driver.find_elements_by_xpath("//div[@class='feed-item']")
+    feed = soup.find_all('div', {'class':'feed-item'})
     
     # Insert items into db if they don't already exist
     insert_items(feed)
 
 
 create_db_table()
-run_scraper(10)
+run_scraper(300)
 
 
 driver.quit()
