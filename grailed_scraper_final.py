@@ -99,7 +99,6 @@ def insert_items(feed):
         result = c.fetchall()
 
         if (len(result) == 0):  # Item isnt't already in db
-            #data = item_info(item)
             data = item_info(item)
 
             c.execute("""INSERT INTO sneakers (url,brand,model,size,current_price,old_price,image) 
