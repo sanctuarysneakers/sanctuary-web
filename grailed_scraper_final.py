@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 from selenium import webdriver
+from selenium.webdriver import ActionChains
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
@@ -50,8 +51,9 @@ def scroll_to_bottom(page_scrolls):
 
     # Wait until login window pops up and manually close
     time.sleep(7)
-    temp = WebDriverWait(driver, 10).until(ec.visibility_of_element_located((By.CLASS_NAME, 'close')))
-    # Close the popup using temp somehow (solution pending)
+    popup_close = WebDriverWait(driver, 10).until(ec.visibility_of_element_located((By.CLASS_NAME, 'close')))
+    actionChains = ActionChains(driver)
+    actionChains.double_click(popup_close).perform()
     SCROLL_PAUSE_TIME = 1.0
     
     # Amount of scrolls to the bottom of page
