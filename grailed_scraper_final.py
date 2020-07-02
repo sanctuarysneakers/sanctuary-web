@@ -17,6 +17,7 @@ driver.get('https://www.grailed.com/designers/jordan-brand/hi-top-sneakers')
 conn = sqlite3.connect("sneakers.db")
 c = conn.cursor()
 
+
 def create_db_table():
     try:
         c.execute("""CREATE TABLE sneakers (
@@ -35,8 +36,16 @@ def create_db_table():
     except OperationalError:
         pass
 
+
 def scroll_to_bottom(page_scrolls):
-    ''' Scrolls to the bottom of the page to load all the feed items '''
+    """Scrolls to the bottom of the page to load all the feed items.
+
+    Arguments:
+        (int) page_scrolls: The number of page scrolls to execute.
+
+    Returns:
+        No return value.
+    """
 
     # Wait until login window pops up and manually close
     time.sleep(7)
@@ -45,7 +54,8 @@ def scroll_to_bottom(page_scrolls):
     
     # Amount of scrolls to the bottom of page
     i = 0
-    while (i < page_scrolls):
+
+    while i < page_scrolls:
         # Scroll down to bottom
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
@@ -55,17 +65,24 @@ def scroll_to_bottom(page_scrolls):
         i += 1
         print("Scroll:", i)
 
-def item_info(item):
-    info = {}
 
-    info["brand"] = item.find('p', {'class':'listing-designer truncate'}).text
-    info["model"] = item.find('p', {'class':'truncate listing-title'}).text
-    info["size"] = float(item.find('p', {'class':'listing-size sub-title'}).text)
+def item_info(item):
+    """ Returns a dictionary containing the given sneakers information.
+
+    Arguments:
+        (WebElement) item: A specific webelement w/the feed-item class.
+
+    Returns:
+        (Dict) info: A dictionary containing all of the information the item.
+    """
+    info = {"brand": item.find('p', {'class': 'listing-designer truncate'}).text,
+            "model": item.find('p', {'class': 'truncate listing-title'}).text,
+            "size": float(item.find('p', {'class': 'listing-size sub-title'}).text)}
 
     try:
-        price = float(item.find('p', {'class':'sub-title original-price'}).text[1:].replace(',', ''))
+        price = float(item.find('p', {'class': 'sub-title original-price'}).text[1:].replace(',', ''))
         old_price = None
-    except:
+    except NoSuchElementException:
         price = float(item.find('p', {'class':'sub-title new-price'}).text[1:].replace(',', ''))
         old_price = float(item.find('p', {'class':'sub-title original-price strike-through'}).text[1:].replace(',', ''))
     info["price"] = price
@@ -73,23 +90,33 @@ def item_info(item):
 
     try:
         img = item.find('img')['srcset']
-    except:
+    except NoSuchElementException:
         img = "N/A"
         print(item)
     info["img"] = img
 
     return info
 
+
 def insert_items(feed):
-    ''' Loops through all items in the feed and inserts them into the db
+    """ Inserts feed items into db.
+
+    Loops through all items in the feed and inserts them into the db
     if they don't already exist. If a certain item already exists in the db,
-    it updates price if it has changed. '''
+    it updates price if it has changed.
+
+    Arguments:
+        List[WebElement] feed: A list containing every pair of Air Jordans on Grailed.
+
+    Returns:
+        No return value.
+    """
     
     for item in feed:
         # Get link (PRIMARY KEY)
         try:
             url = "grailed.com" + item.find('a')['href']
-        except:
+        except NoSuchElementException:
             # Empty item
             continue
 
@@ -98,21 +125,30 @@ def insert_items(feed):
         conn.commit()
         result = c.fetchall()
 
-        if (len(result) == 0):  # Item isnt't already in db
+        if len(result) == 0:  # Item isnt't already in db
             data = item_info(item)
 
             c.execute("""INSERT INTO sneakers (url,brand,model,size,current_price,old_price,image) 
-                VALUES (?,?,?,?,?,?,?)""", (url, data["brand"], data["model"], data["size"], data["price"], data["old_price"], data["img"]))
+                VALUES (?,?,?,?,?,?,?)""", (url, data["brand"], data["model"], data["size"], data["price"],
+                                            data["old_price"], data["img"]))
             print("added new item")
         else:
-            ### TODO: check if prices have changed
+            # TODO: check if prices have changed
             print("item already in db")
         
     conn.commit()
 
-def run_scraper(page_scrolls):
 
-    # Scroll to the bottom of page N times
+def run_scraper(page_scrolls):
+    """ Runs the Grailed Scraper.
+
+    Arguments:
+        (int) page_scrolls: The number of scrolls necessary to reach the bottom of the page.
+
+    Returns:
+        No return value.
+    """
+    # Scroll to the bottom of page page_scroll times
     scroll_to_bottom(page_scrolls)
 
     # Get page html to scrape with bs4
