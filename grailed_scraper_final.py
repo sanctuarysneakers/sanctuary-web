@@ -18,6 +18,7 @@ driver.get('https://www.grailed.com/designers/jordan-brand/hi-top-sneakers')
 conn = sqlite3.connect("sneakers.db")
 c = conn.cursor()
 
+
 def create_db_table():
     try:
         c.execute("""CREATE TABLE sneakers (
@@ -69,6 +70,7 @@ def item_info(item):
 
     return info
 
+
 def insert_items(feed):
     """ Inserts feed items into db.
 
@@ -109,13 +111,15 @@ def insert_items(feed):
         
     conn.commit()
 
+
 def close_popup():
-    # Closes login popup
+    """ Closes the login popup."""
     driver.find_element_by_id("app").click()
     popup_close = WebDriverWait(driver, 10).until(ec.visibility_of_element_located((By.CLASS_NAME, 'close'))) 
     actionChains = ActionChains(driver)
     actionChains.double_click(popup_close).perform()
     time.sleep(1)
+
 
 def run_scraper(page_scrolls):
     """ Runs the Grailed Scraper.
@@ -139,7 +143,7 @@ def run_scraper(page_scrolls):
         soup = BeautifulSoup(page_html, "lxml")
         
         # Get all the feed items and store in list
-        feed = soup.find_all('div', {'class':'feed-item'})
+        feed = soup.find_all('div', {'class': 'feed-item'})
         
         # Insert items into db if they don't already exist
         insert_items(feed)
