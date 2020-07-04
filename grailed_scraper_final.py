@@ -3,6 +3,7 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver import ActionChains
@@ -13,11 +14,11 @@ from sqlite3 import OperationalError, IntegrityError
 # Setup webdriver
 driver = webdriver.Chrome(ChromeDriverManager().install())
 driver.get('https://www.grailed.com/designers/jordan-brand/hi-top-sneakers')
+actions = ActionChains(driver)
 
 # Setup connection to database
 conn = sqlite3.connect("sneakers.db")
 c = conn.cursor()
-
 
 def create_db_table():
     try:
@@ -65,7 +66,6 @@ def item_info(item):
         img = item.find('img')['src']
     except TypeError:
         img = "N/A"
-        print(item)
     info["img"] = img
 
     return info
@@ -84,7 +84,7 @@ def insert_items(feed):
     Returns:
         No return value.
     """
-    
+
     for item in feed:
         # Get link (PRIMARY KEY)
         try:
@@ -95,7 +95,6 @@ def insert_items(feed):
 
         # Check if the item already exists in db
         c.execute("SELECT * FROM sneakers WHERE url = ?;", (url,))
-        conn.commit()
         result = c.fetchall()
 
         if len(result) == 0:  # Item isnt't already in db
@@ -104,28 +103,60 @@ def insert_items(feed):
             c.execute("""INSERT INTO sneakers (url,brand,model,size,current_price,old_price,image) 
                 VALUES (?,?,?,?,?,?,?)""", (url, data["brand"], data["model"], data["size"], data["price"],
                                             data["old_price"], data["img"]))
+            conn.commit()
             print("added new item")
-        else:
+        else:  # Item is already in db
             # TODO: check if prices have changed
-            print("item already in db")
+            
+            # Check if the item contains an image url
+            try:
+                item_img = item.find('img')['src']
+                c.execute("SELECT image FROM sneakers WHERE url = ?;", (url,))
+                db_img = c.fetchone()[0][0:4]
+                if (db_img == 'N/A'):
+                    c.execute("UPDATE sneakers SET image = ? WHERE url = ?;", (item_img, url))
+                    conn.commit()
+            except TypeError:
+                # No image found for this item
+                pass
         
     conn.commit()
 
 
 def close_popup():
     """ Closes the login popup."""
+    time.sleep(1) # Wait for the app element to load
     driver.find_element_by_id("app").click()
     popup_close = WebDriverWait(driver, 10).until(ec.visibility_of_element_located((By.CLASS_NAME, 'close'))) 
-    actionChains = ActionChains(driver)
-    actionChains.double_click(popup_close).perform()
+    actions.double_click(popup_close).perform()
     time.sleep(1)
 
 
-def run_scraper(page_scrolls):
-    """ Runs the Grailed Scraper.
+def scroll_to_bottom(page_scrolls):
+    """ Scrolls to the bottom of the web page.
 
-    Arguments:
+    Arguments
         (int) page_scrolls: The number of scrolls necessary to reach the bottom of the page.
+
+    Returns:
+        No return value.
+    """
+    
+    i = 0
+    while i < page_scrolls:
+        # Scroll incrementally to the bottom of the page
+        driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_DOWN)
+
+        # Wait for items to load
+        time.sleep(0.5)
+
+        i += 1
+
+        # TODO: Break the loop automatically when reached the bottom of the page
+
+
+def run_scraper():
+    """ Runs the Grailed Scraper.
 
     Returns:
         No return value.
@@ -133,24 +164,21 @@ def run_scraper(page_scrolls):
 
     close_popup()
 
-    for _ in range(page_scrolls):
-        # Scroll to the bottom of page
-        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-        time.sleep(1)
+    scroll_to_bottom(1500)
 
-        # Get page html to scrape with bs4
-        page_html = driver.page_source
-        soup = BeautifulSoup(page_html, "lxml")
-        
-        # Get all the feed items and store in list
-        feed = soup.find_all('div', {'class': 'feed-item'})
-        
-        # Insert items into db if they don't already exist
-        insert_items(feed)
+    # Get page html to scrape with bs4
+    page_html = driver.page_source
+    soup = BeautifulSoup(page_html, "lxml")
+            
+    # Get all the feed items and store in list
+    feed = soup.find_all('div', {'class': 'feed-item'})
+    
+    # Insert items into the database
+    insert_items(feed)
 
 
 create_db_table()
-run_scraper(10)
+run_scraper()
 
 
 driver.quit()
