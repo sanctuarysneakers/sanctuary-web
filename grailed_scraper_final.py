@@ -110,10 +110,10 @@ def insert_items(feed):
             
             # Check if the item contains an image url
             try:
-                item_img = item.find('img')['src']
                 c.execute("SELECT image FROM sneakers WHERE url = ?;", (url,))
                 db_img = c.fetchone()[0][0:4]
                 if (db_img == 'N/A'):
+                    item_img = item.find('img')['src']
                     c.execute("UPDATE sneakers SET image = ? WHERE url = ?;", (item_img, url))
                     conn.commit()
             except TypeError:
