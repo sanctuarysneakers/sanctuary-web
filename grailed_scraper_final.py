@@ -135,7 +135,7 @@ def close_popup():
 def scroll_to_bottom(page_scrolls):
     """ Scrolls to the bottom of the web page.
 
-    Arguments
+    Arguments:
         (int) page_scrolls: The number of scrolls necessary to reach the bottom of the page.
 
     Returns:
