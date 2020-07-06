@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 from selenium import webdriver
+from selenium.webdriver import ActionChains
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 
@@ -13,7 +14,11 @@ def insert_items(feed):
 
 
 def verify_human(page_html, soup):
-    print("FUNCTION CALLED")
+    action = ActionChains(driver)
+    # action.click_and_hold(on_element = element)
+    # action.perform()
+    paragraph = driver.find_element_by_xpath('/html/body/div/div[2]/p')
+    print(paragraph)
 
 
 def run_scraper():
@@ -30,7 +35,6 @@ def run_scraper():
         insert_items(feed)
         time.sleep(1.0)
         i += 1
-        break
 
 
 run_scraper()
