@@ -14,11 +14,12 @@ def insert_items(feed):
 
 
 def verify_human(page_html, soup):
+    # HANDLE THE CAPTCHA
     action = ActionChains(driver)
     # action.click_and_hold(on_element = element)
     # action.perform()
-    paragraph = driver.find_element_by_xpath('/html/body/div/div[2]/p')
-    print(paragraph)
+    # paragraph = driver.find_element_by_xpath('/html/body/div/div[2]/p')
+    # print(paragraph)
 
 
 def run_scraper():
