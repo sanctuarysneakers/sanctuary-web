@@ -2,30 +2,33 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver import ActionChains
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
 import time
 
-driver = webdriver.Chrome(ChromeDriverManager().install())
+options = Options()
+options.add_argument("--start-maximized")
+driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 driver.get('https://stockx.com/retro-jordans')
 
 
 def insert_items(feed):
     for item in feed:
         print(item)
+        info = {}
+        info['brand'] = 'Air Jordan'
+        info['url'] = 'https://stockx.com/' + item['href']
+        print("INFO", info['url'])
 
 
 def verify_human(page_html, soup):
-    # HANDLE THE CAPTCHA
-    action = ActionChains(driver)
-    # action.click_and_hold(on_element = element)
-    # action.perform()
-    # paragraph = driver.find_element_by_xpath('/html/body/div/div[2]/p')
-    # print(paragraph)
+    print("They detected we are using automated software")
 
 
 def run_scraper():
     i = 1
     while i <= 25:
         driver.get('https://stockx.com/retro-jordans?page=' + str(i))
+        time.sleep(3.0)
         page_html = driver.page_source
         soup = BeautifulSoup(page_html, "lxml")
         time.sleep(1.0)
