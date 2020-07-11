@@ -20,7 +20,9 @@ actions = ActionChains(driver)
 conn = sqlite3.connect("sneakers.db")
 c = conn.cursor()
 
+
 def create_db_table():
+    """ Creates an empty database table with the necessary keys."""
     try:
         c.execute("""CREATE TABLE sneakers (
             url text primary key,
@@ -112,7 +114,7 @@ def insert_items(feed):
             try:
                 c.execute("SELECT image FROM sneakers WHERE url = ?;", (url,))
                 db_img = c.fetchone()[0][0:4]
-                if (db_img == 'N/A'):
+                if db_img == 'N/A':
                     item_img = item.find('img')['src']
                     c.execute("UPDATE sneakers SET image = ? WHERE url = ?;", (item_img, url))
                     conn.commit()
@@ -125,7 +127,7 @@ def insert_items(feed):
 
 def close_popup():
     """ Closes the login popup."""
-    time.sleep(1) # Wait for the app element to load
+    time.sleep(1)  # Wait for the app element to load
     driver.find_element_by_id("app").click()
     popup_close = WebDriverWait(driver, 10).until(ec.visibility_of_element_located((By.CLASS_NAME, 'close'))) 
     actions.double_click(popup_close).perform()
