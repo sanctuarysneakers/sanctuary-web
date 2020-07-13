@@ -3,6 +3,40 @@ from urllib.parse import urlencode
 import sqlite3
 from sqlite3 import OperationalError, IntegrityError
 
+# Setup connection to database
+conn = sqlite3.connect("sneakers.db")
+c = conn.cursor()
+
+
+def create_db_table():
+    try:
+        c.execute("""CREATE TABLE stockx_sneakers (
+            id VARCHAR(30) primary key,
+            model TEXT,
+            size FLOAT,
+            category TEXT,
+            retail_price INT,
+            price_premium INT,
+            lowest_ask_price INT,
+            highest_bid INT,
+            annual_high_price INT,
+            annual_low_price INT,
+            average_price INT,
+            average_price_rank INT,
+            volatility FLOAT, 
+            number_of_asks INT,
+            number_of_bids INT,
+            annual_sold INT,
+            url TEXT,
+            image TEXT
+        )""")
+        conn.commit()
+
+        c.execute("""CREATE INDEX id ON stockx_sneakers (id);""")
+        conn.commit()
+    except OperationalError:
+        pass
+
 
 def get_api_data():
     url = "https://stockx.com/api/browse"
@@ -48,4 +82,42 @@ def get_api_data():
 
     return items
 
-get_api_data()
+
+def insert_items(item_data):
+    for item in item_data:
+        # Check if the item already exists in db
+        c.execute("SELECT * FROM stockx_sneakers WHERE id = ?;", (item['id'],))
+        result = c.fetchall()
+
+        if len(result) == 0:  # Item isnt't already in db, insert
+            c.execute("""INSERT INTO stockx_sneakers 
+                (id,model,size,category,retail_price,price_premium,
+                lowest_ask_price,highest_bid,annual_high_price,annual_low_price,
+                average_price,average_price_rank,volatility,number_of_asks,
+                number_of_bids,annual_sold,url,image) 
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);""",  (item["id"], item["model"], item["size"],
+                                                                    item["category"], item["retailPrice"], 
+                                                                    item["pricePremium"],item["lowestAsk"],
+                                                                    item["highestBid"],item["annualHigh"],
+                                                                    item["annualLow"],item["averagePrice"],
+                                                                    item["averagePriceRank"],item["volatility"],
+                                                                    item["numberOfAsks"],item["numberOfBids"],
+                                                                    item["annualSold"], item["url"],
+                                                                    item["image"]))
+            conn.commit()
+        else:  # Item is already in db
+            # TODO: check if prices have changed
+            pass
+
+    conn.commit()
+
+
+def run_scraper():
+    data = get_api_data()
+    insert_items(data)
+
+
+create_db_table()
+run_scraper()
+
+conn.close()
