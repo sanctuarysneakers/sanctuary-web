@@ -4,38 +4,90 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
+import sqlite3
+from sqlite3 import OperationalError, IntegrityError
 
+# Setup webdriver
 driver = webdriver.Chrome(ChromeDriverManager().install())
 driver.get('https://www.flightclub.com/air-jordans')
 
+# Setup connection to database
+conn = sqlite3.connect("sneakers.db")
+c = conn.cursor()
+
+
+def create_db_table():
+    """ Creates an empty database table with the necessary keys."""
+    try:
+        c.execute("""CREATE TABLE flightclub_sneakers (
+            id CHAR(8) primary key,
+            brand TEXT,
+            model TEXT,
+            price INT,
+            size FLOAT,
+            url TEXT,
+            image TEXT,
+            source VARCHAR(20)
+        )""")
+        conn.commit()
+
+        c.execute("""CREATE INDEX url ON flightclub_sneakers (url);""")
+        conn.commit()
+    except OperationalError:
+        pass
+
 
 def get_item_info(item):
-    info = {'brand': 'Air Jordan', 'url': 'https://www.flightclub.com' + item['href'], 'img': item.find('img')['src'],
-            'model': item.find('h2').text, 'price': item.find('div', {'class': 'yszfz8-5 kbsRqK'}).text,
-            'size': 'Multiple sizes', 'Source': 'Flight Club'}
+    info = {'id': item['href'][-6:],
+            'brand': 'Air Jordan', 
+            'model': item.find('h2').text,
+            'price': item.find('div', {'class': 'yszfz8-5 kbsRqK'}).text,
+            'size': None,
+            'url': 'https://www.flightclub.com' + item['href'], 
+            'img': item.find('img')['src'],
+            'source': 'Flight Club'}
     return info
 
 
 def insert_items(feed):
     for item in feed:
-        print(get_item_info(item))
+        item_id = item['href'][-6:]
+
+        # Check if the item already exists in db
+        c.execute("SELECT * FROM flightclub_sneakers WHERE id = ?;", (item_id,))
+        result = c.fetchall()
+
+        if len(result) == 0:  # Item isnt't already in db, insert
+            data = get_item_info(item)
+
+            c.execute("""INSERT INTO flightclub_sneakers 
+                (id,brand,model,price,size,url,image,source)
+                VALUES (?,?,?,?,?,?,?,?);""",  (data["id"], data["brand"], data["model"],
+                                                data["price"], data["size"], 
+                                                data["url"], data["img"],
+                                                data["source"]))
+            conn.commit()
+        else:  # Item is already in db
+            # TODO: check if prices have changed
+            pass
+
+    conn.commit()
 
 
 def run_scraper():
-    page_html = driver.page_source
-    first_page = BeautifulSoup(page_html, "lxml")
-    num_shoes = first_page.find('span', {'class': 'kw3ij0-1 teOWb'})
-    num_shoes = int(num_shoes.text)
+    soup = BeautifulSoup(driver.page_source, "lxml")
+    num_shoes = int(soup.find('span', {'class': 'kw3ij0-1 teOWb'}).text)
     num_scraped = 0
     next_btn = driver.find_element_by_css_selector('.dIgQsa')
     while num_scraped <= num_shoes:
-        page_html = driver.page_source
-        soup = BeautifulSoup(page_html, "lxml")
         feed = soup.find_all('a', {'class': 'sc-12adlsx-0 iSXeRZ'})
         insert_items(feed[1:])
         num_scraped += len(feed[1:])
         next_btn.click()
+        soup = BeautifulSoup(driver.page_source, "lxml")
 
 
+create_db_table()
 run_scraper()
 
+conn.close()
