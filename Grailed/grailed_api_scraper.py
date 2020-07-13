@@ -89,7 +89,7 @@ def get_api_data():
                          "condition": item['condition'],
                          "seller_location": item['location'],
                          "seller_rating": round(item['user']['seller_score']['rating_average'], 1) if
-                         item['user']['seller_score']['rating_average'] else None,
+                            item['user']['seller_score']['rating_average'] else None,
                          "seller_rating_count": item['user']['seller_score']['rating_count'],
                          "shipping_us": item['shipping']['us']['amount'] if item['shipping']['us']['enabled'] else None,
                          "shipping_ca": item['shipping']['ca']['amount'] if item['shipping']['ca']['enabled'] else None,
@@ -108,7 +108,7 @@ def get_api_data():
     return results
 
 
-def insert_items(api_data):
+def insert_items(item_data):
     """ Inserts feed items into db.
 
     Loops through all items in the feed and inserts them into the db
@@ -116,13 +116,13 @@ def insert_items(api_data):
     it updates information if it has changed.
 
     Arguments:
-        (Dict) api_data: A list containing data for each feed item.
+        (Dict) item_data: A list containing data for each feed item.
 
     Returns:
         No return value.
     """
 
-    for item in api_data:
+    for item in item_data:
         # Check if the item already exists in db
         c.execute("SELECT * FROM grailed_sneakers WHERE id = ?;", (item['id'],))
         result = c.fetchall()
@@ -161,10 +161,10 @@ def run_scraper():
     """
 
     # Get a list of all the item data from the internal grailed api
-    api_data = get_api_data()
+    item_data = get_api_data()
 
     # Insert items into the database
-    insert_items(api_data)
+    insert_items(item_data)
 
 
 create_db_table()
