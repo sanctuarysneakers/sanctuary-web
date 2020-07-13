@@ -1,6 +1,5 @@
 import requests
 from urllib.parse import urlencode
-import re
 import sqlite3
 from sqlite3 import OperationalError, IntegrityError
 
@@ -11,6 +10,7 @@ c = conn.cursor()
 
 def create_db_table():
     """ Creates an empty database table with the necessary keys."""
+
     try:
         c.execute("""CREATE TABLE grailed_sneakers (
             id CHAR(8) primary key,
@@ -50,8 +50,8 @@ def get_api_data():
     Returns:
         List[Dict] results: A list containing dictionaries, each dictionary contains information on one pair of shoes.
     """
-    url = "https://mnrwefss2q-1.algolianet.com/1/indexes/Listing_production/browse"
 
+    url = "https://mnrwefss2q-1.algolianet.com/1/indexes/Listing_production/browse"
     params = {
         "x-algolia-agent": "Algolia for JavaScript (3.35.1); Browser",
         "x-algolia-application-id": "MNRWEFSS2Q",
@@ -160,7 +160,7 @@ def run_scraper():
         No return value.
     """
 
-    # Get a list of all the item data from the internal grailed api
+    # Get a list of all the item data from the api
     item_data = get_api_data()
 
     # Insert items into the database

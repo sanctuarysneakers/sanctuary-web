@@ -9,6 +9,7 @@ c = conn.cursor()
 
 
 def create_db_table():
+    """ Creates an empty database table with the necessary keys."""
     try:
         c.execute("""CREATE TABLE stockx_sneakers (
             id VARCHAR(30) primary key,
@@ -39,6 +40,12 @@ def create_db_table():
 
 
 def get_api_data():
+    """ Returns a very detailed list of items from Stockx.
+
+    Returns:
+        List[Dict] results: A list containing dictionaries, each dictionary contains information on one pair of shoes.
+    """
+
     url = "https://stockx.com/api/browse"
     headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
     
@@ -84,6 +91,19 @@ def get_api_data():
 
 
 def insert_items(item_data):
+    """ Inserts feed items into db.
+
+    Loops through all items in the feed and inserts them into the db
+    if they don't already exist. If a certain item already exists in the db,
+    it updates information if it has changed.
+
+    Arguments:
+        (Dict) item_data: A list containing data for each feed item.
+
+    Returns:
+        No return value.
+    """
+
     for item in item_data:
         # Check if the item already exists in db
         c.execute("SELECT * FROM stockx_sneakers WHERE id = ?;", (item['id'],))
@@ -113,7 +133,16 @@ def insert_items(item_data):
 
 
 def run_scraper():
+    """ Runs the Stockx Scraper.
+
+    Returns:
+        No return value.
+    """
+    
+    # Get a list of all the item data from the api
     data = get_api_data()
+
+    # Insert items into the database
     insert_items(data)
 
 
