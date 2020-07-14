@@ -20,12 +20,11 @@ def create_db_table():
     """ Creates an empty database table with the necessary keys."""
     try:
         c.execute("""CREATE TABLE flightclub_sneakers (
-            id CHAR(8) primary key,
+            url TEXT primary key,
             brand TEXT,
             model TEXT,
             price INT,
             size FLOAT,
-            url TEXT,
             image TEXT,
             source VARCHAR(20)
         )""")
@@ -38,12 +37,11 @@ def create_db_table():
 
 
 def get_item_info(item):
-    info = {'id': item['href'][-6:],
+    info = {'url': 'https://www.flightclub.com' + item['href'],
             'brand': 'Air Jordan', 
             'model': item.find('h2').text,
             'price': item.find('div', {'class': 'yszfz8-5 kbsRqK'}).text,
             'size': None,
-            'url': 'https://www.flightclub.com' + item['href'], 
             'img': item.find('img')['src'],
             'source': 'Flight Club'}
     return info
@@ -51,21 +49,20 @@ def get_item_info(item):
 
 def insert_items(feed):
     for item in feed:
-        item_id = item['href'][-6:]
+        item_url = 'https://www.flightclub.com' + item['href']
 
         # Check if the item already exists in db
-        c.execute("SELECT * FROM flightclub_sneakers WHERE id = ?;", (item_id,))
+        c.execute("SELECT * FROM flightclub_sneakers WHERE url = ?;", (item_url,))
         result = c.fetchall()
 
         if len(result) == 0:  # Item isnt't already in db, insert
             data = get_item_info(item)
 
             c.execute("""INSERT INTO flightclub_sneakers 
-                (id,brand,model,price,size,url,image,source)
-                VALUES (?,?,?,?,?,?,?,?);""",  (data["id"], data["brand"], data["model"],
-                                                data["price"], data["size"], 
-                                                data["url"], data["img"],
-                                                data["source"]))
+                (url,brand,model,price,size,image,source)
+                VALUES (?,?,?,?,?,?,?);""",  (data["url"], data["brand"], data["model"],
+                                              data["price"], data["size"], 
+                                              data["img"], data["source"]))
             conn.commit()
         else:  # Item is already in db
             # TODO: check if prices have changed
