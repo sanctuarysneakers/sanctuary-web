@@ -4,6 +4,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
+import re
 import sqlite3
 from sqlite3 import OperationalError, IntegrityError
 
@@ -40,7 +41,7 @@ def get_item_info(item):
     info = {'url': 'https://www.flightclub.com' + item['href'],
             'brand': 'Air Jordan', 
             'model': item.find('h2').text,
-            'price': item.find('div', {'class': 'yszfz8-5 kbsRqK'}).text,
+            'price': int(re.search(r'\d+', item.find('div', {'class': 'yszfz8-5 kbsRqK'}).text).group()),
             'size': None,
             'img': item.find('img')['src'],
             'source': 'Flight Club'}
