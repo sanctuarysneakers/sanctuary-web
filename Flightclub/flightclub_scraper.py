@@ -4,6 +4,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
+from selenium.webdriver import ActionChains
 import re
 import sqlite3
 from sqlite3 import OperationalError, IntegrityError
@@ -11,6 +12,7 @@ from sqlite3 import OperationalError, IntegrityError
 # Setup webdriver
 driver = webdriver.Chrome(ChromeDriverManager().install())
 driver.get('https://www.flightclub.com/air-jordans')
+actions = ActionChains(driver)
 
 # Setup connection to database
 conn = sqlite3.connect("sneakers.db")
@@ -37,52 +39,57 @@ def create_db_table():
         pass
 
 
-def get_item_info(item):
+def get_item_info(item, size):
     info = {'url': 'https://www.flightclub.com' + item['href'],
             'brand': 'Air Jordan', 
             'model': item.find('h2').text,
             'price': int(re.search(r'\d+', item.find('div', {'class': 'yszfz8-5 kbsRqK'}).text).group()),
-            'size': None,
+            'size': size,
             'img': item.find('img')['src'],
             'source': 'Flight Club'}
     return info
 
 
-def insert_items(feed):
+def insert_items(feed, size):
     for item in feed:
+        x = get_item_info(item, size)
+        print(x)
         item_url = 'https://www.flightclub.com' + item['href']
-
-        # Check if the item already exists in db
-        c.execute("SELECT * FROM flightclub_sneakers WHERE url = ?;", (item_url,))
-        result = c.fetchall()
-
-        if len(result) == 0:  # Item isnt't already in db, insert
-            data = get_item_info(item)
-
-            c.execute("""INSERT INTO flightclub_sneakers 
-                (url,brand,model,price,size,image,source)
-                VALUES (?,?,?,?,?,?,?);""",  (data["url"], data["brand"], data["model"],
-                                              data["price"], data["size"], 
-                                              data["img"], data["source"]))
-            conn.commit()
-        else:  # Item is already in db
-            # TODO: check if prices have changed
-            pass
+        # # Check if the item already exists in db
+        # c.execute("SELECT * FROM flightclub_sneakers WHERE url = ?;", (item_url,))
+        # result = c.fetchall()
+        #
+        # if len(result) == 0:  # Item isnt't already in db, insert
+        #     data = get_item_info(item)
+        #
+        #     c.execute("""INSERT INTO flightclub_sneakers
+        #         (url,brand,model,price,size,image,source)
+        #         VALUES (?,?,?,?,?,?,?);""",  (data["url"], data["brand"], data["model"],
+        #                                       data["price"], data["size"],
+        #                                       data["img"], data["source"]))
+        #     conn.commit()
+        # else:  # Item is already in db
+        #     # TODO: check if prices have changed
+        #     pass
 
     conn.commit()
 
 
 def run_scraper():
-    soup = BeautifulSoup(driver.page_source, "lxml")
-    num_shoes = int(soup.find('span', {'class': 'kw3ij0-1 teOWb'}).text)
-    num_scraped = 0
-    next_btn = driver.find_element_by_css_selector('.dIgQsa')
-    while num_scraped <= num_shoes:
-        feed = soup.find_all('a', {'class': 'sc-12adlsx-0 iSXeRZ'})
-        insert_items(feed[1:])
-        num_scraped += len(feed[1:])
-        next_btn.click()
+    sizes = driver.find_element_by_css_selector(
+        'div.u0zz5n-0:nth-child(4) > div:nth-child(2) > div:nth-child(1)').text.split('\n')
+    for size in sizes:
+        driver.get('https://www.flightclub.com/air-jordans?size_men=' + size)
         soup = BeautifulSoup(driver.page_source, "lxml")
+        num_shoes = int(soup.find('span', {'class': 'kw3ij0-1 teOWb'}).text)
+        num_scraped = 0
+        next_btn = driver.find_element_by_css_selector('.dIgQsa')
+        while num_scraped <= num_shoes:
+            feed = soup.find_all('a', {'class': 'sc-12adlsx-0 iSXeRZ'})
+            insert_items(feed[1:], size)
+            num_scraped += len(feed[1:])
+            next_btn.click()
+            soup = BeautifulSoup(driver.page_source, "lxml")
 
 
 create_db_table()
