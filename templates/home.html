@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for sneaker in data %}
+        <a href="https://{{ sneaker.url }}"><h4>{{ sneaker.model }}</h4></a>
+        <h6>Lowest Ask: ${{ sneaker.lowest_ask_price }}</h6>
+        <h6>Average Price: ${{ sneaker.average_price }}</h6>
+        <h6>Number of Sales in Last 72hrs: {{ sneaker.recently_sold }}</h6>
+        <img src="{{ sneaker.image }}" style="width:400px;">
+    {% endfor %}
+{% endblock content %}
