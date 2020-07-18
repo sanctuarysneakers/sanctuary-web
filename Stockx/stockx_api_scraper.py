@@ -29,6 +29,7 @@ def create_db_table():
             number_of_asks INT,
             number_of_bids INT,
             annual_sold INT,
+            recently_sold INT,
             url TEXT,
             image TEXT
         )""")
@@ -87,6 +88,7 @@ def get_api_data(start_size, end_size):
                     "numberOfAsks": item["market"]["numberOfAsks"],
                     "numberOfBids": item["market"]["numberOfBids"],
                     "annualSold": item["market"]["deadstockSold"],
+                    "recentSold": item["market"]["salesLast72Hours"],
                     "url": "stockx.com/" + item["urlKey"],
                     "image": item["media"]["imageUrl"]
                 }
@@ -125,16 +127,16 @@ def insert_items(item_data):
                 (id,model,size,category,retail_price,price_premium,
                 lowest_ask_price,highest_bid,annual_high_price,annual_low_price,
                 average_price,average_price_rank,volatility,number_of_asks,
-                number_of_bids,annual_sold,url,image) 
-                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);""",  (item["id"], item["model"], item["size"],
+                number_of_bids,annual_sold,recently_sold,url,image) 
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);""",  (item["id"], item["model"], item["size"],
                                                                     item["category"], item["retailPrice"], 
                                                                     item["pricePremium"],item["lowestAsk"],
                                                                     item["highestBid"],item["annualHigh"],
                                                                     item["annualLow"],item["averagePrice"],
                                                                     item["averagePriceRank"],item["volatility"],
                                                                     item["numberOfAsks"],item["numberOfBids"],
-                                                                    item["annualSold"], item["url"],
-                                                                    item["image"]))
+                                                                    item["annualSold"], item["recentSold"],
+                                                                    item["url"], item["image"]))
             conn.commit()
         else:  # Item is already in db
             # TODO: check if prices have changed
