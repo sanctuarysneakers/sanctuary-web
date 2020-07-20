@@ -77,7 +77,8 @@ def insert_items(feed, size):
 
 def run_scraper():
     time.sleep(5)
-    sizes = driver.find_element_by_css_selector('div.u0zz5n-0:nth-child(4) > div:nth-child(2) > div:nth-child(1)').text.split('\n')
+    sizes = driver.find_element_by_css_selector(
+        'div.u0zz5n-0:nth-child(4) > div:nth-child(2) > div:nth-child(1)').text.split('\n')
     for size in sizes:
         driver.get('https://www.flightclub.com/air-jordans?size_men=' + size)
         time.sleep(2.5)
