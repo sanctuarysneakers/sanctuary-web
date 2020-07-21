@@ -1,0 +1,13 @@
+@import "./_variables";
+@import "./_navbar";
+@import "./splash";
+@import "./productlist";
+@import "./searchbar";
+
+body {
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 500;
+    color: $text-color;
+    background: $background;
+    margin: 0;
+}
