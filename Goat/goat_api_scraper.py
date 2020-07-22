@@ -1,18 +1,29 @@
 import requests
 from urllib.parse import urlencode
-import sqlite3
-from sqlite3 import OperationalError, IntegrityError
+import mysql.connector
+from mysql.connector import ProgrammingError
+
 
 # Setup connection to database
-conn = sqlite3.connect("sneakers.db")
-c = conn.cursor()
+host = "localhost"
+user = "root"
+passwd = "password"
+try:
+    conn = mysql.connector.connect(host=host, user=user, passwd=passwd, database="sneakers")
+    c = conn.cursor()
+except ProgrammingError:
+    conn = mysql.connector.connect(host=host, user=user, passwd=passwd)
+    c = conn.cursor()
+    c.execute("CREATE DATABASE sneakers;")
+    conn.commit()
+c.execute("USE sneakers;")
 
 
 def create_db_table():
     """ Creates an empty database table with the necessary keys."""
     try:
         c.execute("""CREATE TABLE goat_sneakers (
-            id VARCHAR(10) primary key,
+            id VARCHAR(10) PRIMARY KEY,
             model TEXT,
             size FLOAT,
             category TEXT,
@@ -24,12 +35,12 @@ def create_db_table():
             just_dropped BOOLEAN,
             url TEXT,
             image TEXT
-        )""")
+        );""")
         conn.commit()
 
-        c.execute("""CREATE INDEX id ON goat_sneakers (id);""")
+        c.execute("ALTER TABLE goat_sneakers ADD INDEX id (id);")
         conn.commit()
-    except OperationalError:
+    except ProgrammingError:
         pass
 
 
@@ -99,18 +110,17 @@ def insert_items(item_data):
 
     for item in item_data:
         # Check if the item already exists in db
-        c.execute("SELECT * FROM goat_sneakers WHERE id = ?;", (item['id'],))
+        c.execute("SELECT * FROM goat_sneakers WHERE id = %s;", (item['id'],))
         result = c.fetchall()
 
         if len(result) == 0:  # Item isnt't already in db, insert
             c.execute("""INSERT INTO goat_sneakers 
                 (id,model,size,category,nickname,shoe_condition,
                 lowest_price_usd,lowest_price_cad,trending,just_dropped,url,image) 
-                VALUES (?,?,?,?,?,?,?,?,?,?,?,?);""", (item["id"], item["model"], item["size"],
-                                                       item["category"], item["nickname"], 
-                                                       item["shoe_condition"],item["lowest_price_usd"],
-                                                       item["lowest_price_cad"],item['trending'],
-                                                       item['just_dropped'],item["url"],item["image"]))
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", 
+                    (item["id"], item["model"], item["size"], item["category"], item["nickname"], 
+                    item["shoe_condition"], item["lowest_price_usd"], item["lowest_price_cad"],
+                    item['trending'], item['just_dropped'], item["url"], item["image"]))
             conn.commit()
 
 
