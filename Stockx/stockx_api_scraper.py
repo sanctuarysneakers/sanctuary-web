@@ -1,24 +1,34 @@
 import requests
 from urllib.parse import urlencode
 import time
-import sqlite3
-from sqlite3 import OperationalError, IntegrityError
+import mysql.connector
+from mysql.connector import ProgrammingError
+
 
 # Setup connection to database
-conn = sqlite3.connect("sneakers.db")
-c = conn.cursor()
+host = "localhost"
+user = "root"
+passwd = "password"
+try:
+    conn = mysql.connector.connect(host=host, user=user, passwd=passwd, database="sneakers")
+    c = conn.cursor()
+except ProgrammingError:
+    conn = mysql.connector.connect(host=host, user=user, passwd=passwd)
+    c = conn.cursor()
+    c.execute("CREATE DATABASE sneakers;")
+    conn.commit()
+c.execute("USE sneakers;")
 
 
 def create_db_table():
     """ Creates an empty database table with the necessary keys."""
     try:
         c.execute("""CREATE TABLE stockx_sneakers (
-            id TEXT primary key,
+            id VARCHAR(200) primary key,
             model TEXT,
             size FLOAT,
             category TEXT,
             retail_price INT,
-            price_premium INT,
             lowest_ask_price INT,
             highest_bid INT,
             annual_high_price INT,
@@ -35,9 +45,10 @@ def create_db_table():
         )""")
         conn.commit()
 
-        c.execute("""CREATE INDEX id ON stockx_sneakers (id);""")
+        c.execute("CREATE INDEX id ON stockx_sneakers (id);")
+        c.execute("ALTER TABLE stockx_sneakers ADD FULLTEXT model (model);")
         conn.commit()
-    except OperationalError:
+    except ProgrammingError:
         pass
 
 
@@ -69,7 +80,7 @@ def get_api_data(start_size, end_size):
             print("scraping page " + str(page) + " of size " + str(size) + " sneakers")
             feed = response.json()["Products"]
             for item in feed:
-                if item["market"]["lowestAsk"] == 0:
+                if item["market"]["lowestAsk"] == 0 or item["market"]["lowestAsk"] == None:
                     continue
                 item_data = {
                     "id": item["objectID"],
@@ -77,7 +88,6 @@ def get_api_data(start_size, end_size):
                     "size": item["shoeSize"],
                     "category": item["category"],
                     "retailPrice": item["retailPrice"],
-                    "pricePremium": item["market"]["pricePremium"],
                     "lowestAsk": item["market"]["lowestAsk"],
                     "highestBid": item["market"]["highestBid"],
                     "annualHigh": item["market"]["annualHigh"],
@@ -119,24 +129,21 @@ def insert_items(item_data):
 
     for item in item_data:
         # Check if the item already exists in db
-        c.execute("SELECT * FROM stockx_sneakers WHERE id = ?;", (item['id'],))
+        c.execute("SELECT * FROM stockx_sneakers WHERE id = %s;", (item['id'],))
         result = c.fetchall()
 
         if len(result) == 0:  # Item isnt't already in db, insert
             c.execute("""INSERT INTO stockx_sneakers 
-                (id,model,size,category,retail_price,price_premium,
+                (id,model,size,category,retail_price,
                 lowest_ask_price,highest_bid,annual_high_price,annual_low_price,
                 average_price,average_price_rank,volatility,number_of_asks,
                 number_of_bids,annual_sold,recently_sold,url,image) 
-                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);""",  (item["id"], item["model"], item["size"],
-                                                                    item["category"], item["retailPrice"], 
-                                                                    item["pricePremium"],item["lowestAsk"],
-                                                                    item["highestBid"],item["annualHigh"],
-                                                                    item["annualLow"],item["averagePrice"],
-                                                                    item["averagePriceRank"],item["volatility"],
-                                                                    item["numberOfAsks"],item["numberOfBids"],
-                                                                    item["annualSold"], item["recentSold"],
-                                                                    item["url"], item["image"]))
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""",  
+                    (item["id"],item["model"],item["size"],item["category"],item["retailPrice"], 
+                    item["lowestAsk"],item["highestBid"],item["annualHigh"],item["annualLow"],
+                    item["averagePrice"], item["averagePriceRank"],item["volatility"],
+                    item["numberOfAsks"],item["numberOfBids"], item["annualSold"], item["recentSold"],
+                    item["url"], item["image"]))
             conn.commit()
         else:  # Item is already in db
             # TODO: check if prices have changed
@@ -145,7 +152,7 @@ def insert_items(item_data):
     conn.commit()
 
 
-def run_scraper():
+def run_scraper(start_size, end_size):
     """ Runs the Stockx Scraper.
 
     Returns:
@@ -153,15 +160,17 @@ def run_scraper():
     """
     
     # Get a list of all the item data from the api within a shoe size range
-    #data = get_api_data(6, 9)       # Range 1
-    #data = get_api_data(9.5, 12.5)  # Range 2
-    data = get_api_data(13, 15)      # Range 3
+    data = get_api_data(start_size, end_size)
 
     # Insert items into the database
     insert_items(data)
 
 
 create_db_table()
-run_scraper()
+
+#run_scraper(6, 9)        # Range 1
+#run_scraper(9.5, 12.5)   # Range 2
+run_scraper(13, 15)      # Range 3
+
 
 conn.close()
