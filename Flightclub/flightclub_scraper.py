@@ -6,8 +6,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
 import re
-import sqlite3
-from sqlite3 import OperationalError, IntegrityError
+import mysql.connector
+from mysql.connector import ProgrammingError
+
 
 # Setup webdriver
 driver = webdriver.Chrome(ChromeDriverManager().install())
@@ -15,58 +16,66 @@ driver.get('https://www.flightclub.com/air-jordans')
 
 
 # Setup connection to database
-conn = sqlite3.connect("sneakers.db")
-c = conn.cursor()
+host = "localhost"
+user = "root"
+passwd = "password"
+try:
+    conn = mysql.connector.connect(host=host, user=user, passwd=passwd, database="sneakers")
+    c = conn.cursor()
+except ProgrammingError:
+    conn = mysql.connector.connect(host=host, user=user, passwd=passwd)
+    c = conn.cursor()
+    c.execute("CREATE DATABASE sneakers;")
+    conn.commit()
+c.execute("USE sneakers;")
 
 
 def create_db_table():
     """ Creates an empty database table with the necessary keys."""
     try:
         c.execute("""CREATE TABLE flightclub_sneakers (
-            id TEXT primary key,
+            id INT primary key,
             url TEXT,
             brand TEXT,
             model TEXT,
             price INT,
             size FLOAT,
-            image TEXT,
-            source VARCHAR(20)
-        )""")
+            image TEXT
+        );""")
         conn.commit()
 
-        c.execute("""CREATE INDEX url ON flightclub_sneakers (id);""")
+        c.execute("ALTER TABLE flightclub_sneakers ADD FULLTEXT model (model);")
         conn.commit()
-    except OperationalError:
+    except ProgrammingError:
         pass
 
 
 def get_item_info(item, size):
-    info = {'id': item['href'] + "-sz" + str(size),
+    info = {'id': abs(hash(item['href']+'-'+str(size))) % (10**7),
             'url': 'https://www.flightclub.com' + item['href'],
             'brand': 'Air Jordan', 
-            'model': item.find('h2').text,
+            'model': item.find('h2').text.replace('…',''),
             'price': int(re.search(r'\d+', item.find('div', {'class': 'yszfz8-5 kbsRqK'}).text).group()),
             'size': float(size),
-            'img': item.find('img')['src'],
-            'source': 'Flight Club'}
+            'img': item.find('img')['src']}
     return info
 
 
 def insert_items(feed, size):
     for item in feed:
-        item_id = item['href'] + "-sz" + str(size)
+        item_id = abs(hash(item['href']+'-'+str(size))) % (10**7)
         # Check if the item already exists in db
-        c.execute("SELECT * FROM flightclub_sneakers WHERE id = ?;", (item_id,))
+        c.execute("SELECT * FROM flightclub_sneakers WHERE id = %s;", (item_id,))
         result = c.fetchall()
 
         if len(result) == 0:  # Item isnt't already in db, insert
             data = get_item_info(item, size)
 
             c.execute("""INSERT INTO flightclub_sneakers
-                (id,url,brand,model,price,size,image,source)
-                VALUES (?,?,?,?,?,?,?,?);""", (item_id, data["url"], data["brand"], 
-                                               data["model"], data["price"], data["size"],
-                                               data["img"], data["source"]))
+                (id,url,brand,model,price,size,image)
+                VALUES (%s,%s,%s,%s,%s,%s,%s);""", 
+                    (item_id, data["url"], data["brand"], data["model"], 
+                    data["price"], data["size"], data["img"]))
             conn.commit()
         else:  # Item is already in db
             # TODO: check if prices have changed
@@ -98,4 +107,5 @@ def run_scraper():
 create_db_table()
 run_scraper()
 
+driver.close()
 conn.close()
