@@ -1,21 +1,31 @@
 import requests
 from urllib.parse import urlencode
-import sqlite3
-from sqlite3 import OperationalError, IntegrityError
+import mysql.connector
+from mysql.connector import ProgrammingError
+
 
 # Setup connection to database
-conn = sqlite3.connect("sneakers.db")
-c = conn.cursor()
+host = "localhost"
+user = "root"
+passwd = "password"
+try:
+    conn = mysql.connector.connect(host=host, user=user, passwd=passwd, database="sneakers")
+    c = conn.cursor()
+except ProgrammingError:
+    conn = mysql.connector.connect(host=host, user=user, passwd=passwd)
+    c = conn.cursor()
+    c.execute("CREATE DATABASE sneakers;")
+    conn.commit()
+c.execute("USE sneakers;")
 
 
 def create_db_table():
     """ Creates an empty database table with the necessary keys."""
-
     try:
         c.execute("""CREATE TABLE grailed_sneakers (
-            id CHAR(8) primary key,
+            id CHAR(8) PRIMARY KEY,
             url VARCHAR(30),
-            brand VARCHAR(200),
+            brand TEXT,
             model TEXT,
             size FLOAT,
             current_price INT,
@@ -24,7 +34,7 @@ def create_db_table():
             date_bumped VARCHAR(10),
             date_created VARCHAR(10),
             heat INT,
-            condition VARCHAR(50),
+            shoe_condition VARCHAR(50),
             seller_location VARCHAR(30),
             seller_rating FLOAT, 
             seller_rating_count INT,
@@ -35,12 +45,13 @@ def create_db_table():
             shipping_asia INT,
             shipping_au INT,
             shipping_other INT
-        )""")
+        );""")
         conn.commit()
 
-        c.execute("""CREATE INDEX id ON grailed_sneakers (id);""")
+        c.execute("ALTER TABLE grailed_sneakers ADD INDEX id (id);")
+        c.execute("ALTER TABLE grailed_sneakers ADD FULLTEXT model (model);")
         conn.commit()
-    except OperationalError:
+    except ProgrammingError:
         pass
 
 
@@ -124,27 +135,22 @@ def insert_items(item_data):
 
     for item in item_data:
         # Check if the item already exists in db
-        c.execute("SELECT * FROM grailed_sneakers WHERE id = ?;", (item['id'],))
+        c.execute("SELECT * FROM grailed_sneakers WHERE id = %s;", (item['id'],))
         result = c.fetchall()
 
         if len(result) == 0:  # Item isnt't already in db, insert
             c.execute("""INSERT INTO grailed_sneakers 
                 (id,url,brand,model,size,current_price,old_price,
-                image,date_bumped,date_created,heat,condition,seller_location,
+                image,date_bumped,date_created,heat,shoe_condition,seller_location,
                 seller_rating,seller_rating_count,shipping_us,shipping_ca,shipping_uk,
                 shipping_eu,shipping_asia,shipping_au,shipping_other) 
-                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);""", (item["id"], item["url"], item["brand"],
-                                                                           item["model"], item["size"], item["price"],
-                                                                           item["old_price"], item["img"],
-                                                                           item["date_bumped"], item["date_created"],
-                                                                           item["heat"], item["condition"],
-                                                                           item["seller_location"],
-                                                                           item["seller_rating"],
-                                                                           item["seller_rating_count"],
-                                                                           item["shipping_us"], item["shipping_ca"],
-                                                                           item["shipping_uk"],
-                                                                           item["shipping_eu"], item["shipping_asia"],
-                                                                           item["shipping_au"], item["shipping_other"]))
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", 
+                    (item["id"], item["url"], item["brand"], item["model"], item["size"], 
+                    item["price"], item["old_price"], item["img"], item["date_bumped"], 
+                    item["date_created"], item["heat"], item["condition"],
+                    item["seller_location"], item["seller_rating"], item["seller_rating_count"],
+                    item["shipping_us"], item["shipping_ca"], item["shipping_uk"],
+                    item["shipping_eu"], item["shipping_asia"],item["shipping_au"], item["shipping_other"]))
             conn.commit()
         else:  # Item is already in db
             # TODO: check if prices have changed
