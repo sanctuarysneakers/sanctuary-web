@@ -1,8 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+from flask_restful import Resource, Api
 import sqlite3
 
 application = Flask(__name__)
-
+api = Api(application)
 # Setup connection to database
 conn = sqlite3.connect("sneakers.db")
 conn.row_factory = sqlite3.Row
@@ -18,10 +19,12 @@ c.execute("""SELECT ROUND(100*((lowest_ask_price-average_price)/(1.0*average_pri
 conn.commit()
 sneakers = [dict(row) for row in c.fetchall()]
 
+
 @application.route("/")
 @application.route("/home")
 def home():
     return render_template('home.html', data=sneakers)
+
 
 if __name__ == '__main__':
     application.run(debug=True)
