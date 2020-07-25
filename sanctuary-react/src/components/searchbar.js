@@ -1,19 +1,17 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 
-export default function SearchBar() {
-
-    const [search, changeSearch] = useState()
+export default function SearchBar(props) {
 
     function updateSearch(event) {
-        changeSearch(event.target.value)
+        props.changeSearch(event.target.value)
     }
 
     return (
         <input 
             className='searchBar'
             type='text' 
-            value={search}
+            value={props.search}
             onChange={updateSearch}
         />
     )
