@@ -13,17 +13,15 @@ driver.get('https://www.flightclub.com/air-jordans')
 
 
 # Setup connection to database
-host = "localhost"
-user = "root"
+host = "test-database-1.cmamugrum56i.us-west-2.rds.amazonaws.com"
+user = "admin"
 passwd = "password"
+db_name = "sneakers"
 try:
-    conn = mysql.connector.connect(host=host, user=user, passwd=passwd, database="sneakers")
+    conn = mysql.connector.connect(host=host, user=user, passwd=passwd, database=db_name)
     c = conn.cursor()
 except ProgrammingError:
-    conn = mysql.connector.connect(host=host, user=user, passwd=passwd)
-    c = conn.cursor()
-    c.execute("CREATE DATABASE sneakers;")
-    conn.commit()
+    print("couldn't connect to database")
 c.execute("USE sneakers;")
 
 
@@ -41,6 +39,7 @@ def create_db_table():
         );""")
         conn.commit()
 
+        c.execute("ALTER TABLE stockx_sneakers ADD INDEX id (id);")
         c.execute("ALTER TABLE flightclub_sneakers ADD FULLTEXT model (model);")
         conn.commit()
     except ProgrammingError:
@@ -59,24 +58,20 @@ def get_item_info(item, size):
 
 
 def insert_items(feed, size):
+    data_list = []
     for item in feed:
         item_id = abs(hash(item['href']+'-'+str(size))) % (10**7)
-        # Check if the item already exists in db
-        c.execute("SELECT * FROM flightclub_sneakers WHERE id = %s;", (item_id,))
-        result = c.fetchall()
+        data = get_item_info(item, size)
+        data_list.append(
+            (item_id,data["url"],data["brand"],data["model"],data["price"],data["size"],data["img"]))
 
-        if len(result) == 0:  # Item isnt't already in db, insert
-            data = get_item_info(item, size)
-
-            c.execute("""INSERT INTO flightclub_sneakers
-                (id,url,brand,model,price,size,image)
-                VALUES (%s,%s,%s,%s,%s,%s,%s);""", 
-                    (item_id, data["url"], data["brand"], data["model"], 
-                    data["price"], data["size"], data["img"]))
-            conn.commit()
-        else:  # Item is already in db
-            # TODO: check if prices have changed
-            pass
+    try:
+        c.executemany("""INSERT IGNORE INTO flightclub_sneakers
+            (id,url,brand,model,price,size,image)
+            VALUES (%s,%s,%s,%s,%s,%s,%s);""", data_list)
+        conn.commit()
+    except ProgrammingError:
+        pass
 
     conn.commit()
 
@@ -89,16 +84,19 @@ def run_scraper():
         driver.get('https://www.flightclub.com/air-jordans?size_men=' + size)
         time.sleep(2.5)
         soup = BeautifulSoup(driver.page_source, "lxml")
+        
+        items = []
         num_shoes = int(soup.find('span', {'class': 'kw3ij0-1 teOWb'}).text)
         num_scraped = 0
         next_btn = driver.find_element_by_css_selector('.dIgQsa')
         while num_scraped <= num_shoes:
             print(size, num_shoes, num_scraped)
-            feed = soup.find_all('a', {'class': 'sc-12adlsx-0 iSXeRZ'})
-            insert_items(feed[1:], size)
-            num_scraped += len(feed[1:])
+            items.extend(soup.find_all('a', {'class': 'sc-12adlsx-0 iSXeRZ'})[1:])
+            num_scraped = len(items[1:])
             next_btn.click()
             soup = BeautifulSoup(driver.page_source, "lxml")
+
+        insert_items(items, size)
 
 
 create_db_table()
