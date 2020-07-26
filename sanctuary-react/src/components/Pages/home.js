@@ -1,13 +1,13 @@
 import React from 'react'
 
 import Splash from "../splash"
-import ProductList from "../productlist"
+import HomeProducts from "../homeproducts"
 
 export default function Home() {
     return (    
     <React.Fragment>
         <Splash/>
-        <ProductList/>
+        <HomeProducts/>
     </React.Fragment>
     )
 }

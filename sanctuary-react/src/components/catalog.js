@@ -1,17 +1,20 @@
-import React from 'react'
-import mock_data from '../assets/mock-data'
+import React from "react"
 import Sneaker from './sneaker'
-import SearchBar from "./searchbar"
+import mock_data from '../assets/mock-data'
 
-const sneakers = mock_data
 
-export default function ProductList() {
+export default function Catalog(props) {
+
+    let filteredSneakers = mock_data.filter(
+        (sneaker) => {
+            return sneaker.model.toLowerCase()
+            .indexOf(props.search) !== -1
+        }
+    )
+
     return (
-        <div className='productList'>
-            <SearchBar/>
-            <h2>What's Hot</h2>
-            <div className='products'>
-                {sneakers.map((sneaker, index) => {
+        <div className='catalog'>
+                {filteredSneakers.map((sneaker, index) => {
                      return (
                      <Sneaker
                         key={sneaker.id}
@@ -25,6 +28,5 @@ export default function ProductList() {
                     />
                     )})}
             </div>
-        </div>
     )
 }

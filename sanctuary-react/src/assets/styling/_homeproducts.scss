@@ -1,0 +1,24 @@
+.homeProducts {
+    margin: 3%;
+    display:flex;
+    flex-direction: column;
+}
+
+.catalog {
+    display: grid;
+    grid-template-columns: repeat(3, 33.33%);
+}
+
+.shopButton {
+    width: 7%;
+    padding: 1em 2em 1em 2em;
+    margin: 1em;
+
+    background-color: transparent;
+    border: 3px solid $text-color;
+    border-radius: 30%;
+    text-decoration: none;
+    color: $text-color;
+    text-align: center;
+    align-self: center;
+}

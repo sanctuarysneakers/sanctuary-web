@@ -1,5 +1,12 @@
 import React from 'react'
+import BottomText from './bottomtext'
+import SignUp from './signup'
 
 export default function Footer() {
-    return <h1>Hello from Footer</h1>
+    return (
+        <React.Fragment>
+            <SignUp/>
+            <BottomText/>
+        </React.Fragment>
+    )
 }

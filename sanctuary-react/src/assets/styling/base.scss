@@ -1,8 +1,11 @@
 @import "./_variables";
 @import "./_navbar";
-@import "./splash";
-@import "./productlist";
-@import "./searchbar";
+@import "./_splash";
+@import "./_homeproducts";
+@import "./_searchbar";
+@import "./_sneaker";
+@import "./_footer";
+@import "./_shopheader";
 
 body {
     font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
