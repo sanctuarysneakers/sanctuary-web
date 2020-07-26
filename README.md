@@ -9,3 +9,8 @@ Sole Steal aspires to be a marketplace curated for the individual, where users c
 
 #### THE SHORT RUN
 - An idea as ambitious as this must start small. In order to ensure scalable growth, agile methodologies, and a secure infrastructure, Sole Steal will begin as a place to compare prices on various sneakers in order to find the current best deals. As it grows and data begins being stored, more will be added. But as I write this on June 18th 2020, the short term vision for Sole Steal is to simply offer users a place to find the best possible deals on sneakers. 
+
+## Running the React App
+Make sure Node.js and npm are installed.
+On the first time starting the app, run the command `npm install` at the terminal/command line to setup the necessary packages.
+Run the command `npm start` to start the application. You can view the application at port 3000 (localhost:3000 in a browser)
