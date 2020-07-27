@@ -32,7 +32,8 @@ class Search(Resource):
         except:
             conn, c = connect_to_db()
             c.execute(query, user_input)
-        return c
+        data = c.fetchall()
+        return data
 
 
 api.add_resource(Search, '/search<string:input>')
