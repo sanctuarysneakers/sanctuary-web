@@ -5,17 +5,15 @@ from mysql.connector import ProgrammingError
 
 
 # Setup connection to database
-host = "localhost"
-user = "root"
+host = "test-database-1.cmamugrum56i.us-west-2.rds.amazonaws.com"
+user = "admin"
 passwd = "password"
+db_name = "sneakers"
 try:
-    conn = mysql.connector.connect(host=host, user=user, passwd=passwd, database="sneakers")
+    conn = mysql.connector.connect(host=host, user=user, passwd=passwd, database=db_name)
     c = conn.cursor()
 except ProgrammingError:
-    conn = mysql.connector.connect(host=host, user=user, passwd=passwd)
-    c = conn.cursor()
-    c.execute("CREATE DATABASE sneakers;")
-    conn.commit()
+    print("couldn't connect to database")
 c.execute("USE sneakers;")
 
 
@@ -39,6 +37,7 @@ def create_db_table():
         conn.commit()
 
         c.execute("ALTER TABLE goat_sneakers ADD INDEX id (id);")
+        c.execute("ALTER TABLE goat_sneakers ADD FULLTEXT model (model);")
         conn.commit()
     except ProgrammingError:
         pass
@@ -108,25 +107,29 @@ def insert_items(item_data):
         No return value.
     """
 
+    data_list = []
     for item in item_data:
-        # Check if the item already exists in db
-        c.execute("SELECT * FROM goat_sneakers WHERE id = %s;", (item['id'],))
-        result = c.fetchall()
+        data_list.append((item["id"], item["model"], item["size"], item["category"], item["nickname"], 
+            item["shoe_condition"], item["lowest_price_usd"], item["lowest_price_cad"],
+            item['trending'], item['just_dropped'], item["url"], item["image"]))
 
-        if len(result) == 0:  # Item isnt't already in db, insert
-            c.execute("""INSERT INTO goat_sneakers 
-                (id,model,size,category,nickname,shoe_condition,
-                lowest_price_usd,lowest_price_cad,trending,just_dropped,url,image) 
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", 
-                    (item["id"], item["model"], item["size"], item["category"], item["nickname"], 
-                    item["shoe_condition"], item["lowest_price_usd"], item["lowest_price_cad"],
-                    item['trending'], item['just_dropped'], item["url"], item["image"]))
-            conn.commit()
+    try:
+        c.executemany("""INSERT IGNORE INTO goat_sneakers 
+            (id,model,size,category,nickname,shoe_condition,
+            lowest_price_usd,lowest_price_cad,trending,just_dropped,url,image) 
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
+        conn.commit()
+    except ProgrammingError:
+        pass
 
 
 def run_scraper():
     """ Runs the scraper """
+
+    # Get a list of all the item data from the api
     data = get_api_data()
+
+    # Insert items into the database
     insert_items(data)
 
 

@@ -5,17 +5,15 @@ from mysql.connector import ProgrammingError
 
 
 # Setup connection to database
-host = "localhost"
-user = "root"
+host = "test-database-1.cmamugrum56i.us-west-2.rds.amazonaws.com"
+user = "admin"
 passwd = "password"
+db_name = "sneakers"
 try:
-    conn = mysql.connector.connect(host=host, user=user, passwd=passwd, database="sneakers")
+    conn = mysql.connector.connect(host=host, user=user, passwd=passwd, database=db_name)
     c = conn.cursor()
 except ProgrammingError:
-    conn = mysql.connector.connect(host=host, user=user, passwd=passwd)
-    c = conn.cursor()
-    c.execute("CREATE DATABASE sneakers;")
-    conn.commit()
+    print("couldn't connect to database")
 c.execute("USE sneakers;")
 
 
@@ -133,28 +131,25 @@ def insert_items(item_data):
         No return value.
     """
 
+    data_list = []
     for item in item_data:
-        # Check if the item already exists in db
-        c.execute("SELECT * FROM grailed_sneakers WHERE id = %s;", (item['id'],))
-        result = c.fetchall()
-
-        if len(result) == 0:  # Item isnt't already in db, insert
-            c.execute("""INSERT INTO grailed_sneakers 
-                (id,url,brand,model,size,current_price,old_price,
-                image,date_bumped,date_created,heat,shoe_condition,seller_location,
-                seller_rating,seller_rating_count,shipping_us,shipping_ca,shipping_uk,
-                shipping_eu,shipping_asia,shipping_au,shipping_other) 
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", 
-                    (item["id"], item["url"], item["brand"], item["model"], item["size"], 
-                    item["price"], item["old_price"], item["img"], item["date_bumped"], 
-                    item["date_created"], item["heat"], item["condition"],
-                    item["seller_location"], item["seller_rating"], item["seller_rating_count"],
-                    item["shipping_us"], item["shipping_ca"], item["shipping_uk"],
-                    item["shipping_eu"], item["shipping_asia"],item["shipping_au"], item["shipping_other"]))
-            conn.commit()
-        else:  # Item is already in db
-            # TODO: check if prices have changed
-            pass
+        data_list.append((item["id"], item["url"], item["brand"], item["model"], item["size"], 
+            item["price"], item["old_price"], item["img"], item["date_bumped"], 
+            item["date_created"], item["heat"], item["condition"],
+            item["seller_location"], item["seller_rating"], item["seller_rating_count"],
+            item["shipping_us"], item["shipping_ca"], item["shipping_uk"],
+            item["shipping_eu"], item["shipping_asia"],item["shipping_au"], item["shipping_other"]))
+    
+    try:
+        c.executemany("""INSERT IGNORE INTO grailed_sneakers 
+            (id,url,brand,model,size,current_price,old_price,
+            image,date_bumped,date_created,heat,shoe_condition,seller_location,
+            seller_rating,seller_rating_count,shipping_us,shipping_ca,shipping_uk,
+            shipping_eu,shipping_asia,shipping_au,shipping_other) 
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
+        conn.commit()
+    except ProgrammingError:
+        pass
 
     conn.commit()
 

@@ -6,17 +6,15 @@ from mysql.connector import ProgrammingError
 
 
 # Setup connection to database
-host = "localhost"
-user = "root"
+host = "test-database-1.cmamugrum56i.us-west-2.rds.amazonaws.com"
+user = "admin"
 passwd = "password"
+db_name = "sneakers"
 try:
-    conn = mysql.connector.connect(host=host, user=user, passwd=passwd, database="sneakers")
+    conn = mysql.connector.connect(host=host, user=user, passwd=passwd, database=db_name)
     c = conn.cursor()
 except ProgrammingError:
-    conn = mysql.connector.connect(host=host, user=user, passwd=passwd)
-    c = conn.cursor()
-    c.execute("CREATE DATABASE sneakers;")
-    conn.commit()
+    print("couldn't connect to database")
 c.execute("USE sneakers;")
 
 
@@ -45,7 +43,7 @@ def create_db_table():
         )""")
         conn.commit()
 
-        c.execute("CREATE INDEX id ON stockx_sneakers (id);")
+        c.execute("ALTER TABLE stockx_sneakers ADD INDEX id (id);")
         c.execute("ALTER TABLE stockx_sneakers ADD FULLTEXT model (model);")
         conn.commit()
     except ProgrammingError:
@@ -127,27 +125,24 @@ def insert_items(item_data):
         No return value.
     """
 
+    data_list = []
     for item in item_data:
-        # Check if the item already exists in db
-        c.execute("SELECT * FROM stockx_sneakers WHERE id = %s;", (item['id'],))
-        result = c.fetchall()
-
-        if len(result) == 0:  # Item isnt't already in db, insert
-            c.execute("""INSERT INTO stockx_sneakers 
-                (id,model,size,category,retail_price,
-                lowest_ask_price,highest_bid,annual_high_price,annual_low_price,
-                average_price,average_price_rank,volatility,number_of_asks,
-                number_of_bids,annual_sold,recently_sold,url,image) 
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""",  
-                    (item["id"],item["model"],item["size"],item["category"],item["retailPrice"], 
-                    item["lowestAsk"],item["highestBid"],item["annualHigh"],item["annualLow"],
-                    item["averagePrice"], item["averagePriceRank"],item["volatility"],
-                    item["numberOfAsks"],item["numberOfBids"], item["annualSold"], item["recentSold"],
-                    item["url"], item["image"]))
-            conn.commit()
-        else:  # Item is already in db
-            # TODO: check if prices have changed
-            pass
+        data_list.append((item["id"],item["model"],item["size"],item["category"],item["retailPrice"], 
+            item["lowestAsk"],item["highestBid"],item["annualHigh"],item["annualLow"],
+            item["averagePrice"], item["averagePriceRank"],item["volatility"],
+            item["numberOfAsks"],item["numberOfBids"], item["annualSold"], item["recentSold"],
+            item["url"], item["image"]))
+    
+    try:
+        c.executemany("""INSERT IGNORE INTO stockx_sneakers 
+            (id,model,size,category,retail_price,
+            lowest_ask_price,highest_bid,annual_high_price,annual_low_price,
+            average_price,average_price_rank,volatility,number_of_asks,
+            number_of_bids,annual_sold,recently_sold,url,image) 
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
+        conn.commit()
+    except ProgrammingError:
+        pass
 
     conn.commit()
 
