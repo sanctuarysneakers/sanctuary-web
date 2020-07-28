@@ -1,5 +1,5 @@
-from flask import Flask, jsonify
-from flask_restful import Resource, Api
+from flask import Flask
+from flask_restful import Resource, Api, reqparse
 import mysql.connector
 from mysql.connector import ProgrammingError
 
@@ -24,22 +24,29 @@ conn, c = connect_to_db()
 application = Flask(__name__)
 api = Api(application)
 
+parser = reqparse.RequestParser()
+parser.add_argument('source')
+parser.add_argument('size', type=int)
 
 class Search(Resource):
+    
+    def get(self):
+        args = parser.parse_args()
+        source = args['source']
+        size = args['size']
 
-    @staticmethod
-    def get(user_input):
-        query = "SELECT * FROM goat_sneakers WHERE url == %s"
+        query = "SELECT * FROM {}_sneakers WHERE size={}".format(source, size)
         try:
-            c.execute(query, user_input)
+            c.execute(query)
         except:
             conn, c = connect_to_db()
-            c.execute(query, user_input)
+            c.execute(query)
         data = c.fetchall()
         return data
 
 
-api.add_resource(Search, '/search<string:input>')
+api.add_resource(Search, '/')
   
 if __name__ == '__main__':
     application.run(debug=True)
+    #application.run(host='0.0.0.0')   # For production
