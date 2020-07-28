@@ -3,6 +3,7 @@ from flask_restful import Resource, Api
 import mysql.connector
 from mysql.connector import ProgrammingError
 
+
 def connect_to_db():
     host = "test-database-1.cmamugrum56i.us-west-2.rds.amazonaws.com"
     user = "admin"
@@ -16,11 +17,13 @@ def connect_to_db():
     c.execute("USE sneakers;")
     return conn, c
 
+
 conn, c = connect_to_db()
 
 
 application = Flask(__name__)
 api = Api(application)
+
 
 class Search(Resource):
 
