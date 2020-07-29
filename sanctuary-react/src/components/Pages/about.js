@@ -1,5 +1,9 @@
 import React from 'react'
 
 export default function AboutUs() {
-    return <h1>Hello from AboutUs</h1>
+    return (
+        <div className="aboutus">
+            <h1><span>Hello</span> from <span className="aboutTextSpan">AboutUs</span></h1>
+        </div>
+    )
 }
