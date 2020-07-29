@@ -25,8 +25,9 @@ application = Flask(__name__)
 api = Api(application)
 
 parser = reqparse.RequestParser()
-parser.add_argument('source')
+parser.add_argument('source', default='stockx')
 parser.add_argument('size', type=int)
+parser.add_argument('page', type=int, default=0)
 
 class Search(Resource):
     
@@ -34,8 +35,13 @@ class Search(Resource):
         args = parser.parse_args()
         source = args['source']
         size = args['size']
+        offset = args['page']*1000
 
-        query = "SELECT * FROM {}_sneakers WHERE size={}".format(source, size)
+        if size == None:
+            query = "SELECT * FROM {}_sneakers LIMIT 1000 OFFSET {};".format(source, offset)
+        else:
+            query = "SELECT * FROM {}_sneakers WHERE size={} LIMIT 1000 OFFSET {};".format(source, size, offset)
+        
         try:
             c.execute(query)
         except:
