@@ -1,9 +1,10 @@
 import React from 'react'
 
-export default function ShopHeader() {
+export default function ShopHeader(props) {
+
     return(
         <div className="shopHeader">
-            <h1>Shop All</h1>
+            <h1>{props.site}</h1>
         </div>
     )
 }

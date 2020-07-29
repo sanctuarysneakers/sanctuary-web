@@ -8,13 +8,18 @@ export default function HomeProducts() {
     const [search, changeSearch] = useState("")
 
     return (
-        <div className='homeProducts'>
+        <div className='products'>
             <SearchBar 
                 search={search}
                 changeSearch={changeSearch}
             />
             <h2>What's Hot</h2>
-            <Catalog search={search}/>
+            <Catalog 
+                search={search}
+                sizeFilter={0}
+                priceFilter={0}
+                siteFilter={""}
+            />
             <ShopButton link="/shop">Shop All</ShopButton>
         </div>
     )

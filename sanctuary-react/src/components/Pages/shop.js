@@ -1,12 +1,19 @@
-import React from 'react'
+import React, {useState} from 'react'
 import ShopHeader from "../shopheader"
 import ShopProducts from "../shopproducts"
 
-export default function Shop() {
+export default function Shop(props) {
+
+    let site = "Shop All"
+
+    if (props.location.state) {
+        site = props.location.state.site
+    }
+
     return (    
         <React.Fragment>
-            <ShopHeader/>
-            <ShopProducts/>
+            <ShopHeader site={site}/>
+            <ShopProducts site={site}/>
         </React.Fragment>
         )
 }
