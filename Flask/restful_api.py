@@ -29,15 +29,17 @@ parser.add_argument('source', default='stockx')
 parser.add_argument('size', type=int)
 parser.add_argument('page', type=int, default=0)
 
+
 class Search(Resource):
     
-    def get(self):
+    @staticmethod
+    def get():
         args = parser.parse_args()
         source = args['source']
         size = args['size']
         offset = args['page']*1000
 
-        if size == None:
+        if size is None:
             query = "SELECT * FROM {}_sneakers LIMIT 1000 OFFSET {};".format(source, offset)
         else:
             query = "SELECT * FROM {}_sneakers WHERE size={} LIMIT 1000 OFFSET {};".format(source, size, offset)
@@ -55,4 +57,4 @@ api.add_resource(Search, '/')
   
 if __name__ == '__main__':
     application.run(debug=True)
-    #application.run(host='0.0.0.0')   # For production
+    # application.run(host='0.0.0.0')   # For production
