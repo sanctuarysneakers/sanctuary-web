@@ -23,6 +23,7 @@ def create_db_table():
     try:
         c.execute("""CREATE TABLE stockx_sneakers (
             id VARCHAR(200) primary key,
+            source VARCHAR(50),
             model TEXT,
             size FLOAT,
             category TEXT,
@@ -82,6 +83,7 @@ def get_api_data(start_size, end_size):
                     continue
                 item_data = {
                     "id": item["objectID"],
+                    "source": "StockX",
                     "model": item["title"],
                     "size": item["shoeSize"],
                     "category": item["category"],
@@ -127,7 +129,7 @@ def insert_items(item_data):
 
     data_list = []
     for item in item_data:
-        data_list.append((item["id"],item["model"],item["size"],item["category"],item["retailPrice"], 
+        data_list.append((item["id"],item["source"],item["model"],item["size"],item["category"],item["retailPrice"], 
             item["lowestAsk"],item["highestBid"],item["annualHigh"],item["annualLow"],
             item["averagePrice"], item["averagePriceRank"],item["volatility"],
             item["numberOfAsks"],item["numberOfBids"], item["annualSold"], item["recentSold"],
@@ -135,11 +137,11 @@ def insert_items(item_data):
     
     try:
         c.executemany("""INSERT IGNORE INTO stockx_sneakers 
-            (id,model,size,category,retail_price,
+            (id,source,model,size,category,retail_price,
             lowest_ask_price,highest_bid,annual_high_price,annual_low_price,
             average_price,average_price_rank,volatility,number_of_asks,
             number_of_bids,annual_sold,recently_sold,url,image) 
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
         conn.commit()
     except ProgrammingError:
         pass

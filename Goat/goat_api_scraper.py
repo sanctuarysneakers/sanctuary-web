@@ -22,6 +22,7 @@ def create_db_table():
     try:
         c.execute("""CREATE TABLE goat_sneakers (
             id VARCHAR(10) PRIMARY KEY,
+            source VARCHAR(50),
             model TEXT,
             size FLOAT,
             category TEXT,
@@ -76,6 +77,7 @@ def get_api_data():
         for hit in hits:
             item = {
                 'id': hit['objectID'],
+                'source': "Goat",
                 'model': hit['name'],
                 'size': float(size),
                 'category': hit['silhouette'],
@@ -109,15 +111,15 @@ def insert_items(item_data):
 
     data_list = []
     for item in item_data:
-        data_list.append((item["id"], item["model"], item["size"], item["category"], item["nickname"], 
-            item["shoe_condition"], item["lowest_price_usd"], item["lowest_price_cad"],
+        data_list.append((item["id"], item["source"], item["model"], item["size"], item["category"], 
+            item["nickname"], item["shoe_condition"], item["lowest_price_usd"], item["lowest_price_cad"],
             item['trending'], item['just_dropped'], item["url"], item["image"]))
 
     try:
         c.executemany("""INSERT IGNORE INTO goat_sneakers 
-            (id,model,size,category,nickname,shoe_condition,
+            (id,source,model,size,category,nickname,shoe_condition,
             lowest_price_usd,lowest_price_cad,trending,just_dropped,url,image) 
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
         conn.commit()
     except ProgrammingError:
         pass

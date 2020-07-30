@@ -30,6 +30,7 @@ def create_db_table():
     try:
         c.execute("""CREATE TABLE flightclub_sneakers (
             id INT primary key,
+            source VARCHAR(50),
             url TEXT,
             brand TEXT,
             model TEXT,
@@ -48,6 +49,7 @@ def create_db_table():
 
 def get_item_info(item, size):
     info = {'id': abs(hash(item['href']+'-'+str(size))) % (10**7),
+            'source': 'Flight Club',
             'url': 'https://www.flightclub.com' + item['href'],
             'brand': 'Air Jordan', 
             'model': item.find('h2').text.replace('…',''),
@@ -60,15 +62,14 @@ def get_item_info(item, size):
 def insert_items(feed, size):
     data_list = []
     for item in feed:
-        item_id = abs(hash(item['href']+'-'+str(size))) % (10**7)
         data = get_item_info(item, size)
         data_list.append(
-            (item_id,data["url"],data["brand"],data["model"],data["price"],data["size"],data["img"]))
+            (data["id"],data["source"],data["url"],data["brand"],data["model"],data["price"],data["size"],data["img"]))
 
     try:
         c.executemany("""INSERT IGNORE INTO flightclub_sneakers
-            (id,url,brand,model,price,size,image)
-            VALUES (%s,%s,%s,%s,%s,%s,%s);""", data_list)
+            (id,source,url,brand,model,price,size,image)
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
         conn.commit()
     except ProgrammingError:
         pass

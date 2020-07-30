@@ -22,6 +22,7 @@ def create_db_table():
     try:
         c.execute("""CREATE TABLE grailed_sneakers (
             id CHAR(8) PRIMARY KEY,
+            source VARCHAR(50),
             url VARCHAR(30),
             brand TEXT,
             model TEXT,
@@ -85,6 +86,7 @@ def get_api_data():
 
         for item in items:
             item_data = {"id": str(item['id']),
+                         "source": "Grailed",
                          "url": "grailed.com/listings/" + str(item['id']),
                          "brand": item['designer_names'],
                          "model": item['title'],
@@ -133,7 +135,7 @@ def insert_items(item_data):
 
     data_list = []
     for item in item_data:
-        data_list.append((item["id"], item["url"], item["brand"], item["model"], item["size"], 
+        data_list.append((item["id"], item["source"], item["url"], item["brand"], item["model"], item["size"], 
             item["price"], item["old_price"], item["img"], item["date_bumped"], 
             item["date_created"], item["heat"], item["condition"],
             item["seller_location"], item["seller_rating"], item["seller_rating_count"],
@@ -142,11 +144,11 @@ def insert_items(item_data):
     
     try:
         c.executemany("""INSERT IGNORE INTO grailed_sneakers 
-            (id,url,brand,model,size,current_price,old_price,
+            (id,source,url,brand,model,size,current_price,old_price,
             image,date_bumped,date_created,heat,shoe_condition,seller_location,
             seller_rating,seller_rating_count,shipping_us,shipping_ca,shipping_uk,
             shipping_eu,shipping_asia,shipping_au,shipping_other) 
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
         conn.commit()
     except ProgrammingError:
         pass
