@@ -27,6 +27,8 @@ api = Api(application)
 parser = reqparse.RequestParser()
 parser.add_argument('source', default='stockx')
 parser.add_argument('size', type=int)
+parser.add_argument('price_low', type=int, default=0)
+parser.add_argument('price_high', type=int, default=1000)
 parser.add_argument('page', type=int, default=0)
 
 
@@ -38,12 +40,18 @@ class Search(Resource):
         args = parser.parse_args()
         source = args['source']
         size = args['size']
+        price_low = args['price_low']
+        price_high = args['price_high']
         offset = args['page']*1000
 
         if size is None:
-            query = "SELECT * FROM {}_sneakers LIMIT 1000 OFFSET {};".format(source, offset)
+            query = """SELECT * FROM {}_sneakers 
+                       WHERE price >= {} AND price <= {}
+                       LIMIT 1000 OFFSET {};""".format(source, price_low, price_high, offset)
         else:
-            query = "SELECT * FROM {}_sneakers WHERE size={} LIMIT 1000 OFFSET {};".format(source, size, offset)
+            query = """SELECT * FROM {}_sneakers 
+                       WHERE size={} AND price >= {} AND price <= {}
+                       LIMIT 1000 OFFSET {};""".format(source, size, price_low, price_high, offset)
         
         try:
             c.execute(query)
