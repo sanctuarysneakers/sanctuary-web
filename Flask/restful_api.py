@@ -12,9 +12,9 @@ def connect_to_db():
     try:
         connection = mysql.connector.connect(host=host, user=user, passwd=passwd, database=db_name)
         cursor = connection.cursor(dictionary=True)
+        cursor.execute("USE sneakers;")
     except ProgrammingError:
         print("couldn't connect to database")
-    cursor.execute("USE sneakers;")
     return connection, cursor
 
 
@@ -33,6 +33,8 @@ parser.add_argument('page', type=int, default=0)
 class Search(Resource):
 
     def get(self):
+        global conn, c
+
         args = parser.parse_args()
         source = args['source']
         size = args['size']
@@ -44,9 +46,7 @@ class Search(Resource):
             query = "SELECT * FROM {}_sneakers WHERE size={} LIMIT 1000 OFFSET {};".format(source, size, offset)
         
         try:
-            # c is an unresolved reference at this point
             c.execute(query)
-        # except block is too vague, and I'm fairly sure it will always execute
         except:
             conn, c = connect_to_db()
             c.execute(query)
