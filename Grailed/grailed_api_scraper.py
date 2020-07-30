@@ -12,9 +12,9 @@ db_name = "sneakers"
 try:
     conn = mysql.connector.connect(host=host, user=user, passwd=passwd, database=db_name)
     c = conn.cursor()
+    c.execute("USE sneakers;")
 except ProgrammingError:
     print("couldn't connect to database")
-c.execute("USE sneakers;")
 
 
 def create_db_table():
@@ -27,7 +27,7 @@ def create_db_table():
             brand TEXT,
             model TEXT,
             size FLOAT,
-            current_price INT,
+            price INT,
             old_price INT,
             image TEXT,
             date_bumped VARCHAR(10),
@@ -144,7 +144,7 @@ def insert_items(item_data):
     
     try:
         c.executemany("""INSERT IGNORE INTO grailed_sneakers 
-            (id,source,url,brand,model,size,current_price,old_price,
+            (id,source,url,brand,model,size,price,old_price,
             image,date_bumped,date_created,heat,shoe_condition,seller_location,
             seller_rating,seller_rating_count,shipping_us,shipping_ca,shipping_uk,
             shipping_eu,shipping_asia,shipping_au,shipping_other) 
