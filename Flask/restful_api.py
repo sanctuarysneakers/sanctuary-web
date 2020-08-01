@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
+from flask_cors import CORS
 import mysql.connector
 from mysql.connector import ProgrammingError
 
@@ -22,6 +23,7 @@ conn, c = connect_to_db()
 
 
 application = Flask(__name__)
+cors = CORS(application, resources={r"*": {"origins": "*"}})
 api = Api(application)
 
 parser = reqparse.RequestParser()
