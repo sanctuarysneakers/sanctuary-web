@@ -6,13 +6,13 @@ export default function Sneaker(props) {
         <div className='sneaker'>
             <img 
                 className='sneakerImg'
-                src={require(`../assets/images/${props.img}`)}
+                src={props.image}
                 alt={props.model}
             />
             <h3>{props.model}</h3>
             <img 
                 className='logo'
-                src={require(`../assets/images/logos/${props.source_site}.png`)}
+                src={require(`../assets/images/logos/${props.source}.png`)}
                 alt={props.source_site}
             />
         </div>
