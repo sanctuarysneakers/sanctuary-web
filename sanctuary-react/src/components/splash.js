@@ -1,5 +1,5 @@
 import React from 'react'
-import img from '../assets/images/placeholder.jpg'
+import img from '../assets/images/splashPicture.jpg'
 import ShopButton from "./shopbutton"
 
 export default function Splash() {
