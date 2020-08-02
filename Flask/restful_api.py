@@ -1,8 +1,8 @@
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
+from flask_cors import CORS
 import mysql.connector
 from mysql.connector import ProgrammingError
-
 
 def connect_to_db():
     host = "test-database-1.cmamugrum56i.us-west-2.rds.amazonaws.com"
@@ -22,10 +22,12 @@ conn, c = connect_to_db()
 
 
 application = Flask(__name__)
+cors = CORS(application, resources={r"*": {"origins": "*"}})
 api = Api(application)
 
 parser = reqparse.RequestParser()
-parser.add_argument('source', default='stockx')
+parser.add_argument('source', type=str, default='stockx')
+parser.add_argument('search', type=str, default='jordan')
 parser.add_argument('size', type=int)
 parser.add_argument('price_low', type=int, default=0)
 parser.add_argument('price_high', type=int, default=1000)
@@ -39,6 +41,7 @@ class Search(Resource):
 
         args = parser.parse_args()
         source = args['source']
+        search = args['search']
         size = args['size']
         price_low = args['price_low']
         price_high = args['price_high']
@@ -46,12 +49,12 @@ class Search(Resource):
 
         if size is None:
             query = """SELECT * FROM {}_sneakers 
-                       WHERE price >= {} AND price <= {}
-                       LIMIT 1000 OFFSET {};""".format(source, price_low, price_high, offset)
+                       WHERE MATCH(model) AGAINST('{}') AND price >= {} AND price <= {}
+                       LIMIT 1000 OFFSET {};""".format(source, search, price_low, price_high, offset)
         else:
             query = """SELECT * FROM {}_sneakers 
-                       WHERE size={} AND price >= {} AND price <= {}
-                       LIMIT 1000 OFFSET {};""".format(source, size, price_low, price_high, offset)
+                       WHERE MATCH(model) AGAINST('{}') AND size={} AND price >= {} AND price <= {}
+                       LIMIT 1000 OFFSET {};""".format(source, search, size, price_low, price_high, offset)
         
         try:
             c.execute(query)
