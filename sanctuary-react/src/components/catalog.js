@@ -1,65 +1,45 @@
 import React, { useState, useEffect } from "react"
 import Sneaker from './sneaker'
 
+
 const API_URL = "http://flask-env.eba-wjhtntpd.us-west-2.elasticbeanstalk.com/?"
 
-
 export default function Catalog(props) {
+
     const [data, setData] = useState([])
 
     useEffect(() => {
+        let search_url = API_URL
+
         const fetchData = async (url) => {
             const response = await fetch(url)
             const data = await response.json()
             setData(data)
         }
 
-        fetchData(API_URL)
-    }, [])
+        const filter = () => {
+            if (props.search) {
+                search_url += `&model='${props.search}'`
+            }
 
+            if (props.sizeFilter) {
+                search_url += `&size=${props.sizeFilter}`
+            }
 
-    // function filteredSneakers() {
-        
+            if (props.priceFilter) {
+                search_url += `&price_high=${props.priceFilter}`
+            }
+            // TODO: price low filter
 
-    //     // Filter by model
-    //     if (props.search) {
-    //         filteredSneakers = filteredSneakers.filter(
-    //             (sneaker) => {
-    //                 return sneaker.model.toLowerCase()
-    //                 .indexOf(props.search.toLowerCase()) !== -1
-    //             }
-    //         )
-    //     }
-        
-    //     // Filter by size
-    //     if (props.sizeFilter) {
-    //         filteredSneakers = filteredSneakers.filter(
-    //             (sneaker) => {
-    //                 return sneaker.size === parseInt(props.sizeFilter)
-    //             }
-    //         )
-    //     }
+            if (props.siteFilter) {
+                search_url += `&source='${props.siteFilter}'`
+            }
+        }
 
-    //     // Filter by price
-    //     if (props.priceFilter) {
-    //         filteredSneakers = filteredSneakers.filter(
-    //             (sneaker) => {
-    //                 return sneaker.price <= parseInt(props.priceFilter)
-    //             }
-    //         )
-    //     }
+        filter()
+        fetchData(search_url)
+    }, [props.search])
 
-    //     // Filter by site
-    //     if (props.siteFilter)
-    //     filteredSneakers = filteredSneakers.filter(
-    //         (sneaker) => {
-    //             return sneaker.source_site.toLowerCase()
-    //             .indexOf(props.siteFilter.toLowerCase()) !== -1
-    //         }
-    //     )
-
-    //     return filteredSneakers
-    // }
 
     return (
         <div className='catalog'>
