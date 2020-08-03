@@ -14,9 +14,9 @@ export default function ShopBySite() {
         <div className="shopBySite">
             <button onClick={toggleMenu}>
                 Shop by Site
-                <RiArrowDownSLine/>
+                <RiArrowDownSLine className="caret-icon"/>
             </button>
-            <ShopBySiteMenu menuVisible={menuVisible}/>
+            {menuVisible && <ShopBySiteMenu/>}
         </div>
     )
 }

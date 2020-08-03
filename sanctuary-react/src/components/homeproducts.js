@@ -7,6 +7,8 @@ import ShopButton from './shopbutton'
 export default function HomeProducts() {
     const [search, changeSearch] = useState("")
 
+    // TODO: add price_low, price_high props
+
     return (
         <div className='products'>
             <SearchBar 
@@ -16,9 +18,9 @@ export default function HomeProducts() {
             <h2>What's Hot</h2>
             <Catalog 
                 search={search}
-                sizeFilter={0}
-                priceFilter={0}
-                siteFilter={""}
+                size={0}
+                price={0}
+                site={""}
             />
             <ShopButton link="/shop">Shop All</ShopButton>
         </div>

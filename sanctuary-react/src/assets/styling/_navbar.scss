@@ -11,59 +11,63 @@
     top: 0;
     z-index: 1;
 
-    .navLinks {
-        padding-right: 60px;
-
-        display: flex;
-        align-items: center;
-
-        list-style-type: none;
-
-        *:hover {
-            color: $hover-blue;
-        }
-    }
-
-    a, svg {
+    a, svg, button {
         text-decoration: none;
         font-size: 15px;
         padding: 0 20px 0 20px;
         color: $text-color;
+        border: none;
+        background: transparent;
+        font-weight: 300;
+        outline: none;
     }
 
-    .sanctuaryLogo {
-        padding-left: 60px;
-        font-size: 25px;
+    .caret-icon {
+        padding-right: 0;
     }
+}
 
-    .shopBySite {
-        text-align: center;
+.sanctuaryLogo {
+    padding-left: 60px;
+    font-size: 25px;
+}
+
+.shopBySite {
+    text-align: center;
+}
+
+.navLinks {
+    padding-right: 60px;
+
+    display: flex;
+    align-items: center;
+
+    list-style-type: none;
+
+    *:hover {
+        color: $hover-blue;
     }
 }
 
 .shopBySiteMenu {
+    background: white;
+
+    position: absolute;
+    top: 95px;
+
+    width: 110px;
+    transform: translateX(20px);
+
+    border-radius: 10px;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2), 
+                0 2px 5px 0 rgba(0, 0, 0, 0.19);
+
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 
-    position: fixed;
-    top: 100px;
-    left: 80vw;
-
-    width: 10vw;
-    height: 10vh;
-
-    background-color: black;
-    border-radius: 3em;
-
-    transition: transform .3s
-                cubic-bezier(0, .52, 0, 1);
-    z-index: -50;
+    a {
+        padding: 8px 0 8px 10px;
+        
+    }
 }
-
-.shopBySiteMenu.hide {
-    transform: translate3d(0, -10vw, 0);
-  }
-   
-.shopBySiteMenu.show {
-    transform: translate3d(0, 0, 0);
-  }

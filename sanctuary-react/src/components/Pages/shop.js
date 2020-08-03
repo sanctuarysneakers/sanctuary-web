@@ -4,7 +4,7 @@ import ShopProducts from "../shopproducts"
 
 export default function Shop(props) {
 
-    let site = "Shop All"
+    let site = ""
 
     if (props.location.state) {
         site = props.location.state.site

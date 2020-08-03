@@ -1,15 +1,15 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-export default function ShopBySiteMenu(props) {
-
-    let visibility = props.menuVisible ? "show" : "hide"
+export default function ShopBySiteMenu() {
 
     return (
-        <div className={`shopBySiteMenu ${visibility}`}>
+        // TODO: make the site names render the site logo images instead
+        // TODO: clicking on a site page when in the shop all menu should load properly
+        <div className="shopBySiteMenu">
             <Link to={{
                 pathname:'/shop',
-                state: { site: "flight club"}
+                state: { site: "flightclub"}
                 }}>
                 Flight Club
             </Link>
