@@ -24,6 +24,7 @@ def create_db_table():
             id VARCHAR(10) PRIMARY KEY,
             source VARCHAR(50),
             model TEXT,
+            sku_id VARCHAR(20),
             size FLOAT,
             category TEXT,
             nickname TEXT,
@@ -38,7 +39,7 @@ def create_db_table():
         conn.commit()
 
         c.execute("ALTER TABLE goat_sneakers ADD INDEX id (id);")
-        c.execute("ALTER TABLE goat_sneakers ADD FULLTEXT model (model);")
+        c.execute("ALTER TABLE goat_sneakers ADD FULLTEXT model_idx (model);")
         conn.commit()
     except ProgrammingError:
         pass
@@ -79,6 +80,7 @@ def get_api_data():
                 'id': hit['objectID'],
                 'source': "Goat",
                 'model': hit['name'],
+                'skuId': hit['sku'].replace(' ', '-'),
                 'size': float(size),
                 'category': hit['silhouette'],
                 'nickname': hit['nickname'],
@@ -111,15 +113,15 @@ def insert_items(item_data):
 
     data_list = []
     for item in item_data:
-        data_list.append((item["id"], item["source"], item["model"], item["size"], item["category"], 
+        data_list.append((item["id"], item["source"], item["model"], item['skuId'], item["size"], item["category"], 
             item["nickname"], item["shoe_condition"], item["lowest_price_usd"], item["lowest_price_cad"],
             item['trending'], item['just_dropped'], item["url"], item["image"]))
 
     try:
         c.executemany("""INSERT IGNORE INTO goat_sneakers 
-            (id,source,model,size,category,nickname,shoe_condition,
+            (id,source,model,sku_id,size,category,nickname,shoe_condition,
             price,price_cad,trending,just_dropped,url,image) 
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
         conn.commit()
     except ProgrammingError:
         pass
