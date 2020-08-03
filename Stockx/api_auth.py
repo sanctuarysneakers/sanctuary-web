@@ -1,0 +1,8 @@
+headers = {
+    "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36",
+    "referer": "https://stockx.com/retro-jordans",
+    "accept": "*/*",
+    "appos": "web",
+    "appversion": "0.1",
+    "authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik5USkNNVVEyUmpBd1JUQXdORFk0TURRelF6SkZRelV4TWpneU5qSTNNRFJGTkRZME0wSTNSQSJ9.eyJodHRwczovL3N0b2NreC5jb20vZ2FfZXZlbnQiOiJMb2dnZWQgSW4iLCJodHRwczovL3N0b2NreC5jb20vY3VzdG9tZXJfdXVpZCI6ImVjOTU3Y2EwLTA4OGItMTFlOS05MWI1LTBhOTM4YjE4OTNhZSIsImlzcyI6Imh0dHBzOi8vYWNjb3VudHMuc3RvY2t4LmNvbS8iLCJzdWIiOiJhdXRoMHxlYzk1N2NhMC0wODhiLTExZTktOTFiNS0wYTkzOGIxODkzYWUiLCJhdWQiOlsiZ2F0ZXdheS5zdG9ja3guY29tIiwiaHR0cHM6Ly9zdG9ja3gtcHJvZC5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNTk2Mzk1MTkzLCJleHAiOjE1OTY0MzgzOTMsImF6cCI6Ik9WeHJ0NFZKcVR4N0xJVUtkNjYxVzBEdVZNcGNGQnlEIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSJ9.QKufBrIyJBUamkwctDQ3fqUXWH4kCXoD4EobkvSURhJM0ewyzOAHgY1HQ6YdvrBthnSAh65WH8kzyrPc0YiPsnonz80pdM76W84iG_J1Ydp3gEv0aGxx_YVnhYWKYtd908EhI2DjsH6exCTGLchPtOS6Z2sv_VJH0X8wJyiY1u2fAd4VoImO_5rGVDRo4QN_tZyUk5EjDrAMI52moVCF93ZSJgQIttCk1FEm7VYwpiHiZbXX-ODj862TeApHRgKA-SIYBXkazyEJMpZ8Byq9t8nBkQMnxcgV9cwCA23P0YmN0-8ly3YEiJk_xI1HzWFFfERSx_S1v1QsPzcfGJzrkw"
+}

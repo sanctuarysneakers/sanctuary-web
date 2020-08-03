@@ -1,5 +1,5 @@
 import requests
-from urllib.parse import urlencode
+import api_auth
 import time
 import mysql.connector
 from mysql.connector import ProgrammingError
@@ -25,6 +25,7 @@ def create_db_table():
             id VARCHAR(200) primary key,
             source VARCHAR(50),
             model TEXT,
+            sku_id VARCHAR(20),
             size FLOAT,
             category TEXT,
             retail_price INT,
@@ -45,7 +46,7 @@ def create_db_table():
         conn.commit()
 
         c.execute("ALTER TABLE stockx_sneakers ADD INDEX id (id);")
-        c.execute("ALTER TABLE stockx_sneakers ADD FULLTEXT model (model);")
+        c.execute("ALTER TABLE stockx_sneakers ADD FULLTEXT model_idx (model);")
         conn.commit()
     except ProgrammingError:
         pass
@@ -59,8 +60,8 @@ def get_api_data(start_size, end_size):
     """
 
     url = "https://stockx.com/api/browse"
-    headers = {"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"}
-    
+    headers = api_auth.headers
+
     items = []
     size = start_size
     while size <= end_size:
@@ -73,7 +74,8 @@ def get_api_data(start_size, end_size):
                 "page": str(page)
             }
             response = requests.get(url, headers=headers, params=parameters)
-            if not response.ok: 
+            if not response.ok:
+                print(response)
                 return items
             
             print("scraping page " + str(page) + " of size " + str(size) + " sneakers")
@@ -85,6 +87,7 @@ def get_api_data(start_size, end_size):
                     "id": item["objectID"],
                     "source": "StockX",
                     "model": item["title"],
+                    "skuId": item["styleId"],
                     "size": item["shoeSize"],
                     "category": item["category"],
                     "retailPrice": item["retailPrice"],
@@ -129,19 +132,19 @@ def insert_items(item_data):
 
     data_list = []
     for item in item_data:
-        data_list.append((item["id"],item["source"],item["model"],item["size"],item["category"],item["retailPrice"], 
-            item["lowestAsk"],item["highestBid"],item["annualHigh"],item["annualLow"],
-            item["averagePrice"], item["averagePriceRank"],item["volatility"],
+        data_list.append((item["id"],item["source"],item["model"],item["skuId"],item["size"],
+            item["category"],item["retailPrice"],item["lowestAsk"],item["highestBid"],item["annualHigh"],
+            item["annualLow"],item["averagePrice"], item["averagePriceRank"],item["volatility"],
             item["numberOfAsks"],item["numberOfBids"], item["annualSold"], item["recentSold"],
             item["url"], item["image"]))
     
     try:
         c.executemany("""INSERT IGNORE INTO stockx_sneakers 
-            (id,source,model,size,category,retail_price,
+            (id,source,model,sku_id,size,category,retail_price,
             price,highest_bid,annual_high_price,annual_low_price,
             average_price,average_price_rank,volatility,number_of_asks,
             number_of_bids,annual_sold,recently_sold,url,image) 
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
         conn.commit()
     except ProgrammingError:
         pass
@@ -163,11 +166,11 @@ def run_scraper(start_size, end_size):
     insert_items(data)
 
 
-create_db_table()
+#create_db_table()
 
-#run_scraper(6, 9)        # Range 1
+run_scraper(6, 9)        # Range 1
 #run_scraper(9.5, 12.5)   # Range 2
-run_scraper(13, 15)      # Range 3
+#run_scraper(13, 15)      # Range 3
 
 
 conn.close()
