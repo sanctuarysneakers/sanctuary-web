@@ -2,59 +2,51 @@ import React, { useState, useEffect } from "react"
 import Sneaker from './sneaker'
 
 
-const API_URL = "http://flask-env.eba-wjhtntpd.us-west-2.elasticbeanstalk.com/?"
-
 export default function Catalog(props) {
 
     const [data, setData] = useState([])
 
     useEffect(() => {
-        let search_url = API_URL
 
-        const fetchData = async (url) => {
+        let api_url = `http://flask-env.eba-wjhtntpd.us-west-2.elasticbeanstalk.com/?`
+
+        async function fetchData(url) {
             const response = await fetch(url)
             const data = await response.json()
             setData(data)
         }
 
-        const filter = () => {
-            if (props.search) {
-                search_url += `&model='${props.search}'`
-            }
-
-            if (props.sizeFilter) {
-                search_url += `&size=${props.sizeFilter}`
-            }
-
-            if (props.priceFilter) {
-                search_url += `&price_high=${props.priceFilter}`
-            }
-            // TODO: price low filter
-
-            if (props.siteFilter) {
-                search_url += `&source='${props.siteFilter}'`
-            }
+        // filter options: price_low, price_high, search, size, source
+        function filter() {            
+            if (props.search) api_url += `&search=${props.search}`
+            if (props.size > 0) api_url += `&size=${props.size}`
+            // TODO: make this a drop down menu
+            if (props.source) api_url += `&source=${props.source}`
+            // TODO: make this a slider bar
+            // TODO: add price_low, price_high filters
+            // if (props.price_low)
+            // if (props.price_high)
         }
 
         filter()
-        fetchData(search_url)
-    }, [props.search])
+        fetchData(api_url)
+    }, [props])
 
 
     return (
         <div className='catalog'>
-                {data.map((sneaker) => {
-                     return (
-                     <Sneaker
-                        key={sneaker.id}
-                        size={sneaker.size}
-                        price={sneaker.price}
-                        url={sneaker.url}
-                        model={sneaker.model}
-                        source={sneaker.source.toLowerCase()}
-                        image={sneaker.image}
-                    />
-                    )})}
+            {data.map((sneaker) => {
+                    return (
+                    <Sneaker
+                    key={sneaker.id}
+                    size={sneaker.size}
+                    price={sneaker.price}
+                    url={sneaker.url}
+                    model={sneaker.model}
+                    source={sneaker.source.toLowerCase()}
+                    image={sneaker.image}
+                />
+                )})}
             </div>
     )
 }

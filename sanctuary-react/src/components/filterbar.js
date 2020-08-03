@@ -3,26 +3,29 @@ import React from 'react'
 
 export default function FilterBar(props) {
 
-    function updateSizeFilter(event) {
-        props.changeSizeFilter(event.target.value)
+    // TODO: add price_low, price_high filters
+
+    function updateSize(event) {
+        props.changeSize(event.target.value)
     }
 
-    function updatePriceFilter(event) {
-        props.changePriceFilter(event.target.value)
+    function updatePrice(event) {
+        props.changePrice(event.target.value)
     }
 
-    function updateSiteFilter(event) {
-        props.changeSiteFilter(event.target.value)
+    function updateSource(event) {
+        props.changeSource(event.target.value)
     }
 
+    // TODO: turn site filter into a drop down
     return (
         <div className="filterBar">
             <label> Size Filter:
                 <input 
                     className="sizeFilter"
                     type='number' 
-                    value={props.sizeFilter}
-                    onChange={updateSizeFilter}
+                    value={props.size}
+                    onChange={updateSize}
                 />
             </label>
 
@@ -30,17 +33,17 @@ export default function FilterBar(props) {
                 <input 
                     className="priceFilter"
                     type='number' 
-                    value={props.priceFilter}
-                    onChange={updatePriceFilter}
+                    value={props.price}
+                    onChange={updatePrice}
                 />
             </label>
 
             <label> Site Filter:
                 <input 
-                    className="siteFilter"
+                    className="sourceFilter"
                     type='text' 
-                    value={props.siteFilter}
-                    onChange={updateSiteFilter}
+                    value={props.source}
+                    onChange={updateSource}
                 />
             </label>
         </div>

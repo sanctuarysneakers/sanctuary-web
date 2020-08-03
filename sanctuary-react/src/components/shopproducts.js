@@ -4,11 +4,13 @@ import ShopButton from './shopbutton'
 import FilterBar from './filterbar'
 import SearchBar from './searchbar'
 
-export default function ShopProducts() {
+export default function ShopProducts(props) {
     const [search, changeSearch] = useState("")
-    const [sizeFilter, changeSizeFilter] = useState(0)
-    const [priceFilter, changePriceFilter] = useState(0)
-    const [siteFilter, changeSiteFilter] = useState("")
+    const [size, changeSize] = useState(0)
+    const [price, changePrice] = useState(0)
+    const [source, changeSource] = useState(props.site)
+
+    // TODO: add price_low, price_high props
 
     return (
         <div className="products">
@@ -18,18 +20,18 @@ export default function ShopProducts() {
             />
             <h2>Results 237</h2>
             <FilterBar 
-                sizeFilter={sizeFilter}
-                changeSizeFilter={changeSizeFilter}
-                priceFilter={priceFilter}
-                changePriceFilter={changePriceFilter}
-                siteFilter={siteFilter}
-                changeSiteFilter={changeSiteFilter}
+                size={size}
+                changeSize={changeSize}
+                price={price}
+                changePrice={changePrice}
+                source={source}
+                changeSource={changeSource}
             />
             <Catalog 
                 search={search}
-                sizeFilter={sizeFilter}
-                priceFilter={priceFilter}
-                siteFilter={siteFilter}
+                size={size}
+                price={price}
+                source={source}
             />
             <ShopButton link="/shop">Load More</ShopButton>
         </div>
