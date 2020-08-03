@@ -2,11 +2,22 @@
     margin: 3%;
     display:flex;
     flex-direction: column;
+
+    h2 {
+        position: relative;
+        top: 5px;
+        left: 24px;
+
+        font-size: 36px;
+        font-weight: 600;
+        color: #353234;
+    }
 }
 
 .catalog {
     display: grid;
     grid-template-columns: repeat(3, 33.33%);
+    // grid-auto-rows: 585px;
 }
 
 .shopButton {
