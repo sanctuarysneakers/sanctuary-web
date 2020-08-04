@@ -16,7 +16,10 @@
 
 .catalog {
     display: grid;
-    grid-template-columns: repeat(3, 33.33%);
+    grid-template-columns: repeat(auto-fit, minmax(400px, 409.33px));
+    justify-content: center;
+    grid-gap: 40px;
+    // grid-template-columns: repeat(3, 33.33%);
     // grid-auto-rows: 585px;
 }
 
