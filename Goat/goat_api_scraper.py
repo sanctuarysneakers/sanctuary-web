@@ -21,16 +21,14 @@ def create_db_table():
     """ Creates an empty database table with the necessary keys."""
     try:
         c.execute("""CREATE TABLE goat_sneakers (
-            id VARCHAR(10) PRIMARY KEY,
+            id INT PRIMARY KEY,
             source VARCHAR(50),
             model TEXT,
             sku_id VARCHAR(20),
             size FLOAT,
-            category TEXT,
-            nickname TEXT,
-            shoe_condition TEXT,
             price INT,
-            price_cad INT,
+            shoe_condition VARCHAR(30),
+            category TEXT,
             trending BOOLEAN,
             just_dropped BOOLEAN,
             url TEXT,
@@ -77,16 +75,14 @@ def get_api_data():
         hits = resp_json['hits']
         for hit in hits:
             item = {
-                'id': hit['objectID'],
+                'id': int(hit['objectID']),
                 'source': "Goat",
                 'model': hit['name'],
                 'skuId': hit['sku'].replace(' ', '-'),
                 'size': float(size),
                 'category': hit['silhouette'],
-                'nickname': hit['nickname'],
                 'shoe_condition': hit['shoe_condition'],
-                'lowest_price_usd': hit['lowest_price_cents']/100,
-                'lowest_price_cad': hit['lowest_price_cents_cad']/100,
+                'price': hit['lowest_price_cents']/100,
                 'trending': 1 if 'trending' in hit['collection_slugs'] else 0,
                 'just_dropped': 1 if 'just-dropped' in hit['collection_slugs'] else 0,
                 'url': 'https://www.goat.com/sneakers/' + hit['slug'],
@@ -113,15 +109,14 @@ def insert_items(item_data):
 
     data_list = []
     for item in item_data:
-        data_list.append((item["id"], item["source"], item["model"], item['skuId'], item["size"], item["category"], 
-            item["nickname"], item["shoe_condition"], item["lowest_price_usd"], item["lowest_price_cad"],
-            item['trending'], item['just_dropped'], item["url"], item["image"]))
+        data_list.append((item["id"], item["source"], item["model"], item['skuId'], item["size"], 
+            item["price"], item["shoe_condition"], item["category"],item['trending'], 
+            item['just_dropped'], item["url"], item["image"]))
 
     try:
         c.executemany("""INSERT IGNORE INTO goat_sneakers 
-            (id,source,model,sku_id,size,category,nickname,shoe_condition,
-            price,price_cad,trending,just_dropped,url,image) 
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
+            (id,source,model,sku_id,size,price,shoe_condition,category,trending,just_dropped,url,image) 
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
         conn.commit()
     except ProgrammingError:
         pass
