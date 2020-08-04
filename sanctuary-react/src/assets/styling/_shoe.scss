@@ -1,0 +1,47 @@
+.shoe-grid {
+    padding: 50px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-rows: 60px;
+    grid-gap: 20px;
+
+
+    img {
+        height: 80%;
+    }
+
+    div {
+        background: white;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .shoe-model {
+        grid-column: 1/3;
+        grid-row: 1/4;
+    }
+    
+    .shoe-image {
+        grid-column: 3/5;
+        grid-row: 1/6;
+    }
+    
+    .shoe-size {
+        grid-row: 4/6;
+    }
+    
+    .shoe-condition {
+        grid-row: 4/6;
+    }
+    
+    .shoe-price {
+        grid-row: 1/3;
+    }
+    
+    .shoe-buy {
+        grid-row: 4/6;
+        background: #6B7BF0;
+        color: white;
+    }
+}
+

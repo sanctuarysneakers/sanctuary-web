@@ -13,7 +13,7 @@ export default function Sneaker(props) {
             <img 
                 className='logo'
                 src={require(`../assets/images/logos/${props.source}.png`)}
-                alt={props.source_site}
+                alt={props.source}
             />
         </div>
     )
