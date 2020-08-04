@@ -1,4 +1,5 @@
 import React from 'react'
+import {RiSearchLine} from 'react-icons/ri'
 
 
 export default function SearchBar(props) {
@@ -8,11 +9,17 @@ export default function SearchBar(props) {
     }
 
     return (
-        <input 
-            className='searchBar'
-            type='text' 
-            value={props.search}
-            onChange={updateSearch}
-        />
+        <div className="searchBar">
+            <div className="searchIcon">
+                <RiSearchLine/>
+            </div>
+            <input 
+                className="searchText"
+                type="text"
+                placeholder="Search"
+                value={props.search}
+                onChange={updateSearch}
+            />
+        </div>
     )
 }
