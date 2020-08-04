@@ -7,6 +7,7 @@ import Home from "./components/Pages/home"
 import AboutUs from "./components/Pages/about"
 import Details from "./components/Pages/details"
 import Shop from "./components/Pages/shop"
+import Shoe from "./components/Pages/shoe"
 import ContactUs from "./components/Pages/contact"
 import TermsOfUse from "./components/Pages/terms"
 import PrivacyPolicy from "./components/Pages/privacy"
@@ -24,6 +25,7 @@ function App() {
         <Route path="/about" component={AboutUs}/>
         <Route path="/details" component={Details}/>
         <Route path="/shop" component={Shop}/>
+        <Route path="/shoe" component={Shoe}/>
         <Route path="/contact" component={ContactUs}/>
         <Route path="/terms" component={TermsOfUse}/>
         <Route path="/privacy" component={PrivacyPolicy}/>

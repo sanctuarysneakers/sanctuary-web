@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { Link } from 'react-router-dom'
 import Sneaker from './sneaker'
 
 
@@ -37,15 +38,21 @@ export default function Catalog(props) {
         <div className='catalog'>
             {data.map((sneaker) => {
                     return (
-                    <Sneaker
-                    key={sneaker.id}
-                    size={sneaker.size}
-                    price={sneaker.price}
-                    url={sneaker.url}
-                    model={sneaker.model}
-                    source={sneaker.source.toLowerCase()}
-                    image={sneaker.image}
-                />
+                    <Link 
+                        key={sneaker.id}
+                        to={{
+                        pathname:'/shoe',
+                        state: { sneaker: sneaker }
+                        }}>
+                        <Sneaker
+                        size={sneaker.size}
+                        price={sneaker.price}
+                        url={sneaker.url}
+                        model={sneaker.model}
+                        source={sneaker.source.toLowerCase()}
+                        image={sneaker.image}
+                        />
+                    </Link>
                 )})}
             </div>
     )

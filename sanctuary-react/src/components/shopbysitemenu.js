@@ -5,7 +5,9 @@ export default function ShopBySiteMenu() {
 
     return (
         // TODO: make the site names render the site logo images instead
-        // TODO: clicking on a site page when in the shop all menu should load properly
+        // TODO: clicking on a site page when in the shop page menu should load properly
+
+        // TODO: clicking the flight club link is glitched
         <div className="shopBySiteMenu">
             <Link to={{
                 pathname:'/shop',
