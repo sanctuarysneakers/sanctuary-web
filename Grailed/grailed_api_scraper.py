@@ -21,20 +21,18 @@ def create_db_table():
     """ Creates an empty database table with the necessary keys."""
     try:
         c.execute("""CREATE TABLE grailed_sneakers (
-            id CHAR(8) PRIMARY KEY,
+            id INT PRIMARY KEY,
             source VARCHAR(50),
-            url VARCHAR(30),
-            brand TEXT,
             model TEXT,
-            sku_id INT,
+            sku_id VARCHAR(20),
             size FLOAT,
             price INT,
+            shoe_condition VARCHAR(30),
+            category TEXT,
             old_price INT,
-            image TEXT,
             date_bumped VARCHAR(10),
             date_created VARCHAR(10),
             heat INT,
-            shoe_condition VARCHAR(50),
             seller_location VARCHAR(30),
             seller_rating FLOAT, 
             seller_rating_count INT,
@@ -44,7 +42,9 @@ def create_db_table():
             shipping_eu INT,
             shipping_asia INT,
             shipping_au INT,
-            shipping_other INT
+            shipping_other INT,
+            url TEXT,
+            image TEXT
         );""")
         conn.commit()
 
@@ -86,12 +86,12 @@ def get_api_data():
         items = response.json()["hits"]
 
         for item in items:
-            item_data = {"id": str(item['id']),
+            item_data = {"id": int(item['id']),
                          "source": "Grailed",
                          "url": "grailed.com/listings/" + str(item['id']),
-                         "brand": item['designer_names'],
+                         "category": item['designer_names'],
                          "model": item['title'],
-                         "sku_id": item['sku_id'],
+                         "sku_id": str(item['sku_id']),
                          "size": float(item['size']),
                          "price": str(item['price']),
                          "old_price": item['price_drops'][-2] if len(item['price_drops']) > 1 else None,
@@ -137,19 +137,19 @@ def insert_items(item_data):
 
     data_list = []
     for item in item_data:
-        data_list.append((item["id"], item["source"], item["url"], item["brand"], item["model"], 
-            item["sku_id"], item["size"], item["price"], item["old_price"], item["img"], 
-            item["date_bumped"], item["date_created"], item["heat"], item["condition"],
-            item["seller_location"], item["seller_rating"], item["seller_rating_count"],
-            item["shipping_us"], item["shipping_ca"], item["shipping_uk"],
-            item["shipping_eu"], item["shipping_asia"],item["shipping_au"], item["shipping_other"]))
+        data_list.append((item["id"], item["source"], item["model"], item["sku_id"], item["size"], 
+            item["price"], item["condition"], item["category"], item["old_price"], 
+            item["date_bumped"], item["date_created"], item["heat"],item["seller_location"], 
+            item["seller_rating"], item["seller_rating_count"],item["shipping_us"], item["shipping_ca"], 
+            item["shipping_uk"], item["shipping_eu"], item["shipping_asia"],item["shipping_au"], 
+            item["shipping_other"], item["url"], item["img"]))
     
     try:
         c.executemany("""INSERT IGNORE INTO grailed_sneakers 
-            (id,source,url,brand,model,sku_id,size,price,old_price,
-            image,date_bumped,date_created,heat,shoe_condition,seller_location,
+            (id,source,model,sku_id,size,price,shoe_condition,category,old_price,
+            date_bumped,date_created,heat,seller_location,
             seller_rating,seller_rating_count,shipping_us,shipping_ca,shipping_uk,
-            shipping_eu,shipping_asia,shipping_au,shipping_other) 
+            shipping_eu,shipping_asia,shipping_au,shipping_other,url,image) 
             VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
         conn.commit()
     except ProgrammingError:
