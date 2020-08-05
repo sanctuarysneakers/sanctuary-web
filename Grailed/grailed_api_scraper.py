@@ -86,34 +86,33 @@ def get_api_data():
         items = response.json()["hits"]
 
         for item in items:
-            item_data = {"id": int(item['id']),
-                         "source": "Grailed",
-                         "url": "grailed.com/listings/" + str(item['id']),
-                         "category": item['designer_names'],
-                         "model": item['title'],
-                         "sku_id": str(item['sku_id']),
-                         "size": float(item['size']),
-                         "price": str(item['price']),
-                         "old_price": item['price_drops'][-2] if len(item['price_drops']) > 1 else None,
-                         "img": item['cover_photo']['url'],
-                         "date_bumped": item['bumped_at'][:10],
-                         "date_created": item['cover_photo']['created_at'][:10],
-                         "heat": item['heat'],
-                         "condition": item['condition'],
-                         "seller_location": item['location'],
-                         "seller_rating": round(item['user']['seller_score']['rating_average'], 1) if
-                            item['user']['seller_score']['rating_average'] else None,
-                         "seller_rating_count": item['user']['seller_score']['rating_count'],
-                         "shipping_us": item['shipping']['us']['amount'] if item['shipping']['us']['enabled'] else None,
-                         "shipping_ca": item['shipping']['ca']['amount'] if item['shipping']['ca']['enabled'] else None,
-                         "shipping_uk": item['shipping']['uk']['amount'] if item['shipping']['uk']['enabled'] else None,
-                         "shipping_eu": item['shipping']['eu']['amount'] if item['shipping']['eu']['enabled'] else None,
-                         "shipping_asia": item['shipping']['asia']['amount'] if item['shipping']['asia'][
-                             'enabled'] else None,
-                         "shipping_au": item['shipping']['au']['amount'] if item['shipping']['au']['enabled'] else None,
-                         "shipping_other": item['shipping']['other']['amount'] if item['shipping']['other'][
-                             'enabled'] else None
-                         }
+            item_data = {
+                "id": int(item['id']),
+                "source": "Grailed",
+                "url": "grailed.com/listings/" + str(item['id']),
+                "category": item['designer_names'],
+                "model": item['title'],
+                "sku_id": None if item['sku_id'] is None else str(item['sku_id']),
+                "size": float(item['size']),
+                "price": str(item['price']),
+                "old_price": item['price_drops'][-2] if len(item['price_drops']) > 1 else None,
+                "img": item['cover_photo']['url'],
+                "date_bumped": item['bumped_at'][:10],
+                "date_created": item['cover_photo']['created_at'][:10],
+                "heat": item['heat'],
+                "condition": item['condition'],
+                "seller_location": item['location'],
+                "seller_rating": round(item['user']['seller_score']['rating_average'], 1) if
+                    item['user']['seller_score']['rating_average'] else None,
+                "seller_rating_count": item['user']['seller_score']['rating_count'],
+                "shipping_us": item['shipping']['us']['amount'] if item['shipping']['us']['enabled'] else None,
+                "shipping_ca": item['shipping']['ca']['amount'] if item['shipping']['ca']['enabled'] else None,
+                "shipping_uk": item['shipping']['uk']['amount'] if item['shipping']['uk']['enabled'] else None,
+                "shipping_eu": item['shipping']['eu']['amount'] if item['shipping']['eu']['enabled'] else None,
+                "shipping_asia": item['shipping']['asia']['amount'] if item['shipping']['asia']['enabled'] else None,
+                "shipping_au": item['shipping']['au']['amount'] if item['shipping']['au']['enabled'] else None,
+                "shipping_other": item['shipping']['other']['amount'] if item['shipping']['other']['enabled'] else None
+            }
             results.append(item_data)
 
         offset += 1000
