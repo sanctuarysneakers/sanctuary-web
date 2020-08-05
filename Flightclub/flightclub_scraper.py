@@ -33,9 +33,10 @@ def create_db_table():
             source VARCHAR(50),
             model TEXT,
             sku_id VARCHAR(20),
-            brand TEXT,
-            price INT,
             size FLOAT,
+            price INT,
+            category TEXT,
+            shoe_condition VARCHAR(30),
             url TEXT,
             image TEXT
         );""")
@@ -56,15 +57,18 @@ def get_item_info(item, size):
     except TypeError:
         sku_id = None
     
-    info = {'id': abs(hash(item['href']+'-'+str(size))) % (10**7),
-            'source': 'Flight Club',
-            'url': 'https://www.flightclub.com' + item['href'],
-            'brand': 'Air Jordan', 
-            'model': model_name,
-            'sku_id': sku_id,
-            'price': int(re.search(r'\d+', item.find('div', {'class': 'yszfz8-5 kbsRqK'}).text).group()),
-            'size': float(size),
-            'img': item.find('img')['src']}
+    info = {
+        'id': abs(hash(item['href']+'-'+str(size))) % (10**7),
+        'source': 'Flight Club',
+        'url': 'https://www.flightclub.com' + item['href'],
+        'category': 'Air Jordan', 
+        'model': model_name,
+        'sku_id': sku_id,
+        'price': int(re.search(r'\d+', item.find('div', {'class': 'yszfz8-5 kbsRqK'}).text).group()),
+        'condition': 'New',
+        'size': float(size),
+        'img': item.find('img')['src']
+    }
     return info
 
 
@@ -75,12 +79,12 @@ def insert_items(feed, size):
         if "wmns" in data["model"].lower():
             continue
         data_list.append((data["id"],data["source"],data["model"],data["sku_id"],
-            data["brand"],data["price"],data["size"],data["url"],data["img"]))
+            data["size"],data["price"],data["category"],data["condition"],data["url"],data["img"]))
 
     try:
         c.executemany("""INSERT IGNORE INTO flightclub_sneakers
-            (id,source,model,sku_id,brand,price,size,url,image)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
+            (id,source,model,sku_id,size,price,category,shoe_condition,url,image)
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
         conn.commit()
     except ProgrammingError:
         pass
