@@ -42,7 +42,7 @@ def create_db_table():
         );""")
         conn.commit()
 
-        c.execute("ALTER TABLE stockx_sneakers ADD INDEX id (id);")
+        c.execute("ALTER TABLE flightclub_sneakers ADD INDEX id (id);")
         c.execute("ALTER TABLE flightclub_sneakers ADD FULLTEXT model_idx (model);")
         conn.commit()
     except ProgrammingError:
