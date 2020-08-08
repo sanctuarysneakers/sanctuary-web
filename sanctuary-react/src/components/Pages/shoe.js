@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useSelector } from 'react-redux'
 
-export default function Shoe(props) {
-    // TODO: save the shoe variable in state so when it renders without the prop it doesn't crash
-    // TODO: direct navigation to /shoe crashes because there is no <shoe> to render
-    const [shoe, changeShoe] = useState(props.location.state.sneaker)
+
+export default function Shoe() {
+    const shoe = useSelector(state => state.shoe)
 
     return (
     <div className="shoe-grid">
@@ -25,8 +25,8 @@ export default function Shoe(props) {
         </div>
 
         <div className="shoe-size">
-            <h3>Price</h3>
-            <span>5</span>
+            <h3>Size</h3>
+            <span>{shoe.size}</span>
         </div>
 
         <div className="shoe-condition">
@@ -35,10 +35,12 @@ export default function Shoe(props) {
         </div>
 
         <div className="shoe-source">
-            <img 
-                src={require(`../../assets/images/logos/${shoe.source.toLowerCase()}.png`)}
-                alt={shoe.source}
-            />
+            {shoe.source &&
+                <img 
+                    src={require(`../../assets/images/logos/${shoe.source.toLowerCase()}.png`)}
+                    alt={shoe.source}
+                />
+            }
         </div>
 
         <div className="shoe-buy"> 

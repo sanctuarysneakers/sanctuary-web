@@ -1,13 +1,16 @@
 import React from 'react'
+import img from '../../assets/images/splashPicture.jpg'
+import Catalog from '../catalog'
 
-import Splash from "../splash"
-import HomeProducts from "../homeproducts"
 
 export default function Home() {
     return (    
     <React.Fragment>
-        <Splash/>
-        <HomeProducts/>
+        <div className="splash">
+            <img src={img} alt="product"/>
+            <h1>Off White x Air Jordan 4 ‘Sail’</h1>
+        </div>
+        <Catalog/>
     </React.Fragment>
     )
 }

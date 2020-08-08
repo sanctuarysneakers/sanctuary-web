@@ -1,7 +1,6 @@
 import React from 'react'
-import {RiSearchLine, RiMenuLine} from 'react-icons/ri'
-import {Link} from 'react-router-dom'
-import ShopBySite from './shopbysite'
+import { Link } from 'react-router-dom'
+import SearchBar from './searchbar'
 
 
 export default function NavBar() {
@@ -13,12 +12,9 @@ export default function NavBar() {
                     Sanctuary
                 </span>
             </Link>
+            <SearchBar/>
             <div className='navLinks'>
-                <Link to="/shop">Shop All</Link>
-                <ShopBySite/>
                 <Link to="/about">About Us</Link>
-                <RiSearchLine/>
-                <RiMenuLine/>
             </div>
         </div>
     )

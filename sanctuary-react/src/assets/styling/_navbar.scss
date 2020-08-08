@@ -11,7 +11,7 @@
     top: 0;
     z-index: 1;
 
-    a, svg, button {
+    a {
         text-decoration: none;
         font-size: 15px;
         padding: 0 20px 0 20px;
@@ -22,9 +22,9 @@
         outline: none;
     }
 
-    .caret-icon {
-        padding-right: 0;
-    }
+    // .caret-icon {
+    //     padding-right: 0;
+    // }
 }
 
 .sanctuaryLogo {
@@ -32,9 +32,9 @@
     font-size: 25px;
 }
 
-.shopBySite {
-    text-align: center;
-}
+// .shopBySite {
+//     text-align: center;
+// }
 
 .navLinks {
     padding-right: 60px;
@@ -49,25 +49,25 @@
     }
 }
 
-.shopBySiteMenu {
-    background: white;
+// .shopBySiteMenu {
+//     background: white;
 
-    position: absolute;
-    top: 95px;
+//     position: absolute;
+//     top: 95px;
 
-    width: 110px;
-    transform: translateX(20px);
+//     width: 110px;
+//     transform: translateX(20px);
 
-    border-radius: 10px;
-    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2), 
-                0 2px 5px 0 rgba(0, 0, 0, 0.19);
+//     border-radius: 10px;
+//     box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2), 
+//                 0 2px 5px 0 rgba(0, 0, 0, 0.19);
 
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: flex-start;
 
-    a {
-        padding: 8px 0 8px 10px;
+//     a {
+//         padding: 8px 0 8px 10px;
         
-    }
-}
+//     }
+// }
