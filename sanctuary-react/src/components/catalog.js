@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import Sneaker from './sneaker'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateShoe, apiCall, toggleShoeDetails } from '../redux/actions'
+import { updateShoe, apiCall, showShoeModal } from '../redux/actions'
 
 
 export default function Catalog() {
@@ -20,27 +20,25 @@ export default function Catalog() {
             dispatch(apiCall(data))
         }
 
-        // filter options: price_low, price_high, search, size, source
-        function filter() {            
+        function applyfilter() {            
             if (filter.search) api_url += `&search=${filter.search}`
-            if (filter.size > 0) api_url += `&size=${filter.size}`
+
             // TODO: make this a drop down menu
-            if (filter.source) api_url += `&source=${filter.source}`
+            if (filter.size > 0) api_url += `&size=${filter.size}`
+            
             // TODO: make this a slider bar
-            // TODO: add price_low, price_high filters
-            // if (props.price_low)
-            // if (props.price_high)
+            if (filter.price_low > 0) api_url += `&price_low=${filter.price_low}`
+            if (filter.price_high > 0) api_url += `&price_high=${filter.price_high}`
         }
 
-        filter()
+        applyfilter()
         fetchData(api_url)
     }, [filter])
 
     const clickHandler = sneaker => {
         dispatch(updateShoe(sneaker))
-        dispatch(toggleShoeDetails())
+        dispatch(showShoeModal())
     }
-
 
     return (
         <div className='catalog'>
@@ -58,6 +56,7 @@ export default function Catalog() {
                         model={sneaker.model}
                         source={sneaker.source.toLowerCase()}
                         image={sneaker.image}
+                        shoe_condition={sneaker.shoe_condition}
                         />
                     </div>
                 )})}

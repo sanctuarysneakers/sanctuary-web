@@ -5,7 +5,7 @@ import NavBar from "./components/navbar"
 import Footer from "./components/footer"
 import Home from "./components/Pages/home"
 import AboutUs from "./components/Pages/about"
-import Shoe from "./components/Pages/shoe"
+import ShoeModal from "./components/Pages/shoemodal"
 import ContactUs from "./components/Pages/contact"
 import TermsOfUse from "./components/Pages/terms"
 import PrivacyPolicy from "./components/Pages/privacy"
@@ -17,7 +17,7 @@ import { useSelector } from 'react-redux'
 
 function App() {
 
-  const shoeDetails = useSelector(state => state.shoeDetails)
+  const shoeModalVisible = useSelector(state => state.shoeModalVisible)
 
   return (
     <React.Fragment>
@@ -31,7 +31,7 @@ function App() {
         <Route path="/privacy" component={PrivacyPolicy}/>
         <Route component={PageNotFound}/>
       </Switch>
-      {shoeDetails && <Shoe/>}
+      {shoeModalVisible && <ShoeModal/>}
       <Footer/>
     </React.Fragment>
   )

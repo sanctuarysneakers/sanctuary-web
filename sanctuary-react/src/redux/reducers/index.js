@@ -1,11 +1,11 @@
 import shoeReducer from './shoereducer'
 import apiDataReducer from './apidatareducer'
 import filterReducer from './filterreducer'
-import shoeDetailsReducer from './shoedetailsreducer'
+import shoeModalVisibleReducer from './shoemodalvisiblereducer'
 import { combineReducers } from 'redux'
 
 const globalReducer = combineReducers({
-    shoeDetails: shoeDetailsReducer,
+    shoeModalVisible: shoeModalVisibleReducer,
     filter: filterReducer,
     apiData: apiDataReducer,
     shoe: shoeReducer

@@ -5,6 +5,7 @@ let initState = {
     model: "",
     source: "",
     image: "",
+    shoe_condition: ""
 }
 
 const shoeReducer = (state = initState, action) => {
