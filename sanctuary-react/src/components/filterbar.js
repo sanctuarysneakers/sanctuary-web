@@ -1,51 +1,36 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { updateSizeFilter, updatePriceLowFilter, updatePriceHighFilter } from '../redux/actions'
 
 
-export default function FilterBar(props) {
+export default function FilterBar() {
 
-    // TODO: add price_low, price_high filters
+    const dispatch = useDispatch()
 
-    function updateSize(event) {
-        props.changeSize(event.target.value)
-    }
-
-    function updatePrice(event) {
-        props.changePrice(event.target.value)
-    }
-
-    function updateSource(event) {
-        props.changeSource(event.target.value)
-    }
-
-    // TODO: turn site filter into a drop down
     return (
         <div className="filterBar">
+
             <label> Size Filter:
                 <input 
-                    className="sizeFilter"
                     type='number' 
-                    value={props.size}
-                    onChange={updateSize}
+                    onChange={e => dispatch(updateSizeFilter(e.target.value))}
                 />
             </label>
 
-            <label> Price Filter:
+            <label> Price Low Filter:
                 <input 
-                    className="priceFilter"
                     type='number' 
-                    value={props.price}
-                    onChange={updatePrice}
+                    onChange={e => dispatch(updatePriceLowFilter(e.target.value))}
                 />
             </label>
 
-            <label> Site Filter:
+            <label> Price High Filter:
                 <input 
-                    className="sourceFilter"
-                    type='text' 
-                    value={props.source}
-                    onChange={updateSource}
+                    type='number' 
+                    onChange={e => dispatch(updatePriceHighFilter(e.target.value))}
                 />
             </label>
+
         </div>
     )
 }
