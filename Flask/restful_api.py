@@ -64,6 +64,9 @@ class Search(Resource):
 
 
 def format_search_query(string):
+    if (len(string) < 5):
+        return string
+
     try:
         idx = string.index("air")
         newstr = string[:idx] + '~' + string[idx:]
