@@ -1,12 +1,12 @@
 import React from 'react'
 import {RiSearchLine} from 'react-icons/ri'
+import { useDispatch } from 'react-redux'
+import { updateSearch } from '../redux/actions'
 
 
-export default function SearchBar(props) {
+export default function SearchBar() {
 
-    function updateSearch(event) {
-        props.changeSearch(event.target.value)
-    }
+    const dispatch = useDispatch()
 
     return (
         <div className="searchBar">
@@ -17,8 +17,7 @@ export default function SearchBar(props) {
                 className="searchText"
                 type="text"
                 placeholder="Search"
-                value={props.search}
-                onChange={updateSearch}
+                onChange={e => dispatch(updateSearch(e.target.value))}
             />
         </div>
     )

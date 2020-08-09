@@ -17,13 +17,12 @@ def connect_to_db():
         print("couldn't connect to database")
     return connection, cursor
 
-
 conn, c = connect_to_db()
-
 
 application = Flask(__name__)
 cors = CORS(application, resources={r"*": {"origins": "*"}})
 api = Api(application)
+
 
 parser = reqparse.RequestParser()
 parser.add_argument('source', type=str, default='stockx')
@@ -33,7 +32,6 @@ parser.add_argument('price_low', type=int, default=0)
 parser.add_argument('price_high', type=int, default=1000)
 parser.add_argument('page', type=int, default=0)
 
-
 class Search(Resource):
 
     def get(self):
@@ -41,20 +39,20 @@ class Search(Resource):
 
         args = parser.parse_args()
         source = args['source']
-        search = args['search']
+        search = format_search_query(args['search'].lower())
         size = args['size']
         price_low = args['price_low']
         price_high = args['price_high']
-        offset = args['page']*1000
+        offset = args['page']*100
 
         if size is None:
             query = """SELECT * FROM {}_sneakers 
-                       WHERE MATCH(model) AGAINST('{}') AND price >= {} AND price <= {}
-                       LIMIT 1000 OFFSET {};""".format(source, search, price_low, price_high, offset)
+                       WHERE MATCH(model) AGAINST('{}' IN BOOLEAN MODE) AND price >= {} AND price <= {}
+                       LIMIT 100 OFFSET {};""".format(source, search, price_low, price_high, offset)
         else:
             query = """SELECT * FROM {}_sneakers 
-                       WHERE MATCH(model) AGAINST('{}') AND size={} AND price >= {} AND price <= {}
-                       LIMIT 1000 OFFSET {};""".format(source, search, size, price_low, price_high, offset)
+                       WHERE MATCH(model) AGAINST('{}' IN BOOLEAN MODE) AND size={} AND price >= {} AND price <= {}
+                       LIMIT 100 OFFSET {};""".format(source, search, size, price_low, price_high, offset)
         
         try:
             c.execute(query)
@@ -63,6 +61,18 @@ class Search(Resource):
             c.execute(query)
         data = c.fetchall()
         return data
+
+
+def format_search_query(string):
+    if (len(string) < 5):
+        return string
+
+    try:
+        idx = string.index("air")
+        newstr = string[:idx] + '~' + string[idx:]
+        return newstr
+    except ValueError:
+        return string
 
 
 api.add_resource(Search, '/')

@@ -1,20 +1,17 @@
 @import "./_variables";
 @import "./_navbar";
 @import "./_splash";
-@import "./_homeproducts";
 @import "./_catalog";
 @import "./_searchbar";
 @import "./_sneaker";
 @import "./_footer";
-@import "./_shopheader";
 @import "./_filterbar";
 @import "./_aboutus";
 @import "./_privacy";
-@import "./_shoe";
+@import "./_shoemodal";
 
 body {
     font-family: 'Poppins', sans-serif;
-    // font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     font-weight: 500;
     color: $text-color;
     background: #F6F6F6;
