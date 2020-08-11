@@ -60,6 +60,7 @@ class Search(Resource):
             conn, c = connect_to_db()
             c.execute(query)
         data = c.fetchall()
+        conn.commit()
         return data
 
 
