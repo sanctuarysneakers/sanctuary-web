@@ -5,9 +5,9 @@ import mysql.connector
 from mysql.connector import ProgrammingError
 
 def connect_to_db():
-    host = "test-database-1.cmamugrum56i.us-west-2.rds.amazonaws.com"
+    host = "mysql-db-master.cmamugrum56i.us-west-2.rds.amazonaws.com"
     user = "admin"
-    passwd = "password"
+    passwd = "4tDqfnvbQ8R8RGuh"
     db_name = "sneakers"
     try:
         connection = mysql.connector.connect(host=host, user=user, passwd=passwd, database=db_name)
