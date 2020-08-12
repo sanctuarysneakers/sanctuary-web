@@ -10,16 +10,17 @@ from mysql.connector import ProgrammingError
 
 # Setup webdriver & options
 options = Options()
+options.add_argument('--no-sandbox')
 options.add_argument("--headless")
-options.add_argument("--disable-gpu")
+options.add_argument('--disable-dev-shm-usage')
 driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 driver.get('https://www.flightclub.com/air-jordans')
 
 
 # Setup connection to database
-host = "test-database-1.cmamugrum56i.us-west-2.rds.amazonaws.com"
+host = "mysql-db-master.cmamugrum56i.us-west-2.rds.amazonaws.com"
 user = "admin"
-passwd = "password"
+passwd = "4tDqfnvbQ8R8RGuh"
 db_name = "sneakers"
 try:
     conn = mysql.connector.connect(host=host, user=user, passwd=passwd, database=db_name)
@@ -32,7 +33,7 @@ except ProgrammingError:
 def create_db_table():
     """ Creates an empty database table with the necessary keys."""
     try:
-        c.execute("""CREATE TABLE flightclub_sneakers (
+        c.execute("""CREATE TABLE flightclub_sneakers_tmp (
             id INT PRIMARY KEY,
             source VARCHAR(50),
             model TEXT,
@@ -45,12 +46,18 @@ def create_db_table():
             image TEXT
         );""")
         conn.commit()
-
-        c.execute("ALTER TABLE flightclub_sneakers ADD INDEX id (id);")
-        c.execute("ALTER TABLE flightclub_sneakers ADD FULLTEXT model_idx (model);")
-        conn.commit()
     except ProgrammingError:
         pass
+
+
+def alter_db_table():
+    c.execute("ALTER TABLE flightclub_sneakers_tmp ADD INDEX id (id);")
+    c.execute("ALTER TABLE flightclub_sneakers_tmp ADD FULLTEXT model_idx (model);")
+
+    c.execute("RENAME TABLE flightclub_sneakers TO flightclub_sneakers_old, flightclub_sneakers_tmp TO flightclub_sneakers;")
+    c.execute("DROP TABLE flightclub_sneakers_old;")
+
+    conn.commit()
 
 
 def get_item_info(item, size):
@@ -86,7 +93,7 @@ def insert_items(feed, size):
             data["size"],data["price"],data["category"],data["condition"],data["url"],data["img"]))
 
     try:
-        c.executemany("""INSERT IGNORE INTO flightclub_sneakers
+        c.executemany("""INSERT IGNORE INTO flightclub_sneakers_tmp
             (id,source,model,sku_id,size,price,category,shoe_condition,url,image)
             VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
         conn.commit()
@@ -122,6 +129,7 @@ def run_scraper():
 
 create_db_table()
 run_scraper()
+alter_db_table()
 
 driver.close()
 conn.close()
