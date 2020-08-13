@@ -5,9 +5,32 @@ export const updateShoe = shoe => {
     }
 }
 
-export const apiCall = data => {
+// API Call Actions
+
+export const stockxCall = data => {
     return {
-        type: 'API_CALL',
+        type: 'STOCKX_CALL',
+        payload: data
+    }
+}
+
+export const goatCall = data => {
+    return {
+        type: 'GOAT_CALL',
+        payload: data
+    }
+}
+
+export const grailedCall = data => {
+    return {
+        type: 'GRAILED_CALL',
+        payload: data
+    }
+}
+
+export const flightClubCall = data => {
+    return {
+        type: 'FLIGHTCLUB_CALL',
         payload: data
     }
 }
@@ -55,3 +78,16 @@ export const hideShoeModal = () => {
         type: 'HIDE_SHOE_MODAL'
     }
 }
+
+export const showAboutModal = () => {
+    return {
+        type: 'SHOW_ABOUT_MODAL'
+    }
+}
+
+export const hideAboutModal = () => {
+    return {
+        type: 'HIDE_ABOUT_MODAL'
+    }
+}
+

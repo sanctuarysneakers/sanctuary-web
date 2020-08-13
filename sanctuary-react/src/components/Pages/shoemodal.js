@@ -8,8 +8,12 @@ export default function ShoeModal() {
     const wrapperRef = useRef(null)
     useOutsideAlerter(wrapperRef)
 
+    let url = shoe.url
+    url = url.replace(/(^\w+:|^)\/\//, '')
+
+    // TODO: have grailed condition display as regular text
     return (
-    <div className="shoe-modal">
+    <div className="modal">
         <div className="shoe-grid" ref={wrapperRef}>
 
             <div className="shoe-model">
@@ -48,7 +52,7 @@ export default function ShoeModal() {
             </div>
 
             <div className="shoe-buy"> 
-                <a target="_blank " href={`https://${shoe.url}`}>Buy Now</a>
+                <a target="_blank " href={`https://${url}`}>Buy Now</a>
             </div>
 
         </div>
