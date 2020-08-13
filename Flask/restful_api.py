@@ -33,13 +33,12 @@ parser.add_argument('size', type=int)
 parser.add_argument('price_low', type=int, default=0)
 parser.add_argument('price_high', type=int, default=1000)
 parser.add_argument('page', type=int, default=0)
-parser.add_argument('email', type=str, default='janedoe@email.com' )
+parser.add_argument('email', type=str)
 
 
 class Search(Resource):
 
-    @staticmethod
-    def get():
+    def get(self):
         global conn, c
 
         args = parser.parse_args()
@@ -71,19 +70,17 @@ class Search(Resource):
 
 class Emails(Resource):
 
-    def post(self):
+    def get(self):
         global conn, c
         args = parser.parse_args()
         email = args['email']
-        query = "INSERT INTO email_list VALUES({})".format(email)
+        query = "INSERT INTO email_list (email) VALUES ('{}')".format(email)
         try:
             c.execute(query)
         except:
             conn, c = connect_to_db()
             c.execute(query)
-        data = c.fetchall()
         conn.commit()
-        return data
 
 
 def format_search_query(string):
@@ -99,6 +96,7 @@ def format_search_query(string):
 
 
 api.add_resource(Search, '/')
+api.add_resource(Emails, '/emails')
   
 if __name__ == '__main__':
     application.run(debug=True)
