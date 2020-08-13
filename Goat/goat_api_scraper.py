@@ -19,6 +19,7 @@ except ProgrammingError:
 
 def create_db_table():
     """ Creates an empty database table with the necessary keys."""
+    c.execute("DROP TABLE IF EXISTS goat_sneakers_tmp;")
     try:
         c.execute("""CREATE TABLE goat_sneakers_tmp (
             id INT PRIMARY KEY,

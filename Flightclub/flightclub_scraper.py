@@ -32,6 +32,7 @@ except ProgrammingError:
 
 def create_db_table():
     """ Creates an empty database table with the necessary keys."""
+    c.execute("DROP TABLE IF EXISTS flightclub_sneakers_tmp;")
     try:
         c.execute("""CREATE TABLE flightclub_sneakers_tmp (
             id INT PRIMARY KEY,
@@ -104,13 +105,10 @@ def insert_items(feed, size):
 
 
 def run_scraper():
-    #time.sleep(5)
-    #sizes = driver.find_element_by_css_selector(
-    #    'div.u0zz5n-0:nth-child(4) > div:nth-child(2) > div:nth-child(1)').text.split('\n')
     sizes = [5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12,12.5,13,13.5,14,15,16]
     for size in sizes:
         driver.get('https://www.flightclub.com/air-jordans?size_men=' + str(size))
-        time.sleep(2.5)
+        time.sleep(5)
         soup = BeautifulSoup(driver.page_source, "lxml")
         
         items = []
