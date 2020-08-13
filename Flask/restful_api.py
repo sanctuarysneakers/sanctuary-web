@@ -4,6 +4,7 @@ from flask_cors import CORS
 import mysql.connector
 from mysql.connector import ProgrammingError
 
+
 def connect_to_db():
     host = "mysql-db-master.cmamugrum56i.us-west-2.rds.amazonaws.com"
     user = "admin"
@@ -16,6 +17,7 @@ def connect_to_db():
     except ProgrammingError:
         print("couldn't connect to database")
     return connection, cursor
+
 
 conn, c = connect_to_db()
 
@@ -31,6 +33,8 @@ parser.add_argument('size', type=int)
 parser.add_argument('price_low', type=int, default=0)
 parser.add_argument('price_high', type=int, default=1000)
 parser.add_argument('page', type=int, default=0)
+parser.add_argument('email', type=str)
+
 
 class Search(Resource):
 
@@ -64,8 +68,23 @@ class Search(Resource):
         return data
 
 
+class Emails(Resource):
+
+    def get(self):
+        global conn, c
+        args = parser.parse_args()
+        email = args['email']
+        query = "INSERT INTO email_list (email) VALUES ('{}')".format(email)
+        try:
+            c.execute(query)
+        except:
+            conn, c = connect_to_db()
+            c.execute(query)
+        conn.commit()
+
+
 def format_search_query(string):
-    if (len(string) < 5):
+    if len(string) < 5:
         return string
 
     try:
@@ -77,6 +96,7 @@ def format_search_query(string):
 
 
 api.add_resource(Search, '/')
+api.add_resource(Emails, '/emails')
   
 if __name__ == '__main__':
     application.run(debug=True)
