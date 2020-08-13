@@ -7,7 +7,7 @@ let initState = {
 }
 
 const filterReducer = (state = initState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case 'UPDATE_SEARCH':
             return { ...state, search: action.payload }
         case 'UPDATE_SIZE_FILTER':

@@ -9,7 +9,7 @@
 //     const [price, changePrice] = useState(0)
 //     const [source, changeSource] = useState(props.site)
 
-//     // TODO: add price_low, price_high props
+//     // wODO: add price_low, price_high props
 
 //     return (
 //         <div className="products">

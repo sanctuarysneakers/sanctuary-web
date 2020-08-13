@@ -9,7 +9,7 @@
 
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 10;
 
     a {
         text-decoration: none;
@@ -21,10 +21,6 @@
         font-weight: 300;
         outline: none;
     }
-
-    // .caret-icon {
-    //     padding-right: 0;
-    // }
 }
 
 .sanctuaryLogo {
@@ -32,15 +28,15 @@
     font-size: 25px;
 }
 
-.navLinks {
-    padding-right: 60px;
+// .navLinks {
+//     padding-right: 60px;
 
-    display: flex;
-    align-items: center;
+//     display: flex;
+//     align-items: center;
 
-    list-style-type: none;
+//     list-style-type: none;
 
-    *:hover {
-        color: $hover-blue;
-    }
-} 
+//     *:hover {
+//         color: $hover-blue;
+//     }
+// } 

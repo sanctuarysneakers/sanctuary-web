@@ -1,65 +1,99 @@
 import React, { useEffect } from "react"
-import Sneaker from './sneaker'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateShoe, apiCall, showShoeModal } from '../redux/actions'
+import { stockxCall, goatCall, grailedCall, flightClubCall } from '../redux/actions'
+import Slider from "./slider"
+
+import stockxLogo from "../assets/images/logos/stockx.png"
+import goatLogo from "../assets/images/logos/goat.png"
+import grailedLogo from "../assets/images/logos/grailed.png"
+import flightclubLogo from "../assets/images/logos/flight club.png"
 
 
 export default function Catalog() {
-    
-    const filter = useSelector(state => state.filter)
-    const apiData = useSelector(state => state.apiData)
+
     const dispatch = useDispatch()
+    const filter = useSelector(state => state.filter)
+
+    const stockxData = useSelector(state => state.stockxData)
+    const goatData = useSelector(state => state.goatData)
+    const grailedData = useSelector(state => state.grailedData)
+    const flightClubData = useSelector(state => state.flightClubData)
+
 
     useEffect(() => {
 
         let api_url = `http://flask-env.eba-wjhtntpd.us-west-2.elasticbeanstalk.com/?`
+        let sites = ["stockx", "goat", "grailed", "flightclub"]
 
         async function fetchData(url) {
-            const response = await fetch(url)
-            const data = await response.json()
-            dispatch(apiCall(data))
+            for await (const site of sites) {
+                const response = await fetch(url + `&source=${site}`)
+                let data = await response.json()
+                if ("message" in data && data["message"] === "Internal Server Error") {
+                    data = []
+                }
+
+                switch (site) {
+                    case "stockx":
+                        dispatch(stockxCall(data))
+                        break
+                    case "goat":
+                        dispatch(goatCall(data))
+                        break
+                    case "grailed":
+                        dispatch(grailedCall(data))
+                        break
+                    case "flightclub":
+                        dispatch(flightClubCall(data))
+                        break
+                }
+            }
         }
 
-        function applyfilter() {            
+        function applyfilter() {
             if (filter.search) api_url += `&search=${filter.search}`
 
             // TODO: make this a drop down menu
             if (filter.size > 0) api_url += `&size=${filter.size}`
-            
+
             // TODO: make this a slider bar
             if (filter.price_low > 0) api_url += `&price_low=${filter.price_low}`
             if (filter.price_high > 0) api_url += `&price_high=${filter.price_high}`
         }
 
         applyfilter()
-        fetchData(api_url)
+        fetchData(api_url, "stockx")
     }, [filter])
-
-    const clickHandler = sneaker => {
-        dispatch(updateShoe(sneaker))
-        dispatch(showShoeModal())
-    }
 
     return (
         <div className='catalog'>
-            {apiData.map((sneaker) => {
-                    return (
-                    <div
-                        className="shoe-card"
-                        key={sneaker.id}
-                        onClick={() => clickHandler(sneaker)}
-                    >
-                        <Sneaker
-                        size={sneaker.size}
-                        price={sneaker.price}
-                        url={sneaker.url}
-                        model={sneaker.model}
-                        source={sneaker.source.toLowerCase()}
-                        image={sneaker.image}
-                        shoe_condition={sneaker.shoe_condition}
-                        />
-                    </div>
-                )})}
-            </div>
+            <img 
+                className='stockxLogo'
+                src={stockxLogo}
+                alt={"StockX"}
+            />
+            <Slider data={stockxData} />
+
+            <img 
+                className='goatLogo'
+                src={goatLogo}
+                alt={"GOAT"}
+            />
+            <Slider data={goatData} />
+
+            <img 
+                className='grailedLogo'
+                src={grailedLogo}
+                alt={"Grailed"}
+            />
+            <Slider data={grailedData} />
+
+            <img 
+                className='flightclubLogo'
+                src={flightclubLogo}
+                alt={"Flight Club"}
+            />
+            <Slider data={flightClubData} />
+        </div>
     )
 }
