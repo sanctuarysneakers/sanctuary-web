@@ -74,7 +74,7 @@ class Emails(Resource):
         global conn, c
         args = parser.parse_args()
         email = args['email']
-        query = "INSERT INTO email_list (email) VALUES ('{}')".format(email)
+        query = "INSERT IGNORE INTO email_list (email) VALUES ('{}')".format(email)
         try:
             c.execute(query)
         except:
