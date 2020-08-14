@@ -50,31 +50,35 @@ class Search(Resource):
         offset = args['page']*100
 
         size_str = '>0' if size is None else '={}'.format(size)
+        is_default = True if search == 'jordan' else False
 
         if source == "goat":
+            order_by = 'ORDER BY trending DESC, just_dropped DESC' if is_default else ''
             query = f"""SELECT *
                         FROM (SELECT * FROM goat_sneakers
-                            WHERE MATCH(model) AGAINST('{search}') AND size{size_str} AND price>{price_low} AND price<{price_high}
+                            WHERE MATCH(model) AGAINST('{search}' IN BOOLEAN MODE) AND size{size_str} AND price>{price_low} AND price<{price_high}
                             GROUP BY model) t
-                        ORDER BY trending DESC, just_dropped DESC
+                        {order_by}
                         LIMIT 100 OFFSET {offset};"""
         elif source == "stockx":
+            order_by = 'ORDER BY SUM(recently_sold) DESC' if is_default else ''
             query = f"""SELECT *
                         FROM stockx_sneakers
-                        WHERE MATCH(model) AGAINST('{search}') AND size{size_str} AND price>{price_low} AND price<{price_high}
+                        WHERE MATCH(model) AGAINST('{search}' IN BOOLEAN MODE) AND size{size_str} AND price>{price_low} AND price<{price_high}
                         GROUP BY model
-                        ORDER BY SUM(recently_sold) DESC
+                        {order_by}
                         LIMIT 100 OFFSET {offset};"""
         elif source == "grailed":
+            order_by = 'ORDER BY heat DESC, date_bumped DESC' if is_default else ''
             query = f"""SELECT *
                         FROM grailed_sneakers
-                        WHERE MATCH(model) AGAINST('{search}') AND size{size_str} AND price>{price_low} AND price<{price_high}
-                        ORDER BY heat DESC, date_bumped DESC
+                        WHERE MATCH(model) AGAINST('{search}' IN BOOLEAN MODE) AND size{size_str} AND price>{price_low} AND price<{price_high}
+                        {order_by}
                         LIMIT 100 OFFSET {offset};"""
         elif source == "flightclub":
             query = f"""SELECT *
                         FROM flightclub_sneakers
-                        WHERE MATCH(model) AGAINST('{search}') AND size{size_str} AND price>{price_low} AND price<{price_high}
+                        WHERE MATCH(model) AGAINST('{search}' IN BOOLEAN MODE) AND size{size_str} AND price>{price_low} AND price<{price_high}
                         GROUP BY model
                         LIMIT 100 OFFSET {offset};"""
         else:
