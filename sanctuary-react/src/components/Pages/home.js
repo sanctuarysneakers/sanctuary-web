@@ -1,7 +1,7 @@
 import React from 'react'
 import { showAboutModal } from '../../redux/actions'
 import { useDispatch } from 'react-redux'
-import img from '../../assets/images/splashPicture.jpg'
+import img from '../../assets/images/heroImage.jpg'
 import Catalog from '../catalog'
 import FilterBar from '../filterbar'
 
@@ -19,6 +19,10 @@ export default function Home() {
             <button onClick={() => dispatch(showAboutModal())}>
                 About Us
             </button>
+            <a href="#shop-now" className="ShopNowButton"> 
+                Shop Now
+            </a>
+            <div id="shop-now"></div>
         </div>
         <FilterBar/>
         <Catalog/>

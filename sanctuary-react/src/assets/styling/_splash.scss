@@ -1,49 +1,93 @@
+html {
+    scroll-behavior: smooth;
+}
+
 .splash {
-    height: 576px;
-    width: 100%;
-    background: $splash-color;
     position: relative;
+    top: -91px;
+
+    width: 100vw;
+    height: 100vh;
 
     h1 {
         position: absolute;
-        top: 64%;
-        left: 47%;
-        font-size: 48px;
+        top: 49.3%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        font-size: 64px;
         font-weight: 600;
-        color: #353234;
+        color: #F6F6F6;
         margin: 0;
     }
 
     h3 {
         position: absolute;
-        top: 70%;
-        left: 47%;
+        top: 56.08%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        font-size: 18px;
+        font-weight: 500;
+        color: #F6F6F6;
+        margin: 0;
     }
 
     button {
         position: absolute;
-        top: 80%;
-        left: 60%;
+        top: 63.8%;
+        left: 54.55%;
+        transform: translate(-50%, -50%);
+
+        height: 50px;
+        width: 120px;
+        border-radius: 100px;
+        border: none;
+        outline: none;
+        background: white;
+        
+        font-size: 12px;
+        font-weight: 600;
+        color: #6B7BF0;
     }
 
     img {
-        height: 100%;
+        width: 100vw;
+        height: 100vh;
     }
 
     a {
         position: absolute;
-        top: 76.75%;
-        left: 89.25%;
+        top: 60.4%;
+        left: 41.22%;
 
-        font-size: 13px;
-        font-weight: 600;
-        color: #353234;
+        font-size: 12px;
+        font-weight: 500;
+        color: white;
         text-decoration: none;
         text-align: center;
-
-        background-color: transparent;
-        border: 2px solid #353234;
         border-radius: 100px;
-        padding: 6px 23px;
-    }
+        // padding: 6px 23px;
+        width: 120px;
+        padding: 16px 0;
+
+        background: linear-gradient(-50deg, #D05FBB, #F092AC)
+    } 
+
+    // a {
+    //     position: absolute;
+    //     top: 76.75%;
+    //     left: 89.25%;
+
+    //     font-size: 13px;
+    //     font-weight: 600;
+    //     color: #353234;
+    //     text-decoration: none;
+    //     text-align: center;
+
+    //     background-color: transparent;
+    //     border: 2px solid #353234;
+    //     border-radius: 100px;
+    //     padding: 6px 23px;
+    // }
 }
