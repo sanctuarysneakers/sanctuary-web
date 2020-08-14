@@ -74,7 +74,7 @@ class Search(Resource):
         elif source == "flightclub":
             query = f"""SELECT *
                         FROM flightclub_sneakers
-                        WHERE MATCH(model) AGAINST('{search}') AND size{size_str} AND price>{price_low} AND price<{price_high} AND sku_id IS NOT NULL
+                        WHERE MATCH(model) AGAINST('{search}') AND size{size_str} AND price>{price_low} AND price<{price_high}
                         GROUP BY model
                         LIMIT 100 OFFSET {offset};"""
         else:
