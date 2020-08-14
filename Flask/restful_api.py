@@ -42,21 +42,43 @@ class Search(Resource):
         global conn, c
 
         args = parser.parse_args()
-        source = args['source']
+        source = args['source'].lower()
         search = format_search_query(args['search'].lower())
         size = args['size']
         price_low = args['price_low']
         price_high = args['price_high']
         offset = args['page']*100
 
-        if size is None:
-            query = """SELECT * FROM {}_sneakers 
-                       WHERE MATCH(model) AGAINST('{}' IN BOOLEAN MODE) AND price >= {} AND price <= {}
-                       LIMIT 100 OFFSET {};""".format(source, search, price_low, price_high, offset)
+        size_str = '>0' if size is None else '={}'.format(size)
+
+        if source == "goat":
+            query = f"""SELECT *
+                        FROM (SELECT * FROM goat_sneakers
+                            WHERE MATCH(model) AGAINST('{search}') AND size{size_str} AND price>{price_low} AND price<{price_high}
+                            GROUP BY model) t
+                        ORDER BY trending DESC, just_dropped DESC
+                        LIMIT 100 OFFSET {offset};"""
+        elif source == "stockx":
+            query = f"""SELECT *
+                        FROM stockx_sneakers
+                        WHERE MATCH(model) AGAINST('{search}') AND size{size_str} AND price>{price_low} AND price<{price_high}
+                        GROUP BY model
+                        ORDER BY SUM(recently_sold) DESC
+                        LIMIT 100 OFFSET {offset};"""
+        elif source == "grailed":
+            query = f"""SELECT *
+                        FROM grailed_sneakers
+                        WHERE MATCH(model) AGAINST('{search}') AND size{size_str} AND price>{price_low} AND price<{price_high}
+                        ORDER BY heat DESC, date_bumped DESC
+                        LIMIT 100 OFFSET {offset};"""
+        elif source == "flightclub":
+            query = f"""SELECT *
+                        FROM flightclub_sneakers
+                        WHERE MATCH(model) AGAINST('{search}') AND size{size_str} AND price>{price_low} AND price<{price_high} AND sku_id IS NOT NULL
+                        GROUP BY model
+                        LIMIT 100 OFFSET {offset};"""
         else:
-            query = """SELECT * FROM {}_sneakers 
-                       WHERE MATCH(model) AGAINST('{}' IN BOOLEAN MODE) AND size={} AND price >= {} AND price <= {}
-                       LIMIT 100 OFFSET {};""".format(source, search, size, price_low, price_high, offset)
+            return {"Error": "Enter a correct source name"}
         
         try:
             c.execute(query)
