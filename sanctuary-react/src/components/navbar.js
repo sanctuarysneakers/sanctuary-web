@@ -13,9 +13,6 @@ export default function NavBar() {
                 </span>
             </Link>
             <SearchBar/>
-            <div className='navLinks'>
-                <Link to="/about">About Us</Link>
-            </div>
         </div>
     )
 }

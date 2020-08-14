@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 
 export default function Footer() {
 
+    // TODO: link social media and footer pages
     return (
         <React.Fragment>
 
@@ -24,9 +25,9 @@ export default function Footer() {
 
             <div className='bottomText'>
                 <ul>
-                    <Link to="/contact">Contact Us</Link>
-                    <Link to="/terms">Terms of Use</Link>
-                    <Link to="/privacy">Privacy Policy</Link>
+                    <Link >Contact Us</Link> {/* to="/contact" */}
+                    <Link >Terms of Use</Link> {/* to="/terms" */}
+                    <Link >Privacy Policy</Link> {/* to="/privacy" */}
                 </ul>
                 <div className="bottomTextIcons">
                     <FiInstagram/>

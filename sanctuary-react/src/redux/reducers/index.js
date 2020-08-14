@@ -1,14 +1,22 @@
 import shoeReducer from './shoereducer'
-import apiDataReducer from './apidatareducer'
+import stockxDataReducer from './stockxdatareducer'
+import goatDataReducer from './goatdatareducer'
+import grailedDataReducer from './graileddatareducer'
+import flightClubDataReducer from './flightclubdatareducer'
 import filterReducer from './filterreducer'
 import shoeModalVisibleReducer from './shoemodalvisiblereducer'
+import aboutModalVisibleReducer from './aboutmodalvisiblereducer'
 import { combineReducers } from 'redux'
 
 const globalReducer = combineReducers({
     shoeModalVisible: shoeModalVisibleReducer,
+    aboutModalVisible: aboutModalVisibleReducer,
     filter: filterReducer,
-    apiData: apiDataReducer,
-    shoe: shoeReducer
+    shoe: shoeReducer,
+    stockxData: stockxDataReducer,
+    goatData: goatDataReducer,
+    grailedData: grailedDataReducer,
+    flightClubData: flightClubDataReducer
 })
 
 export default globalReducer

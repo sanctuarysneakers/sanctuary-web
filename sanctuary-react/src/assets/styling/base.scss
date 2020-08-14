@@ -1,14 +1,18 @@
-@import "./_variables";
-@import "./_navbar";
-@import "./_splash";
-@import "./_catalog";
-@import "./_searchbar";
-@import "./_sneaker";
-@import "./_footer";
-@import "./_filterbar";
-@import "./_aboutus";
-@import "./_privacy";
-@import "./_shoemodal";
+@import "./variables";
+@import "./navbar";
+@import "./splash";
+@import "./catalog";
+@import "./searchbar";
+@import "./sneaker";
+@import "./footer";
+@import "./filterbar";
+@import "./aboutmodal";
+@import "./shoemodal";
+@import "./slider";
+@import "./modal";
+
+@import "swiper/swiper";
+@import 'swiper/components/navigation/navigation';
 
 body {
     font-family: 'Poppins', sans-serif;

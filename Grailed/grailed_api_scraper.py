@@ -5,9 +5,9 @@ from mysql.connector import ProgrammingError
 
 
 # Setup connection to database
-host = "test-database-1.cmamugrum56i.us-west-2.rds.amazonaws.com"
+host = "mysql-db-master.cmamugrum56i.us-west-2.rds.amazonaws.com"
 user = "admin"
-passwd = "password"
+passwd = "4tDqfnvbQ8R8RGuh"
 db_name = "sneakers"
 try:
     conn = mysql.connector.connect(host=host, user=user, passwd=passwd, database=db_name)
@@ -19,8 +19,9 @@ except ProgrammingError:
 
 def create_db_table():
     """ Creates an empty database table with the necessary keys."""
+    c.execute("DROP TABLE IF EXISTS grailed_sneakers_tmp;")
     try:
-        c.execute("""CREATE TABLE grailed_sneakers (
+        c.execute("""CREATE TABLE grailed_sneakers_tmp (
             id INT PRIMARY KEY,
             source VARCHAR(50),
             model TEXT,
@@ -47,12 +48,18 @@ def create_db_table():
             image TEXT
         );""")
         conn.commit()
-
-        c.execute("ALTER TABLE grailed_sneakers ADD INDEX id (id);")
-        c.execute("ALTER TABLE grailed_sneakers ADD FULLTEXT model_idx (model);")
-        conn.commit()
     except ProgrammingError:
         pass
+
+
+def alter_db_table():
+    c.execute("ALTER TABLE grailed_sneakers_tmp ADD INDEX id (id);")
+    c.execute("ALTER TABLE grailed_sneakers_tmp ADD FULLTEXT model_idx (model);")
+
+    c.execute("RENAME TABLE grailed_sneakers TO grailed_sneakers_old, grailed_sneakers_tmp TO grailed_sneakers;")
+    c.execute("DROP TABLE grailed_sneakers_old;")
+
+    conn.commit()
 
 
 def get_api_data():
@@ -144,7 +151,7 @@ def insert_items(item_data):
             item["shipping_other"], item["url"], item["img"]))
     
     try:
-        c.executemany("""INSERT IGNORE INTO grailed_sneakers 
+        c.executemany("""INSERT IGNORE INTO grailed_sneakers_tmp
             (id,source,model,sku_id,size,price,shoe_condition,category,old_price,
             date_bumped,date_created,heat,seller_location,
             seller_rating,seller_rating_count,shipping_us,shipping_ca,shipping_uk,
@@ -173,5 +180,6 @@ def run_scraper():
 
 create_db_table()
 run_scraper()
+alter_db_table()
 
 conn.close()

@@ -5,9 +5,9 @@ from mysql.connector import ProgrammingError
 
 
 # Setup connection to database
-host = "test-database-1.cmamugrum56i.us-west-2.rds.amazonaws.com"
+host = "mysql-db-master.cmamugrum56i.us-west-2.rds.amazonaws.com"
 user = "admin"
-passwd = "password"
+passwd = "4tDqfnvbQ8R8RGuh"
 db_name = "sneakers"
 try:
     conn = mysql.connector.connect(host=host, user=user, passwd=passwd, database=db_name)
@@ -19,8 +19,9 @@ except ProgrammingError:
 
 def create_db_table():
     """ Creates an empty database table with the necessary keys."""
+    c.execute("DROP TABLE IF EXISTS goat_sneakers_tmp;")
     try:
-        c.execute("""CREATE TABLE goat_sneakers (
+        c.execute("""CREATE TABLE goat_sneakers_tmp (
             id INT PRIMARY KEY,
             source VARCHAR(50),
             model TEXT,
@@ -35,12 +36,18 @@ def create_db_table():
             image TEXT
         );""")
         conn.commit()
-
-        c.execute("ALTER TABLE goat_sneakers ADD INDEX id (id);")
-        c.execute("ALTER TABLE goat_sneakers ADD FULLTEXT model_idx (model);")
-        conn.commit()
     except ProgrammingError:
         pass
+
+
+def alter_db_table():
+    c.execute("ALTER TABLE goat_sneakers_tmp ADD INDEX id (id);")
+    c.execute("ALTER TABLE goat_sneakers_tmp ADD FULLTEXT model_idx (model);")
+    
+    c.execute("RENAME TABLE goat_sneakers TO goat_sneakers_old, goat_sneakers_tmp TO goat_sneakers;")
+    c.execute("DROP TABLE goat_sneakers_old;")
+    
+    conn.commit()
 
 
 def get_api_data():
@@ -114,7 +121,7 @@ def insert_items(item_data):
             item['just_dropped'], item["url"], item["image"]))
 
     try:
-        c.executemany("""INSERT IGNORE INTO goat_sneakers 
+        c.executemany("""INSERT IGNORE INTO goat_sneakers_tmp
             (id,source,model,sku_id,size,price,shoe_condition,category,trending,just_dropped,url,image) 
             VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
         conn.commit()
@@ -134,5 +141,6 @@ def run_scraper():
 
 create_db_table()
 run_scraper()
+alter_db_table()
 
 conn.close()
