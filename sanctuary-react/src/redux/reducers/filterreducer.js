@@ -16,6 +16,8 @@ const filterReducer = (state = initState, action) => {
             return { ...state, price_low: action.payload }
         case 'UPDATE_PRICE_HIGH_FILTER':
             return { ...state, price_high: action.payload }
+        case "CLEAR_FILTER":
+            return initState
         default:
             return state
     }

@@ -65,6 +65,12 @@ export const updatePriceHighFilter = price_high => {
     }
 }
 
+export const clearFilter = () => {
+    return {
+        type: 'CLEAR_FILTER'
+    }
+}
+
 // Modal Actions
 
 export const showShoeModal = () => {
