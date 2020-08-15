@@ -11,33 +11,41 @@ export default function FilterBar() {
     return (
         <div className="filterBar">
 
-            <button className='filter'> Filters </button>
+            <button className='filters'> 
+                Filters 
+            </button>
 
-            <label> Size Filter:
-                <input
-                    type='number'
-                    onChange={e => dispatch(updateSizeFilter(e.target.value))}
-                    value={filter.size}
-                />
-            </label>
+            <div className='sizeFilter'>
+                <div className='sizeText'> Size </div>
+                    <input
+                        className='sizeBox'
+                        type='number'
+                        onChange={e => dispatch(updateSizeFilter(e.target.value))}
+                        value={filter.size}
+                    />
+            </div>
 
-            <label> Price Low Filter:
-                <input
-                    type='number'
-                    onChange={e => dispatch(updatePriceLowFilter(e.target.value))}
-                    value={filter.price_low}
-                />
-            </label>
+            <div className='priceFromFilter'>
+                <div className='priceFromText'> Price From </div>
+                    <input
+                        className='priceFromBox'
+                        type='number'
+                        onChange={e => dispatch(updatePriceLowFilter(e.target.value))}
+                        value={filter.price_low}
+                    />
+            </div>
 
-            <label> Price High Filter:
-                <input
-                    type='number'
-                    onChange={e => dispatch(updatePriceHighFilter(e.target.value))}
-                    value={filter.price_high}
-                />
-            </label>
+            <div className='priceToFilter'>
+                <div className='priceToText'> Price To </div>
+                    <input
+                        className='priceToBox'
+                        type='number'
+                        onChange={e => dispatch(updatePriceHighFilter(e.target.value))}
+                        value={filter.price_high}
+                    />
+            </div>
 
-            <button
+            <button className='clear'
                 onClick={() => dispatch(clearFilter())}
             > 
                 Clear 

@@ -1,11 +1,169 @@
 .filterBar {
-    // position: absolute;
-    // top: 100%;
-    // left: 50%;
-    // width: 918px;
-    // transform: translate(-50%);
-    // padding: 70px;
-
     display: flex;
+    width: 958px;
+    justify-content: space-between;
+
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%);
+    padding-top: 70px;
+    padding-bottom: 70px;
 
 }
+
+.filters, .clear {
+    width: 150px;
+    height: 60px;
+    border-radius: 16px;
+    border: none;
+    outline: none;
+    background: #F6F6F6;
+
+    font-size: 14px;
+    font-weight: 600;
+    color: #6B7BF0;
+    box-shadow: -4px -4px 12px rgba($color: #FFFFFF, $alpha: 1.0),
+                4px 4px 12px rgba($color: #000000, $alpha: 0.15);
+}
+
+.clear {
+    color: #F090AC;
+}
+
+.sizeFilter {
+    background: #F6F6F6;
+    width: 160px;
+    height: 60px;
+    border-radius: 16px;
+    align-self: center;
+    outline: none;
+    box-shadow: -4px -4px 12px rgba($color: #FFFFFF, $alpha: 1.0),
+                4px 4px 12px rgba($color: #000000, $alpha: 0.15);
+
+    .sizeText {
+        color: #989898;
+        float: left;
+        width: 63px;
+        height: 60px;
+        border-radius: 100px;
+        background: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 400;
+    }
+    
+    .sizeBox {
+        border: none;
+        background: none;
+        outline: none;
+        float: right;
+        color: #353234;
+        font-family: 'Poppins', sans-serif;
+        font-size: 18px;
+        font-weight: 600;
+        transition: 0.4s;
+        line-height: 60px;
+        width: 97px;
+        padding: 0;
+        text-align: center;
+    }
+}
+
+.priceFromFilter {
+    background: #f6f6f6;
+    width: 218px;
+    height: 60px;
+    border-radius: 16px;
+    align-self: center;
+    outline: none;
+    box-shadow: -4px -4px 12px rgba($color: #FFFFFF, $alpha: 1.0),
+                4px 4px 12px rgba($color: #000000, $alpha: 0.15);
+
+    .priceFromText {
+        color: #989898;
+        float: left;
+        width: 109px;
+        height: 60px;
+        border-radius: 100px;
+        background: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .priceFromBox {
+        border: none;
+        background: none;
+        outline: none;
+        float: right;
+        color: #353234;
+        font-family: 'Poppins', sans-serif;
+        font-size: 18px;
+        font-weight: 600;
+        transition: 0.4s;
+        line-height: 60px;
+        width: 109px;
+        padding: 0;
+        text-align: center;
+    }
+}
+
+.priceToFilter {
+    background: #f6f6f6;
+    width: 200px;
+    height: 60px;
+    border-radius: 16px;
+    align-self: center;
+    outline: none;
+    box-shadow: -4px -4px 12px rgba($color: #FFFFFF, $alpha: 1.0),
+                4px 4px 12px rgba($color: #000000, $alpha: 0.15);
+
+    .priceToText {
+        color: #989898;
+        float: left;
+        width: 91px;
+        height: 60px;
+        border-radius: 100px;
+        background: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .priceToBox {
+        border: none;
+        background: none;
+        outline: none;
+        float: right;
+        color: #353234;
+        font-family: 'Poppins', sans-serif;
+        font-size: 18px;
+        font-weight: 600;
+        transition: 0.4s;
+        line-height: 60px;
+        width: 109px;
+        padding: 0;
+        text-align: center;
+    }
+}
+
+// For (Chrome, Safari, Edge, Opera)
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+// For (Firefox)
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+
