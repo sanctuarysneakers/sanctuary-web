@@ -1,14 +1,25 @@
 .sneaker {
     background-color: white;
-    padding: 20px;
-    border-radius: 20px;
-    
+    width: 227px;
+    height: 300px;
     display: grid;
-    grid-template-columns: 300px;
-    grid-template-rows: 200px 130px;
+    grid-template-columns: 192px;
+    grid-template-rows: 180px 31px 37px 30px;
     justify-content: center;
-    box-shadow: -4px -4px 12px rgba($color: #FFFFFF, $alpha: 1.0),
-                4px 4px 25px rgba($color: #000000, $alpha: 0.17);
+    border-radius: 20px;
+
+    // padding-top: 29px;
+    // padding-bottom: 29px;
+    // // border-radius: 20px;
+    // width: 227px;
+    // height: 242px;
+    
+    // display: grid;
+    // grid-template-columns: 192px;
+    // grid-template-rows: 180px 31px 18px;
+    // justify-content: center;
+    // box-shadow: -4px -4px 12px rgba($color: #FFFFFF, $alpha: 1.0),
+    //             4px 4px 25px rgba($color: #000000, $alpha: 0.17);
 
     .sneakerImg {
         width: 100%;
@@ -16,12 +27,48 @@
         align-self: end;
     }
 
-    h2 {
+    .condition {
+        font-size: 10px;
+        font-weight: 500;
+        color: #8F8F8F;
+        margin: 0;
+        align-self: end;
+    }
+
+    .modelName {
         position: relative;
         top: 15%;
+        margin: 0;
+        align-self: start;
 
-        font-size: 23px;
+        font-size: 12px;
         color: #353234;
         font-weight: 600;
+    }
+
+    .priceAndSize {
+        align-self: end;
+    }
+
+    .price {
+        font-size: 13px;
+        font-weight: 700;
+        color: #353234;
+        float: left;
+        align-self: end;
+        margin: 0;
+        // margin-top: 0.5em;
+        // margin-bottom: 0.5em;
+    }
+
+    .size {
+        font-size: 13px;
+        font-weight: 700;
+        color: #353234;
+        float: right;
+        align-self: end;
+        margin: 0;
+        // margin-top: 0.5em;
+        // margin-bottom: 0.5em;
     }
 }

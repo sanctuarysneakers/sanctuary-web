@@ -10,6 +10,8 @@ export default function FilterBar() {
     return (
         <div className="filterBar">
 
+            <button className='filter'> Filters </button>
+
             <label> Size Filter:
                 <input 
                     type='number' 
@@ -30,6 +32,8 @@ export default function FilterBar() {
                     onChange={e => dispatch(updatePriceHighFilter(e.target.value))}
                 />
             </label>
+
+            <button type='reset'> Clear </button>
 
         </div>
     )

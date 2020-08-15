@@ -21,9 +21,14 @@ export default function Sneaker(props) {
                 src={props.image}
                 alt={props.model}
             />
-            <h2>{props.model}</h2>
-            <h3>{`$${props.price}`}</h3>
-            <h3>{props.size}</h3>
+            <h3 className='condition'>{props.shoe_condition}</h3>
+            <h2 className='modelName'>{props.model}</h2>
+            <div className='priceAndSize'>
+
+                <h3 className='price'>{`$${props.price}`}</h3>
+                <h3 className='size'>{props.size}</h3>
+                
+            </div>
         </div>
     )
 }

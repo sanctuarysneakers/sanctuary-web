@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { stockxCall, goatCall, grailedCall, flightClubCall } from '../redux/actions'
 import Slider from "./slider"
 
-import stockxLogo from "../assets/images/logos/stockx.png"
-import goatLogo from "../assets/images/logos/goat.png"
-import grailedLogo from "../assets/images/logos/grailed.png"
-import flightclubLogo from "../assets/images/logos/flight club.png"
+import stockxLogo from "../assets/images/logos/StockX Clear.png"
+import goatLogo from "../assets/images/logos/GOAT Clear.png"
+import grailedLogo from "../assets/images/logos/Grailed Clear.png"
+import flightclubLogo from "../assets/images/logos/Flight Club Clear.png"
 
 
 export default function Catalog() {

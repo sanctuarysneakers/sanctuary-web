@@ -14,7 +14,7 @@ export default function Slider({ data }) {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev'
     },
-    spaceBetween: 30,
+    spaceBetween: 23,
     shouldSwiperUpdate: true,
     slidesPerView: 'auto'
   }
