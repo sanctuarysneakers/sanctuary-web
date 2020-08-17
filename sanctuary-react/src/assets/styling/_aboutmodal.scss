@@ -1,14 +1,84 @@
 .about {
-    width: 50%;
-    height: 80%;
+    width: 910px;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 1325px 1185px 1185px 732px;
+    grid-gap: 50px;
     overflow-y: scroll;    
     text-align: center;
-    border-radius: 20px;
+}
 
-    background-color: white;
-    color: #353234;
-    
+.cardOne {
+    height: 1185px;
+    align-self: end;
+    border-radius: 20px;
+    background: white;
+
+    display: grid;
+    grid-template-columns: 658px;
+    grid-template-rows: 234px 48px 650px;
+    justify-content: center;
+
     h1 {
-        font-size: 60px;
+        font-size: 64px;
+        font-weight: 600;
+        color: #353234;
+        margin: 0;
+        align-self: end;
     }
+
+    h2 {
+        font-size: 32px;
+        font-weight: 500;
+        color: #353234;
+        margin: 0;
+        align-self: end;
+    }
+
+    p {
+        font-size: 18px;
+        font-weight: 500;
+        color: #353234;
+        margin: 0;
+        align-self: start;
+    }
+}
+
+.cardTwo {
+    display: grid;
+    grid-template-columns: 658px;
+    grid-template-rows: 337px 163px 118px;
+    justify-content: center;
+    border-radius: 20px;
+    background: white;
+
+    h1 {
+        font-size: 64px;
+        font-weight: 600;
+        color: #353234;
+        margin: 0;
+        align-self: end;
+    }
+
+    p {
+        font-size: 18px;
+        font-weight: 500;
+        color: #353234;
+        margin: 0;
+        align-self: end;
+    }
+
+    img {
+        align-self: end;
+    }
+}
+
+.cardThree {
+    border-radius: 20px;
+    background: white;
+}
+
+.cardFour {
+    border-radius: 20px;
+    background: white;
 }
