@@ -1,8 +1,9 @@
 import React, { useRef } from 'react'
 import useOutsideAlerter from '../useoutsidealerter'
 
-import img from '../../assets/images/placeholder.jpg'
+import picture1 from '../../assets/images/aboutPic1.jpg'
 import picture2 from '../../assets/images/aboutPic2.jpg'
+import picture3 from '../../assets/images/aboutPic3.jpg'
 
 
 export default function AboutModal() {
@@ -17,7 +18,7 @@ export default function AboutModal() {
             <div className='cardOne'>
                 <h1>If you love sneakers,</h1>
                 <h2>You've come to the right place</h2>
-                <img src={img} alt="shoes"/>
+                <img src={picture1} alt="shoes"/>
                 <p>
                     At Sanctuary, we aim to provide you with the best possible 
                     deals for the streetwear items you love. Our mission is not 
@@ -46,35 +47,40 @@ export default function AboutModal() {
             <div className='cardThree'>
                 <h1>Our Services:</h1>
                 <h2>How it works</h2>
-                <img src={img} alt="shoes"/>
-                <h3>Looking for a specific site?</h3>
-                <p>
-                    Browse each website by row 
-                    right on the homepage.
-                </p>
+                
+                <div className='bottom'>
+                    <div className='leftText'>
+                        <h3>Looking for a specific site?</h3>
+                        <p>
+                            Browse each website by row 
+                            right on the homepage.
+                        </p>
 
-                <h3>Specific filters?</h3>
-                <p>
-                    Customize filters such as size 
-                    and price to find the exact 
-                    model of sneaker you desire.
-                </p>
+                        <h3>Specific filters?</h3>
+                        <p>
+                            Customize filters such as size 
+                            and price to find the exact 
+                            model of sneaker you desire.
+                        </p>
 
-                <h3>Specific items in mind?</h3>
-                <p>
-                    Search for a sneaker you love, 
-                    and we will compare prices from 
-                    FlightClub, Goat, Grailed, and StockX 
-                    to provide with the best price.
-                </p>
+                        <h3>Specific items in mind?</h3>
+                        <p>
+                            Search for a sneaker you love, 
+                            and we will compare prices from 
+                            FlightClub, Goat, Grailed, and StockX 
+                            to provide with the best price.
+                        </p>
 
-                <h3>Ready to buy?</h3>
-                <p>
-                    Simply click the “Buy Now” button 
-                    and you’ll be redirected to the 
-                    website that is providing your 
-                    item for its desired price!
-                </p>
+                        <h3>Ready to buy?</h3>
+                        <p>
+                            Simply click the “Buy Now” button 
+                            and you’ll be redirected to the 
+                            website that is providing your 
+                            item for its desired price!
+                        </p>
+                    </div>
+                    <img src={picture3} alt="shoes"/>
+                </div>
             </div>
 
             <div className='cardFour'>
@@ -84,9 +90,10 @@ export default function AboutModal() {
                     better? Please feel free to contact us and 
                     we will get back to you shortly!
                 </h2>
-                <h3>
-                    email@email.com
-                </h3>
+
+                <div className='box'>
+                    <button> sanctuary@gmail.com </button>
+                </div>
             </div> 
         </div>
     </div>

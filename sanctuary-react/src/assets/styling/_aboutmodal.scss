@@ -2,7 +2,7 @@
     width: 910px;
     height: 100vh;
     display: grid;
-    grid-template-rows: 1325px 1185px 1185px 732px;
+    grid-template-rows: 1325px 1185px 1185px 100vh;
     grid-gap: 50px;
     overflow-y: scroll;    
     text-align: center;
@@ -33,6 +33,10 @@
         color: #353234;
         margin: 0;
         align-self: end;
+    }
+
+    img {
+        align-self: center;
     }
 
     p {
@@ -76,9 +80,110 @@
 .cardThree {
     border-radius: 20px;
     background: white;
+    display: grid;
+    grid-template-columns: 910px;
+    grid-template-rows: 227px 133px;
+    justify-content: center;
+
+    h1 {
+        font-size: 64px;
+        font-weight: 600;
+        color: #353234;
+        margin: 0;
+        align-self: end;
+        height: 82px;
+    }
+
+    h2 {
+        font-size: 36px;
+        font-weight: 500;
+        color: #353234;
+        margin: 0;
+        align-self: start;
+        height: 54px;
+    }
+
+    .bottom {
+        display: grid;
+        grid-template-columns: 475px 435px;
+
+        .leftText {
+            display: grid;
+            grid-template-columns: 349px;
+            grid-template-rows: 39px 104px 39px 128px 39px 176px 39px;
+            justify-content: right;
+            text-align: left;
+
+            h3 {
+                font-size: 22px;
+                font-weight: 600;
+                color: #353234;
+                margin: 0;
+                align-self: start;
+            }
+
+            p {
+                font-size: 16px;
+                font-weight: 500;
+                color: #353234;
+                margin: 0;
+                align-self: start;
+                width: 290px;
+            }
+        }
+
+        img {
+            align-self: start;
+        }
+
+    }
 }
 
 .cardFour {
     border-radius: 20px;
-    background: white;
+    background: none;
+    display: grid;
+    grid-template-rows: 323px 87px 92px;
+    justify-content: center;
+
+    h1 {
+        font-size: 64px;
+        font-weight: 600;
+        color: white;
+        margin: 0;
+        align-self: end;
+    }
+
+    h2 {
+        display: grid;
+        grid-template-columns: 400px;
+        justify-content: center;
+        font-size: 18px;
+        font-weight: 600;
+        color: white;
+        margin: 0;
+        align-self: end;
+        text-align: center;
+    }
+
+    .box {
+        display: grid;
+        grid-template-columns: 400px;
+        justify-content: center;
+
+        button {
+            align-self: end;
+            width: 400px;
+            height: 60px;
+            border-radius: 100px;
+            border: none;
+            outline: none;
+            background: linear-gradient(-50deg, #3344BC, #6B7BF0);
+    
+            font-size: 14px;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+        }
+    }
 }
