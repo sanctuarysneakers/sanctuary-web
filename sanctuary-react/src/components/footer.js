@@ -37,8 +37,10 @@ export default function Footer() {
                     <h3>We continously update our database with the latest shoes just for you.</h3>
                     <p>{signUpPrompt}</p>
                     <form onSubmit={handleSubmit}>
+                            
                         <input
                             className="inputBox"
+                            placeholder="Enter Email Address"
                             type="email"
                             value={email}
                             onChange={handleChange}
