@@ -1,5 +1,5 @@
 # Sole Steal
-An application designed for clients to efficiently find the best possible deal for any high-end clothing item they could desire.
+An application designed for clients to efficiently find the best possible deal for any high-end clothing item they desire.
 
 ## THE MISSION
 Sole Steal aspires to be a marketplace curated for the individual, where users can not only buy and sell shoes for wearing, but also as a proper and valid means of commodity exchange. It will be the first retail marketplace to efficiently harness data in order  to find the best possible deals for each user, to create a truly personalized online shopping experience, and serve as a means of not only shopping, but true investment for clients. 
