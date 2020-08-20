@@ -1,78 +1,206 @@
-html {
-    scroll-behavior: smooth;
+* {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
 }
 
 .splash {
-    position: relative;
-    top: -91px;
+    // basic styles
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    height: calc(100vh - 61px);
+}
 
-    width: 100vw;
-    height: 100vh;
+h1 {
+    font-size: 54px;
+    font-weight: 600;
+    line-height: 60px;
+    color: #F6F6F6;
+}
+
+h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #F6F6F6;
+    margin-top: 15px;
+    margin-bottom: 21px;
+}
+
+.twoButtons {
+    display: flex;
+    flex-direction: column;
+}
+
+.shopNowBtn {
+    // display: inline-block;
+    margin: auto;
+    font-size: 14px;
+    font-weight: 600;
+    color: #F6F6F6;
+
+    background: linear-gradient(45deg, #F092AC, #D060BB);
+    border-radius: 100px;
+    text-decoration: none;
+    padding: 13px 39.72px;
+    margin-bottom: 12px;
+}
+
+.aboutUsBtn {
+    // display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #7987F0;
+
+    background: #F6F6F6;
+    border-radius: 100px;
+    text-decoration: none;
+    outline: none;
+    padding: 15.5px 43.91px;
+    margin: auto;
+}
+
+.bg-image {
+    position: absolute;
+    background: #333 url('../../assets/images/heroMobile.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: calc(100vh - 61px);
+    z-index: -1;
+}
+
+.splashWrap {
+    align-self: center;
+    padding: 0px 24px;
+    margin-bottom: 20px;
+
+    h3 {
+        padding: 0px 62.5px;
+    }
+}
+
+@media screen and (min-width: 930px) {
+    .splash {
+        height: calc(100vh - 91px);
+    }
 
     h1 {
-        position: absolute;
-        top: 49.3%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-
         font-size: 64px;
-        font-weight: 600;
-        color: #F6F6F6;
-        margin: 0;
     }
 
     h3 {
-        position: absolute;
-        top: 56.08%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-
         font-size: 18px;
-        font-weight: 500;
-        color: #F6F6F6;
-        margin: 0;
+        margin-top: 6px;
+        margin-bottom: 18px;
     }
 
-    button {
-        position: absolute;
-        top: 63.8%;
-        left: 54.55%;
-        transform: translate(-50%, -50%);
+    .twoButtons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
 
-        height: 50px;
-        width: 120px;
-        border-radius: 100px;
-        border: none;
-        outline: none;
-        background: white;
+    .shopNowBtn {
+        font-size: 12px;
+        padding: 16px 29.75px;
+        margin-bottom: 0px;
+        margin-left: 217.5px;
+    }
+
+    .aboutUsBtn {
+        font-size: 12px;
+        padding: 18px 33.336px;
+        margin-right: 217.5px;
+    }
+
+    .bg-image {
+        height: calc(100vh - 91px);
+    }
+
+    .splashWrap {
+        margin-bottom: 15px;
+    }
+}
+
+
+
+
+
+// .splash {
+//     // position: relative;
+//     // top: -91px;
+
+//     width: 100vw;
+//     height: 100vh;
+
+//     h1 {
+//         position: absolute;
+//         top: 49.3%;
+//         left: 50%;
+//         transform: translate(-50%, -50%);
+
+//         font-size: 64px;
+//         font-weight: 600;
+//         color: #F6F6F6;
+//         margin: 0;
+//     }
+
+//     h3 {
+//         position: absolute;
+//         top: 56.08%;
+//         left: 50%;
+//         transform: translate(-50%, -50%);
+
+//         font-size: 18px;
+//         font-weight: 500;
+//         color: #F6F6F6;
+//         margin: 0;
+//     }
+
+//     button {
+//         position: absolute;
+//         top: 63.8%;
+//         left: 54.55%;
+//         transform: translate(-50%, -50%);
+
+//         height: 50px;
+//         width: 120px;
+//         border-radius: 100px;
+//         border: none;
+//         outline: none;
+//         background: white;
         
-        font-size: 12px;
-        font-weight: 600;
-        color: #6B7BF0;
-    }
+//         font-size: 12px;
+//         font-weight: 600;
+//         color: #6B7BF0;
+//     }
 
-    img {
-        width: 100vw;
-        height: 100vh;
-    }
+//     img {
+//         width: 100vw;
+//         height: 100vh;
+//     }
 
-    a {
-        position: absolute;
-        top: 60.4%;
-        left: 41.22%;
+//     a {
+//         position: absolute;
+//         top: 60.4%;
+//         left: 41.22%;
 
-        font-size: 12px;
-        font-weight: 500;
-        color: white;
-        text-decoration: none;
-        text-align: center;
-        border-radius: 100px;
-        // padding: 6px 23px;
-        width: 120px;
-        padding: 16px 0;
+//         font-size: 12px;
+//         font-weight: 500;
+//         color: white;
+//         text-decoration: none;
+//         text-align: center;
+//         border-radius: 100px;
+//         // padding: 6px 23px;
+//         width: 120px;
+//         padding: 16px 0;
 
-        background: linear-gradient(-50deg, #D05FBB, #F092AC)
-    } 
+//         background: linear-gradient(-50deg, #D05FBB, #F092AC)
+//     } 
+
+    
 
     // a {
     //     position: absolute;
@@ -90,4 +218,5 @@ html {
     //     border-radius: 100px;
     //     padding: 6px 23px;
     // }
-}
+
+// }

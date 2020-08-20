@@ -6,13 +6,15 @@ import SearchBar from './searchbar'
 export default function NavBar() {
 
     return (
-        <div className='navbar'>
-            <Link to={"/"}>
-                <span className="sanctuaryLogo">
-                    Sanctuary
-                </span>
-            </Link>
-            <SearchBar/>
-        </div>
+        <nav className='navbar'>
+            <div className='navbarContent'>
+                <Link to={"/"}>
+                    <span className="sanctuaryLogo">
+                        Sanctuary
+                    </span>
+                </Link>
+                <SearchBar/>
+            </div>
+        </nav>
     )
 }

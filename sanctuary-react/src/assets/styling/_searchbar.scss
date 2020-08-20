@@ -31,9 +31,10 @@
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
     font-weight: 400;
-    transition: 0.4s;
+    // transition: 0.4s;
     line-height: 45px;
-    width: 533px;
+    width: 539px;
+    padding: 0;
 
 }
 
@@ -41,6 +42,14 @@
     color: #989898;
     font-weight: 300;
 }
+
+@media screen and (max-width: 930px) {
+    .searchText {
+        width: 0px;
+    }
+}
+
+
 
 // .searchBar {
 //     position: relative;

@@ -50,7 +50,7 @@ export default function AboutModal() {
                 
                 <div className='bottom'>
                     <div className='leftText'>
-                        <h3>Looking for a specific site?</h3>
+                        <h3>Specific site?</h3>
                         <p>
                             Browse each website by row 
                             right on the homepage.
@@ -63,7 +63,7 @@ export default function AboutModal() {
                             model of sneaker you desire.
                         </p>
 
-                        <h3>Specific items in mind?</h3>
+                        <h3>Specific items?</h3>
                         <p>
                             Search for a sneaker you love, 
                             and we will compare prices from 
