@@ -11,6 +11,8 @@ export default function AboutModal() {
     const wrapperRef = useRef(null)
     useOutsideAlerter(wrapperRef)
 
+    // TODO: add an escape button for when there is no background, to close window
+
     return (
     <div className="modal">
         <div className="about" ref={wrapperRef}>

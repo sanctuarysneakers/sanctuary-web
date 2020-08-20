@@ -8,6 +8,8 @@ export default function SearchBar() {
 
     const dispatch = useDispatch()
 
+    // TODO: make it become full screen when clicked in mobile version
+
     return (
         <div className="searchBar">
             <div className="searchIcon">

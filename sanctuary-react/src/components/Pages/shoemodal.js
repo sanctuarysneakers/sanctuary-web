@@ -9,9 +9,10 @@ export default function ShoeModal() {
     useOutsideAlerter(wrapperRef)
 
     let url = shoe.url
+    // this regex removes the 'https://' from the url, so that it can be added later
     url = url.replace(/(^\w+:|^)\/\//, '')
 
-    // TODO: have grailed condition display as regular text
+    // TODO: have grailed condition attribute display as regular text
     return (
     <div className="modal">
         <div className="dashboard" ref={wrapperRef}>

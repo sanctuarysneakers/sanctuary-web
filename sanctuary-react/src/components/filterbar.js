@@ -8,6 +8,8 @@ export default function FilterBar() {
     const dispatch = useDispatch()
     const filter = useSelector(state => state.filter)
 
+    // TODO: make filter buttons work
+
     return (
         <div className="filterBar">
 
