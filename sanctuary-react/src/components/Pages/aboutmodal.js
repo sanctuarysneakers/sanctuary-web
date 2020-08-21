@@ -86,15 +86,17 @@ export default function AboutModal() {
             </div>
 
             <div className='cardFour'>
-                <h1>We love feedback!</h1>
-                <h2>
-                    Is there something you think we could do
-                    better? Please feel free to contact us and 
-                    we will get back to you shortly!
-                </h2>
+                <div className='fourWrap'>
+                    <h1>We love feedback!</h1>
+                    <h2>
+                        Is there something you think we could do
+                        better? Please feel free to contact us and 
+                        we will get back to you shortly!
+                    </h2>
 
-                <div className='box'>
-                    <button> sanctuary@gmail.com </button>
+                    <div className='box'>
+                        <button> sanctuary@gmail.com </button>
+                    </div>
                 </div>
             </div> 
         </div>

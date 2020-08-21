@@ -36,21 +36,20 @@ export default function ShoeModal() {
             </div>
 
             <div className="middle">
-
-                <div className="shoe-image">
-                    <img 
-                        src={shoe.image}
-                        alt={shoe.model}
-                    />
-                </div>
-
+                
+                    <div className="shoe-image">
+                        <img 
+                            src={shoe.image}
+                            alt={shoe.model}
+                        />
+                    </div>
             </div>
 
             <div className="right">
 
                 <div className="shoe-price">
                     <h3>Price</h3>
-                    <span>{shoe.price}</span>
+                    <span>${shoe.price}</span>
                 </div>
 
                 <div className="shoe-source">
