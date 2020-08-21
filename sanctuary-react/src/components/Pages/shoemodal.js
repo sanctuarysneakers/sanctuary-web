@@ -19,8 +19,10 @@ export default function ShoeModal() {
 
             <div className="left"> 
 
-                <div className="shoe-model">
-                    <h2>{shoe.model}</h2>
+                <div className='shoe-model-container'>
+                    <div className="shoe-model">
+                        <h2>{shoe.model}</h2>
+                    </div>
                 </div>
 
                 <div className="shoe-size">

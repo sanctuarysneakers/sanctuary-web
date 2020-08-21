@@ -32,28 +32,35 @@ export default function Footer() {
         <React.Fragment>
 
             <div className='signUp'>
-                <div className='comingSoon'>
-                    <h1>More Products Coming Soon</h1>
-                    <h3>We continously update our database with the latest shoes just for you.</h3>
-                    <p>{signUpPrompt}</p>
-                    <form onSubmit={handleSubmit}>
-                            
-                        <input
-                            className="inputBox"
-                            placeholder="Enter Email Address"
-                            type="email"
-                            value={email}
-                            onChange={handleChange}
-                            onKeyPress={e => {if (e.key === 'Enter') e.preventDefault()}}
-                        />
-                        <input
-                            className="submitButton"
-                            type="submit"
-                            value="Sign Up"
-                        />
-                    </form>
+                <div className='text-container'>
+                    <div className='footer-content'>
+
+                        <h1>More Products Coming Soon</h1>
+                        <h3>We continously update our database with the latest shoes just for you.</h3>
+                        <p>{signUpPrompt}</p>
+                        <form onSubmit={handleSubmit}>
+                                
+                            <input
+                                className="inputBox"
+                                placeholder="Enter Email Address"
+                                type="email"
+                                value={email}
+                                onChange={handleChange}
+                                onKeyPress={e => {if (e.key === 'Enter') e.preventDefault()}}
+                            />
+                            <input
+                                className="submitButton"
+                                type="submit"
+                                value="Sign Up"
+                            />
+                        </form>
+                        
+                    </div>
                 </div>
-                <img src={img} alt="product" />
+
+                <div className='img-container'>
+                    <img src={img} alt="product" />
+                </div>
             </div>
 
             <div className='bottomText'>
