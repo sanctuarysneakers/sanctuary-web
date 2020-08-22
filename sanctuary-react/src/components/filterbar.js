@@ -5,10 +5,10 @@ import { updateSizeFilter, updatePriceLowFilter, updatePriceHighFilter, clearFil
 
 export default function FilterBar() {
 
+    // TODO: catch .5 shoe sizes
+
     const dispatch = useDispatch()
     const filter = useSelector(state => state.filter)
-
-    // TODO: make filter buttons work
 
     return (
         <div className="filterBar">

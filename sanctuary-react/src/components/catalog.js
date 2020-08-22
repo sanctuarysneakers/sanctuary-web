@@ -19,6 +19,33 @@ export default function Catalog() {
     const grailedData = useSelector(state => state.grailedData)
     const flightClubData = useSelector(state => state.flightClubData)
 
+    const grailedConditionReformat = data => {
+        let grailedConditions = {
+            "is_gently_used": "Gently Used",
+            "is_used": "Used",
+            "is_not_specified": "Not Specified",
+            "is_new": "New",
+            "is_worn": "Worn"
+        }
+
+        return data.map(shoe => {
+            shoe.shoe_condition = grailedConditions[shoe.shoe_condition]
+            return shoe
+        })
+    }
+
+    const goatConditionReformat = data => {
+        let goatConditions = {
+            "new_no_defects": "New",
+            "used": "Used",
+        }
+
+        return data.map(shoe => {
+            shoe.shoe_condition = goatConditions[shoe.shoe_condition]
+            return shoe
+        })
+    }
+
 
     useEffect(() => {
 
@@ -41,6 +68,7 @@ export default function Catalog() {
                         dispatch(goatCall(data))
                         break
                     case "grailed":
+                        data = grailedConditionReformat(data)
                         dispatch(grailedCall(data))
                         break
                     case "flightclub":
@@ -54,11 +82,11 @@ export default function Catalog() {
             if (filter.search) api_url += `&search=${filter.search}`
 
             // TODO: make this a drop down menu
-            if (filter.size > 0) api_url += `&size=${filter.size}`
+            if (filter.size && filter.size > 0) api_url += `&size=${filter.size}`
 
             // TODO: make this a slider bar
-            if (filter.price_low > 0) api_url += `&price_low=${filter.price_low}`
-            if (filter.price_high > 0) api_url += `&price_high=${filter.price_high}`
+            if (filter.price_low && filter.price_low > 0) api_url += `&price_low=${filter.price_low}`
+            if (filter.price_high && filter.price_high > 0) api_url += `&price_high=${filter.price_high}`
         }
 
         applyfilter()
