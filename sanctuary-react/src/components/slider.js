@@ -6,7 +6,6 @@ import Sneaker from "./sneaker"
 
 SwiperCore.use([Navigation])
 
-//TODO: keep div space even when no results show up
 export default function Slider({ data }) {
 
   const params = {

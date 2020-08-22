@@ -93,6 +93,14 @@ export default function Catalog() {
         fetchData(api_url, "stockx")
     }, [filter])
 
+    const noResults = site => {
+        return (
+            <div className='no-results'>
+                <h1>We couldn't find any results on {site} :(</h1>
+            </div>
+        )
+    }
+
     return (
         <div className='catalog'>
             <img 
@@ -100,28 +108,32 @@ export default function Catalog() {
                 src={stockxLogo}
                 alt={"StockX"}
             />
-            <Slider data={stockxData} />
+            {stockxData.length !== 0 && <Slider data={stockxData} />}
+            {stockxData.length === 0 && noResults("StockX")}
 
             <img 
                 className='goatLogo'
                 src={goatLogo}
                 alt={"GOAT"}
             />
-            <Slider data={goatData} />
+            {goatData.length !== 0 && <Slider data={goatData} />}
+            {goatData.length === 0 && noResults("GOAT")}
 
             <img 
                 className='grailedLogo'
                 src={grailedLogo}
                 alt={"Grailed"}
             />
-            <Slider data={grailedData} />
+            {grailedData.length !== 0 && <Slider data={grailedData} />}
+            {grailedData.length === 0 && noResults("Grailed")}
 
             <img 
                 className='flightclubLogo'
                 src={flightclubLogo}
                 alt={"Flight Club"}
             />
-            <Slider data={flightClubData} />
+            {flightClubData.length !== 0 && <Slider data={flightClubData} />}
+            {flightClubData.length === 0 && noResults("Flight Club")}
         </div>
     )
 }

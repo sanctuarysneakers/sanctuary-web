@@ -6,6 +6,7 @@ import flightClubDataReducer from './flightclubdatareducer'
 import filterReducer from './filterreducer'
 import shoeModalVisibleReducer from './shoemodalvisiblereducer'
 import aboutModalVisibleReducer from './aboutmodalvisiblereducer'
+import searchBarCollapseReducer from './searchBarCollapseReducer'
 import { combineReducers } from 'redux'
 
 const globalReducer = combineReducers({
@@ -16,7 +17,8 @@ const globalReducer = combineReducers({
     stockxData: stockxDataReducer,
     goatData: goatDataReducer,
     grailedData: grailedDataReducer,
-    flightClubData: flightClubDataReducer
+    flightClubData: flightClubDataReducer,
+    isSearchBarCollapsed: searchBarCollapseReducer
 })
 
 export default globalReducer
