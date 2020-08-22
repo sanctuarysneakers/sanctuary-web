@@ -29,9 +29,9 @@ api = Api(application)
 parser = reqparse.RequestParser()
 parser.add_argument('source', type=str, default='stockx')
 parser.add_argument('search', type=str, default='jordan')
-parser.add_argument('size', type=int)
+parser.add_argument('size', type=float)
 parser.add_argument('price_low', type=int, default=0)
-parser.add_argument('price_high', type=int, default=1000)
+parser.add_argument('price_high', type=int, default=2000)
 parser.add_argument('page', type=int, default=0)
 parser.add_argument('email', type=str)
 
@@ -47,7 +47,9 @@ class Search(Resource):
         size = args['size']
         price_low = args['price_low']
         price_high = args['price_high']
-        offset = args['page']*100
+
+        limit = 40
+        offset = args['page'] * limit
 
         size_str = '>0' if size is None else '={}'.format(size)
         is_default = True if search == 'jordan' else False
@@ -59,7 +61,7 @@ class Search(Resource):
                             WHERE MATCH(model) AGAINST('{search}' IN BOOLEAN MODE) AND size{size_str} AND price>{price_low} AND price<{price_high}
                             GROUP BY model) t
                         {order_by}
-                        LIMIT 100 OFFSET {offset};"""
+                        LIMIT {limit} OFFSET {offset};"""
         elif source == "stockx":
             order_by = 'ORDER BY SUM(recently_sold) DESC' if is_default else ''
             query = f"""SELECT *
@@ -67,20 +69,20 @@ class Search(Resource):
                         WHERE MATCH(model) AGAINST('{search}' IN BOOLEAN MODE) AND size{size_str} AND price>{price_low} AND price<{price_high}
                         GROUP BY model
                         {order_by}
-                        LIMIT 100 OFFSET {offset};"""
+                        LIMIT {limit} OFFSET {offset};"""
         elif source == "grailed":
             order_by = 'ORDER BY heat DESC, date_bumped DESC' if is_default else ''
             query = f"""SELECT *
                         FROM grailed_sneakers
                         WHERE MATCH(model) AGAINST('{search}' IN BOOLEAN MODE) AND size{size_str} AND price>{price_low} AND price<{price_high}
                         {order_by}
-                        LIMIT 100 OFFSET {offset};"""
+                        LIMIT {limit} OFFSET {offset};"""
         elif source == "flightclub":
             query = f"""SELECT *
                         FROM flightclub_sneakers
                         WHERE MATCH(model) AGAINST('{search}' IN BOOLEAN MODE) AND size{size_str} AND price>{price_low} AND price<{price_high}
                         GROUP BY model
-                        LIMIT 100 OFFSET {offset};"""
+                        LIMIT {limit} OFFSET {offset};"""
         else:
             return {"Error": "Enter a correct source name"}
         
