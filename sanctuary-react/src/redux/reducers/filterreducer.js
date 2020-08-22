@@ -1,9 +1,9 @@
 let initState = {
     search: '',
-    size: 0,
-    price_low: 0,
-    price_high: 0,
-    site: ""
+    size: '',
+    price_low: '',
+    price_high: '',
+    site: ''
 }
 
 const filterReducer = (state = initState, action) => {
@@ -17,7 +17,7 @@ const filterReducer = (state = initState, action) => {
         case 'UPDATE_PRICE_HIGH_FILTER':
             return { ...state, price_high: action.payload }
         case "CLEAR_FILTER":
-            return initState
+            return { ...initState, search: state.search }
         default:
             return state
     }

@@ -12,15 +12,17 @@ export default function ShoeModal() {
     // this regex removes the 'https://' from the url, so that it can be added later
     url = url.replace(/(^\w+:|^)\/\//, '')
 
-    // TODO: have grailed condition attribute display as regular text
+    // TODO: have goat condition attribute display as regular text
     return (
     <div className="modal">
         <div className="dashboard" ref={wrapperRef}>
 
             <div className="left"> 
 
-                <div className="shoe-model">
-                    <h2>{shoe.model}</h2>
+                <div className='shoe-model-container'>
+                    <div className="shoe-model">
+                        <h2>{shoe.model}</h2>
+                    </div>
                 </div>
 
                 <div className="shoe-size">
