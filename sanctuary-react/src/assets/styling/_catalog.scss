@@ -13,6 +13,10 @@
 //     // top: 39px;
 // }
 
+.catalog {
+    padding-bottom: 100px;
+}
+
 .stockxLogo, .goatLogo, .grailedLogo, .flightclubLogo {
     margin-left: 66px;
 }
@@ -35,4 +39,14 @@
 .flightclubLogo {
     height: 33px;
     width: 136px;
+}
+
+@media screen and (max-width: 929px) {
+    .stockxLogo, .goatLogo, .grailedLogo, .flightclubLogo {
+        margin-left: 24px;
+    }
+
+    .catalog {
+        padding-bottom: 70px;
+    }
 }

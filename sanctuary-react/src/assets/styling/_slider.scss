@@ -12,3 +12,9 @@
 }
 
 // .swiper-button-prev
+
+@media screen and (max-width: 929px) {
+  .swiper-wrapper {
+    margin-left: 24px;
+  }
+}

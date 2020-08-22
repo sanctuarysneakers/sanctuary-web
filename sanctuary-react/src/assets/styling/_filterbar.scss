@@ -164,7 +164,13 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
-@media screen and (max-width: 1089px) {
+
+@media (max-width: 1089px) and (min-width: 373px) {
+    .a-wrap {
+        padding: 0px 24px;
+    }
+
+
     .filterBar {
         width: 325px;
     }
@@ -172,4 +178,44 @@ input[type=number] {
     .sizeFilter, .priceFromFilter, .priceToFilter {
         display: none;
     }
+}
+
+@media (max-width: 372px) and (min-width: 300px) {
+    .a-wrap {
+        padding: 0px 24px;
+    }
+
+    .sizeFilter, .priceFromFilter, .priceToFilter {
+        display: none;
+    }
+
+    .filterBar {
+        width: 252px;
+    }
+
+    .filters, .clear {
+        width: 120px;
+        font-size: 12px;
+    } 
+}
+
+
+@media screen and (max-width: 299px) {
+    .a-wrap {
+        padding: 0px 24px;
+    }
+
+    .sizeFilter, .priceFromFilter, .priceToFilter {
+        display: none;
+    }
+
+    .filterBar {
+        width: 223px;
+    }
+
+    .filters, .clear {
+        width: 104px;
+        font-size: 12px;
+    }
+
 }
