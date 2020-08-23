@@ -54,7 +54,7 @@ class Search(Resource):
         is_default = True if search == 'jordan' else False
 
         if source == "goat":
-            query = f"""SELECT *, MATCH(model) AGAINST('jordan 1 obsidian') AS m_score
+            query = f"""SELECT *, MATCH(model) AGAINST('{search}') AS m_score
                         FROM goat_sneakers
                         WHERE MATCH(model) AGAINST('{search}') AND size={size} AND price>{price_low} AND price<{price_high}
                         ORDER BY 10*m_score + 10*trending DESC
