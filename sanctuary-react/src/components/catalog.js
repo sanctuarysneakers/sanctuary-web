@@ -37,7 +37,9 @@ export default function Catalog() {
     const goatConditionReformat = data => {
         let goatConditions = {
             "new_no_defects": "New",
+            "new_with_defects": "New With Defects",
             "used": "Used",
+            "goat_clean": "GOAT Clean"
         }
 
         return data.map(shoe => {
@@ -65,6 +67,7 @@ export default function Catalog() {
                         dispatch(stockxCall(data))
                         break
                     case "goat":
+                        data = goatConditionReformat(data)
                         dispatch(goatCall(data))
                         break
                     case "grailed":

@@ -12,7 +12,6 @@ export default function ShoeModal() {
     // this regex removes the 'https://' from the url, so that it can be added later
     url = url.replace(/(^\w+:|^)\/\//, '')
 
-    // TODO: have goat condition attribute display as regular text
     return (
     <div className="modal">
         <div className="dashboard" ref={wrapperRef}>

@@ -6,6 +6,7 @@ import { updateSearch, collapseBar, expandBar } from '../redux/actions'
 
 export default function SearchBar() {
 
+    // TODO: Add half second buffer to api call
     const dispatch = useDispatch()
     const isCollapsed = useSelector(state => state.isSearchBarCollapsed)
 
