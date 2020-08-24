@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { RiSearchLine, RiCloseLine } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateSearch, collapseBar, expandBar } from '../redux/actions'

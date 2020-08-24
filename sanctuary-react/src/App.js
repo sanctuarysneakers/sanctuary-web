@@ -38,4 +38,4 @@ function App() {
 export default App;
 
 //TODO: change the favicon to logo
-//TODO: responsive mode has horizontal scroll on mobile
+//TODO: responsive mode has horizontal scroll on mobile, also horizontal scroll bars on about modal
