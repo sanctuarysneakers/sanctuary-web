@@ -303,7 +303,7 @@
 }
 
 
-@media (max-width: 1440px) and (min-width: 1061px) {
+@media (max-width: 1440px) and (min-width: 1185px) {
 
     .signUp {
         flex-direction: row;
@@ -391,7 +391,7 @@
 }
 
 
-@media (max-width: 1060px) and (min-width: 930px) {
+@media (max-width: 1184px) and (min-width: 930px) {
 
     .signUp {
         flex-direction: row;
@@ -402,6 +402,7 @@
         display: flex;
         align-items: center;
         margin: 0px;
+        padding: 0px 60px;
 
         p, form {
             display: flex;
@@ -444,7 +445,7 @@
 
         h3 {
             font-size: 16px;
-            padding: 0px 80px;
+            padding: 0px 62px;
             margin-left: 0px;
             margin-right: 0px;
         }

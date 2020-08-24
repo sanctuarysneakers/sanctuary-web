@@ -21,6 +21,7 @@ export default function FilterBar() {
                 <div className='sizeText'> Size </div>
                     <input
                         className='sizeBox'
+                        placeholder="All"
                         type='number'
                         onChange={e => dispatch(updateSizeFilter(e.target.value))}
                         value={filter.size}
@@ -31,6 +32,7 @@ export default function FilterBar() {
                 <div className='priceFromText'> Price From </div>
                     <input
                         className='priceFromBox'
+                        placeholder="All"
                         type='number'
                         onChange={e => dispatch(updatePriceLowFilter(e.target.value))}
                         value={filter.price_low}
@@ -41,6 +43,7 @@ export default function FilterBar() {
                 <div className='priceToText'> Price To </div>
                     <input
                         className='priceToBox'
+                        placeholder="All"
                         type='number'
                         onChange={e => dispatch(updatePriceHighFilter(e.target.value))}
                         value={filter.price_high}
