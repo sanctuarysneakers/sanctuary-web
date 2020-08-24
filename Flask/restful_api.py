@@ -51,34 +51,28 @@ class Search(Resource):
         limit = 40
         offset = args['page'] * limit
 
-        is_default = True if search == 'jordan' else False
-
         if source == "goat":
-            query = f"""SELECT *, MATCH(model) AGAINST('{search}') AS m_score
+            query = f"""SELECT *, MATCH(model) AGAINST('{search}' IN BOOLEAN MODE) AS m_score, (trending + just_dropped) AS r_score
                         FROM goat_sneakers
                         WHERE MATCH(model) AGAINST('{search}') AND size={size} AND price>{price_low} AND price<{price_high}
-                        ORDER BY 10*m_score + 10*trending DESC
+                        ORDER BY 5*m_score + r_score DESC
                         LIMIT {limit} OFFSET {offset};"""
         elif source == "stockx":
-            order_by = 'ORDER BY SUM(recently_sold) DESC' if is_default else ''
-            query = f"""SELECT *
+            query = f"""SELECT *, MATCH(model) AGAINST('{search}' IN BOOLEAN MODE) AS m_score, CAST(recently_sold/300 AS DOUBLE) AS r_score
                         FROM stockx_sneakers
                         WHERE MATCH(model) AGAINST('{search}' IN BOOLEAN MODE) AND size={size} AND price>{price_low} AND price<{price_high}
-                        GROUP BY model
-                        {order_by}
+                        ORDER BY 10*m_score + r_score DESC
                         LIMIT {limit} OFFSET {offset};"""
         elif source == "grailed":
-            order_by = 'ORDER BY heat DESC, date_bumped DESC' if is_default else ''
-            query = f"""SELECT *
+            query = f"""SELECT *, MATCH(model) AGAINST('{search}' IN BOOLEAN MODE) AS m_score, CAST(heat/2500 AS DOUBLE) AS r_score
                         FROM grailed_sneakers
                         WHERE MATCH(model) AGAINST('{search}' IN BOOLEAN MODE) AND size={size} AND price>{price_low} AND price<{price_high}
-                        {order_by}
+                        ORDER BY 10*m_score + r_score DESC, date_bumped DESC
                         LIMIT {limit} OFFSET {offset};"""
         elif source == "flightclub":
             query = f"""SELECT *
                         FROM flightclub_sneakers
                         WHERE MATCH(model) AGAINST('{search}' IN BOOLEAN MODE) AND size={size} AND price>{price_low} AND price<{price_high}
-                        GROUP BY model
                         LIMIT {limit} OFFSET {offset};"""
         else:
             return {"Error": "Enter a correct source name"}
@@ -126,3 +120,4 @@ api.add_resource(Emails, '/emails')
 if __name__ == '__main__':
     application.run(debug=True)
     # application.run(host='0.0.0.0')   # For production
+    
