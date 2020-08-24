@@ -1,5 +1,6 @@
 .filterBar {
     display: flex;
+    flex-direction: row;
     width: 958px;
     justify-content: space-between;
     padding: 70px 0px;
@@ -173,18 +174,23 @@ input[type=number] {
 
 
 @media (max-width: 1089px) and (min-width: 373px) {
+
+    .filterBar {
+        flex-direction: column;
+        width: 218px;
+
+        .filters, .clear {
+            align-self: center;
+        }
+    }
+
     .a-wrap {
         padding: 0px 24px;
     }
 
-
-    .filterBar {
-        width: 325px;
-    }
-
-    .sizeFilter, .priceFromFilter, .priceToFilter {
-        display: none;
-    }
+    // .sizeFilter, .priceFromFilter, .priceToFilter {
+    //     display: none;
+    // }
 }
 
 
