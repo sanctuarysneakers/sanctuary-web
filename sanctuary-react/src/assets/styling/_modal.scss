@@ -13,3 +13,14 @@
 
     z-index: 10;
 }
+
+.closeButton {
+    color: #989898;
+    width: 45px;
+    height: 45px;
+    border-radius: 100px;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
