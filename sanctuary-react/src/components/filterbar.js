@@ -13,59 +13,115 @@ export default function FilterBar() {
     const [filtersVisibile, toggleFilters] = useState(false)
 
     return (
-        <div className="filterBar">
+        <React.Fragment>
 
-            <button
-                className='filters'
-                onClick={() => toggleFilters(prev => !prev)}
-            >
-                Filters
+            {/* Desktop Filter Bar */}
+
+            <div className="filterBar desktop-filters">
+
+                <button className='filters'>
+                    Filters
+                </button>
+
+                    <div>
+                        <div className='sizeFilter'>
+                            <div className='sizeText'> Size </div>
+                            <input
+                                className='sizeBox'
+                                placeholder="All"
+                                type='number'
+                                onChange={e => dispatch(updateSizeFilter(e.target.value))}
+                                value={filter.size}
+                            />
+                        </div>
+
+                        <div className='priceFromFilter'>
+                            <div className='priceFromText'> Price From </div>
+                            <input
+                                className='priceFromBox'
+                                placeholder="All"
+                                type='number'
+                                onChange={e => dispatch(updatePriceLowFilter(e.target.value))}
+                                value={filter.price_low}
+                            />
+                        </div>
+
+                        <div className='priceToFilter'>
+                            <div className='priceToText'> Price To </div>
+                            <input
+                                className='priceToBox'
+                                placeholder="All"
+                                type='number'
+                                onChange={e => dispatch(updatePriceHighFilter(e.target.value))}
+                                value={filter.price_high}
+                            />
+                        </div>
+                    </div>
+
+                <button className='clear'
+                    onClick={() => dispatch(clearFilter())}
+                >
+                    Clear
             </button>
 
-            {
-                filtersVisibile &&
-                <div>
-                    <div className='sizeFilter'>
-                        <div className='sizeText'> Size </div>
-                        <input
-                            className='sizeBox'
-                            placeholder="All"
-                            type='number'
-                            onChange={e => dispatch(updateSizeFilter(e.target.value))}
-                            value={filter.size}
-                        />
-                    </div>
+            </div>
 
-                    <div className='priceFromFilter'>
-                        <div className='priceFromText'> Price From </div>
-                        <input
-                            className='priceFromBox'
-                            placeholder="All"
-                            type='number'
-                            onChange={e => dispatch(updatePriceLowFilter(e.target.value))}
-                            value={filter.price_low}
-                        />
-                    </div>
+            {/* Mobile Filter Bar */}
 
-                    <div className='priceToFilter'>
-                        <div className='priceToText'> Price To </div>
-                        <input
-                            className='priceToBox'
-                            placeholder="All"
-                            type='number'
-                            onChange={e => dispatch(updatePriceHighFilter(e.target.value))}
-                            value={filter.price_high}
-                        />
-                    </div>
-                </div>
-            }
+            <div className="filterBar mobile-filters">
 
-            <button className='clear'
-                onClick={() => dispatch(clearFilter())}
-            >
-                Clear
+                <button
+                    className='filters'
+                    onClick={() => toggleFilters(prev => !prev)}
+                >
+                    Filters
             </button>
 
-        </div>
+                {
+                    filtersVisibile &&
+                    <div>
+                        <div className='sizeFilter'>
+                            <div className='sizeText'> Size </div>
+                            <input
+                                className='sizeBox'
+                                placeholder="All"
+                                type='number'
+                                onChange={e => dispatch(updateSizeFilter(e.target.value))}
+                                value={filter.size}
+                            />
+                        </div>
+
+                        <div className='priceFromFilter'>
+                            <div className='priceFromText'> Price From </div>
+                            <input
+                                className='priceFromBox'
+                                placeholder="All"
+                                type='number'
+                                onChange={e => dispatch(updatePriceLowFilter(e.target.value))}
+                                value={filter.price_low}
+                            />
+                        </div>
+
+                        <div className='priceToFilter'>
+                            <div className='priceToText'> Price To </div>
+                            <input
+                                className='priceToBox'
+                                placeholder="All"
+                                type='number'
+                                onChange={e => dispatch(updatePriceHighFilter(e.target.value))}
+                                value={filter.price_high}
+                            />
+                        </div>
+                    </div>
+                }
+
+                <button className='clear'
+                    onClick={() => dispatch(clearFilter())}
+                >
+                    Clear
+            </button>
+
+            </div>
+        </React.Fragment>
     )
 }

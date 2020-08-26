@@ -160,6 +160,10 @@
     justify-content: center;
 }
 
+.mobile-filters {
+    display: none;
+}
+
 // For (Chrome, Safari, Edge, Opera)
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -188,6 +192,14 @@ input[type=number] {
         padding: 0px 24px;
     }
 
+    .desktop-filters {
+        display: none;
+    }
+
+    .mobile-filters {
+        display: flex;
+    }
+
     // .sizeFilter, .priceFromFilter, .priceToFilter {
     //     display: none;
     // }
@@ -210,7 +222,15 @@ input[type=number] {
     .filters, .clear {
         width: 120px;
         font-size: 12px;
-    } 
+    }
+    
+    .desktop-filters {
+        display: none;
+    }
+
+    .mobile-filters {
+        display: flex;
+    }
 }
 
 
@@ -232,4 +252,11 @@ input[type=number] {
         font-size: 12px;
     }
 
+    .desktop-filters {
+        display: none;
+    }
+
+    .mobile-filters {
+        display: flex;
+    }
 }
