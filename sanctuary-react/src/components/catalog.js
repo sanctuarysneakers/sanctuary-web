@@ -77,6 +77,8 @@ export default function Catalog() {
                     case "flightclub":
                         dispatch(flightClubCall(data))
                         break
+                    default:
+                        break
                 }
             }
         }
@@ -91,7 +93,7 @@ export default function Catalog() {
             if (filter.price_low && filter.price_low > 0) api_url += `&price_low=${filter.price_low}`
             if (filter.price_high && filter.price_high > 0) api_url += `&price_high=${filter.price_high}`
         }
-
+        
         applyfilter()
         fetchData(api_url, "stockx")
     }, [filter])
