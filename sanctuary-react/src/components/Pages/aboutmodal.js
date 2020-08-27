@@ -20,11 +20,9 @@ export default function AboutModal() {
 
             <div className="about" ref={wrapperRef}>
 
-                <div
-                    className='closeButton'
-                    onClick={() => dispatch(hideAboutModal())}
-                >
-                    <RiCloseLine />
+                <div className='closeButton'
+                    onClick={() => dispatch(hideAboutModal())}>
+                    <RiCloseLine/>
                 </div>
 
                 <div className='cardOne'>

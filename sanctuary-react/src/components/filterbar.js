@@ -23,7 +23,7 @@ export default function FilterBar() {
                     Filters
                 </button>
 
-                    <div>
+                    <div className='three-filters'>
                         <div className='sizeFilter'>
                             <div className='sizeText'> Size </div>
                             <input
@@ -59,10 +59,9 @@ export default function FilterBar() {
                     </div>
 
                 <button className='clear'
-                    onClick={() => dispatch(clearFilter())}
-                >
+                    onClick={() => dispatch(clearFilter())}>
                     Clear
-            </button>
+                </button>
 
             </div>
 
@@ -72,14 +71,13 @@ export default function FilterBar() {
 
                 <button
                     className='filters'
-                    onClick={() => toggleFilters(prev => !prev)}
-                >
+                    onClick={() => toggleFilters(prev => !prev)}>
                     Filters
-            </button>
+                </button>
 
                 {
                     filtersVisibile &&
-                    <div>
+                    <div className='three-filters'>
                         <div className='sizeFilter'>
                             <div className='sizeText'> Size </div>
                             <input

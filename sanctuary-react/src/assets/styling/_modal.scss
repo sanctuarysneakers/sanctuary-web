@@ -15,12 +15,19 @@
 }
 
 .closeButton {
-    color: #989898;
-    width: 45px;
-    height: 45px;
+    width: 34px;
+    height: 34px;
     border-radius: 100px;
     background: white;
     display: flex;
     justify-content: center;
     align-items: center;
+    opacity: 80%;
+
+    svg {
+        opacity: 80%;
+        color: #353234;
+        height: 22px;
+        width: 22px;
+    }
 }

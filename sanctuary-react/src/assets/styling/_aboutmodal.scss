@@ -6,6 +6,10 @@
     grid-gap: 50px;
     overflow-y: scroll;    
     text-align: center;
+
+    .closeButton {
+        display: none;
+    }
 }
 
 .cardOne {
@@ -190,10 +194,19 @@
 }
 
 @media screen and (max-width: 734px) {
+
     .about {
         width: 355px;
-        grid-template-rows: 760px 659px 659px 100vh;
-        grid-gap: 39px;
+        grid-template-rows: 93px 667px 698px 698px 100vh;
+        // grid-template-rows: 760px 659px 659px 100vh;
+        // grid-gap: 39px;
+        grid-gap: 0px;
+
+        .closeButton {
+            display: flex;
+            align-self: flex-end;
+            justify-self: flex-end;
+        }
     }
 
     .cardOne {
@@ -223,6 +236,8 @@
     }
 
     .cardTwo {
+        height: 659px;
+        align-self: end;
         grid-template-columns: 250px;
         grid-template-rows: 240px 117px 110px;
     
@@ -242,6 +257,8 @@
     }
 
     .cardThree {
+        height: 659px;
+        align-self: end;
         grid-template-columns: 355px;
         grid-template-rows: 96px 62px;
     

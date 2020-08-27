@@ -1,9 +1,13 @@
 .slider {
+  height: 380px;
 
-  padding: 40px 0px;
-  height: 300px;
+  .swiper-container {
+    height: 380px;
+  }
 
   .swiper-slide {
+    display: flex;
+    align-items: center;
     width: auto;
   }  
 }
