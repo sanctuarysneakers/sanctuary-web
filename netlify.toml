@@ -1,0 +1,4 @@
+[build]
+  base    = "sanctuary-react"
+  publish = "sanctuary-react/build/"
+  command = "npm run build"
