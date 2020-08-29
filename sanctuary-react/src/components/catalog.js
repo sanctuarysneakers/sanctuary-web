@@ -51,7 +51,7 @@ export default function Catalog() {
 
     useEffect(() => {
 
-        let api_url = `http://flask-env.eba-wjhtntpd.us-west-2.elasticbeanstalk.com/?`
+        let api_url = `https://sanctuaryapi.net/?`
         let sites = ["stockx", "goat", "grailed", "flightclub"]
 
         async function fetchData(url) {
