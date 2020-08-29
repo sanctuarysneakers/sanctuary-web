@@ -23,7 +23,7 @@ export default function Footer() {
         }
     }
 
-    let email_url = `http://flask-env.eba-wjhtntpd.us-west-2.elasticbeanstalk.com/emails?email=`
+    let email_url = `https://sanctuaryapi.net/emails?email=`
 
     const signUpPrompt = emailSubmitted ? "Thanks :) We've added you to the list" : "Sign up for early access to new arrivals, promotions, and more." 
 
