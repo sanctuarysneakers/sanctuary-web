@@ -20,12 +20,6 @@ export default function ShoeModal() {
         <div className="modal">
 
             <div className="dashboard" ref={wrapperRef}>
-                <div
-                    className='closeButton'
-                    onClick={() => dispatch(hideShoeModal())}
-                >
-                    <RiCloseLine />
-                </div>
 
                 <div className="web-version">
 
@@ -159,8 +153,12 @@ export default function ShoeModal() {
                             </span>
                         </div>
                     </div>
-                </div>
 
+                    <div className='closeButton'
+                        onClick={() => dispatch(hideShoeModal())}>
+                        <RiCloseLine />
+                    </div>
+                </div>
             </div>
         </div>
     )

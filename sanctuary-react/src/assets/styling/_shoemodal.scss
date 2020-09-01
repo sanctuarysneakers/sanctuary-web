@@ -299,9 +299,13 @@
     .mobile-version {
         display: flex;
         flex-direction: column;
-        height: 510px;
+        height: 554px;
         width: 333px;
         justify-content: space-between;
+
+        .closeButton {
+            align-self: center;
+        }
     }
 
     .m-top {

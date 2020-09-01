@@ -103,7 +103,7 @@ export default function AboutModal() {
                     </h2>
 
                         <div className='box'>
-                            <button> sanctuary@gmail.com </button>
+                            <button> contact@sanctuarysneakers.com </button>
                         </div>
                     </div>
                 </div>
