@@ -20,7 +20,7 @@
 
     display: grid;
     grid-template-columns: 658px;
-    grid-template-rows: 234px 48px 650px;
+    grid-template-rows: 234px 48px 638px;
     justify-content: center;
 
     h1 {
@@ -55,7 +55,7 @@
 .cardTwo {
     display: grid;
     grid-template-columns: 658px;
-    grid-template-rows: 337px 163px 118px;
+    grid-template-rows: 337px 147px 200px;
     justify-content: center;
     border-radius: 20px;
     background: white;
@@ -86,7 +86,7 @@
     background: white;
     display: grid;
     grid-template-columns: 910px;
-    grid-template-rows: 227px 133px;
+    grid-template-rows: 227px 142px;
     justify-content: center;
 
     h1 {
@@ -114,7 +114,7 @@
         .leftText {
             display: grid;
             grid-template-columns: 349px;
-            grid-template-rows: 39px 104px 39px 128px 39px 176px 39px;
+            grid-template-rows: 43px 102px 43px 102px 43px 154px 43px;
             justify-content: right;
             text-align: left;
 
@@ -212,7 +212,7 @@
     .cardOne {
         height: 659px;
         grid-template-columns: 250px;
-        grid-template-rows: 174px 62px 272px;
+        grid-template-rows: 174px 62px 269px;
     
         h1 {
             font-size: 48px;
@@ -231,7 +231,7 @@
         }
     
         p {
-            font-size: 11px;
+            font-size: 10px;
         }
     }
 
@@ -239,7 +239,7 @@
         height: 659px;
         align-self: end;
         grid-template-columns: 250px;
-        grid-template-rows: 240px 117px 110px;
+        grid-template-rows: 241px 95px 140px;
     
         h1 {
             font-size: 40px;
@@ -247,7 +247,7 @@
         }
     
         p {
-            font-size: 11px;
+            font-size: 10px;
         }
     
         img {
@@ -260,7 +260,7 @@
         height: 659px;
         align-self: end;
         grid-template-columns: 355px;
-        grid-template-rows: 96px 62px;
+        grid-template-rows: 96px 74px;
     
         h1 {
             font-size: 37px;
@@ -280,14 +280,14 @@
             .leftText {
                 display: grid;
                 grid-template-columns: 149px;
-                grid-template-rows: 20px 63px 20px 81px 20px 132px 20px;
+                grid-template-rows: 25px 50px 25px 65px 25px 110px 25px;
     
                 h3 {
                     font-size: 13px;
                 }
     
                 p {
-                    font-size: 11px;
+                    font-size: 10px;
                     width: 125px;
                 }
             }
@@ -339,7 +339,7 @@
     .cardOne {
         height: 930px;
         grid-template-columns: 465px;
-        grid-template-rows: 174px 36px 518px;
+        grid-template-rows: 174px 36px 494px;
     
         h1 {
             font-size: 45px;
@@ -362,7 +362,7 @@
 
     .cardTwo {
         grid-template-columns: 465px;
-        grid-template-rows: 242px 172px 136px;
+        grid-template-rows: 242px 130px 226px;
     
         h1 {
             font-size: 45px;
@@ -380,7 +380,7 @@
 
     .cardThree {
         grid-template-columns: 637px;
-        grid-template-rows: 174px 123px;
+        grid-template-rows: 174px 129px;
     
         h1 {
             font-size: 45px;
@@ -400,7 +400,7 @@
             .leftText {
                 display: grid;
                 grid-template-columns: 286px;
-                grid-template-rows: 35px 80px 35px 101px 35px 122px 35px;
+                grid-template-rows: 37px 72px 37px 72px 37px 114px 37px;
     
                 h3 {
                     font-size: 18px;

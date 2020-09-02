@@ -30,26 +30,29 @@ export default function AboutModal() {
                     <h2>You've come to the right place</h2>
                     <img src={picture1} alt="shoes" />
                     <p>
-                        At Sanctuary, we aim to provide you with the best possible
-                        deals for the streetwear items you love. Our mission is not
-                        only to act as an online marketplace but also a central
-                        location for streetwear market data.
+                        Sanctuary aims to provide the best possible deals on any 
+                        streetwear or sneakers you could want. Our mission is to 
+                        evolve the paradigm of fashion by leveraging big data, 
+                        analytics, and artificial intelligence to provide one 
+                        centralized online location for finding your perfect piece.
                 </p>
                 </div>
 
                 <div className='cardTwo'>
                     <h1>More items, brands, and features soon!</h1>
                     <p>
-                        Sanctuary was founded by five like-minded individuals with
-                        aspirations to revolutionize the fashion industry. As
-                        individuals, we strive to create a global hub for streetwear
-                        market data through our core values of innovation,
-                        creativity, originality, and integrity.
+                        The Sanctuary team is built on a set of core values; namely, 
+                        innovation, creativity, and integrity. However, creating the 
+                        best user experience, and ultimately helping our users as much 
+                        as possible is our overarching focus.
                 </p>
                     <p>
-                        Our services are currently limited to Air Jordans, however,
-                        our team is continuously working on updating our database
-                        to provide you with a wide range of streetwear products.
+                        You have found Sanctuary at a very early stage. We are currently 
+                        in early Alpha and have just begun our mission. Although our current 
+                        stock is limited, and some functionality may be crude, we will be 
+                        constantly updating, expanding, and improving the site. We have a team 
+                        dedicated to making an amazing product. Any feedback or suggestions 
+                        are welcome (see our contact page)
                 </p>
                     <img src={picture2} alt="shoes" />
                 </div>
@@ -62,31 +65,30 @@ export default function AboutModal() {
                         <div className='leftText'>
                             <h3>Specific site?</h3>
                             <p>
-                                Browse each website by row
-                                right on the homepage.
+                                On the homepage, browse websites 
+                                by row.
                         </p>
 
                             <h3>Specific filters?</h3>
                             <p>
-                                Customize filters such as size
-                                and price to find the exact
-                                model of sneaker you desire.
+                                Customize filters such as size, 
+                                condition, and price.
                         </p>
 
-                            <h3>Specific items?</h3>
+                            <h3>Specific item?</h3>
                             <p>
-                                Search for a sneaker you love,
-                                and we will compare prices from
-                                FlightClub, Goat, Grailed, and StockX
-                                to provide with the best price.
+                                Search for a sneaker, and we will 
+                                provide you with the best price. We 
+                                compare prices from StockX, Goat, 
+                                Grailed, and FlightClub.
                         </p>
 
                             <h3>Ready to buy?</h3>
                             <p>
-                                Simply click the “Buy Now” button
-                                and you’ll be redirected to the
-                                website that is providing your
-                                item for its desired price!
+                                Found an item you wish to purchase? 
+                                Simply click the “buy now” button and 
+                                you will be redirected to the seller’s 
+                                website.
                         </p>
                         </div>
                         <img src={picture3} alt="shoes" />

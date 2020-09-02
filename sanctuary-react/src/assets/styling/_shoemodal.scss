@@ -5,29 +5,29 @@
 }
 
 .web-version {
-    width: 990px;
-    height: 430px;
+    width: 960px;
+    height: 410px;
     display: flex;
     justify-content: space-between;
 }
 
 .left {
-    width: 433px;
-    height: 430px;
+    width: 432px;
+    height: 410px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
     .shoe-model-container {
-        height: 233px;
+        height: 223px;
         display: flex;
         align-items: center;
         justify-content: center;
         background: white;
-        border-radius: 20px;
+        border-radius: 30px;
 
         .shoe-model {
-            width: 373px;
+            width: 382px;
             height: 173px;
             display: flex;
             align-items: center;
@@ -39,7 +39,7 @@
                 -webkit-box-orient: vertical;
                 overflow: hidden;
 
-                font-size: 26px;
+                font-size: 24px;
                 font-weight: 600;
                 color: #353234;
                 text-align: center;
@@ -48,7 +48,7 @@
     }
 
     .size-and-condition {
-        height: 180px;
+        height: 170px;
         display: flex;
         justify-content: space-between;
 
@@ -57,18 +57,20 @@
             align-items: center;
             justify-content: center;
             background: white;
-            border-radius: 20px;
+            border-radius: 30px;
 
             h3 {
                 margin: 0px;
-                font-size: 20px;
+                font-size: 18px;
                 font-weight: 500;
+                line-height: 36px;
                 color: #8F8F8F;
             }
 
             span {
-                font-size: 40px;
+                font-size: 22px;
                 font-weight: 600;
+                line-height: 34px;
                 color: #353234;
             }
 
@@ -77,16 +79,16 @@
                 flex-direction: column;
                 justify-content: center;
                 text-align: center;
-                padding: 30px;
+                // padding: 30px;
             }
         }
 
         .shoe-size-container {
-            width: 180px;
+            width: 170px;
         }
 
         .shoe-condition-container {
-            width: 230px;
+            width: 245px;
         }
     }
 }
@@ -95,15 +97,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 323px;
+    width: 304px;
     background: white;
-    border-radius: 20px;
+    border-radius: 30px;
 
     .shoe-image {
         display: flex;
         align-items: center;
-        width: 251px;
-        height: 358px;
+        width: 236px;
+        height: 342px;
         overflow: hidden;
         img {
             width: 100%;
@@ -112,7 +114,7 @@
 }
 
 .right {
-    width: 200px;
+    width: 190px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -121,24 +123,26 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 190px;
+        height: 180px;
         background: white;
-        border-radius: 20px;
+        border-radius: 30px;
 
         .shoe-price {
             text-align: center;
-            padding: 30px;
+            padding: 25px;
 
             h3 {
-                font-size: 20px;
+                font-size: 18px;
                 font-weight: 500;
+                line-height: 36px;
                 color: #8F8F8F;
                 margin: 0px;
             }
 
             span {
-                font-size: 34px;
+                font-size: 24px;
                 font-weight: 600;
+                line-height: 34px;
                 color: #353234;
             }
         }
@@ -148,16 +152,16 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 78px;
+        height: 75px;
         background: white;
-        border-radius: 20px;
+        border-radius: 22px;
 
         .shoe-source {
             display: flex;
             align-items: center;
 
             img {
-                width: 80px;
+                width: 70px;
             }
 
         }
@@ -167,12 +171,12 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 128px;
+        height: 121px;
         background: linear-gradient(-45deg, #D060BB, #F092AC);
-        border-radius: 20px;
+        border-radius: 30px;
 
         a {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
             color: white;
         }
@@ -188,16 +192,16 @@
     }
 
     .left {
-        width: 303px;
+        width: 320px;
         height: 300px;
 
         .shoe-model-container {
-            height: 165px;
-            border-radius: 16px;
+            height: 160px;
+            border-radius: 22px;
 
             .shoe-model {
-                width: 263px;
-                height: 125px;
+                width: 280px;
+                height: 120px;
 
                 h2 {
                     font-size: 18px;
@@ -206,33 +210,35 @@
         }
 
         .size-and-condition {
-            height: 120px;
+            height: 130px;
 
             .shoe-size-container, .shoe-condition-container {
-                border-radius: 16px;
+                border-radius: 22px;
 
                 h3 {
-                    font-size: 18px;
+                    font-size: 13px;
+                    line-height: 24px;
                 }
 
                 span {
-                    font-size: 28px;
+                    font-size: 16px;
+                    line-height: 28px;
                 }
             }
 
             .shoe-size-container {
-                width: 135px;
+                width: 130px;
             }
 
             .shoe-condition-container {
-                width: 153px;
+                width: 180px;
             }
         }
     }
 
     .middle {
         width: 220px;
-        border-radius: 16px;
+        border-radius: 22px;
     
         .shoe-image {
             width: 172px;
@@ -241,44 +247,46 @@
     }
 
     .right {
-        width: 145px;
+        width: 140px;
     
         .shoe-price-container {
-            height: 125px;
-            border-radius: 16px;
+            height: 130px;
+            border-radius: 22px;
     
             .shoe-price {
                 text-align: center;
                 padding: 16px;
     
                 h3 {
-                    font-size: 18px;
+                    font-size: 13px;
+                    line-height: 24px;
                 }
     
                 span {
-                    font-size: 24px;
+                    font-size: 18px;
+                    line-height: 30px;
                 }
             }
         }
     
         .shoe-source-container {
             height: 55px;
-            border-radius: 14px;
+            border-radius: 17px;
     
             .shoe-source {
                 display: flex;
                 align-items: center;
     
                 img {
-                    width: 60px;
+                    width: 50px;
                 }
     
             }
         }
     
         .shoe-buy-container {
-            height: 90px;
-            border-radius: 16px;
+            height: 95px;
+            border-radius: 22px;
     
             a {
                 font-size: 14px;
@@ -299,8 +307,8 @@
     .mobile-version {
         display: flex;
         flex-direction: column;
-        height: 554px;
-        width: 333px;
+        height: 542px;
+        width: 320px;
         justify-content: space-between;
 
         .closeButton {
@@ -312,20 +320,25 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 333px;
+        width: 320px;
         height: 80px;
         background: white;
-        border-radius: 16px;
+        border-radius: 20px;
 
         .m-shoe-model {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 293px;
-            height: 41px;
+            width: 280px;
+            height: 60px;
 
             h2 {
-                font-size: 14px;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+
+                font-size: 12px;
                 font-weight: 600;
                 color: #353234;
                 text-align: center;
@@ -342,23 +355,23 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            width: 198px;
-            height: 350px;
+            width: 192px;
+            height: 338px;
 
             .m-shoe-image-container {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                height: 280px;
+                height: 274px;
                 background: white;
-                border-radius: 16px;
+                border-radius: 20px;
 
                 .m-shoe-image {
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    height: 248px;
-                    width: 166px;
+                    height: 228px;
+                    width: 148px;
                     overflow: hidden;
 
                     img {
@@ -371,12 +384,12 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                height: 60px;
+                height: 54px;
                 background: white;
                 border-radius: 16px;
 
                 img {
-                    width: 70px;
+                    width: 60px;
                 }
             }
         }
@@ -385,38 +398,46 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            width: 125px;
-            height: 350px;
+            width: 119px;
+            height: 338px;
 
             .m-shoe-price-container, .m-shoe-size-container, .m-shoe-condition-container {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                height: 110px;
+                height: 106px;
                 background: white;
-                border-radius: 16px;
+                border-radius: 20px;
 
                 .m-shoe-price, .m-shoe-size, .m-shoe-condition {
                     display: flex;
+                    flex-direction: column;
                     align-items: center;
                     justify-content: center;
-                    flex-direction: column;
                     text-align: center;
-                    width: 95px;
-                    height: 80px;
+                    width: 90px;
+                    height: 60px;
                 }
 
                 h3 {
                     margin: 0px;
-                    font-size: 14px;
+                    font-size: 12px;
                     font-weight: 500;
+                    line-height: 24px;
                     color: #8F8F8F;
                 }
 
                 span {
-                    font-size: 20px;
+                    font-size: 13px;
                     font-weight: 600;
                     color: #353234;
+                }
+
+                .m-shoe-price, .m-shoe-size {
+
+                    span {
+                        font-size: 18px;
+                    }
                 }
             }
         }
@@ -427,12 +448,12 @@
         align-items: center;
         justify-content: center;
         height: 60px;
-        border-radius: 16px;
+        border-radius: 18px;
         background: linear-gradient(-45deg, #D060BB, #F092AC);
         text-align: center;
 
         a {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
             color: white;
         }
