@@ -103,11 +103,11 @@ export default function Footer() {
                     </ul>
                     <div className="bottomTextIcons">
                         <div className='social-media'>
-                            <FiTwitter className='twitter-icon'/>
-                            <FiFacebook className='facebook-icon'/>
-                            <FiInstagram className='instagram-icon'/>
+                            <a href="https://twitter.com/sanctuarysnkrs"><FiTwitter className='twitter-icon'/></a>
+                            <a href="https://www.facebook.com/sanctuarysneakers"><FiFacebook className='facebook-icon'/></a>
+                            <a href="https://www.instagram.com/sanctuarysneakers/"><FiInstagram className='instagram-icon'/></a>
                         </div>
-                        <h3>2020 © SANCTUARY | All Rights Reserved</h3>
+                        <h3>SANCTUARY STREETWEAR MARKETPLACE INC.</h3>
                     </div>
                 </div>
             </div>

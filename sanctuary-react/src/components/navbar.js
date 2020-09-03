@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import SearchBar from './searchbar'
 
+import sanctuaryLogo from "../assets/images/sanctuary-logo.png"
 
 export default function NavBar() {
 
@@ -13,11 +14,13 @@ export default function NavBar() {
             <div className='navbarContent'>
                 {isCollapsed &&
                     <Link to={"/"}>
-                    <span className="sanctuaryLogo">
-                        Sanctuary
-                    </span>
-                </Link>}
-                <SearchBar/>
+                        <img
+                            className='sanctuaryLogo'
+                            src={sanctuaryLogo}
+                            alt={"Sanctuary"}
+                        />
+                    </Link>}
+                <SearchBar />
             </div>
         </nav>
     )
