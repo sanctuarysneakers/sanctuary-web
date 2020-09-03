@@ -28,6 +28,11 @@ a {
     color: #353234;
 }
 
+.sanctuaryLogo {
+    padding-top: 10px;
+    height: 50px;
+}
+
 @media screen and (min-width: 930px) {
     .navbar {
         display: flex;
@@ -46,8 +51,12 @@ a {
         font-size: 25px;
         transition: all 600ms ease 0s;
     }
-}
 
+    .sanctuaryLogo {
+        padding-top: 10px;
+        height: 60px;
+    }
+}
 
 // .navbar {
 //     height: 90px;
@@ -73,13 +82,6 @@ a {
 //         outline: none;
 //     }
 // }
-
-// .sanctuaryLogo {
-//     // padding-left: 60px;
-//     font-size: 25px;
-// }
-
-
 
 // .navLinks {
 //     padding-right: 60px;
