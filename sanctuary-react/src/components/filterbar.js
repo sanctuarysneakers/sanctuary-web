@@ -1,16 +1,41 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { updateSizeFilter, updatePriceLowFilter, updatePriceHighFilter, clearFilter } from '../redux/actions'
 
 
 export default function FilterBar() {
 
-    // TODO: catch .5 shoe sizes
-
     const dispatch = useDispatch()
-    const filter = useSelector(state => state.filter)
 
     const [filtersVisibile, toggleFilters] = useState(false)
+
+    // the amount of ms that must pass before 
+    //the user has considered to have stopped typing.
+    const SLEEP_TIME = 500
+
+    let typingTimer = null;
+
+    useEffect(() => {
+        return () => clearTimeout(typingTimer)
+    }, [])
+
+    const handleSizeChange = e => {
+        const val = e.target.value
+        clearTimeout(typingTimer)
+        typingTimer = setTimeout(() => dispatch(updateSizeFilter(val)), SLEEP_TIME)
+    }
+
+    const handlePriceLowChange = e => {
+        const val = e.target.value
+        clearTimeout(typingTimer)
+        typingTimer = setTimeout(() => dispatch(updatePriceLowFilter(val)), SLEEP_TIME)
+    }
+
+    const handlePriceHighChange = e => {
+        const val = e.target.value
+        clearTimeout(typingTimer)
+        typingTimer = setTimeout(() => dispatch(updatePriceHighFilter(val)), SLEEP_TIME)
+    }
 
     return (
         <React.Fragment>
@@ -29,9 +54,10 @@ export default function FilterBar() {
                             <input
                                 className='sizeBox'
                                 placeholder="All"
+                                onFocus={e => e.target.placeholder = ""}
+                                onBlur={e => e.target.placeholder = "All"} 
                                 type='number'
-                                onChange={e => dispatch(updateSizeFilter(e.target.value))}
-                                value={filter.size}
+                                onChange={handleSizeChange}
                             />
                         </div>
 
@@ -40,9 +66,10 @@ export default function FilterBar() {
                             <input
                                 className='priceFromBox'
                                 placeholder="All"
+                                onFocus={e => e.target.placeholder = ""}
+                                onBlur={e => e.target.placeholder = "All"} 
                                 type='number'
-                                onChange={e => dispatch(updatePriceLowFilter(e.target.value))}
-                                value={filter.price_low}
+                                onChange={handlePriceLowChange}
                             />
                         </div>
 
@@ -51,9 +78,10 @@ export default function FilterBar() {
                             <input
                                 className='priceToBox'
                                 placeholder="All"
+                                onFocus={e => e.target.placeholder = ""}
+                                onBlur={e => e.target.placeholder = "All"} 
                                 type='number'
-                                onChange={e => dispatch(updatePriceHighFilter(e.target.value))}
-                                value={filter.price_high}
+                                onChange={handlePriceHighChange}
                             />
                         </div>
                     </div>
@@ -84,8 +112,7 @@ export default function FilterBar() {
                                 className='sizeBox'
                                 placeholder="All"
                                 type='number'
-                                onChange={e => dispatch(updateSizeFilter(e.target.value))}
-                                value={filter.size}
+                                onChange={handleSizeChange}
                             />
                         </div>
 
@@ -95,8 +122,7 @@ export default function FilterBar() {
                                 className='priceFromBox'
                                 placeholder="All"
                                 type='number'
-                                onChange={e => dispatch(updatePriceLowFilter(e.target.value))}
-                                value={filter.price_low}
+                                onChange={handlePriceLowChange}
                             />
                         </div>
 
@@ -106,8 +132,7 @@ export default function FilterBar() {
                                 className='priceToBox'
                                 placeholder="All"
                                 type='number'
-                                onChange={e => dispatch(updatePriceHighFilter(e.target.value))}
-                                value={filter.price_high}
+                                onChange={handlePriceHighChange}
                             />
                         </div>
                     </div>
