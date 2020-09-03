@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import SearchBar from './searchbar'
 
-import sanctuaryLogo from "../assets/images/sanctuary-logo.png"
+import sanctuaryLogo from "../assets/images/sanctuary-logo-row.png"
 
 export default function NavBar() {
 

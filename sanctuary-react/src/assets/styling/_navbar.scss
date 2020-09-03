@@ -20,17 +20,14 @@
     align-items: center;
     height: 100%;
     padding: 0px 24px;
-}
 
-a {
-    text-decoration: none;
-    font-size: 15px;
-    color: #353234;
+    a {
+        height: 30px;
+    }
 }
 
 .sanctuaryLogo {
-    padding-top: 10px;
-    height: 50px;
+    height: 30px;
 }
 
 @media screen and (min-width: 930px) {
@@ -45,16 +42,14 @@ a {
         margin: 0px auto;
         padding: 0px;
         transition: all 600ms ease 0s;
-    }
 
-    a {
-        font-size: 25px;
-        transition: all 600ms ease 0s;
+        a {
+            height: 40px;
+        }
     }
 
     .sanctuaryLogo {
-        padding-top: 10px;
-        height: 60px;
+        height: 40px;
     }
 }
 

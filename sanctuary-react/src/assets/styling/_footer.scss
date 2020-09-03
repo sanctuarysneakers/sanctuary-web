@@ -78,6 +78,8 @@
     align-items: center;
     justify-content: center;
     margin: 0px 37.5px;
+    box-shadow: -4px -4px 12px rgba($color: #6A6368, $alpha: 0.6),
+                4px 4px 35px rgba($color: #000000, $alpha: 0.4);
 
     .inputBox {
         border: none;
@@ -111,6 +113,8 @@
     margin-top: 13px;
     margin-right: auto;
     margin-left: auto;
+    box-shadow: -4px -4px 12px rgba($color: #6A6368, $alpha: 0.4),
+                4px 4px 35px rgba($color: #000000, $alpha: 0.4);
 
     .submitButton {
         border: none;
@@ -192,6 +196,10 @@
         justify-content: space-between;
         margin-bottom: 40px;
 
+        a {
+            height: 24px;
+        }
+
         svg {
             width: 24px;
             height: 24px;
@@ -223,7 +231,7 @@
     }
 
     .text-container {
-        width: 68%;
+        width: calc(100vw - 453.13px);
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -290,7 +298,7 @@
     .img-container {
         align-items: flex-end;
         height:  100%;
-        width: 32%;
+        width: 453.13px;
 
         img {
             width: 453.13px;
@@ -626,13 +634,13 @@
     
         ul {
             flex-direction: row;
-            width: 422px;
-            height: auto;
+            width: 350px;
+            height: 22px;
             margin-top: 0px;
         }
     
         a, svg{
-            font-size: 16px;
+            font-size: 14px;
         }
 
         h3 {
@@ -643,11 +651,16 @@
     .bottomTextIcons {
         flex-direction: row;
         margin-bottom: 0px;
+        height: 22px;
     
         .social-media {
             width: 114px;
             margin-bottom: 0px;
             margin-right: 22px;
+
+            a {
+                height: 22px;
+            }
     
             svg {
                 width: 22px;
