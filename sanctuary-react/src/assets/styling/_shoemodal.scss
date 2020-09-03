@@ -172,7 +172,7 @@
         align-items: center;
         justify-content: center;
         height: 121px;
-        background: linear-gradient(-45deg, #D060BB, #F092AC);
+        background: linear-gradient(45deg, #E15895, #F8595D);
         border-radius: 30px;
 
         a {
@@ -450,13 +450,14 @@
         justify-content: center;
         height: 60px;
         border-radius: 18px;
-        background: linear-gradient(-45deg, #D060BB, #F092AC);
+        background: linear-gradient(45deg, #E15895, #F8595D);
         text-align: center;
 
         a {
             font-size: 16px;
             font-weight: 600;
             color: white;
+            text-decoration: none;
         }
     }
 }

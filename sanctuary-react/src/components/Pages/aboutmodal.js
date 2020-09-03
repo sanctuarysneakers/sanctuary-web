@@ -38,25 +38,6 @@ export default function AboutModal() {
                 </p>
                 </div>
 
-                <div className='cardTwo'>
-                    <h1>More items, brands, and features soon!</h1>
-                    <p>
-                        The Sanctuary team is built on a set of core values; namely, 
-                        innovation, creativity, and integrity. However, creating the 
-                        best user experience, and ultimately helping our users as much 
-                        as possible is our overarching focus.
-                </p>
-                    <p>
-                        You have found Sanctuary at a very early stage. We are currently 
-                        in early Alpha and have just begun our mission. Although our current 
-                        stock is limited, and some functionality may be crude, we will be 
-                        constantly updating, expanding, and improving the site. We have a team 
-                        dedicated to making an amazing product. Any feedback or suggestions 
-                        are welcome (see our contact page)
-                </p>
-                    <img src={picture2} alt="shoes" />
-                </div>
-
                 <div className='cardThree'>
                     <h1>Our Services:</h1>
                     <h2>How it works</h2>
@@ -93,6 +74,25 @@ export default function AboutModal() {
                         </div>
                         <img src={picture3} alt="shoes" />
                     </div>
+                </div>
+
+                <div className='cardTwo'>
+                    <h1>More items, brands, and features soon!</h1>
+                    <p>
+                        The Sanctuary team is built on a set of core values; namely, 
+                        innovation, creativity, and integrity. However, creating the 
+                        best user experience, and ultimately helping our users as much 
+                        as possible is our overarching focus.
+                    </p>
+                    <p>
+                        You have found Sanctuary at a very early stage. We are currently 
+                        in early Alpha and have just begun our mission. Although our current 
+                        stock is limited, and some functionality may be crude, we will be 
+                        constantly updating, expanding, and improving the site. We have a team 
+                        dedicated to making an amazing product. Any feedback or suggestions 
+                        are welcome (see our contact page)
+                    </p>
+                    <img src={picture2} alt="shoes" />
                 </div>
 
                 <div className='cardFour'>
