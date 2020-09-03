@@ -39,7 +39,7 @@
                 -webkit-box-orient: vertical;
                 overflow: hidden;
 
-                font-size: 24px;
+                font-size: 22px;
                 font-weight: 600;
                 color: #353234;
                 text-align: center;
@@ -179,12 +179,13 @@
             font-size: 18px;
             font-weight: 600;
             color: white;
+            text-decoration: none;
         }
     }
 }
 
 
-@media (max-width: 1121px) and (min-width: 832px) {
+@media (max-width: 1091px) and (min-width: 832px) {
 
     .web-version {
         width: 700px;

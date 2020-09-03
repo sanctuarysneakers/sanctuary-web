@@ -4,12 +4,19 @@
     display: grid;
     grid-template-rows: 1325px 1185px 1185px 100vh;
     grid-gap: 50px;
-    overflow-y: scroll;    
+    overflow-y: auto;    
     text-align: center;
 
     .closeButton {
         display: none;
     }
+
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+
+.about::-webkit-scrollbar {
+    display: none;  /* Safari and Chrome */
 }
 
 .cardOne {

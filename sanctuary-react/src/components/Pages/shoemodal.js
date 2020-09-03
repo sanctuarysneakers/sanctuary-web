@@ -78,7 +78,7 @@ export default function ShoeModal() {
                         <div className="shoe-buy-container">
                             <div className="shoe-buy">
                                 <span>
-                                    <a target="_blank " href={`https://${url}`}>Buy Now</a>
+                                    <a className="buyNowText" target="_blank " href={`https://${url}`}>Buy Now</a>
                                 </span>
                             </div>
                         </div>
