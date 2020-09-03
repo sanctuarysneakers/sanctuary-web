@@ -3,6 +3,11 @@ from flask_restful import Resource, Api, reqparse
 from flask_cors import CORS
 import mysql.connector
 from mysql.connector import ProgrammingError
+import requests
+
+application = Flask(__name__)
+cors = CORS(application, resources={r"*": {"origins": "*"}})
+api = Api(application)
 
 
 def connect_to_db():
@@ -18,12 +23,7 @@ def connect_to_db():
         print("couldn't connect to database")
     return connection, cursor
 
-
 conn, c = connect_to_db()
-
-application = Flask(__name__)
-cors = CORS(application, resources={r"*": {"origins": "*"}})
-api = Api(application)
 
 
 parser = reqparse.RequestParser()
@@ -33,6 +33,7 @@ parser.add_argument('size', type=float, default=10)
 parser.add_argument('price_low', type=int, default=100)
 parser.add_argument('price_high', type=int, default=10000)
 parser.add_argument('page', type=int, default=0)
+parser.add_argument('currency', type=str, default='USD')
 parser.add_argument('email', type=str)
 
 
@@ -47,6 +48,7 @@ class Search(Resource):
         size = args['size']
         price_low = args['price_low']
         price_high = args['price_high']
+        currency = args['currency']
 
         limit = 40
         offset = args['page'] * limit
@@ -84,7 +86,8 @@ class Search(Resource):
             c.execute(query)
         data = c.fetchall()
         conn.commit()
-        return data
+
+        return process_data(data, currency)
 
 
 class Emails(Resource):
@@ -101,6 +104,20 @@ class Emails(Resource):
             c.execute(query)
         conn.commit()
 
+
+def process_data(data, currency):
+    if currency == 'USD':
+        return data
+    
+    rate = currency_rate(currency)
+    for item in data:
+        item["price"] = round(rate * item["price"])
+    return data
+
+def currency_rate(currency):
+    req = requests.get(f'https://api.exchangeratesapi.io/latest?symbols={currency}&base=USD')
+    rates = req.json()['rates']
+    return rates[currency]
 
 def format_search_query(string):
     if len(string) < 5:

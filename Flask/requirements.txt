@@ -7,3 +7,4 @@ Werkzeug==1.0.1
 Flask-RESTful==0.3.8
 Flask-Cors==3.0.8
 mysql-connector-python==8.0.21
+requests==2.20.1
