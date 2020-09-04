@@ -56,25 +56,25 @@ class Search(Resource):
         if source == "goat":
             query = f"""SELECT *, MATCH(model) AGAINST('{search}' IN BOOLEAN MODE) AS m_score, (trending + just_dropped) AS r_score
                         FROM goat_sneakers
-                        WHERE MATCH(model) AGAINST('{search}') AND size={size} AND price>{price_low} AND price<{price_high}
+                        WHERE MATCH(model) AGAINST('{search}') AND size={size} AND price>={price_low} AND price<={price_high}
                         ORDER BY 5*m_score + r_score DESC
                         LIMIT {limit} OFFSET {offset};"""
         elif source == "stockx":
             query = f"""SELECT *, MATCH(model) AGAINST('{search}' IN BOOLEAN MODE) AS m_score, CAST(recently_sold/300 AS DOUBLE) AS r_score
                         FROM stockx_sneakers
-                        WHERE MATCH(model) AGAINST('{search}' IN BOOLEAN MODE) AND size={size} AND price>{price_low} AND price<{price_high}
+                        WHERE MATCH(model) AGAINST('{search}' IN BOOLEAN MODE) AND size={size} AND price>={price_low} AND price<={price_high}
                         ORDER BY 10*m_score + r_score DESC
                         LIMIT {limit} OFFSET {offset};"""
         elif source == "grailed":
             query = f"""SELECT *, MATCH(model) AGAINST('{search}' IN BOOLEAN MODE) AS m_score, CAST(heat/2500 AS DOUBLE) AS r_score
                         FROM grailed_sneakers
-                        WHERE MATCH(model) AGAINST('{search}' IN BOOLEAN MODE) AND size={size} AND price>{price_low} AND price<{price_high}
+                        WHERE MATCH(model) AGAINST('{search}' IN BOOLEAN MODE) AND size={size} AND price>={price_low} AND price<={price_high}
                         ORDER BY 10*m_score + r_score DESC, date_bumped DESC
                         LIMIT {limit} OFFSET {offset};"""
         elif source == "flightclub":
             query = f"""SELECT *
                         FROM flightclub_sneakers
-                        WHERE MATCH(model) AGAINST('{search}' IN BOOLEAN MODE) AND size={size} AND price>{price_low} AND price<{price_high}
+                        WHERE MATCH(model) AGAINST('{search}' IN BOOLEAN MODE) AND size={size} AND price>={price_low} AND price<={price_high}
                         LIMIT {limit} OFFSET {offset};"""
         else:
             return {"Error": "Enter a correct source name"}
