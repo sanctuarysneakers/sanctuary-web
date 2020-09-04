@@ -16,7 +16,7 @@ export default function AboutModal() {
     useOutsideAlerter(wrapperRef)
 
     return (
-        <div className="modal">
+        <div className="modal-about">
 
             <div className="about" ref={wrapperRef}>
 

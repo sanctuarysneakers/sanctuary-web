@@ -17,7 +17,7 @@ export default function ShoeModal() {
     url = url.replace(/(^\w+:|^)\/\//, '')
 
     return (
-        <div className="modal">
+        <div className="modal-shoe">
 
             <div className="dashboard" ref={wrapperRef}>
 

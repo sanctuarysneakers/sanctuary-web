@@ -1,4 +1,4 @@
-.modal {
+.modal-shoe, .modal-about {
     position: fixed;
     top: 0;
     left: 0;
@@ -6,7 +6,6 @@
     bottom: 0;
 
     display: flex;
-    align-items: center;
     justify-content: center;
 
     z-index: 10;
@@ -17,6 +16,10 @@
     @supports not (backdrop-filter: blur(20px)) {
         background-color: rgba(100, 100, 100, 0.85);
     } 
+}
+
+.modal-shoe {
+    align-items: center;
 }
 
 .closeButton {
