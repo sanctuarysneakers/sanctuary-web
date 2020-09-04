@@ -74,14 +74,7 @@ export default function ShoeModal() {
                                 }
                             </div>
                         </div>
-
-                        <div className="shoe-buy-container">
-                            <div className="shoe-buy">
-                                <span>
-                                    <a className="buyNowText" target="_blank " href={`https://${url}`}>Buy Now</a>
-                                </span>
-                            </div>
-                        </div>
+                        <a className="buy-now" target="_blank " href={`https://${url}`}>Buy Now</a>
                     </div>
                 </div>
 
@@ -145,14 +138,7 @@ export default function ShoeModal() {
                         </div>
                     </div>
 
-                    <div className="m-bottom">
-
-                        <div className="m-shoe-buy">
-                            <span>
-                                <a target="_blank " href={`https://${url}`}>Buy Now</a>
-                            </span>
-                        </div>
-                    </div>
+                    <a className="buy-now" target="_blank " href={`https://${url}`}>Buy Now</a>
 
                     <div className='closeButton'
                         onClick={() => dispatch(hideShoeModal())}>

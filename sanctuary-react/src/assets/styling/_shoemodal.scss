@@ -167,20 +167,17 @@
         }
     }
 
-    .shoe-buy-container {
+    .buy-now {
         display: flex;
         align-items: center;
         justify-content: center;
         height: 121px;
+        font-size: 18px;
+        font-weight: 600;
+        color: white;
+        text-decoration: none;
         background: linear-gradient(45deg, #E15895, #F8595D);
         border-radius: 30px;
-
-        a {
-            font-size: 18px;
-            font-weight: 600;
-            color: white;
-            text-decoration: none;
-        }
     }
 }
 
@@ -284,14 +281,11 @@
     
             }
         }
-    
-        .shoe-buy-container {
+
+        .buy-now {
             height: 95px;
             border-radius: 22px;
-    
-            a {
-                font-size: 14px;
-            }
+            font-size: 14px;
         }
     }
 }
@@ -444,7 +438,7 @@
         }
     }
 
-    .m-bottom {
+    .buy-now {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -452,13 +446,10 @@
         border-radius: 18px;
         background: linear-gradient(45deg, #E15895, #F8595D);
         text-align: center;
-
-        a {
-            font-size: 16px;
-            font-weight: 600;
-            color: white;
-            text-decoration: none;
-        }
+        font-size: 16px;
+        font-weight: 600;
+        color: white;
+        text-decoration: none;
     }
 }
 
