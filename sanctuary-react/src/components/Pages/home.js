@@ -19,7 +19,7 @@ export default function Home() {
     return (
         <React.Fragment>
             <div className="splash" style={{ height: recalculatedHeight }}>
-                <div className='bg-image'></div>
+                <div className='bg-image' style={{ height: recalculatedHeight }}></div>
                 <div className='splashWrap'>
                     <h1>Find Your Perfect Pair</h1>
                     <h3>Get the best price on Jordans from your favourite websites</h3>

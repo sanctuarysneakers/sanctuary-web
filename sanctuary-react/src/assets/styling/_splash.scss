@@ -66,7 +66,6 @@ h3 {
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
-    height: calc(100vh - 61px);
     z-index: -1;
     left: 0;
 }
@@ -110,10 +109,6 @@ h3 {
         font-size: 12px;
         padding: 18px 33.336px;
         margin-right: 217.5px;
-    }
-
-    .bg-image {
-        height: calc(100vh - 91px);
     }
 
     .splashWrap {
