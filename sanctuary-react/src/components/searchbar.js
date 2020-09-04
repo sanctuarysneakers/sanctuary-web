@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { RiSearchLine, RiCloseLine } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateSearch, collapseBar, expandBar } from '../redux/actions'
@@ -6,25 +6,8 @@ import { updateSearch, collapseBar, expandBar } from '../redux/actions'
 
 export default function SearchBar() {
 
-    // the amount of ms that must pass before 
-    //the user has considered to have stopped typing.
-    const SLEEP_TIME = 500
-
     const dispatch = useDispatch()
     const isCollapsed = useSelector(state => state.isSearchBarCollapsed)
-
-    let typingTimer = null;
-
-    useEffect(() => {
-        return () => clearTimeout(typingTimer)
-    }, [])
-
-    const handleChange = e => {
-        const val = e.target.value
-        clearTimeout(typingTimer)
-        typingTimer = setTimeout(() => dispatch(updateSearch(val)), SLEEP_TIME)
-    }
-
 
     return (
         <React.Fragment>
@@ -39,7 +22,7 @@ export default function SearchBar() {
                     className="searchText"
                     type="text"
                     placeholder="Search"
-                    onChange={handleChange}
+                    onChange={e => dispatch(updateSearch(e.target.value))}
                 />
             </div>
 
@@ -58,7 +41,7 @@ export default function SearchBar() {
                         className={'searchText mobileSearchText'}
                         type="text"
                         placeholder="Search"
-                        onChange={handleChange}
+                        onChange={e => dispatch(updateSearch(e.target.value))}
                     />}
             </div>
 

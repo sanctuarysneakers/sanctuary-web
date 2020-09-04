@@ -52,9 +52,11 @@ export default function Catalog() {
     useEffect(() => {
 
         let api_url = `https://sanctuaryapi.net/?`
-        let sites = ["stockx", "goat", "grailed", "flightclub"]
 
         async function fetchData(url) {
+            
+            let sites = ["stockx", "goat", "grailed", "flightclub"]
+
             for await (const site of sites) {
                 const response = await fetch(url + `&source=${site}`)
                 let data = await response.json()
@@ -93,9 +95,17 @@ export default function Catalog() {
             if (filter.price_low && filter.price_low > 0) api_url += `&price_low=${filter.price_low}`
             if (filter.price_high && filter.price_high > 0) api_url += `&price_high=${filter.price_high}`
         }
-        
-        applyfilter()
-        fetchData(api_url, "stockx")
+
+        const SLEEP_TIME = 500
+        let filterChangeTimer = null
+
+        clearTimeout(filterChangeTimer)
+        filterChangeTimer = setTimeout(() => {
+            applyfilter()
+            fetchData(api_url)
+        }, SLEEP_TIME)
+
+        return () => clearTimeout(filterChangeTimer)
     }, [filter])
 
     const noResults = site => {
