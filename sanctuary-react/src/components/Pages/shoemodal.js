@@ -17,8 +17,8 @@ export default function ShoeModal() {
     url = url.replace(/(^\w+:|^)\/\//, '')
 
     useEffect(() => {
-        document.body.style.overflow = 'hidden';
-        return ()=> document.body.style.overflow = 'unset';
+        document.body.style.overflowY = 'hidden';
+        return ()=> document.body.style.overflowY = 'unset';
      }, []);
 
     return (
