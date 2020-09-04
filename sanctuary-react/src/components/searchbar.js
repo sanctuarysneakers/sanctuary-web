@@ -1,13 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { RiSearchLine, RiCloseLine } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateSearch, collapseBar, expandBar } from '../redux/actions'
+import { useMediaQuery } from 'react-responsive'
 
 
 export default function SearchBar() {
 
     const dispatch = useDispatch()
     const isCollapsed = useSelector(state => state.isSearchBarCollapsed)
+    const isDesktop = useMediaQuery({
+        query: '(min-width: 930px)'
+    })
+
+    useEffect(() => {
+        if (isDesktop) dispatch(collapseBar())
+    })
 
     return (
         <React.Fragment>
