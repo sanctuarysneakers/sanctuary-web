@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import useOutsideAlerter from '../useoutsidealerter'
 import { RiCloseLine } from 'react-icons/ri'
 import { useDispatch } from 'react-redux'
@@ -14,6 +14,11 @@ export default function AboutModal() {
     const wrapperRef = useRef(null)
     const dispatch = useDispatch()
     useOutsideAlerter(wrapperRef)
+
+    useEffect(() => {
+        document.body.style.overflow = 'hidden';
+        return ()=> document.body.style.overflow = 'unset';
+     }, []);
 
     return (
         <div className="modal-about">

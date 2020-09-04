@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import useOutsideAlerter from '../useoutsidealerter'
 import { hideShoeModal } from '../../redux/actions'
@@ -15,6 +15,11 @@ export default function ShoeModal() {
     let url = shoe.url
     // this regex removes the 'https://' from the url, so that it can be added later
     url = url.replace(/(^\w+:|^)\/\//, '')
+
+    useEffect(() => {
+        document.body.style.overflow = 'hidden';
+        return ()=> document.body.style.overflow = 'unset';
+     }, []);
 
     return (
         <div className="modal-shoe">
