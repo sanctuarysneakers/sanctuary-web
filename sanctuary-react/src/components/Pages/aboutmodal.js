@@ -17,8 +17,8 @@ export default function AboutModal() {
     useOutsideAlerter(wrapperRef)
 
     useEffect(() => {
-        document.body.style.overflow = 'hidden';
-        return () => document.body.style.overflow = 'unset';
+        document.body.style.overflowY = 'hidden';
+        return () => document.body.style.overflowY = 'unset';
     }, []);
 
     return (
