@@ -22,9 +22,9 @@ export default function SearchBar() {
 
             {/* Desktop Search Bar */}
 
-            <div className="searchBar desktop">
-                <div className="searchBarIcons">
-                    <RiSearchLine />
+            <div className="searchBar-desktop">
+                <div className="searchIcon">
+                    <RiSearchLine/>
                 </div>
                 <input
                     className="searchText"
@@ -36,9 +36,9 @@ export default function SearchBar() {
 
             {/* Mobile Search Bar */}
 
-            <div className={`searchBar mobile ${!isCollapsed && "no-border"}`}>
+            <div className={`searchBar-mobile ${!isCollapsed && "no-border"}`}>
                 <div
-                    className="searchBarIcons"
+                    className="searchIcon"
                     onClick={() => dispatch(expandBar())}
                 >
                     <RiSearchLine />
@@ -46,7 +46,7 @@ export default function SearchBar() {
 
                 {!isCollapsed &&
                     <input
-                        className={'searchText mobileSearchText'}
+                        className={'mobileSearchText'}
                         type="text"
                         placeholder="Search"
                         onChange={e => dispatch(updateSearch(e.target.value))}
@@ -55,7 +55,7 @@ export default function SearchBar() {
 
             {!isCollapsed &&
                 <div
-                    className={'searchBarIcons closeIcon mobile'}
+                    className={'closeIcon-mobile'}
                     onClick={() => dispatch(collapseBar())}
                 >
                     <RiCloseLine />
