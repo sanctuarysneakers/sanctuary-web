@@ -314,8 +314,7 @@
     }
 }
 
-
-
+/* Mobile */
 
 @media screen and (max-width: 831px) {
 
@@ -326,9 +325,11 @@
     .mobile-version {
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
+
         height: 542px;
         width: 320px;
-        justify-content: space-between;
+        overflow-x: auto !important;
 
         .closeButton {
             align-self: center;

@@ -7,11 +7,13 @@
 .about {
     width: 910px;
     overflow-y: auto;
+    overflow-x: auto;
     scrollbar-width: none;  /* Firefox */
     -ms-overflow-style: none;  /* Internet Explorer 10+ */
 
     .close-area {
         height: 130px;
+        width: 910px;
         display: flex;
         align-items: flex-end;
         justify-content: flex-end;
@@ -23,6 +25,7 @@
         justify-content: center;
 
         height: 1185px;
+        width: 910px;
         background: white;
         border-radius: 20px;
         margin-top: 10px;
@@ -66,6 +69,7 @@
 
     .cardTwo {
         height: 1185px;
+        width: 910px;
         background: white;
         border-radius: 20px;
         margin-top: 50px;
@@ -178,6 +182,7 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
+            width: 910px;
 
             h1 {
                 font-size: 64px;
@@ -226,8 +231,13 @@
     .about {
         width: 637px;
 
+        .close-area {
+            width: 637px;
+        }
+
         .cardOne {
             height: 930px;
+            width: 637px;
 
             .cardOne-content {
                 height: 718px;
@@ -256,6 +266,7 @@
 
         .cardTwo {
             height: 930px;
+            width: 637px;
 
             .cardTwo-top {
                 height: 239px;
@@ -306,6 +317,7 @@
 
         .cardThree {
             height: 930px;
+            width: 637px;
 
             .cardThree-content {
                 width: 465px;
@@ -326,6 +338,7 @@
         .cardFour {
 
             .cardFour-content {
+                width: 637px;
 
                 h1 {
                     font-size: 48px;
@@ -360,10 +373,12 @@
 
         .close-area {
             height: 92px;
+            width: 355px;
         }
 
         .cardOne {
             height: 659px;
+            width: 355px;
             margin-top: 8px;
 
             .cardOne-content {
@@ -393,6 +408,7 @@
 
         .cardTwo {
             height: 659px;
+            width: 355px;
             margin-top: 40px;
 
             .cardTwo-top {
@@ -444,6 +460,7 @@
 
         .cardThree {
             height: 659px;
+            width: 355px;
             margin-top: 40px;
 
             .cardThree-content {
@@ -465,6 +482,7 @@
         .cardFour {
 
             .cardFour-content {
+                width: 355px;
 
                 h1 {
                     font-size: 50px;
