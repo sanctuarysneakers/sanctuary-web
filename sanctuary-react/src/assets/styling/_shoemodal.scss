@@ -192,6 +192,11 @@
         text-decoration: none;
         background: linear-gradient(45deg, #E15895, #F8595D);
         border-radius: 30px;
+        transition: 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+
+    .buy-now:hover {
+        background: linear-gradient(45deg, #E84586, #EC4F56);
     }
 }
 

@@ -4,6 +4,7 @@
 
 .navbar {
     position: sticky;
+    position: -webkit-sticky;
     top: 0px;
     z-index: 10;
     height: 60px;
