@@ -27,8 +27,13 @@
   height: 50px !important;
   width: 50px !important;
   border-radius: 100px;
+  transition: 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
   box-shadow: -4px -4px 12px rgba($color: #000000, $alpha: 0.12),
                 4px 4px 12px rgba($color: #000000, $alpha: 0.12);
+}
+
+.swiper-button-prev:hover, .swiper-button-next:hover {
+  background: #E2E2E2;
 }
 
 @media screen and (max-width: 929px) {

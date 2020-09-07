@@ -1,55 +1,38 @@
-.searchBar {
-    background: white;
-    height: 45px;
-    border-radius: 100px;
-    border: 1px solid #E0E1E5;
-    align-self: center;
-    outline: none;
-}
-
-.no-border {
-    border: none;
-}
-
-.searchBarIcons {
-    color: #989898;
-    float: left;
-    width: 45px;
-    height: 45px;
-    border-radius: 100px;
-    background: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.closeIcon {
-    float: right;
-}
-
-.searchText {
-    border: none;
-    background: none;
-    outline: none;
-    color: #353234;
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 45px;
-    width: 539px;
-    padding: 0;
-}
-
-.mobileSearchText {
-    width: 50vw;
-}
-
-.mobile {
+.searchBar-mobile {
     display: none;
 }
 
-.desktop {
+.searchBar-desktop {
     display: flex;
+    align-items: center;
+
+    height: 45px;
+    border-radius: 100px;
+    border: 1px solid #E0E1E5;
+
+    .searchIcon {
+        display: flex;
+        align-items: center;
+        height: 16px;
+        padding: 0px 14.5px;
+
+        svg {
+            color: #989898;
+        }
+    }
+
+    .searchText {
+        height: 21px;
+        width: 494px;
+        margin-right: 45px;
+        border: none;
+        outline: none;
+
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        color: #353234;
+    }
 }
 
 ::placeholder {
@@ -57,12 +40,108 @@
     font-weight: 300;
 }
 
+
+
+// .searchBar {
+//     display: flex;
+//     background: white;
+//     height: 45px;
+//     border-radius: 100px;
+//     border: 1px solid #E0E1E5;
+// }
+
+.no-border {
+    border: none;
+}
+
+// .searchBarIcons {
+//     display: flex;
+//     align-items: center;
+
+//     svg {
+//         color: #989898;
+//         height: 18px;
+//         width: 18px;
+//         padding: 0px 13.5px;
+
+//     }
+// }
+
+.closeIcon {
+    float: right;
+}
+
+// .searchText {
+//     border: none;
+//     background: none;
+//     outline: none;
+//     color: #353234;
+//     font-family: 'Poppins', sans-serif;
+//     font-size: 14px;
+//     font-weight: 400;
+//     width: 503px;
+//     padding-right: 21px;
+// }
+
+// .mobileSearchText {
+//     width: 50vw;
+// }
+
+// .mobile {
+//     display: none;
+// }
+
+// .desktop {
+//     display: flex;
+// }
+
+// ::placeholder {
+//     color: #989898;
+//     font-weight: 300;
+// }
+
 @media screen and (max-width: 929px) {
-    .desktop {
+    .searchBar-desktop {
         display: none;
     }
-    .mobile {
+    .searchBar-mobile {
         display: flex;
+
+        .searchIcon {
+            cursor: pointer;
+            height: 18px;
+            padding: 0px;
+    
+            svg {
+                height: 18px;
+                width: 18px;
+                color: #353234;
+            }
+        }
+
+        .mobileSearchText {
+            width: calc(100vw - 124px);
+            margin: 0px 20px;
+            outline: none;
+            border: none;
+
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: #353234;
+
+        }
+    }
+
+    .closeIcon-mobile {
+        cursor: pointer;
+        height: 18px;
+
+        svg {
+            width: 18px;
+            height: 18px;
+            color: #353234;
+        }
     }
 }
 

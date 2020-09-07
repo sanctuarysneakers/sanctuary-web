@@ -5,6 +5,7 @@ import Catalog from '../catalog'
 import FilterBar from '../filterbar'
 import { use100vh } from 'react-div-100vh'
 import { useMediaQuery } from 'react-responsive'
+import { Link } from 'react-scroll'
 
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
     })
     const height = use100vh()
     const recalculatedHeight = isDesktop ? height - 91 : height - 61 
+    const filterHeight = isDesktop ? -91 : -61
 
     return (
         <React.Fragment>
@@ -24,12 +26,20 @@ export default function Home() {
                     <h1>Find Your Perfect Pair</h1>
                     <h3>Get the best price on Jordans from your favourite websites</h3>
                     <div className='twoButtons'>
-                        <a href="#section-a" className="shopNowBtn">
-                            Shop Now
-                    </a>
+
+                        <Link className="shopNowBtn"
+                            activeClass="active"
+                            to="section-a"
+                            spy={true}
+                            smooth={true}
+                            offset={filterHeight}
+                            duration= {600}
+                        > Shop Now </Link>
+
                         <button className='aboutUsBtn' onClick={() => dispatch(showAboutModal())}>
                             About Us
-                    </button>
+                        </button>
+
                     </div>
                 </div>
             </div>

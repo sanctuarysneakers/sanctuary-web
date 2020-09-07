@@ -1,10 +1,21 @@
-// WEB VERSION
+/* Web */
 
 .mobile-version {
     display: none;
 }
 
 .web-version {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 454px;
+
+    .closeButton {
+        align-self: flex-end;
+    }
+}
+
+.web-content {
     width: 960px;
     height: 410px;
     display: flex;
@@ -97,6 +108,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    height: 410px;
     width: 304px;
     background: white;
     border-radius: 30px;
@@ -114,6 +127,7 @@
 }
 
 .right {
+    height: 410px;
     width: 190px;
     display: flex;
     flex-direction: column;
@@ -178,13 +192,26 @@
         text-decoration: none;
         background: linear-gradient(45deg, #E15895, #F8595D);
         border-radius: 30px;
+        transition: 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+
+    .buy-now:hover {
+        background: linear-gradient(45deg, #E84586, #EC4F56);
     }
 }
 
+/* Tablet */
 
 @media (max-width: 1091px) and (min-width: 832px) {
 
     .web-version {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 344px;
+    }
+
+    .web-content {
         width: 700px;
         height: 300px;
     }
@@ -235,6 +262,7 @@
     }
 
     .middle {
+        height: 300px;
         width: 220px;
         border-radius: 22px;
     
@@ -245,6 +273,7 @@
     }
 
     .right {
+        height: 300px;
         width: 140px;
     
         .shoe-price-container {
@@ -290,8 +319,7 @@
     }
 }
 
-
-
+/* Mobile */
 
 @media screen and (max-width: 831px) {
 
@@ -302,9 +330,11 @@
     .mobile-version {
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
+
         height: 542px;
         width: 320px;
-        justify-content: space-between;
+        overflow-x: auto !important;
 
         .closeButton {
             align-self: center;
