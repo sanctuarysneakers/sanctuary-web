@@ -1,9 +1,10 @@
-from flask import Flask
+from flask import Flask, request
 from flask_restful import Resource, Api, reqparse
 from flask_cors import CORS
 import mysql.connector
 from mysql.connector import ProgrammingError
 import requests
+from datetime import datetime 
 
 application = Flask(__name__)
 cors = CORS(application, resources={r"*": {"origins": "*"}})
@@ -85,6 +86,13 @@ class Search(Resource):
             conn, c = connect_to_db()
             c.execute(query)
         data = c.fetchall()
+        conn.commit()
+
+        # Request logging (date, ip, search query)
+        request_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        request_ip = request.environ['HTTP_X_FORWARDED_FOR']
+        request_id = abs(hash(request_date+' '+request_ip)) % (10**8)
+        c.execute(f"INSERT IGNORE INTO ip_log (id, date, ip, search_query) VALUES ({request_id}, '{request_date}', '{request_ip}', '{search}');")
         conn.commit()
 
         return process_data(data, currency)
