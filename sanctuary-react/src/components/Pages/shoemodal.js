@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import useOutsideAlerter from '../useoutsidealerter'
 import { hideShoeModal } from '../../redux/actions'
 import { RiCloseLine } from 'react-icons/ri'
+import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 
 export default function ShoeModal() {
@@ -17,11 +18,12 @@ export default function ShoeModal() {
     url = url.replace(/(^\w+:|^)\/\//, '')
 
     useEffect(() => {
-        document.body.style.overflowY = 'hidden'
+        const targetElement = document.querySelector('#targetElementId');
+        disableBodyScroll(targetElement)
         return () => {
-            document.body.style.overflowY = 'unset'
+            clearAllBodyScrollLocks()
         }
-     }, []);
+    }, []);
 
     return (
         <div className="modal-shoe">

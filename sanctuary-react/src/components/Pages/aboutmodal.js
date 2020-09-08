@@ -4,6 +4,7 @@ import { RiCloseLine } from 'react-icons/ri'
 import { useDispatch } from 'react-redux'
 import { hideAboutModal } from '../../redux/actions'
 import Div100vh from 'react-div-100vh'
+import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 import picture1 from '../../assets/images/aboutPic1.jpg'
 import picture2 from '../../assets/images/aboutPic2.jpg'
@@ -17,11 +18,12 @@ export default function AboutModal() {
     useOutsideAlerter(wrapperRef)
 
     useEffect(() => {
-        document.body.style.overflowY = 'hidden'
+        const targetElement = document.querySelector('#targetElementId');
+        disableBodyScroll(targetElement)
         return () => {
-            document.body.style.overflowY = 'unset'
+            clearAllBodyScrollLocks()
         }
-     }, []);
+    }, []);
 
     return (
         <div className="modal-about">
