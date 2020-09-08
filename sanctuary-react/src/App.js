@@ -25,10 +25,18 @@ function App() {
         <Route path="/home" component={Home} />
         <Route component={PageNotFound} />
       </Switch>
-      <RemoveScroll>
-        {shoeModalVisible && <ShoeModal />}
-        {aboutModalVisible && <AboutModal />}
-      </RemoveScroll>
+      {
+        shoeModalVisible &&
+        <RemoveScroll>
+          <ShoeModal />
+        </RemoveScroll>
+      }
+      {
+        aboutModalVisible &&
+        <RemoveScroll>
+          <AboutModal />
+        </RemoveScroll>
+      }
       <Footer />
     </React.Fragment>
   )
