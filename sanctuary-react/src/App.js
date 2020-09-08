@@ -9,6 +9,7 @@ import AboutModal from "./components/Pages/aboutmodal"
 import PageNotFound from "./components/Pages/pagenotfound"
 
 import { useSelector } from 'react-redux'
+import { RemoveScroll } from 'react-remove-scroll'
 
 
 function App() {
@@ -24,8 +25,10 @@ function App() {
         <Route path="/home" component={Home} />
         <Route component={PageNotFound} />
       </Switch>
-      {shoeModalVisible && <ShoeModal />}
-      {aboutModalVisible && <AboutModal />}
+      <RemoveScroll>
+        {shoeModalVisible && <ShoeModal />}
+        {aboutModalVisible && <AboutModal />}
+      </RemoveScroll>
       <Footer />
     </React.Fragment>
   )

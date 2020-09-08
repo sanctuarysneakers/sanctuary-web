@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import useOutsideAlerter from '../useoutsidealerter'
 import { hideShoeModal } from '../../redux/actions'
 import { RiCloseLine } from 'react-icons/ri'
-import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 
 export default function ShoeModal() {
@@ -16,14 +15,6 @@ export default function ShoeModal() {
     let url = shoe.url
     // this regex removes the 'https://' from the url, so that it can be added later
     url = url.replace(/(^\w+:|^)\/\//, '')
-
-    useEffect(() => {
-        const targetElement = document.querySelector('#targetElementId');
-        disableBodyScroll(targetElement)
-        return () => {
-            clearAllBodyScrollLocks()
-        }
-    }, []);
 
     return (
         <div className="modal-shoe">
