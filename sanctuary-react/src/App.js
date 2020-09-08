@@ -1,6 +1,6 @@
 import React from 'react'
-import { Transition } from 'react-spring/renderprops'
-import {Switch, Route} from 'react-router-dom'
+import { useTransition, animated } from 'react-spring'
+import { Switch, Route } from 'react-router-dom'
 
 import NavBar from "./components/navbar"
 import Footer from "./components/footer"
@@ -18,24 +18,29 @@ function App() {
   const shoeModalVisible = useSelector(state => state.shoeModalVisible)
   const aboutModalVisible = useSelector(state => state.aboutModalVisible)
 
-  //TODO: animate the modal appearing
+  const transitions = useTransition(shoeModalVisible, null, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+  })
+
   return (
     <React.Fragment>
-      <NavBar/>
+      <NavBar />
       <Switch>
-        <Route exact path="/" component={Home}/>
-        <Route path="/home" component={Home}/>
-        <Route component={PageNotFound}/>
+        <Route exact path="/" component={Home} />
+        <Route path="/home" component={Home} />
+        <Route component={PageNotFound} />
       </Switch>
-      {shoeModalVisible && <ShoeModal/>}
-      {aboutModalVisible && <AboutModal/>}
-      <Footer/>
+      {
+        transitions.map(({ item, key, props }) =>
+          item && <animated.div key={key} style={props}><ShoeModal /></animated.div>)
+      }
+      {aboutModalVisible && <AboutModal />}
+      <Footer />
     </React.Fragment>
   )
 }
 
 
 export default App;
-
-//TODO: change the favicon to logo
-//TODO: responsive mode has horizontal scroll on mobile, also horizontal scroll bars on about modal
