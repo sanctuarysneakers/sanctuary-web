@@ -1,5 +1,4 @@
 import React from 'react'
-import { useTransition, animated } from 'react-spring'
 import { Switch, Route } from 'react-router-dom'
 
 import NavBar from "./components/navbar"
@@ -12,17 +11,10 @@ import PageNotFound from "./components/Pages/pagenotfound"
 import { useSelector } from 'react-redux'
 
 
-
 function App() {
 
   const shoeModalVisible = useSelector(state => state.shoeModalVisible)
   const aboutModalVisible = useSelector(state => state.aboutModalVisible)
-
-  const transitions = useTransition(shoeModalVisible, null, {
-    from: { opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
-  })
 
   return (
     <React.Fragment>
@@ -32,10 +24,7 @@ function App() {
         <Route path="/home" component={Home} />
         <Route component={PageNotFound} />
       </Switch>
-      {
-        transitions.map(({ item, key, props }) =>
-          item && <animated.div key={key} style={props}><ShoeModal /></animated.div>)
-      }
+      {shoeModalVisible && <ShoeModal />}
       {aboutModalVisible && <AboutModal />}
       <Footer />
     </React.Fragment>
