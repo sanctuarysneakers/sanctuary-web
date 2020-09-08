@@ -18,13 +18,11 @@ export default function AboutModal() {
 
     useEffect(() => {
         document.body.style.overflowY = 'hidden'
-        document.body.style.position = 'relative'
         return () => {
             document.body.style.overflowY = 'unset'
-            document.body.style.position = 'unset'
         }
      }, []);
-     
+
     return (
         <div className="modal-about">
 
