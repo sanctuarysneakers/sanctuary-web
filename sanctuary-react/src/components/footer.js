@@ -27,7 +27,6 @@ export default function Footer() {
 
     const signUpPrompt = emailSubmitted ? "Thanks :) We've added you to the list" : "Sign up for early access to new arrivals, promotions, and more." 
 
-    // TODO: link social media and footer pages
     return (
         <React.Fragment>
 

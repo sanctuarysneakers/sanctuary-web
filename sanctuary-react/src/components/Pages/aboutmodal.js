@@ -16,11 +16,6 @@ export default function AboutModal() {
     const dispatch = useDispatch()
     useOutsideAlerter(wrapperRef)
 
-    useEffect(() => {
-        document.body.style.overflowY = 'hidden';
-        return () => document.body.style.overflowY = 'unset';
-    }, []);
-
     return (
         <div className="modal-about">
 

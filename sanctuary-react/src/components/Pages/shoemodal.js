@@ -16,11 +16,6 @@ export default function ShoeModal() {
     // this regex removes the 'https://' from the url, so that it can be added later
     url = url.replace(/(^\w+:|^)\/\//, '')
 
-    useEffect(() => {
-        document.body.style.overflowY = 'hidden';
-        return ()=> document.body.style.overflowY = 'unset';
-     }, []);
-
     return (
         <div className="modal-shoe">
 
