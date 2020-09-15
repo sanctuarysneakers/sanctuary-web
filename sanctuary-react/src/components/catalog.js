@@ -48,6 +48,19 @@ export default function Catalog() {
         })
     }
 
+    const flightClubConditionReformat = data => {
+        let flightClubConditions = {
+            "new_no_defects": "New",
+            "new_with_defects": "New With Defects",
+            "used": "Used",
+        }
+
+        return data.map(shoe => {
+            shoe.shoe_condition = flightClubConditions[shoe.shoe_condition]
+            return shoe
+        })
+    }
+
 
     useEffect(() => {
 
@@ -77,6 +90,7 @@ export default function Catalog() {
                         dispatch(grailedCall(data))
                         break
                     case "flightclub":
+                        data = flightClubConditionReformat(data)
                         dispatch(flightClubCall(data))
                         break
                     default:
