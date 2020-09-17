@@ -40,4 +40,13 @@
   .swiper-wrapper {
     margin-left: 24px;
   }
+
+  .swiper-button-prev:after, .swiper-button-next:after {
+    font-size: 14px !important;
+  }
+
+  .swiper-button-prev, .swiper-button-next {
+    height: 40px !important;
+    width: 40px !important;
+  }
 }
