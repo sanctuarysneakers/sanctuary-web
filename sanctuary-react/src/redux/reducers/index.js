@@ -6,12 +6,16 @@ import flightClubDataReducer from './flightclubdatareducer'
 import filterReducer from './filterreducer'
 import shoeModalVisibleReducer from './shoemodalvisiblereducer'
 import aboutModalVisibleReducer from './aboutmodalvisiblereducer'
+import termsModalVisibleReducer from './termsmodalvisiblereducer'
+import privacyModalVisibleReducer from './privacymodalvisiblereducer'
 import searchBarCollapseReducer from './searchBarCollapseReducer'
 import { combineReducers } from 'redux'
 
 const globalReducer = combineReducers({
     shoeModalVisible: shoeModalVisibleReducer,
     aboutModalVisible: aboutModalVisibleReducer,
+    termsModalVisible: termsModalVisibleReducer,
+    privacyModalVisible: privacyModalVisibleReducer,
     filter: filterReducer,
     shoe: shoeReducer,
     stockxData: stockxDataReducer,

@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
-import img from '../assets/images/footerPic.png'
+import { useDispatch } from 'react-redux'
+import { showTermsModal, showPrivacyModal } from '../redux/actions'
 
+import img from '../assets/images/footerPic.png'
 import { FiInstagram, FiTwitter, FiFacebook } from 'react-icons/fi'
-import { Link } from 'react-router-dom'
+
 
 export default function Footer() {
 
+    const dispatch = useDispatch()
     const [email, setEmail] = useState('')
     const [emailSubmitted, setEmailSubmitted] = useState(false)
 
@@ -96,9 +99,15 @@ export default function Footer() {
             <div className='bottomText'>
                 <div className='bottomText-content'>
                     <ul>
-                        <Link >Contact Us</Link> {/* to="/contact" */}
-                        <Link >Terms of Use</Link> {/* to="/terms" */}
-                        <Link >Privacy Policy</Link> {/* to="/privacy" */}
+                        <button>
+                            Contact Us
+                        </button>
+                        <button onClick={() => dispatch(showTermsModal())}>
+                            Terms of Use
+                        </button>
+                        <button onClick={() => dispatch(showPrivacyModal())}>
+                            Privacy Policy
+                        </button>
                     </ul>
                     <div className="bottomTextIcons">
                         <div className='social-media'>

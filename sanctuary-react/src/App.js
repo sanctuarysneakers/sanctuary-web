@@ -6,6 +6,8 @@ import Footer from "./components/footer"
 import Home from "./components/Pages/home"
 import ShoeModal from "./components/Pages/shoemodal"
 import AboutModal from "./components/Pages/aboutmodal"
+import TermsModal from "./components/Pages/termsmodal"
+import PrivacyModal from "./components/Pages/privacymodal"
 import PageNotFound from "./components/Pages/pagenotfound"
 
 import { useSelector } from 'react-redux'
@@ -16,6 +18,8 @@ function App() {
 
   const shoeModalVisible = useSelector(state => state.shoeModalVisible)
   const aboutModalVisible = useSelector(state => state.aboutModalVisible)
+  const termsModalVisible = useSelector(state => state.termsModalVisible)
+  const privacyModalVisible = useSelector(state => state.privacyModalVisible)
 
   return (
     <React.Fragment>
@@ -35,6 +39,18 @@ function App() {
         aboutModalVisible &&
         <RemoveScroll>
           <AboutModal />
+        </RemoveScroll>
+      }
+      {
+        termsModalVisible &&
+        <RemoveScroll>
+          <TermsModal />
+        </RemoveScroll>
+      }
+      {
+        privacyModalVisible &&
+        <RemoveScroll>
+          <PrivacyModal />
         </RemoveScroll>
       }
       <Footer />
