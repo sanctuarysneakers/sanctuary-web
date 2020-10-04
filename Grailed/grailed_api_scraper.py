@@ -3,7 +3,6 @@ from urllib.parse import urlencode
 import mysql.connector
 from mysql.connector import ProgrammingError
 
-
 # Setup connection to database
 host = "mysql-db-master.cmamugrum56i.us-west-2.rds.amazonaws.com"
 user = "admin"
@@ -110,7 +109,7 @@ def get_api_data(s_query):
                 "condition": item['condition'],
                 "seller_location": item['location'],
                 "seller_rating": round(item['user']['seller_score']['rating_average'], 1) if
-                    item['user']['seller_score']['rating_average'] else None,
+                item['user']['seller_score']['rating_average'] else None,
                 "seller_rating_count": item['user']['seller_score']['rating_count'],
                 "shipping_us": item['shipping']['us']['amount'] if item['shipping']['us']['enabled'] else None,
                 "shipping_ca": item['shipping']['ca']['amount'] if item['shipping']['ca']['enabled'] else None,
@@ -143,13 +142,13 @@ def insert_items(item_data):
 
     data_list = []
     for item in item_data:
-        data_list.append((item["id"], item["source"], item["model"], item["sku_id"], item["size"], 
-            item["price"], item["condition"], item["category"], item["old_price"], 
-            item["date_bumped"], item["date_created"], item["heat"],item["seller_location"], 
-            item["seller_rating"], item["seller_rating_count"],item["shipping_us"], item["shipping_ca"], 
-            item["shipping_uk"], item["shipping_eu"], item["shipping_asia"],item["shipping_au"], 
-            item["shipping_other"], item["url"], item["img"]))
-    
+        data_list.append((item["id"], item["source"], item["model"], item["sku_id"], item["size"],
+                          item["price"], item["condition"], item["category"], item["old_price"],
+                          item["date_bumped"], item["date_created"], item["heat"], item["seller_location"],
+                          item["seller_rating"], item["seller_rating_count"], item["shipping_us"], item["shipping_ca"],
+                          item["shipping_uk"], item["shipping_eu"], item["shipping_asia"], item["shipping_au"],
+                          item["shipping_other"], item["url"], item["img"]))
+
     try:
         c.executemany("""INSERT IGNORE INTO grailed_sneakers_tmp
             (id,source,model,sku_id,size,price,shoe_condition,category,old_price,
@@ -166,12 +165,14 @@ def insert_items(item_data):
 
 def run_scraper():
     """ Runs the Grailed Scraper """
-
+    print("TEST")
+    data = []
+    categoryList = ["Jordan", "Air Max", "Flyknit", "Huarache", "Flyknit", "Dunk", "SB"]
     # Get a list of all the item data from the api
-    item_data = get_api_data("Jordan")
-
+    for category in categoryList:
+        data.append(get_api_data(category))
     # Insert items into the database
-    insert_items(item_data)
+    insert_items(data)
 
 
 create_db_table()
