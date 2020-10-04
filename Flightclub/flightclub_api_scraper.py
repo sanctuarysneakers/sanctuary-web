@@ -11,7 +11,7 @@ passwd = "4tDqfnvbQ8R8RGuh"
 db_name = "sneakers"
 try:
     conn = mysql.connector.connect(host=host, user=user, passwd=passwd, database=db_name)
-    c = conn.cursor(buffered=True)
+    c = conn.cursor()
     c.execute("USE sneakers;")
 except ProgrammingError:
     print("couldn't connect to database")
@@ -53,7 +53,7 @@ def alter_db_table():
     conn.commit()
 
 
-def get_api_data():
+def get_api_data(s_query):
     url = "https://2fwotdvm2o-dsn.algolia.net/1/indexes/product_variants_v2_flight_club/query"
     params = {
         "x-algolia-agent": "Algolia for vanilla JavaScript (lite) 3.32.0;react-instantsearch 5.4.0;JS Helper 2.26.1",
@@ -70,7 +70,7 @@ def get_api_data():
             print("page " + str(page) + " of size " + size)
             post_json = {
                 "params": "query=&" + urlencode({
-                    "filters": "(brand_name: 'Air Jordan')",
+                    "query": s_query,
                     "facetFilters": f'[["size_us_men:{size}"]]',
                     "distinct": "true",
                     "hitsPerPage": "50",
@@ -127,7 +127,12 @@ def insert_items(item_data):
 
 
 def run_scraper():
-    data = get_api_data()
+    """ Runs the scraper """
+
+    # Get a list of all the item data from the api
+    data = get_api_data("Air Jordan")
+
+    # Insert items into the database
     insert_items(data)
 
 
