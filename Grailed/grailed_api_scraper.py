@@ -62,7 +62,7 @@ def alter_db_table():
     conn.commit()
 
 
-def get_api_data():
+def get_api_data(s_query):
     """ Returns a very detailed list of items on Grailed.
 
     Returns:
@@ -82,10 +82,10 @@ def get_api_data():
     while offset <= 10000:
         post_json = {
             "params": "query=&" + urlencode({
+                "query": s_query,
+                "facetFilters": "[[\"category_path:footwear.hitop_sneakers\", \"category_path:footwear.lowtop_sneakers\"]",
                 "offset": str(offset),
-                "length": "1000",
-                "facetFilters": "[[\"category_path:footwear.hitop_sneakers\"], [\"designers.name:Jordan Brand\"]]",
-                "filters": ""
+                "length": "1000"
             })
         }
         response = requests.post(url, params=params, json=post_json)
@@ -165,14 +165,10 @@ def insert_items(item_data):
 
 
 def run_scraper():
-    """ Runs the Grailed Scraper.
-
-    Returns:
-        No return value.
-    """
+    """ Runs the Grailed Scraper """
 
     # Get a list of all the item data from the api
-    item_data = get_api_data()
+    item_data = get_api_data("Jordan")
 
     # Insert items into the database
     insert_items(item_data)

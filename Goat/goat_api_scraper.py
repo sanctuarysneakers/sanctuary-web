@@ -50,7 +50,7 @@ def alter_db_table():
     conn.commit()
 
 
-def get_api_data():
+def get_api_data(s_query):
     """ Returns a very detailed list of items from Goat.
 
     Returns:
@@ -71,7 +71,7 @@ def get_api_data():
         post_json = {
             "params": "query=&" + urlencode({
                 "distinct": "true",
-                "query": "Air Jordan",
+                "query": s_query,
                 "facetFilters": "(product_category: shoes), (presentation_size:"+size+"), (single_gender: men)",
                 "offset": "0",
                 "length": "1000"
@@ -134,7 +134,7 @@ def run_scraper():
     """ Runs the scraper """
 
     # Get a list of all the item data from the api
-    data = get_api_data()
+    data = get_api_data("Air Jordan")
 
     # Insert items into the database
     insert_items(data)
