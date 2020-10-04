@@ -132,12 +132,13 @@ def insert_items(item_data):
 
 def run_scraper():
     """ Runs the scraper """
-    data = []
+    
     categoryList = ["Air Jordan", "Nike Running"]
 
     # Get a list of all the item data from the api
+    data = []
     for category in categoryList:
-        data = get_api_data(category)
+        data.extend(get_api_data(category))
 
     # Insert items into the database
     insert_items(data)
