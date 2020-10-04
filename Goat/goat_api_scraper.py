@@ -70,9 +70,9 @@ def get_api_data(s_query):
     for size in sizes:
         post_json = {
             "params": "query=&" + urlencode({
-                "distinct": "true",
                 "query": s_query,
                 "facetFilters": "(product_category: shoes), (presentation_size:"+size+"), (single_gender: men)",
+                "distinct": "true",
                 "offset": "0",
                 "length": "1000"
             })
@@ -132,9 +132,12 @@ def insert_items(item_data):
 
 def run_scraper():
     """ Runs the scraper """
+    data = []
+    categoryList = ["Air Jordan", "Nike Running"]
 
     # Get a list of all the item data from the api
-    data = get_api_data("Air Jordan")
+    for category in categoryList:
+        data = get_api_data(category)
 
     # Insert items into the database
     insert_items(data)
