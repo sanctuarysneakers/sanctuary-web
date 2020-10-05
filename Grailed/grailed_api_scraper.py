@@ -82,7 +82,7 @@ def get_api_data(s_query):
         post_json = {
             "params": "query=&" + urlencode({
                 "query": s_query,
-                "facetFilters": "[[\"category_path:footwear.hitop_sneakers\", \"category_path:footwear.lowtop_sneakers\"]",
+                "facetFilters": "[[\"category_path:footwear.hitop_sneakers\", \"category_path:footwear.lowtop_sneakers\"]]",
                 "offset": str(offset),
                 "length": "1000"
             })
@@ -166,12 +166,13 @@ def insert_items(item_data):
 def run_scraper():
     """ Runs the Grailed Scraper """
 
-    categoryList = ["Jordan", "Air Max", "Flyknit", "Huarache", "Flyknit", "Dunk", "SB"]
-    
+    categoryList = ["Jordan", "Air Max", "Air Force", "Yeezy", "Ultraboost", "Flyknit", "Huarache", "Dunk", "SB"]
+
     # Get a list of all the item data from the api
     data = []
     for category in categoryList:
         data.extend(get_api_data(category))
+    print("Scraped: " + len(data))
     
     # Insert items into the database
     insert_items(data)
