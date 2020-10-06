@@ -18,6 +18,7 @@ except ProgrammingError:
 
 def create_db_table():
     """ Creates an empty database table with the necessary keys."""
+    
     c.execute("DROP TABLE IF EXISTS grailed_sneakers_tmp;")
     try:
         c.execute("""CREATE TABLE grailed_sneakers_tmp (
@@ -63,6 +64,9 @@ def alter_db_table():
 
 def get_api_data(s_query):
     """ Returns a very detailed list of items on Grailed.
+
+    Arguments:
+        String s_query: The search query (sneaker category) to get data for.
 
     Returns:
         List[Dict] results: A list containing dictionaries, each dictionary contains information on one pair of shoes.
@@ -134,7 +138,7 @@ def insert_items(item_data):
     it updates information if it has changed.
 
     Arguments:
-        (Dict) item_data: A list containing data for each feed item.
+        List[Dict] item_data: A list of dict's containing data for each feed item.
 
     Returns:
         No return value.
@@ -158,6 +162,7 @@ def insert_items(item_data):
             VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
         conn.commit()
     except ProgrammingError:
+        print("Could not insert data")
         pass
 
     conn.commit()
