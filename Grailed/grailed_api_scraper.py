@@ -177,7 +177,7 @@ def run_scraper():
     data = []
     for category in categoryList:
         data.extend(get_api_data(category))
-    print("Scraped: " + len(data))
+    print("Scraped", len(data), "items.")
     
     # Insert items into the database
     insert_items(data)

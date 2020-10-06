@@ -62,12 +62,11 @@ def get_api_data(s_query):
     }
 
     items = []
-    sizes = ['6', '6.5', '7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '11.5', '12', '12.5', '13',
-             '13.5', '14', '14.5', '15', '16']
+    sizes = ['6','6.5','7','7.5','8','8.5','9','9.5','10','10.5','11','11.5','12','12.5','13','13.5','14','14.5','15','16']
     for size in sizes:
         page = 0
         while True:  # loop through each page
-            print("page " + str(page) + " of size " + size)
+            print(s_query + ": page " + str(page) + " of size " + size)
             post_json = {
                 "params": "query=&" + urlencode({
                     "query": s_query,
@@ -129,12 +128,13 @@ def insert_items(item_data):
 def run_scraper():
     """ Runs the scraper """
     
-    categoryList = ["Air Jordan", "Nike Running"]
+    categoryList = ["Air Jordan", "Nike Running", "Air Force", "Yeezy", "Ultraboost", "Dunk", "SB"]
 
     # Get a list of all the item data from the api
     data = []
     for category in categoryList:
         data.extend(get_api_data(category))
+    print("Scraped:", len(data), "items.")
 
     # Insert items into the database
     insert_items(data)
