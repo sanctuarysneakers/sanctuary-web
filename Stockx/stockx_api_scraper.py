@@ -58,7 +58,7 @@ def alter_db_table():
     conn.commit()
 
 
-def get_api_data(start_size, end_size):
+def get_api_data(s_query, size):
     """ Returns a very detailed list of items from Stockx.
 
     Returns:
@@ -75,24 +75,26 @@ def get_api_data(start_size, end_size):
     }
 
     items = []
-    size = start_size
-    while size <= end_size:
-        page = 1
-        while page <= 20:
-            parameters = {
-                "_tags": "air jordan",
-                "productCategory": "sneakers",
-                "shoeSize": ('%.2f' % (size,)).rstrip('0').rstrip('.'),
-                "page": str(page)
-            }
-            response = requests.get(url, headers=headers, params=parameters)
-            if not response.ok:
-                print(response)
-                return items
-            
-            print("scraping page " + str(page) + " of size " + str(size) + " sneakers")
-            feed = response.json()["Products"]
-            for item in feed:
+    page = 1
+    while page <= 20:
+        parameters = {
+            "_tags": s_query,
+            "productCategory": "sneakers",
+            "shoeSize": size,
+            "gender": "men",
+            "sort": "most-active",
+            "order": "DESC",
+            "page": str(page)
+        }
+        response = requests.get(url, headers=headers, params=parameters)
+        if not response.ok:
+            print(response)
+            return items
+        
+        print(s_query + ": page " + str(page) + ", size " + size)
+        feed = response.json()["Products"]
+        for item in feed:
+            try:
                 if item["market"]["lowestAsk"] == 0 or item["market"]["lowestAsk"] == None:
                     continue
                 item_data = {
@@ -118,12 +120,11 @@ def get_api_data(start_size, end_size):
                     "image": item["media"]["imageUrl"]
                 }
                 items.append(item_data)
-            
-            page += 1
-            time.sleep(2)
+            except KeyError:
+                continue
         
-        size += 0.5
-        time.sleep(4)
+        page += 1
+        time.sleep(1.5)
 
     return items
 
@@ -136,7 +137,7 @@ def insert_items(item_data):
     it updates information if it has changed.
 
     Arguments:
-        (Dict) item_data: A list containing data for each feed item.
+        List[Dict] item_data: A list of dict's containing data for each feed item.
 
     Returns:
         No return value.
@@ -163,29 +164,29 @@ def insert_items(item_data):
     conn.commit()
 
 
-def run_scraper(start_size, end_size):
-    """ Runs the Stockx Scraper.
+def run_scraper():
+    """ Runs the Stockx Scraper """
 
-    Returns:
-        No return value.
-    """
-    
-    # Get a list of all the item data from the api within a shoe size range
-    data = get_api_data(start_size, end_size)
+    categoryList = ["air jordan", "air max,nike", "air force,nike", "yeezy,adidas", "ultra boost,adidas"]
+    sizes = ['6','6.5','7','7.5','8','8.5','9','9.5','10','10.5','11','11.5','12','12.5','13','13.5','14','14.5','15']
+
+    # Get a list of all the item data from the api
+    data = []
+    interval = 0
+    for category in categoryList:
+        for size in sizes:
+            data.extend(get_api_data(category, size))
+            interval += 1
+            if (interval % 5 == 0):
+                time.sleep(150)
+    print("Scraped:", len(data), "items.")
 
     # Insert items into the database
     insert_items(data)
 
 
 create_db_table()
-
-run_scraper(6, 9)        # Interval 1
-time.sleep(1000)
-run_scraper(9.5, 12.5)   # Interval 2
-time.sleep(1500)
-run_scraper(13, 15)      # Interval 3
-
+run_scraper()
 alter_db_table()
-
 
 conn.close()
