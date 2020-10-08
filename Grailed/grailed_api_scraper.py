@@ -171,7 +171,7 @@ def insert_items(item_data):
 def run_scraper():
     """ Runs the Grailed Scraper """
 
-    categoryList = ["Jordan", "Air Max", "Air Force", "Yeezy", "Ultraboost", "Flyknit", "Huarache", "Dunk", "SB"]
+    categoryList = ["Jordan","Air Max","Air Force","Off White","Nike Dunk","Yeezy","Ultraboost","Balenciaga","Presto","Nike SB","Sacai"]
 
     # Get a list of all the item data from the api
     data = []

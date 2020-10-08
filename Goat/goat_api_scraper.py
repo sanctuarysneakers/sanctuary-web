@@ -135,7 +135,7 @@ def insert_items(item_data):
 def run_scraper():
     """ Runs the scraper """
     
-    categoryList = ["Air Jordan", "Nike Running", "Air Force", "Yeezy", "Ultraboost", "Dunk", "SB"]
+    categoryList = ["Air Jordan","Nike Running","Air Force","Dunk","Balenciaga","Yeezy","Ultraboost","Nike SB"]
 
     # Get a list of all the item data from the api
     data = []
