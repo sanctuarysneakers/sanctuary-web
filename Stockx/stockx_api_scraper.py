@@ -91,8 +91,11 @@ def get_api_data(s_query, size):
             print(response)
             return items
         
-        print(s_query + ": page " + str(page) + ", size " + size)
         feed = response.json()["Products"]
+        if len(feed) == 0:
+            break
+
+        print(s_query + ": page " + str(page) + ", size " + size)
         for item in feed:
             try:
                 if item["market"]["lowestAsk"] == 0 or item["market"]["lowestAsk"] == None:
@@ -167,7 +170,7 @@ def insert_items(item_data):
 def run_scraper():
     """ Runs the Stockx Scraper """
 
-    categoryList = ["air jordan", "air max,nike", "air force,nike", "yeezy,adidas", "ultra boost,adidas"]
+    categoryList = ["air jordan","air max,nike","air force,nike","nike basketball,nike","yeezy,adidas","ultra boost,adidas"]
     sizes = ['6','6.5','7','7.5','8','8.5','9','9.5','10','10.5','11','11.5','12','12.5','13','13.5','14','14.5','15']
 
     # Get a list of all the item data from the api
