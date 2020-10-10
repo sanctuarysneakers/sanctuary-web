@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { showTermsModal, showPrivacyModal } from '../redux/actions'
 
-import img from '../assets/images/footerPic.png'
+import img from '../assets/images/footerDrawing.png'
 import { FiInstagram, FiTwitter, FiFacebook } from 'react-icons/fi'
 
 
