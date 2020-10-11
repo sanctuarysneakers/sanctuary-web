@@ -86,7 +86,7 @@ export default function TermsModal() {
                                     mean these Terms and Conditions that form the entire agreement between You
                                     and the Company regarding the use of the Service. This Terms and Conditions
                                     agreement has been created with the help of the <a href="https://www.termsfeed.com/terms-conditions-generator/" 
-                                    target="_blank"> Terms and Conditions Generator</a>.
+                                    target="_blank" rel="noopener noreferrer"> Terms and Conditions Generator</a>.
                                 </p>
                             </li>
 
@@ -100,7 +100,7 @@ export default function TermsModal() {
 
                             <li>
                                 <p><strong>Website</strong> refers to Sanctuary, accessible from <a href="https://sanctuarysneakers.com/" 
-                                rel="external nofollow noopener" target="_blank"> sanctuarysneakers.com</a></p>
+                                rel="external nofollow noopener noreferrer" target="_blank"> sanctuarysneakers.com</a></p>
                             </li>
 
                             <li>

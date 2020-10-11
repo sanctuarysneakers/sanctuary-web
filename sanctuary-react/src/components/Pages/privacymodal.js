@@ -93,7 +93,7 @@ export default function PrivacyModal() {
                             <li>
                                 <p><strong>Facebook Fan Page</strong> is a public profile named Sanctuary Sneakers specifically created by the
                                     Company on the Facebook social network, accessible from <a href="https://www.facebook.com/sanctuarysneakers"
-                                        rel="external nofollow noopener" target="_blank">facebook.com/sanctuarysneakers</a></p>
+                                        rel="external nofollow noopener noreferrer" target="_blank">facebook.com/sanctuarysneakers</a></p>
                             </li>
                             <li>
                                 <p><strong>Personal Data</strong> is any information that relates to an identified or identifiable individual.
@@ -130,7 +130,7 @@ export default function PrivacyModal() {
                             </li>
                             <li>
                                 <p><strong>Website</strong> refers to Sanctuary, accessible from <a href="https://sanctuarysneakers.com/"
-                                        rel="external nofollow noopener" target="_blank">sanctuarysneakers.com</a></p>
+                                        rel="external nofollow noopener noreferrer" target="_blank">sanctuarysneakers.com</a></p>
                             </li>
                             <li>
                                 <p><strong>You</strong> means the individual accessing or using the Service, or the company, or other legal
@@ -182,7 +182,7 @@ export default function PrivacyModal() {
                             not accept Cookies, You may not be able to use some parts of our Service.</p>
                         <p>Cookies can be &quot;Persistent&quot; or &quot;Session&quot; Cookies. Persistent Cookies remain on your personal
                             computer or mobile device when You go offline, while Session Cookies are deleted as soon as You close your web
-                            browser. Learn more about cookies: <a href="https://www.termsfeed.com/blog/cookies/" target="_blank">All About
+                            browser. Learn more about cookies: <a href="https://www.termsfeed.com/blog/cookies/" target="_blank" rel="noopener noreferrer">All About
                                 Cookies</a>.</p>
                         <p>We use both session and persistent Cookies for the purposes set out below:</p>
                         <ul>
@@ -329,7 +329,7 @@ export default function PrivacyModal() {
                                     Google Analytics opt-out browser add-on. The add-on prevents the Google Analytics JavaScript (ga.js,
                                     analytics.js and dc.js) from sharing information with Google Analytics about visits activity.</p>
                                 <p>For more information on the privacy practices of Google, please visit the Google Privacy &amp; Terms web
-                                    page: <a href="https://policies.google.com/privacy" rel="external nofollow noopener"
+                                    page: <a href="https://policies.google.com/privacy" rel="external nofollow noopener noreferrer"
                                         target="_blank">policies.google.com/privacy</a></p>
                             </li>
                         </ul>
@@ -342,7 +342,7 @@ export default function PrivacyModal() {
                                     cookie enables it and its partners to serve ads to our users based on their visit to our Service or other
                                     websites on the Internet.</p>
                                 <p>You may opt out of the use of the DoubleClick Cookie for interest-based advertising by visiting the Google
-                                    Ads Settings web page: <a href="http://www.google.com/ads/preferences/" rel="external nofollow noopener"
+                                    Ads Settings web page: <a href="http://www.google.com/ads/preferences/" rel="external nofollow noopener noreferrer"
                                         target="_blank">google.com/ads/preferences/</a></p>
                             </li>
                         </ul>
@@ -355,7 +355,7 @@ export default function PrivacyModal() {
                             <li>
                                 <p><strong>Namecheap</strong></p>
                                 <p>Their Privacy Policy can be viewed at <a href="https://www.namecheap.com/legal/general/privacy-policy/"
-                                        rel="external nofollow noopener"
+                                        rel="external nofollow noopener noreferrer"
                                         target="_blank">Namecheap</a></p>
                             </li>
                         </ul>
@@ -418,14 +418,14 @@ export default function PrivacyModal() {
                         </div>
                         <h2>Data Controller for the Facebook Fan Page</h2>
                         <p>The Company is the Data Controller of Your Personal Data collected while using the Service. As operator of the
-                            Facebook Fan Page <a href="https://www.facebook.com/sanctuarysneakers" rel="external nofollow noopener"
+                            Facebook Fan Page <a href="https://www.facebook.com/sanctuarysneakers" rel="external nofollow noopener noreferrer"
                                 target="_blank">facebook.com/sanctuarysneakers</a>, the Company and the operator of the social
                             network Facebook are Joint Controllers.</p>
                         <p>The Company has entered into agreements with Facebook that define the terms for use of the Facebook Fan Page, among
                             other things. These terms are mostly based on the Facebook Terms of Service: <a
-                                href="https://www.facebook.com/terms.php" rel="external nofollow noopener"
+                                href="https://www.facebook.com/terms.php" rel="external nofollow noopener noreferrer"
                                 target="_blank">facebook.com/terms.php</a></p>
-                        <p>Visit the Facebook Privacy Policy <a href="https://www.facebook.com/policy.php" rel="external nofollow noopener"
+                        <p>Visit the Facebook Privacy Policy <a href="https://www.facebook.com/policy.php" rel="external nofollow noopener noreferrer"
                                 target="_blank">facebook.com/policy.php</a> for more information about how Facebook manages Personal
                             data or contact Facebook online, or by mail: Facebook, Inc. ATTN, Privacy Operations, 1601 Willow Road, Menlo Park,
                             CA 94025, United States.</p>
@@ -439,7 +439,7 @@ export default function PrivacyModal() {
                             Facebook services, services that are provided by other members of the Facebook Fan Page and services by other
                             companies that use Facebook services.</p>
                         <p>For more information on the privacy practices of Facebook, please visit Facebook Privacy Policy here: <a
-                                href="https://www.facebook.com/full_data_use_policy" rel="external nofollow noopener"
+                                href="https://www.facebook.com/full_data_use_policy" rel="external nofollow noopener noreferrer"
                                 target="_blank">facebook.com/full_data_use_policy</a></p>
                         <div className='big-text'>
                             <h1>CCPA Privacy</h1>

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
 import useOutsideAlerter from '../useoutsidealerter'
 import { RiCloseLine } from 'react-icons/ri'
 import { useDispatch } from 'react-redux'

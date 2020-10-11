@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import useOutsideAlerter from '../useoutsidealerter'
 import { hideShoeModal } from '../../redux/actions'
