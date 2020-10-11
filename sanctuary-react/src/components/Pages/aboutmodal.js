@@ -1,13 +1,13 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
 import useOutsideAlerter from '../useoutsidealerter'
 import { RiCloseLine } from 'react-icons/ri'
 import { useDispatch } from 'react-redux'
 import { hideAboutModal } from '../../redux/actions'
 import Div100vh from 'react-div-100vh'
 
-import picture1 from '../../assets/images/aboutPic1.jpg'
-import picture2 from '../../assets/images/aboutPic2.jpg'
-import picture3 from '../../assets/images/aboutPic3.jpg'
+import picture1 from '../../assets/images/aboutDrawing1.png'
+import picture2 from '../../assets/images/aboutDrawing2.png'
+import picture3 from '../../assets/images/aboutDrawing3.png'
 
 
 export default function AboutModal() {

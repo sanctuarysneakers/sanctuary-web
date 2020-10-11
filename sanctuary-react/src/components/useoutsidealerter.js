@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { hideShoeModal, hideAboutModal } from '../redux/actions'
+import { hideShoeModal, hideAboutModal, hidePrivacyModal, hideTermsModal } from '../redux/actions'
 
 export default function useOutsideAlerter(ref) {
     const dispatch = useDispatch()
@@ -11,6 +11,8 @@ export default function useOutsideAlerter(ref) {
             if (ref.current && !ref.current.contains(event.target)) {
                 dispatch(hideShoeModal())
                 dispatch(hideAboutModal())
+                dispatch(hidePrivacyModal())
+                dispatch(hideTermsModal())
             }
         }
 

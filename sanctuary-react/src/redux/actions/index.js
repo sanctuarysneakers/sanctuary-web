@@ -97,6 +97,30 @@ export const hideAboutModal = () => {
     }
 }
 
+export const showTermsModal = () => {
+    return {
+        type: 'SHOW_TERMS_MODAL'
+    }
+}
+
+export const hideTermsModal = () => {
+    return {
+        type: 'HIDE_TERMS_MODAL'
+    }
+}
+
+export const showPrivacyModal = () => {
+    return {
+        type: 'SHOW_PRIVACY_MODAL'
+    }
+}
+
+export const hidePrivacyModal = () => {
+    return {
+        type: 'HIDE_PRIVACY_MODAL'
+    }
+}
+
 // Search Bar Collapse/Expand on mobile
 
 export const collapseBar = () => {

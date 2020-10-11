@@ -169,7 +169,7 @@
         }
     }
 
-    h3, a, svg{
+    h3, a, svg, button{
         font-weight: 400;
         color: #353234;
         margin: 0px;
@@ -179,13 +179,19 @@
         font-size: 8px;
     }
 
-    a, svg {
+    a, svg, button {
         font-size: 14px;
         text-decoration: none;
+        background-color: transparent;
 
         // &:hover {
         //     text-decoration: underline;
         // }
+    }
+
+    button {
+        cursor: pointer;
+        outline: none;
     }
 }
 
