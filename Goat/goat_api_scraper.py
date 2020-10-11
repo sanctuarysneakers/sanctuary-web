@@ -53,6 +53,9 @@ def alter_db_table():
 def get_api_data(s_query):
     """ Returns a very detailed list of items from Goat.
 
+    Arguments:
+        String s_query: The search query (sneaker category) to get data for.
+
     Returns:
         List[Dict] items: A list containing dictionaries, each dictionary contains information on one pair of shoes.
     """
@@ -65,14 +68,13 @@ def get_api_data(s_query):
     }
 
     items = []
-    sizes = ['6', '6.5', '7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '11.5', '12', '12.5', '13',
-             '13.5', '14', '14.5', '15', '16']
+    sizes = ['6','6.5','7','7.5','8','8.5','9','9.5','10','10.5','11','11.5','12','12.5','13','13.5','14','14.5','15','16']
     for size in sizes:
         post_json = {
             "params": "query=&" + urlencode({
-                "distinct": "true",
                 "query": s_query,
                 "facetFilters": "(product_category: shoes), (presentation_size:"+size+"), (single_gender: men)",
+                "distinct": "true",
                 "offset": "0",
                 "length": "1000"
             })
@@ -109,7 +111,7 @@ def insert_items(item_data):
     it updates information if it has changed.
 
     Arguments:
-        (Dict) item_data: A list containing data for each feed item.
+        List[Dict] item_data: A list of dict's containing data for each feed item.
 
     Returns:
         No return value.
@@ -118,8 +120,8 @@ def insert_items(item_data):
     data_list = []
     for item in item_data:
         data_list.append((item["id"], item["source"], item["model"], item['skuId'], item["size"], 
-            item["price"], item["shoe_condition"], item["category"],item['trending'], 
-            item['just_dropped'], item["url"], item["image"]))
+                          item["price"], item["shoe_condition"], item["category"],item['trending'], 
+                          item['just_dropped'], item["url"], item["image"]))
 
     try:
         c.executemany("""INSERT IGNORE INTO goat_sneakers_tmp
@@ -132,9 +134,14 @@ def insert_items(item_data):
 
 def run_scraper():
     """ Runs the scraper """
+    
+    categoryList = ["Air Jordan","Nike Running","Air Force","Dunk","Balenciaga","Yeezy","Ultraboost","Nike SB"]
 
     # Get a list of all the item data from the api
-    data = get_api_data("Air Jordan")
+    data = []
+    for category in categoryList:
+        data.extend(get_api_data(category))
+    print("Scraped", len(data), "items.")
 
     # Insert items into the database
     insert_items(data)

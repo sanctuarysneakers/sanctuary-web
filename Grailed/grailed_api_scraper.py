@@ -3,7 +3,6 @@ from urllib.parse import urlencode
 import mysql.connector
 from mysql.connector import ProgrammingError
 
-
 # Setup connection to database
 host = "mysql-db-master.cmamugrum56i.us-west-2.rds.amazonaws.com"
 user = "admin"
@@ -19,6 +18,7 @@ except ProgrammingError:
 
 def create_db_table():
     """ Creates an empty database table with the necessary keys."""
+    
     c.execute("DROP TABLE IF EXISTS grailed_sneakers_tmp;")
     try:
         c.execute("""CREATE TABLE grailed_sneakers_tmp (
@@ -65,6 +65,9 @@ def alter_db_table():
 def get_api_data(s_query):
     """ Returns a very detailed list of items on Grailed.
 
+    Arguments:
+        String s_query: The search query (sneaker category) to get data for.
+
     Returns:
         List[Dict] results: A list containing dictionaries, each dictionary contains information on one pair of shoes.
     """
@@ -83,7 +86,7 @@ def get_api_data(s_query):
         post_json = {
             "params": "query=&" + urlencode({
                 "query": s_query,
-                "facetFilters": "[[\"category_path:footwear.hitop_sneakers\", \"category_path:footwear.lowtop_sneakers\"]",
+                "facetFilters": "[[\"category_path:footwear.hitop_sneakers\", \"category_path:footwear.lowtop_sneakers\"]]",
                 "offset": str(offset),
                 "length": "1000"
             })
@@ -110,7 +113,7 @@ def get_api_data(s_query):
                 "condition": item['condition'],
                 "seller_location": item['location'],
                 "seller_rating": round(item['user']['seller_score']['rating_average'], 1) if
-                    item['user']['seller_score']['rating_average'] else None,
+                item['user']['seller_score']['rating_average'] else None,
                 "seller_rating_count": item['user']['seller_score']['rating_count'],
                 "shipping_us": item['shipping']['us']['amount'] if item['shipping']['us']['enabled'] else None,
                 "shipping_ca": item['shipping']['ca']['amount'] if item['shipping']['ca']['enabled'] else None,
@@ -135,7 +138,7 @@ def insert_items(item_data):
     it updates information if it has changed.
 
     Arguments:
-        (Dict) item_data: A list containing data for each feed item.
+        List[Dict] item_data: A list of dict's containing data for each feed item.
 
     Returns:
         No return value.
@@ -143,13 +146,13 @@ def insert_items(item_data):
 
     data_list = []
     for item in item_data:
-        data_list.append((item["id"], item["source"], item["model"], item["sku_id"], item["size"], 
-            item["price"], item["condition"], item["category"], item["old_price"], 
-            item["date_bumped"], item["date_created"], item["heat"],item["seller_location"], 
-            item["seller_rating"], item["seller_rating_count"],item["shipping_us"], item["shipping_ca"], 
-            item["shipping_uk"], item["shipping_eu"], item["shipping_asia"],item["shipping_au"], 
-            item["shipping_other"], item["url"], item["img"]))
-    
+        data_list.append((item["id"], item["source"], item["model"], item["sku_id"], item["size"],
+                          item["price"], item["condition"], item["category"], item["old_price"],
+                          item["date_bumped"], item["date_created"], item["heat"], item["seller_location"],
+                          item["seller_rating"], item["seller_rating_count"], item["shipping_us"], item["shipping_ca"],
+                          item["shipping_uk"], item["shipping_eu"], item["shipping_asia"], item["shipping_au"],
+                          item["shipping_other"], item["url"], item["img"]))
+
     try:
         c.executemany("""INSERT IGNORE INTO grailed_sneakers_tmp
             (id,source,model,sku_id,size,price,shoe_condition,category,old_price,
@@ -159,6 +162,7 @@ def insert_items(item_data):
             VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
         conn.commit()
     except ProgrammingError:
+        print("Could not insert data")
         pass
 
     conn.commit()
@@ -167,11 +171,16 @@ def insert_items(item_data):
 def run_scraper():
     """ Runs the Grailed Scraper """
 
-    # Get a list of all the item data from the api
-    item_data = get_api_data("Jordan")
+    categoryList = ["Jordan","Air Max","Air Force","Off White","Nike Dunk","Yeezy","Ultraboost","Balenciaga","Presto","Nike SB","Sacai"]
 
+    # Get a list of all the item data from the api
+    data = []
+    for category in categoryList:
+        data.extend(get_api_data(category))
+    print("Scraped", len(data), "items.")
+    
     # Insert items into the database
-    insert_items(item_data)
+    insert_items(data)
 
 
 create_db_table()
