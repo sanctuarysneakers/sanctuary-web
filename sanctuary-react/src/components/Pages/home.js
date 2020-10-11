@@ -6,6 +6,7 @@ import FilterBar from '../filterbar'
 import { use100vh } from 'react-div-100vh'
 import { useMediaQuery } from 'react-responsive'
 import { Link } from 'react-scroll'
+import { Helmet } from 'react-helmet'
 
 
 export default function Home() {
@@ -19,7 +20,14 @@ export default function Home() {
     const filterHeight = isDesktop ? -91 : -61
 
     return (
-        <React.Fragment>
+        <div>
+            <Helmet>
+                <title>Sanctuary Sneakers | Home</title>
+                <meta
+                    name="description"
+                    content="Find Your Perfect Pair! Get the best price on Jordans from your favourite websites"
+                />
+            </Helmet>
             <div className="splash" style={{ height: recalculatedHeight }}>
                 <div className='bg-image' style={{ height: recalculatedHeight }}></div>
                 <div className='splashWrap'>
@@ -57,6 +65,6 @@ export default function Home() {
                     </div>
                 </section>
             </main>
-        </React.Fragment>
+        </div>
     )
 }

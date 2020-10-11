@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import useOutsideAlerter from '../useoutsidealerter'
 import { hideShoeModal } from '../../redux/actions'
 import { RiCloseLine } from 'react-icons/ri'
+import { Helmet } from 'react-helmet'
 
 
 export default function ShoeModal() {
@@ -18,6 +19,14 @@ export default function ShoeModal() {
 
     return (
         <div className="modal-shoe">
+
+            <Helmet>
+                <title>Sanctuary Sneakers | {shoe.model}</title>
+                <meta
+                    name="description"
+                    content="Find Your Perfect Pair! Get the best price on Jordans from your favourite websites"
+                />
+            </Helmet>
 
             <div className="dashboard" ref={wrapperRef}>
 
