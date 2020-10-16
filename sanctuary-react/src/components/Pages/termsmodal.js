@@ -3,6 +3,7 @@ import useOutsideAlerter from '../useoutsidealerter'
 import { RiCloseLine } from 'react-icons/ri'
 import { useDispatch } from 'react-redux'
 import { hideTermsModal } from '../../redux/actions'
+import { Helmet } from 'react-helmet'
 
 import lastLogo from '../../assets/images/sanctuary-logo-row.png'
 
@@ -15,6 +16,14 @@ export default function TermsModal() {
 
     return (
         <div className="modal-terms">
+
+            <Helmet>
+                <title>Sanctuary Sneakers | Terms of Use</title>
+                <meta
+                    name="description"
+                    content="Sanctuary Sneakers Terms of Use"
+                />
+            </Helmet>
 
             <div className="terms" ref={wrapperRef}>
 

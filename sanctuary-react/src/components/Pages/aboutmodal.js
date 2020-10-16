@@ -4,6 +4,7 @@ import { RiCloseLine } from 'react-icons/ri'
 import { useDispatch } from 'react-redux'
 import { hideAboutModal } from '../../redux/actions'
 import Div100vh from 'react-div-100vh'
+import { Helmet } from 'react-helmet'
 
 import picture1 from '../../assets/images/aboutDrawing1.png'
 import picture2 from '../../assets/images/aboutDrawing2.png'
@@ -18,6 +19,19 @@ export default function AboutModal() {
 
     return (
         <div className="modal-about">
+
+            <Helmet>
+                <title>Sanctuary Sneakers | About Us</title>
+                <meta
+                    name="description"
+                    content="If you love sneakers, you've come to the right place!
+                    Sanctuary aims to provide the best possible deals on any
+                    streetwear or sneakers you could want. Our mission is to
+                    evolve the paradigm of fashion by leveraging big data,
+                    analytics, and artificial intelligence to provide one
+                    centralized online location for finding your perfect piece."
+                />
+            </Helmet>
 
             <div className="about" ref={wrapperRef}>
 

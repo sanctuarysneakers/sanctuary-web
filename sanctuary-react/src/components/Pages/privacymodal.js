@@ -3,6 +3,7 @@ import useOutsideAlerter from '../useoutsidealerter'
 import { RiCloseLine } from 'react-icons/ri'
 import { useDispatch } from 'react-redux'
 import { hidePrivacyModal } from '../../redux/actions'
+import { Helmet } from 'react-helmet'
 
 import lastLogo from '../../assets/images/sanctuary-logo-row.png'
 
@@ -15,6 +16,14 @@ export default function PrivacyModal() {
 
     return (
         <div className="modal-privacy">
+
+            <Helmet>
+                <title>Sanctuary Sneakers | Privacy Policy</title>
+                <meta
+                    name="description"
+                    content="Sanctuary Sneaker Privacy Policy"
+                />
+            </Helmet>
 
             <div className="privacy" ref={wrapperRef}>
 
