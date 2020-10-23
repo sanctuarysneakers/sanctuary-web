@@ -13,6 +13,18 @@ export default function SearchBar() {
         query: '(min-width: 930px)'
     })
 
+    const SLEEP_TIME = 500
+    let filterChangeTimer = null
+
+    const handleChange = e => {
+        const search = e.target.value
+
+        clearTimeout(filterChangeTimer)
+        filterChangeTimer = setTimeout(() => {
+            dispatch(updateSearch(search))
+        }, SLEEP_TIME)
+    }
+
     useEffect(() => {
         if (isDesktop) dispatch(collapseBar())
     })
@@ -30,7 +42,7 @@ export default function SearchBar() {
                     className="searchText"
                     type="text"
                     placeholder="Search"
-                    onChange={e => dispatch(updateSearch(e.target.value))}
+                    onChange={e => handleChange(e)}
                 />
             </div>
 
@@ -49,7 +61,7 @@ export default function SearchBar() {
                         className={'mobileSearchText'}
                         type="text"
                         placeholder="Search"
-                        onChange={e => dispatch(updateSearch(e.target.value))}
+                        onChange={e => handleChange(e)}
                     />}
             </div>
 
