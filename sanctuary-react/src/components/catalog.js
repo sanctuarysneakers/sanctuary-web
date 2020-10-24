@@ -110,16 +110,9 @@ export default function Catalog() {
             if (filter.price_high && filter.price_high > 0) api_url += `&price_high=${filter.price_high}`
         }
 
-        const SLEEP_TIME = 500
-        let filterChangeTimer = null
-
-        clearTimeout(filterChangeTimer)
-        filterChangeTimer = setTimeout(() => {
-            applyfilter()
-            fetchData(api_url)
-        }, SLEEP_TIME)
-
-        return () => clearTimeout(filterChangeTimer)
+        applyfilter()
+        fetchData(api_url)
+        
     }, [filter])
 
     const noResults = site => {

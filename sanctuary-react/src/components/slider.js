@@ -15,7 +15,8 @@ export default function Slider({ data }) {
     },
     spaceBetween: 23,
     shouldSwiperUpdate: true,
-    slidesPerView: 'auto'
+    slidesPerView: 'auto',
+    rebuildOnUpdate: true
   }
 
   return (
