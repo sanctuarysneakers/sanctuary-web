@@ -11,6 +11,17 @@ import privacyModalVisibleReducer from './privacymodalvisiblereducer'
 import searchBarCollapseReducer from './searchBarCollapseReducer'
 import { combineReducers } from 'redux'
 
+// Refs for 'scroll-to' functionality
+const refs = {
+    catalogRef: {current: null},
+    stockxSwiperRef: {current: null},
+    goatSwiperRef: {current: null},
+    grailedSwiperRef: {current: null},
+    flightClubSwiperRef: {current: null}
+}
+const refReducer = (state = refs) => { return state }
+
+
 const globalReducer = combineReducers({
     shoeModalVisible: shoeModalVisibleReducer,
     aboutModalVisible: aboutModalVisibleReducer,
@@ -22,7 +33,8 @@ const globalReducer = combineReducers({
     goatData: goatDataReducer,
     grailedData: grailedDataReducer,
     flightClubData: flightClubDataReducer,
-    isSearchBarCollapsed: searchBarCollapseReducer
+    isSearchBarCollapsed: searchBarCollapseReducer,
+    refs: refReducer
 })
 
 export default globalReducer

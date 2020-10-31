@@ -19,6 +19,12 @@ export default function Catalog() {
     const grailedData = useSelector(state => state.grailedData)
     const flightClubData = useSelector(state => state.flightClubData)
 
+    const stockxSwiperRef = useSelector(state => state.refs.stockxSwiperRef)
+    const goatSwiperRef = useSelector(state => state.refs.goatSwiperRef)
+    const grailedSwiperRef = useSelector(state => state.refs.grailedSwiperRef)
+    const flightClubSwiperRef = useSelector(state => state.refs.flightClubSwiperRef)
+
+
     const grailedConditionReformat = data => {
         let grailedConditions = {
             "is_gently_used": "Gently Used",
@@ -130,7 +136,7 @@ export default function Catalog() {
                 src={stockxLogo}
                 alt={"StockX"}
             />
-            {stockxData.length !== 0 && <Slider data={stockxData} />}
+            {stockxData.length !== 0 && <Slider data={stockxData} swiperRef={stockxSwiperRef}/>}
             {stockxData.length === 0 && noResults("StockX")}
 
             <img 
@@ -138,7 +144,7 @@ export default function Catalog() {
                 src={goatLogo}
                 alt={"GOAT"}
             />
-            {goatData.length !== 0 && <Slider data={goatData} />}
+            {goatData.length !== 0 && <Slider data={goatData} swiperRef={goatSwiperRef}/>}
             {goatData.length === 0 && noResults("GOAT")}
 
             <img 
@@ -146,7 +152,7 @@ export default function Catalog() {
                 src={grailedLogo}
                 alt={"Grailed"}
             />
-            {grailedData.length !== 0 && <Slider data={grailedData} />}
+            {grailedData.length !== 0 && <Slider data={grailedData} swiperRef={grailedSwiperRef}/>}
             {grailedData.length === 0 && noResults("Grailed")}
 
             <img 
@@ -154,7 +160,7 @@ export default function Catalog() {
                 src={flightclubLogo}
                 alt={"Flight Club"}
             />
-            {flightClubData.length !== 0 && <Slider data={flightClubData} />}
+            {flightClubData.length !== 0 && <Slider data={flightClubData} swiperRef={flightClubSwiperRef}/>}
             {flightClubData.length === 0 && noResults("Flight Club")}
         </div>
     )
