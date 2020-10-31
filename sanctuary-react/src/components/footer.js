@@ -69,6 +69,10 @@ export default function Footer() {
                     <img src={img} alt="product" />
                 </div>
 
+
+                {/* Mobile Footer Start*/}
+
+
                 <div className='mobile-container'>
                     <p>{signUpPrompt}</p>
                     <form onSubmit={handleSubmit}>
@@ -95,6 +99,10 @@ export default function Footer() {
 
                 </div>
             </div>
+
+
+            {/* Mobile Footer End*/}
+
 
             <div className='bottomText'>
                 <div className='bottomText-content'>

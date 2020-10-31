@@ -6,7 +6,7 @@ import Sneaker from "./sneaker"
 
 SwiperCore.use([Navigation])
 
-export default function Slider({ data }) {
+export default function Slider({ data, swiperRef }) {
 
   const params = {
     navigation: {
@@ -15,13 +15,12 @@ export default function Slider({ data }) {
     },
     spaceBetween: 23,
     shouldSwiperUpdate: true,
-    slidesPerView: 'auto',
-    rebuildOnUpdate: true
+    slidesPerView: 'auto'
   }
 
   return (
     <div className='slider'>
-      <Swiper {...params}>
+      <Swiper {...params} ref={swiperRef}>
         {data.map(sneaker => {
           return (
             <SwiperSlide key={sneaker.id}>
