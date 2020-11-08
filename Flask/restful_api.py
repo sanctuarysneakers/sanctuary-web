@@ -68,6 +68,8 @@ parser.add_argument('price_high', type=int, default=100000)
 parser.add_argument('page', type=int, default=0)
 parser.add_argument('currency', type=str, default='USD')
 parser.add_argument('email', type=str)
+parser.add_argument('sku', type=str)
+parser.add_argument('model', type=str)
 
 
 # Main search resource for returning data
@@ -75,7 +77,7 @@ class Search(Resource):
     def get(self):
         global conn, c
 
-        # Get all request parameters
+        # Get request parameters
         args = parser.parse_args()
         source = args['source'].lower()
         search = process_search_query(args['search'].lower())
@@ -157,6 +159,32 @@ class Emails(Resource):
         conn.commit()
 
 
+class Compare(Resource):
+    def get(self):
+        global conn, c
+
+        # Get request parameters
+        args = parser.parse_args()
+        source = args['source'].lower()
+        sku = args['sku']
+        model = args['model']
+        size = args['size']
+        currency = args['currency']
+
+        if source == "goat":
+            #TODO: write SQL query to map sneakers from other sources by SKU
+            pass
+        elif source == "stockx":
+            #TODO: write SQL query to map sneakers from other sources by SKU
+            pass
+        elif source == "flightclub":
+            #TODO: write SQL query to map sneakers from other sources by SKU
+            pass
+        elif source == "grailed":
+            #TODO: map sneakers from other sources by model name
+            pass
+
+
 # Add resources to the API and set endpoints
 api.add_resource(Search, '/')
 api.add_resource(Emails, '/emails')
@@ -164,4 +192,4 @@ api.add_resource(Emails, '/emails')
 
 if __name__ == '__main__':
     #application.run(debug=True)       # For debugging
-    application.run(host='0.0.0.0')   # For production
+    application.run(host='0.0.0.0')    # For production
