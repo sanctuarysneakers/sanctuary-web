@@ -132,7 +132,9 @@ export default function AboutModal() {
                             we will get back to you shortly!
                         </h2>
                         <div className='contact-box'>
-                            <button> contact@sanctuarysneakers.com </button>
+                            <button> <a class="contact-link" 
+                                      href = "mailto: contact@sanctuarysneakers.com">
+                                      contact@sanctuarysneakers.com</a> </button>
                         </div>
                     </div>
                 </Div100vh>
