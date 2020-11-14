@@ -200,7 +200,7 @@
                 
             }
 
-            .contact-box {
+            a.contact-box {
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -210,15 +210,12 @@
                 border-radius: 100px;
                 background: linear-gradient(45deg, #3344BC, #6B7BF0);
 
-                button {
-                    font-family: 'Poppins', sans-serif;
-                    font-size: 14px;
-                    font-weight: 500;
-                    color: white;
-                    text-decoration: none;
-                    outline: none;
-                    background: none;
-                }
+                font-family: 'Poppins', sans-serif;
+                font-size: 14px;
+                font-weight: 500;
+                color: white;
+                text-decoration: none;
+                outline: none;
             }
         }
     }

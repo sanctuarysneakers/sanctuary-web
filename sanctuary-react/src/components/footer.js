@@ -108,7 +108,9 @@ export default function Footer() {
                 <div className='bottomText-content'>
                     <ul>
                         <button>
-                            Contact Us
+                        <a class="contact-link" 
+                                      href = "mailto: contact@sanctuarysneakers.com">
+                                      Contact Us</a>
                         </button>
                         <button onClick={() => dispatch(showTermsModal())}>
                             Terms of Use
