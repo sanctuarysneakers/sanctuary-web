@@ -18,6 +18,8 @@ export default function Slider({ data, swiperRef }) {
     slidesPerView: 'auto'
   }
 
+  const ref = swiperRef ? swiperRef : null
+
   return (
     <div className='slider'>
       <Swiper {...params} ref={swiperRef}>
@@ -32,6 +34,7 @@ export default function Slider({ data, swiperRef }) {
                 source={sneaker.source.toLowerCase()}
                 image={sneaker.image}
                 shoe_condition={sneaker.shoe_condition}
+                sku_id={sneaker.sku_id}
               />
             </SwiperSlide>
           )

@@ -35,6 +35,13 @@ export const flightClubCall = data => {
     }
 }
 
+export const shoeComparisonCall = data => {
+    return {
+        type: 'SHOE_COMPARISON_CALL',
+        payload: data
+    }
+}
+
 // Filter Acitons
 
 export const updateSearch = search => {

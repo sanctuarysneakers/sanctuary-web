@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import useOutsideAlerter from '../useoutsidealerter'
+import useOutsideAlerter from '../Hooks/useoutsidealerter'
 import { RiCloseLine } from 'react-icons/ri'
 import { useDispatch } from 'react-redux'
 import { hideTermsModal } from '../../redux/actions'

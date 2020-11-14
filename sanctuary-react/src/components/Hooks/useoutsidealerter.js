@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { hideShoeModal, hideAboutModal, hidePrivacyModal, hideTermsModal } from '../redux/actions'
+import { hideShoeModal, hideAboutModal, hidePrivacyModal, hideTermsModal } from '../../redux/actions'
 
 export default function useOutsideAlerter(ref) {
     const dispatch = useDispatch()

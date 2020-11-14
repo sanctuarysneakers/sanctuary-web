@@ -1,13 +1,37 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { updateSizeFilter, updatePriceLowFilter, updatePriceHighFilter, clearFilter } from '../redux/actions'
 
 
 export default function FilterBar() {
 
     const dispatch = useDispatch()
-    const filter = useSelector(state => state.filter)
     const [filtersVisibile, toggleFilters] = useState(false)
+
+    // Wait until user doesn't type for half a second to update catalog
+    const SLEEP_TIME = 500
+    let filterChangeTimer = null
+
+    const handleChange = (e, field) => {
+
+        const value = e.target.value
+
+        let dispatchMap = {
+            'size': updateSizeFilter,
+            'price_low': updatePriceLowFilter,
+            'price_high': updatePriceHighFilter
+        }
+
+        clearTimeout(filterChangeTimer)
+        filterChangeTimer = setTimeout(() => {
+            dispatch(dispatchMap[field](value))
+        }, SLEEP_TIME)
+    }
+
+    // Clearing the filter values no longer works !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    const handleClear = () => {
+        dispatch(clearFilter())
+    }
 
     const filters = (
         <div className='three-filters'>
@@ -19,8 +43,7 @@ export default function FilterBar() {
                     onFocus={e => e.target.placeholder = ""}
                     onBlur={e => e.target.placeholder = "All"}
                     type='number'
-                    onChange={e => dispatch(updateSizeFilter(e.target.value))}
-                    value={filter.size}
+                    onChange={e => handleChange(e, 'size')}
                 />
             </div>
 
@@ -32,8 +55,7 @@ export default function FilterBar() {
                     onFocus={e => e.target.placeholder = ""}
                     onBlur={e => e.target.placeholder = "All"}
                     type='number'
-                    onChange={e => dispatch(updatePriceLowFilter(e.target.value))}
-                    value={filter.price_low}
+                    onChange={e => handleChange(e, 'price_low')}
                 />
             </div>
 
@@ -45,8 +67,7 @@ export default function FilterBar() {
                     onFocus={e => e.target.placeholder = ""}
                     onBlur={e => e.target.placeholder = "All"}
                     type='number'
-                    onChange={e => dispatch(updatePriceHighFilter(e.target.value))}
-                    value={filter.price_high}
+                    onChange={e => handleChange(e, 'price_high')}
                 />
             </div>
         </div>
@@ -66,7 +87,7 @@ export default function FilterBar() {
                 {filters}
 
                 <button className='clear'
-                    onClick={() => dispatch(clearFilter())}>
+                    onClick={() => handleClear()}>
                     Clear
                 </button>
 
@@ -85,7 +106,7 @@ export default function FilterBar() {
                 {filtersVisibile && filters}
 
                 <button className='clear'
-                    onClick={() => dispatch(clearFilter())}>
+                    onClick={() => handleClear()}>
                     Clear
                 </button>
 

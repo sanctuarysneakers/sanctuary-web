@@ -1,21 +1,28 @@
 import React, { useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import useOutsideAlerter from '../useoutsidealerter'
+import useOutsideAlerter from '../Hooks/useoutsidealerter'
 import { hideShoeModal } from '../../redux/actions'
 import { RiCloseLine } from 'react-icons/ri'
 import { Helmet } from 'react-helmet'
 
+import Slider from "../slider"
+import useAPICall from "../Hooks/useapicall"
+
 
 export default function ShoeModal() {
 
-    const shoe = useSelector(state => state.shoe)
     const dispatch = useDispatch()
+    const shoe = useSelector(state => state.shoe)
+    const comparisonData = useSelector(state => state.shoeComparisonData)
+    
+    // This makes it so that the modal closes if user clicks outside the modal
     const wrapperRef = useRef(null)
     useOutsideAlerter(wrapperRef)
 
-    let url = shoe.url
     // this regex removes the 'https://' from the url, so that it can be added later
-    url = url.replace(/(^\w+:|^)\/\//, '')
+    let url = shoe.url.replace(/(^\w+:|^)\/\//, '')
+
+    useAPICall('comparison')
 
     return (
         <div className="modal-shoe">
@@ -91,6 +98,10 @@ export default function ShoeModal() {
                             </div>
                             <a className="buy-now" target="_blank " href={`https://${url}`}>Buy Now</a>
                         </div>
+
+                        <div>
+                            <Slider data={comparisonData}/>
+                        </div>
                     </div>
                 </div>
 
@@ -155,6 +166,10 @@ export default function ShoeModal() {
                     </div>
 
                     <a className="buy-now" target="_blank " href={`https://${url}`}>Buy Now</a>
+
+                    <div>
+                        <Slider data={comparisonData}/>
+                    </div>
 
                     <div className='closeButton'
                         onClick={() => dispatch(hideShoeModal())}>

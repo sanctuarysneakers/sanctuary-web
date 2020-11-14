@@ -9,6 +9,7 @@ import aboutModalVisibleReducer from './aboutmodalvisiblereducer'
 import termsModalVisibleReducer from './termsmodalvisiblereducer'
 import privacyModalVisibleReducer from './privacymodalvisiblereducer'
 import searchBarCollapseReducer from './searchBarCollapseReducer'
+import shoeComparisonDataReducer from './shoecomparisondatareducer'
 import { combineReducers } from 'redux'
 
 // Refs for 'scroll-to' functionality
@@ -20,7 +21,6 @@ const refs = {
     flightClubSwiperRef: {current: null}
 }
 const refReducer = (state = refs) => { return state }
-
 
 const globalReducer = combineReducers({
     shoeModalVisible: shoeModalVisibleReducer,
@@ -34,7 +34,8 @@ const globalReducer = combineReducers({
     grailedData: grailedDataReducer,
     flightClubData: flightClubDataReducer,
     isSearchBarCollapsed: searchBarCollapseReducer,
-    refs: refReducer
+    refs: refReducer,
+    shoeComparisonData: shoeComparisonDataReducer
 })
 
 export default globalReducer

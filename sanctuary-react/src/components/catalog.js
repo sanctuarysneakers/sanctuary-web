@@ -1,6 +1,6 @@
-import React, { useEffect } from "react"
-import { useDispatch, useSelector } from 'react-redux'
-import { stockxCall, goatCall, grailedCall, flightClubCall } from '../redux/actions'
+import React from "react"
+import { useSelector } from 'react-redux'
+import useAPICall from "./Hooks/useapicall"
 import Slider from "./slider"
 
 import stockxLogo from "../assets/images/logos/stockx.png"
@@ -10,9 +10,6 @@ import flightclubLogo from "../assets/images/logos/flight club.png"
 
 
 export default function Catalog() {
-
-    const dispatch = useDispatch()
-    const filter = useSelector(state => state.filter)
 
     const stockxData = useSelector(state => state.stockxData)
     const goatData = useSelector(state => state.goatData)
@@ -24,102 +21,7 @@ export default function Catalog() {
     const grailedSwiperRef = useSelector(state => state.refs.grailedSwiperRef)
     const flightClubSwiperRef = useSelector(state => state.refs.flightClubSwiperRef)
 
-
-    const grailedConditionReformat = data => {
-        let grailedConditions = {
-            "is_gently_used": "Gently Used",
-            "is_used": "Used",
-            "is_not_specified": "Not Specified",
-            "is_new": "New",
-            "is_worn": "Worn"
-        }
-
-        return data.map(shoe => {
-            shoe.shoe_condition = grailedConditions[shoe.shoe_condition]
-            return shoe
-        })
-    }
-
-    const goatConditionReformat = data => {
-        let goatConditions = {
-            "new_no_defects": "New",
-            "new_with_defects": "New With Defects",
-            "used": "Used",
-            "goat_clean": "GOAT Clean"
-        }
-
-        return data.map(shoe => {
-            shoe.shoe_condition = goatConditions[shoe.shoe_condition]
-            return shoe
-        })
-    }
-
-    const flightClubConditionReformat = data => {
-        let flightClubConditions = {
-            "new_no_defects": "New",
-            "new_with_defects": "New With Defects",
-            "used": "Used",
-        }
-
-        return data.map(shoe => {
-            shoe.shoe_condition = flightClubConditions[shoe.shoe_condition]
-            return shoe
-        })
-    }
-
-
-    useEffect(() => {
-
-        let api_url = `https://sanctuaryapi.net/?`
-
-        async function fetchData(url) {
-            
-            let sites = ["stockx", "goat", "grailed", "flightclub"]
-
-            for await (const site of sites) {
-                const response = await fetch(url + `&source=${site}`)
-                let data = await response.json()
-                if ("message" in data && data["message"] === "Internal Server Error") {
-                    data = []
-                }
-
-                switch (site) {
-                    case "stockx":
-                        dispatch(stockxCall(data))
-                        break
-                    case "goat":
-                        data = goatConditionReformat(data)
-                        dispatch(goatCall(data))
-                        break
-                    case "grailed":
-                        data = grailedConditionReformat(data)
-                        dispatch(grailedCall(data))
-                        break
-                    case "flightclub":
-                        data = flightClubConditionReformat(data)
-                        dispatch(flightClubCall(data))
-                        break
-                    default:
-                        break
-                }
-            }
-        }
-
-        function applyfilter() {
-            if (filter.search) api_url += `&search=${filter.search}`
-
-            // TODO: make this a drop down menu
-            if (filter.size && filter.size > 0) api_url += `&size=${filter.size}`
-
-            // TODO: make this a slider bar
-            if (filter.price_low && filter.price_low > 0) api_url += `&price_low=${filter.price_low}`
-            if (filter.price_high && filter.price_high > 0) api_url += `&price_high=${filter.price_high}`
-        }
-
-        applyfilter()
-        fetchData(api_url)
-        
-    }, [filter])
+    useAPICall('catalog')
 
     const noResults = site => {
         return (
