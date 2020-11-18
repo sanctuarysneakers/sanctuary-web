@@ -68,6 +68,8 @@ parser.add_argument('price_high', type=int, default=100000)
 parser.add_argument('page', type=int, default=0)
 parser.add_argument('currency', type=str, default='USD')
 parser.add_argument('email', type=str)
+parser.add_argument('sku', type=str)
+parser.add_argument('model', type=str)
 
 
 # Main search resource for returning data
@@ -75,7 +77,7 @@ class Search(Resource):
     def get(self):
         global conn, c
 
-        # Get all request parameters
+        # Get request parameters
         args = parser.parse_args()
         source = args['source'].lower()
         search = process_search_query(args['search'].lower())
@@ -88,7 +90,7 @@ class Search(Resource):
         limit = 40
         offset = args['page'] * limit
 
-        # Create SQL queries using request parameters for each source
+        # Create SQL query using request parameters for each source
         if source == "goat":
             query = f"""SELECT *, MATCH(model) AGAINST('{search}' IN BOOLEAN MODE) AS m_score, (trending + just_dropped) AS r_score
                         FROM goat_sneakers
@@ -157,11 +159,64 @@ class Emails(Resource):
         conn.commit()
 
 
+# Comparison feature resource
+class Compare(Resource):
+    def get(self):
+        global conn, c
+
+        # Get request parameters
+        args = parser.parse_args()
+        source = args['source'].lower()
+        sku = args['sku']
+        model = args['model']
+        size = args['size']
+        currency = args['currency']
+
+        # Create SQL query using request parameters for each source
+        if source == "goat":
+            query = f"""SELECT id, source, model, sku_id, size, price, image, url FROM stockx_sneakers
+                        WHERE sku_id='{sku}' AND size={size}
+                        UNION ALL
+                        SELECT id, source, model, sku_id, size, price, image, url FROM flightclub_sneakers
+                        WHERE sku_id='{sku}' AND size={size};"""
+        elif source == "stockx":
+            query = f"""SELECT id, source, model, sku_id, size, price, image, url FROM goat_sneakers
+                        WHERE sku_id='{sku}' AND size={size}
+                        UNION ALL
+                        SELECT id, source, model, sku_id, size, price, image, url FROM flightclub_sneakers
+                        WHERE sku_id='{sku}' AND size={size};"""
+        elif source == "flightclub":
+            query = f"""SELECT id, source, model, sku_id, size, price, image, url FROM stockx_sneakers
+                        WHERE sku_id='{sku}' AND size={size}
+                        UNION ALL
+                        SELECT id, source, model, sku_id, size, price, image, url FROM goat_sneakers
+                        WHERE sku_id='{sku}' AND size={size};"""
+        else:
+            return {"Error": "Enter a correct source name"}
+
+        # TODO: Grailed
+        
+        # Execute SQL query on the database, re-connect to database if timed out
+        try:
+            c.execute(query)
+        except:
+            conn, c = connect_to_db()
+            c.execute(query)
+        
+        # Fetch data following query execution (data is a dict)
+        data = c.fetchall()
+        conn.commit()
+
+        # Return data to the caller
+        return process_data(data, currency)
+
+
 # Add resources to the API and set endpoints
 api.add_resource(Search, '/')
 api.add_resource(Emails, '/emails')
+api.add_resource(Compare, '/compare')
 
 
 if __name__ == '__main__':
     #application.run(debug=True)       # For debugging
-    application.run(host='0.0.0.0')   # For production
+    application.run(host='0.0.0.0')    # For production
