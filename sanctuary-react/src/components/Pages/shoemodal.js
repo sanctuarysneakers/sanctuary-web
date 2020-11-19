@@ -1,11 +1,10 @@
 import React, { useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import useOutsideAlerter from '../Hooks/useoutsidealerter'
-import { hideShoeModal } from '../../redux/actions'
+import { hideShoeModal, updateShoe } from '../../redux/actions'
 import { RiCloseLine } from 'react-icons/ri'
 import { Helmet } from 'react-helmet'
 
-import Slider from "../slider"
 import useAPICall from "../Hooks/useapicall"
 
 
@@ -14,7 +13,7 @@ export default function ShoeModal() {
     const dispatch = useDispatch()
     const shoe = useSelector(state => state.shoe)
     const comparisonData = useSelector(state => state.shoeComparisonData)
-    
+
     // This makes it so that the modal closes if user clicks outside the modal
     const wrapperRef = useRef(null)
     useOutsideAlerter(wrapperRef)
@@ -90,7 +89,7 @@ export default function ShoeModal() {
                                 <div className="shoe-source">
                                     {shoe.source &&
                                         <img
-                                            src={require(`../../assets/images/logos/${shoe.source.toLowerCase()}.png`)}
+                                            src={require(`../../assets/images/logos/${shoe.source}.png`)}
                                             alt={shoe.source}
                                         />
                                     }
@@ -100,7 +99,20 @@ export default function ShoeModal() {
                         </div>
 
                         <div>
-                            <Slider data={comparisonData}/>
+                            {
+                                comparisonData.map(sneaker => {
+                                    return (
+                                        <div onClick={() => dispatch(updateShoe(sneaker))}>
+                                            {sneaker.source &&
+                                                <img
+                                                    src={require(`../../assets/images/logos/${sneaker.source}.png`)}
+                                                    alt={sneaker.source}
+                                                />}
+                                            {sneaker.model}
+                                            ${sneaker.price}
+                                        </div>
+                                    )
+                                })}
                         </div>
                     </div>
                 </div>
@@ -133,7 +145,7 @@ export default function ShoeModal() {
                             <div className="m-shoe-source">
                                 {shoe.source &&
                                     <img
-                                        src={require(`../../assets/images/logos/${shoe.source.toLowerCase()}.png`)}
+                                        src={require(`../../assets/images/logos/${shoe.source}.png`)}
                                         alt={shoe.source}
                                     />
                                 }
@@ -168,7 +180,19 @@ export default function ShoeModal() {
                     <a className="buy-now" target="_blank " href={`https://${url}`}>Buy Now</a>
 
                     <div>
-                        <Slider data={comparisonData}/>
+                        {comparisonData.map(sneaker => {
+                            return (
+                                <div onClick={() => dispatch(updateShoe(sneaker))}>
+                                    {sneaker.source &&
+                                        <img
+                                            src={require(`../../assets/images/logos/${sneaker.source}.png`)}
+                                            alt={sneaker.source}
+                                        />}
+                                    {sneaker.model}
+                                    ${sneaker.price}
+                                </div>
+                            )
+                        })}
                     </div>
 
                     <div className='closeButton'

@@ -2,6 +2,9 @@ import { useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
 import { stockxCall, goatCall, grailedCall, flightClubCall, shoeComparisonCall } from '../../redux/actions'
 
+import shoeDataReformat from './shoedatareformat'
+
+
 export default function useAPICall(callType) {
     /* 
         callType is either 'catalog' or 'comparison' which indicates whether the API call
@@ -13,52 +16,7 @@ export default function useAPICall(callType) {
     const filter = useSelector(state => state.filter)
     const shoe = useSelector(state => state.shoe)
 
-    useEffect(() => {
-        const shoeConditionReformat = (data) => {
-            /* site must be one of the following values: "stockx", "goat", "grailed", "flightclub" */
-
-            let grailedConditions = {
-                "is_gently_used": "Gently Used",
-                "is_used": "Used",
-                "is_not_specified": "Not Specified",
-                "is_new": "New",
-                "is_worn": "Worn"
-            }
-
-            let goatConditions = {
-                "new_no_defects": "New",
-                "new_with_defects": "New With Defects",
-                "used": "Used",
-                "goat_clean": "GOAT Clean"
-            }
-
-            let flightClubConditions = {
-                "new_no_defects": "New",
-                "new_with_defects": "New With Defects",
-                "used": "Used",
-            }
-
-            let stockxConditions = {
-                "New": "New"
-            }
-
-            let shoeConditionsMap = {
-                "stockx": stockxConditions,
-                "goat": goatConditions,
-                "grailed": grailedConditions,
-                "flightclub": flightClubConditions
-            }
-
-            return data.map(shoe => {
-                // make lower case and remove white space
-                let site = shoe.source.toLowerCase().replace(/\s+/g, '');
-                if (shoe.shoe_condition in shoeConditionsMap[site]) {
-                    shoe.shoe_condition = shoeConditionsMap[site][shoe.shoe_condition]
-                }
-                else shoe.shoe_condition = 'Undetermined'
-                return shoe
-            })
-        }
+    function catalogAPICall() {
 
         const dispatchMap = {
             "stockx": stockxCall,
@@ -67,48 +25,57 @@ export default function useAPICall(callType) {
             "flightclub": flightClubCall
         }
 
-        function catalogAPICall() {
+        function applyFilter() {
+            let url = `https://sanctuaryapi.net/?`
 
-            let api_url = `https://sanctuaryapi.net/?`
+            if (filter.search) url += `&search=${filter.search}`
+            if (filter.size && filter.size > 0) url += `&size=${filter.size}`
+            if (filter.price_low && filter.price_low > 0) url += `&price_low=${filter.price_low}`
+            if (filter.price_high && filter.price_high > 0) url += `&price_high=${filter.price_high}`
 
-            function applyFilter() {
-                if (filter.search) api_url += `&search=${filter.search}`
-                if (filter.size && filter.size > 0) api_url += `&size=${filter.size}`
-                if (filter.price_low && filter.price_low > 0) api_url += `&price_low=${filter.price_low}`
-                if (filter.price_high && filter.price_high > 0) api_url += `&price_high=${filter.price_high}`
-            }
-
-            async function fetchData(url) {
-
-                let sites = ["stockx", "goat", "grailed", "flightclub"]
-
-                for await (const site of sites) {
-                    const response = await fetch(url + `&source=${site}`)
-                    let data = await response.json()
-                    if ("message" in data && data["message"] === "Internal Server Error") data = []
-                    dispatch(dispatchMap[site](shoeConditionReformat(data)))
-                }
-            }
-
-            applyFilter()
-            fetchData(api_url)
+            return url
         }
 
-        function comparisonAPICall() {
+        async function fetchData(url) {
 
-            let api_url = `https://sanctuaryapi.net/?&search=${shoe.model}&sku_id=${shoe.sku_id}`
+            let sites = ["stockx", "goat", "grailed", "flightclub"]
 
-            async function fetchData(url) {
-                const response = await fetch(url)
+            for await (const site of sites) {
+                const response = await fetch(url + `&source=${site}`)
                 let data = await response.json()
                 if ("message" in data && data["message"] === "Internal Server Error") data = []
-                dispatch(shoeComparisonCall(shoeConditionReformat(data)))
+                dispatch(dispatchMap[site](shoeDataReformat(data)))
             }
-
-            fetchData(api_url)
         }
 
+        let url = applyFilter()
+        fetchData(url)
+    }
+
+    function comparisonAPICall() {
+
+        async function fetchData(url) {
+            const response = await fetch(url)
+            let data = await response.json()
+            if ("message" in data && data["message"] === "Internal Server Error") data = []
+            dispatch(shoeComparisonCall(shoeDataReformat(data)))
+        }
+
+        // fix until comparison for grailed gets implemented
+        if (shoe.source === 'grailed') {
+            dispatch(shoeComparisonCall([]))
+            return
+        }
+
+        let url = `http://sanctuaryapi.net/compare?source=${shoe.source}&size=${shoe.size}&sku=${shoe.sku_id}`
+        fetchData(url)
+    }
+
+    useEffect(() => {
         if (callType === 'catalog') catalogAPICall()
-        if (callType === 'comparison') comparisonAPICall()
     }, [filter])
+
+    useEffect(() => {
+        if (callType === 'comparison') comparisonAPICall()
+    }, [shoe])
 }

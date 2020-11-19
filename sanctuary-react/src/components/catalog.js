@@ -6,7 +6,7 @@ import Slider from "./slider"
 import stockxLogo from "../assets/images/logos/stockx.png"
 import goatLogo from "../assets/images/logos/goat.png"
 import grailedLogo from "../assets/images/logos/grailed.png"
-import flightclubLogo from "../assets/images/logos/flight club.png"
+import flightclubLogo from "../assets/images/logos/flightclub.png"
 
 
 export default function Catalog() {

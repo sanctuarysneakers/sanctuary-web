@@ -31,7 +31,7 @@ export default function Slider({ data, swiperRef }) {
                 price={sneaker.price}
                 url={sneaker.url}
                 model={sneaker.model}
-                source={sneaker.source.toLowerCase()}
+                source={sneaker.source}
                 image={sneaker.image}
                 shoe_condition={sneaker.shoe_condition}
                 sku_id={sneaker.sku_id}
