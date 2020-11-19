@@ -12,6 +12,7 @@ import PageNotFound from "./components/Pages/pagenotfound"
 
 import { useSelector } from 'react-redux'
 import { RemoveScroll } from 'react-remove-scroll'
+import LoginSignUp from './components/Pages/loginsignup'
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/home" component={Home} />
+        {/* <Route path="/login-signup" component={LoginSignUp} /> */}
         <Route component={PageNotFound} />
       </Switch>
       {
