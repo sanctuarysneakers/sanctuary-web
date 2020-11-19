@@ -174,22 +174,22 @@ class Compare(Resource):
 
         # Create SQL query using request parameters for each source
         if source == "goat":
-            query = f"""SELECT id, source, model, sku_id, size, price, image, url FROM stockx_sneakers
+            query = f"""SELECT id, source, model, sku_id, size, price, shoe_condition, image, url FROM stockx_sneakers
                         WHERE sku_id='{sku}' AND size={size}
                         UNION ALL
-                        SELECT id, source, model, sku_id, size, price, image, url FROM flightclub_sneakers
+                        SELECT id, source, model, sku_id, size, price, shoe_condition, image, url FROM flightclub_sneakers
                         WHERE sku_id='{sku}' AND size={size};"""
         elif source == "stockx":
-            query = f"""SELECT id, source, model, sku_id, size, price, image, url FROM goat_sneakers
+            query = f"""SELECT id, source, model, sku_id, size, price, shoe_condition, image, url FROM goat_sneakers
                         WHERE sku_id='{sku}' AND size={size}
                         UNION ALL
-                        SELECT id, source, model, sku_id, size, price, image, url FROM flightclub_sneakers
+                        SELECT id, source, model, sku_id, size, price, shoe_condition, image, url FROM flightclub_sneakers
                         WHERE sku_id='{sku}' AND size={size};"""
         elif source == "flightclub":
-            query = f"""SELECT id, source, model, sku_id, size, price, image, url FROM stockx_sneakers
+            query = f"""SELECT id, source, model, sku_id, size, price, shoe_condition, image, url FROM stockx_sneakers
                         WHERE sku_id='{sku}' AND size={size}
                         UNION ALL
-                        SELECT id, source, model, sku_id, size, price, image, url FROM goat_sneakers
+                        SELECT id, source, model, sku_id, size, price, shoe_condition, image, url FROM goat_sneakers
                         WHERE sku_id='{sku}' AND size={size};"""
         else:
             return {"Error": "Enter a correct source name"}
