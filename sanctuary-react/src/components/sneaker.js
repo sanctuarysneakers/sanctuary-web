@@ -19,6 +19,7 @@ export default function Sneaker(props) {
                     <img 
                         className='sneakerImg'
                         src={props.image}
+                        loading="lazy"
                         alt={props.model}
                     />
                 </div>
