@@ -10,17 +10,9 @@ import termsModalVisibleReducer from './termsmodalvisiblereducer'
 import privacyModalVisibleReducer from './privacymodalvisiblereducer'
 import searchBarCollapseReducer from './searchBarCollapseReducer'
 import shoeComparisonDataReducer from './shoecomparisondatareducer'
+import newSearchHappenedReducer from './newsearchhappenedreducer'
+import shopNowScrollReducer from './shopnowscrollreducer'
 import { combineReducers } from 'redux'
-
-// Refs for 'scroll-to' functionality
-const refs = {
-    catalogRef: {current: null},
-    stockxSwiperRef: {current: null},
-    goatSwiperRef: {current: null},
-    grailedSwiperRef: {current: null},
-    flightClubSwiperRef: {current: null}
-}
-const refReducer = (state = refs) => { return state }
 
 const globalReducer = combineReducers({
     shoeModalVisible: shoeModalVisibleReducer,
@@ -34,8 +26,9 @@ const globalReducer = combineReducers({
     grailedData: grailedDataReducer,
     flightClubData: flightClubDataReducer,
     isSearchBarCollapsed: searchBarCollapseReducer,
-    refs: refReducer,
-    shoeComparisonData: shoeComparisonDataReducer
+    shoeComparisonData: shoeComparisonDataReducer,
+    newSearchHappened: newSearchHappenedReducer,
+    shopNowScroll: shopNowScrollReducer
 })
 
 export default globalReducer

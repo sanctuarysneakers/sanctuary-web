@@ -15,6 +15,7 @@ export default function useAPICall(callType) {
     const dispatch = useDispatch()
     const filter = useSelector(state => state.filter)
     const shoe = useSelector(state => state.shoe)
+    const newSearchHappened = useSelector(state => state.newSearchHappened)
 
     function catalogAPICall() {
 
@@ -72,10 +73,14 @@ export default function useAPICall(callType) {
     }
 
     useEffect(() => {
-        if (callType === 'catalog') catalogAPICall()
-    }, [filter])
+        if (callType === 'catalog') {
+            catalogAPICall()
+        }
+    }, [newSearchHappened])
 
     useEffect(() => {
-        if (callType === 'comparison') comparisonAPICall()
+        if (callType === 'comparison') {
+            comparisonAPICall()
+        }
     }, [shoe])
 }

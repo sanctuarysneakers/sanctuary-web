@@ -1,34 +1,24 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { updateSizeFilter, updatePriceLowFilter, updatePriceHighFilter, clearFilter } from '../redux/actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateSizeFilter, updatePriceLowFilter, updatePriceHighFilter, clearFilter} from '../redux/actions'
 
 
 export default function FilterBar() {
 
     const dispatch = useDispatch()
     const [filtersVisibile, toggleFilters] = useState(false)
-
-    // Wait until user doesn't type for half a second to update catalog
-    const SLEEP_TIME = 500
-    let filterChangeTimer = null
+    const filter = useSelector(state => state.filter)
 
     const handleChange = (e, field) => {
-
         const value = e.target.value
-
         let dispatchMap = {
             'size': updateSizeFilter,
             'price_low': updatePriceLowFilter,
             'price_high': updatePriceHighFilter
         }
-
-        clearTimeout(filterChangeTimer)
-        filterChangeTimer = setTimeout(() => {
-            dispatch(dispatchMap[field](value))
-        }, SLEEP_TIME)
+        dispatch(dispatchMap[field](value))
     }
 
-    // Clearing the filter values no longer works !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     const handleClear = () => {
         dispatch(clearFilter())
     }
@@ -44,6 +34,7 @@ export default function FilterBar() {
                     onBlur={e => e.target.placeholder = "All"}
                     type='number'
                     onChange={e => handleChange(e, 'size')}
+                    value={filter.size}
                 />
             </div>
 
@@ -56,6 +47,7 @@ export default function FilterBar() {
                     onBlur={e => e.target.placeholder = "All"}
                     type='number'
                     onChange={e => handleChange(e, 'price_low')}
+                    value={filter.price_low}
                 />
             </div>
 
@@ -68,6 +60,7 @@ export default function FilterBar() {
                     onBlur={e => e.target.placeholder = "All"}
                     type='number'
                     onChange={e => handleChange(e, 'price_high')}
+                    value={filter.price_high}
                 />
             </div>
         </div>

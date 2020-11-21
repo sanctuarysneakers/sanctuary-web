@@ -1,5 +1,5 @@
-import React from 'react'
-import { showAboutModal } from '../../redux/actions'
+import React, { useEffect, useRef } from 'react'
+import { showAboutModal, shopNowScroll } from '../../redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import Catalog from '../catalog'
 import FilterBar from '../filterbar'
@@ -11,20 +11,38 @@ import { Helmet } from 'react-helmet'
 export default function Home() {
 
     const dispatch = useDispatch()
-    const catalogRef = useSelector(state => state.refs.catalogRef)
+
+    const newSearchHappened = useSelector(state => state.newSearchHappened)
+    const shopNow = useSelector(state => state.shopNowScroll)
+
+
+    const ref = useRef(null);
+    const isInitialMount = useRef(true);
 
     // Properly adjust height for navbar and mobile bar
     const isDesktop = useMediaQuery({
         query: '(min-width: 930px)'
     })
     const height = use100vh()
-    const recalculatedHeight = isDesktop ? height - 91 : height - 61 
+    const recalculatedHeight = isDesktop ? height - 91 : height - 61
 
-    // Scroll on shop now button click mechanics
     const scrollToRef = (ref) => {
         const location = isDesktop ? ref.current.offsetTop - 91 : ref.current.offsetTop - 61
-        window.scrollTo(0, location)
+        // Only scroll if the window is above the start of the catalog
+        if (window.scrollY < location) {
+            window.scrollTo(0, location)
+        }
     }
+
+    // The effects do not happen on the first mount
+    useEffect(() => {
+        if (isInitialMount.current) {
+            isInitialMount.current = false;
+        }
+        else {
+            scrollToRef(ref)
+        }
+    }, [newSearchHappened, shopNow])
 
     return (
         <div>
@@ -42,8 +60,8 @@ export default function Home() {
                     <h3>Get the best price on Jordans from your favourite websites</h3>
                     <div className='twoButtons'>
 
-                        <button className='shopNowBtn' onClick={() => scrollToRef(catalogRef)}> 
-                            Shop Now 
+                        <button className='shopNowBtn' onClick={() => dispatch(shopNowScroll())}>
+                            Shop Now
                         </button>
 
                         <button className='aboutUsBtn' onClick={() => dispatch(showAboutModal())}>
@@ -54,9 +72,9 @@ export default function Home() {
                 </div>
             </div>
 
-            <main 
+            <main
                 className='filter-catalog'
-                ref={catalogRef}
+                ref={ref}
             >
                 <section id="section-a" className='filterrow'>
                     <div className='a-wrap'>

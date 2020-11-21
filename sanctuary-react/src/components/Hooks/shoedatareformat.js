@@ -3,7 +3,7 @@ export default function shoeDataReformat(data) {
     Reformat the condition field of shoes.
     Refromat the source field to remove whitespace and make lower case.
     */
-   
+
     let grailedConditions = {
         "is_gently_used": "Gently Used",
         "is_used": "Used",
@@ -39,6 +39,8 @@ export default function shoeDataReformat(data) {
     return data.map(shoe => {
         // make lower case and remove white space
         shoe.source = shoe.source.toLowerCase().replace(/\s+/g, '');
+        // this regex removes the 'https://' from the url, so that it can be added later
+        shoe.url = shoe.url.replace(/(^\w+:|^)\/\//, '')
         if (shoe.shoe_condition in shoeConditionsMap[shoe.source]) {
             shoe.shoe_condition = shoeConditionsMap[shoe.source][shoe.shoe_condition]
         }

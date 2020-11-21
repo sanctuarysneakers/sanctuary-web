@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import useOutsideAlerter from '../Hooks/useoutsidealerter'
-import { hideShoeModal, updateShoe } from '../../redux/actions'
+import { hideShoeModal } from '../../redux/actions'
 import { RiCloseLine } from 'react-icons/ri'
 import { Helmet } from 'react-helmet'
 
@@ -17,9 +17,6 @@ export default function ShoeModal() {
     // This makes it so that the modal closes if user clicks outside the modal
     const wrapperRef = useRef(null)
     useOutsideAlerter(wrapperRef)
-
-    // this regex removes the 'https://' from the url, so that it can be added later
-    let url = shoe.url.replace(/(^\w+:|^)\/\//, '')
 
     useAPICall('comparison')
 
@@ -95,14 +92,14 @@ export default function ShoeModal() {
                                     }
                                 </div>
                             </div>
-                            <a className="buy-now" target="_blank " href={`https://${url}`}>Buy Now</a>
+                            <a className="buy-now" target="_blank" href={`https://${shoe.url}`}>Buy Now</a>
                         </div>
 
                         <div>
                             {
                                 comparisonData.map(sneaker => {
                                     return (
-                                        <div onClick={() => dispatch(updateShoe(sneaker))}>
+                                        <a target="_blank" href={`https://${sneaker.url}`}>
                                             {sneaker.source &&
                                                 <img
                                                     src={require(`../../assets/images/logos/${sneaker.source}.png`)}
@@ -110,7 +107,7 @@ export default function ShoeModal() {
                                                 />}
                                             {sneaker.model}
                                             ${sneaker.price}
-                                        </div>
+                                        </a>
                                     )
                                 })}
                         </div>
@@ -177,12 +174,12 @@ export default function ShoeModal() {
                         </div>
                     </div>
 
-                    <a className="buy-now" target="_blank " href={`https://${url}`}>Buy Now</a>
+                    <a className="buy-now" target="_blank " href={`https://${shoe.url}`}>Buy Now</a>
 
                     <div>
                         {comparisonData.map(sneaker => {
                             return (
-                                <div onClick={() => dispatch(updateShoe(sneaker))}>
+                                <a target="_blank" href={`https://${sneaker.url}`}>
                                     {sneaker.source &&
                                         <img
                                             src={require(`../../assets/images/logos/${sneaker.source}.png`)}
@@ -190,7 +187,7 @@ export default function ShoeModal() {
                                         />}
                                     {sneaker.model}
                                     ${sneaker.price}
-                                </div>
+                                </a>
                             )
                         })}
                     </div>

@@ -142,3 +142,16 @@ export const expandBar = () => {
     }
 }
 
+// Callback Triggers
+
+export const newSearchHappened = () => {
+    return {
+        type: 'NEW_SEARCH_HAPPENED'
+    }
+}
+
+export const shopNowScroll = () => {
+    return {
+        type: 'SHOP_NOW_SCROLL'
+    }
+}
