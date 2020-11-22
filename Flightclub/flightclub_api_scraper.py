@@ -36,7 +36,8 @@ def create_db_table():
             top_collab BOOLEAN,
             price_drop BOOLEAN,
             url TEXT,
-            image TEXT
+            image TEXT,
+            image_thumbnail TEXT
         );""")
         conn.commit()
     except ProgrammingError:
@@ -97,7 +98,8 @@ def get_api_data(s_query):
                     'top_collab': 1 if 'top-collaborations' in hit['collection_slugs'] else 0,
                     'price_drop': 1 if 'price-drops' in hit['collection_slugs'] else 0,
                     'url': 'https://www.flightclub.com/' + hit['slug'],
-                    'image': hit['main_picture_url']
+                    'image': hit['main_picture_url'],
+                    'image_thumbnail': hit['main_picture_url'][:27] + "400" + hit['main_picture_url'][26:]
                 }
                 items.append(item)
 
@@ -113,13 +115,13 @@ def insert_items(item_data):
     for item in item_data:
         data_list.append((item['id'],item['source'],item['model'],item['sku_id'],item["size"],
             item['price'],item['category'],item['shoe_condition'],item['trending'],item['top_seller'],
-            item['new_release'],item['top_collab'],item['price_drop'],item['url'],item['image']))
+            item['new_release'],item['top_collab'],item['price_drop'],item['url'],item['image'],item["image_thumbnail"]))
     
     try:
         c.executemany("""INSERT IGNORE INTO flightclub_sneakers_tmp
             (id,source,model,sku_id,size,price,category,shoe_condition,trending,top_seller,
-            new_release,top_collab,price_drop,url,image) 
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
+            new_release,top_collab,price_drop,url,image,image_thumbnail) 
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
         conn.commit()
     except ProgrammingError:
         pass

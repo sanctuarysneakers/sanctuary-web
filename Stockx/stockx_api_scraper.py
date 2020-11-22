@@ -41,7 +41,8 @@ def create_db_table():
             number_of_asks INT,
             number_of_bids INT,
             url TEXT,
-            image TEXT
+            image TEXT,
+            image_thumbnail TEXT
         );""")
         conn.commit()
     except ProgrammingError:
@@ -120,7 +121,8 @@ def get_api_data(s_query, size):
                     "annualSold": item["market"]["deadstockSold"],
                     "recentSold": item["market"]["salesLast72Hours"],
                     "url": "stockx.com/" + item["urlKey"],
-                    "image": item["media"]["imageUrl"]
+                    "image": item["media"]["imageUrl"],
+                    "image_thumbnail": item["media"]["imageUrl"].split('?', 1)[0] + "?w=400&q=50"
                 }
                 items.append(item_data)
             except KeyError:
@@ -151,15 +153,15 @@ def insert_items(item_data):
         data_list.append((item["id"],item["source"],item["model"],item["skuId"],item["size"],item["price"],
             item["condition"],item["category"],item["recentSold"],item["annualSold"],item["retailPrice"],
             item["highestBid"],item["annualHigh"],item["annualLow"],item["averagePrice"],item["volatility"], 
-            item["numberOfAsks"], item["numberOfBids"], item["url"], item["image"]))
+            item["numberOfAsks"], item["numberOfBids"], item["url"], item["image"], item["image_thumbnail"]))
     
     try:
         c.executemany("""INSERT IGNORE INTO stockx_sneakers_tmp
             (id,source,model,sku_id,size,price,shoe_condition,category,
             recently_sold,annual_sold,retail_price,highest_bid,
             annual_high_price,annual_low_price,average_price,
-            volatility,number_of_asks,number_of_bids,url,image) 
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
+            volatility,number_of_asks,number_of_bids,url,image,image_thumbnail) 
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
         conn.commit()
     except ProgrammingError:
         pass

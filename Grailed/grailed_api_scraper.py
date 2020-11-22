@@ -45,7 +45,8 @@ def create_db_table():
             shipping_au INT,
             shipping_other INT,
             url TEXT,
-            image TEXT
+            image TEXT,
+            image_thumbnail TEXT
         );""")
         conn.commit()
     except ProgrammingError:
@@ -107,13 +108,15 @@ def get_api_data(s_query):
                 "price": str(item['price']),
                 "old_price": item['price_drops'][-2] if len(item['price_drops']) > 1 else None,
                 "img": item['cover_photo']['url'],
+                "img_thumbnail": 
+                    "https://process.fs.grailed.com/AJdAgnqCST4iPtnUxiGtTz/auto_image/resize=width:400/output=quality:60/compress/" + item['cover_photo']['url'],
                 "date_bumped": item['bumped_at'][:10],
                 "date_created": item['cover_photo']['created_at'][:10],
                 "heat": item['heat'],
                 "condition": item['condition'],
                 "seller_location": item['location'],
                 "seller_rating": round(item['user']['seller_score']['rating_average'], 1) if
-                item['user']['seller_score']['rating_average'] else None,
+                    item['user']['seller_score']['rating_average'] else None,
                 "seller_rating_count": item['user']['seller_score']['rating_count'],
                 "shipping_us": item['shipping']['us']['amount'] if item['shipping']['us']['enabled'] else None,
                 "shipping_ca": item['shipping']['ca']['amount'] if item['shipping']['ca']['enabled'] else None,
@@ -151,15 +154,15 @@ def insert_items(item_data):
                           item["date_bumped"], item["date_created"], item["heat"], item["seller_location"],
                           item["seller_rating"], item["seller_rating_count"], item["shipping_us"], item["shipping_ca"],
                           item["shipping_uk"], item["shipping_eu"], item["shipping_asia"], item["shipping_au"],
-                          item["shipping_other"], item["url"], item["img"]))
+                          item["shipping_other"], item["url"], item["img"], item["img_thumbnail"]))
 
     try:
         c.executemany("""INSERT IGNORE INTO grailed_sneakers_tmp
             (id,source,model,sku_id,size,price,shoe_condition,category,old_price,
             date_bumped,date_created,heat,seller_location,
             seller_rating,seller_rating_count,shipping_us,shipping_ca,shipping_uk,
-            shipping_eu,shipping_asia,shipping_au,shipping_other,url,image) 
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
+            shipping_eu,shipping_asia,shipping_au,shipping_other,url,image,image_thumbnail) 
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
         conn.commit()
     except ProgrammingError:
         print("Could not insert data")
