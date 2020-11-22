@@ -31,6 +31,7 @@ export default function Slider({ data, swiperRef }) {
                 model={sneaker.model}
                 source={sneaker.source.toLowerCase()}
                 image={sneaker.image}
+                image_thumbnail={sneaker.image_thumbnail}
                 shoe_condition={sneaker.shoe_condition}
               />
             </SwiperSlide>
