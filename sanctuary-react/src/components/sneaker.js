@@ -18,7 +18,7 @@ export default function Sneaker(props) {
                 <div className='img-area'>
                     <img 
                         className='sneakerImg'
-                        src={props.image}
+                        src={props.image_thumbnail}
                         loading="lazy"
                         alt={props.model}
                     />
