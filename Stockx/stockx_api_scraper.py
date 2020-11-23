@@ -122,7 +122,7 @@ def get_api_data(s_query, size):
                     "recentSold": item["market"]["salesLast72Hours"],
                     "url": "stockx.com/" + item["urlKey"],
                     "image": item["media"]["imageUrl"],
-                    "image_thumbnail": item["media"]["imageUrl"].split('?', 1)[0] + "?w=400&q=50"
+                    "image_thumbnail": item["media"]["imageUrl"].split('?', 1)[0] + "?w=400&q=50&trim=color"
                 }
                 items.append(item_data)
             except KeyError:
