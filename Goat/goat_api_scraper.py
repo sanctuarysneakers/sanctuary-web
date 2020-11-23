@@ -33,7 +33,8 @@ def create_db_table():
             trending BOOLEAN,
             just_dropped BOOLEAN,
             url TEXT,
-            image TEXT
+            image TEXT,
+            image_thumbnail TEXT
         );""")
         conn.commit()
     except ProgrammingError:
@@ -96,7 +97,8 @@ def get_api_data(s_query):
                 'trending': 1 if 'trending' in hit['collection_slugs'] else 0,
                 'just_dropped': 1 if 'just-dropped' in hit['collection_slugs'] else 0,
                 'url': 'https://www.goat.com/sneakers/' + hit['slug'],
-                'image': hit['main_picture_url'] 
+                'image': hit['main_picture_url'],
+                'image_thumbnail': hit['main_picture_url'][:23] + "400" + hit['main_picture_url'][26:]
             }
             items.append(item)
 
@@ -121,12 +123,12 @@ def insert_items(item_data):
     for item in item_data:
         data_list.append((item["id"], item["source"], item["model"], item['skuId'], item["size"], 
                           item["price"], item["shoe_condition"], item["category"],item['trending'], 
-                          item['just_dropped'], item["url"], item["image"]))
+                          item['just_dropped'], item["url"], item["image"], item["image_thumbnail"]))
 
     try:
         c.executemany("""INSERT IGNORE INTO goat_sneakers_tmp
-            (id,source,model,sku_id,size,price,shoe_condition,category,trending,just_dropped,url,image) 
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
+            (id,source,model,sku_id,size,price,shoe_condition,category,trending,just_dropped,url,image,image_thumbnail) 
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", data_list)
         conn.commit()
     except ProgrammingError:
         pass
