@@ -2,3 +2,6 @@
   base    = "sanctuary-react"
   publish = "build"
   command = "npm run build"
+
+[[plugins]]
+package = "@netlify/plugin-sitemap"
