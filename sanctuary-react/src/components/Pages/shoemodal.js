@@ -66,7 +66,7 @@ export default function ShoeModal() {
                         </div>
 
                         <div className="middle">
-                            <div className="shoe-image">
+                            <div className={shoe.source === 'grailed' ? "grailed-image" : "shoe-image"}>
                                 <img
                                     src={shoe.image}
                                     alt={shoe.model}

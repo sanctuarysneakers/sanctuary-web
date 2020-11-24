@@ -15,7 +15,7 @@ export default function Sneaker(props) {
         <div className='sneaker' onClick={() => clickHandler()}>
             <div className='sneaker-content'>
                 
-                <div className='img-area'>
+                <div className={props.source === 'grailed' ? 'grailed-img-area' : 'img-area'}>
                     <img 
                         className='sneakerImg'
                         src={props.image}
