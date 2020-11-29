@@ -29,9 +29,9 @@ export default function FilterBar() {
                 <div className='sizeText'> Size </div>
                 <input
                     className='sizeBox'
-                    placeholder="All"
+                    placeholder="10"
                     onFocus={e => e.target.placeholder = ""}
-                    onBlur={e => e.target.placeholder = "All"}
+                    onBlur={e => e.target.placeholder = "10"}
                     type='number'
                     onChange={e => handleChange(e, 'size')}
                     value={filter.size}
