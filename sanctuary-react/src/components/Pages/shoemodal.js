@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import useOutsideAlerter from '../Hooks/useoutsidealerter'
-import { hideShoeModal } from '../../redux/actions'
+import { hideShoeModal, showShoeModal } from '../../redux/actions'
 import { RiCloseLine } from 'react-icons/ri'
 import { Helmet } from 'react-helmet'
 import { FaChevronRight } from 'react-icons/fa'
@@ -15,11 +15,15 @@ export default function ShoeModal() {
     const shoe = useSelector(state => state.shoe)
     const comparisonData = useSelector(state => state.shoeComparisonData)
 
+    const showComparisonDiv = comparisonData.length > 0 ? true : false
+
     // This makes it so that the modal closes if user clicks outside the modal
     const wrapperRef = useRef(null)
     useOutsideAlerter(wrapperRef)
 
     useAPICall('comparison')
+
+    console.log(shoe)
 
     return (
         <div className="modal-shoe">
@@ -94,6 +98,7 @@ export default function ShoeModal() {
                         </div> 
                     </div>
 
+                    {showComparisonDiv && 
                     <div className="web-comparison-content">
                         <div className="compare-divider"></div>
                         {
@@ -123,7 +128,7 @@ export default function ShoeModal() {
                                     </a>
                                 )
                             })}
-                    </div>
+                    </div>}
                 </div>
 
 
@@ -191,6 +196,7 @@ export default function ShoeModal() {
                         </div>
                     </div>
 
+                    {showComparisonDiv &&
                     <div className="mobile-comparison-content">
                         {comparisonData.map(sneaker => {
                             return (
@@ -217,7 +223,7 @@ export default function ShoeModal() {
                                 </a>
                             )
                         })}
-                    </div>
+                    </div>}
 
                 </div>
 
