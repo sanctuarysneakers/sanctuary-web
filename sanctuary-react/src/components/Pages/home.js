@@ -47,17 +47,20 @@ export default function Home() {
     return (
         <div>
             <Helmet>
-                <title>Sanctuary Sneakers | Home</title>
+                <title>Sanctuary: Sneaker Price Comparison & Market Data</title>
                 <meta
                     name="description"
-                    content="Find Your Perfect Pair! Get the best price on Jordans from your favourite websites"
+                    content="Sanctuary Sneakers collects all available sneaker market data in one place so you can 
+                             compare and find the best prices. Sanctuary lets you see real-time prices, new inventory, 
+                             and more information for both new and used sneakers from several trusted online stores so 
+                             you don't have to! Stay up-to-date with price drop alerts, and release reminders."
                 />
             </Helmet>
             <div className="splash" style={{ height: recalculatedHeight }}>
                 <div className='bg-image' style={{ height: recalculatedHeight }}></div>
                 <div className='splashWrap'>
                     <h1>Find Your Perfect Pair</h1>
-                    <h3>Get the best price on Jordans from your favourite websites</h3>
+                    <h3>Get the best price on sneakers from your favourite websites</h3>
                     <div className='twoButtons'>
 
                         <button className='shopNowBtn' onClick={() => dispatch(shopNowScroll())}>

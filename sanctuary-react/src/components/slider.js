@@ -40,6 +40,7 @@ export default function Slider({ data }) {
                 model={sneaker.model}
                 source={sneaker.source}
                 image={sneaker.image}
+                image_thumbnail={sneaker.image_thumbnail}
                 shoe_condition={sneaker.shoe_condition}
                 sku_id={sneaker.sku_id}
               />

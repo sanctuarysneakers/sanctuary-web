@@ -18,7 +18,8 @@ export default function Sneaker(props) {
                 <div className={props.source === 'grailed' ? 'grailed-img-area' : 'img-area'}>
                     <img 
                         className='sneakerImg'
-                        src={props.image}
+                        src={props.image_thumbnail}
+                        loading="lazy"
                         alt={props.model}
                     />
                 </div>
