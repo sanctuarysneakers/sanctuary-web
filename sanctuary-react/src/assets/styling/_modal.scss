@@ -8,7 +8,7 @@
     justify-content: center;
     z-index: 10;
 
-    backdrop-filter: blur(25px) brightness(0.7);
+    backdrop-filter: blur(25px) brightness(0.85);
     -webkit-backdrop-filter: blur(20px) brightness(0.7); 
 
     animation: fade-in-out 0.3s;
@@ -19,33 +19,33 @@
 }
 
 .modal-shoe {
-    align-items: center;
+    // align-items: center;
 
     @supports not (backdrop-filter: blur(20px)) {
-        background: rgba(#ADADAD, 0.97);
+        background: rgba(#D6D6D6, 0.97);
     } 
 }
 
 .closeButton {
     cursor: pointer;
-    width: 34px;
-    height: 34px;
+    width: 30px;
+    height: 30px;
     border-radius: 100px;
     background: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+    transition: 0.15s cubic-bezier(0.25, 0.1, 0.25, 1);
 
     svg {
         color: #353234;
-        height: 22px;
-        width: 22px;
+        height: 20px;
+        width: 20px;
     }
 }
 
 .closeButton:hover {
-    background: #DEDEDE;
+    background: #F3F3F3;
 }
 
 @keyframes fade-in-out {

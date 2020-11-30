@@ -1,21 +1,29 @@
 import React, { useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import useOutsideAlerter from '../useoutsidealerter'
-import { hideShoeModal } from '../../redux/actions'
+import useOutsideAlerter from '../Hooks/useoutsidealerter'
+import { hideShoeModal, showShoeModal } from '../../redux/actions'
 import { RiCloseLine } from 'react-icons/ri'
 import { Helmet } from 'react-helmet'
+import { FaChevronRight } from 'react-icons/fa'
+
+import useAPICall from "../Hooks/useapicall"
 
 
 export default function ShoeModal() {
 
-    const shoe = useSelector(state => state.shoe)
     const dispatch = useDispatch()
+    const shoe = useSelector(state => state.shoe)
+    const comparisonData = useSelector(state => state.shoeComparisonData)
+
+    const showComparisonDiv = comparisonData.length > 0 ? true : false
+
+    // This makes it so that the modal closes if user clicks outside the modal
     const wrapperRef = useRef(null)
     useOutsideAlerter(wrapperRef)
 
-    let url = shoe.url
-    // this regex removes the 'https://' from the url, so that it can be added later
-    url = url.replace(/(^\w+:|^)\/\//, '')
+    useAPICall('comparison')
+
+    console.log(shoe)
 
     return (
         <div className="modal-shoe">
@@ -38,32 +46,9 @@ export default function ShoeModal() {
                     </div>
 
                     <div className="web-content">
+
                         <div className="left">
-                            <div className='shoe-model-container'>
-                                <div className="shoe-model">
-                                    <h2>{shoe.model}</h2>
-                                </div>
-                            </div>
-
-                            <div className='size-and-condition'>
-                                <div className='shoe-size-container'>
-                                    <div className="shoe-size">
-                                        <h3>Size</h3>
-                                        <span>{shoe.size}</span>
-                                    </div>
-                                </div>
-
-                                <div className='shoe-condition-container'>
-                                    <div className="shoe-condition">
-                                        <h3>Condition</h3>
-                                        <span>{shoe.shoe_condition}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="middle">
-                            <div className="shoe-image">
+                            <div className={shoe.source === 'grailed' ? "grailed-image" : "shoe-image"}>
                                 <img
                                     src={shoe.image}
                                     alt={shoe.model}
@@ -72,26 +57,78 @@ export default function ShoeModal() {
                         </div>
 
                         <div className="right">
-                            <div className="shoe-price-container">
-                                <div className="shoe-price">
-                                    <h3>Price</h3>
-                                    <span>${shoe.price}</span>
-                                </div>
-                            </div>
+                            <div className="right-content">
 
-                            <div className="shoe-source-container">
-                                <div className="shoe-source">
-                                    {shoe.source &&
-                                        <img
-                                            src={require(`../../assets/images/logos/${shoe.source.toLowerCase()}.png`)}
-                                            alt={shoe.source}
-                                        />
-                                    }
+                                <div className="shoe-model">
+                                    <h2>{shoe.model}</h2>
+                                </div>
+
+                                <div className="info-boxes">
+                                    <div className="price-condition-container">
+                                        <div className="price-condition">
+                                            <h3>$</h3>
+                                            <span className="price-font">{shoe.price.toLocaleString()}</span>
+                                            <span className="condition-font">{shoe.shoe_condition}</span>
+                                        </div>
+                                    </div>
+
+                                    <div className='shoe-size-container'>
+                                        <div className="shoe-size">
+                                            <h3>Size</h3>
+                                            <span>{shoe.size}</span>
+                                        </div>
+                                    </div>
+
+                                    <div className="source-and-buy">
+                                        <div className="shoe-source-container">
+                                            <div className="shoe-source">
+                                                {shoe.source &&
+                                                <img
+                                                    src={require(`../../assets/images/logos/${shoe.source}.png`)}
+                                                    alt={shoe.source}
+                                                />
+                                                }
+                                            </div>
+                                        </div>
+
+                                        <a className="buy-now" target="_blank" href={`https://${shoe.url}`}>Buy Now</a>
+                                    </div>
                                 </div>
                             </div>
-                            <a className="buy-now" target="_blank " href={`https://${url}`}>Buy Now</a>
-                        </div>
+                        </div> 
                     </div>
+
+                    {showComparisonDiv && 
+                    <div className="web-comparison-content">
+                        <div className="compare-divider"></div>
+                        {
+                            comparisonData.map(sneaker => {
+                                return (
+                                    <a className ="compare-data" target="_blank" href={`https://${sneaker.url}`}>
+
+                                        <div className="compare-left">
+                                            <div className="compare-source">
+                                                {sneaker.source &&
+                                                    <img
+                                                        src={require(`../../assets/images/logos/${sneaker.source}.png`)}
+                                                        alt={sneaker.source}
+                                                    />
+                                                }
+                                            </div>
+
+                                            <div className="compare-price">
+                                                ${sneaker.price.toLocaleString()}
+                                            </div>
+                                        </div>
+
+                                        <div className="compare-icon">
+                                            <FaChevronRight />
+                                        </div>
+
+                                    </a>
+                                )
+                            })}
+                    </div>}
                 </div>
 
 
@@ -100,67 +137,96 @@ export default function ShoeModal() {
 
                 <div className="mobile-version">
 
-                    <div className='m-top'>
-                        <div className="m-shoe-model">
-                            <h2>{shoe.model}</h2>
-                        </div>
-                    </div>
-
-                    <div className="m-middle">
-                        <div className="m-middle-left">
-
-                            <div className="m-shoe-image-container">
-                                <div className="m-shoe-image">
-                                    <img
-                                        src={shoe.image}
-                                        alt={shoe.model}
-                                    />
-                                </div>
-                            </div>
-
-
-                            <div className="m-shoe-source">
-                                {shoe.source &&
-                                    <img
-                                        src={require(`../../assets/images/logos/${shoe.source.toLowerCase()}.png`)}
-                                        alt={shoe.source}
-                                    />
-                                }
-                            </div>
-                        </div>
-
-                        <div className="m-middle-right">
-
-                            <div className='m-shoe-price-container'>
-                                <div className="m-shoe-price">
-                                    <h3>Price</h3>
-                                    <span>${shoe.price}</span>
-                                </div>
-                            </div>
-
-                            <div className="m-shoe-size-container">
-                                <div className="m-shoe-size">
-                                    <h3>Size</h3>
-                                    <span>{shoe.size}</span>
-                                </div>
-                            </div>
-
-                            <div className="m-shoe-condition-container">
-                                <div className="m-shoe-condition">
-                                    <h3>Condition</h3>
-                                    <span>{shoe.shoe_condition}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <a className="buy-now" target="_blank " href={`https://${url}`}>Buy Now</a>
-
                     <div className='closeButton'
                         onClick={() => dispatch(hideShoeModal())}>
                         <RiCloseLine />
                     </div>
+
+                    <div className="mobile-content">
+
+                        <div className="top">
+                            <div className={shoe.source === 'grailed' ? "mobile-grailed-image" : "mobile-shoe-image"}>
+                                <img
+                                    src={shoe.image}
+                                    alt={shoe.model}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="bottom">
+                            <div className="bottom-content">
+
+                                <div className="mobile-shoe-model">
+                                    <h2>{shoe.model}</h2>
+                                </div>
+
+                                <div className="mobile-info-boxes">
+
+                                    <div className="mobile-price-condition-container">
+                                        <div className="mobile-price-condition">
+                                            <h3>$</h3>
+                                            <span className="price-font">{shoe.price.toLocaleString()}</span>
+                                            <span className="condition-font">{shoe.shoe_condition}</span>
+                                        </div>
+                                    </div>
+
+                                    <div className='shoe-size-container'>
+                                        <div className="shoe-size">
+                                            <h3>Size</h3>
+                                            <span>{shoe.size}</span>
+                                        </div>
+                                    </div>
+
+                                    <div className="source-and-buy">
+                                        <div className="shoe-source-container">
+                                            <div className="shoe-source">
+                                                {shoe.source &&
+                                                <img
+                                                    src={require(`../../assets/images/logos/${shoe.source}.png`)}
+                                                    alt={shoe.source}
+                                                />
+                                                }
+                                            </div>
+                                        </div>
+
+                                        <a className="buy-now" target="_blank" href={`https://${shoe.url}`}>Buy Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {showComparisonDiv &&
+                    <div className="mobile-comparison-content">
+                        {comparisonData.map(sneaker => {
+                            return (
+                                <a className="mobile-compare-data" target="_blank" href={`https://${sneaker.url}`}>
+
+                                    <div className="mobile-compare-left">
+                                        <div className="mobile-compare-source">
+                                            {sneaker.source &&
+                                                <img
+                                                    src={require(`../../assets/images/logos/${sneaker.source}.png`)}
+                                                    alt={sneaker.source}
+                                                />}
+                                        </div>
+
+                                        <div className="mobile-compare-price">
+                                            ${sneaker.price.toLocaleString()}
+                                        </div>
+                                    </div>
+
+                                    <div className="mobile-compare-icon">
+                                        <FaChevronRight />
+                                    </div>
+
+                                </a>
+                            )
+                        })}
+                    </div>}
+
                 </div>
+
             </div>
         </div>
     )

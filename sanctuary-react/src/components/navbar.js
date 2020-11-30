@@ -9,23 +9,27 @@ export default function NavBar() {
 
     const isCollapsed = useSelector(state => state.isSearchBarCollapsed);
 
+    const handleClick = () => {
+        window.scrollTo(0, 0)
+    }
+
     return (
         <nav className='navbar'>
             <div className='navbarContent'>
                 {isCollapsed &&
-                    <Link to={"/"}>
-                        <a href="#" onClick={() => window.location.reload()}>
-                        <a href="#" onClick={() => window.scrollTo(0, 0)}>
+                    <Link
+                        to={"/"}
+                        onClick={handleClick}
+                    >
                         <img
                             className='sanctuaryLogo'
                             src={sanctuaryLogo}
                             alt={"Sanctuary"}
                         />
-                        </a>
-                        </a>
-                    </Link>}
+                    </Link>
+                }
                 <SearchBar />
-            </div>
-        </nav>
+            </div >
+        </nav >
     )
 }

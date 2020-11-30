@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import useOutsideAlerter from '../useoutsidealerter'
+import useOutsideAlerter from '../Hooks/useoutsidealerter'
 import { RiCloseLine } from 'react-icons/ri'
 import { useDispatch } from 'react-redux'
 import { hideAboutModal } from '../../redux/actions'
@@ -131,10 +131,10 @@ export default function AboutModal() {
                             better? Please feel free to contact us and
                             we will get back to you shortly!
                         </h2>
-                            <a className='contact-box'
-                                href = "mailto: contact@sanctuarysneakers.com">
-                                contact@sanctuarysneakers.com
-                            </a>
+                        <a className='contact-box'
+                            href = "mailto: contact@sanctuarysneakers.com">
+                            contact@sanctuarysneakers.com
+                        </a>
                     </div>
                 </Div100vh>
             </div>

@@ -35,6 +35,13 @@ export const flightClubCall = data => {
     }
 }
 
+export const shoeComparisonCall = data => {
+    return {
+        type: 'SHOE_COMPARISON_CALL',
+        payload: data
+    }
+}
+
 // Filter Acitons
 
 export const updateSearch = search => {
@@ -135,3 +142,16 @@ export const expandBar = () => {
     }
 }
 
+// Callback Triggers
+
+export const newSearchHappened = () => {
+    return {
+        type: 'NEW_SEARCH_HAPPENED'
+    }
+}
+
+export const shopNowScroll = () => {
+    return {
+        type: 'SHOP_NOW_SCROLL'
+    }
+}

@@ -1,3 +1,5 @@
+/* The cureent active shoe that will be displayed in the shoe modal */
+
 let initState = {
     size: 0,
     price: 0,
@@ -5,7 +7,8 @@ let initState = {
     model: "",
     source: "",
     image: "",
-    shoe_condition: ""
+    shoe_condition: "",
+    sku_id: ""
 }
 
 const shoeReducer = (state = initState, action) => {

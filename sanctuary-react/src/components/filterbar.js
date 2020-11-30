@@ -1,13 +1,27 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateSizeFilter, updatePriceLowFilter, updatePriceHighFilter, clearFilter } from '../redux/actions'
+import { updateSizeFilter, updatePriceLowFilter, updatePriceHighFilter, clearFilter} from '../redux/actions'
 
 
 export default function FilterBar() {
 
     const dispatch = useDispatch()
-    const filter = useSelector(state => state.filter)
     const [filtersVisibile, toggleFilters] = useState(false)
+    const filter = useSelector(state => state.filter)
+
+    const handleChange = (e, field) => {
+        const value = e.target.value
+        let dispatchMap = {
+            'size': updateSizeFilter,
+            'price_low': updatePriceLowFilter,
+            'price_high': updatePriceHighFilter
+        }
+        dispatch(dispatchMap[field](value))
+    }
+
+    const handleClear = () => {
+        dispatch(clearFilter())
+    }
 
     const filters = (
         <div className='three-filters'>
@@ -15,11 +29,11 @@ export default function FilterBar() {
                 <div className='sizeText'> Size </div>
                 <input
                     className='sizeBox'
-                    placeholder="All"
+                    placeholder="10"
                     onFocus={e => e.target.placeholder = ""}
-                    onBlur={e => e.target.placeholder = "All"}
+                    onBlur={e => e.target.placeholder = "10"}
                     type='number'
-                    onChange={e => dispatch(updateSizeFilter(e.target.value))}
+                    onChange={e => handleChange(e, 'size')}
                     value={filter.size}
                 />
             </div>
@@ -32,7 +46,7 @@ export default function FilterBar() {
                     onFocus={e => e.target.placeholder = ""}
                     onBlur={e => e.target.placeholder = "All"}
                     type='number'
-                    onChange={e => dispatch(updatePriceLowFilter(e.target.value))}
+                    onChange={e => handleChange(e, 'price_low')}
                     value={filter.price_low}
                 />
             </div>
@@ -45,7 +59,7 @@ export default function FilterBar() {
                     onFocus={e => e.target.placeholder = ""}
                     onBlur={e => e.target.placeholder = "All"}
                     type='number'
-                    onChange={e => dispatch(updatePriceHighFilter(e.target.value))}
+                    onChange={e => handleChange(e, 'price_high')}
                     value={filter.price_high}
                 />
             </div>
@@ -66,7 +80,7 @@ export default function FilterBar() {
                 {filters}
 
                 <button className='clear'
-                    onClick={() => dispatch(clearFilter())}>
+                    onClick={() => handleClear()}>
                     Clear
                 </button>
 
@@ -85,7 +99,7 @@ export default function FilterBar() {
                 {filtersVisibile && filters}
 
                 <button className='clear'
-                    onClick={() => dispatch(clearFilter())}>
+                    onClick={() => handleClear()}>
                     Clear
                 </button>
 

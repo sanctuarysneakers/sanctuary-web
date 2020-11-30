@@ -205,17 +205,22 @@
                 align-items: center;
                 justify-content: center;
 
-                height: 60px;
-                width: 400px;
+                height: 55px;
+                width: 371px;
                 border-radius: 100px;
-                background: linear-gradient(45deg, #3344BC, #6B7BF0);
+                background: #3478F6;
+                transition: 0.15s cubic-bezier(0.25, 0.1, 0.25, 1);
 
                 font-family: 'Poppins', sans-serif;
-                font-size: 14px;
+                font-size: 13px;
                 font-weight: 500;
                 color: white;
                 text-decoration: none;
                 outline: none;
+            }
+
+            a.contact-box:hover {
+                background: #2D72DB;
             }
         }
     }
@@ -348,13 +353,10 @@
                     margin-bottom: 28px;
                 }
 
-                .contact-box {
-                    height: 55px;
-                    width: 350px;
-
-                    button {
-                        font-size: 12px;
-                    }
+                a.contact-box {
+                    height: 50px;
+                    width: 330px;
+                    font-size: 12px;
                 }
             }
         }
@@ -492,13 +494,10 @@
                     margin-bottom: 28px;
                 }
 
-                .contact-box {
-                    height: 50px;
-                    width: 260px;
-
-                    button {
-                        font-size: 11px;
-                    }
+                a.contact-box {
+                    height: 45px;
+                    width: 245.22px;
+                    font-size: 10.5px;
                 }
             }
         }
