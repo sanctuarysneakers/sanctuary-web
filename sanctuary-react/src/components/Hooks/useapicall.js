@@ -68,7 +68,7 @@ export default function useAPICall(callType) {
             return
         }
 
-        let url = `http://sanctuaryapi.net/compare?source=${shoe.source}&size=${shoe.size}&sku=${shoe.sku_id}`
+        let url = `https://sanctuaryapi.net/compare?source=${shoe.source}&size=${shoe.size}&sku=${shoe.sku_id}`
         fetchData(url)
     }
 
