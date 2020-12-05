@@ -128,20 +128,6 @@ export const hidePrivacyModal = () => {
     }
 }
 
-// Search Bar Collapse/Expand on mobile
-
-export const collapseBar = () => {
-    return {
-        type: 'COLLAPSE_BAR'
-    }
-}
-
-export const expandBar = () => {
-    return {
-        type: 'EXPAND_BAR'
-    }
-}
-
 // Callback Triggers
 
 export const newSearchHappened = () => {
@@ -150,15 +136,11 @@ export const newSearchHappened = () => {
     }
 }
 
-export const showSearchBar = () => {
+// Global Values
+
+export const recordSplashHeight = splashHeight => {
     return {
-        type: 'SHOW_SEARCH_BAR'
+        type: 'RECORD_SPLASH_HEIGHT',
+        payload: splashHeight
     }
 }
-
-export const hideSearchBar = () => {
-    return {
-        type: 'HIDE_SEARCH_BAR'
-    }
-}
-

@@ -1,28 +1,28 @@
-import React, { useEffect } from 'react'
-import { RiSearchLine, RiCloseLine } from 'react-icons/ri'
+import React from 'react'
+import { RiSearchLine } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateSearch, collapseBar, expandBar} from '../redux/actions'
-import { useMediaQuery } from 'react-responsive'
+import { updateSearch } from '../redux/actions'
 
 
 export default function SearchBar() {
 
     const dispatch = useDispatch()
-    const isCollapsed = useSelector(state => state.isSearchBarCollapsed)
     const search = useSelector(state => state.filter.search)
+    const splashHeight = useSelector(state => state.splashHeight)
 
-    const isDesktop = useMediaQuery({
-        query: '(min-width: 930px)'
-    })
-
-    const handleChange = e => {
-        const value = e.target.value
-        dispatch(updateSearch(value))
+    const scrollToCatalog = () => {
+        if (window.scrollY < splashHeight) {
+            window.scrollTo(0, splashHeight)
+        }
     }
 
-    useEffect(() => {
-        if (isDesktop) dispatch(collapseBar())
-    })
+    const handleChange = e => {
+        dispatch(updateSearch(e.target.value))
+    }
+
+    const handleKeyDown = e => {
+        if (e.key === 'Enter') scrollToCatalog()
+    }
 
     return (
         <React.Fragment>
@@ -38,38 +38,26 @@ export default function SearchBar() {
                     type="text"
                     placeholder="Search"
                     onChange={e => handleChange(e)}
+                    onKeyDown={e => handleKeyDown(e)}
                     value={search}
                 />
             </div>
 
             {/* Mobile Search Bar */}
 
-            <div className={`searchBar-mobile ${!isCollapsed && "no-border"}`}>
-                <div
-                    className="searchIcon"
-                    onClick={() => dispatch(expandBar())}
-                >
+            <div className='searchBar-mobile'>
+                <div className="searchIcon">
                     <RiSearchLine />
                 </div>
-
-                {!isCollapsed &&
-                    <input
-                        className={'mobileSearchText'}
-                        type="text"
-                        placeholder="Search"
-                        onChange={e => handleChange(e)}
-                        value={search}
-                    />}
+                <input
+                    className='mobileSearchText'
+                    type="text"
+                    placeholder="Search"
+                    onChange={e => handleChange(e)}
+                    onKeyDown={e => handleKeyDown(e)}
+                    value={search}
+                />
             </div>
-
-            {!isCollapsed &&
-                <div
-                    className={'closeIcon-mobile'}
-                    onClick={() => dispatch(collapseBar())}
-                >
-                    <RiCloseLine />
-                </div>}
-
         </React.Fragment>
     )
 }

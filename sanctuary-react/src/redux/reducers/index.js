@@ -8,10 +8,9 @@ import shoeModalVisibleReducer from './shoemodalvisiblereducer'
 import aboutModalVisibleReducer from './aboutmodalvisiblereducer'
 import termsModalVisibleReducer from './termsmodalvisiblereducer'
 import privacyModalVisibleReducer from './privacymodalvisiblereducer'
-import searchBarCollapseReducer from './searchBarCollapseReducer'
 import shoeComparisonDataReducer from './shoecomparisondatareducer'
 import newSearchHappenedReducer from './newsearchhappenedreducer'
-import searchBarVisibleReducer from './searchbarvisiblereducer'
+import recordSplashHeightReducer from './recordsplashheightreducer'
 import { combineReducers } from 'redux'
 
 const globalReducer = combineReducers({
@@ -25,10 +24,9 @@ const globalReducer = combineReducers({
     goatData: goatDataReducer,
     grailedData: grailedDataReducer,
     flightClubData: flightClubDataReducer,
-    isSearchBarCollapsed: searchBarCollapseReducer,
     shoeComparisonData: shoeComparisonDataReducer,
     newSearchHappened: newSearchHappenedReducer,
-    searchBarVisible: searchBarVisibleReducer
+    splashHeight: recordSplashHeightReducer
 })
 
 export default globalReducer
