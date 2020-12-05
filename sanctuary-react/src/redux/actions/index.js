@@ -150,8 +150,15 @@ export const newSearchHappened = () => {
     }
 }
 
-export const shopNowScroll = () => {
+export const showSearchBar = () => {
     return {
-        type: 'SHOP_NOW_SCROLL'
+        type: 'SHOW_SEARCH_BAR'
     }
 }
+
+export const hideSearchBar = () => {
+    return {
+        type: 'HIDE_SEARCH_BAR'
+    }
+}
+
