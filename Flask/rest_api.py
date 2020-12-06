@@ -140,25 +140,6 @@ class Search(Resource):
         return process_data(data, currency)
 
 
-# Email list resource
-class Emails(Resource):
-    def get(self):
-        global conn, c
-
-        # Get email request parameter and create SQL query
-        args = parser.parse_args()
-        email = args['email']
-        query = f"INSERT IGNORE INTO email_list (email) VALUES ('{email}');"
-
-        # Execute SQL query on the database, re-connect to database if timed out
-        try:
-            c.execute(query)
-        except:
-            conn, c = connect_to_db()
-            c.execute(query)
-        conn.commit()
-
-
 # Comparison feature resource
 class Compare(Resource):
     def get(self):
@@ -211,10 +192,29 @@ class Compare(Resource):
         return process_data(data, currency)
 
 
+# Email list resource
+class Emails(Resource):
+    def get(self):
+        global conn, c
+
+        # Get email request parameter and create SQL query
+        args = parser.parse_args()
+        email = args['email']
+        query = f"INSERT IGNORE INTO email_list (email) VALUES ('{email}');"
+
+        # Execute SQL query on the database, re-connect to database if timed out
+        try:
+            c.execute(query)
+        except:
+            conn, c = connect_to_db()
+            c.execute(query)
+        conn.commit()
+
+
 # Add resources to the API and set endpoints
 api.add_resource(Search, '/')
-api.add_resource(Emails, '/emails')
 api.add_resource(Compare, '/compare')
+api.add_resource(Emails, '/emails')
 
 
 if __name__ == '__main__':
