@@ -43,7 +43,7 @@ def get_data(search_query, shoe_size, price_low, price_high, sort_by, page, page
             "url": "grailed.com/listings/" + str(item['id']),
             "category": item['designer_names'],
             "model": item['title'],
-            "size": float(item['size']),
+            "size": float(shoe_size),
             "price": item['price'],
             "old_price": item['price_drops'][-2] if len(item['price_drops']) > 1 else None,
             "condition": item['condition'],

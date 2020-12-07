@@ -8,6 +8,8 @@ from datetime import datetime
 
 import grailed
 import stockx
+import goat
+import flightclub
 
 application = Flask(__name__)
 cors = CORS(application, resources={r"*": {"origins": "*"}})
@@ -101,7 +103,8 @@ class Search(Resource):
             data = stockx.get_data(search, size, price_low, price_high, page+1, limit, currency)
             return data
         elif source == "goat":
-            pass
+            data = goat.get_data(search, size, price_low, price_high, page, limit)
+            return process_data(data, currency)
         elif source == "flightclub":
             pass
         else:

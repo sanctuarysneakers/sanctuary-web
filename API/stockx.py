@@ -34,7 +34,7 @@ def get_data(search_query, shoe_size, price_low, price_high, page, page_len, cur
             "source": "StockX",
             "model": item["title"],
             "skuId": item["styleId"],
-            "size": item["shoeSize"],
+            "size": float(shoe_size),
             "condition": item["condition"],
             "category": item["category"],
             "price": item["market"]["lowestAsk"],
