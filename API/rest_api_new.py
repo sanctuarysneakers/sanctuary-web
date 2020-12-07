@@ -7,6 +7,7 @@ import requests
 from datetime import datetime
 
 import grailed
+import stockx
 
 application = Flask(__name__)
 cors = CORS(application, resources={r"*": {"origins": "*"}})
@@ -63,10 +64,10 @@ def currency_rate(currency):
 # Add request parameters to the parser
 parser = reqparse.RequestParser()
 parser.add_argument('source', type=str, default='stockx')
-parser.add_argument('search', type=str, default='jordan')
+parser.add_argument('search', type=str, default='')
 parser.add_argument('size', type=str, default="10")
-parser.add_argument('price_low', type=int, default=50)
-parser.add_argument('price_high', type=int, default=100000)
+parser.add_argument('price_low', type=int, default=0)
+parser.add_argument('price_high', type=int, default=99999)
 parser.add_argument('page', type=int, default=0)
 parser.add_argument('currency', type=str, default='USD')
 parser.add_argument('email', type=str)
@@ -88,15 +89,17 @@ class Search(Resource):
         price_high = args['price_high']
         currency = args['currency']
 
-        # Page element limit and offset
+        # Page number and element limit
+        page = args['page']
         limit = 25
-        offset = args['page'] * limit
 
         if source == "grailed":
             sort = "trending"
-            data = grailed.get_data(search, size, price_low, price_high, sort, limit, offset)
+            data = grailed.get_data(search, size, price_low, price_high, sort, page, limit)
+            return process_data(data, currency)
         elif source == "stockx":
-            pass
+            data = stockx.get_data(search, size, price_low, price_high, page+1, limit, currency)
+            return data
         elif source == "goat":
             pass
         elif source == "flightclub":
@@ -110,9 +113,6 @@ class Search(Resource):
         #request_id = abs(hash(request_date+' '+request_ip)) % (10**8)
         #c.execute(f"INSERT IGNORE INTO ip_log (id, date, ip, search_query) VALUES ({request_id}, '{request_date}', '{request_ip}', '{search}');")
         #conn.commit()
-
-        # Return data to the caller
-        return process_data(data, currency)
 
 
 # Comparison feature resource

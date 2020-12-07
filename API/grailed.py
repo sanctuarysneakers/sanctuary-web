@@ -2,7 +2,7 @@ import requests
 from urllib.parse import urlencode
 
 
-def get_data(search_query, shoe_size, price_low, price_high, sort_by, page_len, page_offset):
+def get_data(search_query, shoe_size, price_low, price_high, sort_by, page, page_len):
     url = "https://mnrwefss2q-dsn.algolia.net/1/indexes/*/queries"
     api_params = {
         "x-algolia-agent": "Algolia for JavaScript (3.35.1); Browser",
@@ -26,7 +26,7 @@ def get_data(search_query, shoe_size, price_low, price_high, sort_by, page_len, 
                 "query": search_query,
                 "facetFilters": f"[[\"category_size:footwear.{shoe_size}\"], [\"category_path:footwear.hitop_sneakers\", \"category_path:footwear.lowtop_sneakers\"]]",
                 "numericFilters": f"[\"price_i>={price_low}\",\"price_i<={price_high}\"]",
-                "offset": f"{page_offset}",
+                "offset": f"{page * page_len}",
                 "length": f"{page_len}"
             })
         }]
