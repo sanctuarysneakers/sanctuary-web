@@ -2,7 +2,7 @@ import requests
 from urllib.parse import urlencode
 
 
-def get_data(search_query, shoe_size, price_low, price_high, page, page_len, currency):
+def get_data(search_query, shoe_size, price_low, price_high, page, page_len):
     url = "https://stockx.com/api/browse"
     headers = {
         "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36",
@@ -18,8 +18,7 @@ def get_data(search_query, shoe_size, price_low, price_high, page, page_len, cur
         "gender": "men",
         "shoeSize": shoe_size,
         "market.lowestAsk": f"range({price_low}|{price_high})",
-        "page": page,
-        "currency": currency
+        "page": page
     }
     response = requests.get(url, headers=headers, params=parameters)
     response.raise_for_status()

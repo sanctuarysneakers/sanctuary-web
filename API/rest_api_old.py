@@ -218,5 +218,5 @@ api.add_resource(Emails, '/emails')
 
 
 if __name__ == '__main__':
-    application.run(debug=True)       # For debugging
-    #application.run(host='0.0.0.0')    # For production
+    #application.run(debug=True)        # For debugging
+    application.run(host='0.0.0.0')    # For production

@@ -33,19 +33,6 @@ def connect_to_db():
 conn, c = connect_to_db()
 
 
-# Processes search query
-def process_search_query(string):
-    if len(string) < 5:
-        return string
-
-    # Replace 'air' with '~air' to lower importance for full-text search
-    try:
-        idx = string.index("air")
-        newstr = string[:idx] + '~' + string[idx:]
-        return newstr
-    except ValueError:
-        return string
-
 # Processes return data
 def process_data(data, currency):
     # Change price currency if not USD
@@ -67,9 +54,9 @@ def currency_rate(currency):
 parser = reqparse.RequestParser()
 parser.add_argument('source', type=str, default='stockx')
 parser.add_argument('search', type=str, default='')
-parser.add_argument('size', type=str, default="10")
+parser.add_argument('size', type=str, default='10')
 parser.add_argument('price_low', type=int, default=0)
-parser.add_argument('price_high', type=int, default=99999)
+parser.add_argument('price_high', type=int, default=100000)
 parser.add_argument('page', type=int, default=0)
 parser.add_argument('currency', type=str, default='USD')
 parser.add_argument('email', type=str)
@@ -85,7 +72,7 @@ class Search(Resource):
         # Get request parameters
         args = parser.parse_args()
         source = args['source'].lower()
-        search = process_search_query(args['search'].lower())
+        search = args['search'].lower()
         size = args['size']
         price_low = args['price_low']
         price_high = args['price_high']
@@ -93,15 +80,15 @@ class Search(Resource):
 
         # Page number and element limit
         page = args['page']
-        limit = 25
+        limit = 20
 
         if source == "grailed":
             sort = "trending"
             data = grailed.get_data(search, size, price_low, price_high, sort, page, limit)
             return process_data(data, currency)
         elif source == "stockx":
-            data = stockx.get_data(search, size, price_low, price_high, page+1, limit, currency)
-            return data
+            data = stockx.get_data(search, size, price_low, price_high, page+1, limit)
+            return process_data(data, currency)
         elif source == "goat":
             data = goat.get_data(search, size, price_low, price_high, page, limit)
             return process_data(data, currency)
@@ -130,12 +117,33 @@ class Compare(Resource):
         sku = args['sku']
         model = args['model']
         size = args['size']
+        price_low = args['price_low']
+        price_high = args['price_high']
         currency = args['currency']
 
-        
+        # Page number and element limit
+        page = 0
+        limit = 1
 
-        # Return data to the caller
-        return process_data(data, currency)
+        if source == "stockx":
+            data = []
+            data.extend(goat.get_data(sku, size, price_low, price_high, page, limit))
+            data.extend(flightclub.get_data(sku, size, price_low, price_high, page, limit))
+            return data
+        elif source == "goat":
+            data = []
+            data.extend(stockx.get_data(sku, size, price_low, price_high, page+1, limit))
+            data.extend(flightclub.get_data(sku, size, price_low, price_high, page, limit))
+            return process_data(data, currency)
+        elif source == "flightclub":
+            data = []
+            data.extend(goat.get_data(sku, size, price_low, price_high, page, limit))
+            data.extend(stockx.get_data(sku, size, price_low, price_high, page+1, limit))
+            return process_data(data, currency)
+        else:
+            return {"Error": "Enter a correct source name"}
+
+        # TODO: Grailed
 
 
 # Email list resource
@@ -164,5 +172,5 @@ api.add_resource(Emails, '/emails')
 
 
 if __name__ == '__main__':
-    application.run(debug=True)        # For debugging
-    #application.run(host='0.0.0.0')    # For production
+    #application.run(debug=True)        # For debugging
+    application.run(host='0.0.0.0')    # For production
