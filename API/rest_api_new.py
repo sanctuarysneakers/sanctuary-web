@@ -72,7 +72,7 @@ class Search(Resource):
         # Get request parameters
         args = parser.parse_args()
         source = args['source'].lower()
-        search = args['search'].lower()
+        search = args['search']
         size = args['size']
         price_low = args['price_low']
         price_high = args['price_high']
