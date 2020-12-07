@@ -31,7 +31,7 @@ def get_data(search_query, shoe_size, price_low, price_high, page, page_len):
             'id': int(item['objectID']),
             'source': "Goat",
             'model': item['name'],
-            'skuId': item['sku'].replace(' ', '-'),
+            'sku_id': item['sku'].replace(' ', '-'),
             'size': float(shoe_size),
             'price': int(item['lowest_price_cents']/100),
             'category': item['silhouette'],

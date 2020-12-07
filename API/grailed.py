@@ -46,10 +46,10 @@ def get_data(search_query, shoe_size, price_low, price_high, sort_by, page, page
             "size": float(shoe_size),
             "price": item['price'],
             "old_price": item['price_drops'][-2] if len(item['price_drops']) > 1 else None,
-            "condition": item['condition'],
+            "shoe_condition": item['condition'],
             "sku_id": None if item['sku_id'] is None else str(item['sku_id']),
-            "img": item['cover_photo']['url'],
-            "img_thumbnail": 
+            "image": item['cover_photo']['url'],
+            "image_thumbnail": 
                 "https://process.fs.grailed.com/AJdAgnqCST4iPtnUxiGtTz/auto_image/resize=width:400/output=quality:60/compress/" + item['cover_photo']['url'],
             "date_bumped": item['bumped_at'][:10],
             "date_created": item['cover_photo']['created_at'][:10],
