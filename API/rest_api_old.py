@@ -87,7 +87,7 @@ class Search(Resource):
         currency = args['currency']
 
         # Page element limit and offset
-        limit = 40
+        limit = 25
         offset = args['page'] * limit
 
         # Create SQL query using request parameters for each source
@@ -125,16 +125,16 @@ class Search(Resource):
             conn, c = connect_to_db()
             c.execute(query)
         
-        # Fetch data following query execution (data is a dict)
+        # Fetch data following query execution (data is list of dict)
         data = c.fetchall()
         conn.commit()
 
         # Get request information and store in the ip_log table
-        request_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        request_ip = request.environ['HTTP_X_FORWARDED_FOR']
-        request_id = abs(hash(request_date+' '+request_ip)) % (10**8)
-        c.execute(f"INSERT IGNORE INTO ip_log (id, date, ip, search_query) VALUES ({request_id}, '{request_date}', '{request_ip}', '{search}');")
-        conn.commit()
+        #request_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        #request_ip = request.environ['HTTP_X_FORWARDED_FOR']
+        #request_id = abs(hash(request_date+' '+request_ip)) % (10**8)
+        #c.execute(f"INSERT IGNORE INTO ip_log (id, date, ip, search_query) VALUES ({request_id}, '{request_date}', '{request_ip}', '{search}');")
+        #conn.commit()
 
         # Return data to the caller
         return process_data(data, currency)
@@ -218,5 +218,5 @@ api.add_resource(Emails, '/emails')
 
 
 if __name__ == '__main__':
-    #application.run(debug=True)       # For debugging
-    application.run(host='0.0.0.0')    # For production
+    application.run(debug=True)       # For debugging
+    #application.run(host='0.0.0.0')    # For production

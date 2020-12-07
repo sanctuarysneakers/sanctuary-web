@@ -106,7 +106,8 @@ class Search(Resource):
             data = goat.get_data(search, size, price_low, price_high, page, limit)
             return process_data(data, currency)
         elif source == "flightclub":
-            pass
+            data = flightclub.get_data(search, size, price_low, price_high, page, limit)
+            return process_data(data, currency)
         else:
             return {"Error": "Enter a correct source name"}
 
@@ -163,5 +164,5 @@ api.add_resource(Emails, '/emails')
 
 
 if __name__ == '__main__':
-    application.run(debug=True)       # For debugging
+    application.run(debug=True)        # For debugging
     #application.run(host='0.0.0.0')    # For production
