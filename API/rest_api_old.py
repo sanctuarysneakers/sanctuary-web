@@ -87,7 +87,7 @@ class Search(Resource):
         currency = args['currency']
 
         # Page element limit and offset
-        limit = 40
+        limit = 25
         offset = args['page'] * limit
 
         # Create SQL query using request parameters for each source
@@ -125,38 +125,19 @@ class Search(Resource):
             conn, c = connect_to_db()
             c.execute(query)
         
-        # Fetch data following query execution (data is a dict)
+        # Fetch data following query execution (data is list of dict)
         data = c.fetchall()
         conn.commit()
 
         # Get request information and store in the ip_log table
-        request_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        request_ip = request.environ['HTTP_X_FORWARDED_FOR']
-        request_id = abs(hash(request_date+' '+request_ip)) % (10**8)
-        c.execute(f"INSERT IGNORE INTO ip_log (id, date, ip, search_query) VALUES ({request_id}, '{request_date}', '{request_ip}', '{search}');")
-        conn.commit()
+        #request_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        #request_ip = request.environ['HTTP_X_FORWARDED_FOR']
+        #request_id = abs(hash(request_date+' '+request_ip)) % (10**8)
+        #c.execute(f"INSERT IGNORE INTO ip_log (id, date, ip, search_query) VALUES ({request_id}, '{request_date}', '{request_ip}', '{search}');")
+        #conn.commit()
 
         # Return data to the caller
         return process_data(data, currency)
-
-
-# Email list resource
-class Emails(Resource):
-    def get(self):
-        global conn, c
-
-        # Get email request parameter and create SQL query
-        args = parser.parse_args()
-        email = args['email']
-        query = f"INSERT IGNORE INTO email_list (email) VALUES ('{email}');"
-
-        # Execute SQL query on the database, re-connect to database if timed out
-        try:
-            c.execute(query)
-        except:
-            conn, c = connect_to_db()
-            c.execute(query)
-        conn.commit()
 
 
 # Comparison feature resource
@@ -211,12 +192,31 @@ class Compare(Resource):
         return process_data(data, currency)
 
 
+# Email list resource
+class Emails(Resource):
+    def get(self):
+        global conn, c
+
+        # Get email request parameter and create SQL query
+        args = parser.parse_args()
+        email = args['email']
+        query = f"INSERT IGNORE INTO email_list (email) VALUES ('{email}');"
+
+        # Execute SQL query on the database, re-connect to database if timed out
+        try:
+            c.execute(query)
+        except:
+            conn, c = connect_to_db()
+            c.execute(query)
+        conn.commit()
+
+
 # Add resources to the API and set endpoints
 api.add_resource(Search, '/')
-api.add_resource(Emails, '/emails')
 api.add_resource(Compare, '/compare')
+api.add_resource(Emails, '/emails')
 
 
 if __name__ == '__main__':
-    #application.run(debug=True)       # For debugging
+    #application.run(debug=True)        # For debugging
     application.run(host='0.0.0.0')    # For production
