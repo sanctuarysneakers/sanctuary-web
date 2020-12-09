@@ -40,7 +40,7 @@ def get_data(search_query, shoe_size, price_low, price_high, page, page_len):
             'just_dropped': 1 if 'just-dropped' in item['collection_slugs'] else 0,
             'url': 'https://www.goat.com/sneakers/' + item['slug'],
             'image': item['main_picture_url'],
-            'image_thumbnail': item['main_picture_url'][:23] + "400" + item['main_picture_url'][26:]
+            'image_thumbnail': item['main_picture_url'][:23] + "300" + item['main_picture_url'][26:]
         })
     
     return results
