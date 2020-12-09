@@ -42,7 +42,7 @@ def get_data(search_query, shoe_size, price_low, price_high, page, page_len):
             'new_release': 1 if 'new-releases' in item['collection_slugs'] else 0,
             'url': 'https://www.flightclub.com/' + item['slug'],
             'image': item['main_picture_url'],
-            'image_thumbnail': item['main_picture_url'][:27] + "400" + item['main_picture_url'][26:]
+            'image_thumbnail': item['main_picture_url'][:27] + "300" + item['main_picture_url'][26:]
         })
 
     return results

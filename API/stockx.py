@@ -39,7 +39,7 @@ def get_data(search_query, shoe_size, price_low, price_high, page, page_len):
             "category": item["category"],
             "url": "stockx.com/" + item["urlKey"],
             "image": item["media"]["imageUrl"],
-            "image_thumbnail": item["media"]["imageUrl"].split('?', 1)[0] + "?w=400&q=50&trim=color"
+            "image_thumbnail": item["media"]["imageUrl"].split('?', 1)[0] + "?w=300&q=50&trim=color"
         })
 
     return results
