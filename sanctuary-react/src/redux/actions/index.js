@@ -128,6 +128,20 @@ export const hidePrivacyModal = () => {
     }
 }
 
+// Search Bar Collapse/Expand on mobile
+
+export const collapseBar = () => {
+    return {
+        type: 'COLLAPSE_BAR'
+    }
+}
+
+export const expandBar = () => {
+    return {
+        type: 'EXPAND_BAR'
+    }
+}
+
 // Callback Triggers
 
 export const newSearchHappened = () => {

@@ -3,20 +3,25 @@ import { showAboutModal } from '../redux/actions'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import SearchBar from './searchbar'
+import CollapsibleSearchBar from './searchbarcollapsible'
 import sanctuaryLogo from "../assets/images/sanctuary-logo-row.png"
+import { useMediaQuery } from 'react-responsive'
+
 
 
 export default function NavBar() {
 
     const dispatch = useDispatch()
     const splashHeight = useSelector(state => state.splashHeight)
+    const isCollapsed = useSelector(state => state.isSearchBarCollapsed)
+    const isDesktop = useMediaQuery({ query: '(min-width: 930px)' })
     const [isSearchBarVisible, setSearchBarVisibility] = useState(false)
 
     const handleClick = () => {
         window.scrollTo(0, 0)
     }
 
-    // control Search bar visibility on depending on scroll height
+    // control Search bar visibility depending on scroll height
     useEffect(() => {
         const onScroll = () => {
             setSearchBarVisibility(window.scrollY >= splashHeight)
@@ -30,26 +35,33 @@ export default function NavBar() {
     return (
         <nav className='navbar'>
             <div className='navbarContent'>
-                <Link
-                    to={"/"}
-                    onClick={handleClick}
-                >
-                    <img
-                        className='sanctuaryLogo'
-                        src={sanctuaryLogo}
-                        alt={"Sanctuary"}
-                    />
-                </Link>
+
+                {isCollapsed &&
+                    <Link
+                        to={"/"}
+                        onClick={handleClick}
+                    >
+                        <img
+                            className='sanctuaryLogo'
+                            src={sanctuaryLogo}
+                            alt={"Sanctuary"}
+                        />
+                    </Link>
+                }
+
                 <div className='content-right'>
 
                     <div className="nav-searchBar">
-                        {isSearchBarVisible && <SearchBar />}
+                        {isSearchBarVisible && isDesktop && <SearchBar />}
+                        {isSearchBarVisible && !isDesktop && <CollapsibleSearchBar />}
                     </div>
-                    
-                    <button className='howItWorks' onClick={() => dispatch(showAboutModal())}>
-                        How It Works
-                    </button>
-                    
+
+                    {isCollapsed &&
+                        <button className='howItWorks' onClick={() => dispatch(showAboutModal())}>
+                            How It Works
+                        </button>
+                    }
+
                 </div>
             </div >
         </nav >
