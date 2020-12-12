@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { showAboutModal } from '../redux/actions'
+import { collapseBar, showAboutModal } from '../redux/actions'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import SearchBar from './searchbar'
@@ -31,6 +31,10 @@ export default function NavBar() {
         return () => window.removeEventListener("scroll", onScroll);
     });
 
+    // Ensures the nav bar layout is not in collapsed mode when switching to desktop view
+    useEffect(() => {
+        if (isDesktop) dispatch(collapseBar())
+    }, [isDesktop])
 
     return (
         <nav className='navbar'>

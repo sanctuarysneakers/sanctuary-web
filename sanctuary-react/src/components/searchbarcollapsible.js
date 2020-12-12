@@ -13,7 +13,7 @@ export default function CollapsibleSearchBar() {
     return (
         <React.Fragment>
 
-            <div className={`searchBar-mobile ${!isCollapsed && "no-border"}`}>
+            <div className='searchBar-mobile'>
 
                 <div
                     className="searchIcon"
