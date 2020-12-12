@@ -32,7 +32,7 @@ export default function NavBar() {
                     </Link>
                 }
                 {searchBarVisible && <SearchBar />}
-                <button className='aboutUsBtn' onClick={() => dispatch(showAboutModal())}>
+                <button className='howItWorks' onClick={() => dispatch(showAboutModal())}>
                     How It Works
                 </button>
             </div >

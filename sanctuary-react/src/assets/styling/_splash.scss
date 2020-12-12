@@ -31,42 +31,24 @@ h3 {
     flex-direction: column;
 }
 
-.shopNowBtn {
-    cursor: pointer;
-    margin: auto;
-    font-size: 14px;
-    font-weight: 600;
-    color: #F6F6F6;
+// .shopNowBtn {
+//     cursor: pointer;
+//     margin: auto;
+//     font-size: 14px;
+//     font-weight: 600;
+//     color: #F6F6F6;
 
-    background: linear-gradient(45deg, #E15895, #F8595D);
-    border-radius: 100px;
-    text-decoration: none;
-    outline: none;
-    padding: 15.5px 43.91px;
-    margin-bottom: 12px;
-}
+//     background: linear-gradient(45deg, #E15895, #F8595D);
+//     border-radius: 100px;
+//     text-decoration: none;
+//     outline: none;
+//     padding: 15.5px 43.91px;
+//     margin-bottom: 12px;
+// }
 
-.shopNowBtn:hover {
-    background: linear-gradient(45deg, #E84586, #EC4F56);
-}
-
-.aboutUsBtn {
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    color: #7987F0;
-
-    background: #F6F6F6;
-    border-radius: 100px;
-    text-decoration: none;
-    outline: none;
-    padding: 15.5px 43.91px;
-    margin: auto;
-}
-
-.aboutUsBtn:hover {
-    background: #E3E3E3;
-}
+// .shopNowBtn:hover {
+//     background: linear-gradient(45deg, #E84586, #EC4F56);
+// }
 
 .bg-image {
     position: absolute;
