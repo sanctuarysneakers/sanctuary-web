@@ -90,7 +90,10 @@ class Search(Resource):
 		page = args['page']
 		limit = 20
 
-		log_request(search)
+		try:
+			log_request(search)
+		except KeyError:
+			pass
 
 		if source == "grailed":
 			sort = "trending"
