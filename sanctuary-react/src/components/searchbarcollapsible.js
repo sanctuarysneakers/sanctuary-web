@@ -10,10 +10,12 @@ export default function CollapsibleSearchBar() {
     const search = useSelector(state => state.filter.search)
     const isCollapsed = useSelector(state => state.isSearchBarCollapsed)
 
+    const searchBarStyle = isCollapsed ? 'searchBar-collapsed' : 'searchBar-expanded'
+
     return (
         <React.Fragment>
 
-            <div className='searchBar-mobile'>
+            <div className={`searchBar-mobile ${searchBarStyle}`}>
 
                 <div
                     className="searchIcon"
