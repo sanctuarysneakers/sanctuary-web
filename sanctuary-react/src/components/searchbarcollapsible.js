@@ -15,7 +15,7 @@ export default function CollapsibleSearchBar() {
     return (
         <React.Fragment>
 
-            <div className={`searchBar-mobile ${searchBarStyle}`}>
+            <div className={`${searchBarStyle}`}>
 
                 <div
                     className="searchIcon"
@@ -38,10 +38,10 @@ export default function CollapsibleSearchBar() {
 
             {!isCollapsed &&
                 <div
-                    className={'closeIcon-mobile'}
+                    className={'cancelIcon-mobile'}
                     onClick={() => dispatch(collapseBar())}
                 >
-                    <RiCloseLine />
+                    <p>Cancel</p>
                 </div>
             }
         </React.Fragment>

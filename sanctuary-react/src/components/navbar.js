@@ -6,6 +6,7 @@ import SearchBar from './searchbar'
 import CollapsibleSearchBar from './searchbarcollapsible'
 import sanctuaryLogo from "../assets/images/sanctuary-logo-row.png"
 import { useMediaQuery } from 'react-responsive'
+import { GrCircleInformation } from "react-icons/gr";
 
 
 
@@ -16,6 +17,8 @@ export default function NavBar() {
     const isCollapsed = useSelector(state => state.isSearchBarCollapsed)
     const isDesktop = useMediaQuery({ query: '(min-width: 930px)' })
     const [isSearchBarVisible, setSearchBarVisibility] = useState(false)
+
+    const searchBarWidth = isCollapsed ? 20 : 100
 
     const handleClick = () => {
         window.scrollTo(0, 0)
@@ -38,7 +41,9 @@ export default function NavBar() {
 
     return (
         <nav className='navbar'>
-            <div className='navbarContent'>
+
+            {/* Web Version */}
+            <div className='navbarContent-web'>
 
                 {isCollapsed &&
                     <Link
@@ -55,9 +60,8 @@ export default function NavBar() {
 
                 <div className='content-right'>
 
-                    <div className="nav-searchBar">
+                    <div className="nav-searchBar-web">
                         {isSearchBarVisible && isDesktop && <SearchBar />}
-                        {isSearchBarVisible && !isDesktop && <CollapsibleSearchBar />}
                     </div>
 
                     {isCollapsed &&
@@ -68,6 +72,34 @@ export default function NavBar() {
 
                 </div>
             </div >
+
+            {/* Mobile Version */}
+            <div className='navbarContent-mobile'>
+
+                    {isCollapsed &&
+                        <button className='howItWorks' onClick={() => dispatch(showAboutModal())}>
+                            <GrCircleInformation />
+                        </button>
+                    }
+
+                    {isCollapsed &&
+                        <Link
+                            to={"/"}
+                            onClick={handleClick}
+                        >
+                            <img
+                                className='sanctuaryLogo'
+                                src={sanctuaryLogo}
+                                alt={"Sanctuary"}
+                            />
+                        </Link>
+                    }
+
+                    <div className='nav-searchBar-mobile'>
+                        {isSearchBarVisible && !isDesktop && <CollapsibleSearchBar />}
+                    </div>
+
+            </div>
         </nav >
     )
 }
