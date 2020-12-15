@@ -33,6 +33,18 @@ def connect_to_db():
 conn, c = connect_to_db()
 
 
+# Execute a query on the database
+def execute_query(query):
+	global conn, c
+
+	# re-connect to database if timed out
+	try:
+		c.execute(query)
+	except:
+		conn, c = connect_to_db()
+		c.execute(query)
+	conn.commit()
+
 # Processes return data
 def process_data(data, currency):
 	# Change price currency if not USD
@@ -54,8 +66,9 @@ def log_request(search_query):
 	request_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 	request_ip = request.environ['HTTP_X_FORWARDED_FOR']
 	request_id = abs(hash(request_date+' '+request_ip)) % (10**8)
-	c.execute(f"INSERT IGNORE INTO ip_log (id, date, ip, search_query) VALUES ({request_id}, '{request_date}', '{request_ip}', '{search_query}');")
-	conn.commit()
+	
+	query = f"INSERT IGNORE INTO ip_log (id, date, ip, search_query) VALUES ({request_id}, '{request_date}', '{request_ip}', '{search_query}');"
+	execute_query(query)
 
 
 # Add request parameters to the parser
@@ -75,8 +88,6 @@ parser.add_argument('model', type=str)
 # Main search resource for returning data
 class Search(Resource):
 	def get(self):
-		global conn, c
-
 		# Get request parameters
 		args = parser.parse_args()
 		source = args['source'].lower()
@@ -115,8 +126,6 @@ class Search(Resource):
 # Comparison feature resource
 class Compare(Resource):
 	def get(self):
-		global conn, c
-
 		# Get request parameters
 		args = parser.parse_args()
 		source = args['source'].lower()
@@ -135,7 +144,7 @@ class Compare(Resource):
 			data = []
 			data.extend(goat.get_data(sku, size, price_low, price_high, page, limit))
 			data.extend(flightclub.get_data(sku, size, price_low, price_high, page, limit))
-			return data
+			return process_data(data, currency)
 		elif source == "goat":
 			data = []
 			data.extend(stockx.get_data(sku, size, price_low, price_high, page+1, limit))
@@ -155,20 +164,11 @@ class Compare(Resource):
 # Email list resource
 class Emails(Resource):
 	def get(self):
-		global conn, c
-
 		# Get email request parameter and create SQL query
 		args = parser.parse_args()
 		email = args['email']
 		query = f"INSERT IGNORE INTO email_list (email) VALUES ('{email}');"
-
-		# Execute SQL query on the database, re-connect to database if timed out
-		try:
-			c.execute(query)
-		except:
-			conn, c = connect_to_db()
-			c.execute(query)
-		conn.commit()
+		execute_query(query)
 
 
 # Add resources to the API and set endpoints
