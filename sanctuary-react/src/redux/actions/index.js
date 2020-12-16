@@ -150,8 +150,11 @@ export const newSearchHappened = () => {
     }
 }
 
-export const shopNowScroll = () => {
+// Global Values
+
+export const recordSplashHeight = splashHeight => {
     return {
-        type: 'SHOP_NOW_SCROLL'
+        type: 'RECORD_SPLASH_HEIGHT',
+        payload: splashHeight
     }
 }

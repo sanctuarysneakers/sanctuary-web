@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import useOutsideAlerter from '../Hooks/useoutsidealerter'
-import { hideShoeModal, showShoeModal } from '../../redux/actions'
+import { hideShoeModal } from '../../redux/actions'
 import { RiCloseLine } from 'react-icons/ri'
 import { Helmet } from 'react-helmet'
 import { FaChevronRight } from 'react-icons/fa'
@@ -22,8 +22,6 @@ export default function ShoeModal() {
     useOutsideAlerter(wrapperRef)
 
     useAPICall('comparison')
-
-    console.log(shoe)
 
     return (
         <div className="modal-shoe">
@@ -83,52 +81,64 @@ export default function ShoeModal() {
                                         <div className="shoe-source-container">
                                             <div className="shoe-source">
                                                 {shoe.source &&
-                                                <img
-                                                    src={require(`../../assets/images/logos/${shoe.source}.png`)}
-                                                    alt={shoe.source}
-                                                />
-                                                }
-                                            </div>
-                                        </div>
-
-                                        <a className="buy-now" target="_blank" href={`https://${shoe.url}`}>Buy Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> 
-                    </div>
-
-                    {showComparisonDiv && 
-                    <div className="web-comparison-content">
-                        <div className="compare-divider"></div>
-                        {
-                            comparisonData.map(sneaker => {
-                                return (
-                                    <a className ="compare-data" target="_blank" href={`https://${sneaker.url}`}>
-
-                                        <div className="compare-left">
-                                            <div className="compare-source">
-                                                {sneaker.source &&
                                                     <img
-                                                        src={require(`../../assets/images/logos/${sneaker.source}.png`)}
-                                                        alt={sneaker.source}
+                                                        src={require(`../../assets/images/logos/${shoe.source}.png`)}
+                                                        alt={shoe.source}
                                                     />
                                                 }
                                             </div>
+                                        </div>
 
-                                            <div className="compare-price">
-                                                ${sneaker.price.toLocaleString()}
+                                        <a
+                                            className="buy-now"
+                                            target="_blank"
+                                            href={`https://${shoe.url}`}
+                                            rel="noopener noreferrer"
+                                        >
+                                            Buy Now
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {showComparisonDiv &&
+                        <div className="web-comparison-content">
+                            <div className="compare-divider"></div>
+                            {
+                                comparisonData.map(sneaker => {
+                                    return (
+                                        <a
+                                            className="compare-data"
+                                            target="_blank"
+                                            href={`https://${sneaker.url}`}
+                                            rel="noopener noreferrer"
+                                        >
+
+                                            <div className="compare-left">
+                                                <div className="compare-source">
+                                                    {sneaker.source &&
+                                                        <img
+                                                            src={require(`../../assets/images/logos/${sneaker.source}.png`)}
+                                                            alt={sneaker.source}
+                                                        />
+                                                    }
+                                                </div>
+
+                                                <div className="compare-price">
+                                                    ${sneaker.price.toLocaleString()}
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div className="compare-icon">
-                                            <FaChevronRight />
-                                        </div>
+                                            <div className="compare-icon">
+                                                <FaChevronRight />
+                                            </div>
 
-                                    </a>
-                                )
-                            })}
-                    </div>}
+                                        </a>
+                                    )
+                                })}
+                        </div>}
                 </div>
 
 
@@ -181,15 +191,22 @@ export default function ShoeModal() {
                                         <div className="shoe-source-container">
                                             <div className="shoe-source">
                                                 {shoe.source &&
-                                                <img
-                                                    src={require(`../../assets/images/logos/${shoe.source}.png`)}
-                                                    alt={shoe.source}
-                                                />
+                                                    <img
+                                                        src={require(`../../assets/images/logos/${shoe.source}.png`)}
+                                                        alt={shoe.source}
+                                                    />
                                                 }
                                             </div>
                                         </div>
 
-                                        <a className="buy-now" target="_blank" href={`https://${shoe.url}`}>Buy Now</a>
+                                        <a
+                                            className="buy-now"
+                                            target="_blank"
+                                            href={`https://${shoe.url}`}
+                                            rel="noopener noreferrer"
+                                        >
+                                            Buy Now
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -197,33 +214,38 @@ export default function ShoeModal() {
                     </div>
 
                     {showComparisonDiv &&
-                    <div className="mobile-comparison-content">
-                        {comparisonData.map(sneaker => {
-                            return (
-                                <a className="mobile-compare-data" target="_blank" href={`https://${sneaker.url}`}>
+                        <div className="mobile-comparison-content">
+                            {comparisonData.map(sneaker => {
+                                return (
+                                    <a
+                                        className="mobile-compare-data"
+                                        target="_blank"
+                                        href={`https://${sneaker.url}`}
+                                        rel="noopener noreferrer"
+                                    >
 
-                                    <div className="mobile-compare-left">
-                                        <div className="mobile-compare-source">
-                                            {sneaker.source &&
-                                                <img
-                                                    src={require(`../../assets/images/logos/${sneaker.source}.png`)}
-                                                    alt={sneaker.source}
-                                                />}
+                                        <div className="mobile-compare-left">
+                                            <div className="mobile-compare-source">
+                                                {sneaker.source &&
+                                                    <img
+                                                        src={require(`../../assets/images/logos/${sneaker.source}.png`)}
+                                                        alt={sneaker.source}
+                                                    />}
+                                            </div>
+
+                                            <div className="mobile-compare-price">
+                                                ${sneaker.price.toLocaleString()}
+                                            </div>
                                         </div>
 
-                                        <div className="mobile-compare-price">
-                                            ${sneaker.price.toLocaleString()}
+                                        <div className="mobile-compare-icon">
+                                            <FaChevronRight />
                                         </div>
-                                    </div>
 
-                                    <div className="mobile-compare-icon">
-                                        <FaChevronRight />
-                                    </div>
-
-                                </a>
-                            )
-                        })}
-                    </div>}
+                                    </a>
+                                )
+                            })}
+                        </div>}
 
                 </div>
 
