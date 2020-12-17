@@ -18,8 +18,6 @@ export default function NavBar() {
     const isDesktop = useMediaQuery({ query: '(min-width: 930px)' })
     const [isSearchBarVisible, setSearchBarVisibility] = useState(false)
 
-    const searchBarWidth = isCollapsed ? 20 : 100
-
     const handleClick = () => {
         window.scrollTo(0, 0)
     }
@@ -64,11 +62,23 @@ export default function NavBar() {
                         {isSearchBarVisible && isDesktop && <SearchBar />}
                     </div>
 
+                    <Link to="/" className='navlinks'>
+                        Catalog
+                    </Link>
+
                     {isCollapsed &&
-                        <button className='howItWorks' onClick={() => dispatch(showAboutModal())}>
+                        <button className='navlinks' onClick={() => dispatch(showAboutModal())}>
                             How It Works
                         </button>
                     }
+                    
+                    <Link to="/login" className='navlinks'>
+                        Login
+                    </Link>
+
+                    <Link to="/signup" className='navlinks'>
+                        Sign Up
+                    </Link>
 
                 </div>
             </div >
@@ -77,7 +87,7 @@ export default function NavBar() {
             <div className='navbarContent-mobile'>
 
                     {isCollapsed &&
-                        <button className='howItWorks' onClick={() => dispatch(showAboutModal())}>
+                        <button className='navlinks' onClick={() => dispatch(showAboutModal())}>
                             <GrCircleInformation />
                         </button>
                     }

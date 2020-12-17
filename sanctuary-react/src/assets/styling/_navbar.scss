@@ -22,7 +22,7 @@
     height: 100%;
     padding: 0px 24px;
 
-    .howItWorks {
+    .navlinks {
         cursor: pointer;
         background: none;
         outline: none;
@@ -169,7 +169,7 @@
                 }
             }
 
-            .howItWorks {
+            .navlinks {
                 cursor: pointer;
                 font-size: 14px;
                 font-family: 'Poppins', sans-serif;
@@ -182,7 +182,7 @@
                 margin-left: 20px;
             }
 
-            .howItWorks:hover {
+            .navlinks:hover {
                 background: none;
                 color: #CA5257;
             }
