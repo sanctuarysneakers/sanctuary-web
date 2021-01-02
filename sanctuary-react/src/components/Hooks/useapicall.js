@@ -42,10 +42,45 @@ export default function useAPICall(callType) {
             let sites = ["stockx", "goat", "grailed", "flightclub"]
 
             for await (const site of sites) {
-                const response = await fetch(url + `&source=${site}`)
-                let data = await response.json()
-                if ("message" in data && data["message"] === "Internal Server Error") data = []
-                dispatch(dispatchMap[site](shoeDataReformat(data)))
+                if (site === "stockx") {
+                    let stockx_url = 'https://stockx.com/api/browse?';
+
+                    if (filter.search) stockx_url += `&_search=${filter.search}`
+                    if (filter.size && filter.size > 0) stockx_url += `&shoeSize=${filter.size}`
+                    stockx_url += `&market.lowestAsk=range(0|100000)`
+                    stockx_url += `&page=1`
+                    stockx_url += `&productCategory=sneakers`
+                    stockx_url += `&gender=men`
+
+                    const response = await fetch(stockx_url)
+                    let data = await response.json()
+                    let data2 = data["Products"]
+                    let results = []
+                    for (const item of data2) {
+                        if (results.length > 20)
+                            break
+                        results.push({
+                            "id": item["objectID"],
+                            "source": "stockx",
+                            "model": item["title"],
+                            "sku_id": item["styleId"],
+                            "size": filter.size,
+                            "price": item["market"]["lowestAsk"],
+                            "shoe_condition": item["condition"],
+                            "category": item["category"],
+                            "url": "stockx.com/" + item["urlKey"],
+                            "image": item["media"]["imageUrl"],
+                            "image_thumbnail": item["media"]["imageUrl"].split('?')[0] + "?w=300&q=50&trim=color"
+                        })
+                    }                  
+                    console.log(JSON.stringify(results))
+                    dispatch(dispatchMap[site](results))
+                } else {
+                    const response = await fetch(url + `&source=${site}`)
+                    let data = await response.json()
+                    if ("message" in data && data["message"] === "Internal Server Error") data = []
+                    dispatch(dispatchMap[site](shoeDataReformat(data)))
+                }
             }
         }
 
