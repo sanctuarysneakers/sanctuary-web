@@ -1,6 +1,6 @@
 let initState = {
     search: '',
-    size: '',
+    size: '10',
     price_low: '',
     price_high: '',
     site: ''
