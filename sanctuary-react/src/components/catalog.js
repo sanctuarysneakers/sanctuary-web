@@ -53,13 +53,14 @@ export default function Catalog() {
 
     return (
         <div className='catalog'>
+            {/*
             <img
                 className='stockxLogo'
                 src={stockxLogo}
                 alt={"StockX"}
             />
             {stockxData.length !== 0 && <Slider data={stockxData} />}
-            {stockxData.length === 0 && noResults("StockX")}
+            {stockxData.length === 0 && noResults("StockX")} */}
 
             <img
                 className='goatLogo'
