@@ -2,6 +2,8 @@ import { useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
 import { stockxCall, goatCall, grailedCall, flightClubCall, shoeComparisonCall } from '../../redux/actions'
 
+import { createStockxURL, createGoatURL, createGrailedURL, createFlightclubURL } from './createurl'
+import { processStockxData, processGoatData, processGrailedData, processFlightclubData } from './processdata'
 import shoeDataReformat from './shoedatareformat'
 
 
@@ -17,75 +19,37 @@ export default function useAPICall(callType) {
     const shoe = useSelector(state => state.shoe)
     const newSearchHappened = useSelector(state => state.newSearchHappened)
 
-    function catalogAPICall() {
+    async function catalogAPICall() {
 
+        const sites = ["stockx", "goat", "grailed"/*, "flightclub"*/];
+
+        const createURLMap = {
+            'stockx': createStockxURL,
+            'goat': createGoatURL,
+            'grailed': createGrailedURL,
+            'flightclub': createFlightclubURL
+        };
+        const processDataMap = {
+            'stockx': processStockxData,
+            'goat': processGoatData,
+            'grailed': processGrailedData,
+            'flightclub': processFlightclubData
+        }
         const dispatchMap = {
-            "stockx": stockxCall,
-            "goat": goatCall,
-            "grailed": grailedCall,
-            "flightclub": flightClubCall
+            'stockx': stockxCall,
+            'goat': goatCall,
+            'grailed': grailedCall,
+            'flightclub': flightClubCall
         }
 
-        function applyFilter() {
-            let url = `https://sanctuaryapi.net/?`
-
-            if (filter.search) url += `&search=${filter.search}`
-            if (filter.size && filter.size > 0) url += `&size=${filter.size}`
-            if (filter.price_low && filter.price_low > 0) url += `&price_low=${filter.price_low}`
-            if (filter.price_high && filter.price_high > 0) url += `&price_high=${filter.price_high}`
-
-            return url
+        for await (const site of sites) {
+            const request = createURLMap[site](filter.search, filter.size, filter.price_low, filter.price_high);
+            const response = await fetch(request.url, request.headers);
+            let data = await response.json();
+            let processedData = processDataMap[site](data);
+            dispatch(dispatchMap[site](processedData));
         }
 
-        async function fetchData(url) {
-
-            let sites = ["stockx", "goat", "grailed", "flightclub"]
-
-            for await (const site of sites) {
-                if (site === "stockx") {
-                    let stockx_url = 'https://stockx.com/api/browse?';
-
-                    if (filter.search) stockx_url += `&_search=${filter.search}`
-                    if (filter.size && filter.size > 0) stockx_url += `&shoeSize=${filter.size}`
-                    stockx_url += `&market.lowestAsk=range(0|100000)`
-                    stockx_url += `&page=1`
-                    stockx_url += `&productCategory=sneakers`
-                    stockx_url += `&gender=men`
-
-                    const response = await fetch(stockx_url)
-                    let data = await response.json()
-                    let data2 = data["Products"]
-                    let results = []
-                    for (const item of data2) {
-                        if (results.length > 20)
-                            break
-                        results.push({
-                            "id": item["objectID"],
-                            "source": "stockx",
-                            "model": item["title"],
-                            "sku_id": item["styleId"],
-                            "size": filter.size,
-                            "price": item["market"]["lowestAsk"],
-                            "shoe_condition": item["condition"],
-                            "category": item["category"],
-                            "url": "stockx.com/" + item["urlKey"],
-                            "image": item["media"]["imageUrl"],
-                            "image_thumbnail": item["media"]["imageUrl"].split('?')[0] + "?w=300&q=50&trim=color"
-                        })
-                    }                  
-                    console.log(JSON.stringify(results))
-                    dispatch(dispatchMap[site](results))
-                } else {
-                    const response = await fetch(url + `&source=${site}`)
-                    let data = await response.json()
-                    if ("message" in data && data["message"] === "Internal Server Error") data = []
-                    dispatch(dispatchMap[site](shoeDataReformat(data)))
-                }
-            }
-        }
-
-        let url = applyFilter()
-        fetchData(url)
     }
 
     function comparisonAPICall() {
@@ -107,6 +71,7 @@ export default function useAPICall(callType) {
         fetchData(url)
     }
 
+
     useEffect(() => {
         if (callType === 'catalog') {
             catalogAPICall()
@@ -118,4 +83,5 @@ export default function useAPICall(callType) {
             comparisonAPICall()
         }
     }, [shoe])
+
 }
