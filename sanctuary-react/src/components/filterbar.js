@@ -5,22 +5,32 @@ import { updateSizeFilter, updatePriceLowFilter, updatePriceHighFilter, clearFil
 
 export default function FilterBar() {
 
-    const dispatch = useDispatch()
-    const [filtersVisibile, toggleFilters] = useState(false)
-    const filter = useSelector(state => state.filter)
+    const dispatch = useDispatch();
+    const [filtersVisibile, toggleFilters] = useState(false);
+    const filter = useSelector(state => state.filter);
 
-    const handleChange = (e, field) => {
-        const value = e.target.value
+    const defaultFilter = {
+        'size': '10',
+        'price_low': '0',
+        'price_high': '100000'
+    };
+
+    function handleChange(e, field) {
+        let value = e.target.value;
+
+        if (value === '')
+            value = defaultFilter[field];
+
         let dispatchMap = {
             'size': updateSizeFilter,
             'price_low': updatePriceLowFilter,
             'price_high': updatePriceHighFilter
-        }
-        dispatch(dispatchMap[field](value))
+        };
+        dispatch(dispatchMap[field](value));
     }
 
     const handleClear = () => {
-        dispatch(clearFilter())
+        dispatch(clearFilter());
     }
 
     const filters = (
@@ -64,7 +74,7 @@ export default function FilterBar() {
                 />
             </div>
         </div>
-    )
+    );
 
     return (
         <React.Fragment>
@@ -105,5 +115,5 @@ export default function FilterBar() {
 
             </div>
         </React.Fragment>
-    )
+    );
 }
