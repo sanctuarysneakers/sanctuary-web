@@ -93,7 +93,11 @@ export default function processData(data, site, limit) {
 	for (const item of products) {
 		if (results.length >= limit)
 			break;
-		results.push(processItem(item, site));
+		
+		let processedItem = processItem(item, site)
+		if (processedItem['price'] == 0)
+			continue;
+		results.push(processedItem);
 	}
 	return results;
 }
