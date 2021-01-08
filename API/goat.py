@@ -11,7 +11,7 @@ def get_data(search_query, shoe_size, price_low, price_high, page, page_len):
 	}
 
 	post_json = {
-		"params": "query=&" + urlencode({
+		"params": urlencode({
 			"query": search_query,
 			"facetFilters": f"(product_category: shoes), (presentation_size: {shoe_size}), (single_gender: men)",
 			"numericFilters": f"[\"lowest_price_cents_usd>={price_low*100}\",\"lowest_price_cents_usd<={price_high*100}\"]",
@@ -38,7 +38,7 @@ def get_data(search_query, shoe_size, price_low, price_high, page, page_len):
 			'shoe_condition': item['shoe_condition'],
 			'trending': 1 if 'trending' in item['collection_slugs'] else 0,
 			'just_dropped': 1 if 'just-dropped' in item['collection_slugs'] else 0,
-			'url': 'https://www.goat.com/sneakers/' + item['slug'],
+			'url': 'goat.com/sneakers/' + item['slug'],
 			'image': item['main_picture_url'],
 			'image_thumbnail': item['main_picture_url'][:23] + "300" + item['main_picture_url'][26:]
 		})

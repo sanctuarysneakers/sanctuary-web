@@ -1,4 +1,4 @@
-/* The cureent active shoe that will be displayed in the shoe modal */
+/* The current active shoe that will be displayed in the shoe modal */
 
 let initState = {
     size: 0,
