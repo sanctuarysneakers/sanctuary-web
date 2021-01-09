@@ -194,183 +194,187 @@
 }
 
 
+// Good version
 
 
 
+.navbar-mobile {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0px;
+    border-bottom: 1px solid #DDDDDD;
+    background: white;
+    z-index: 10;
+    height: 60px;
 
+    .navbar-mobile-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+        padding: 0px 24px;
 
-/* Mobile Version */
+        a {
+            display: flex;
 
-// * {
-//     box-sizing: inherit;
-// }
+            .sanctuary-logo {
+                width: 110px;
+                animation: fade-in-out 0.6s;
+            }
+        }
 
-// .navbar {
-//     position: sticky;
-//     position: -webkit-sticky;
-//     top: 0px;
-//     z-index: 10;
-//     height: 60px;
-//     border-bottom: 1px solid #DDDDDD;
-//     background: white;
-//     transition: all 600ms ease 0s;
-// }
+        .icons {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
-// .navbarContent {
-//     display: flex;
-//     -webkit-box-pack: justify;
-//     justify-content: space-between;
-//     -webkit-box-align: center;
-//     align-items: center;
-//     height: 100%;
-//     padding: 0px 24px;
+            .searchBar-collapsed, .filterIcon, .hamburgerIcon, .profileIcon, .profilePicture {
+                cursor: pointer;
+                display: flex;
+                animation: fade-in-out 0.6s;
 
-//     a {
-//         height: 30px;
-//     }
-// }
+                .searchIcon {
+                    height: 18px;
+                 }
+            }
 
-// .sanctuaryLogo {
-//     height: 30px;
-// }
+            .filterIcon {
+                margin: 0px 23px;
+            }
 
-// .content-right {
-//     display: flex;
-// }
+            .profile-button {
+                width: 20px;
+                height: 20px;
+                border-radius: 100px;
+                overflow: hidden;
 
-// .nav-searchBar-web {
+                img, svg {
+                    height: 20px;
+                }
+            }
 
-//     .searchBar-desktop {
-//         background: #F4F4F4;
-//         width: 450px;
-    
-//         animation: fade-in-out 0.6s;
-//     }
-// }
+            .searchBar-expanded {
+                display: flex;
+                align-items: center;
+                width: calc(100vw - 119px);
+                height: 36px;
+                background: #EAEAEB;
+                border-radius: 10px;
 
-// .howItWorks {
-//     cursor: pointer;
-//     font-size: 14px;
-//     font-family: 'Poppins', sans-serif;
-//     font-weight: 500;
-//     color: #353234;
-//     background: none;
-//     padding: 0;
-//     margin-left: 30px;
-//     text-decoration: none;
-//     outline: none;
-// }
+                .searchIcon {
+                    display: flex;
+                    margin: 0px 10px;
 
-// .howItWorks:hover {
-//     background: none;
-//     color: #CA5257;
-// }
+                    svg {
+                        color: #707070;
+                    }
+                }
 
-// .content-right {
+                .mobileSearchText {
+                    width: calc(100% - 72px);
+                    font-size: 16px;
+                    font-weight: 300;
+                    font-family: 'Poppins', sans-serif;
+                    background: none;
+                    outline: none;
+                    border: none;
+                    margin-top: 1px;
+                }
+            }
 
-//     .nav-searchBar-mobile {
-//         display: flex;
+            .cancelIcon-mobile {
+                font-size: 13px;
+                font-weight: 500;
+                color: #3478F6;
+                width: 47px;
+                margin-left: 24px;
+                cursor: pointer;
+            }
+        }
+    }
+}
 
-//         /* Search Icon */
-        
-//     .searchBar-collapsed {
-//         width: 36px;
-//         height: 36px;
+.hamburger-button, .profile-button {
+    background: none;
+    outline: none;
+}
 
-//         .searchIcon {
-//             display: flex;
-//             align-items: center;
-//             justify-content: center;
-//             height: 36px;
+// Desktop
 
-//             svg {
-//                 color: #353234;
-//                 width: 18px;
-//                 height: 18px;
-                    
-//             }
-//         }
-//     }
+.navbar-desktop {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0px;
+    border-bottom: 1px solid #DDDDDD;
+    background: white;
+    z-index: 10;
+    height: 90px;
 
-//         /* Search bar expanded */
+    .navbar-desktop-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+        padding: 0px 66px;
 
-//         .searchBar-expanded {
-//             display: flex;
-//             width: calc(100% - 72px);
+        a {
+            display: flex;
 
-//             .searchIcon {
-//                 display: flex;
-//                 align-items: center;
-//                 justify-content: center;
-//                 width: 36px;
-//                 height: 36px;
+            .sanctuary-logo-desktop {
+                width: 158px;
+            }
+        }
 
-//                 svg {
-//                     color: #353234;
-//                     width: 18px;
-//                     height: 18px;
-                        
-//                 }
-//             }
+        .navbar-desktop-links {
+            display: flex;
+            align-items: center;
 
-//             .mobileSearchText {
-//             }
-//         }
+            .searchBar-desktop {
+                background: #F4F4F4;
+                width: 400px;
+                animation: fade-in-out 0.6s;
+            }
 
-//         .cancelIcon-mobile {
-//             display: flex;
-//             align-items: center;
+            a {
+                font-size: 14px;
+                font-weight: 500;
+                color: black;
+                letter-spacing: 0.3px;
+                text-decoration: none;
+                margin-left: 20px;
+                cursor: pointer;
+            }
 
-//             p {
-//                 font-size: 15px;
-//                 font-weight: 400;
-//             }
-//         }
-//     }
-// }
+            a:hover {
+                text-decoration: underline;
+            }
 
+            .navbar-desktop-create-account {
+                font-weight: 600;
+                color: #B14B63;
+            }
 
-// /* Web Version */
+            .navbar-desktop-profile {
+                width: 35px;
+                height: 35px;
+                border-radius: 100px;
+                overflow: hidden;
+                margin-left: 20px;
 
-// @media screen and (min-width: 930px) {
+                .navbar-desktop-profile-picture {
+                    height: 35px;
+                }
 
-//     .navbar {
-//         display: flex;
-//         height: 90px;
-//     }
+                .profileIcon {
+                    height: 35px;
 
-//     .navbarContent{
-//         width: calc(100% - 132px);
-//         height: 90px;
-//         margin: 0px auto;
-//         padding: 0px;
-//         transition: all 600ms ease 0s;
-
-//         a {
-//             height: 40px;
-//         }
-//     }
-
-//     .sanctuaryLogo {
-//         height: 40px;
-//     }
-
-//     .howItWorks {
-//         cursor: pointer;
-//         font-size: 14px;
-//         font-family: 'Poppins', sans-serif;
-//         font-weight: 500;
-//         color: #353234;
-//         background: none;
-//         padding: 0;
-//         text-decoration: none;
-//         outline: none;
-//     }
-    
-//     .howItWorks:hover {
-//         background: none;
-//         color: #CA5257;
-//     }
-
-
-// }
+                    svg {
+                        height: 35px;
+                        width: 35px;
+                    }
+                }
+            }
+            
+        }
+    }
+}

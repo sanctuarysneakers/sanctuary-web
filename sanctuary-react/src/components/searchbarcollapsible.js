@@ -1,5 +1,6 @@
 import React from 'react'
 import { RiSearchLine } from 'react-icons/ri'
+import SearchIcon from '../assets/images/icons/searchIcon'
 import { useDispatch, useSelector } from 'react-redux'
 import { collapseBar, expandBar, updateSearch } from '../redux/actions'
 
@@ -21,7 +22,8 @@ export default function CollapsibleSearchBar() {
                     className="searchIcon"
                     onClick={() => dispatch(expandBar())}
                 >
-                    <RiSearchLine />
+                    {isCollapsed && <SearchIcon />}
+                    {!isCollapsed && <RiSearchLine />}
                 </div>
 
                 {!isCollapsed &&

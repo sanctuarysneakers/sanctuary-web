@@ -108,7 +108,7 @@ export default function Footer() {
                 <div className='bottomText-content'>
                     <ul>
                         <button>
-                        <a class="contact-link" 
+                        <a className="contact-link" 
                                       href = "mailto: contact@sanctuarysneakers.com">
                                       Contact Us</a>
                         </button>
@@ -125,7 +125,7 @@ export default function Footer() {
                             <a href="https://www.facebook.com/sanctuarysneakers"><FiFacebook className='facebook-icon'/></a>
                             <a href="https://www.instagram.com/sanctuarysneakers/"><FiInstagram className='instagram-icon'/></a>
                         </div>
-                        <h3>© 2020 Sanctuary Streetwear Marketplace Inc.</h3>
+                        <h3>© 2021 Sanctuary Streetwear Marketplace Inc.</h3>
                     </div>
                 </div>
             </div>

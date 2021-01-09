@@ -128,6 +128,32 @@ export const hidePrivacyModal = () => {
     }
 }
 
+export const showFilterModal = () => {
+    return {
+        type: 'SHOW_FILTER_MODAL'
+    }
+}
+
+export const hideFilterModal = () => {
+    return {
+        type: 'HIDE_FILTER_MODAL'
+    }
+}
+
+export const showHamburgerModal = () => {
+    return {
+        type: 'SHOW_HAMBURGER_MODAL'
+    }
+}
+
+export const hideHamburgerModal = () => {
+    return {
+        type: 'HIDE_HAMBURGER_MODAL'
+    }
+}
+
+
+
 // Search Bar Collapse/Expand on mobile
 
 export const collapseBar = () => {
@@ -156,5 +182,20 @@ export const recordSplashHeight = splashHeight => {
     return {
         type: 'RECORD_SPLASH_HEIGHT',
         payload: splashHeight
+    }
+}
+
+// Account 
+
+export const setUuid = uuid => {
+    return {
+        type: 'SET_UUID',
+        payload: uuid
+    }
+}
+
+export const clearUuid = () => {
+    return {
+        type: 'CLEAR_UUID'
     }
 }

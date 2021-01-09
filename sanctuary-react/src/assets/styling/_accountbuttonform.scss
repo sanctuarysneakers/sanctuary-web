@@ -1,0 +1,169 @@
+.sign-in-options-header {
+    padding: 50px 0px;
+
+    h1 {
+        font-size: 40px;
+        line-height: 50px;
+        color: black;
+        margin: 0px auto;
+        width: 327px;
+        max-width: 500px;
+    }
+}
+
+.account-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 60px; // to make it fit entire length on iPhone 11 Pro
+    padding-top: 15px;
+
+    .facebook-button, .google-button, .email-button {
+        height: 40px;
+        width: 327px;
+        border-radius: 7px;
+        margin: 7.5px 0px;
+        outline: none;
+        cursor: pointer;
+
+        p {
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            margin-left: 8px;
+            letter-spacing: 0.4px;
+            margin-top: 2px;
+        }
+    }
+
+    .facebook-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #1778F2;
+        color: white;
+
+        img {
+            height: 18px;
+            width: 18px;
+        } 
+    }
+
+    .google-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: white;
+        color: black;
+        border: 0.5px solid #DCDCDC;
+
+        img {
+            height: 14px;
+        }
+    }
+
+    .email-button {
+        background: linear-gradient(45deg, #F14F8E, #EF6660);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        text-decoration: none;
+
+        img {
+            height: 19px;
+            margin-top: 1px;
+        }
+    }
+
+    .divider {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 327px;
+        margin: 7.5px 0px;
+
+        .divider-line {
+            height: 1px;
+            width: 150px;
+            background: #C4C4C4;
+        }
+
+        p {
+            font-size: 11px;
+            font-weight: 500;
+            color: #989898;
+        }
+    }
+}
+
+.switch-form {
+    margin: 15px 0px;
+    display: flex;
+
+    p {
+        font-size: 12px;
+        font-weight: 300;
+        letter-spacing: 0.4px;
+        color: #787a7c;
+    }
+
+    a {
+        font-family: 'Poppins', sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.4px;
+        text-decoration: none;
+        margin-left: 4px;
+        color: #3478F6;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+}
+
+.account-terms-policy {
+    margin-top: 5px;
+    text-align: center;
+
+    p {
+        font-size: 12px;
+        font-weight: 300;
+        letter-spacing: 0.4px;
+        color: #787a7c;
+    }
+
+    .terms-policy-text {
+        display: flex;
+        justify-content: center;
+
+        .terms-policy-pop-up {
+            font-weight: 500;
+            color: #3478F6;
+            margin: 0px 4px;
+            cursor: pointer;
+        }
+
+        .terms-policy-pop-up:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+@media screen and (min-width: 930px) {
+    .sign-in-options-header {
+        text-align: center;
+
+        h1 {
+            font-size: 60px;
+            line-height: 70px;
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+
+    .account-buttons {
+        padding-bottom: 150px;
+    }
+}

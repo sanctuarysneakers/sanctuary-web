@@ -13,6 +13,9 @@ import shoeComparisonDataReducer from './shoecomparisondatareducer'
 import newSearchHappenedReducer from './newsearchhappenedreducer'
 import recordSplashHeightReducer from './recordsplashheightreducer'
 import { combineReducers } from 'redux'
+import uuidReducer from './uuidreducer'
+import filterModalVisibleReducer from './filtermodalvisiblereducer'
+import hamburgerModalVisibleReducer from './hamburgermodalvisiblereducer'
 
 const globalReducer = combineReducers({
     shoeModalVisible: shoeModalVisibleReducer,
@@ -28,7 +31,10 @@ const globalReducer = combineReducers({
     isSearchBarCollapsed: searchBarCollapseReducer,
     shoeComparisonData: shoeComparisonDataReducer,
     newSearchHappened: newSearchHappenedReducer,
-    splashHeight: recordSplashHeightReducer
+    splashHeight: recordSplashHeightReducer,
+    uuid: uuidReducer,
+    filterModalVisible: filterModalVisibleReducer,
+    hamburgerModalVisible: hamburgerModalVisibleReducer
 })
 
 export default globalReducer

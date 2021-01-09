@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect }from 'react'
 import { Switch, Route } from 'react-router-dom'
 
 import NavBar from "./components/navbar"
@@ -8,12 +8,20 @@ import ShoeModal from "./components/Pages/shoemodal"
 import AboutModal from "./components/Pages/aboutmodal"
 import TermsModal from "./components/Pages/termsmodal"
 import PrivacyModal from "./components/Pages/privacymodal"
+import FilterModal from "./components/Pages/filterModal"
+import HamburgerModal from "./components/Pages/hamburgermodal"
 import PageNotFound from "./components/Pages/pagenotfound"
 
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { RemoveScroll } from 'react-remove-scroll'
-import Login from './components/Pages/login'
-import SignUp from './components/Pages/signup'
+import SignInOptions from './components/Pages/signinoptions'
+import SignInEmail from './components/Pages/signinemail'
+import CreateAccountOptions from './components/Pages/createaccountoptions'
+import CreateAccountEmail from './components/Pages/createaccountemail'
+
+import { setUuid } from './redux/actions'
+import firebase from './services/firebase'
+import Profile from './components/Pages/profile'
 
 
 function App() {
@@ -22,6 +30,24 @@ function App() {
   const aboutModalVisible = useSelector(state => state.aboutModalVisible)
   const termsModalVisible = useSelector(state => state.termsModalVisible)
   const privacyModalVisible = useSelector(state => state.privacyModalVisible)
+  const filterModalVisible = useSelector(state => state.filterModalVisible)
+  const hamburgerModalVisible = useSelector(state => state.hamburgerModalVisible)
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+            dispatch(setUuid(user.uid))
+            console.log("signed in!")
+            console.log(user)
+        }
+        else {
+            dispatch(setUuid(''))
+            console.log("not signed in")  
+        }
+    })
+})
 
   return (
     <React.Fragment>
@@ -29,8 +55,11 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/home" component={Home} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={SignUp} />
+        <Route path="/sign-in" component={SignInOptions} />
+        <Route path="/sign-in-email" component={SignInEmail} />
+        <Route path="/create-account" component={CreateAccountOptions} />
+        <Route path="/create-account-email" component={CreateAccountEmail} />
+        <Route path="/profile" component={Profile} />
         <Route component={PageNotFound} />
       </Switch>
       {
@@ -57,6 +86,19 @@ function App() {
           <PrivacyModal />
         </RemoveScroll>
       }
+      {
+        filterModalVisible &&
+        <RemoveScroll>
+          <FilterModal />
+        </RemoveScroll>
+      }
+      {
+        hamburgerModalVisible &&
+        <RemoveScroll>
+          <HamburgerModal />
+        </RemoveScroll>
+      }
+      
       <Footer />
     </React.Fragment>
   )
