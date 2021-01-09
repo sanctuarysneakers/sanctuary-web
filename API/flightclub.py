@@ -11,7 +11,7 @@ def get_data(search_query, shoe_size, price_low, price_high, page, page_len):
 	}
 
 	post_json = {
-		"params": "query=&" + urlencode({
+		"params": urlencode({
 			"query": search_query,
 			"facetFilters": f'[["size_us_men:{shoe_size}"]]',
 			"numericFilters": f"[\"lowest_price_cents_usd>={price_low*100}\",\"lowest_price_cents_usd<={price_high*100}\"]",
@@ -40,7 +40,7 @@ def get_data(search_query, shoe_size, price_low, price_high, page, page_len):
 			'top_seller': 1 if 'top-sellers' in item['collection_slugs'] else 0,
 			'price_drop': 1 if 'price-drops' in item['collection_slugs'] else 0,
 			'new_release': 1 if 'new-releases' in item['collection_slugs'] else 0,
-			'url': 'https://www.flightclub.com/' + item['slug'],
+			'url': 'flightclub.com/' + item['slug'],
 			'image': item['main_picture_url'],
 			'image_thumbnail': item['main_picture_url'][:27] + "300" + item['main_picture_url'][26:]
 		})

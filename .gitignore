@@ -1,0 +1,12 @@
+# Frontend
+.netlify
+node_modules
+build
+package-lock.json
+debug.log
+
+# Backend
+__pycache__
+.elasticbeanstalk
+
+.DS_Store
