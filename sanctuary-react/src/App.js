@@ -9,12 +9,11 @@ import AboutModal from "./components/Pages/aboutmodal"
 import TermsModal from "./components/Pages/termsmodal"
 import PrivacyModal from "./components/Pages/privacymodal"
 import PageNotFound from "./components/Pages/pagenotfound"
-
 import { useSelector } from 'react-redux'
 import { RemoveScroll } from 'react-remove-scroll'
 import LoginSignUp from './components/Pages/loginsignup'
-
-
+import Blog from "./components/Pages/blog.js"
+import BlogPost from "./components/Pages/blog-post-1.js"
 function App() {
 
   const shoeModalVisible = useSelector(state => state.shoeModalVisible)
@@ -28,6 +27,8 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/home" component={Home} />
+        <Route path="/blog" component={Blog} />
+        <Route path="/blogpost1" component={BlogPost} />
         {/*<Route path="/login-signup" component={LoginSignUp} />*/}
         <Route component={PageNotFound} />
       </Switch>

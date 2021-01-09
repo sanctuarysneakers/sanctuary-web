@@ -65,6 +65,15 @@ export default function NavBar() {
                     </div>
 
                     {isCollapsed &&
+                        <Link
+                            to={"/blog"}
+                            onClick={handleClick}
+                        >
+                        <p class="howItWorks">Blog</p>
+                        </Link>
+                    }
+
+                    {isCollapsed &&
                         <button className='howItWorks' onClick={() => dispatch(showAboutModal())}>
                             How It Works
                         </button>
