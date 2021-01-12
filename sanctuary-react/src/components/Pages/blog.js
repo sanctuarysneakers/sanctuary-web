@@ -7,7 +7,7 @@ import { useMediaQuery } from 'react-responsive'
 import { Helmet } from 'react-helmet'
 import SearchBar from '../searchbar'
 import { recordSplashHeight } from '../../redux/actions'
-import BlogArticle from '../blogarticles'
+import BlogArticles from '../blogarticles'
 import UpcomingEvents from '../upcomingevents'
 import UpcomingDrops from '../upcomingdrops'
 export default function Home() {
@@ -46,7 +46,7 @@ export default function Home() {
                 className='filter-catalog'
             >
                 <section id="articles">
-                    <BlogArticle />
+                    <BlogArticles />
                 </section>
 
                 <section id="upcoming-raffles">
