@@ -43,7 +43,7 @@ export default function useAPICall(callType) {
     async function comparisonAPICall() {
 
         const siteCompareMap = {
-            'stockx': ['goat', 'flightclub'],
+            'stockx': ['goat', 'flightclub', 'grailed'],
             'goat': ['stockx', 'flightclub'],
             'grailed': [],
             'flightclub': ['stockx', 'goat']
@@ -55,16 +55,35 @@ export default function useAPICall(callType) {
             price_low: '0',
             price_high: '100000'
         };
+
+        const compareFilterGrailed = {
+            search: shoe.model,
+            size: shoe.size.toString(),
+            price_low: '0',
+            price_high: '100000'
+        };
+
         const itemLimit = 1; // per site
 
         let results = [];
         for await (const site of siteCompareMap[shoe.source]) {
-            const request = createRequestObject(site, compareFilter);
-            const response = await fetch(request.url, request.headers);
-            let rawData = await response.json();
-            let processedData = processData(rawData, site, itemLimit);
-            results.push(...processedData);
+            if (site == "grailed") {
+                const request = createRequestObject(site, compareFilterGrailed); 
+                const response = await fetch(request.url, request.headers);
+                console.log(response);
+                let rawData = await response.json();
+                let processedData = processData(rawData, site, itemLimit);
+                results.push(...processedData);   
+            } else {
+                const request = createRequestObject(site, compareFilter);
+                const response = await fetch(request.url, request.headers);
+                console.log(response);
+                let rawData = await response.json();
+                let processedData = processData(rawData, site, itemLimit);
+                results.push(...processedData);
+            }
         }
+
         dispatch(shoeComparisonCall(results));
 
     }
