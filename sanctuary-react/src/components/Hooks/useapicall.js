@@ -44,9 +44,9 @@ export default function useAPICall(callType) {
 
         const siteCompareMap = {
             'stockx': ['goat', 'flightclub', 'grailed'],
-            'goat': ['stockx', 'flightclub'],
+            'goat': ['stockx', 'flightclub', 'grailed'],
             'grailed': [],
-            'flightclub': ['stockx', 'goat']
+            'flightclub': ['stockx', 'goat', 'grailed']
         };
 
         const compareFilter = {
