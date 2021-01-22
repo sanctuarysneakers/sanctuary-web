@@ -6,8 +6,6 @@ import SearchBar from './searchbar'
 import CollapsibleSearchBar from './searchbarcollapsible'
 import sanctuaryLogo from "../assets/images/sanctuary-logo-row.png"
 import { useMediaQuery } from 'react-responsive'
-import { GrCircleInformation } from "react-icons/gr";
-import { GiAmmonite } from "react-icons/gi";
 import firebase from '../services/firebase.js'
 
 import HamburgerIcon from '../assets/images/icons/hamburgerIcon'
@@ -68,6 +66,10 @@ export default function NavBar() {
                         {isSearchBarVisible && <div className='navbar-desktop-searchbar'>
                             <SearchBar />
                         </div>}
+
+                        <Link to="blog">
+                            Blog
+                        </Link>
 
                         <a onClick={() => dispatch(showAboutModal())}> 
                             How it Works 

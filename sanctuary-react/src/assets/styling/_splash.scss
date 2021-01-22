@@ -43,11 +43,21 @@ h3 {
     left: 0;
 }
 
+.blog-bg-image {
+    position: absolute;
+    background: #333 url('../../assets/images/blog_splash_bg.webp');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    z-index: -1;
+    left: 0;
+}
+
 .splashWrap {
     align-self: center;
     padding: 0px 24px;
     margin-bottom: 20px;
-
     h3 {
         padding: 0px 38.5px;
     }

@@ -18,6 +18,8 @@ import SignInOptions from './components/Pages/signinoptions'
 import SignInEmail from './components/Pages/signinemail'
 import CreateAccountOptions from './components/Pages/createaccountoptions'
 import CreateAccountEmail from './components/Pages/createaccountemail'
+import Blog from "./components/Pages/blog.js"
+import BlogPost from "./components/Pages/blog-post-1.js"
 
 import { setUuid } from './redux/actions'
 import firebase from './services/firebase'
@@ -60,6 +62,8 @@ function App() {
         <Route path="/create-account" component={CreateAccountOptions} />
         <Route path="/create-account-email" component={CreateAccountEmail} />
         <Route path="/profile" component={Profile} />
+        <Route path="/blog" component={Blog} />
+        <Route path="/blogpost1" component={BlogPost} />
         <Route component={PageNotFound} />
       </Switch>
       {
