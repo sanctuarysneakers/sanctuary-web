@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { collapseBar, showAboutModal } from '../redux/actions'
+import { collapseBar, showAboutModal, updateCurrency } from '../redux/actions'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import SearchBar from './searchbar'
@@ -7,22 +7,31 @@ import CollapsibleSearchBar from './searchbarcollapsible'
 import sanctuaryLogo from "../assets/images/sanctuary-logo-row.png"
 import { useMediaQuery } from 'react-responsive'
 import { GrCircleInformation } from "react-icons/gr";
-
+import Select from 'react-select'
 
 
 export default function NavBar() {
 
-    const dispatch = useDispatch()
-    const splashHeight = useSelector(state => state.splashHeight)
-    const isCollapsed = useSelector(state => state.isSearchBarCollapsed)
-    const isDesktop = useMediaQuery({ query: '(min-width: 930px)' })
-    const [isSearchBarVisible, setSearchBarVisibility] = useState(false)
+    const dispatch = useDispatch();
+    const splashHeight = useSelector(state => state.splashHeight);
+    const isSearchBarCollapsed = useSelector(state => state.isSearchBarCollapsed);
+    const currency = useSelector(state => state.currency);
+    const isDesktop = useMediaQuery({ query: '(min-width: 930px)' });
+    const [isSearchBarVisible, setSearchBarVisibility] = useState(false);
 
-    const searchBarWidth = isCollapsed ? 20 : 100
+    const currencyOptions = [
+        { label: '$ USD', value: 'USD' },
+        { label: '$ CAD', value: 'CAD' }
+    ];
 
-    const handleClick = () => {
+    const handleCurrencyChange = (e) => {
+        const value = e.value;
+        dispatch(updateCurrency(value));
+    };
+
+    const handleLogoClick = () => {
         window.scrollTo(0, 0)
-    }
+    };
 
     // control Search bar visibility depending on scroll height
     useEffect(() => {
@@ -36,19 +45,21 @@ export default function NavBar() {
 
     // Ensures the nav bar layout is not in collapsed mode when switching to desktop view
     useEffect(() => {
-        if (isDesktop) dispatch(collapseBar())
-    }, [isDesktop])
+        if (isDesktop) 
+            dispatch(collapseBar())
+    }, [isDesktop]);
+
 
     return (
         <nav className='navbar'>
 
-            {/* Web Version */}
+            {/* Desktop Version */}
             <div className='navbarContent-web'>
 
-                {isCollapsed &&
+                {isSearchBarCollapsed &&
                     <Link
                         to={"/"}
-                        onClick={handleClick}
+                        onClick={handleLogoClick}
                     >
                         <img
                             className='sanctuaryLogo'
@@ -64,7 +75,16 @@ export default function NavBar() {
                         {isSearchBarVisible && isDesktop && <SearchBar />}
                     </div>
 
-                    {isCollapsed &&
+                    {isSearchBarCollapsed && !isSearchBarVisible &&
+                        <Select
+                            className='currencyFilter'
+                            value={currencyOptions.find(obj => obj.value === currency)} // Default currency is USD
+                            options={currencyOptions} 
+                            onChange={handleCurrencyChange}
+                        />
+                    }
+
+                    {isSearchBarCollapsed &&
                         <button className='howItWorks' onClick={() => dispatch(showAboutModal())}>
                             How It Works
                         </button>
@@ -76,16 +96,16 @@ export default function NavBar() {
             {/* Mobile Version */}
             <div className='navbarContent-mobile'>
 
-                    {isCollapsed &&
+                    {isSearchBarCollapsed &&
                         <button className='howItWorks' onClick={() => dispatch(showAboutModal())}>
                             <GrCircleInformation />
                         </button>
                     }
 
-                    {isCollapsed &&
+                    {isSearchBarCollapsed &&
                         <Link
                             to={"/"}
-                            onClick={handleClick}
+                            onClick={handleLogoClick}
                         >
                             <img
                                 className='sanctuaryLogo'
@@ -101,5 +121,6 @@ export default function NavBar() {
 
             </div>
         </nav >
-    )
+    );
+
 }
