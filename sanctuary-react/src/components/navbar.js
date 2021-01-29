@@ -15,9 +15,9 @@ export default function NavBar() {
     const dispatch = useDispatch();
     const splashHeight = useSelector(state => state.splashHeight);
     const isSearchBarCollapsed = useSelector(state => state.isSearchBarCollapsed);
-    const currency = useSelector(state => state.currency);
     const isDesktop = useMediaQuery({ query: '(min-width: 930px)' });
     const [isSearchBarVisible, setSearchBarVisibility] = useState(false);
+    const currency = useSelector(state => state.currency);
 
     const currencyOptions = [
         { label: '$ USD', value: 'USD' },
@@ -25,19 +25,19 @@ export default function NavBar() {
     ];
 
     const handleCurrencyChange = (e) => {
-        const value = e.value;
-        dispatch(updateCurrency(value));
-    };
+        const newCurrency = e.value;
+        dispatch(updateCurrency(newCurrency));
+    }
 
     const handleLogoClick = () => {
         window.scrollTo(0, 0)
-    };
+    }
 
     // control Search bar visibility depending on scroll height
     useEffect(() => {
         const onScroll = () => {
             setSearchBarVisibility(window.scrollY >= splashHeight)
-        };
+        }
         window.addEventListener("scroll", onScroll);
 
         return () => window.removeEventListener("scroll", onScroll);
@@ -47,7 +47,7 @@ export default function NavBar() {
     useEffect(() => {
         if (isDesktop) 
             dispatch(collapseBar())
-    }, [isDesktop]);
+    }, [isDesktop])
 
 
     return (
