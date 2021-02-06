@@ -16,6 +16,8 @@ import { combineReducers } from 'redux'
 import uuidReducer from './uuidreducer'
 import filterModalVisibleReducer from './filtermodalvisiblereducer'
 import hamburgerModalVisibleReducer from './hamburgermodalvisiblereducer'
+import userReducer from './userreducer'
+import deleteModalVisibleReducer from './deletemodalvisiblereducer'
 
 const globalReducer = combineReducers({
     shoeModalVisible: shoeModalVisibleReducer,
@@ -34,7 +36,9 @@ const globalReducer = combineReducers({
     splashHeight: recordSplashHeightReducer,
     uuid: uuidReducer,
     filterModalVisible: filterModalVisibleReducer,
-    hamburgerModalVisible: hamburgerModalVisibleReducer
+    hamburgerModalVisible: hamburgerModalVisibleReducer,
+    user: userReducer,
+    deleteModalVisible: deleteModalVisibleReducer
 })
 
 export default globalReducer

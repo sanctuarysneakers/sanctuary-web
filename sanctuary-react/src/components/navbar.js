@@ -68,7 +68,7 @@ export default function NavBar() {
                         </div>}
 
                         <Link to="blog">
-                            Blog
+                            Newsroom
                         </Link>
 
                         <a onClick={() => dispatch(showAboutModal())}> 
@@ -83,18 +83,20 @@ export default function NavBar() {
                             Create Account
                         </Link>}
 
-                        {user && <a onClick={signOut}> Sign Out </a>}
+                        {user && 
+                            <Link className='navbar-desktop-profile-container' to="/profile">
+                                <div className='navbar-desktop-profile'>
 
-                        {user && <div className='navbar-desktop-profile'>
+                                    {user.photoURL !== null &&
+                                        <img className='navbar-desktop-profile-picture'
+                                            src={user.photoURL}
+                                            alt="desktop-profile-picture"
+                                        />
+                                    }
 
-                            {user.photoURL !== null &&
-                                <img className='navbar-desktop-profile-picture'
-                                    src={user.photoURL}
-                                    alt="desktop-profile-picture"
-                                />
-                            }
-
-                            {user.photoURL === null && <ProfileIcon />} </div>
+                                    {user.photoURL === null && <ProfileIcon />} 
+                                </div>
+                            </Link>
                         }
 
                     </div>

@@ -152,7 +152,17 @@ export const hideHamburgerModal = () => {
     }
 }
 
+export const showDeleteModal = () => {
+    return {
+        type: 'SHOW_DELETE_MODAL'
+    }
+}
 
+export const hideDeleteModal = () => {
+    return {
+        type: 'HIDE_DELETE_MODAL'
+    }
+}
 
 // Search Bar Collapse/Expand on mobile
 
@@ -197,5 +207,18 @@ export const setUuid = uuid => {
 export const clearUuid = () => {
     return {
         type: 'CLEAR_UUID'
+    }
+}
+
+export const setUser = user => {
+    return {
+        type: 'SET_USER',
+        payload: user
+    }
+}
+
+export const clearUser = () => {
+    return {
+        type: 'CLEAR_USER'
     }
 }

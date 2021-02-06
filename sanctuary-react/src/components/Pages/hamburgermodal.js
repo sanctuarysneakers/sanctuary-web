@@ -1,23 +1,26 @@
 import React, { useRef } from 'react'
 import firebase from '../../services/firebase.js'
 import useOutsideAlerter from '../Hooks/useoutsidealerter'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { hideHamburgerModal, showAboutModal } from '../../redux/actions'
 import { Link, useHistory } from 'react-router-dom'
 import InfoIcon from '../../assets/images/icons/infoIcon'
 import ProfileIcon from '../../assets/images/icons/profileIcon'
 import SignOutIcon from '../../assets/images/icons/signOutIcon.js'
+import BlogIcon from '../../assets/images/icons/blogIcon.js'
 
 
 export default function HamburgerModal() {
 
-    const user = firebase.auth().currentUser
+    // const user = firebase.auth().currentUser
+    const user = useSelector(state => state.user)
+    
     const dispatch = useDispatch()
     const wrapperRef = useRef(null)
     const history = useHistory()
     useOutsideAlerter(wrapperRef)
 
-    const handleCreateAccount = () => {
+    const handlecloseModal = () => {
         dispatch(hideHamburgerModal())
         window.scrollTo(0, 0)
     }
@@ -64,16 +67,22 @@ export default function HamburgerModal() {
                             <p> Get exclusive info on sneakers. </p>
                         </div>}
 
-                        {user && <div className='account-description-signed-in'>
-                            <h2> {user.displayName} </h2>
-                            <p> Edit Profile </p>
-                        </div>}
+                        {user && 
+                            <Link className='account-description-signed-in' 
+                            onClick={handlecloseModal} 
+                            to="/profile">
+
+                                <h2> {user.displayName} </h2>
+                                <p> Edit Profile </p>
+                                
+                            </Link>
+                        }
                     </div>
 
                     {!user && <div className='menu-account-bottom'>
 
                         <Link className='create-account' 
-                            onClick={handleCreateAccount} 
+                            onClick={handlecloseModal} 
                             to="/create-account">
                                 
                             <button className='create-account-button'>
@@ -82,7 +91,7 @@ export default function HamburgerModal() {
                         </Link>
                         
                         <Link className='sign-in'
-                            onClick={() => dispatch(hideHamburgerModal())} 
+                            onClick={handlecloseModal} 
                             to="/sign-in">
 
                                 <button className='sign-in-button'> 
@@ -99,6 +108,13 @@ export default function HamburgerModal() {
                             <p> How it Works </p>
                         </div>
                     </div>
+
+                    <Link className='menu-options-blog' onClick={handlecloseModal} to="/blog">
+                        <BlogIcon />
+                        <div className='title'>
+                            <p> Blog </p>
+                        </div>
+                    </Link>
 
                     {user && <div className='menu-options-sign-out' onClick={signOut}>
                         <SignOutIcon />

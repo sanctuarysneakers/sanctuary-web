@@ -72,12 +72,18 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
+                text-decoration: none;
 
                 h2 {
                     font-size: 17px;
                     font-weight: 500;
                     color: black;
                     letter-spacing: 0.25px;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 1;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                 }
 
                 p {
@@ -130,9 +136,10 @@
     .menu-options {
         padding-left: 20px;
     
-        .menu-options-how-it-works, .menu-options-sign-out {
+        .menu-options-how-it-works, .menu-options-sign-out, .menu-options-blog {
             display: flex;
             align-items: center;
+            text-decoration: none;
             cursor: pointer;
 
             .infoIcon {
@@ -143,6 +150,11 @@
             .signOutIcon {
                 height: 18px;
                 margin-right: 18px;
+            }
+
+            .blogIcon {
+                height: 18px;
+                margin-right: 22px;
             }
 
             .title {

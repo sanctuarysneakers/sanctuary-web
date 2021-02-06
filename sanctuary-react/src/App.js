@@ -1,4 +1,4 @@
-import React, { useEffect }from 'react'
+import React, { useEffect } from 'react'
 import { Switch, Route } from 'react-router-dom'
 
 import NavBar from "./components/navbar"
@@ -10,7 +10,12 @@ import TermsModal from "./components/Pages/termsmodal"
 import PrivacyModal from "./components/Pages/privacymodal"
 import FilterModal from "./components/Pages/filterModal"
 import HamburgerModal from "./components/Pages/hamburgermodal"
+import DeleteModal from "./components/Pages/deletemodal"
 import PageNotFound from "./components/Pages/pagenotfound"
+import Profile from './components/Pages/profile'
+import EditProfileName from './components/Pages/editprofilename'
+import EditProfileEmail from './components/Pages/editprofileemail'
+import EditProfilePassword from './components/Pages/editprofilepassword'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { RemoveScroll } from 'react-remove-scroll'
@@ -21,9 +26,8 @@ import CreateAccountEmail from './components/Pages/createaccountemail'
 import Blog from "./components/Pages/blog.js"
 import BlogPost from "./components/Pages/blog-post-1.js"
 
-import { setUuid } from './redux/actions'
+import { setUuid, setUser } from './redux/actions'
 import firebase from './services/firebase'
-import Profile from './components/Pages/profile'
 
 
 function App() {
@@ -34,22 +38,25 @@ function App() {
   const privacyModalVisible = useSelector(state => state.privacyModalVisible)
   const filterModalVisible = useSelector(state => state.filterModalVisible)
   const hamburgerModalVisible = useSelector(state => state.hamburgerModalVisible)
+  const deleteModalVisible = useSelector(state => state.deleteModalVisible)
 
   const dispatch = useDispatch()
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-            dispatch(setUuid(user.uid))
-            console.log("signed in!")
-            console.log(user)
-        }
-        else {
-            dispatch(setUuid(''))
-            console.log("not signed in")  
-        }
+      if (user) {
+        dispatch(setUuid(user.uid))
+        dispatch(setUser(user))
+        console.log("signed in!")
+        console.log(user)
+      }
+      else {
+        dispatch(setUuid(''))
+        dispatch(setUser(null))
+        console.log("not signed in")
+      }
     })
-})
+  })
 
   return (
     <React.Fragment>
@@ -62,10 +69,14 @@ function App() {
         <Route path="/create-account" component={CreateAccountOptions} />
         <Route path="/create-account-email" component={CreateAccountEmail} />
         <Route path="/profile" component={Profile} />
+        <Route path="/profile-edit-name" component={EditProfileName} />
+        <Route path="/profile-edit-email" component={EditProfileEmail} />
+        <Route path="/profile-edit-password" component={EditProfilePassword} />
         <Route path="/blog" component={Blog} />
         <Route path="/blogpost1" component={BlogPost} />
         <Route component={PageNotFound} />
       </Switch>
+
       {
         shoeModalVisible &&
         <RemoveScroll>
@@ -102,7 +113,13 @@ function App() {
           <HamburgerModal />
         </RemoveScroll>
       }
-      
+      {
+        deleteModalVisible &&
+        <RemoveScroll>
+          <DeleteModal />
+        </RemoveScroll>
+      }
+
       <Footer />
     </React.Fragment>
   )
