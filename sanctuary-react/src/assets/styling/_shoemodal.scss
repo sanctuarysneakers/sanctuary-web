@@ -226,20 +226,29 @@
     border-radius: 15px;
     overflow: hidden;
 
-    .compare-divider {
+    .compare-divider-1 {
         position: absolute;
         width: 1px;
         height: 35px;
         background: #C4C4C4;
         border-radius: 100px;
-        margin-left: 480px;
+        margin-left: 320px;
+    }
+
+    .compare-divider-2 {
+        position: absolute;
+        width: 1px;
+        height: 35px;
+        background: #C4C4C4;
+        border-radius: 100px;
+        margin-left: 640px;
     }
     
     .compare-data {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        width: 480px;
+        width: 320px;
         height: 56px;
         text-decoration: none;
         transition: 0.15s cubic-bezier(0.25, 0.1, 0.25, 1);
