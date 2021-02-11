@@ -79,7 +79,7 @@ export default function NavBar() {
                         {isSearchBarVisible && isDesktop && <SearchBar />}
                     </div>
 
-                    {isSearchBarCollapsed && !isSearchBarVisible &&
+                    {isSearchBarCollapsed &&
                         <Select
                             className='currencyFilter'
                             value={currencyOptions.find(obj => obj.value === currency)} // Default currency is USD
