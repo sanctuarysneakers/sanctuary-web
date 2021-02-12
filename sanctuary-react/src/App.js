@@ -30,7 +30,6 @@ import { setUuid, setUser } from './redux/actions'
 import firebase from './services/firebase'
 import ScrollToTop from './components/Hooks/scrolltotop'
 
-
 function App() {
 
   const shoeModalVisible = useSelector(state => state.shoeModalVisible)
