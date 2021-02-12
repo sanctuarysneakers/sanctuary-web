@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import NavBar from "./components/navbar"
 import Footer from "./components/footer"
@@ -28,6 +28,7 @@ import BlogPost from "./components/Pages/blog-post-1.js"
 
 import { setUuid, setUser } from './redux/actions'
 import firebase from './services/firebase'
+import ScrollToTop from './components/Hooks/scrolltotop'
 
 
 function App() {
@@ -60,22 +61,25 @@ function App() {
 
   return (
     <React.Fragment>
-      <NavBar />
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/home" component={Home} />
-        <Route path="/sign-in" component={SignInOptions} />
-        <Route path="/sign-in-email" component={SignInEmail} />
-        <Route path="/create-account" component={CreateAccountOptions} />
-        <Route path="/create-account-email" component={CreateAccountEmail} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/profile-edit-name" component={EditProfileName} />
-        <Route path="/profile-edit-email" component={EditProfileEmail} />
-        <Route path="/profile-edit-password" component={EditProfilePassword} />
-        <Route path="/blog" component={Blog} />
-        <Route path="/blogpost1" component={BlogPost} />
-        <Route component={PageNotFound} />
-      </Switch>
+      <Router>
+        <ScrollToTop />
+        <NavBar />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/home" component={Home} />
+          <Route path="/sign-in" component={SignInOptions} />
+          <Route path="/sign-in-email" component={SignInEmail} />
+          <Route path="/create-account" component={CreateAccountOptions} />
+          <Route path="/create-account-email" component={CreateAccountEmail} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/profile-edit-name" component={EditProfileName} />
+          <Route path="/profile-edit-email" component={EditProfileEmail} />
+          <Route path="/profile-edit-password" component={EditProfilePassword} />
+          <Route path="/blog" component={Blog} />
+          <Route path="/blogpost1" component={BlogPost} />
+          <Route component={PageNotFound} />
+        </Switch>
+      </Router>
 
       {
         shoeModalVisible &&
