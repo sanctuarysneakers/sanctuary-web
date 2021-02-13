@@ -36,7 +36,7 @@ const conditionsMap = {
 	}
 }
 
-const processItem = (item, site, currencyRate) => {
+const processItem = (item, site, currencyRate, currency) => {
 	switch (site) {
 		case 'stockx':
 			return {
@@ -48,7 +48,8 @@ const processItem = (item, site, currencyRate) => {
 				"shoe_condition": conditionsMap['stockx'][item["condition"]],
 				"url": "stockx.com/" + item["urlKey"],
 				"image": item["media"]["imageUrl"],
-				"image_thumbnail": item["media"]["imageUrl"].split('?')[0] + "?w=300&q=50&trim=color"
+				"image_thumbnail": item["media"]["imageUrl"].split('?')[0] + "?w=300&q=50&trim=color",
+				"currency": currency
 			};
 		case 'goat':
 			return {
@@ -60,7 +61,8 @@ const processItem = (item, site, currencyRate) => {
 				'shoe_condition': conditionsMap['goat'][item['shoe_condition']],
 				'url': 'goat.com/sneakers/' + item['slug'],
 				'image': item['main_picture_url'],
-				'image_thumbnail': item['main_picture_url'].substring(0,23) + "300" + item['main_picture_url'].substring(26)
+				'image_thumbnail': item['main_picture_url'].substring(0,23) + "300" + item['main_picture_url'].substring(26),
+				'currency': currency
 			};
 		case 'grailed':
 			return {
@@ -72,6 +74,7 @@ const processItem = (item, site, currencyRate) => {
 				"url": "grailed.com/listings/" + item['id'].toString(),
 				"image": item['cover_photo']['url'],
 				"image_thumbnail": "https://process.fs.grailed.com/auto_image/resize=width:320/output=quality:80/compress/" + item['cover_photo']['url'],
+				"currency": currency
 			}
 		case 'flightclub':
 			return {
@@ -83,19 +86,20 @@ const processItem = (item, site, currencyRate) => {
 				'shoe_condition': conditionsMap['flightclub'][item['shoe_condition']],
 				'url': 'flightclub.com/' + item['slug'],
 				'image': item['main_picture_url'],
-				'image_thumbnail': item['main_picture_url'].substring(0,27) + "400" + item['main_picture_url'].substring(26)
+				'image_thumbnail': item['main_picture_url'].substring(0,27) + "400" + item['main_picture_url'].substring(26),
+				'currency': currency
 			};
 	}
 }
 
-export default function processData(data, site, limit, currencyRate) {
+export default function processData(data, site, limit, currencyRate, currency) {
 	let results = [];
 	let products = getProducts(data, site);
 	for (const item of products) {
 		if (results.length >= limit)
 			break
 		
-		let processedItem = processItem(item, site, currencyRate);
+		let processedItem = processItem(item, site, currencyRate, currency);
 		if (processedItem['price'] == 0)
 			continue
 		results.push(processedItem);

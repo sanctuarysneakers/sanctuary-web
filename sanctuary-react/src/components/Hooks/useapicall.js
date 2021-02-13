@@ -42,7 +42,8 @@ export default function useAPICall(callType) {
             const request = createRequestObject(site, filter);
             const response = await fetch(request.url, request.headers);
             let rawData = await response.json();
-            let processedData = processData(rawData, site, sliderItemLimit, currencyRate);
+            // console.log(currency); Currency is defined here
+            let processedData = processData(rawData, site, sliderItemLimit, currencyRate, currency);
             dispatch(dispatchMap[site](processedData));
         }
 
@@ -72,7 +73,7 @@ export default function useAPICall(callType) {
             const request = createRequestObject(site, compareFilter);
             const response = await fetch(request.url, request.headers);
             let rawData = await response.json();
-            let processedData = processData(rawData, site, itemLimit, currencyRate);
+            let processedData = processData(rawData, site, itemLimit, currencyRate, currency);
             results.push(...processedData);
         }
         dispatch(shoeComparisonCall(results));
