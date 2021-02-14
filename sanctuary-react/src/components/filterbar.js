@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateSizeFilter, updatePriceLowFilter, updatePriceHighFilter, clearFilter} from '../redux/actions'
-
+import { updateSizeFilter, updatePriceLowFilter, updatePriceHighFilter, clearFilter, updateCurrency} from '../redux/actions'
 
 export default function FilterBar() {
 

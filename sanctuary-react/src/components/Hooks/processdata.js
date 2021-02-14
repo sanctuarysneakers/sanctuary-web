@@ -1,3 +1,17 @@
+
+const getProducts = (data, site) => {
+	switch (site) {
+		case 'stockx':
+			return data["Products"];
+		case 'goat':
+			return data['hits'];
+		case 'grailed':
+			return data["results"][0]["hits"];
+		case 'flightclub':
+			return data['hits'];
+	}
+}
+
 const conditionsMap = {
 	'stockx': {
 		"New": "New"
@@ -22,7 +36,7 @@ const conditionsMap = {
 	}
 }
 
-const processItem = (item, site) => {
+const processItem = (item, site, currency, currencyRate) => {
 	switch (site) {
 		case 'stockx':
 			return {
@@ -30,11 +44,12 @@ const processItem = (item, site) => {
 				"model": item["title"],
 				"sku_id": item["styleId"],
 				"size": item["shoeSize"],
-				"price": item["market"]["lowestAsk"],
+				"price": Math.round(item["market"]["lowestAsk"] * currencyRate),
 				"shoe_condition": conditionsMap['stockx'][item["condition"]],
 				"url": "stockx.com/" + item["urlKey"],
 				"image": item["media"]["imageUrl"],
-				"image_thumbnail": item["media"]["imageUrl"].split('?')[0] + "?w=300&q=50&trim=color"
+				"image_thumbnail": item["media"]["imageUrl"].split('?')[0] + "?w=300&q=50&trim=color",
+				"currency": currency
 			};
 		case 'goat':
 			return {
@@ -42,22 +57,24 @@ const processItem = (item, site) => {
 				'model': item['name'],
 				'sku_id': item['sku'].replace(' ', '-'),
 				'size': item['size'].toString(),
-				'price': item['lowest_price_cents']/100,
+				'price': Math.round((item['lowest_price_cents']/100) * currencyRate),
 				'shoe_condition': conditionsMap['goat'][item['shoe_condition']],
 				'url': 'goat.com/sneakers/' + item['slug'],
 				'image': item['main_picture_url'],
-				'image_thumbnail': item['main_picture_url'].substring(0,23) + "300" + item['main_picture_url'].substring(26)
+				'image_thumbnail': item['main_picture_url'].substring(0,23) + "300" + item['main_picture_url'].substring(26),
+				'currency': currency
 			};
 		case 'grailed':
 			return {
 				"source": 'grailed',
 				"model": item['title'],
 				"size": item['size'],
-				"price": item['price'],
+				"price": Math.round(item['price'] * currencyRate),
 				"shoe_condition": conditionsMap['grailed'][item['condition']],
 				"url": "grailed.com/listings/" + item['id'].toString(),
 				"image": item['cover_photo']['url'],
-				"image_thumbnail": "https://process.fs.grailed.com/auto_image/resize=width:320/output=quality:60/compress/" + item['cover_photo']['url'],
+				"image_thumbnail": "https://process.fs.grailed.com/auto_image/resize=width:320/output=quality:80/compress/" + item['cover_photo']['url'],
+				"currency": currency
 			}
 		case 'flightclub':
 			return {
@@ -65,38 +82,26 @@ const processItem = (item, site) => {
 				'model': item['name'],
 				'sku_id': item['sku'].replace(' ', '-'),
 				'size': item['size'].toString(),
-				'price': item['lowest_price_cents']/100,
+				'price': Math.round((item['lowest_price_cents']/100) * currencyRate),
 				'shoe_condition': conditionsMap['flightclub'][item['shoe_condition']],
 				'url': 'flightclub.com/' + item['slug'],
 				'image': item['main_picture_url'],
-				'image_thumbnail': item['main_picture_url'].substring(0,27) + "300" + item['main_picture_url'].substring(26)
+				'image_thumbnail': item['main_picture_url'].substring(0,27) + "400" + item['main_picture_url'].substring(26),
+				'currency': currency
 			};
 	}
 }
 
-const getProducts = (data, site) => {
-	switch (site) {
-		case 'stockx':
-			return data["Products"];
-		case 'goat':
-			return data['hits'];
-		case 'grailed':
-			return data["results"][0]["hits"];
-		case 'flightclub':
-			return data['hits'];
-	}
-}
-
-export default function processData(data, site, limit) {
+export default function processData(data, site, limit, currency, currencyRate) {
 	let results = [];
 	let products = getProducts(data, site);
 	for (const item of products) {
 		if (results.length >= limit)
-			break;
+			break
 		
-		let processedItem = processItem(item, site)
+		let processedItem = processItem(item, site, currency, currencyRate);
 		if (processedItem['price'] == 0)
-			continue;
+			continue
 		results.push(processedItem);
 	}
 	return results;

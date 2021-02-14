@@ -4,6 +4,7 @@ import goatDataReducer from './goatdatareducer'
 import grailedDataReducer from './graileddatareducer'
 import flightClubDataReducer from './flightclubdatareducer'
 import filterReducer from './filterreducer'
+import currencyReducer from './currencyreducer'
 import shoeModalVisibleReducer from './shoemodalvisiblereducer'
 import aboutModalVisibleReducer from './aboutmodalvisiblereducer'
 import termsModalVisibleReducer from './termsmodalvisiblereducer'
@@ -20,6 +21,7 @@ const globalReducer = combineReducers({
     termsModalVisible: termsModalVisibleReducer,
     privacyModalVisible: privacyModalVisibleReducer,
     filter: filterReducer,
+    currency : currencyReducer,
     shoe: shoeReducer,
     stockxData: stockxDataReducer,
     goatData: goatDataReducer,

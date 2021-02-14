@@ -14,7 +14,6 @@ export default function ShoeModal() {
     const dispatch = useDispatch()
     const shoe = useSelector(state => state.shoe)
     const comparisonData = useSelector(state => state.shoeComparisonData)
-
     const showComparisonDiv = comparisonData.length > 0 ? true : false
 
     // This makes it so that the modal closes if user clicks outside the modal
@@ -22,6 +21,22 @@ export default function ShoeModal() {
     useOutsideAlerter(wrapperRef)
 
     useAPICall('comparison')
+
+    
+    function getCurrencySymbol(currencyName) {
+        if (currencyName === "USD" || currencyName === "CAD" || currencyName === "AUD") {
+            return "$"
+        } else if (currencyName === "GBP") {
+            return "£"
+        } else if (currencyName === "JPY") {
+            return "¥"
+        } else if (currencyName === "EUR") {
+            return "€"
+        } else {
+            return "$"
+        }
+    }
+    var currencySymbol = getCurrencySymbol(shoe.currency);
 
     return (
         <div className="modal-shoe">
@@ -64,7 +79,7 @@ export default function ShoeModal() {
                                 <div className="info-boxes">
                                     <div className="price-condition-container">
                                         <div className="price-condition">
-                                            <h3>$</h3>
+                                            <h3>{currencySymbol}</h3>
                                             <span className="price-font">{shoe.price.toLocaleString()}</span>
                                             <span className="condition-font">{shoe.shoe_condition}</span>
                                         </div>
@@ -128,7 +143,7 @@ export default function ShoeModal() {
                                                 </div>
 
                                                 <div className="compare-price">
-                                                    ${sneaker.price.toLocaleString()}
+                                                    {currencySymbol}{sneaker.price.toLocaleString()}
                                                 </div>
                                             </div>
 
@@ -175,7 +190,7 @@ export default function ShoeModal() {
 
                                     <div className="mobile-price-condition-container">
                                         <div className="mobile-price-condition">
-                                            <h3>$</h3>
+                                            <h3>{currencySymbol}</h3>
                                             <span className="price-font">{shoe.price.toLocaleString()}</span>
                                             <span className="condition-font">{shoe.shoe_condition}</span>
                                         </div>
@@ -235,7 +250,7 @@ export default function ShoeModal() {
                                             </div>
 
                                             <div className="mobile-compare-price">
-                                                ${sneaker.price.toLocaleString()}
+                                            {currencySymbol}{sneaker.price.toLocaleString()}
                                             </div>
                                         </div>
 

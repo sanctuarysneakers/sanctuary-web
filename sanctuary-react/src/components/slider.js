@@ -43,6 +43,7 @@ export default function Slider({ data }) {
                 image_thumbnail={sneaker.image_thumbnail}
                 shoe_condition={sneaker.shoe_condition}
                 sku_id={sneaker.sku_id}
+                currency={sneaker.currency}
               />
             </SwiperSlide>
           )
