@@ -120,7 +120,8 @@ export default function ShoeModal() {
 
                     {showComparisonDiv &&
                         <div className="web-comparison-content">
-                            <div className="compare-divider"></div>
+                            <div className="compare-divider-1"></div>
+                            <div className="compare-divider-2"></div>
                             {
                                 comparisonData.map(sneaker => {
                                     return (

@@ -36,7 +36,7 @@ const conditionsMap = {
 	}
 }
 
-const processItem = (item, site, currencyRate, currency) => {
+const processItem = (item, site, currency, currencyRate) => {
 	switch (site) {
 		case 'stockx':
 			return {
@@ -92,14 +92,14 @@ const processItem = (item, site, currencyRate, currency) => {
 	}
 }
 
-export default function processData(data, site, limit, currencyRate, currency) {
+export default function processData(data, site, limit, currency, currencyRate) {
 	let results = [];
 	let products = getProducts(data, site);
 	for (const item of products) {
 		if (results.length >= limit)
 			break
 		
-		let processedItem = processItem(item, site, currencyRate, currency);
+		let processedItem = processItem(item, site, currency, currencyRate);
 		if (processedItem['price'] == 0)
 			continue
 		results.push(processedItem);
