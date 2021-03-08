@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Switch, Route } from 'react-router-dom'
 
 import NavBar from "./components/navbar"
 import Footer from "./components/footer"
@@ -29,8 +29,11 @@ import BlogPost from "./components/Pages/blog-post-1.js"
 import { setUuid, setUser } from './redux/actions'
 import firebase from './services/firebase'
 import ScrollToTop from './components/Hooks/scrolltotop'
+import Loader from './components/loader'
 
 function App() {
+
+  const dispatch = useDispatch()
 
   const shoeModalVisible = useSelector(state => state.shoeModalVisible)
   const aboutModalVisible = useSelector(state => state.aboutModalVisible)
@@ -40,27 +43,29 @@ function App() {
   const hamburgerModalVisible = useSelector(state => state.hamburgerModalVisible)
   const deleteModalVisible = useSelector(state => state.deleteModalVisible)
 
-  const dispatch = useDispatch()
+  const [loader, setLoader] = useState(true)
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        dispatch(setUuid(user.uid))
         dispatch(setUser(user))
-        console.log("signed in!")
-        console.log(user)
+        setLoader(false)
       }
       else {
-        dispatch(setUuid(''))
         dispatch(setUser(null))
-        console.log("not signed in")
+        setLoader(false)
       }
     })
   })
 
-  return (
-    <React.Fragment>
-      <Router>
+  if (loader) {
+    return (
+      <Loader />
+    )
+  }
+  else {
+    return (
+      <React.Fragment>
         <ScrollToTop />
         <NavBar />
         <Switch>
@@ -74,58 +79,58 @@ function App() {
           <Route path="/profile-edit-name" component={EditProfileName} />
           <Route path="/profile-edit-email" component={EditProfileEmail} />
           <Route path="/profile-edit-password" component={EditProfilePassword} />
-          <Route path="/blog" component={Blog} />
-          <Route path="/blogpost1" component={BlogPost} />
+          {/* <Route path="/blog" component={Blog} /> */}
+          {/* <Route path="/blogpost1" component={BlogPost} /> */}
           <Route component={PageNotFound} />
         </Switch>
-      </Router>
 
-      {
-        shoeModalVisible &&
-        <RemoveScroll>
-          <ShoeModal />
-        </RemoveScroll>
-      }
-      {
-        aboutModalVisible &&
-        <RemoveScroll>
-          <AboutModal />
-        </RemoveScroll>
-      }
-      {
-        termsModalVisible &&
-        <RemoveScroll>
-          <TermsModal />
-        </RemoveScroll>
-      }
-      {
-        privacyModalVisible &&
-        <RemoveScroll>
-          <PrivacyModal />
-        </RemoveScroll>
-      }
-      {
-        filterModalVisible &&
-        <RemoveScroll>
-          <FilterModal />
-        </RemoveScroll>
-      }
-      {
-        hamburgerModalVisible &&
-        <RemoveScroll>
-          <HamburgerModal />
-        </RemoveScroll>
-      }
-      {
-        deleteModalVisible &&
-        <RemoveScroll>
-          <DeleteModal />
-        </RemoveScroll>
-      }
+        {
+          shoeModalVisible &&
+          <RemoveScroll>
+            <ShoeModal />
+          </RemoveScroll>
+        }
+        {
+          aboutModalVisible &&
+          <RemoveScroll>
+            <AboutModal />
+          </RemoveScroll>
+        }
+        {
+          termsModalVisible &&
+          <RemoveScroll>
+            <TermsModal />
+          </RemoveScroll>
+        }
+        {
+          privacyModalVisible &&
+          <RemoveScroll>
+            <PrivacyModal />
+          </RemoveScroll>
+        }
+        {
+          filterModalVisible &&
+          <RemoveScroll>
+            <FilterModal />
+          </RemoveScroll>
+        }
+        {
+          hamburgerModalVisible &&
+          <RemoveScroll>
+            <HamburgerModal />
+          </RemoveScroll>
+        }
+        {
+          deleteModalVisible &&
+          <RemoveScroll>
+            <DeleteModal />
+          </RemoveScroll>
+        }
 
-      <Footer />
-    </React.Fragment>
-  )
+        <Footer />
+      </React.Fragment>
+    )
+  }
 }
 
 

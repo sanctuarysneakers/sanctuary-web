@@ -1,7 +1,7 @@
 import React from 'react'
 import firebase from '../../services/firebase.js'
 import {showPrivacyModal, showTermsModal } from '../../redux/actions'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useMediaQuery } from 'react-responsive'
 import facebook from "../../assets/images/logos/facebook.png"
@@ -14,13 +14,20 @@ export default function SignInOptions() {
     const facebookProvider = new firebase.auth.FacebookAuthProvider()
     const isDesktop = useMediaQuery({ query: '(min-width: 930px)' })
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const googleAuthentication = () => {
-        firebase.auth().signInWithRedirect(googleProvider)
+        firebase.auth().signInWithRedirect(googleProvider).then(
+            history.push("/"),
+            window.scrollTo(0, 0)
+        )
     }
 
     const facebookAuthentication = () => {
-        firebase.auth().signInWithRedirect(facebookProvider)
+        firebase.auth().signInWithRedirect(facebookProvider).then(
+            history.push("/"),
+            window.scrollTo(0, 0)
+        )
     }
 
     return (

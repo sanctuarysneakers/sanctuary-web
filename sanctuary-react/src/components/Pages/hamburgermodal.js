@@ -64,7 +64,7 @@ export default function HamburgerModal() {
                         </div>}
 
                         {!user && <div className='account-description'>
-                            <p> Get exclusive info on sneakers. </p>
+                            <p> Become a member today! </p>
                         </div>}
 
                         {user && 
@@ -109,12 +109,12 @@ export default function HamburgerModal() {
                         </div>
                     </div>
 
-                    <Link className='menu-options-blog' onClick={handlecloseModal} to="/blog">
+                    {/* <Link className='menu-options-blog' onClick={handlecloseModal} to="/blog">
                         <BlogIcon />
                         <div className='title'>
                             <p> Blog </p>
                         </div>
-                    </Link>
+                    </Link> */}
 
                     {user && <div className='menu-options-sign-out' onClick={signOut}>
                         <SignOutIcon />

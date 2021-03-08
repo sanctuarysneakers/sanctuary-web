@@ -14,11 +14,10 @@ export default function Profile() {
     const dispatch = useDispatch()
 
     const signOut = () => {
-        firebase.auth().signOut()
-            .then(() => {
-                history.push("/")
-                window.scrollTo(0, 0)
-            })
+        firebase.auth().signOut().then(
+            history.push("/"),
+            window.scrollTo(0, 0)
+        )
     }
 
     return (

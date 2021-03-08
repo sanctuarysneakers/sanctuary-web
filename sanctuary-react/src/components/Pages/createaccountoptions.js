@@ -1,7 +1,7 @@
 import React from 'react'
 import firebase from '../../services/firebase.js'
 import {showPrivacyModal, showTermsModal } from '../../redux/actions'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import facebook from "../../assets/images/logos/facebook.png"
 import google from "../../assets/images/logos/google.svg"
@@ -12,13 +12,20 @@ export default function CreateAccountOptions() {
     const provider = new firebase.auth.GoogleAuthProvider()
     const facebookProvider = new firebase.auth.FacebookAuthProvider()
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const googleAuthentication = () => {
-        firebase.auth().signInWithRedirect(provider)
+        firebase.auth().signInWithRedirect(provider).then(
+            history.push("/"),
+            window.scrollTo(0, 0)
+        )
     }
 
     const facebookAuthentication = () => {
-        firebase.auth().signInWithRedirect(facebookProvider)
+        firebase.auth().signInWithRedirect(facebookProvider).then(
+            history.push("/"),
+            window.scrollTo(0, 0)
+        )
     }
 
     return (

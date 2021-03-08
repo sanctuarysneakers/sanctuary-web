@@ -15,7 +15,7 @@ export default function Home() {
 
     // Properly adjust height for navbar and mobile bar
     const isDesktop = useMediaQuery({
-        query: '(min-width: 930px)'
+        query: '(min-width: 1120px)'
     })
     const height = use100vh()
     const splashHeight = isDesktop ? height - 91 : height - 61

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { collapseBar, showAboutModal, showHamburgerModal } from '../redux/actions'
 import { Link, useHistory } from 'react-router-dom'
+import { Link as Scroll } from 'react-scroll'
 import { useDispatch, useSelector } from 'react-redux'
 import SearchBar from './searchbar'
 import CollapsibleSearchBar from './searchbarcollapsible'
@@ -23,7 +24,8 @@ export default function NavBar() {
     const isDesktop = useMediaQuery({ query: '(min-width: 1120px)' })    // It was 930 before
     const [isSearchBarVisible, setSearchBarVisibility] = useState(false)
     const history = useHistory()
-    const user = firebase.auth().currentUser
+    // const user = firebase.auth().currentUser
+    const user = useSelector(state => state.user)
 
     const handleClick = () => {
         window.scrollTo(0, 0)
@@ -67,9 +69,9 @@ export default function NavBar() {
                             <SearchBar />
                         </div>}
 
-                        <Link to="blog">
+                        {/* <Link to="blog">
                             Newsroom
-                        </Link>
+                        </Link> */}
 
                         <a onClick={() => dispatch(showAboutModal())}> 
                             How it Works 
@@ -98,97 +100,9 @@ export default function NavBar() {
                                 </div>
                             </Link>
                         }
-
                     </div>
                 </div>
             </div>
-
-
-            // <nav className='navbar'>
-
-            //     {/* Web Version */}
-            //     <div className='navbarContent-web'>
-
-            //         {isCollapsed &&
-            //             <Link
-            //                 to={"/"}
-            //                 onClick={handleClick}
-            //             >
-            //                 <img
-            //                     className='sanctuaryLogo'
-            //                     src={sanctuaryLogo}
-            //                     alt={"Sanctuary"}
-            //                 />
-            //             </Link>
-            //         }
-
-            //         <div className='content-right'>
-
-            //             <div className="nav-searchBar-web">
-            //                 {isSearchBarVisible && isDesktop && <SearchBar />}
-            //             </div>
-
-            //             <Link to="/" className='navlinks'>
-            //                 Catalog
-            //             </Link>
-
-            //             {isCollapsed &&
-            //                 <button className='navlinks' onClick={() => dispatch(showAboutModal())}>
-            //                     How It Works
-            //                 </button>
-            //             }
-
-            //             {!uuid && <React.Fragment>
-            //                 <Link to="/login" className='navlinks'>
-            //                     Login
-            //                 </Link>
-
-            //                 <Link to="/signup" className='navlinks'>
-            //                     Sign Up
-            //                 </Link>
-            //                 {/* <button onClick={() => dispatch(showFilterModal())}> filters </button> */}
-            //             </React.Fragment>}
-
-            //             {uuid && <React.Fragment>
-            //                 <Link to="/profile" className='navlinks'>
-            //                     <GiAmmonite />
-            //                 </Link>
-
-            //                 <button onClick={signOut}> Sign out </button>
-            //             </React.Fragment>}
-
-            //         </div>
-            //     </div >
-
-            //     {/* Mobile Version */}
-            //     <div className='navbarContent-mobile'>
-
-            //         {isCollapsed &&
-            //             <button className='navlinks' onClick={() => dispatch(showAboutModal())}>
-            //                 <GrCircleInformation />
-            //             </button>
-            //         }
-
-            //         {isCollapsed &&
-            //             <Link
-            //                 to={"/"}
-            //                 onClick={handleClick}
-            //             >
-            //                 <img
-            //                     className='sanctuaryLogo'
-            //                     src={sanctuaryLogo}
-            //                     alt={"Sanctuary"}
-            //                 />
-            //             </Link>
-            //         }
-
-            //         <div className='nav-searchBar-mobile'>
-            //             {!isDesktop && <CollapsibleSearchBar />}
-            //         </div>
-
-            //     </div>
-            // </nav >
-
         )
     }
     else {
@@ -203,7 +117,18 @@ export default function NavBar() {
 
                     <div className='icons'>
                         {!isDesktop && <CollapsibleSearchBar />}
-                        {isCollapsed && <FilterIcon />}
+                        {isCollapsed && 
+
+                            <Scroll
+                                activeClass="active"
+                                to="section-a"
+                                spy={true}
+                                smooth={true}
+                                offset={-61}    // 61 is the current height of mobile navbar
+                                duration={600}
+                            >
+                                <FilterIcon />
+                            </Scroll>}
 
                         {isCollapsed && !user &&
                             <button className='hamburger-button' onClick={() => dispatch(showHamburgerModal())}>
@@ -223,7 +148,6 @@ export default function NavBar() {
                             </button>
                         }
                     </div>
-
                 </div>
             </div>
         )
