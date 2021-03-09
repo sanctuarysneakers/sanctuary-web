@@ -2,7 +2,7 @@ import React from 'react'
 import firebase from '../../services/firebase.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
-import { showDeleteModal } from '../../redux/actions'
+import { showDeleteModal, hideHomeSearch } from '../../redux/actions'
 import { FaChevronRight } from 'react-icons/fa'
 import ProfileIcon from '../../assets/images/icons/profileIcon'
 
@@ -12,6 +12,9 @@ export default function Profile() {
     const user = useSelector(state => state.user)
     const history = useHistory()
     const dispatch = useDispatch()
+
+    // Hide the search bar
+    dispatch(hideHomeSearch())
 
     const signOut = () => {
         firebase.auth().signOut().then(

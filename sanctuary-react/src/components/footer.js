@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { showTermsModal, showPrivacyModal } from '../redux/actions'
 
 import img from '../assets/images/footerDrawing.webp'
@@ -112,11 +113,15 @@ export default function Footer() {
                                       href = "mailto: contact@sanctuarysneakers.com">
                                       Contact Us</a>
                         </button>
-                        <button onClick={() => dispatch(showTermsModal())}>
-                            Terms of Use
+                        <button>
+                            <Link to="/terms-of-use">
+                                Terms of Use
+                            </Link>
                         </button>
-                        <button onClick={() => dispatch(showPrivacyModal())}>
-                            Privacy Policy
+                        <button>
+                            <Link to="/privacy-policy">
+                                Privacy Policy
+                            </Link>
                         </button>
                     </ul>
                     <div className="bottomTextIcons">

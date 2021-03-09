@@ -104,30 +104,6 @@ export const hideAboutModal = () => {
     }
 }
 
-export const showTermsModal = () => {
-    return {
-        type: 'SHOW_TERMS_MODAL'
-    }
-}
-
-export const hideTermsModal = () => {
-    return {
-        type: 'HIDE_TERMS_MODAL'
-    }
-}
-
-export const showPrivacyModal = () => {
-    return {
-        type: 'SHOW_PRIVACY_MODAL'
-    }
-}
-
-export const hidePrivacyModal = () => {
-    return {
-        type: 'HIDE_PRIVACY_MODAL'
-    }
-}
-
 export const showFilterModal = () => {
     return {
         type: 'SHOW_FILTER_MODAL'
@@ -175,6 +151,20 @@ export const collapseBar = () => {
 export const expandBar = () => {
     return {
         type: 'EXPAND_BAR'
+    }
+}
+
+// Search Bar visible/disable per page
+
+export const showHomeSeach = () => {
+    return {
+        type: 'SHOW_HOME_SEARCH'
+    }
+}
+
+export const hideHomeSearch = () => {
+    return {
+        type: 'HIDE_HOME_SEARCH'
     }
 }
 

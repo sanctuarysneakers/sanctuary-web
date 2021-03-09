@@ -1,21 +1,18 @@
-import React, { useRef } from 'react'
-import useOutsideAlerter from '../Hooks/useoutsidealerter'
-import { RiCloseLine } from 'react-icons/ri'
-import { useDispatch } from 'react-redux'
-import { hideTermsModal } from '../../redux/actions'
+import React from 'react'
 import { Helmet } from 'react-helmet'
-
 import lastLogo from '../../assets/images/sanctuary-logo-row.png'
+import { useDispatch } from 'react-redux'
+import { hideHomeSearch } from '../../redux/actions'
 
+export default function TermsOfUse() {
 
-export default function TermsModal() {
-
-    const wrapperRef = useRef(null)
     const dispatch = useDispatch()
-    useOutsideAlerter(wrapperRef)
+
+    // Hide the search bar
+    dispatch(hideHomeSearch())
 
     return (
-        <div className="modal-terms">
+        <div className="terms-of-use">
 
             <Helmet>
                 <title>Sanctuary Sneakers | Terms of Use</title>
@@ -25,21 +22,14 @@ export default function TermsModal() {
                 />
             </Helmet>
 
-            <div className="terms" ref={wrapperRef}>
-
-                <div className='close-area'>
-                    <div className='closeButton'
-                        onClick={() => dispatch(hideTermsModal())}>
-                        <RiCloseLine />
-                    </div>
-                </div>
+            <div className="terms">
 
                 <div className='termsCard'>
                     <div className='termsCard-content'>
 
                         <div className='terms-title'>
                             <h1>Terms and Conditions</h1>
-                            <p><strong>This Terms and Condition was last updated on September 18, 2020</strong></p>
+                            <h4>Last updated on September 18, 2020</h4>
                             <p>Please read these terms and conditions carefully before using Our Service.</p>
                         </div>
 

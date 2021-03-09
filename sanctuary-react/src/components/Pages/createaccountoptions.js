@@ -1,6 +1,6 @@
 import React from 'react'
 import firebase from '../../services/firebase.js'
-import {showPrivacyModal, showTermsModal } from '../../redux/actions'
+import { hideHomeSearch } from '../../redux/actions'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import facebook from "../../assets/images/logos/facebook.png"
@@ -13,6 +13,9 @@ export default function CreateAccountOptions() {
     const facebookProvider = new firebase.auth.FacebookAuthProvider()
     const dispatch = useDispatch()
     const history = useHistory()
+
+    // Hide the search bar
+    dispatch(hideHomeSearch())
 
     const googleAuthentication = () => {
         firebase.auth().signInWithRedirect(provider).then(
@@ -36,7 +39,7 @@ export default function CreateAccountOptions() {
                 <h1> the future </h1>
                 <h1> of shopping. </h1>
             </div>
-            
+
             <div className='account-buttons'>
 
                 <button className='facebook-button' onClick={facebookAuthentication}>
@@ -68,9 +71,17 @@ export default function CreateAccountOptions() {
                 <div className='account-terms-policy'>
                     <p> By creating an account, you agree to Sanctuary's </p>
                     <div className='terms-policy-text'>
-                        <p className='terms-policy-pop-up' onClick={() => dispatch(showPrivacyModal())}> Privacy Policy </p>
+
+                        <Link to="/privacy-policy" className='terms-policy-pop-up'>
+                            Privacy Policy
+                            </Link>
+
                         <p> and </p>
-                        <p className='terms-policy-pop-up' onClick={() => dispatch(showTermsModal())}> Terms of Use. </p>
+
+                        <Link to="/terms-of-use" className='terms-policy-pop-up'>
+                            Terms of Use.
+                            </Link>
+
                     </div>
                 </div>
 

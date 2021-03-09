@@ -18,6 +18,7 @@ import ProfileIcon from '../assets/images/icons/profileIcon'
 export default function NavBar() {
 
     const dispatch = useDispatch()
+    const homeSearchVisible = useSelector(state => state.homeSearchVisible)
     const splashHeight = useSelector(state => state.splashHeight)
     const isCollapsed = useSelector(state => state.isSearchBarCollapsed)
     const uuid = useSelector(state => state.uuid)
@@ -33,12 +34,15 @@ export default function NavBar() {
 
     // control Search bar visibility depending on scroll height
     useEffect(() => {
-        const onScroll = () => {
-            setSearchBarVisibility(window.scrollY >= splashHeight)
-        };
-        window.addEventListener("scroll", onScroll);
+        if (homeSearchVisible) {
+            
+            const onScroll = () => {
+                setSearchBarVisibility(window.scrollY >= splashHeight)
+            };
+            window.addEventListener("scroll", onScroll);
 
-        return () => window.removeEventListener("scroll", onScroll);
+            return () => window.removeEventListener("scroll", onScroll);
+        }
     });
 
     // Ensures the nav bar layout is not in collapsed mode when switching to desktop view

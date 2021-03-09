@@ -1,7 +1,15 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
+import { useDispatch } from 'react-redux'
+import { hideHomeSearch } from '../../redux/actions'
 
 export default function PageNotFound() {
+
+    const dispatch = useDispatch()
+
+    // Hide the search bar
+    dispatch(hideHomeSearch())
+
     return (
         <div className="pageNotFoundText">
             <Helmet>

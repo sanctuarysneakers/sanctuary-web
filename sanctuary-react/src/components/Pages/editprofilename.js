@@ -1,13 +1,18 @@
 import React, { useState } from 'react'
 import { useHistory } from "react-router-dom";
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { hideHomeSearch } from '../../redux/actions'
 
 export default function EditProfileName() {
 
+    const history = useHistory()
+    const dispatch = useDispatch()
     const [newName, setNewName] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
     const user = useSelector(state => state.user)
-    const history = useHistory()
+
+    // Hide the search bar
+    dispatch(hideHomeSearch())
 
     const updateName = () => {
         if (newName === '') {

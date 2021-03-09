@@ -1,21 +1,18 @@
-import React, { useRef } from 'react'
-import useOutsideAlerter from '../Hooks/useoutsidealerter'
-import { RiCloseLine } from 'react-icons/ri'
-import { useDispatch } from 'react-redux'
-import { hidePrivacyModal } from '../../redux/actions'
+import React from 'react'
 import { Helmet } from 'react-helmet'
-
 import lastLogo from '../../assets/images/sanctuary-logo-row.png'
+import { useDispatch } from 'react-redux'
+import { hideHomeSearch } from '../../redux/actions'
 
+export default function PrivacyPolicy() {
 
-export default function PrivacyModal() {
-
-    const wrapperRef = useRef(null)
     const dispatch = useDispatch()
-    useOutsideAlerter(wrapperRef)
+
+    // Hide the search bar
+    dispatch(hideHomeSearch())
 
     return (
-        <div className="modal-privacy">
+        <div className='privacy-policy'>
 
             <Helmet>
                 <title>Sanctuary Sneakers | Privacy Policy</title>
@@ -25,21 +22,14 @@ export default function PrivacyModal() {
                 />
             </Helmet>
 
-            <div className="privacy" ref={wrapperRef}>
-
-                <div className='close-area'>
-                    <div className='closeButton'
-                        onClick={() => dispatch(hidePrivacyModal())}>
-                        <RiCloseLine />
-                    </div>
-                </div>
+            <div className="privacy">
 
                 <div className='mainCard'>
                     <div className='mainCard-content'>
 
                         <div className='privacy-title'>
                             <h1>Privacy Policy</h1>
-                            <p><strong>This Privacy Policy was last updated on September 23, 2020</strong></p>
+                            <h4>Last updated on September 23, 2020</h4>
                             <p>This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information
                                 when You use the Service and tells You about Your privacy rights and how the law protects You.</p>
                             <p>We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and
@@ -577,6 +567,6 @@ export default function PrivacyModal() {
                 </div>
             </div>
 
-        </div>
+        </div>  
     )
 }

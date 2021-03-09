@@ -139,10 +139,13 @@
         justify-content: center;
 
         .terms-policy-pop-up {
+            font-size: 12px;
             font-weight: 500;
             color: #3478F6;
+            letter-spacing: 0.4px;
             margin: 0px 4px;
             cursor: pointer;
+            text-decoration: none;
         }
 
         .terms-policy-pop-up:hover {

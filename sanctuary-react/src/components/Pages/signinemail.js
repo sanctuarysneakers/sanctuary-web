@@ -3,17 +3,19 @@ import { useDispatch } from 'react-redux'
 import firebase from '../../services/firebase.js'
 import { useHistory } from "react-router-dom";
 import { Link } from 'react-router-dom'
-import {showPrivacyModal, showTermsModal } from '../../redux/actions'
+import { hideHomeSearch } from '../../redux/actions'
 import sanctuary from "../../assets/images/logos/sanctuary-bird-black.png"
 
 export default function SignInEmail() {
     // TODO: Change these initial values to empty strings LOL
+    const dispatch = useDispatch()
+    const history = useHistory()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
 
-    const dispatch = useDispatch()
-    const history = useHistory()
+    // Hide the search bar
+    dispatch(hideHomeSearch())
 
     const signInEmailPassword = () => {
         firebase.auth().signInWithEmailAndPassword(email, password)
@@ -24,7 +26,7 @@ export default function SignInEmail() {
             .catch(e => {
                 setErrorMessage(e.message)
             }
-        );
+            );
     }
 
     return (
@@ -44,20 +46,20 @@ export default function SignInEmail() {
             <div className='email-form-input'>
                 <div className='email-input'>
                     <input
-                    className="inputBox"
-                    placeholder="Email"
-                    value={email}
-                    onChange={event => setEmail(event.target.value)}
+                        className="inputBox"
+                        placeholder="Email"
+                        value={email}
+                        onChange={event => setEmail(event.target.value)}
                     />
                 </div>
 
                 <div className='password-input'>
                     <input
-                    className="inputBox"
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={event => setPassword(event.target.value)}
+                        className="inputBox"
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={event => setPassword(event.target.value)}
                     />
                 </div>
 
@@ -68,9 +70,17 @@ export default function SignInEmail() {
                 <div className='account-terms-policy'>
                     <p> By signing in, you agree to Sanctuary's </p>
                     <div className='terms-policy-text'>
-                        <p className='terms-policy-pop-up' onClick={() => dispatch(showPrivacyModal())}> Privacy Policy </p>
+
+                        <Link to="/privacy-policy" className='terms-policy-pop-up'>
+                            Privacy Policy
+                            </Link>
+
                         <p> and </p>
-                        <p className='terms-policy-pop-up' onClick={() => dispatch(showTermsModal())}> Terms of Use. </p>
+
+                        <Link to="/terms-of-use" className='terms-policy-pop-up'>
+                            Terms of Use.
+                            </Link>
+
                     </div>
                 </div>
 

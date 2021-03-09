@@ -1,12 +1,12 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Catalog from '../catalog'
 import FilterBar from '../filterbar'
 import { use100vh } from 'react-div-100vh'
 import { useMediaQuery } from 'react-responsive'
 import { Helmet } from 'react-helmet'
 import SearchBar from '../searchbar'
-import { recordSplashHeight } from '../../redux/actions'
+import { recordSplashHeight, showHomeSeach } from '../../redux/actions'
 
 
 export default function Home() {
@@ -20,6 +20,9 @@ export default function Home() {
     const height = use100vh()
     const splashHeight = isDesktop ? height - 91 : height - 61
     dispatch(recordSplashHeight(splashHeight))
+
+    // Show the Search bar
+    dispatch(showHomeSeach())
 
     return (
         <div>

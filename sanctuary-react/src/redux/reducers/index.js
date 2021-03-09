@@ -6,8 +6,6 @@ import flightClubDataReducer from './flightclubdatareducer'
 import filterReducer from './filterreducer'
 import shoeModalVisibleReducer from './shoemodalvisiblereducer'
 import aboutModalVisibleReducer from './aboutmodalvisiblereducer'
-import termsModalVisibleReducer from './termsmodalvisiblereducer'
-import privacyModalVisibleReducer from './privacymodalvisiblereducer'
 import searchBarCollapseReducer from './searchBarCollapseReducer'
 import shoeComparisonDataReducer from './shoecomparisondatareducer'
 import newSearchHappenedReducer from './newsearchhappenedreducer'
@@ -18,12 +16,11 @@ import filterModalVisibleReducer from './filtermodalvisiblereducer'
 import hamburgerModalVisibleReducer from './hamburgermodalvisiblereducer'
 import userReducer from './userreducer'
 import deleteModalVisibleReducer from './deletemodalvisiblereducer'
+import homeSearchVisibleReducer from './homesearchvisiblereducer'
 
 const globalReducer = combineReducers({
     shoeModalVisible: shoeModalVisibleReducer,
     aboutModalVisible: aboutModalVisibleReducer,
-    termsModalVisible: termsModalVisibleReducer,
-    privacyModalVisible: privacyModalVisibleReducer,
     filter: filterReducer,
     shoe: shoeReducer,
     stockxData: stockxDataReducer,
@@ -38,7 +35,8 @@ const globalReducer = combineReducers({
     filterModalVisible: filterModalVisibleReducer,
     hamburgerModalVisible: hamburgerModalVisibleReducer,
     user: userReducer,
-    deleteModalVisible: deleteModalVisibleReducer
+    deleteModalVisible: deleteModalVisibleReducer,
+    homeSearchVisible: homeSearchVisibleReducer
 })
 
 export default globalReducer

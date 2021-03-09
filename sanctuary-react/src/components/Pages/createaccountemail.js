@@ -3,7 +3,7 @@ import firebase from '../../services/firebase.js'
 import { useHistory } from "react-router-dom";
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import {showPrivacyModal, showTermsModal } from '../../redux/actions'
+import { hideHomeSearch } from '../../redux/actions'
 import sanctuary from "../../assets/images/logos/sanctuary-bird-black.png"
 
 export default function CreateAccountEmail() {
@@ -17,6 +17,9 @@ export default function CreateAccountEmail() {
     const history = useHistory()
     const dispatch = useDispatch()
 
+    // Hide the search bar
+    dispatch(hideHomeSearch())
+
     const createAccountEmailPassword = () => {
         if (password !== confirmPassword) {
             setErrorMessage('Passwords do not match.')
@@ -27,7 +30,7 @@ export default function CreateAccountEmail() {
         else {
             firebase.auth().createUserWithEmailAndPassword(email, password)
                 .then(r => {
-                    r.user.updateProfile({displayName: name})
+                    r.user.updateProfile({ displayName: name })
                     history.push("/")
                     window.scrollTo(0, 0)
                 })
@@ -54,38 +57,38 @@ export default function CreateAccountEmail() {
             <div className='email-form-input-create-account'>
                 <div className='name-input'>
                     <input
-                    className="inputBox"
-                    placeholder="Name"
-                    value={name}
-                    onChange={event => setName(event.target.value)}
+                        className="inputBox"
+                        placeholder="Name"
+                        value={name}
+                        onChange={event => setName(event.target.value)}
                     />
                 </div>
                 <div className='email-input'>
                     <input
-                    className="inputBox"
-                    placeholder="Email"
-                    value={email}
-                    onChange={event => setEmail(event.target.value)}
+                        className="inputBox"
+                        placeholder="Email"
+                        value={email}
+                        onChange={event => setEmail(event.target.value)}
                     />
                 </div>
 
                 <div className='password-input'>
                     <input
-                    className="inputBox"
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={event => setPassword(event.target.value)}
+                        className="inputBox"
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={event => setPassword(event.target.value)}
                     />
                 </div>
 
                 <div className='confirm-password-input'>
                     <input
-                    className="inputBox"
-                    type="password"
-                    placeholder="Confirm Password"
-                    value={confirmPassword}
-                    onChange={event => setConfirmPassword(event.target.value)}
+                        className="inputBox"
+                        type="password"
+                        placeholder="Confirm Password"
+                        value={confirmPassword}
+                        onChange={event => setConfirmPassword(event.target.value)}
                     />
                 </div>
             </div>
@@ -95,9 +98,17 @@ export default function CreateAccountEmail() {
                 <div className='account-terms-policy'>
                     <p> By creating an account, you agree to Sanctuary's </p>
                     <div className='terms-policy-text'>
-                        <p className='terms-policy-pop-up' onClick={() => dispatch(showPrivacyModal())}> Privacy Policy </p>
+
+                        <Link to="/privacy-policy" className='terms-policy-pop-up'>
+                            Privacy Policy
+                            </Link>
+
                         <p> and </p>
-                        <p className='terms-policy-pop-up' onClick={() => dispatch(showTermsModal())}> Terms of Use. </p>
+
+                        <Link to="/terms-of-use" className='terms-policy-pop-up'>
+                            Terms of Use.
+                            </Link>
+
                     </div>
                 </div>
 

@@ -6,8 +6,6 @@ import Footer from "./components/footer"
 import Home from "./components/Pages/home"
 import ShoeModal from "./components/Pages/shoemodal"
 import AboutModal from "./components/Pages/aboutmodal"
-import TermsModal from "./components/Pages/termsmodal"
-import PrivacyModal from "./components/Pages/privacymodal"
 import FilterModal from "./components/Pages/filterModal"
 import HamburgerModal from "./components/Pages/hamburgermodal"
 import DeleteModal from "./components/Pages/deletemodal"
@@ -16,6 +14,8 @@ import Profile from './components/Pages/profile'
 import EditProfileName from './components/Pages/editprofilename'
 import EditProfileEmail from './components/Pages/editprofileemail'
 import EditProfilePassword from './components/Pages/editprofilepassword'
+import PrivacyPolicy from './components/Pages/privacypolicy'
+import TermsOfUse from './components/Pages/termsofuse'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { RemoveScroll } from 'react-remove-scroll'
@@ -37,8 +37,6 @@ function App() {
 
   const shoeModalVisible = useSelector(state => state.shoeModalVisible)
   const aboutModalVisible = useSelector(state => state.aboutModalVisible)
-  const termsModalVisible = useSelector(state => state.termsModalVisible)
-  const privacyModalVisible = useSelector(state => state.privacyModalVisible)
   const filterModalVisible = useSelector(state => state.filterModalVisible)
   const hamburgerModalVisible = useSelector(state => state.hamburgerModalVisible)
   const deleteModalVisible = useSelector(state => state.deleteModalVisible)
@@ -79,6 +77,8 @@ function App() {
           <Route path="/profile-edit-name" component={EditProfileName} />
           <Route path="/profile-edit-email" component={EditProfileEmail} />
           <Route path="/profile-edit-password" component={EditProfilePassword} />
+          <Route path="/privacy-policy" component={PrivacyPolicy} />
+          <Route path="/terms-of-use" component={TermsOfUse} />
           {/* <Route path="/blog" component={Blog} /> */}
           {/* <Route path="/blogpost1" component={BlogPost} /> */}
           <Route component={PageNotFound} />
@@ -94,18 +94,6 @@ function App() {
           aboutModalVisible &&
           <RemoveScroll>
             <AboutModal />
-          </RemoveScroll>
-        }
-        {
-          termsModalVisible &&
-          <RemoveScroll>
-            <TermsModal />
-          </RemoveScroll>
-        }
-        {
-          privacyModalVisible &&
-          <RemoveScroll>
-            <PrivacyModal />
           </RemoveScroll>
         }
         {
