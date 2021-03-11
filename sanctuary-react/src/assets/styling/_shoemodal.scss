@@ -192,6 +192,7 @@
                         justify-content: center;
                         img {
                             width: 42px;
+                            height: 50%;
                         }
                     }
                 }
@@ -434,9 +435,14 @@
         height: 40px;
         border-radius: 11px;
 
-        .compare-divider {
+        .compare-divider-1 {
+            margin-left: 233px;
             height: 25px;
-            margin-left: 350px;
+        }
+
+        .compare-divider-2 {
+            margin-left: 466px;
+            height: 25px;
         }
 
         .compare-data {
