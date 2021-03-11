@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { showTermsModal, showPrivacyModal } from '../redux/actions'
 
 import img from '../assets/images/footerDrawing.webp'
 import { FiInstagram, FiTwitter, FiFacebook } from 'react-icons/fi'
@@ -9,7 +8,6 @@ import { FiInstagram, FiTwitter, FiFacebook } from 'react-icons/fi'
 
 export default function Footer() {
 
-    const dispatch = useDispatch()
     const [email, setEmail] = useState('')
     const [emailSubmitted, setEmailSubmitted] = useState(false)
 

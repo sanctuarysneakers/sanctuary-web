@@ -133,14 +133,17 @@
 
             .searchBar-desktop {
                 background: #E6E6E9;
-                width: 400px;
+                width: 350px;
                 animation: fade-in-out 0.6s;
             }
           
             .currencyFilter {
                 width: 110px;
-                margin-top: 25px;
                 margin-left: 20px;
+
+                .css-yk16xz-control {
+                    background-color: #F5F5F7;
+                }
             }
 
             a {

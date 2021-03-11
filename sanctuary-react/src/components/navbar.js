@@ -7,7 +7,6 @@ import SearchBar from './searchbar'
 import CollapsibleSearchBar from './searchbarcollapsible'
 import sanctuaryLogo from "../assets/images/sanctuary-logo-row.png"
 import { useMediaQuery } from 'react-responsive'
-import firebase from '../services/firebase.js'
 import Select from 'react-select'
 
 import HamburgerIcon from '../assets/images/icons/hamburgerIcon'
@@ -43,7 +42,7 @@ export default function NavBar() {
         dispatch(updateCurrency(newCurrency));
     }
 
-    const handleLogoClick = () => {
+    const handleClick = () => {
         window.scrollTo(0, 0)
     }
 
@@ -65,14 +64,6 @@ export default function NavBar() {
         if (isDesktop) 
             dispatch(collapseBar())
     }, [isDesktop])
-
-    const signOut = () => {
-        firebase.auth().signOut()
-            .then(() => {
-                history.push("/")
-                window.scrollTo(0, 0)
-            })
-    }
 
     if (isDesktop) {
         return (
