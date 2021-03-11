@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import firebase from '../../services/firebase.js'
 import { useHistory } from "react-router-dom";
