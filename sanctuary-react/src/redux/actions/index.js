@@ -42,7 +42,7 @@ export const shoeComparisonCall = data => {
     }
 }
 
-// Filter Acitons
+// Filter Actions
 
 export const updateSearch = search => {
     return {
@@ -75,6 +75,15 @@ export const updatePriceHighFilter = price_high => {
 export const clearFilter = () => {
     return {
         type: 'CLEAR_FILTER'
+    }
+}
+
+// Currency change
+
+export const updateCurrency = currency => {
+    return {
+        type: 'UPDATE_CURRENCY',
+        payload: currency
     }
 }
 

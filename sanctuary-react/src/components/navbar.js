@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { collapseBar, showAboutModal, showHamburgerModal } from '../redux/actions'
+import { collapseBar, showAboutModal, showHamburgerModal, updateCurrency } from '../redux/actions'
 import { Link, useHistory } from 'react-router-dom'
 import { Link as Scroll } from 'react-scroll'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,11 +8,11 @@ import CollapsibleSearchBar from './searchbarcollapsible'
 import sanctuaryLogo from "../assets/images/sanctuary-logo-row.png"
 import { useMediaQuery } from 'react-responsive'
 import firebase from '../services/firebase.js'
+import Select from 'react-select'
 
 import HamburgerIcon from '../assets/images/icons/hamburgerIcon'
 import FilterIcon from '../assets/images/icons/filterIcon'
 import ProfileIcon from '../assets/images/icons/profileIcon'
-
 
 
 export default function NavBar() {
@@ -27,8 +27,23 @@ export default function NavBar() {
     const history = useHistory()
     // const user = firebase.auth().currentUser
     const user = useSelector(state => state.user)
+    const currency = useSelector(state => state.currency);
 
-    const handleClick = () => {
+    const currencyOptions = [
+        { label: '$ AUD', value: 'AUD' },
+        { label: '$ CAD', value: 'CAD' },
+        { label: '€ EUR', value: 'EUR' },
+        { label: '£ GBP', value: 'GBP' },
+        { label: '¥ JPY', value: 'JPY' },
+        { label: '$ USD', value: 'USD' }
+    ];
+
+    const handleCurrencyChange = (e) => {
+        const newCurrency = e.value;
+        dispatch(updateCurrency(newCurrency));
+    }
+
+    const handleLogoClick = () => {
         window.scrollTo(0, 0)
     }
 
@@ -47,7 +62,8 @@ export default function NavBar() {
 
     // Ensures the nav bar layout is not in collapsed mode when switching to desktop view
     useEffect(() => {
-        if (isDesktop) dispatch(collapseBar())
+        if (isDesktop) 
+            dispatch(collapseBar())
     }, [isDesktop])
 
     const signOut = () => {
@@ -72,6 +88,13 @@ export default function NavBar() {
                         {isSearchBarVisible && <div className='navbar-desktop-searchbar'>
                             <SearchBar />
                         </div>}
+                         
+                        <Select
+                            className='currencyFilter'
+                            value={currencyOptions.find(obj => obj.value === currency)} // Default currency is USD
+                            options={currencyOptions} 
+                            onChange={handleCurrencyChange}
+                        />
 
                         {/* <Link to="blog">
                             Newsroom

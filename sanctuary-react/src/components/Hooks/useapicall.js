@@ -1,7 +1,6 @@
 import { useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
 import { stockxCall, goatCall, grailedCall, flightClubCall, shoeComparisonCall } from '../../redux/actions'
-
 import createRequestObject from './createrequest'
 import processData from './processdata'
 
@@ -17,6 +16,13 @@ export default function useAPICall(callType) {
     const filter = useSelector(state => state.filter);
     const shoe = useSelector(state => state.shoe);
     const newSearchHappened = useSelector(state => state.newSearchHappened);
+    const currency = useSelector(state => state.currency);
+
+    async function getCurrencyRate(currency) {
+        const response = await fetch('https://api.exchangeratesapi.io/latest?base=USD');
+        const data = await response.json();
+        return data['rates'][currency];
+    }
 
     async function catalogAPICall() {
 
@@ -30,11 +36,13 @@ export default function useAPICall(callType) {
             'flightclub': flightClubCall
         };
 
+        const currencyRate = await getCurrencyRate(currency);
+
         for await (const site of sites) {
             const request = createRequestObject(site, filter);
             const response = await fetch(request.url, request.headers);
             let rawData = await response.json();
-            let processedData = processData(rawData, site, sliderItemLimit);
+            let processedData = processData(rawData, site, sliderItemLimit, currency, currencyRate);
             dispatch(dispatchMap[site](processedData));
         }
 
@@ -43,10 +51,10 @@ export default function useAPICall(callType) {
     async function comparisonAPICall() {
 
         const siteCompareMap = {
-            'stockx': ['goat', 'flightclub'],
-            'goat': ['stockx', 'flightclub'],
+            'stockx': ['goat', 'flightclub', 'grailed'],
+            'goat': ['stockx', 'flightclub', 'grailed'],
             'grailed': [],
-            'flightclub': ['stockx', 'goat']
+            'flightclub': ['stockx', 'goat', 'grailed']
         };
 
         const compareFilter = {
@@ -55,30 +63,52 @@ export default function useAPICall(callType) {
             price_low: '0',
             price_high: '100000'
         };
+
+        const compareFilterGrailed = {
+            search: shoe.model,
+            size: shoe.size.toString(),
+            price_low: '0',
+            price_high: '100000'
+        };
+
         const itemLimit = 1; // per site
+
+        const currencyRate = await getCurrencyRate(currency);
 
         let results = [];
         for await (const site of siteCompareMap[shoe.source]) {
-            const request = createRequestObject(site, compareFilter);
-            const response = await fetch(request.url, request.headers);
-            let rawData = await response.json();
-            let processedData = processData(rawData, site, itemLimit);
-            results.push(...processedData);
+            if (site == "grailed") {
+                const request = createRequestObject(site, compareFilterGrailed); 
+                const response = await fetch(request.url, request.headers);
+                let rawData = await response.json();
+                let processedData = processData(rawData, site, itemLimit, currency, currencyRate);
+                results.push(...processedData);   
+            } else {
+                const request = createRequestObject(site, compareFilter);
+                const response = await fetch(request.url, request.headers);
+                let rawData = await response.json();
+                let processedData = processData(rawData, site, itemLimit, currency, currencyRate);
+                results.push(...processedData);
+            }
         }
+
         dispatch(shoeComparisonCall(results));
 
     }
 
     useEffect(() => {
-        if (callType === 'catalog') {
+        if (callType === 'catalog')
             catalogAPICall()
-        }
-    }, [newSearchHappened]);
+    }, [newSearchHappened])
 
     useEffect(() => {
-        if (callType === 'comparison') {
+        if (callType === 'comparison')
             comparisonAPICall()
-        }
-    }, [shoe]);
+    }, [shoe])
+
+    useEffect(() => {
+        if (callType === 'catalog')
+            catalogAPICall()
+    }, [currency])
 
 }

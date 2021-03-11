@@ -11,6 +11,22 @@ export default function Sneaker(props) {
         dispatch(showShoeModal())
     }
 
+    function getCurrencySymbol(currencyName) {
+        if (currencyName === "USD" || currencyName === "CAD" || currencyName === "AUD") {
+            return "$"
+        } else if (currencyName === "GBP") {
+            return "£"
+        } else if (currencyName === "JPY") {
+            return "¥"
+        } else if (currencyName === "EUR") {
+            return "€"
+        } else {
+            return "$"
+        }
+    }
+
+    var currencySymbol = getCurrencySymbol(props.currency);
+
     return (
         <div className='sneaker' onClick={() => clickHandler()}>
             <div className='sneaker-content'>
@@ -34,7 +50,7 @@ export default function Sneaker(props) {
                     </div>
 
                     <div className='priceAndSize'>
-                        <h3 className='price'>{`$${props.price.toLocaleString()}`}</h3>
+                        <h3 className='price'>{currencySymbol}{props.price.toLocaleString()}</h3>
                         <h3 className='size'>{props.size}</h3>
                     </div>
                 </div>
