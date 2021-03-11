@@ -11,8 +11,19 @@
 @import "./slider";
 @import "./modal";
 @import "./pagenotfound";
-@import "./termsmodal";
-@import "./privacymodal";
+@import "./termsofuse";
+@import "./privacypolicy";
+@import "./logincreate";
+@import "./hamburgermodal";
+@import "./accountbuttonform";
+@import "./profile";
+@import "./newsroom";
+@import "./newsroom-articles";
+@import "./newsroom-drops";
+@import "./deletemodal";
+@import "./editprofile";
+@import "./blogarticle";
+@import "./loader";
 
 @import "swiper/swiper";
 @import 'swiper/components/navigation/navigation';
@@ -21,7 +32,7 @@ body {
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     color: $text-color;
-    background: #F6F6F6;
+    background: #F5F5F7;
     margin: 0;
 
     width: 100vw;
@@ -30,5 +41,5 @@ body {
 }
 
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
 }

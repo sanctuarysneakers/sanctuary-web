@@ -1,4 +1,4 @@
-.modal-shoe, .modal-about, .modal-terms, .modal-privacy {
+.modal-shoe, .modal-about, .modal-terms, .modal-privacy, .modal-delete {
     position: fixed;
     top: 0;
     left: 0;
@@ -18,13 +18,27 @@
     } 
 }
 
+.modal-hamburger {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.70)
+}
+
 .modal-shoe {
     // align-items: center;
-
     @supports not (backdrop-filter: blur(20px)) {
         background: rgba(#D6D6D6, 0.97);
     } 
 }
+
+
 
 .closeButton {
     cursor: pointer;

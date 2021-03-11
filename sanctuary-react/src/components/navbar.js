@@ -1,22 +1,32 @@
 import React, { useEffect, useState } from 'react'
-import { collapseBar, showAboutModal, updateCurrency } from '../redux/actions'
-import { Link } from 'react-router-dom'
+import { collapseBar, showAboutModal, showHamburgerModal, updateCurrency } from '../redux/actions'
+import { Link, useHistory } from 'react-router-dom'
+import { Link as Scroll } from 'react-scroll'
 import { useDispatch, useSelector } from 'react-redux'
 import SearchBar from './searchbar'
 import CollapsibleSearchBar from './searchbarcollapsible'
 import sanctuaryLogo from "../assets/images/sanctuary-logo-row.png"
 import { useMediaQuery } from 'react-responsive'
-import { GrCircleInformation } from "react-icons/gr";
+import firebase from '../services/firebase.js'
 import Select from 'react-select'
+
+import HamburgerIcon from '../assets/images/icons/hamburgerIcon'
+import FilterIcon from '../assets/images/icons/filterIcon'
+import ProfileIcon from '../assets/images/icons/profileIcon'
 
 
 export default function NavBar() {
 
-    const dispatch = useDispatch();
-    const splashHeight = useSelector(state => state.splashHeight);
-    const isSearchBarCollapsed = useSelector(state => state.isSearchBarCollapsed);
-    const isDesktop = useMediaQuery({ query: '(min-width: 930px)' });
-    const [isSearchBarVisible, setSearchBarVisibility] = useState(false);
+    const dispatch = useDispatch()
+    const homeSearchVisible = useSelector(state => state.homeSearchVisible)
+    const splashHeight = useSelector(state => state.splashHeight)
+    const isCollapsed = useSelector(state => state.isSearchBarCollapsed)
+    const uuid = useSelector(state => state.uuid)
+    const isDesktop = useMediaQuery({ query: '(min-width: 1120px)' })    // It was 930 before
+    const [isSearchBarVisible, setSearchBarVisibility] = useState(false)
+    const history = useHistory()
+    // const user = firebase.auth().currentUser
+    const user = useSelector(state => state.user)
     const currency = useSelector(state => state.currency);
 
     const currencyOptions = [
@@ -39,12 +49,15 @@ export default function NavBar() {
 
     // control Search bar visibility depending on scroll height
     useEffect(() => {
-        const onScroll = () => {
-            setSearchBarVisibility(window.scrollY >= splashHeight)
-        }
-        window.addEventListener("scroll", onScroll);
+        if (homeSearchVisible) {
+            
+            const onScroll = () => {
+                setSearchBarVisibility(window.scrollY >= splashHeight)
+            };
+            window.addEventListener("scroll", onScroll);
 
-        return () => window.removeEventListener("scroll", onScroll);
+            return () => window.removeEventListener("scroll", onScroll);
+        }
     });
 
     // Ensures the nav bar layout is not in collapsed mode when switching to desktop view
@@ -53,78 +66,117 @@ export default function NavBar() {
             dispatch(collapseBar())
     }, [isDesktop])
 
+    const signOut = () => {
+        firebase.auth().signOut()
+            .then(() => {
+                history.push("/")
+                window.scrollTo(0, 0)
+            })
+    }
 
-    return (
-        <nav className='navbar'>
+    if (isDesktop) {
+        return (
+            <div className='navbar-desktop'>
 
-            {/* Desktop Version */}
-            <div className='navbarContent-web'>
+                <div className='navbar-desktop-content'>
 
-                {isSearchBarCollapsed &&
-                    <Link
-                        to={"/"}
-                        onClick={handleLogoClick}
-                    >
-                        <img
-                            className='sanctuaryLogo'
-                            src={sanctuaryLogo}
-                            alt={"Sanctuary"}
-                        />
+                    <Link to="/" onClick={handleClick}>
+                        <img className='sanctuary-logo-desktop' src={sanctuaryLogo} alt={"Sanctuary"} />
                     </Link>
-                }
 
-                <div className='content-right'>
-
-                    <div className="nav-searchBar-web">
-                        {isSearchBarVisible && isDesktop && <SearchBar />}
-                    </div>
-
-                    {isSearchBarCollapsed &&
+                    <div className='navbar-desktop-links'>
+                        {isSearchBarVisible && <div className='navbar-desktop-searchbar'>
+                            <SearchBar />
+                        </div>}
+                         
                         <Select
                             className='currencyFilter'
                             value={currencyOptions.find(obj => obj.value === currency)} // Default currency is USD
                             options={currencyOptions} 
                             onChange={handleCurrencyChange}
                         />
-                    }
 
-                    {isSearchBarCollapsed &&
-                        <button className='howItWorks' onClick={() => dispatch(showAboutModal())}>
-                            How It Works
-                        </button>
-                    }
+                        {/* <Link to="blog">
+                            Newsroom
+                        </Link> */}
 
-                </div>
-            </div >
+                        <a onClick={() => dispatch(showAboutModal())}> 
+                            How it Works 
+                        </a>
 
-            {/* Mobile Version */}
-            <div className='navbarContent-mobile'>
+                        {!user && <Link to="sign-in">
+                            Sign In
+                        </Link>}
 
-                    {isSearchBarCollapsed &&
-                        <button className='howItWorks' onClick={() => dispatch(showAboutModal())}>
-                            <GrCircleInformation />
-                        </button>
-                    }
+                        {!user && <Link to="create-account" className='navbar-desktop-create-account'>
+                            Create Account
+                        </Link>}
 
-                    {isSearchBarCollapsed &&
-                        <Link
-                            to={"/"}
-                            onClick={handleLogoClick}
-                        >
-                            <img
-                                className='sanctuaryLogo'
-                                src={sanctuaryLogo}
-                                alt={"Sanctuary"}
-                            />
-                        </Link>
-                    }
+                        {user && 
+                            <Link className='navbar-desktop-profile-container' to="/profile">
+                                <div className='navbar-desktop-profile'>
 
-                    <div className='nav-searchBar-mobile'>
-                        {isSearchBarVisible && !isDesktop && <CollapsibleSearchBar />}
+                                    {user.photoURL !== null &&
+                                        <img className='navbar-desktop-profile-picture'
+                                            src={user.photoURL}
+                                            alt="desktop-profile-picture"
+                                        />
+                                    }
+
+                                    {user.photoURL === null && <ProfileIcon />} 
+                                </div>
+                            </Link>
+                        }
                     </div>
-
+                </div>
             </div>
-        </nav >
-    );
+        )
+    }
+    else {
+        return (
+            <div className='navbar-mobile'>
+                <div className='navbar-mobile-content'>
 
+                    {isCollapsed &&
+                        <Link to={"/"} onClick={handleClick}>
+                            <img className='sanctuary-logo' src={sanctuaryLogo} />
+                        </Link>}
+
+                    <div className='icons'>
+                        {!isDesktop && <CollapsibleSearchBar />}
+                        {isCollapsed && 
+
+                            <Scroll
+                                activeClass="active"
+                                to="section-a"
+                                spy={true}
+                                smooth={true}
+                                offset={-61}    // 61 is the current height of mobile navbar
+                                duration={600}
+                            >
+                                <FilterIcon />
+                            </Scroll>}
+
+                        {isCollapsed && !user &&
+                            <button className='hamburger-button' onClick={() => dispatch(showHamburgerModal())}>
+                                <HamburgerIcon />
+                            </button>
+                        }
+
+                        {isCollapsed && user &&
+                            <button className='profile-button' onClick={() => dispatch(showHamburgerModal())}>
+
+                                {user.photoURL !== null &&
+                                    <img className='profilePicture' src={user.photoURL} alt='profile-picture' />
+                                }
+
+                                {user.photoURL === null && <ProfileIcon />}
+
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+        )
+    }
 }

@@ -1,0 +1,165 @@
+.newsroom-latest-articles {
+    padding: 0px 24px;
+    padding-top: 50px;
+
+    .newsroom-latest-articles-title {
+        max-width: 380px;
+        margin: 0px auto;
+        
+        p {
+            font-size: 24px;
+            font-weight: 600;
+            color: black;
+        }
+    }
+
+    .newsroom-articles-wrapper {
+        padding-top: 15px;
+
+        .newsroom-featured-article {
+            position: relative;
+            display: flex;
+            border-radius: 10px;
+            overflow: hidden;
+            max-width: 380px;
+            min-width: 272px;
+            margin: 0px auto;
+
+            img {
+                width: 100%;
+                height: auto;
+            }
+
+            .newsroom-featured-article-text {
+                position: absolute;
+                bottom: 0;
+                padding: 0px 24px;
+                padding-bottom: 28px;
+
+                p {
+                    font-size: 15px;
+                    font-weight: 600;
+                    color: #C6C6C6;
+                    margin-bottom: 7px;
+                }
+
+                h1 {
+                    font-size: 25px;
+                    font-weight: 700;
+                    color: white;
+                    line-height: 36px;
+                }
+            }
+        }
+
+        .newsroom-article, .newsroom-article-middle {
+            margin-top: 25px;
+            border-radius: 10px;
+            background: white;
+            overflow: hidden;
+            max-width: 380px;
+            min-width: 272px;
+            margin-left: auto;
+            margin-right: auto;
+
+            .newsroom-article-header {
+                display: flex;
+
+                img {
+                    width: 100%;
+                    height: auto; /* Test on ios */
+                }
+            }
+
+            .newsroom-article-text {
+                padding: 0px 24px;
+                margin-top: 20px;
+                margin-bottom: 30px;
+
+                p {
+                    font-size: 12.5px;
+                    font-weight: 500;
+                    color: #6E6E72;
+                    margin-bottom: 7px;
+                }
+
+                h2 {
+                    font-size: 17.5px;
+                    font-weight: 600;
+                    color: black;
+                    line-height: 24.5px;
+                }
+            }
+        }
+    }
+}
+
+// Desktop Version
+@media screen and (min-width: 1100px) {
+    .newsroom-latest-articles {
+        padding-left: 60px;
+        padding-right: 60px;
+
+        .newsroom-latest-articles-title {
+            max-width: 980px;
+
+            p {
+                font-size: 29px;
+            }
+        }
+
+        .newsroom-articles-wrapper {
+            padding-top: 25px;
+
+            .newsroom-featured-article {
+                max-width: 980px;
+                width: 980px;
+                height: 435px;
+                background: grey;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+
+                .newsroom-featured-article-text {
+                    padding: 0px 50px;
+                    padding-bottom: 35px;
+
+                    p {
+                        font-size: 18px;
+                        margin-bottom: 10px;
+                    }
+
+                    h1 {
+                        font-size: 36px;
+                    }
+                }
+            }
+
+            .newsroom-article-container {
+                display: flex;
+                width: 980px;
+                margin: 50px auto;
+
+                .newsroom-article, .newsroom-article-middle {
+                    margin-top: 0px;
+                    width: 310px;
+                    margin-left: 0px;
+                    margin-right: 0px;
+
+                    .newsroom-article-text {
+                        h2 {
+                            font-size: 17px;
+                        }
+                    }
+                }
+
+                .newsroom-article-middle {
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+            }   
+        }
+    }
+}

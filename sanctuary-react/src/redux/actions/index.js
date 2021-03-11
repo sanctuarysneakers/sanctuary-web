@@ -113,27 +113,39 @@ export const hideAboutModal = () => {
     }
 }
 
-export const showTermsModal = () => {
+export const showFilterModal = () => {
     return {
-        type: 'SHOW_TERMS_MODAL'
+        type: 'SHOW_FILTER_MODAL'
     }
 }
 
-export const hideTermsModal = () => {
+export const hideFilterModal = () => {
     return {
-        type: 'HIDE_TERMS_MODAL'
+        type: 'HIDE_FILTER_MODAL'
     }
 }
 
-export const showPrivacyModal = () => {
+export const showHamburgerModal = () => {
     return {
-        type: 'SHOW_PRIVACY_MODAL'
+        type: 'SHOW_HAMBURGER_MODAL'
     }
 }
 
-export const hidePrivacyModal = () => {
+export const hideHamburgerModal = () => {
     return {
-        type: 'HIDE_PRIVACY_MODAL'
+        type: 'HIDE_HAMBURGER_MODAL'
+    }
+}
+
+export const showDeleteModal = () => {
+    return {
+        type: 'SHOW_DELETE_MODAL'
+    }
+}
+
+export const hideDeleteModal = () => {
+    return {
+        type: 'HIDE_DELETE_MODAL'
     }
 }
 
@@ -151,6 +163,20 @@ export const expandBar = () => {
     }
 }
 
+// Search Bar visible/disable per page
+
+export const showHomeSeach = () => {
+    return {
+        type: 'SHOW_HOME_SEARCH'
+    }
+}
+
+export const hideHomeSearch = () => {
+    return {
+        type: 'HIDE_HOME_SEARCH'
+    }
+}
+
 // Callback Triggers
 
 export const newSearchHappened = () => {
@@ -165,5 +191,33 @@ export const recordSplashHeight = splashHeight => {
     return {
         type: 'RECORD_SPLASH_HEIGHT',
         payload: splashHeight
+    }
+}
+
+// Account 
+
+export const setUuid = uuid => {
+    return {
+        type: 'SET_UUID',
+        payload: uuid
+    }
+}
+
+export const clearUuid = () => {
+    return {
+        type: 'CLEAR_UUID'
+    }
+}
+
+export const setUser = user => {
+    return {
+        type: 'SET_USER',
+        payload: user
+    }
+}
+
+export const clearUser = () => {
+    return {
+        type: 'CLEAR_USER'
     }
 }

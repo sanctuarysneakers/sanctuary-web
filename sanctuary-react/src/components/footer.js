@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { showTermsModal, showPrivacyModal } from '../redux/actions'
 
 import img from '../assets/images/footerDrawing.webp'
@@ -108,15 +109,19 @@ export default function Footer() {
                 <div className='bottomText-content'>
                     <ul>
                         <button>
-                        <a class="contact-link" 
+                        <a className="contact-link" 
                                       href = "mailto: contact@sanctuarysneakers.com">
                                       Contact Us</a>
                         </button>
-                        <button onClick={() => dispatch(showTermsModal())}>
-                            Terms of Use
+                        <button>
+                            <Link to="/terms-of-use">
+                                Terms of Use
+                            </Link>
                         </button>
-                        <button onClick={() => dispatch(showPrivacyModal())}>
-                            Privacy Policy
+                        <button>
+                            <Link to="/privacy-policy">
+                                Privacy Policy
+                            </Link>
                         </button>
                     </ul>
                     <div className="bottomTextIcons">
@@ -125,7 +130,7 @@ export default function Footer() {
                             <a href="https://www.facebook.com/sanctuarysneakers"><FiFacebook className='facebook-icon'/></a>
                             <a href="https://www.instagram.com/sanctuarysneakers/"><FiInstagram className='instagram-icon'/></a>
                         </div>
-                        <h3>© 2020 Sanctuary Streetwear Marketplace Inc.</h3>
+                        <h3>2021 Sanctuary Streetwear Marketplace Inc.</h3>
                     </div>
                 </div>
             </div>

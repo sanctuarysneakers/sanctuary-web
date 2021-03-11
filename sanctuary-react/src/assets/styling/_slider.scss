@@ -3,17 +3,14 @@
 
   .swiper-container {
     height: 380px;
+    padding-left: 66px;
   }
 
   .swiper-slide {
     display: flex;
     align-items: center;
-    width: auto;
+    width: 250px; // width of sneaker card (227px) + space between (23px)
   }  
-}
-
-.swiper-wrapper {
-  margin-left: 66px;
 }
 
 .swiper-button-prev:after, .swiper-button-next:after {
@@ -37,8 +34,12 @@
 }
 
 @media screen and (max-width: 929px) {
-  .swiper-wrapper {
-    margin-left: 24px;
+
+  .slider {
+  
+    .swiper-container {
+      padding-left: 24px;
+    }
   }
 
   .swiper-button-prev:after, .swiper-button-next:after {
