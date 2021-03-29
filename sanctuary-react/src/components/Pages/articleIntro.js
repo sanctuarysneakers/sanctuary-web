@@ -4,14 +4,13 @@ import pictureTwo from '../../assets/images/Article1-2.jpg'
 import pictureThree from '../../assets/images/Article1-3.jpg'
 import author from '../../assets/images/ColeVanHinte.jpg'
 
-export default function BlogPost1() {
+export default function ArticleIntro() {
 
     return (
         <div className='article'>
             <div className='article-wrapper'>
 
                 <div className='article-header'>
-
                     <div className='article-header-gradient'>
                         <div className='article-header-content'>
                             <h1>

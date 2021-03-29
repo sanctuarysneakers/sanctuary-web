@@ -87,9 +87,9 @@ export default function NavBar() {
                             onChange={handleCurrencyChange}
                         />
 
-                        {/* <Link to="blog">
+                        <Link to="blog">
                             Newsroom
-                        </Link> */}
+                        </Link>
 
                         <a onClick={() => dispatch(showAboutModal())}> 
                             How it Works 

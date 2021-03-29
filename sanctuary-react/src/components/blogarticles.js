@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useMediaQuery } from 'react-responsive'
 import FeaturedArticleImage from '../assets/images/newsroomFeaturedPic.svg'
+import Article1Header from '../assets/images/Article1-header.svg'
 import HuaracheDesktop from '../assets/images/Huarache-desktop.png'
 import ArticleImage1 from '../assets/images/article-1-pic.svg'
 import ArticleImage2 from '../assets/images/article-2-pic.svg'
@@ -20,38 +21,42 @@ export default function LatestArticles() {
 
             <div className='newsroom-articles-wrapper'>
 
-                <Link to="/blogpost1">
+                <Link to="/article-introduction">
                     <div className='newsroom-featured-article'>
                         {!isDesktop && <img src={FeaturedArticleImage} alt='Featured Article' />}
                         {isDesktop && <img src={HuaracheDesktop} alt='Featured Article' />}
                         <div className='newsroom-featured-article-text'>
-                            <p> January 30, 2021 </p>
-                            <h1> The history of the NIKE Huarache </h1>
+                            <p> March 26, 2021 </p>
+                            <h1> Sanctuary: Our Story </h1>
                         </div>
                     </div>
                 </Link>
 
                 <div className='newsroom-article-container'>
-
-                    <div className='newsroom-article'>
-                        <div className='newsroom-article-header'>
-                            <img src={ArticleImage1} alt='Article 1' />
+                        <div className='newsroom-article'>
+                            <Link to="/article-sneakersmeetengineering">
+                                <div className='newsroom-article-header'>
+                                    <img src={ArticleImage1} alt='Article 1' />
+                                </div>
+                                <div className='newsroom-article-text'>
+                                    <p> March 28, 2021 </p>
+                                    <h2> Sneakers Meet Engineering </h2>
+                                </div>
+                            </Link>
                         </div>
-                        <div className='newsroom-article-text'>
-                            <p> January 15, 2021 </p>
-                            <h2> Iconic Silhouettes loved worldwide </h2>
-                        </div>
-                    </div>
 
                     <div className='newsroom-article-middle'>
-                        <div className='newsroom-article-header'>
-                            <img src={ArticleImage2} alt='Article 1' />
-                        </div>
-                        <div className='newsroom-article-text'>
-                            <p> January 2, 2021 </p>
-                            <h2> How Jordan Brand apparel is making a return soon </h2>
-                        </div>
+                        <Link to="/article-demystifying">
+                            <div className='newsroom-article-header'>
+                                <img src={ArticleImage2} alt='Article 1' />
+                            </div>
+                            <div className='newsroom-article-text'>
+                                <p> March 28, 2021 </p>
+                                <h2> Demystifying The Sneaker Market </h2>
+                            </div>
+                        </Link>
                     </div>
+
 
                     <div className='newsroom-article'>
                         <div className='newsroom-article-header'>
