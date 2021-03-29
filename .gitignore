@@ -11,3 +11,4 @@ __pycache__
 .elasticbeanstalk
 
 .DS_Store
+.vscode
