@@ -33,17 +33,18 @@ export default function LatestArticles() {
                 </Link>
 
                 <div className='newsroom-article-container'>
-                        <div className='newsroom-article'>
-                            <Link to="/article-sneakersmeetengineering">
-                                <div className='newsroom-article-header'>
-                                    <img src={ArticleImage1} alt='Article 1' />
-                                </div>
-                                <div className='newsroom-article-text'>
-                                    <p> March 28, 2021 </p>
-                                    <h2> Sneakers Meet Engineering </h2>
-                                </div>
-                            </Link>
-                        </div>
+      
+                    <div className='newsroom-article'>
+                        <Link to="/article-sneakersmeetengineering">
+                            <div className='newsroom-article-header'>
+                                <img src={ArticleImage1} alt='Article 1' />
+                            </div>
+                            <div className='newsroom-article-text'>
+                                <p> March 28, 2021 </p>
+                                <h2> Sneakers Meet Engineering </h2>
+                            </div>
+                        </Link>
+                    </div>
 
                     <div className='newsroom-article-middle'>
                         <Link to="/article-demystifying">
@@ -56,7 +57,6 @@ export default function LatestArticles() {
                             </div>
                         </Link>
                     </div>
-
 
                     <div className='newsroom-article'>
                         <div className='newsroom-article-header'>
