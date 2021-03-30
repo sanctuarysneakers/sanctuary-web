@@ -207,3 +207,54 @@ def get_grailed_data(search_query, shoe_size, price_low, price_high, sort_by, pa
 	return results
 
 
+def get_sneakercon_data(search_query, shoe_size, price_low, price_high, page, page_len):
+	url = "https://war6i72q7j.execute-api.us-east-1.amazonaws.com/prod/public/marketplace/all"
+	headers = {
+		"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36",
+		"origin": "https://sneakercon.com",
+		"referer": "https://sneakercon.com/",
+		"accept": "application/json",
+		"sec-ch-ua-mobile": "?0",
+		"sec-fetch-dest": "empty",
+		"sec-fetch-mode": "cors",
+		"sec-fetch-site": "cross-site"
+	}
+
+	parameters = {
+		"size": shoe_size,
+		"search": search_query,
+		"offset": "0",
+		"limit": "24",
+		"isNew": "true"
+	}
+	response = requests.get(url, headers=headers, params=parameters)
+	response.raise_for_status()
+	request_data = response.json()
+
+	results = []
+	for item in request_data:
+		if len(results) >= page_len:
+			break
+		prices_url = f"https://war6i72q7j.execute-api.us-east-1.amazonaws.com/prod/public/bid/new/makeofferdetails/{item['id']}"
+		price_data = requests.get(prices_url, headers=headers).json()
+		item_price = None
+		for p in price_data:
+			if p['size'] == shoe_size:
+				item_price = p['salePrice']
+		
+		results.append({
+			"id": item['id'],
+			"source": 'Sneaker Con',
+			"model": item['description'] + ' ' + item['nickname'],
+			"sku_id": item['sku'].replace(' ', '-'),
+			"size": float(shoe_size),
+			"price": item_price,
+			"shoe_condition": 'New',
+			"category": item['category'],
+			"url": "sneakercon.com/product/" + str(item['id']) + '-' + item['nickname'].replace(' ', '-'),
+			"image": item['pictures'][0],
+			"image_thumbnail": item['pictures'][0]
+		})
+
+	return results
+
