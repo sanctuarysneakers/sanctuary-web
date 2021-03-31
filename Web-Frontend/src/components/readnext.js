@@ -1,15 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import ArticleImage1 from '../assets/images/article-1-pic.svg'
-import ArticleImage2 from '../assets/images/article-2-pic.svg'
 import ArticleImage3 from '../assets/images/article-3-pic.svg'
-import TEST from '../assets/images/articleEngineering1.jpg'
 
 export default function Footer() {
 
-    const articles = {'/article-introduction' : ['Sanctuary: Our Story', 'January 31st, 2021','../assets/images/Article1-1.jpg'],
-                      '/article-sneakersmeetengineering' : ['Sneakers, Meet Engineering', 'March 28, 2021', '../assets/images/articleEngineering1.jpg'],
-                      '/article-demystifying' : ['Demystifying the Sneaker Market', 'March 29, 2021', '../assets/images/articledemystifying1.jpg']
+    const articles = {'/article-introduction' : ['Sanctuary: Our Story', 'January 31st, 2021','https://svgshare.com/i/VdL.svg'],
+                      '/article-sneakersmeetengineering' : ['Sneakers, Meet Engineering', 'March 28, 2021', 'https://svgshare.com/i/VfQ.svg'],
+                      '/article-demystifying' : ['Demystifying the Sneaker Market', 'March 29, 2021', 'https://svgshare.com/i/VdK.svg']
                     }
     const currPage = window.location.pathname;
 
@@ -43,7 +40,7 @@ export default function Footer() {
                     <div className='newsroom-article'>
                         <Link to={nextArticles[0][0]}>
                             <div className='newsroom-article-header'>
-                                <img src={TEST} alt='TEST' />
+                                <img src={nextArticles[0][1][2]} alt='TEST' />
                             </div>
                             <div className='newsroom-article-text'>
                                 <p> {nextArticles[0][1][1]} </p>
@@ -55,7 +52,7 @@ export default function Footer() {
                     <div className='newsroom-article-middle'>
                         <Link to={nextArticles[1][0]}>
                             <div className='newsroom-article-header'>
-                                <img src={ArticleImage2} alt='Article 1' />
+                                <img src={nextArticles[1][1][2]} alt='Article 1' />
                             </div>
                             <div className='newsroom-article-text'>
                                 <p> {nextArticles[1][1][1]} </p>

@@ -3,10 +3,6 @@ import pictureOne from '../../assets/images/Article1-1.jpg'
 import pictureTwo from '../../assets/images/Article1-2.jpg'
 import pictureThree from '../../assets/images/Article1-3.jpg'
 import author from '../../assets/images/ColeVanHinte.jpg'
-import ArticleImage1 from '../../assets/images/article-1-pic.svg'
-import ArticleImage2 from '../../assets/images/article-2-pic.svg'
-import ArticleImage3 from '../../assets/images/article-3-pic.svg'
-import { Link } from 'react-router-dom'
 import ReadNext from '../readnext.js'
 
 export default function ArticleIntro() {
