@@ -15,7 +15,6 @@ def get_stockx_data(search_query, shoe_size, price_low, price_high, page, page_l
 		"x-requested-with": "XMLHttpRequest",
 		"cache-control": "no-cache"
 	}
-
 	parameters = {
 		"productCategory": "sneakers",
 		"_search": search_query,
@@ -32,6 +31,7 @@ def get_stockx_data(search_query, shoe_size, price_low, price_high, page, page_l
 	for item in request_data:
 		if len(results) >= page_len:
 			break
+		
 		results.append({
 			"id": abs(hash(item["objectID"]) % (10**7)),
 			"source": "StockX",
@@ -219,7 +219,6 @@ def get_sneakercon_data(search_query, shoe_size, price_low, price_high, page, pa
 		"sec-fetch-mode": "cors",
 		"sec-fetch-site": "cross-site"
 	}
-
 	parameters = {
 		"size": shoe_size,
 		"search": search_query,
@@ -235,6 +234,11 @@ def get_sneakercon_data(search_query, shoe_size, price_low, price_high, page, pa
 	for item in request_data:
 		if len(results) >= page_len:
 			break
+		
+		# NOTE: Getting price data is expensive because for each item
+		# we have to make a network request to another API endpoint.
+		# This will be fixed in the redesign, where we load prices
+		# after a user clicks on a certain shoe.
 		prices_url = f"https://war6i72q7j.execute-api.us-east-1.amazonaws.com/prod/public/bid/new/makeofferdetails/{item['id']}"
 		price_data = requests.get(prices_url, headers=headers).json()
 		item_price = None
