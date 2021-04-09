@@ -23,8 +23,8 @@ export default function LatestArticles() {
 
                 <Link to="/article-introduction">
                     <div className='newsroom-featured-article'>
-                        {!isDesktop && <img src={FeaturedArticleImage} alt='Featured Article' />}
-                        {isDesktop && <img src={HuaracheDesktop} alt='Featured Article' />}
+                        {!isDesktop && <img src='https://gist.githubusercontent.com/EricHasegawa/ba10870046f81a5a30915451d13d3675/raw/f6f42a2388f9a123ef03a48735560dfafc51c680/black-circle-logo.svg' alt='Featured Article' />}
+                        {isDesktop && <img src='https://cutt.ly/9cZEaBc' alt='Featured Article' />}
                         <div className='newsroom-featured-article-text'>
                             <p> March 26, 2021 </p>
                             <h1> Sanctuary: Our Story </h1>
@@ -37,7 +37,7 @@ export default function LatestArticles() {
                     <div className='newsroom-article'>
                         <Link to="/article-sneakersmeetengineering">
                             <div className='newsroom-article-header'>
-                                <img src={ArticleImage1} alt='Article 1' />
+                                <img src='https://gist.githubusercontent.com/EricHasegawa/8f4737ed525a6ab22f1c667f87bf9cdd/raw/63018b0612411c967737ce446ff1267c0cc2e268/article-1-pic.svg' alt='Article 1' />
                             </div>
                             <div className='newsroom-article-text'>
                                 <p> March 28, 2021 </p>

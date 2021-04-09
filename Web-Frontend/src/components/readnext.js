@@ -4,7 +4,7 @@ import ArticleImage3 from '../assets/images/article-3-pic.svg'
 
 export default function Footer() {
 
-    const articles = {'/article-introduction' : ['Sanctuary: Our Story', 'January 31st, 2021','https://svgshare.com/i/VdL.svg'],
+    const articles = {'/article-introduction' : ['Sanctuary: Our Story', 'January 31st, 2021','https://gist.githubusercontent.com/EricHasegawa/8f4737ed525a6ab22f1c667f87bf9cdd/raw/63018b0612411c967737ce446ff1267c0cc2e268/article-1-pic.svg'],
                       '/article-sneakersmeetengineering' : ['Sneakers, Meet Engineering', 'March 28, 2021', 'https://svgshare.com/i/VfQ.svg'],
                       '/article-demystifying' : ['Demystifying the Sneaker Market', 'March 29, 2021', 'https://svgshare.com/i/VdK.svg']
                     }

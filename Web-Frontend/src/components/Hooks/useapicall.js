@@ -36,8 +36,8 @@ export default function useAPICall(callType) {
             'flightclub': flightClubCall
         };
 
-        const currencyRate = await getCurrencyRate(currency);
-
+        // const currencyRate = await getCurrencyRate(currency);
+        const currencyRate = 1;
         for await (const site of sites) {
             const request = createRequestObject(site, filter);
             const response = await fetch(request.url, request.headers);
@@ -73,8 +73,8 @@ export default function useAPICall(callType) {
 
         const itemLimit = 1; // per site
 
-        const currencyRate = await getCurrencyRate(currency);
-
+        // const currencyRate = await getCurrencyRate(currency);
+        const currencyRate = 1;
         let results = [];
         for await (const site of siteCompareMap[shoe.source]) {
             if (site == "grailed") {
