@@ -37,7 +37,7 @@ export default function LatestArticles() {
                     <div className='newsroom-article'>
                         <Link to="/article-sneakersmeetengineering">
                             <div className='newsroom-article-header'>
-                                <img src='https://gist.githubusercontent.com/EricHasegawa/8f4737ed525a6ab22f1c667f87bf9cdd/raw/63018b0612411c967737ce446ff1267c0cc2e268/article-1-pic.svg' alt='Article 1' />
+                                <img src='https://gist.githubusercontent.com/EricHasegawa/ba10870046f81a5a30915451d13d3675/raw/9ea936bc78d3ba650645599043154cad53495be5/article-1-pic.svg' alt='Article 1' />
                             </div>
                             <div className='newsroom-article-text'>
                                 <p> March 28, 2021 </p>
@@ -59,13 +59,15 @@ export default function LatestArticles() {
                     </div>
 
                     <div className='newsroom-article'>
+                        <Link to="/article-toppicks">
                         <div className='newsroom-article-header'>
                             <img src={ArticleImage3} alt='Article 1' />
                         </div>
                         <div className='newsroom-article-text'>
-                            <p> December 37, 2020 </p>
-                            <h2> NIKE's top 10 best lifestyle sneakers </h2>
+                            <p> April 20th, 2020 </p>
+                            <h2> Our Top Drops of 2020 </h2>
                         </div>
+                        </Link>
                     </div>
 
                 </div>

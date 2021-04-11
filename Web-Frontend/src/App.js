@@ -27,6 +27,7 @@ import Blog from "./components/Pages/blog.js"
 import ArticleIntro from "./components/Pages/articleIntro.js"
 import ArticleSneakersMeetEngineering from "./components/Pages/articleSneakersmeetengineering.js"
 import ArticleDemystifying from "./components/Pages/articleDemystifying.js"
+import ArticleTop2020 from "./components/Pages/articleTop2020.js"
 
 import { setUuid, setUser } from './redux/actions'
 import firebase from './services/firebase'
@@ -85,6 +86,7 @@ function App() {
           <Route path="/article-introduction" component={ArticleIntro} />
           <Route path="/article-sneakersmeetengineering" component={ArticleSneakersMeetEngineering}/>
           <Route path="/article-demystifying" component={ArticleDemystifying}/>
+          <Route path="/article-toppicks" component={ArticleTop2020}/>
           <Route component={PageNotFound} />
         </Switch>
 

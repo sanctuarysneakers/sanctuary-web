@@ -4,9 +4,10 @@ import ArticleImage3 from '../assets/images/article-3-pic.svg'
 
 export default function Footer() {
 
-    const articles = {'/article-introduction' : ['Sanctuary: Our Story', 'January 31st, 2021','https://gist.githubusercontent.com/EricHasegawa/8f4737ed525a6ab22f1c667f87bf9cdd/raw/63018b0612411c967737ce446ff1267c0cc2e268/article-1-pic.svg'],
+    const articles = {'/article-introduction' : ['Sanctuary: Our Story', 'January 31st, 2021', 'https://svgshare.com/i/VfQ.svg'],
                       '/article-sneakersmeetengineering' : ['Sneakers, Meet Engineering', 'March 28, 2021', 'https://svgshare.com/i/VfQ.svg'],
-                      '/article-demystifying' : ['Demystifying the Sneaker Market', 'March 29, 2021', 'https://svgshare.com/i/VdK.svg']
+                      '/article-demystifying' : ['Demystifying the Sneaker Market', 'March 29, 2021', 'https://svgshare.com/i/VdK.svg'],
+                      '/article-toppicks' : ['Our Top Picks of 2020', 'April 20th 2021', 'https://svgshare.com/i/VdK.svg']
                     }
     const currPage = window.location.pathname;
 
@@ -62,13 +63,15 @@ export default function Footer() {
                     </div>
 
                     <div className='newsroom-article'>
+                        <Link to={nextArticles[2][0]}>
                         <div className='newsroom-article-header'>
-                            <img src={ArticleImage3} alt='Article 1' />
+                            <img src={nextArticles[2][1][2]} alt='Article 1' />
                         </div>
                         <div className='newsroom-article-text'>
-                            <p> December 37, 2020 </p>
-                            <h2> NIKE's top 10 best lifestyle sneakers </h2>
+                            <p> {nextArticles[2][1][1]} </p>
+                            <h2> {nextArticles[2][1][0]} </h2>
                         </div>
+                        </Link>
                     </div>
 
 
