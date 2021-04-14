@@ -416,7 +416,7 @@ def get_grailed_data(search_query, shoe_size, price_low, price_high, sort_by, pa
 	
 	return results
 
-def get_grailed_item_data(sku_id, size, price_low, price_high, max_items):
+def get_grailed_item_data(sku_id, size, price_low, price_high, max_items=10):
     url = "https://mnrwefss2q-dsn.algolia.net/1/indexes/*/queries"
     params = {
         "x-algolia-agent": "Algolia for JavaScript (3.35.1); Browser",
