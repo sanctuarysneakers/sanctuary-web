@@ -23,6 +23,7 @@ def get_stockx_data(search_query, shoe_size, price_low, price_high, page, page_l
 		"market.lowestAsk": f"range({price_low}|{price_high})",
 		"page": page
 	}
+
 	response = requests.get(url, headers=headers, params=parameters)
 	response.raise_for_status()
 	request_data = response.json()["Products"]
@@ -66,6 +67,7 @@ def get_stockx_item_data(sku_id, size, price_low, price_high):
         "gender": "men",
         "market.lowestAsk": f"range({price_low}|{price_high})",
     }
+    
     response = requests.get(url, headers=headers, params=parameters)
     response.raise_for_status()
     request_data = response.json()["Products"]
@@ -75,7 +77,6 @@ def get_stockx_item_data(sku_id, size, price_low, price_high):
         "source": "StockX",
         "price": item["market"]["lowestAsk"],
         "condition": item["condition"],
-        "image": item["media"]["imageUrl"],
         "url": "stockx.com/" + item["urlKey"]
     }]
 
@@ -87,7 +88,6 @@ def get_goat_data(search_query, shoe_size, price_low, price_high, page, page_len
 		"x-algolia-application-id": "2FWOTDVM2O",
 		"x-algolia-api-key": "ac96de6fef0e02bb95d433d8d5c7038a"
 	}
-
 	post_json = {
 		"params": urlencode({
 			"query": search_query,
@@ -130,11 +130,10 @@ def get_goat_item_data(sku_id, size, price_low, price_high):
         "x-algolia-application-id": "2FWOTDVM2O",
         "x-algolia-api-key": "ac96de6fef0e02bb95d433d8d5c7038a"
     }
-
     post_json = {
         "params": urlencode({
             "query": sku_id,
-            "facetFilters": f"(product_category: shoes), (presentation_size: {size}), (single_gender: men)",
+            "facetFilters": f"(product_category: shoes), (presentation_size: {size}), (single_gender: men), (shoe_condition:new_no_defects)",
             "numericFilters": f"[\"lowest_price_cents_usd>={price_low*100}\",\"lowest_price_cents_usd<={price_high*100}\"]",
         })
     }
@@ -148,9 +147,40 @@ def get_goat_item_data(sku_id, size, price_low, price_high):
         'source': "Goat",
         'price': int(item['lowest_price_cents']/100),
         'condition': item['shoe_condition'],
-        'image': item['main_picture_url'],
         'url': 'goat.com/sneakers/' + item['slug']
     }]
+
+def get_goatused_item_data(sku_id, size, price_low, price_high, max_items=10):
+    url = "https://2fwotdvm2o-dsn.algolia.net/1/indexes/product_variants_v2/query"
+    params = {
+        "x-algolia-agent": "Algolia for vanilla JavaScript 3.25.1",
+        "x-algolia-application-id": "2FWOTDVM2O",
+        "x-algolia-api-key": "ac96de6fef0e02bb95d433d8d5c7038a"
+    }
+    post_json = {
+        "params": urlencode({
+            "query": sku_id,
+            "facetFilters": f"(product_category: shoes), (presentation_size: {size}), (single_gender: men), (shoe_condition:used, shoe_condition:new_with_defects)",
+            "numericFilters": f"[\"lowest_price_cents_usd>={price_low*100}\",\"lowest_price_cents_usd<={price_high*100}\"]",
+        })
+    }
+
+    response = requests.post(url, params=params, json=post_json)
+    response.raise_for_status()
+    request_data = response.json()['hits']
+
+    results = []
+    for idx, item in enumerate(request_data):
+        if idx >= max_items: break
+        url_suffix = '/used' if item['shoe_condition'] == 'used' else '/defects'
+        results.append({
+            'source': "Goat",
+            'price': int(item['lowest_price_cents']/100),
+            'condition': item['shoe_condition'],
+            'url': 'goat.com/sneakers/' + item['slug'] + url_suffix
+        })
+    
+    return results
 
 
 def get_flightclub_data(search_query, shoe_size, price_low, price_high, page, page_len):
@@ -160,7 +190,6 @@ def get_flightclub_data(search_query, shoe_size, price_low, price_high, page, pa
 		"x-algolia-application-id": "2FWOTDVM2O",
 		"x-algolia-api-key": "ac96de6fef0e02bb95d433d8d5c7038a"
 	}
-
 	post_json = {
 		"params": urlencode({
 			"query": search_query,
@@ -222,132 +251,11 @@ def get_flightclub_item_data(sku_id, size, price_low, price_high):
         'source': "Flight Club",
         'price': int(item['lowest_price_cents']/100),
         'condition': item['shoe_condition'],
-        'image': item['main_picture_url'],
         'url': 'flightclub.com/' + item['slug']
     }]
 
 
-def get_grailed_data(search_query, shoe_size, price_low, price_high, sort_by, page, page_len):
-	url = "https://mnrwefss2q-dsn.algolia.net/1/indexes/*/queries"
-	params = {
-		"x-algolia-agent": "Algolia for JavaScript (3.35.1); Browser",
-		"x-algolia-application-id": "MNRWEFSS2Q",
-		"x-algolia-api-key": "a3a4de2e05d9e9b463911705fb6323ad"
-	}
-
-	indexes = {
-		"": "Listing_production", # default
-		"trending": "Listing_by_heat_production",
-		"popular": "Listing_by_followers_production",
-		"new": "Listing_by_date_added_production",
-		"price_low": "Listing_by_low_price_production",
-		"price_high": "Listing_by_high_price_production",
-	}
-
-	post_json = {
-		"requests": [{
-			"indexName": indexes[sort_by],
-			"params": urlencode({
-				"query": search_query,
-				"facetFilters": f"[[\"category_size:footwear.{shoe_size}\"], [\"category_path:footwear.hitop_sneakers\", \"category_path:footwear.lowtop_sneakers\"]]",
-				"numericFilters": f"[\"price_i>={price_low}\",\"price_i<={price_high}\"]",
-				"offset": f"{page * page_len}",
-				"length": f"{page_len}"
-			})
-		}]
-	}
-	response = requests.post(url, params=params, json=post_json)
-	response.raise_for_status()
-	request_data = response.json()["results"][0]["hits"]
-
-	results = []
-	for item in request_data:
-		results.append({
-			"id": int(item['id']),
-			"source": "Grailed",
-			"url": "grailed.com/listings/" + str(item['id']),
-			"category": item['designer_names'],
-			"model": item['title'],
-			"size": float(shoe_size),
-			"price": item['price'],
-			"old_price": item['price_drops'][-2] if len(item['price_drops']) > 1 else None,
-			"shoe_condition": item['condition'],
-			"sku_id": None if item['sku_id'] is None else str(item['sku_id']),
-			"image": item['cover_photo']['url'],
-			"image_thumbnail": 
-				"https://process.fs.grailed.com/auto_image/resize=width:320/output=quality:60/compress/" + item['cover_photo']['url'],
-			"date_bumped": item['bumped_at'][:10],
-			"date_created": item['cover_photo']['created_at'][:10],
-			"heat": item['heat'],
-			"seller_location": item['location'],
-			"seller_rating": round(item['user']['seller_score']['rating_average'], 1) if
-				item['user']['seller_score']['rating_average'] else None,
-			"seller_rating_count": item['user']['seller_score']['rating_count'],
-			"shipping_us": item['shipping']['us']['amount'] if item['shipping']['us']['enabled'] else None,
-			"shipping_ca": item['shipping']['ca']['amount'] if item['shipping']['ca']['enabled'] else None,
-			"shipping_uk": item['shipping']['uk']['amount'] if item['shipping']['uk']['enabled'] else None,
-			"shipping_eu": item['shipping']['eu']['amount'] if item['shipping']['eu']['enabled'] else None,
-			"shipping_asia": item['shipping']['asia']['amount'] if item['shipping']['asia']['enabled'] else None,
-			"shipping_au": item['shipping']['au']['amount'] if item['shipping']['au']['enabled'] else None,
-			"shipping_other": item['shipping']['other']['amount'] if item['shipping']['other']['enabled'] else None
-		})
-	
-	return results
-
-def get_grailed_item_data(sku_id, size, price_low, price_high, max_items):
-    url = "https://mnrwefss2q-dsn.algolia.net/1/indexes/*/queries"
-    params = {
-        "x-algolia-agent": "Algolia for JavaScript (3.35.1); Browser",
-        "x-algolia-application-id": "MNRWEFSS2Q",
-        "x-algolia-api-key": "a3a4de2e05d9e9b463911705fb6323ad"
-    }
-
-    sort_by = {
-        "default": "Listing_production",
-        "trending": "Listing_by_heat_production",
-        "popular": "Listing_by_followers_production",
-        "new": "Listing_by_date_added_production",
-        "price_low": "Listing_by_low_price_production",
-        "price_high": "Listing_by_high_price_production",
-    }
-
-    post_json = {
-        "requests": [{
-            "indexName": sort_by["price_low"],
-            "params": urlencode({
-                "query": sku_id,
-                "facetFilters": f"[[\"category_size:footwear.{size}\"], [\"category_path:footwear.hitop_sneakers\", \"category_path:footwear.lowtop_sneakers\"]]",
-                "numericFilters": f"[\"price_i>={price_low}\",\"price_i<={price_high}\"]",
-            })
-        }]
-    }
-
-    response = requests.post(url, params=params, json=post_json)
-    response.raise_for_status()
-    request_data = response.json()["results"][0]["hits"]
-
-    results = []
-    for idx, item in enumerate(request_data):
-        if idx >= max_items: break
-        results.append({
-            "id": int(item['id']),
-            "source": "Grailed",
-            "price": item['price'],
-            "condition": item['condition'],
-            "shipping_us": item['shipping']['us']['amount'] if item['shipping']['us']['enabled'] else None,
-            "shipping_ca": item['shipping']['ca']['amount'] if item['shipping']['ca']['enabled'] else None,
-            "shipping_uk": item['shipping']['uk']['amount'] if item['shipping']['uk']['enabled'] else None,
-            "shipping_eu": item['shipping']['eu']['amount'] if item['shipping']['eu']['enabled'] else None,
-            "shipping_asia": item['shipping']['asia']['amount'] if item['shipping']['asia']['enabled'] else None,
-            "shipping_au": item['shipping']['au']['amount'] if item['shipping']['au']['enabled'] else None,
-            "shipping_other": item['shipping']['other']['amount'] if item['shipping']['other']['enabled'] else None,
-            "image": item['cover_photo']['url'],
-            "url": "grailed.com/listings/" + str(item['id'])
-        })
-
-    return results
-
-
+#TODO: add price range
 def get_sneakercon_data(search_query, shoe_size, price_low, price_high, page, page_len):
 	url = "https://war6i72q7j.execute-api.us-east-1.amazonaws.com/prod/public/marketplace/all"
 	headers = {
@@ -367,6 +275,7 @@ def get_sneakercon_data(search_query, shoe_size, price_low, price_high, page, pa
 		"limit": "24",
 		"isNew": "true"
 	}
+	
 	response = requests.get(url, headers=headers, params=parameters)
 	response.raise_for_status()
 	request_data = response.json()
@@ -438,6 +347,123 @@ def get_sneakercon_item_data(sku_id, size, price_low, price_high):
         "source": 'Sneaker Con',
         "price": item_price,
         "condition": 'New',
-        "image": item['pictures'][0],
         "url": "sneakercon.com/product/" + str(item['id']) + '-' + item['nickname'].replace(' ', '-')
     }]
+
+
+def get_grailed_data(search_query, shoe_size, price_low, price_high, sort_by, page, page_len):
+	url = "https://mnrwefss2q-dsn.algolia.net/1/indexes/*/queries"
+	params = {
+		"x-algolia-agent": "Algolia for JavaScript (3.35.1); Browser",
+		"x-algolia-application-id": "MNRWEFSS2Q",
+		"x-algolia-api-key": "a3a4de2e05d9e9b463911705fb6323ad"
+	}
+	indexes = {
+		"": "Listing_production", # default
+		"trending": "Listing_by_heat_production",
+		"popular": "Listing_by_followers_production",
+		"new": "Listing_by_date_added_production",
+		"price_low": "Listing_by_low_price_production",
+		"price_high": "Listing_by_high_price_production",
+	}
+	post_json = {
+		"requests": [{
+			"indexName": indexes[sort_by],
+			"params": urlencode({
+				"query": search_query,
+				"facetFilters": f"[[\"category_size:footwear.{shoe_size}\"], [\"category_path:footwear.hitop_sneakers\", \"category_path:footwear.lowtop_sneakers\"]]",
+				"numericFilters": f"[\"price_i>={price_low}\",\"price_i<={price_high}\"]",
+				"offset": f"{page * page_len}",
+				"length": f"{page_len}"
+			})
+		}]
+	}
+	response = requests.post(url, params=params, json=post_json)
+	response.raise_for_status()
+	request_data = response.json()["results"][0]["hits"]
+
+	results = []
+	for item in request_data:
+		results.append({
+			"id": int(item['id']),
+			"source": "Grailed",
+			"url": "grailed.com/listings/" + str(item['id']),
+			"category": item['designer_names'],
+			"model": item['title'],
+			"size": float(shoe_size),
+			"price": item['price'],
+			"old_price": item['price_drops'][-2] if len(item['price_drops']) > 1 else None,
+			"shoe_condition": item['condition'],
+			"sku_id": None if item['sku_id'] is None else str(item['sku_id']),
+			"image": item['cover_photo']['url'],
+			"image_thumbnail": 
+				"https://process.fs.grailed.com/auto_image/resize=width:320/output=quality:60/compress/" + item['cover_photo']['url'],
+			"date_bumped": item['bumped_at'][:10],
+			"date_created": item['cover_photo']['created_at'][:10],
+			"heat": item['heat'],
+			"seller_location": item['location'],
+			"seller_rating": round(item['user']['seller_score']['rating_average'], 1) if
+				item['user']['seller_score']['rating_average'] else None,
+			"seller_rating_count": item['user']['seller_score']['rating_count'],
+			"shipping_us": item['shipping']['us']['amount'] if item['shipping']['us']['enabled'] else None,
+			"shipping_ca": item['shipping']['ca']['amount'] if item['shipping']['ca']['enabled'] else None,
+			"shipping_uk": item['shipping']['uk']['amount'] if item['shipping']['uk']['enabled'] else None,
+			"shipping_eu": item['shipping']['eu']['amount'] if item['shipping']['eu']['enabled'] else None,
+			"shipping_asia": item['shipping']['asia']['amount'] if item['shipping']['asia']['enabled'] else None,
+			"shipping_au": item['shipping']['au']['amount'] if item['shipping']['au']['enabled'] else None,
+			"shipping_other": item['shipping']['other']['amount'] if item['shipping']['other']['enabled'] else None
+		})
+	
+	return results
+
+def get_grailed_item_data(sku_id, size, price_low, price_high, max_items):
+    url = "https://mnrwefss2q-dsn.algolia.net/1/indexes/*/queries"
+    params = {
+        "x-algolia-agent": "Algolia for JavaScript (3.35.1); Browser",
+        "x-algolia-application-id": "MNRWEFSS2Q",
+        "x-algolia-api-key": "a3a4de2e05d9e9b463911705fb6323ad"
+    }
+    sort_by = {
+        "default": "Listing_production",
+        "trending": "Listing_by_heat_production",
+        "popular": "Listing_by_followers_production",
+        "new": "Listing_by_date_added_production",
+        "price_low": "Listing_by_low_price_production",
+        "price_high": "Listing_by_high_price_production",
+    }
+    post_json = {
+        "requests": [{
+            "indexName": sort_by["price_low"],
+            "params": urlencode({
+                "query": sku_id,
+                "facetFilters": f"[[\"category_size:footwear.{size}\"], [\"category_path:footwear.hitop_sneakers\", \"category_path:footwear.lowtop_sneakers\"]]",
+                "numericFilters": f"[\"price_i>={price_low}\",\"price_i<={price_high}\"]",
+            })
+        }]
+    }
+
+    response = requests.post(url, params=params, json=post_json)
+    response.raise_for_status()
+    request_data = response.json()["results"][0]["hits"]
+
+    results = []
+    for idx, item in enumerate(request_data):
+        if idx >= max_items: break
+        results.append({
+            "id": int(item['id']),
+            "source": "Grailed",
+            "price": item['price'],
+            "condition": item['condition'],
+            "shipping_us": item['shipping']['us']['amount'] if item['shipping']['us']['enabled'] else None,
+            "shipping_ca": item['shipping']['ca']['amount'] if item['shipping']['ca']['enabled'] else None,
+            "shipping_uk": item['shipping']['uk']['amount'] if item['shipping']['uk']['enabled'] else None,
+            "shipping_eu": item['shipping']['eu']['amount'] if item['shipping']['eu']['enabled'] else None,
+            "shipping_asia": item['shipping']['asia']['amount'] if item['shipping']['asia']['enabled'] else None,
+            "shipping_au": item['shipping']['au']['amount'] if item['shipping']['au']['enabled'] else None,
+            "shipping_other": item['shipping']['other']['amount'] if item['shipping']['other']['enabled'] else None,
+            "image": item['cover_photo']['url'],
+            "url": "grailed.com/listings/" + str(item['id'])
+        })
+
+    return results
+
