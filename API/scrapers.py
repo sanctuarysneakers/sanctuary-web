@@ -140,9 +140,9 @@ def browse_flightclub(search_query, shoe_size, price_low, price_high, page, page
 	return results
 
 
-### Item Data Scrapers ###
+### Item Price Scrapers ###
 
-def get_goat_item_data(sku_id, size, price_low, price_high):
+def goat_lowest_price(sku_id, size, price_low, price_high):
     url = "https://2fwotdvm2o-dsn.algolia.net/1/indexes/product_variants_v2/query"
     params = {
         "x-algolia-agent": "Algolia for vanilla JavaScript 3.25.1",
@@ -169,7 +169,8 @@ def get_goat_item_data(sku_id, size, price_low, price_high):
         'url': 'goat.com/sneakers/' + item['slug']
     }]
 
-def get_goatused_item_data(sku_id, size, price_low, price_high, max_items=10):
+
+def goat_used_lowest_price(sku_id, size, price_low, price_high):
     url = "https://2fwotdvm2o-dsn.algolia.net/1/indexes/product_variants_v2/query"
     params = {
         "x-algolia-agent": "Algolia for vanilla JavaScript 3.25.1",
@@ -188,21 +189,17 @@ def get_goatused_item_data(sku_id, size, price_low, price_high, max_items=10):
     response.raise_for_status()
     request_data = response.json()['hits']
 
-    results = []
-    for idx, item in enumerate(request_data):
-        if idx >= max_items: break
-        url_suffix = '/used' if item['shoe_condition'] == 'used' else '/defects'
-        results.append({
-            'source': "Goat",
-            'price': int(item['lowest_price_cents']/100),
-            'condition': item['shoe_condition'],
-            'url': 'goat.com/sneakers/' + item['slug'] + url_suffix
-        })
-    
-    return results
+    item = request_data[0]
+    url_suffix = '/used' if item['shoe_condition'] == 'used' else '/defects'
+    return [{
+        'source': "Goat (Used)",
+        'price': int(item['lowest_price_cents']/100),
+        'condition': item['shoe_condition'],
+        'url': 'goat.com/sneakers/' + item['slug'] + url_suffix
+    }]
 
 
-def get_flightclub_item_data(sku_id, size, price_low, price_high):
+def flightclub_lowest_price(sku_id, size, price_low, price_high):
     url = "https://2fwotdvm2o-dsn.algolia.net/1/indexes/product_variants_v2_flight_club/query"
     params = {
         "x-algolia-agent": "Algolia for vanilla JavaScript (lite) 3.32.0;react-instantsearch 5.4.0;JS Helper 2.26.1",
@@ -230,7 +227,7 @@ def get_flightclub_item_data(sku_id, size, price_low, price_high):
     }]
 
 
-def get_stockx_item_data(sku_id, size, price_low, price_high):
+def stockx_lowest_price(sku_id, size, price_low, price_high):
     url = "https://stockx.com/api/browse"
     headers = {
         "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36",
@@ -262,8 +259,7 @@ def get_stockx_item_data(sku_id, size, price_low, price_high):
     }]
 
 
-#TODO: add price range
-def get_sneakercon_item_data(sku_id, size, price_low, price_high):
+def sneakercon_new_lowest_price(sku_id, size):
     url = "https://war6i72q7j.execute-api.us-east-1.amazonaws.com/prod/public/marketplace/all"
     headers = {
         "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36",
@@ -302,7 +298,51 @@ def get_sneakercon_item_data(sku_id, size, price_low, price_high):
     }]
 
 
-def get_grailed_item_data(sku_id, size, price_low, price_high, max_items=10):
+def sneakercon_used_lowest_price(sku_id, size):
+    url = "https://war6i72q7j.execute-api.us-east-1.amazonaws.com/prod/public/marketplace/all"
+    headers = {
+        "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36",
+        "origin": "https://sneakercon.com",
+        "referer": "https://sneakercon.com/",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "cross-site"
+    }
+    parameters = {
+        "search": sku_id,
+        "size": size,
+        "condition": "USED,NEW_CONDITIONAL",
+        "limit": "1",
+        "isNew": "True"
+    }
+
+    response = requests.get(url, headers=headers, params=parameters)
+    response.raise_for_status()
+    request_data = response.json()
+
+    item = request_data[0]
+    used_api_1 = f"https://war6i72q7j.execute-api.us-east-1.amazonaws.com/prod/public/marketplace/listing?condition=USED&catalogItemId={item['id']}"
+    used_api_2 = f"https://war6i72q7j.execute-api.us-east-1.amazonaws.com/prod/public/marketplace/listing?condition=NEW_CONDITIONAL&catalogItemId={item['id']}"
+    used_data = requests.get(used_api_1, headers=headers).json()
+    used_data += requests.get(used_api_2, headers=headers).json()
+    
+    result = []
+    for elem in used_data:
+        if elem['item']['size'] == str(size):
+            if len(result) == 0 or result[0]["price"] > elem['marketplacePrice']:
+                result = [{
+                    "source": 'Sneaker Con (Used)',
+                    "price": elem['marketplacePrice'],
+                    "condition": elem['itemCondition'],
+                    "url": "sneakercon.com/product/" + str(item['id']) + '-' + item['nickname'].replace(' ', '-')
+                }]
+
+    return result
+
+
+def grailed_item_data(sku_id, size, price_low, price_high, max_items=10):
     url = "https://mnrwefss2q-dsn.algolia.net/1/indexes/*/queries"
     params = {
         "x-algolia-agent": "Algolia for JavaScript (3.35.1); Browser",
