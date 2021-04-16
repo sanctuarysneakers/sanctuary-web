@@ -18,10 +18,23 @@ export default function useAPICall(callType) {
     const newSearchHappened = useSelector(state => state.newSearchHappened);
     const currency = useSelector(state => state.currency);
 
+    // async function getCurrencyRate(currency) {
+    //     const response = await fetch('https://api.exchangeratesapi.io/latest?base=USD');
+    //     const data = await response.json();
+    //     return data['rates'][currency];
+    // }
+
     async function getCurrencyRate(currency) {
-        const response = await fetch('https://api.exchangeratesapi.io/latest?base=USD');
+        const fetchText = "https://currency-exchange.p.rapidapi.com/exchange?from=USD&to=" + currency + "&q=1.0";
+        const response = await fetch(fetchText, {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "c799b6c79bmsh22a306cdcd27be8p1b7882jsnca195ac45bce",
+                "x-rapidapi-host": "currency-exchange.p.rapidapi.com"
+            }
+        })
         const data = await response.json();
-        return data['rates'][currency];
+        return data;
     }
 
     async function catalogAPICall() {
@@ -35,9 +48,7 @@ export default function useAPICall(callType) {
             'grailed': grailedCall,
             'flightclub': flightClubCall
         };
-
-        //const currencyRate = await getCurrencyRate(currency);
-        const currencyRate = 1;
+        const currencyRate = await getCurrencyRate(currency);
 
         for await (const site of sites) {
             const request = createRequestObject(site, filter);
