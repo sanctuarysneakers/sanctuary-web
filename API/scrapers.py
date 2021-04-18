@@ -374,6 +374,39 @@ def sneakercon_used_lowest_price(sku_id, size):
 	return result
 
 
+def get_klekt_data():
+    url = "https://apiv2.klekt.com/shop-api?vendure-token=iqrhumfu2u9mumwq369"
+    headers = {
+        "accept": "application/json, text/plain, */*",
+        "content-type": "application/json;charset=UTF-8",
+        "origin": "https://www.klekt.com",
+        "referer": "https://www.klekt.com/",
+        "sec-ch-ua": '"Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99"',
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36"
+    }
+    query = {"query": """query {
+        productDetails(id: 37160) {
+            name
+            slug
+            variants {
+                availableCount
+                priceWithTax
+                facetValues {
+                    code
+                }
+            }
+        }
+    }"""}
+
+    response = requests.post(url, headers=headers, json=query)
+    response.raise_for_status()
+    request_data = response.json()
+
+    print(request_data)
+
+
 def grailed_used_models(model_name, size, price_low, price_high, max_items=10):
 	"""
 		Queries Grailed and returns a list of used sneaker prices for a model
