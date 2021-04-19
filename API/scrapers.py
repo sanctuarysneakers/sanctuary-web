@@ -283,6 +283,77 @@ def stockx_lowest_price(sku_id, size, price_low, price_high):
 	}]
 
 
+def klekt_lowest_price(sku_id, size):
+	"""
+		Gets the lowest price for a new model from KLEKT
+	"""
+	
+	url = "https://apiv2.klekt.com/shop-api?vendure-token=iqrhumfu2u9mumwq369"
+	headers = {
+		"accept": "application/json, text/plain, */*",
+		"content-type": "application/json;charset=UTF-8",
+		"origin": "https://www.klekt.com",
+		"referer": "https://www.klekt.com/",
+		"sec-ch-ua": '"Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99"',
+		"sec-fetch-mode": "cors",
+		"sec-fetch-site": "same-site",
+		"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36"
+	}
+
+	product_id_query = {
+		"operationName": "SearchProducts",
+		"variables": {
+			"input": {
+				"availability": "available",
+				"facetSlugs": [],
+				"facetValueIds": [],
+				"groupByProduct": True,
+				"sizeType": None,
+				"skip": 0,
+				"sort": {"featured": "DESC"},
+				"take": 6,
+				"term": sku_id
+			}
+		},
+		"query": """query SearchProducts($input: SearchInput!) {
+			search(input: $input) {
+				items { productId }
+			}
+		}"""
+	}
+	product_id_json = requests.post(url, headers=headers, json=product_id_query).json()
+	product_id = product_id_json["data"]["search"]["items"][0]["productId"]
+
+	price_query = {
+		"query": """query {
+			productDetails(id: %s) {
+				name
+				slug
+				variants {
+					availableCount
+					priceWithTax
+					facetValues { code }
+				}
+			}
+		}""" % (product_id)
+	}
+	product_data = requests.post(url, headers=headers, json=price_query).json()
+
+	result = []
+	product_variants = product_data["data"]["productDetails"]["variants"]
+	for variant in product_variants:
+		v_size = variant["facetValues"][0]["code"].replace("us", "")
+		if float(v_size) == float(size):
+			result = [{
+				"source": "KLEKT",
+				"price": variant["priceWithTax"]/100,
+				"condition": "New",
+				"url": "klekt.com/product/" + product_data["data"]["productDetails"]["slug"]
+			}]
+
+	return result
+
+
 def sneakercon_new_lowest_price(sku_id, size):
 	"""
 		Gets the lowest price for a new model from Sneaker Con
@@ -372,39 +443,6 @@ def sneakercon_used_lowest_price(sku_id, size):
 				}]
 
 	return result
-
-
-def get_klekt_data():
-    url = "https://apiv2.klekt.com/shop-api?vendure-token=iqrhumfu2u9mumwq369"
-    headers = {
-        "accept": "application/json, text/plain, */*",
-        "content-type": "application/json;charset=UTF-8",
-        "origin": "https://www.klekt.com",
-        "referer": "https://www.klekt.com/",
-        "sec-ch-ua": '"Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99"',
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36"
-    }
-    query = {"query": """query {
-        productDetails(id: 37160) {
-            name
-            slug
-            variants {
-                availableCount
-                priceWithTax
-                facetValues {
-                    code
-                }
-            }
-        }
-    }"""}
-
-    response = requests.post(url, headers=headers, json=query)
-    response.raise_for_status()
-    request_data = response.json()
-
-    print(request_data)
 
 
 def grailed_used_models(model_name, size, price_low, price_high, max_items=10):
