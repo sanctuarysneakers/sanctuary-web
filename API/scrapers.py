@@ -499,3 +499,37 @@ def grailed_used_models(model_name, size, price_low, price_high, max_items=10):
 		})
 
 	return results
+
+
+def depop_used_models(model_name, size, max_items=10):
+    url = "https://webapi.depop.com/api/v2/search/products"
+    headers = {
+        "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36",
+    }
+
+    size_map = {7:"2", 7.5:"3", 8:"4", 8.5:"5", 9:"6", 9.5:"7", 10:"8", 10.5:"9", 11:"10", 11.5:"11",
+        12: "12", 12.5:"13", 13:"14", 13.5:"15", 14:"16", 14.5:"17", 15:"18"}
+
+    parameters = {
+        "what": model_name,
+        "sizes": "6-77." + size_map[size],
+        "itemsPerPage": max_items,
+        "country": "us"
+    }
+
+    response = requests.get(url, headers=headers, params=parameters)
+    response.raise_for_status()
+    product_data = response.json()["products"]
+
+    results = []
+    for p in product_data:
+        results.append({
+            "id": p["id"],
+            "source": "Depop",
+            "price": float(p["price"]["priceAmount"]),
+            "image": p["preview"]["320"],
+            "url": "depop.com/products/" + p["slug"]
+        })
+
+    return results
+
