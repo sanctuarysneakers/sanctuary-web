@@ -29,7 +29,6 @@ export default function NavBar() {
     const currency = useSelector(state => state.currency);
 
     const currencyOptions = [
-        { label: '$ AUD', value: 'AUD' },
         { label: '$ CAD', value: 'CAD' },
         { label: '€ EUR', value: 'EUR' },
         { label: '£ GBP', value: 'GBP' },
