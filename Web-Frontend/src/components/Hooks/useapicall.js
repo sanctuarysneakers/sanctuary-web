@@ -25,7 +25,6 @@ export default function useAPICall(callType) {
     // }
 
     async function getCurrencyRate(currency) {
-        console.log(currency);
         const fetchText = "https://currency-exchange.p.rapidapi.com/exchange?from=USD&to=" + currency + "&q=1.0";
         const response = await fetch(fetchText, {
             "method": "GET",
@@ -35,7 +34,6 @@ export default function useAPICall(callType) {
             }
         })
         const data = await response.json();
-        console.log(data);
         return data;
     }
 
