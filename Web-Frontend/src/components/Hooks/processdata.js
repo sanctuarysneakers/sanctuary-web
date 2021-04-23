@@ -39,6 +39,7 @@ const conditionsMap = {
 const processItem = (item, site, currency, currencyRate) => {
 	switch (site) {
 		case 'stockx':
+			//console.log(item["urlKey"]);
 			return {
 				"source": "stockx",
 				"model": item["title"],
@@ -46,7 +47,7 @@ const processItem = (item, site, currency, currencyRate) => {
 				"size": item["shoeSize"],
 				"price": Math.round(item["market"]["lowestAsk"] * currencyRate),
 				"shoe_condition": conditionsMap['stockx'][item["condition"]],
-				"url": "stockx.com/" + item["urlKey"],
+				"url": "stockx.pvxt.net/c/2588966/1023711/9060?&u=https://stockx.com/" + item["urlKey"],
 				"image": item["media"]["imageUrl"],
 				"image_thumbnail": item["media"]["imageUrl"].split('?')[0] + "?w=300&q=50&trim=color",
 				"currency": currency
