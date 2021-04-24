@@ -534,14 +534,28 @@ def depop_listings(model_name, size, max_items=10):
     return results
 
 
-def ebay_listings(sku_id, size, max_items=10):
+def ebay_listings(sku_id, size, max_items=10, location='US'):
 	url = "https://svcs.ebay.com/services/search/FindingService/v1?"
 	headers = {
 		"X-EBAY-SOA-SECURITY-APPNAME": "Sanctuar-jasontho-PRD-ad4af8740-c80ac57c",
 		"X-EBAY-SOA-RESPONSE-DATA-FORMAT": "JSON",
 		"X-EBAY-SOA-OPERATION-NAME": "findItemsAdvanced",
 	}
+
+	location_map = {
+		"US": "EBAY-US",
+		"CA": "EBAY-ENCA",
+		"UK": "EBAY-GB",
+		"DE": "EBAY-DE",
+		"FR": "EBAY-FR",
+		"ES": "EBAY-ES",
+		"AU": "EBAY-AU",
+		"CH": "EBAY-CH",
+		"HK": "EBAY-HK",
+		"IE": "EBAY-IE"
+	}
 	parameters = {
+		"global-id": location_map[location],
 		"keywords": sku_id,
 		"categoryId": "93427", # mens shoes
 		"aspectFilter(0).aspectName": "US Shoe Size (Men's)",
@@ -560,7 +574,7 @@ def ebay_listings(sku_id, size, max_items=10):
 			"source": "eBay",
 			"price": float(item['sellingStatus'][0]['currentPrice'][0]['__value__']),
 			
-			#TODO: Get shipping price depending on location
+			#TODO: Get shipping prices
 			
 			"condition": item['condition'][0]['conditionDisplayName'][0],
 			"image": item['galleryURL'][0],
