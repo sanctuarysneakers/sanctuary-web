@@ -5,11 +5,8 @@ import mysql.connector
 from mysql.connector import ProgrammingError
 import requests
 from datetime import datetime
+from scrapers import *
 
-import grailed
-import stockx
-import goat
-import flightclub
 
 application = Flask(__name__)
 cors = CORS(application, resources={r"*": {"origins": "*"}})
@@ -108,16 +105,16 @@ class Search(Resource):
 
 		if source == "grailed":
 			sort = "trending"
-			data = grailed.get_data(search, size, price_low, price_high, sort, page, limit)
+			data = get_grailed_data(search, size, price_low, price_high, sort, page, limit)
 			return process_data(data, currency)
 		elif source == "stockx":
-			data = stockx.get_data(search, size, price_low, price_high, page+1, limit)
+			data = get_stockx_data(search, size, price_low, price_high, page+1, limit)
 			return process_data(data, currency)
 		elif source == "goat":
-			data = goat.get_data(search, size, price_low, price_high, page, limit)
+			data = get_goat_data(search, size, price_low, price_high, page, limit)
 			return process_data(data, currency)
 		elif source == "flightclub":
-			data = flightclub.get_data(search, size, price_low, price_high, page, limit)
+			data = get_flightclub_data(search, size, price_low, price_high, page, limit)
 			return process_data(data, currency)
 		else:
 			return {"Error": "Enter a correct source name"}
@@ -142,18 +139,18 @@ class Compare(Resource):
 
 		if source == "stockx":
 			data = []
-			data.extend(goat.get_data(sku, size, price_low, price_high, page, limit))
-			data.extend(flightclub.get_data(sku, size, price_low, price_high, page, limit))
+			data.extend(get_goat_data(sku, size, price_low, price_high, page, limit))
+			data.extend(get_flightclub_data(sku, size, price_low, price_high, page, limit))
 			return process_data(data, currency)
 		elif source == "goat":
 			data = []
-			data.extend(stockx.get_data(sku, size, price_low, price_high, page+1, limit))
-			data.extend(flightclub.get_data(sku, size, price_low, price_high, page, limit))
+			data.extend(get_stockx_data(sku, size, price_low, price_high, page+1, limit))
+			data.extend(get_flightclub_data(sku, size, price_low, price_high, page, limit))
 			return process_data(data, currency)
 		elif source == "flightclub":
 			data = []
-			data.extend(goat.get_data(sku, size, price_low, price_high, page, limit))
-			data.extend(stockx.get_data(sku, size, price_low, price_high, page+1, limit))
+			data.extend(get_goat_data(sku, size, price_low, price_high, page, limit))
+			data.extend(get_stockx_data(sku, size, price_low, price_high, page+1, limit))
 			return process_data(data, currency)
 		else:
 			return {"Error": "Enter a correct source name"}
