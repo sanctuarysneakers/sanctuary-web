@@ -445,7 +445,7 @@ def sneakercon_used_lowest_price(sku_id, size):
 	return result
 
 
-def grailed_used_models(model_name, size, price_low, price_high, max_items=10):
+def grailed_listings(model_name, size, price_low, price_high, max_items=10):
 	"""
 		Queries Grailed and returns a list of used sneaker prices for a model
 	"""
@@ -501,7 +501,7 @@ def grailed_used_models(model_name, size, price_low, price_high, max_items=10):
 	return results
 
 
-def depop_used_models(model_name, size, max_items=10):
+def depop_listings(model_name, size, max_items=10):
     url = "https://webapi.depop.com/api/v2/search/products"
     headers = {
         "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36",
@@ -519,17 +519,53 @@ def depop_used_models(model_name, size, max_items=10):
 
     response = requests.get(url, headers=headers, params=parameters)
     response.raise_for_status()
-    product_data = response.json()["products"]
+    item_data = response.json()["products"]
 
     results = []
-    for p in product_data:
+    for item in item_data:
         results.append({
-            "id": p["id"],
+            "id": item["id"],
             "source": "Depop",
-            "price": float(p["price"]["priceAmount"]),
-            "image": p["preview"]["320"],
-            "url": "depop.com/products/" + p["slug"]
+            "price": float(item["price"]["priceAmount"]),
+            "image": item["preview"]["320"],
+            "url": "depop.com/products/" + item["slug"]
         })
 
     return results
+
+
+def ebay_listings(sku_id, size, max_items=10):
+	url = "https://svcs.ebay.com/services/search/FindingService/v1?"
+	headers = {
+		"X-EBAY-SOA-SECURITY-APPNAME": "Sanctuar-jasontho-PRD-ad4af8740-c80ac57c",
+		"X-EBAY-SOA-RESPONSE-DATA-FORMAT": "JSON",
+		"X-EBAY-SOA-OPERATION-NAME": "findItemsAdvanced",
+	}
+	parameters = {
+		"keywords": sku_id,
+		"categoryId": "93427", # mens shoes
+		"aspectFilter(0).aspectName": "US Shoe Size (Men's)",
+		"aspectFilter(0).aspectValueName": str(size),
+		"sortOrder": "PricePlusShippingLowest",
+		"paginationInput.entriesPerPage": max_items
+	}
+
+	response = requests.get(url, headers=headers, params=parameters)
+	item_data = response.json()['findItemsAdvancedResponse'][0]['searchResult'][0]['item']
+
+	results = []
+	for item in item_data:
+		results.append({
+			"id": item['itemId'][0],
+			"source": "eBay",
+			"price": float(item['sellingStatus'][0]['currentPrice'][0]['__value__']),
+			
+			#TODO: Get shipping price depending on location
+			
+			"condition": item['condition'][0]['conditionDisplayName'][0],
+			"image": item['galleryURL'][0],
+			"url": item['viewItemURL'][0]
+		})
+
+	return results
 
