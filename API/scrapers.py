@@ -543,16 +543,8 @@ def ebay_listings(sku_id, size, max_items=10, location='US'):
 	}
 
 	location_map = {
-		"US": "EBAY-US",
-		"CA": "EBAY-ENCA",
-		"UK": "EBAY-GB",
-		"DE": "EBAY-DE",
-		"FR": "EBAY-FR",
-		"ES": "EBAY-ES",
-		"AU": "EBAY-AU",
-		"CH": "EBAY-CH",
-		"HK": "EBAY-HK",
-		"IE": "EBAY-IE"
+		"US":"EBAY-US", "CA":"EBAY-ENCA", "UK":"EBAY-GB", "DE":"EBAY-DE", "FR":"EBAY-FR",
+		"ES":"EBAY-ES", "AU":"EBAY-AU", "CH":"EBAY-CH", "HK":"EBAY-HK", "IE":"EBAY-IE"
 	}
 	parameters = {
 		"global-id": location_map[location],
