@@ -10,7 +10,7 @@ export default function ArticleDemystifying() {
             <div className='article'>
                 <div className='article-wrapper'>
 
-                    <div className='article-header'>
+                    <div className='article-header-market'>
                         <div className='article-header-gradient'>
                             <div className='article-header-content'>
                                 <h1>

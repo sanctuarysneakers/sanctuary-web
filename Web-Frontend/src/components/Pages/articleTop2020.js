@@ -9,7 +9,7 @@ export default function ArticleTop2020() {
         <div>
             <div className='article'>
                 <div className='article-wrapper'>
-                    <div className='article-header'>
+                    <div className='article-header-20'>
                         <div className='article-header-gradient'>
                             <div className='article-header-content'>
                                 <h1> Our Top Picks of 2020 </h1>

@@ -13,7 +13,7 @@ export default function ArticleIntro() {
             <div className='article'>
                 <div className='article-wrapper'>
 
-                    <div className='article-header'>
+                    <div className='article-header-intro'>
                         <div className='article-header-gradient'>
                             <div className='article-header-content'>
                                 <h1>

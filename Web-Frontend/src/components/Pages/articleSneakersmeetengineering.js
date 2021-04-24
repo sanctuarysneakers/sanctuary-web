@@ -9,7 +9,7 @@ export default function ArticleSneakersMeetEngineering() {
         <div>
             <div className='article'>
                 <div className='article-wrapper'>
-                    <div className='article-header'>
+                    <div className='article-header-engineering'>
                         <div className='article-header-gradient'>
                             <div className='article-header-content'>
                                 <h1> How Adidas and Carbon3D are Revolutionizing Sneaker Production </h1>
