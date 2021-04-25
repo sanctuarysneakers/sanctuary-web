@@ -1,9 +1,9 @@
 import React from 'react'
-import pictureOne from '../../assets/images/Article1-1.jpg'
-import pictureTwo from '../../assets/images/Article1-2.jpg'
-import pictureThree from '../../assets/images/Article1-3.jpg'
-import author from '../../assets/images/ColeVanHinte.jpg'
-import ReadNext from '../readnext.js'
+import pictureOne from '../../../assets/images/Article1-1.jpg'
+import pictureTwo from '../../../assets/images/Article1-2.jpg'
+import pictureThree from '../../../assets/images/Article1-3.jpg'
+import author from '../../../assets/images/ColeVanHinte.jpg'
+import ReadNext from '../readnext'
 
 export default function ArticleIntro() {
 

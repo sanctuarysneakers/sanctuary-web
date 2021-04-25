@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import ArticleImage3 from '../assets/images/article-3-pic.svg'
+import ArticleImage3 from '../../assets/images/article-3-pic.svg'
 
 export default function Footer() {
 

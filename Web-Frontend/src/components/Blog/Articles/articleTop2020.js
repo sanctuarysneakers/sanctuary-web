@@ -1,7 +1,7 @@
 import React from 'react'
-import author from '../../assets/images/ColeVanHinte.jpg'
-import pictureOne from '../../assets/images/articleEngineering1.jpg'
-import pictureTwo from '../../assets/images/articleEngineering2.jpg'
+import author from '../../../assets/images/ColeVanHinte.jpg'
+import pictureOne from '../../../assets/images/articleEngineering1.jpg'
+import pictureTwo from '../../../assets/images/articleEngineering2.jpg'
 import ReadNext from '../readnext.js'
 
 export default function ArticleTop2020() {

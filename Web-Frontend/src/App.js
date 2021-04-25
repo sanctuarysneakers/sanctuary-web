@@ -23,11 +23,11 @@ import SignInOptions from './components/Pages/signinoptions'
 import SignInEmail from './components/Pages/signinemail'
 import CreateAccountOptions from './components/Pages/createaccountoptions'
 import CreateAccountEmail from './components/Pages/createaccountemail'
-import Blog from "./components/Pages/blog.js"
-import ArticleIntro from "./components/Pages/articleIntro.js"
-import ArticleSneakersMeetEngineering from "./components/Pages/articleSneakersmeetengineering.js"
-import ArticleDemystifying from "./components/Pages/articleDemystifying.js"
-import ArticleTop2020 from "./components/Pages/articleTop2020.js"
+import Blog from "./components/Blog/blog"
+import ArticleIntro from "./components/Blog/Articles/articleIntro"
+import ArticleSneakersMeetEngineering from "./components/Blog/Articles/articleSneakersmeetengineering"
+import ArticleDemystifying from "./components/Blog/Articles/articleDemystifying"
+import ArticleTop2020 from "./components/Blog/Articles/articleTop2020"
 
 import { setUuid, setUser } from './redux/actions'
 import firebase from './services/firebase'
