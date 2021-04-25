@@ -18,15 +18,9 @@ export default function useAPICall(callType) {
     const newSearchHappened = useSelector(state => state.newSearchHappened);
     const currency = useSelector(state => state.currency);
 
-    // async function getCurrencyRate(currency) {
-    //     const response = await fetch('https://api.exchangeratesapi.io/latest?base=USD');
-    //     const data = await response.json();
-    //     return data['rates'][currency];
-    // }
-
     async function getCurrencyRate(currency) {
-        const fetchText = "https://currency-exchange.p.rapidapi.com/exchange?from=USD&to=" + currency + "&q=1.0";
-        const response = await fetch(fetchText, {
+        const url = "https://currency-exchange.p.rapidapi.com/exchange?q=1.0&from=USD&to=" + currency;
+        const response = await fetch(url, {
             "method": "GET",
             "headers": {
                 "x-rapidapi-key": "c799b6c79bmsh22a306cdcd27be8p1b7882jsnca195ac45bce",
@@ -85,8 +79,7 @@ export default function useAPICall(callType) {
 
         const itemLimit = 1; // per site
 
-        //const currencyRate = await getCurrencyRate(currency);
-        const currencyRate = 1;
+        const currencyRate = await getCurrencyRate(currency);
 
         let results = [];
         for await (const site of siteCompareMap[shoe.source]) {
@@ -106,7 +99,6 @@ export default function useAPICall(callType) {
         }
 
         dispatch(shoeComparisonCall(results));
-
     }
 
     useEffect(() => {
