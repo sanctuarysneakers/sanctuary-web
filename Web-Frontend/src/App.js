@@ -10,20 +10,20 @@ import FilterModal from "./components/Pages/filterModal"
 import HamburgerModal from "./components/Pages/hamburgermodal"
 import DeleteModal from "./components/Pages/deletemodal"
 import PageNotFound from "./components/Pages/pagenotfound"
-import Profile from './components/Pages/profile'
-import EditProfileName from './components/Pages/editprofilename'
-import EditProfileEmail from './components/Pages/editprofileemail'
-import EditProfilePassword from './components/Pages/editprofilepassword'
 import PrivacyPolicy from './components/Pages/privacypolicy'
 import TermsOfUse from './components/Pages/termsofuse'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { RemoveScroll } from 'react-remove-scroll'
 import { setUser } from './redux/actions'
-import SignInOptions from './components/Pages/signinoptions'
-import SignInEmail from './components/Pages/signinemail'
-import CreateAccountOptions from './components/Pages/createaccountoptions'
-import CreateAccountEmail from './components/Pages/createaccountemail'
+import SignInOptions from './components/Accounts/signinoptions'
+import SignInEmail from './components/Accounts/signinemail'
+import CreateAccountOptions from './components/Accounts/createaccountoptions'
+import CreateAccountEmail from './components/Accounts/createaccountemail'
+import Profile from './components/Accounts/profile'
+import EditProfileName from './components/Accounts/editprofilename'
+import EditProfileEmail from './components/Accounts/editprofileemail'
+import EditProfilePassword from './components/Accounts/editprofilepassword'
 
 import Blog from "./components/Blog/blog"
 import ArticleIntro from "./components/Blog/Articles/articleIntro"
