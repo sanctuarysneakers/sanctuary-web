@@ -1,7 +1,5 @@
-.newsroom-latest-articles {
+.newsroom-read-next-articles {
     padding: 0px 24px;
-    padding-top: 50px;
-    padding-bottom: 80px;
 
     .newsroom-latest-articles-title {
         max-width: 380px;
@@ -14,8 +12,7 @@
         }
     }
 
-    .newsroom-articles-wrapper {
-        padding-top: 15px;
+    .newsroom-read-next-wrapper {
 
         .newsroom-featured-article {
             position: relative;
@@ -52,6 +49,10 @@
                     line-height: 36px;
                 }
             }
+        }
+
+        .newsroom-article-container {
+            padding-bottom: 150px;
         }
 
         .newsroom-article, .newsroom-article-middle {
@@ -107,7 +108,7 @@
 
 // Desktop Version
 @media screen and (min-width: 1100px) {
-    .newsroom-latest-articles {
+    .newsroom-read-next-articles {
         padding-left: 60px;
         padding-right: 60px;
 
@@ -119,8 +120,7 @@
             }
         }
 
-        .newsroom-articles-wrapper {
-            padding-top: 25px;
+        .newsroom-read-next-wrapper {
 
             .newsroom-featured-article {
                 max-width: 980px;
@@ -151,7 +151,9 @@
             .newsroom-article-container {
                 display: flex;
                 width: 980px;
-                margin: 50px auto;
+                margin: 0px auto;
+                padding-top: 20px;
+                padding-bottom: 150px;
 
                 .newsroom-article, .newsroom-article-middle {
                     margin-top: 0px;
