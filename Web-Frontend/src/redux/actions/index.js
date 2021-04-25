@@ -196,19 +196,6 @@ export const recordSplashHeight = splashHeight => {
 
 // Account 
 
-export const setUuid = uuid => {
-    return {
-        type: 'SET_UUID',
-        payload: uuid
-    }
-}
-
-export const clearUuid = () => {
-    return {
-        type: 'CLEAR_UUID'
-    }
-}
-
 export const setUser = user => {
     return {
         type: 'SET_USER',

@@ -20,7 +20,6 @@ export default function NavBar() {
     const homeSearchVisible = useSelector(state => state.homeSearchVisible)
     const splashHeight = useSelector(state => state.splashHeight)
     const isCollapsed = useSelector(state => state.isSearchBarCollapsed)
-    const uuid = useSelector(state => state.uuid)
     const isDesktop = useMediaQuery({ query: '(min-width: 1120px)' })    // It was 930 before
     const [isSearchBarVisible, setSearchBarVisibility] = useState(false)
     const history = useHistory()
