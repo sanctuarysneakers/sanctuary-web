@@ -1,6 +1,19 @@
 
-export default function createRequestObject(site, filter) {
-	switch (site) {
+export default function createRequestObject(type, filter) {
+	switch (type) {
+		case 'browse':
+			return {
+				url: 'https://stockx.com/api/browse?' + new URLSearchParams({
+					"_search": filter.search,
+					"productCategory": "sneakers",
+					"gender": "men",
+					"sort": "most-active",
+					"order": "DESC"
+				}),
+				headers: {
+					method: 'GET'
+				}
+			}
 		case 'stockx':
 			return {
 				url: 'https://stockx.com/api/browse?' + new URLSearchParams({
@@ -13,7 +26,7 @@ export default function createRequestObject(site, filter) {
 				headers: {
 					method: 'GET'
 				}
-			};
+			}
 		case 'goat':
 			return {
 				url: 'https://2fwotdvm2o-dsn.algolia.net/1/indexes/product_variants_v2/query?' + new URLSearchParams({
@@ -30,7 +43,7 @@ export default function createRequestObject(site, filter) {
 						"distinct": "true"
 					})
 				}
-			};
+			}
 		case 'grailed':
 			return {
 				url: 'https://mnrwefss2q-dsn.algolia.net/1/indexes/*/queries?' + new URLSearchParams({
@@ -51,7 +64,7 @@ export default function createRequestObject(site, filter) {
 						}]
 					})
 				}
-			};
+			}
 		case 'flightclub':
 			return {
 				url: 'https://2fwotdvm2o-dsn.algolia.net/1/indexes/product_variants_v2_flight_club/query?' + new URLSearchParams({
@@ -68,6 +81,6 @@ export default function createRequestObject(site, filter) {
 						"distinct": "true",
 					})
 				}
-			};
+			}
 	}
 }

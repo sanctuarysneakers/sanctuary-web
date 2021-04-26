@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import NavBar from "./components/navbar"
 import Footer from "./components/footer"
 import Home from "./components/Pages/home"
+import Browse from "./components/Pages/browse"
 import ShoeModal from "./components/Pages/shoemodal"
 import AboutModal from "./components/Pages/aboutmodal"
 import FilterModal from "./components/Pages/filterModal"
@@ -73,6 +74,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/home" component={Home} />
+          <Route path="/browse" component={Browse} />
           <Route path="/sign-in" component={SignInOptions} />
           <Route path="/sign-in-email" component={SignInEmail} />
           <Route path="/create-account" component={CreateAccountOptions} />
@@ -127,6 +129,5 @@ function App() {
     )
   }
 }
-
 
 export default App;

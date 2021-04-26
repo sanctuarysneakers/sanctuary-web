@@ -7,6 +7,13 @@ export const updateShoe = shoe => {
 
 // API Call Actions
 
+export const browseCall = data => {
+    return {
+        type: 'BROWSE_CALL',
+        payload: data
+    }
+}
+
 export const stockxCall = data => {
     return {
         type: 'STOCKX_CALL',

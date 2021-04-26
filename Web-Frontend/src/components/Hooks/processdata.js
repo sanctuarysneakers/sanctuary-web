@@ -36,8 +36,8 @@ const conditionsMap = {
 	}
 }
 
-const processItem = (item, site, currency, currencyRate) => {
-	switch (site) {
+const processItem = (item, type, currency, currencyRate) => {
+	switch (type) {
 		case 'stockx':
 			return {
 				"source": "stockx",
@@ -50,7 +50,7 @@ const processItem = (item, site, currency, currencyRate) => {
 				"image": item["media"]["imageUrl"],
 				"image_thumbnail": item["media"]["imageUrl"].split('?')[0] + "?w=300&q=50&trim=color",
 				"currency": currency
-			};
+			}
 		case 'goat':
 			return {
 				'source': 'goat',
@@ -63,7 +63,7 @@ const processItem = (item, site, currency, currencyRate) => {
 				'image': item['main_picture_url'],
 				'image_thumbnail': item['main_picture_url'].substring(0,23) + "300" + item['main_picture_url'].substring(26),
 				'currency': currency
-			};
+			}
 		case 'grailed':
 			return {
 				"source": 'grailed',
@@ -88,13 +88,13 @@ const processItem = (item, site, currency, currencyRate) => {
 				'image': item['main_picture_url'],
 				'image_thumbnail': item['main_picture_url'].substring(0,27) + "400" + item['main_picture_url'].substring(26),
 				'currency': currency
-			};
+			}
 	}
 }
 
-export default function processData(data, site, limit, currency, currencyRate) {
-	let results = [];
-	let products = getProducts(data, site);
+export function processData(data, site, limit, currency, currencyRate) {
+	let results = []
+	let products = getProducts(data, site)
 	for (const item of products) {
 		if (results.length >= limit)
 			break
@@ -102,7 +102,23 @@ export default function processData(data, site, limit, currency, currencyRate) {
 		let processedItem = processItem(item, site, currency, currencyRate);
 		if (processedItem['price'] == 0)
 			continue
-		results.push(processedItem);
+		results.push(processedItem)
 	}
-	return results;
+	return results
+}
+
+export function processBrowseData(data, limit=30) {
+	let results = []
+	for (const item of data['Products']) {
+		if (results.length >= limit)
+			break
+		
+		results.push({
+			model: item['title'],
+			sku_id: item['styleId'],
+			image: item['media']['imageUrl'],
+			image_thumbnail: item['media']['imageUrl'].split('?', 1)[0] + '?w=300&q=50&trim=color'
+		})
+	}
+	return results
 }

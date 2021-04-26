@@ -46,7 +46,6 @@ export default function Catalog() {
     const noResults = site => {
         return (
             <div className='no-results'>
-                {/*<h1>Sorry, we couldn't find any results on {site}.</h1>*/}
                 <h1>...</h1>
             </div>
         )
