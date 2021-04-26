@@ -1,4 +1,4 @@
-.sneaker {
+.item-tile {
     cursor: pointer;
     background-color: white;
     width: 227px;
@@ -14,9 +14,7 @@
                 4px 4px 25px rgba($color: #000000, $alpha: 0.075);
 }
 
-.sneaker-content {
-    // width: 192px;
-    // height: 244px;
+.item-tile-content {
     width: 227px;
     height: 300px;
 
@@ -32,26 +30,10 @@
     align-items: center;
     justify-content: center;
 
-    .sneakerImg {
+    .tile-img {
         width: 185px;
         margin-top: 25px;
     }
-}
-
-.grailed-img-area {
-    height: 170px;
-    width: 227px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .sneakerImg {
-        max-width: 100%;
-        min-height: 100%;
-        object-fit: cover;
-    }
-
 }
 
 .content-area {
