@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
 import { browseCall } from '../../redux/actions'
 import { stockxCall, goatCall, grailedCall, flightClubCall, shoeComparisonCall } from '../../redux/actions'
+import getCurrencyRate from './currencyrate'
 import createRequestObject from './createrequest'
 import { processData, processBrowseData } from './processdata'
 
@@ -18,19 +19,6 @@ export default function useAPICall(callType) {
     const shoe = useSelector(state => state.shoe);
     const newSearchHappened = useSelector(state => state.newSearchHappened);
     const currency = useSelector(state => state.currency);
-
-    async function getCurrencyRate(currency) {
-        const url = "https://currency-exchange.p.rapidapi.com/exchange?q=1.0&from=USD&to=" + currency;
-        const response = await fetch(url, {
-            "method": "GET",
-            "headers": {
-                "x-rapidapi-key": "c799b6c79bmsh22a306cdcd27be8p1b7882jsnca195ac45bce",
-                "x-rapidapi-host": "currency-exchange.p.rapidapi.com"
-            }
-        })
-        const data = await response.json();
-        return data;
-    }
 
     async function catalogAPICall() {
 
@@ -63,21 +51,18 @@ export default function useAPICall(callType) {
     }
 
     // async function comparisonAPICall() {
-
     //     const siteCompareMap = {
     //         'stockx': ['goat', 'flightclub', 'grailed'],
     //         'goat': ['stockx', 'flightclub', 'grailed'],
     //         'grailed': [],
     //         'flightclub': ['stockx', 'goat', 'grailed']
     //     };
-
     //     const compareFilter = {
     //         search: shoe.sku_id,
     //         size: shoe.size.toString(),
     //         price_low: '0',
     //         price_high: '100000'
     //     };
-
     //     const compareFilterGrailed = {
     //         search: shoe.model,
     //         size: shoe.size.toString(),
@@ -86,7 +71,6 @@ export default function useAPICall(callType) {
     //     };
 
     //     const itemLimit = 1; // per site
-
     //     const currencyRate = await getCurrencyRate(currency);
 
     //     let results = [];
@@ -105,7 +89,6 @@ export default function useAPICall(callType) {
     //             results.push(...processedData);
     //         }
     //     }
-
     //     dispatch(shoeComparisonCall(results));
     // }
 
