@@ -6,9 +6,7 @@ export default function createRequestObject(type, filter) {
 				url: 'https://stockx.com/api/browse?' + new URLSearchParams({
 					"_search": filter.search,
 					"productCategory": "sneakers",
-					"gender": "men",
-					"sort": "most-active",
-					"order": "DESC"
+					"gender": "men"
 				}),
 				headers: {
 					method: 'GET'

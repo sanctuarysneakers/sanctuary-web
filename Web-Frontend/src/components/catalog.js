@@ -1,14 +1,7 @@
 import React, { useEffect, useRef } from "react"
 import { useDispatch, useSelector } from 'react-redux'
 import useAPICall from "./Hooks/useapicall"
-import Slider from "./slider"
-
-import stockxLogo from "../assets/images/logos/stockx.png"
-import goatLogo from "../assets/images/logos/goat.png"
-import grailedLogo from "../assets/images/logos/grailed.png"
-import flightclubLogo from "../assets/images/logos/flightclub.png"
 import { newSearchHappened } from "../redux/actions"
-
 
 export default function Catalog() {
 
@@ -16,10 +9,8 @@ export default function Catalog() {
 
     const dispatch = useDispatch()
 
-    const stockxData = useSelector(state => state.stockxData)
-    const goatData = useSelector(state => state.goatData)
-    const grailedData = useSelector(state => state.grailedData)
-    const flightClubData = useSelector(state => state.flightClubData)
+    const browseData = useSelector(state => state.browseData)
+	const itemsList = browseData.map((item) => <li key={item.sku_id}>{item.model}</li>);
 
     const filter = useSelector(state => state.filter)
         
@@ -30,60 +21,26 @@ export default function Catalog() {
         return () => clearTimeout(timer)
     }
 
-    // Wait until user doesn't update search for half a second to update catalog
-    // The effects do not happen on the first mount
+    // Wait half a second for the user to finish typing
     useEffect(() => {
-        if (isInitialMount.current) {
+        if (isInitialMount.current)
             isInitialMount.current = false;
-        }
-        else {
+        else
             return setTypingTimer(500)
-        }
     }, [filter])
 
-    useAPICall('catalog')
+    useAPICall('browse')
 
-    const noResults = site => {
+    const noResults = () => {
         return (
-            <div className='no-results'>
-                <h1>...</h1>
-            </div>
+            <div className='no-results'><h1>...</h1></div>
         )
     }
 
     return (
         <div className='catalog'>
-            <img
-                className='stockxLogo'
-                src={stockxLogo}
-                alt={"StockX"}
-            />
-            {stockxData.length !== 0 && <Slider data={stockxData} />}
-            {stockxData.length === 0 && noResults("StockX")}
-
-            <img
-                className='goatLogo'
-                src={goatLogo}
-                alt={"GOAT"}
-            />
-            {goatData.length !== 0 && <Slider data={goatData} />}
-            {goatData.length === 0 && noResults("GOAT")}
-
-            <img
-                className='grailedLogo'
-                src={grailedLogo}
-                alt={"Grailed"}
-            />
-            {grailedData.length !== 0 && <Slider data={grailedData} />}
-            {grailedData.length === 0 && noResults("Grailed")}
-
-            <img
-                className='flightclubLogo'
-                src={flightclubLogo}
-                alt={"Flight Club"}
-            />
-            {flightClubData.length !== 0 && <Slider data={flightClubData} />}
-            {flightClubData.length === 0 && noResults("Flight Club")}
+            {browseData.length !== 0 && itemsList }
+            {browseData.length === 0 && noResults()}
         </div>
     )
 }

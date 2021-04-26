@@ -36,7 +36,7 @@ import firebase from './services/firebase'
 import ScrollToTop from './components/Hooks/scrolltotop'
 import Loader from './components/loader'
 
-function App() {
+export default function App() {
 
   const dispatch = useDispatch()
 
@@ -53,8 +53,7 @@ function App() {
       if (user) {
         dispatch(setUser(user))
         setLoader(false)
-      }
-      else {
+      } else {
         dispatch(setUser(null))
         setLoader(false)
       }
@@ -65,8 +64,7 @@ function App() {
     return (
       <Loader />
     )
-  }
-  else {
+  } else {
     return (
       <React.Fragment>
         <ScrollToTop />
@@ -129,5 +127,3 @@ function App() {
     )
   }
 }
-
-export default App;

@@ -1,7 +1,5 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import Catalog from '../catalog'
-import FilterBar from '../filterbar'
 import { use100vh } from 'react-div-100vh'
 import { useMediaQuery } from 'react-responsive'
 import { Helmet } from 'react-helmet'
@@ -41,27 +39,8 @@ export default function Home() {
                 <div className='splashWrap'>
                     <h1>Find Your Perfect Pair</h1>
                     <h3>Get the best price on sneakers from your favourite websites</h3>
-                    <div className='middleSearchbar'>
-                        <SearchBar />
-                    </div>
                 </div>
             </div>
-
-            <main
-                className='filter-catalog'
-            >
-                <section id="section-a" className='filterrow'>
-                    <div className='a-wrap'>
-                        <FilterBar />
-                    </div>
-                </section>
-
-                <section id="section-b" className='catalogrow'>
-                    <div className='b-wrap'>
-                        <Catalog />
-                    </div>
-                </section>
-            </main>
         </div>
     )
 }

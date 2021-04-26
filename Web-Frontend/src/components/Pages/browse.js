@@ -1,17 +1,41 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import useAPICall from "../Hooks/useapicall"
+import Catalog from '../catalog'
+import FilterBar from '../filterbar'
+import { Helmet } from 'react-helmet'
+import SearchBar from '../searchbar'
+import { showHomeSeach } from '../../redux/actions'
 
 export default function Browse() {
 
-	const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
-	const browseData = useSelector(state => state.browseData)
-	const itemsList = browseData.map((item) => <li key={item.sku_id}>{item.model}</li>);
+    // Show the search bar
+    dispatch(showHomeSeach())
 
-	useAPICall('browse')
+    return (
+        <div>
+			<div className='splashWrap'>
+				<div className='middleSearchbar'>
+					<SearchBar />
+				</div>
+			</div>
 
-	return(
-		<div>{itemsList}</div>
-	)
+            <main
+                className='filter-catalog'
+            >
+                <section id="section-a" className='filterrow'>
+                    <div className='a-wrap'>
+                        <FilterBar />
+                    </div>
+                </section>
+
+                <section id="section-b" className='catalogrow'>
+                    <div className='b-wrap'>
+                        <Catalog />
+                    </div>
+                </section>
+            </main>
+        </div>
+    )
 }

@@ -14,33 +14,11 @@ export default function useAPICall(callType) {
         made to update the shoes for price comparison inside of a shoe modal.
     */
 
-    const dispatch = useDispatch();
-    const filter = useSelector(state => state.filter);
-    const shoe = useSelector(state => state.shoe);
-    const newSearchHappened = useSelector(state => state.newSearchHappened);
-    const currency = useSelector(state => state.currency);
-
-    async function catalogAPICall() {
-
-        const sites = ["stockx", "goat", "grailed", "flightclub"];
-        const sliderItemLimit = 20;
-
-        const dispatchMap = {
-            'stockx': stockxCall,
-            'goat': goatCall,
-            'grailed': grailedCall,
-            'flightclub': flightClubCall
-        };
-        const currencyRate = await getCurrencyRate(currency);
-
-        for await (const site of sites) {
-            const request = createRequestObject(site, filter);
-            const response = await fetch(request.url, request.headers);
-            let rawData = await response.json();
-            let processedData = processData(rawData, site, sliderItemLimit, currency, currencyRate);
-            dispatch(dispatchMap[site](processedData));
-        }
-    }
+    const dispatch = useDispatch()
+    const filter = useSelector(state => state.filter)
+    const shoe = useSelector(state => state.shoe)
+    const newSearchHappened = useSelector(state => state.newSearchHappened)
+    const currency = useSelector(state => state.currency)
 
     async function browseAPICall() {
         const request = createRequestObject('browse', filter)
@@ -92,10 +70,6 @@ export default function useAPICall(callType) {
     //     dispatch(shoeComparisonCall(results));
     // }
 
-    useEffect(() => {
-        if (callType === 'catalog')
-            catalogAPICall()
-    }, [newSearchHappened])
 
     useEffect(() => {
         if (callType === 'browse')
@@ -107,9 +81,9 @@ export default function useAPICall(callType) {
     //         comparisonAPICall()
     // }, [shoe])
 
-    useEffect(() => {
-        if (callType === 'catalog')
-            catalogAPICall()
-    }, [currency])
+    // useEffect(() => {
+    //     if (callType === 'catalog')
+    //         catalogAPICall()
+    // }, [currency])
 
 }
