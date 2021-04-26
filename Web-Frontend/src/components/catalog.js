@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react"
 import { useDispatch, useSelector } from 'react-redux'
 import useAPICall from "./Hooks/useapicall"
 import { newSearchHappened } from "../redux/actions"
+import Sneaker from './sneaker'
 
 export default function Catalog() {
 
@@ -10,7 +11,9 @@ export default function Catalog() {
     const dispatch = useDispatch()
 
     const browseData = useSelector(state => state.browseData)
-	const itemsList = browseData.map((item) => <li key={item.sku_id}>{item.model}</li>);
+	const itemsList = browseData.map((item) => 
+        <Sneaker model={item.model} img={item.image_thumbnail}></Sneaker>
+    )
 
     const filter = useSelector(state => state.filter)
         
@@ -39,7 +42,7 @@ export default function Catalog() {
 
     return (
         <div className='catalog'>
-            {browseData.length !== 0 && itemsList }
+            {browseData.length !== 0 && itemsList}
             {browseData.length === 0 && noResults()}
         </div>
     )
