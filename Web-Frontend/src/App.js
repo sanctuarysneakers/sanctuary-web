@@ -5,7 +5,6 @@ import NavBar from "./components/navbar"
 import Footer from "./components/footer"
 import Home from "./components/Pages/home"
 import Browse from "./components/Pages/browse"
-import ShoeModal from "./components/Pages/shoemodal"
 import AboutModal from "./components/Pages/aboutmodal"
 import FilterModal from "./components/Pages/filterModal"
 import HamburgerModal from "./components/Pages/hamburgermodal"
@@ -40,7 +39,6 @@ export default function App() {
 
   const dispatch = useDispatch()
 
-  const shoeModalVisible = useSelector(state => state.shoeModalVisible)
   const aboutModalVisible = useSelector(state => state.aboutModalVisible)
   const filterModalVisible = useSelector(state => state.filterModalVisible)
   const hamburgerModalVisible = useSelector(state => state.hamburgerModalVisible)
@@ -91,12 +89,6 @@ export default function App() {
           <Route component={PageNotFound} />
         </Switch>
 
-        {
-          shoeModalVisible &&
-          <RemoveScroll>
-            <ShoeModal />
-          </RemoveScroll>
-        }
         {
           aboutModalVisible &&
           <RemoveScroll>

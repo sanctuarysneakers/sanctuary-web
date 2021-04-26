@@ -1,5 +1,5 @@
 import React from 'react'
-import { updateShoe, showShoeModal } from '../redux/actions'
+import { updateShoe } from '../redux/actions'
 import { useDispatch } from 'react-redux'
 
 export default function Sneaker(props) {
@@ -8,7 +8,6 @@ export default function Sneaker(props) {
 
     const clickHandler = () => {
         dispatch(updateShoe(props))
-        dispatch(showShoeModal())
     }
 
     return (

@@ -7,7 +7,6 @@ import grailedDataReducer from './graileddatareducer'
 import flightClubDataReducer from './flightclubdatareducer'
 import filterReducer from './filterreducer'
 import currencyReducer from './currencyreducer'
-import shoeModalVisibleReducer from './shoemodalvisiblereducer'
 import aboutModalVisibleReducer from './aboutmodalvisiblereducer'
 import searchBarCollapseReducer from './searchBarCollapseReducer'
 import shoeComparisonDataReducer from './shoecomparisondatareducer'
@@ -21,7 +20,6 @@ import homeSearchVisibleReducer from './homesearchvisiblereducer'
 
 const globalReducer = combineReducers({
     browseData: browseDataReducer,
-    shoeModalVisible: shoeModalVisibleReducer,
     aboutModalVisible: aboutModalVisibleReducer,
     filter: filterReducer,
     currency : currencyReducer,

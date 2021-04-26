@@ -96,18 +96,6 @@ export const updateCurrency = currency => {
 
 // Modal Actions
 
-export const showShoeModal = () => {
-    return {
-        type: 'SHOW_SHOE_MODAL'
-    }
-}
-
-export const hideShoeModal = () => {
-    return {
-        type: 'HIDE_SHOE_MODAL'
-    }
-}
-
 export const showAboutModal = () => {
     return {
         type: 'SHOW_ABOUT_MODAL'
