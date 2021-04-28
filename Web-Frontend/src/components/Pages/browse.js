@@ -15,15 +15,7 @@ export default function Browse() {
 
     return (
         <div>
-			<div className='splashWrap'>
-				<div className='middleSearchbar'>
-					<SearchBar />
-				</div>
-			</div>
-
-            <main
-                className='filter-catalog'
-            >
+            <main className='filter-catalog'>
                 <section id="section-a" className='filterrow'>
                     <div className='a-wrap'>
                         <FilterBar />

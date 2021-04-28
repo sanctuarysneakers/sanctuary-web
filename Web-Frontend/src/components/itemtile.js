@@ -1,21 +1,26 @@
 import React from 'react'
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import { updateShoe } from '../redux/actions'
 
 export default function ItemTile({data}) {
 
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const shoeData = useSelector(state => state.shoe)
 
     const clickHandler = () => {
         dispatch(updateShoe(data))
-        console.log(shoeData)
-        //TODO: redirect to item page
+        //console.log(shoeData)
+
+        // TODO: Redirect to item page with sku_id as query param
+        let path = `item`
+        history.push(path)
     }
 
     return (
-        <div className='item-tile' onClick={() => clickHandler()}>
+        <div className='item-tile' onClick={clickHandler}>
             <div className='item-tile-content'>
                 
                 <div className='img-area'>

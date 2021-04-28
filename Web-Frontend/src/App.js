@@ -5,6 +5,7 @@ import NavBar from "./components/navbar"
 import Footer from "./components/footer"
 import Home from "./components/Pages/home"
 import Browse from "./components/Pages/browse"
+import Item from "./components/Pages/item"
 import AboutModal from "./components/Pages/aboutmodal"
 import FilterModal from "./components/Pages/filterModal"
 import HamburgerModal from "./components/Pages/hamburgermodal"
@@ -71,6 +72,7 @@ export default function App() {
           <Route exact path="/" component={Home} />
           <Route path="/home" component={Home} />
           <Route path="/browse" component={Browse} />
+          <Route path="/item" component={Item} />
           <Route path="/sign-in" component={SignInOptions} />
           <Route path="/sign-in-email" component={SignInEmail} />
           <Route path="/create-account" component={CreateAccountOptions} />
