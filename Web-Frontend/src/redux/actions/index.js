@@ -14,41 +14,6 @@ export const browseCall = data => {
     }
 }
 
-export const stockxCall = data => {
-    return {
-        type: 'STOCKX_CALL',
-        payload: data
-    }
-}
-
-export const goatCall = data => {
-    return {
-        type: 'GOAT_CALL',
-        payload: data
-    }
-}
-
-export const grailedCall = data => {
-    return {
-        type: 'GRAILED_CALL',
-        payload: data
-    }
-}
-
-export const flightClubCall = data => {
-    return {
-        type: 'FLIGHTCLUB_CALL',
-        payload: data
-    }
-}
-
-export const shoeComparisonCall = data => {
-    return {
-        type: 'SHOE_COMPARISON_CALL',
-        payload: data
-    }
-}
-
 // Filter Actions
 
 export const updateSearch = search => {
