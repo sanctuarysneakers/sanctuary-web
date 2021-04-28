@@ -1,10 +1,9 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import Catalog from '../catalog'
-import FilterBar from '../filterbar'
 import { Helmet } from 'react-helmet'
-import SearchBar from '../searchbar'
+import { useDispatch, useSelector } from 'react-redux'
 import { showHomeSeach } from '../../redux/actions'
+import FilterBar from '../filterbar'
+import Catalog from '../catalog'
 
 export default function Browse() {
 

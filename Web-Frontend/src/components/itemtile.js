@@ -15,7 +15,7 @@ export default function ItemTile({data}) {
         //console.log(shoeData)
 
         // TODO: Redirect to item page with sku_id as query param
-        let path = `item`
+        let path = `/item`
         history.push(path)
     }
 

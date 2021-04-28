@@ -90,7 +90,7 @@ export default function NavBar() {
                         </Link>
 
                         <a onClick={() => dispatch(showAboutModal())}> 
-                            How it Works 
+                            About
                         </a>
 
                         {!user && <Link to="sign-in">
@@ -98,7 +98,7 @@ export default function NavBar() {
                         </Link>}
 
                         {!user && <Link to="create-account" className='navbar-desktop-create-account'>
-                            Create Account
+                            Sign Up
                         </Link>}
 
                         {user && 
