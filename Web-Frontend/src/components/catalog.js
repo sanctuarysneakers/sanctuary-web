@@ -6,13 +6,12 @@ import ItemTile from './itemtile'
 
 export default function Catalog() {
 
-    const isInitialMount = useRef(true);
+    const isInitialMount = useRef(true)
 
     const dispatch = useDispatch()
 
     const browseData = useSelector(state => state.browseData)
-	const itemTiles = browseData.map((item) => 
-        <ItemTile model={item.model} img={item.image_thumbnail}></ItemTile>)
+	const itemTiles = browseData.map((item) => <ItemTile data={item}></ItemTile>)
 
     const filter = useSelector(state => state.filter)
         
@@ -26,7 +25,7 @@ export default function Catalog() {
     // Wait half a second after a user enters a search/filter
     useEffect(() => {
         if (isInitialMount.current)
-            isInitialMount.current = false;
+            isInitialMount.current = false
         else return setTypingTimer(500)
     }, [filter])
 

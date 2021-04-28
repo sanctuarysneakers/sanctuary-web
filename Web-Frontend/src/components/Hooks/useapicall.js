@@ -1,10 +1,9 @@
 import { useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
 import { browseCall } from '../../redux/actions'
-import { stockxCall, goatCall, grailedCall, flightClubCall, shoeComparisonCall } from '../../redux/actions'
 import getCurrencyRate from './currencyrate'
 import createRequestObject from './createrequest'
-import { processData, processBrowseData } from './processdata'
+import { processItemData, processBrowseData } from './processdata'
 
 
 export default function useAPICall(callType) {
@@ -28,46 +27,11 @@ export default function useAPICall(callType) {
         dispatch(browseCall(processedData))
     }
 
-    // async function comparisonAPICall() {
-    //     const siteCompareMap = {
-    //         'stockx': ['goat', 'flightclub', 'grailed'],
-    //         'goat': ['stockx', 'flightclub', 'grailed'],
-    //         'grailed': [],
-    //         'flightclub': ['stockx', 'goat', 'grailed']
-    //     };
-    //     const compareFilter = {
-    //         search: shoe.sku_id,
-    //         size: shoe.size.toString(),
-    //         price_low: '0',
-    //         price_high: '100000'
-    //     };
-    //     const compareFilterGrailed = {
-    //         search: shoe.model,
-    //         size: shoe.size.toString(),
-    //         price_low: '0',
-    //         price_high: '100000'
-    //     };
-
-    //     const itemLimit = 1; // per site
-    //     const currencyRate = await getCurrencyRate(currency);
-
-    //     let results = [];
-    //     for await (const site of siteCompareMap[shoe.source]) {
-    //         if (site == "grailed") {
-    //             const request = createRequestObject(site, compareFilterGrailed); 
-    //             const response = await fetch(request.url, request.headers);
-    //             let rawData = await response.json();
-    //             let processedData = processData(rawData, site, itemLimit, currency, currencyRate);
-    //             results.push(...processedData);   
-    //         } else {
-    //             const request = createRequestObject(site, compareFilter);
-    //             const response = await fetch(request.url, request.headers);
-    //             let rawData = await response.json();
-    //             let processedData = processData(rawData, site, itemLimit, currency, currencyRate);
-    //             results.push(...processedData);
-    //         }
-    //     }
-    //     dispatch(shoeComparisonCall(results));
+    // async function itemAPICall() {
+    //     // Repeat the following request for all the sites and combine
+    //     // all the data into one object to be processed and dispatched.
+    //     // const stockxRequest = createRequestObject('stockx', shoe)
+    //     // ...
     // }
 
 
@@ -77,13 +41,8 @@ export default function useAPICall(callType) {
     }, [newSearchHappened])
 
     // useEffect(() => {
-    //     if (callType === 'comparison')
-    //         comparisonAPICall()
+    //     if (callType === 'item')
+    //         itemAPICall()
     // }, [shoe])
-
-    // useEffect(() => {
-    //     if (callType === 'catalog')
-    //         catalogAPICall()
-    // }, [currency])
 
 }

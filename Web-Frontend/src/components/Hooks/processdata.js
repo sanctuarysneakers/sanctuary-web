@@ -92,7 +92,7 @@ const processItem = (item, type, currency, currencyRate) => {
 	}
 }
 
-export function processData(data, site, limit, currency, currencyRate) {
+export function processItemData(data, site, limit, currency, currencyRate) {
 	let results = []
 	let products = getProducts(data, site)
 	for (const item of products) {
