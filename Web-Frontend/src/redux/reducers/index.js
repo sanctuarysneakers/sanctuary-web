@@ -11,7 +11,7 @@ import filterModalVisibleReducer from './filtermodalvisiblereducer'
 import hamburgerModalVisibleReducer from './hamburgermodalvisiblereducer'
 import userReducer from './userreducer'
 import deleteModalVisibleReducer from './deletemodalvisiblereducer'
-import homeSearchVisibleReducer from './homesearchvisiblereducer'
+import searchBarVisibleReducer from './searchbarvisiblereducer'
 
 const globalReducer = combineReducers({
     browseData: browseDataReducer,
@@ -19,6 +19,7 @@ const globalReducer = combineReducers({
     filter: filterReducer,
     currency : currencyReducer,
     shoe: shoeReducer,
+    searchBarVisible: searchBarVisibleReducer,
     isSearchBarCollapsed: searchBarCollapseReducer,
     newSearchHappened: newSearchHappenedReducer,
     splashHeight: recordSplashHeightReducer,
@@ -26,7 +27,6 @@ const globalReducer = combineReducers({
     hamburgerModalVisible: hamburgerModalVisibleReducer,
     user: userReducer,
     deleteModalVisible: deleteModalVisibleReducer,
-    homeSearchVisible: homeSearchVisibleReducer
 })
 
 export default globalReducer

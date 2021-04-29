@@ -1,4 +1,4 @@
-const homeSearchVisibleReducer = (state = true, action) => {
+const searchBarVisibleReducer = (state = true, action) => {
     switch(action.type) {
         case 'SHOW_HOME_SEARCH':
             return true
@@ -9,4 +9,4 @@ const homeSearchVisibleReducer = (state = true, action) => {
     }
 }
 
-export default homeSearchVisibleReducer
+export default searchBarVisibleReducer

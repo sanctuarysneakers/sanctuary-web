@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { collapseBar, showAboutModal, showHamburgerModal, updateCurrency } from '../redux/actions'
 import { Link, useHistory } from 'react-router-dom'
 import { Link as Scroll } from 'react-scroll'
@@ -18,7 +18,7 @@ export default function NavBar() {
 
     const dispatch = useDispatch()
     const history = useHistory()
-    const homeSearchVisible = useSelector(state => state.homeSearchVisible)
+    const searchBarVisible = useSelector(state => state.searchBarVisible)
     const isCollapsed = useSelector(state => state.isSearchBarCollapsed)
     const isDesktop = useMediaQuery({ query: '(min-width: 1120px)' })
     const user = useSelector(state => state.user)
@@ -57,7 +57,7 @@ export default function NavBar() {
                     </Link>
 
                     <div className='navbar-desktop-links'>
-                        {homeSearchVisible && <div className='navbar-desktop-searchbar'>
+                        {searchBarVisible && <div className='navbar-desktop-searchbar'>
                             <SearchBar />
                         </div>}
                          

@@ -5,6 +5,6 @@ import { useDispatch, useSelector } from 'react-redux'
 export default function Item() {
 
     return (
-        <div><h1>...</h1></div>
+        <div><p>...</p></div>
     )
 }
