@@ -17,13 +17,10 @@ import ProfileIcon from '../assets/images/icons/profileIcon'
 export default function NavBar() {
 
     const dispatch = useDispatch()
-    const homeSearchVisible = useSelector(state => state.homeSearchVisible)
-    const splashHeight = useSelector(state => state.splashHeight)
-    const isCollapsed = useSelector(state => state.isSearchBarCollapsed)
-    const isDesktop = useMediaQuery({ query: '(min-width: 1120px)' })    // It was 930 before
-    const [isSearchBarVisible, setSearchBarVisibility] = useState(false)
     const history = useHistory()
-    // const user = firebase.auth().currentUser
+    const homeSearchVisible = useSelector(state => state.homeSearchVisible)
+    const isCollapsed = useSelector(state => state.isSearchBarCollapsed)
+    const isDesktop = useMediaQuery({ query: '(min-width: 1120px)' })
     const user = useSelector(state => state.user)
     const currency = useSelector(state => state.currency);
 
@@ -40,24 +37,11 @@ export default function NavBar() {
         dispatch(updateCurrency(newCurrency));
     }
 
-    const handleClick = () => {
+    const handleLogoClick = () => {
         window.scrollTo(0, 0)
     }
 
-    // control Search bar visibility depending on scroll height
-    useEffect(() => {
-        if (homeSearchVisible) {
-            
-            const onScroll = () => {
-                setSearchBarVisibility(window.scrollY >= splashHeight)
-            };
-            window.addEventListener("scroll", onScroll);
-
-            return () => window.removeEventListener("scroll", onScroll);
-        }
-    });
-
-    // Ensures the nav bar layout is not in collapsed mode when switching to desktop view
+    // Ensure nav bar layout is not in collapsed mode when switching to desktop view
     useEffect(() => {
         if (isDesktop) 
             dispatch(collapseBar())
@@ -66,15 +50,14 @@ export default function NavBar() {
     if (isDesktop) {
         return (
             <div className='navbar-desktop'>
-
                 <div className='navbar-desktop-content'>
 
-                    <Link to="/" onClick={handleClick}>
+                    <Link to='/' onClick={handleLogoClick}>
                         <img className='sanctuary-logo-desktop' src={sanctuaryLogo} alt={"Sanctuary"} />
                     </Link>
 
                     <div className='navbar-desktop-links'>
-                        {isSearchBarVisible && <div className='navbar-desktop-searchbar'>
+                        {homeSearchVisible && <div className='navbar-desktop-searchbar'>
                             <SearchBar />
                         </div>}
                          
@@ -104,14 +87,12 @@ export default function NavBar() {
                         {user && 
                             <Link className='navbar-desktop-profile-container' to="/profile">
                                 <div className='navbar-desktop-profile'>
-
                                     {user.photoURL !== null &&
                                         <img className='navbar-desktop-profile-picture'
                                             src={user.photoURL}
                                             alt="desktop-profile-picture"
                                         />
                                     }
-
                                     {user.photoURL === null && <ProfileIcon />} 
                                 </div>
                             </Link>
@@ -127,7 +108,7 @@ export default function NavBar() {
                 <div className='navbar-mobile-content'>
 
                     {isCollapsed &&
-                        <Link to={"/"} onClick={handleClick}>
+                        <Link to='/' onClick={handleLogoClick}>
                             <img className='sanctuary-logo' src={sanctuaryLogo} />
                         </Link>}
 

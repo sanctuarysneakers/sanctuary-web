@@ -4,7 +4,7 @@ import { use100vh } from 'react-div-100vh'
 import { useMediaQuery } from 'react-responsive'
 import { Helmet } from 'react-helmet'
 import SearchBar from '../searchbar'
-import { recordSplashHeight, showHomeSeach } from '../../redux/actions'
+import { recordSplashHeight, hideHomeSearch } from '../../redux/actions'
 
 
 export default function Home() {
@@ -19,8 +19,8 @@ export default function Home() {
     const splashHeight = isDesktop ? height - 91 : height - 61
     dispatch(recordSplashHeight(splashHeight))
 
-    // Show the Search bar
-    dispatch(showHomeSeach())
+    // Hide search bar
+    dispatch(hideHomeSearch())
 
     return (
         <div>
