@@ -1,22 +1,14 @@
 import React from 'react'
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
-import { updateShoe } from '../redux/actions'
 
 export default function ItemTile({data}) {
 
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const shoeData = useSelector(state => state.shoe)
-
     const clickHandler = () => {
-        dispatch(updateShoe(data))
-        //console.log(shoeData)
-
-        // TODO: Redirect to item page with sku_id as query param
-        let path = `/item`
-        history.push(path)
+        history.push(`/item/${data.urlKey}`)  // redirect to item page
     }
 
     return (
@@ -26,7 +18,7 @@ export default function ItemTile({data}) {
                 <div className='img-area'>
                     <img 
                         className='tile-img'
-                        src={data.image_thumbnail}
+                        src={data.imageThumbnail}
                         loading="lazy"
                         alt={data.model}
                     />

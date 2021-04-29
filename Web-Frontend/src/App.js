@@ -72,7 +72,7 @@ export default function App() {
           <Route exact path="/" component={Home} />
           <Route path="/home" component={Home} />
           <Route path="/browse" component={Browse} />
-          <Route path="/item" component={Item} />
+          <Route path="/item/:urlKey" component={Item} />
           <Route path="/sign-in" component={SignInOptions} />
           <Route path="/sign-in-email" component={SignInEmail} />
           <Route path="/create-account" component={CreateAccountOptions} />

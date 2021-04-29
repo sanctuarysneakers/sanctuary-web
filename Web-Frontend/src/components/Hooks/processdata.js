@@ -92,19 +92,28 @@ const processItem = (item, type, currency, currencyRate) => {
 	}
 }
 
-export function processItemData(data, site, limit, currency, currencyRate) {
-	let results = []
-	let products = getProducts(data, site)
-	for (const item of products) {
-		if (results.length >= limit)
-			break
+// export function processItemData(data, site, limit, currency, currencyRate) {
+// 	let results = []
+// 	let products = getProducts(data, site)
+// 	for (const item of products) {
+// 		if (results.length >= limit)
+// 			break
 		
-		let processedItem = processItem(item, site, currency, currencyRate);
-		if (processedItem['price'] == 0)
-			continue
-		results.push(processedItem)
+// 		let processedItem = processItem(item, site, currency, currencyRate);
+// 		if (processedItem['price'] == 0)
+// 			continue
+// 		results.push(processedItem)
+// 	}
+// 	return results
+// }
+
+export function processItemInfo(itemInfo) {
+	const item = itemInfo['Products'][0]		
+	return {
+		model: item['title'],
+		skuId: item['styleId'],
+		image: item['media']['imageUrl']
 	}
-	return results
 }
 
 export function processBrowseData(data, limit=30) {
@@ -115,9 +124,8 @@ export function processBrowseData(data, limit=30) {
 		
 		results.push({
 			model: item['title'],
-			sku_id: item['styleId'],
-			image: item['media']['imageUrl'],
-			image_thumbnail: item['media']['imageUrl'].split('?', 1)[0] + '?w=300&q=50&trim=color'
+			urlKey: item['urlKey'],
+			imageThumbnail: item['media']['imageUrl'].split('?', 1)[0] + '?w=300&q=50&trim=color'
 		})
 	}
 	return results

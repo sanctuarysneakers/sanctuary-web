@@ -1,7 +1,15 @@
-export const updateShoe = shoe => {
+
+export const updateItem = itemInfo => {
     return {
-        type: 'UPDATE_SHOE',
-        payload: shoe
+        type: 'UPDATE_ITEM',
+        payload: itemInfo
+    }
+}
+
+export const updateItemKey = itemKey => {
+    return {
+        type: 'UPDATE_ITEM_KEY',
+        payload: itemKey
     }
 }
 

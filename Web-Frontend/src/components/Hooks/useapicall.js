@@ -1,9 +1,9 @@
 import { useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
-import { browseCall } from '../../redux/actions'
+import { browseCall, updateItem } from '../../redux/actions'
 import getCurrencyRate from './currencyrate'
 import createRequestObject from './createrequest'
-import { processItemData, processBrowseData } from './processdata'
+import { processBrowseData, processItemInfo } from './processdata'
 
 
 export default function useAPICall(callType) {
@@ -15,16 +15,25 @@ export default function useAPICall(callType) {
 
     const dispatch = useDispatch()
     const filter = useSelector(state => state.filter)
-    const shoe = useSelector(state => state.shoe)
+    const item = useSelector(state => state.item)
+    const itemKey = useSelector(state => state.itemKey)
     const newSearchHappened = useSelector(state => state.newSearchHappened)
     const currency = useSelector(state => state.currency)
 
-    async function browseAPICall() {
+    async function browse() {
         const request = createRequestObject('browse', filter)
         const response = await fetch(request.url, request.headers)
         let rawData = await response.json()
         let processedData = processBrowseData(rawData)
         dispatch(browseCall(processedData))
+    }
+
+    async function getItemInfo() {
+        const request = createRequestObject('browse', {search: itemKey})
+        const response = await fetch(request.url, request.headers)
+        let rawData = await response.json()
+        let itemInfo = processItemInfo(rawData)
+        dispatch(updateItem(itemInfo))
     }
 
     // async function itemAPICall() {
@@ -37,12 +46,12 @@ export default function useAPICall(callType) {
 
     useEffect(() => {
         if (callType === 'browse')
-            browseAPICall()
+            browse()
     }, [newSearchHappened])
 
-    // useEffect(() => {
-    //     if (callType === 'item')
-    //         itemAPICall()
-    // }, [shoe])
+    useEffect(() => {
+        if (callType === 'getiteminfo')
+            getItemInfo()
+    }, [itemKey])
 
 }
