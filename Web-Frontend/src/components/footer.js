@@ -7,7 +7,9 @@ import { FiInstagram, FiTwitter, FiFacebook } from 'react-icons/fi'
 
 
 export default function Footer() {
-
+    var SibApiV3Sdk = require('sib-api-v3-sdk');
+    var defaultClient = SibApiV3Sdk.ApiClient.instance;
+    var apiKey = defaultClient.authentications['api-key'];
     const [email, setEmail] = useState('')
     const [emailSubmitted, setEmailSubmitted] = useState(false)
 
