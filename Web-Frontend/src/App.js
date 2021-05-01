@@ -24,7 +24,10 @@ import SignInEmail from './components/Pages/signinemail'
 import CreateAccountOptions from './components/Pages/createaccountoptions'
 import CreateAccountEmail from './components/Pages/createaccountemail'
 import Blog from "./components/Pages/blog.js"
-import BlogPost from "./components/Pages/blog-post-1.js"
+import ArticleIntro from "./components/Pages/articleIntro.js"
+import ArticleSneakersMeetEngineering from "./components/Pages/articleSneakersmeetengineering.js"
+import ArticleDemystifying from "./components/Pages/articleDemystifying.js"
+import ArticleTop2020 from "./components/Pages/articleTop2020.js"
 
 import { setUuid, setUser } from './redux/actions'
 import firebase from './services/firebase'
@@ -79,8 +82,11 @@ function App() {
           <Route path="/profile-edit-password" component={EditProfilePassword} />
           <Route path="/privacy-policy" component={PrivacyPolicy} />
           <Route path="/terms-of-use" component={TermsOfUse} />
-          {/* <Route path="/blog" component={Blog} /> */}
-          {/* <Route path="/blogpost1" component={BlogPost} /> */}
+          <Route path="/blog" component={Blog} />
+          <Route path="/article-introduction" component={ArticleIntro} />
+          <Route path="/article-sneakersmeetengineering" component={ArticleSneakersMeetEngineering}/>
+          <Route path="/article-demystifying" component={ArticleDemystifying}/>
+          <Route path="/article-toppicks" component={ArticleTop2020}/>
           <Route component={PageNotFound} />
         </Switch>
 
