@@ -36,12 +36,12 @@ export default function useAPICall(callType) {
         dispatch(updateItem(itemInfo))
     }
 
-    // async function itemAPICall() {
-    //     // Repeat the following request for all the sites and combine
-    //     // all the data into one object to be processed and dispatched.
-    //     // const stockxRequest = createRequestObject('stockx', shoe)
-    //     // ...
-    // }
+    async function getPrices() {
+        // Repeat the following request for all the sites and combine
+        // all the data into one object to be processed and dispatched.
+        // const stockxRequest = createRequestObject('stockx', shoe)
+        // ...
+    }
 
 
     useEffect(() => {
@@ -53,5 +53,10 @@ export default function useAPICall(callType) {
         if (callType === 'getiteminfo')
             getItemInfo()
     }, [itemKey])
+
+    useEffect(() => {
+        if (callType === 'getitemprices')
+            getPrices()
+    }, [item])
 
 }
