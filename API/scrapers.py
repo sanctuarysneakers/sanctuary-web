@@ -333,99 +333,52 @@ def depop_lowest_price(model_name, size):
 
 ### USED ###
 
-def goat_used_lowest_price(sku_id, size, price_low, price_high):
-	"""
-		Gets the lowest price for a used model from Goat
-	"""
-
+def goat_used(sku_id, size):
 	url = "https://2fwotdvm2o-dsn.algolia.net/1/indexes/product_variants_v2/query"
 	params = {
 		"x-algolia-agent": "Algolia for vanilla JavaScript 3.25.1",
-		"x-algolia-application-id": "2FWOTDVM2O",
-		"x-algolia-api-key": "ac96de6fef0e02bb95d433d8d5c7038a"
+		"x-algolia-application-id": "2FWOTDVM2O", "x-algolia-api-key": "ac96de6fef0e02bb95d433d8d5c7038a"
 	}
+
 	post_json = {
 		"params": urlencode({
 			"query": sku_id,
-			"facetFilters": f"(product_category: shoes), (presentation_size: {size}), (single_gender: men), (shoe_condition:used, shoe_condition:new_with_defects)",
-			"numericFilters": f"[\"lowest_price_cents_usd>={price_low*100}\",\"lowest_price_cents_usd<={price_high*100}\"]",
+			"facetFilters": f"(presentation_size: {size}), (shoe_condition:used, shoe_condition:new_with_defects)",
+			#"numericFilters": f"[\"lowest_price_cents_usd>={price_low*100}\",\"lowest_price_cents_usd<={price_high*100}\"]",
 		})
 	}
 
 	response = requests.post(url, params=params, json=post_json)
-	response.raise_for_status()
-	request_data = response.json()['hits']
-
-	item = request_data[0]
-	url_suffix = '/used' if item['shoe_condition'] == 'used' else '/defects'
-	return [{
-		'source': "Goat (Used)",
-		'price': int(item['lowest_price_cents']/100),
-		'condition': item['shoe_condition'],
-		'url': 'goat.com/sneakers/' + item['slug'] + url_suffix
-	}]
-
-
-def flightclub_used_prices(sku_id, size, price_low, price_high):
-	"""
-		Gets the prices for a used or new with defects model from Flight Club
-	"""
-
-	url = "https://2fwotdvm2o-dsn.algolia.net/1/indexes/product_variants_v2_flight_club/query"
-	params = {
-		"x-algolia-agent": "Algolia for vanilla JavaScript (lite) 3.32.0;react-instantsearch 5.4.0;JS Helper 2.26.1",
-		"x-algolia-application-id": "2FWOTDVM2O",
-		"x-algolia-api-key": "ac96de6fef0e02bb95d433d8d5c7038a"
-	}
-	post_json = {
-		"params": urlencode({
-			"query": sku_id,
-			"facetFilters": f'[["size_us_men:{size}"],["shoe_condition:new_with_defects","shoe_condition:used"]]',
-			"numericFilters": f"[\"lowest_price_cents_usd>={price_low*100}\",\"lowest_price_cents_usd<={price_high*100}\"]"
-		})
-	}
-
-	response = requests.post(url, params=params, json=post_json)
-	response.raise_for_status()
 	request_data = response.json()['hits']
 
 	results = []
 	for item in request_data:
+		url_suffix = '/used' if item['shoe_condition'] == 'used' else '/defects'
 		results.append({
-			'source': "Flight Club",
+			'source': "Goat",
 			'price': int(item['lowest_price_cents']/100),
 			'condition': item['shoe_condition'],
-			'url': 'flightclub.com/' + item['slug']
+			'image': item['grid_display_picture_url'],
+			'url': 'goat.com/sneakers/' + item['slug'] + url_suffix
 		})
-	
+
 	return results
 
 
-def grailed_used_prices(model_name, size, price_low, price_high, max_items=10):
-	"""
-		Gets a list of sneaker prices for a model from Grailed
-	"""
-
+def grailed_used(model_name, size, max_items=7):
 	url = "https://mnrwefss2q-dsn.algolia.net/1/indexes/*/queries"
 	params = {
 		"x-algolia-agent": "Algolia for JavaScript (3.35.1); Browser",
 		"x-algolia-application-id": "MNRWEFSS2Q", "x-algolia-api-key": "a3a4de2e05d9e9b463911705fb6323ad"
 	}
-	sort_by = {
-		"default": "Listing_production",
-		"trending": "Listing_by_heat_production",
-		"popular": "Listing_by_followers_production",
-		"new": "Listing_by_date_added_production",
-		"price_low": "Listing_by_low_price_production",
-		"price_high": "Listing_by_high_price_production",
-	}
+	
 	post_json = {
 		"requests": [{
-			"indexName": sort_by["price_low"],
+			"indexName": "Listing_production",
 			"params": urlencode({
 				"query": model_name,
 				"facetFilters": f"[[\"category_size:footwear.{size}\"], [\"category_path:footwear.hitop_sneakers\", \"category_path:footwear.lowtop_sneakers\"]]",
-				"numericFilters": f"[\"price_i>={price_low}\",\"price_i<={price_high}\"]",
+				#"numericFilters": f"[\"price_i>={price_low}\",\"price_i<={price_high}\"]",
 			})
 		}]
 	}
@@ -434,20 +387,11 @@ def grailed_used_prices(model_name, size, price_low, price_high, max_items=10):
 	request_data = response.json()["results"][0]["hits"]
 
 	results = []
-	for idx, item in enumerate(request_data):
-		if idx >= max_items: break
+	for item in request_data:
+		if len(results) >= max_items: break
 		results.append({
-			"id": int(item['id']),
 			"source": "Grailed",
 			"price": item['price'],
-			"condition": item['condition'],
-			"shipping_us": item['shipping']['us']['amount'] if item['shipping']['us']['enabled'] else None,
-			"shipping_ca": item['shipping']['ca']['amount'] if item['shipping']['ca']['enabled'] else None,
-			"shipping_uk": item['shipping']['uk']['amount'] if item['shipping']['uk']['enabled'] else None,
-			"shipping_eu": item['shipping']['eu']['amount'] if item['shipping']['eu']['enabled'] else None,
-			"shipping_asia": item['shipping']['asia']['amount'] if item['shipping']['asia']['enabled'] else None,
-			"shipping_au": item['shipping']['au']['amount'] if item['shipping']['au']['enabled'] else None,
-			"shipping_other": item['shipping']['other']['amount'] if item['shipping']['other']['enabled'] else None,
 			"image": item['cover_photo']['url'],
 			"url": "grailed.com/listings/" + str(item['id'])
 		})
@@ -455,86 +399,30 @@ def grailed_used_prices(model_name, size, price_low, price_high, max_items=10):
 	return results
 
 
-def depop_used_prices(model_name, size, max_items=10):
-	"""
-		Gets a list of sneaker prices for a model from Depop
-	"""
-	
-	url = "https://webapi.depop.com/api/v2/search/products"
-	headers = {
-		"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36",
-	}
+def depop_used(model_name, size, max_items=7):
+    url = "https://webapi.depop.com/api/v2/search/products"
 
-	size_map = {7:"2", 7.5:"3", 8:"4", 8.5:"5", 9:"6", 9.5:"7", 10:"8", 10.5:"9", 11:"10", 11.5:"11",
-		12: "12", 12.5:"13", 13:"14", 13.5:"15", 14:"16", 14.5:"17", 15:"18"}
+    size_map = {7:"2", 7.5:"3", 8:"4", 8.5:"5", 9:"6", 9.5:"7", 10:"8", 10.5:"9", 11:"10", 
+                11.5:"11", 12: "12", 12.5:"13", 13:"14", 13.5:"15", 14:"16", 14.5:"17", 15:"18"}
+    parameters = {
+        "what": model_name,
+        "sizes": "6-77." + size_map[size],
+        "itemsPerPage": max_items,
+        "country": "us"
+    }
 
-	parameters = {
-		"what": model_name,
-		"sizes": "6-77." + size_map[size],
-		"itemsPerPage": max_items,
-		"country": "us"
-	}
+    response = requests.get(url, params=parameters)
+    item_data = response.json()["products"]
 
-	response = requests.get(url, headers=headers, params=parameters)
-	response.raise_for_status()
-	item_data = response.json()["products"]
+    results = []
+    for item in item_data:
+        if len(results) >= max_items: break
+        results.append({
+            "source": "Depop",
+            "price": float(item["price"]["priceAmount"]),
+            "image": item["preview"]["320"],
+            "url": "depop.com/products/" + item["slug"]
+        })
 
-	results = []
-	for item in item_data:
-		results.append({
-			"id": item["id"],
-			"source": "Depop",
-			"price": float(item["price"]["priceAmount"]),
-			"image": item["preview"]["320"],
-			"url": "depop.com/products/" + item["slug"]
-		})
-
-	return results
-
-
-def sneakercon_used_prices(sku_id, size):
-	"""
-		Gets the lowest prices for a used model from Sneaker Con
-	"""
-
-	url = "https://war6i72q7j.execute-api.us-east-1.amazonaws.com/prod/public/marketplace/all"
-	headers = {
-		"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36",
-		"origin": "https://sneakercon.com",
-		"referer": "https://sneakercon.com/",
-		"accept": "application/json",
-		"sec-ch-ua-mobile": "?0",
-		"sec-fetch-dest": "empty",
-		"sec-fetch-mode": "cors",
-		"sec-fetch-site": "cross-site"
-	}
-	parameters = {
-		"search": sku_id,
-		"size": size,
-		"condition": "USED,NEW_CONDITIONAL",
-		"limit": "1",
-		"isNew": "True"
-	}
-
-	response = requests.get(url, headers=headers, params=parameters)
-	response.raise_for_status()
-	request_data = response.json()
-
-	item = request_data[0]
-	used_api_1 = f"https://war6i72q7j.execute-api.us-east-1.amazonaws.com/prod/public/marketplace/listing?condition=USED&catalogItemId={item['id']}"
-	used_api_2 = f"https://war6i72q7j.execute-api.us-east-1.amazonaws.com/prod/public/marketplace/listing?condition=NEW_CONDITIONAL&catalogItemId={item['id']}"
-	used_data = requests.get(used_api_1, headers=headers).json()
-	used_data += requests.get(used_api_2, headers=headers).json()
-
-	results = []
-	for elem in used_data:
-		if elem['item']['size'] == str(size):
-			results.append({
-				"source": 'Sneaker Con',
-				"price": elem['marketplacePrice'],
-				"condition": elem['itemCondition'],
-				"url": "sneakercon.com/product/" + str(item['id']) + '-' + item['nickname'].replace(' ', '-')
-			})
-
-	return results
+    return results
 
