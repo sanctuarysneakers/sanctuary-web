@@ -46,11 +46,11 @@ const processItem = (item, site, currency, currencyRate) => {
 				"size": item["shoeSize"],
 				"price": Math.round(item["market"]["lowestAsk"] * currencyRate),
 				"shoe_condition": conditionsMap['stockx'][item["condition"]],
-				"url": "stockx.com/" + item["urlKey"],
+				"url": "stockx.pvxt.net/c/2588966/1023711/9060?&u=https://stockx.com/" + item["urlKey"],
 				"image": item["media"]["imageUrl"],
 				"image_thumbnail": item["media"]["imageUrl"].split('?')[0] + "?w=300&q=50&trim=color",
 				"currency": currency
-			};
+			}
 		case 'goat':
 			return {
 				'source': 'goat',
@@ -63,7 +63,7 @@ const processItem = (item, site, currency, currencyRate) => {
 				'image': item['main_picture_url'],
 				'image_thumbnail': item['main_picture_url'].substring(0,23) + "300" + item['main_picture_url'].substring(26),
 				'currency': currency
-			};
+			}
 		case 'grailed':
 			return {
 				"source": 'grailed',
@@ -88,21 +88,21 @@ const processItem = (item, site, currency, currencyRate) => {
 				'image': item['main_picture_url'],
 				'image_thumbnail': item['main_picture_url'].substring(0,27) + "400" + item['main_picture_url'].substring(26),
 				'currency': currency
-			};
+			}
 	}
 }
 
 export default function processData(data, site, limit, currency, currencyRate) {
-	let results = [];
-	let products = getProducts(data, site);
+	let results = []
+	let products = getProducts(data, site)
 	for (const item of products) {
 		if (results.length >= limit)
 			break
 		
-		let processedItem = processItem(item, site, currency, currencyRate);
+		let processedItem = processItem(item, site, currency, currencyRate)
 		if (processedItem['price'] == 0)
 			continue
-		results.push(processedItem);
+		results.push(processedItem)
 	}
-	return results;
+	return results
 }
