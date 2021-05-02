@@ -39,7 +39,6 @@ const conditionsMap = {
 const processItem = (item, site, currency, currencyRate) => {
 	switch (site) {
 		case 'stockx':
-			//console.log(item["urlKey"]);
 			return {
 				"source": "stockx",
 				"model": item["title"],
