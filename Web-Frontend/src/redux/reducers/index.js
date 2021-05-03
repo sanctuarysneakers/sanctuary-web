@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import browseDataReducer from './browsedatareducer'
 import itemReducer from './itemreducer'
 import itemKeyReducer from './itemkeyreducer'
+import itemPricesReducer from './itempricesreducer'
 import filterReducer from './filterreducer'
 import currencyReducer from './currencyreducer'
 import aboutModalVisibleReducer from './aboutmodalvisiblereducer'
@@ -21,6 +22,7 @@ const globalReducer = combineReducers({
     currency : currencyReducer,
     item: itemReducer,
     itemKey: itemKeyReducer,
+    itemPrices: itemPricesReducer,
     searchBarVisible: searchBarVisibleReducer,
     isSearchBarCollapsed: searchBarCollapseReducer,
     newSearchHappened: newSearchHappenedReducer,

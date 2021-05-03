@@ -1,4 +1,6 @@
 
+// Item Data Actions
+
 export const updateItem = itemInfo => {
     return {
         type: 'UPDATE_ITEM',
@@ -10,6 +12,13 @@ export const updateItemKey = itemKey => {
     return {
         type: 'UPDATE_ITEM_KEY',
         payload: itemKey
+    }
+}
+
+export const updatePrices = prices => {
+    return {
+        type: 'UPDATE_PRICES',
+        payload: prices
     }
 }
 
@@ -162,7 +171,7 @@ export const recordSplashHeight = splashHeight => {
     }
 }
 
-// Account 
+// User Account Actions
 
 export const setUser = user => {
     return {
