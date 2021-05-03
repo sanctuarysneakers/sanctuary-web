@@ -1,46 +1,52 @@
 import { useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
 import { browseCall, updateItem } from '../../redux/actions'
-import getCurrencyRate from './currencyrate'
 import createRequestObject from './createrequest'
-import { processBrowseData, processItemInfo } from './processdata'
+import getCurrencyRate from './currencyrate'
 
 
 export default function useAPICall(callType) {
-    /* 
-        callType is either 'catalog' or 'comparison' which indicates whether 
-        the API call is being made to update the main catalog or if it is being 
-        made to update the shoes for price comparison inside of a shoe modal.
-    */
 
     const dispatch = useDispatch()
-    const filter = useSelector(state => state.filter)
-    const item = useSelector(state => state.item)
-    const itemKey = useSelector(state => state.itemKey)
     const newSearchHappened = useSelector(state => state.newSearchHappened)
+    const filter = useSelector(state => state.filter)
+    const itemKey = useSelector(state => state.itemKey)
+    const item = useSelector(state => state.item)
     const currency = useSelector(state => state.currency)
 
-    async function browse() {
+
+    async function browse(itemLimit = 30) {
         const request = createRequestObject('browse', filter)
         const response = await fetch(request.url, request.headers)
         let rawData = await response.json()
-        let processedData = processBrowseData(rawData)
-        dispatch(browseCall(processedData))
+        let results = []
+        for (const item of rawData['Products']) {
+            if (results.length >= itemLimit) break
+            results.push({
+                model: item['title'],
+                urlKey: item['urlKey'],
+                imageThumbnail: item['media']['imageUrl'].split('?', 1)[0] + '?w=300&q=50&trim=color'
+            })
+        }
+        dispatch(browseCall(results))
     }
 
+    
     async function getItemInfo() {
         const request = createRequestObject('browse', {search: itemKey})
         const response = await fetch(request.url, request.headers)
         let rawData = await response.json()
-        let itemInfo = processItemInfo(rawData)
-        dispatch(updateItem(itemInfo))
+        let item = rawData['Products'][0]
+        dispatch(updateItem({
+            modelName: item['title'],
+            skuId: item['styleId'],
+            image: item['media']['imageUrl']
+        }))
     }
 
+
     async function getPrices() {
-        // Repeat the following request for all the sites and combine
-        // all the data into one object to be processed and dispatched.
-        // const stockxRequest = createRequestObject('stockx', shoe)
-        // ...
+        
     }
 
 

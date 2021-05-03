@@ -3,21 +3,10 @@ from urllib.parse import urlencode
 
 
 def browse_stockx(search_query, shoe_size, price_low, price_high, page, page_len):
-	"""
-		Queries StockX and returns a list of sneaker data
-	"""
-	
 	url = "https://stockx.com/api/browse"
 	headers = {
 		"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36",
 		"referer": "https://stockx.com",
-		"accept": "*/*",
-		"accept-encoding": "gzip, deflate, br",
-		"accept-language": "en-US,en;q=0.9,sq;q=0.8,it;q=0.7",
-		"appos": "web",
-		"appversion": "0.1",
-		"x-requested-with": "XMLHttpRequest",
-		"cache-control": "no-cache"
 	}
 	parameters = {
 		"productCategory": "sneakers",
@@ -29,14 +18,11 @@ def browse_stockx(search_query, shoe_size, price_low, price_high, page, page_len
 	}
 
 	response = requests.get(url, headers=headers, params=parameters)
-	response.raise_for_status()
 	request_data = response.json()["Products"]
 
 	results = []
 	for item in request_data:
-		if len(results) >= page_len:
-			break
-		
+		if len(results) >= page_len: break
 		results.append({
 			"id": abs(hash(item["objectID"]) % (10**7)),
 			"source": "StockX",
@@ -50,17 +36,12 @@ def browse_stockx(search_query, shoe_size, price_low, price_high, page, page_len
 			"image": item["media"]["imageUrl"],
 			"image_thumbnail": item["media"]["imageUrl"].split('?', 1)[0] + "?w=300&q=50&trim=color"
 		})
-
 	return results
 
 
 ### NEW ###
 
 def stockx_lowest_price(sku_id, size):
-	"""
-		Gets the lowest price for a new model from StockX
-	"""
-
 	url = "https://stockx.com/api/browse"
 	headers = {
 		"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36",
@@ -83,10 +64,6 @@ def stockx_lowest_price(sku_id, size):
 
 
 def goat_lowest_price(sku_id, size):
-    """
-        Gets the lowest price for a new model from Goat
-    """
-
     url = "https://2fwotdvm2o-dsn.algolia.net/1/indexes/product_variants_v2/query"
     params = {
         "x-algolia-agent": "Algolia for vanilla JavaScript 3.25.1",
@@ -112,10 +89,6 @@ def goat_lowest_price(sku_id, size):
 
 
 def flightclub_lowest_price(sku_id, size):
-    """
-        Gets the lowest price for a new model from Flight Club
-    """
-
     url = "https://2fwotdvm2o-dsn.algolia.net/1/indexes/product_variants_v2_flight_club/query"
     params = {
         "x-algolia-agent": "Algolia for vanilla JavaScript (lite) 3.32.0;react-instantsearch 5.4.0;JS Helper 2.26.1",
@@ -140,144 +113,12 @@ def flightclub_lowest_price(sku_id, size):
     }]
 
 
-def klekt_lowest_price(sku_id, size):
-	"""
-		Gets the lowest price for a new model from KLEKT
-	"""
-	
-	url = "https://apiv2.klekt.com/shop-api?vendure-token=iqrhumfu2u9mumwq369"
-
-	product_id_query = {
-		"operationName": "SearchProducts",
-		"variables": {
-			"input": {
-				"availability": "available",
-				"facetSlugs": [],
-				"facetValueIds": [],
-				"groupByProduct": True,
-				"sizeType": None,
-				"sort": {"featured": "DESC"},
-				"take": 1,
-                "skip": 0,
-				"term": sku_id
-			}
-		},
-		"query": """query SearchProducts($input: SearchInput!) {
-			search(input: $input) { items { productId } }
-		}"""
-	}
-	response1 = requests.post(url, json=product_id_query)
-	product_id = response1.json()["data"]["search"]["items"][0]["productId"]
-
-	price_query = {
-		"query": """query {
-			productDetails(id: %s) {
-				name slug variants { availableCount priceWithTax facetValues { code } }
-			}
-		}""" % (product_id)
-	}
-	product_data = requests.post(url, json=price_query).json()
-
-	result = []
-	product_variants = product_data["data"]["productDetails"]["variants"]
-	for variant in product_variants:
-		v_size = variant["facetValues"][0]["code"].replace("us", "")
-		if float(v_size) == float(size):
-			result = [{
-				"source": "KLEKT",
-				"price": variant["priceWithTax"]/100,  # PRICE IN EURO
-				"url": "klekt.com/product/" + product_data["data"]["productDetails"]["slug"]
-			}]
-
-	return result
-
-
-def sneakercon_lowest_price(sku_id, size):
-	"""
-		Gets the lowest price for a new model from Sneaker Con
-	"""
-
-	url = "https://war6i72q7j.execute-api.us-east-1.amazonaws.com/prod/public/marketplace/all"
-	headers = {
-		"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36",
-		"origin": "https://sneakercon.com",
-		"referer": "https://sneakercon.com/",
-		"accept": "application/json",
-		"sec-ch-ua-mobile": "?0",
-		"sec-fetch-dest": "empty",
-		"sec-fetch-mode": "cors",
-		"sec-fetch-site": "cross-site"
-	}
-	parameters = {
-		"search": sku_id,
-		"size": size,
-		"limit": "1",
-		"isNew": "true"
-	}
-
-	response = requests.get(url, headers=headers, params=parameters)
-	response.raise_for_status()
-	request_data = response.json()
-
-	item = request_data[0]
-	prices_url = f"https://war6i72q7j.execute-api.us-east-1.amazonaws.com/prod/public/bid/new/makeofferdetails/{item['id']}"
-	price_data = requests.get(prices_url, headers=headers).json()
-	item_price = None
-	for p in price_data:
-		if p['size'] == str(size):
-			item_price = p['salePrice']
-
-	return [{
-		"source": 'Sneaker Con',
-		"price": item_price,
-		"url": "sneakercon.com/product/" + str(item['id']) + '-' + item['nickname'].replace(' ', '-')
-	}]
-
-
-def ebay_lowest_price(sku_id, size, ship_to='US'):
-	url = "https://svcs.ebay.com/services/search/FindingService/v1"
-	headers = {
-		"X-EBAY-SOA-SECURITY-APPNAME": "Sanctuar-jasontho-PRD-ad4af8740-c80ac57c",
-		"X-EBAY-SOA-RESPONSE-DATA-FORMAT": "JSON",
-		"X-EBAY-SOA-OPERATION-NAME": "findItemsAdvanced",
-	}
-
-	parameters = {
-		"keywords": sku_id,
-		"categoryId": "93427",
-		"sortOrder": "PricePlusShippingLowest",
-		"itemFilter(0).name": "AvailableTo",
-		"itemFilter(0).value": ship_to,
-		"itemFilter(1).name": "Condition",
-		"itemFilter(1).value": 1000,
-		"itemFilter(2).name": "HideDuplicateItems",
-		"itemFilter(2).value": True,
-		"aspectFilter(0).aspectName": "US Shoe Size (Men's)",
-		"aspectFilter(0).aspectValueName": str(size)
-	}
-
-	response = requests.get(url, headers=headers, params=parameters)
-	item_data = response.json()['findItemsAdvancedResponse'][0]['searchResult'][0]['item']
-
-	item = item_data[0]
-	return [{
-		"source": "eBay",
-		"price": float(item['sellingStatus'][0]['currentPrice'][0]['__value__']),
-		"url": item['viewItemURL'][0]
-	}]
-
-
 def grailed_lowest_price(model_name, size):
-    """
-        Gets a list of sneaker prices for a model from Grailed
-    """
-
     url = "https://mnrwefss2q-dsn.algolia.net/1/indexes/*/queries"
     params = {
         "x-algolia-agent": "Algolia for JavaScript (3.35.1); Browser",
         "x-algolia-application-id": "MNRWEFSS2Q", "x-algolia-api-key": "a3a4de2e05d9e9b463911705fb6323ad"
     }
-
     post_json = {
         "requests": [{
             "indexName": "Listing_by_low_price_production",
@@ -300,35 +141,141 @@ def grailed_lowest_price(model_name, size):
     }]
 
 
+def ebay_lowest_price(sku_id, size, ship_to='US'):
+	url = "https://svcs.ebay.com/services/search/FindingService/v1"
+	headers = {
+		"X-EBAY-SOA-SECURITY-APPNAME": "Sanctuar-jasontho-PRD-ad4af8740-c80ac57c",
+		"X-EBAY-SOA-RESPONSE-DATA-FORMAT": "JSON", "X-EBAY-SOA-OPERATION-NAME": "findItemsAdvanced"
+	}
+	parameters = {
+		"keywords": sku_id,
+		"categoryId": "93427",
+		"sortOrder": "PricePlusShippingLowest",
+		"itemFilter(0).name": "AvailableTo",
+		"itemFilter(0).value": ship_to,
+		"itemFilter(1).name": "Condition",
+		"itemFilter(1).value": 1000,
+		"itemFilter(2).name": "HideDuplicateItems",
+		"itemFilter(2).value": True,
+		"aspectFilter(0).aspectName": "US Shoe Size (Men's)",
+		"aspectFilter(0).aspectValueName": str(size)
+	}
+
+	response = requests.get(url, headers=headers, params=parameters)
+	item_data = response.json()['findItemsAdvancedResponse'][0]['searchResult'][0]['item']
+
+	if len(item_data) == 0: return []
+	return [{
+		"source": "eBay",
+		"price": float(item_data[0]['sellingStatus'][0]['currentPrice'][0]['__value__']),
+		"url": item_data[0]['viewItemURL'][0]
+	}]
+
+
 def depop_lowest_price(model_name, size):
-    """
-        Gets a list of sneaker prices for a model from Depop
-    """
+	url = "https://webapi.depop.com/api/v2/search/products"
+	headers = {
+		"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36",
+	}
 
-    url = "https://webapi.depop.com/api/v2/search/products"
-    headers = {
-        "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36",
-    }
+	size_map = {7:"2", 7.5:"3", 8:"4", 8.5:"5", 9:"6", 9.5:"7", 10:"8", 10.5:"9", 11:"10", 11.5:"11",
+		12: "12", 12.5:"13", 13:"14", 13.5:"15", 14:"16", 14.5:"17", 15:"18"}
 
-    size_map = {7:"2", 7.5:"3", 8:"4", 8.5:"5", 9:"6", 9.5:"7", 10:"8", 10.5:"9", 11:"10", 11.5:"11",
-        12: "12", 12.5:"13", 13:"14", 13.5:"15", 14:"16", 14.5:"17", 15:"18"}
+	parameters = {
+		"what": model_name,
+		"sizes": "6-77." + size_map[size],
+		"country": "us",
+		"conditions": "brand_new, used_like_new"
+	}
 
-    parameters = {
-        "what": model_name,
-        "sizes": "6-77." + size_map[size],
-        "country": "us",
-        "conditions": "brand_new, used_like_new"
-    }
+	response = requests.get(url, headers=headers, params=parameters)
+	item_data = response.json()["products"]
 
-    response = requests.get(url, headers=headers, params=parameters)
-    item_data = response.json()["products"]
+	if len(item_data) == 0: return []
+	return [{
+		"source": "Depop",
+		"price": float(item_data[0]["price"]["priceAmount"]),
+		"url": "depop.com/products/" + item_data[0]["slug"]
+	}]
 
-    if len(item_data) == 0: return []
-    return [{
-        "source": "Depop",
-        "price": float(item_data[0]["price"]["priceAmount"]),
-        "url": "depop.com/products/" + item_data[0]["slug"]
-    }]
+
+def klekt_lowest_price(sku_id, size):
+	url = "https://apiv2.klekt.com/shop-api?vendure-token=iqrhumfu2u9mumwq369"
+
+	product_id_query = {
+		"operationName": "SearchProducts",
+		"variables": {
+			"input": {
+				"availability": "available",
+				"facetSlugs": [],
+				"facetValueIds": [],
+				"groupByProduct": True,
+				"sizeType": None,
+				"sort": {"featured": "DESC"},
+				"take": 1,
+                "skip": 0,
+				"term": sku_id
+			}
+		},
+		"query": """query SearchProducts($input: SearchInput!) {
+			search(input: $input) { items { productId } } }"""
+	}
+	response1 = requests.post(url, json=product_id_query)
+	product_id = response1.json()["data"]["search"]["items"][0]["productId"]
+
+	price_query = {
+		"query": """query {
+			productDetails(id: %s) {
+				name slug variants { availableCount priceWithTax facetValues { code } }
+			}
+		}""" % (product_id)
+	}
+	response2 = requests.post(url, json=price_query)
+	product_data = response2.json()
+
+	result = []
+	product_variants = product_data["data"]["productDetails"]["variants"]
+	for variant in product_variants:
+		v_size = variant["facetValues"][0]["code"].replace("us", "")
+		if float(v_size) == float(size):
+			result = [{
+				"source": "KLEKT",
+				"price": variant["priceWithTax"]/100,  # PRICE IN EURO
+				"url": "klekt.com/product/" + product_data["data"]["productDetails"]["slug"]
+			}]
+
+	return result
+
+
+def sneakercon_lowest_price(sku_id, size):
+	url = "https://war6i72q7j.execute-api.us-east-1.amazonaws.com/prod/public/marketplace/all"
+	headers = {
+		"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36",
+		"origin": "https://sneakercon.com"
+	}
+	parameters = {
+		"search": sku_id,
+		"size": size,
+		"limit": "1",
+		"isNew": "true"
+	}
+
+	response = requests.get(url, headers=headers, params=parameters)
+	request_data = response.json()
+
+	item = request_data[0]
+	prices_url = f"https://war6i72q7j.execute-api.us-east-1.amazonaws.com/prod/public/bid/new/makeofferdetails/{item['id']}"
+	price_data = requests.get(prices_url, headers=headers).json()
+	item_price = None
+	for p in price_data:
+		if p['size'] == str(size):
+			item_price = p['salePrice']
+
+	return [{
+		"source": 'Sneaker Con',
+		"price": item_price,
+		"url": "sneakercon.com/product/" + str(item['id']) + '-' + item['nickname'].replace(' ', '-')
+	}]
 
 
 ### USED ###

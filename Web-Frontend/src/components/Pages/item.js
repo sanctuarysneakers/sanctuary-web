@@ -17,7 +17,7 @@ export default function Item() {
 
     return (
         <div>
-            <p>{itemInfo.model}</p>
+            <p>{itemInfo.modelName}</p>
             <p>{itemInfo.skuId}</p>
         </div>
     )
