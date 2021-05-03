@@ -1,7 +1,7 @@
 import createRequestObject from './createrequest'
 
 
-async function stockxLowestPrice(skuId, size, currencyRate) {
+export async function stockxLowestPrice(skuId, size, currencyRate) {
 	const request = createRequestObject('stockx', {
 		search: skuId, size: size
 	})
@@ -12,13 +12,13 @@ async function stockxLowestPrice(skuId, size, currencyRate) {
 	if (itemData.length == 0) return null
 	return {
 		source: "stockx",
-		price: Math.round(item["market"]["lowestAsk"] * currencyRate),
+		price: Math.round(itemData[0]["market"]["lowestAsk"]),
 		url: "stockx.com/" + itemData[0]["urlKey"]
 	}
 }
 
 
-async function goatLowestPrice(skuId, size, currencyRate) {
+export async function goatLowestPrice(skuId, size, currencyRate) {
 	const request = createRequestObject('goat', {
 		search: skuId, size: size
 	})
@@ -29,13 +29,13 @@ async function goatLowestPrice(skuId, size, currencyRate) {
 	if (itemData.length == 0) return null
 	return {
 		source: "goat",
-		price: Math.round((itemData[0]['lowest_price_cents']/100) * currencyRate),
+		price: Math.round(itemData[0]['lowest_price_cents']/100),
 		url: 'goat.com/sneakers/' + itemData[0]['slug']
 	}
 }
 
 
-async function flightclubLowestPrice(skuId, size, currencyRate) {
+export async function flightclubLowestPrice(skuId, size, currencyRate) {
 	const request = createRequestObject('flightclub', {
 		search: skuId, size: size
 	})
@@ -46,13 +46,13 @@ async function flightclubLowestPrice(skuId, size, currencyRate) {
 	if (itemData.length == 0) return null
 	return {
 		source: "flightclub",
-		price: Math.round((itemData[0]['lowest_price_cents']/100) * currencyRate),
+		price: Math.round(itemData[0]['lowest_price_cents']/100),
 		url: 'flightclub.com/' + itemData[0]['slug']
 	}
 }
 
 
-async function grailedLowestPrice(modelName, size, currencyRate) {
+export async function grailedLowestPrice(modelName, size, currencyRate) {
 	const request = createRequestObject('grailed', {
 		search: modelName, size: size
 	})
@@ -63,13 +63,13 @@ async function grailedLowestPrice(modelName, size, currencyRate) {
 	if (itemData.length == 0) return null
 	return {
 		source: "grailed",
-		price: Math.round(itemData[0]['price'] * currencyRate),
-		url: "grailed.com/listings/" + str(itemData[0]['id'])
+		price: Math.round(itemData[0]['price']),
+		url: "grailed.com/listings/" + itemData[0]['id'].toString()
 	}
 }
 
 
-async function ebayLowestPrice(skuId, size, location, currencyRate) {
+export async function ebayLowestPrice(skuId, size, currencyRate, location='US') {
 	const request = createRequestObject('ebay', {
 		search: skuId, size: size, shipTo: location
 	})
@@ -86,7 +86,7 @@ async function ebayLowestPrice(skuId, size, location, currencyRate) {
 }
 
 
-async function depopLowestPrice(modelName, size, currencyRate) {
+export async function depopLowestPrice(modelName, size, currencyRate) {
 	const request = createRequestObject('depop', {
 		search: modelName, size: size
 	})
@@ -97,18 +97,17 @@ async function depopLowestPrice(modelName, size, currencyRate) {
 	if (itemData.length == 0) return null
 	return {
 		source: "depop",
-		price: Math.round(parseFloat(itemData[0]["price"]["priceAmount"] * currencyRate)),
+		price: Math.round(parseFloat(itemData[0]["price"]["priceAmount"])),
 		url: "depop.com/products/" + itemData[0]["slug"]
 	}
 }
 
 
-async function klektLowestPrice(skuId, size, currencyRate) {
+export async function klektLowestPrice(skuId, size, currencyRate) {
 	// request1: get product id for sneaker model
 	const request1 = createRequestObject('klekt1', { search: skuId })
 	const response1 = await fetch(request1.url, request1.headers)
 	let rawData1 = await response1.json()
-	if (!rawData1.length) return null
 	let item = rawData1["data"]["search"]["items"][0]
 
 	// request2: get price based on product id
@@ -132,7 +131,7 @@ async function klektLowestPrice(skuId, size, currencyRate) {
 }
 
 
-async function sneakerconLowestPrice(skuId, size, currencyRate) {
+export async function sneakerconLowestPrice(skuId, size, currencyRate) {
 	// request1: get item data for sneaker model
 	const request1 = createRequestObject('sneakercon1', {
 		search: skuId, size: size

@@ -15,6 +15,10 @@ export default function Item() {
     const itemInfo = useSelector(state => state.item)
     useAPICall('getiteminfo')
 
+    const itemPrices = useSelector(state => state.itemPrices)
+    useAPICall('getitemprices')
+    console.log(itemPrices)
+
     return (
         <div>
             <p>{itemInfo.modelName}</p>

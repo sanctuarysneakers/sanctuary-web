@@ -88,7 +88,8 @@ export default function createRequestObject(type, filter) {
 					method: 'GET',
 					headers: new Headers({
 						"X-EBAY-SOA-SECURITY-APPNAME": "Sanctuar-jasontho-PRD-ad4af8740-c80ac57c",
-						"X-EBAY-SOA-RESPONSE-DATA-FORMAT": "JSON", "X-EBAY-SOA-OPERATION-NAME": "findItemsAdvanced"
+						"X-EBAY-SOA-RESPONSE-DATA-FORMAT": "JSON",
+						"X-EBAY-SOA-OPERATION-NAME": "findItemsAdvanced"
 					})
 				}
 			}
@@ -113,6 +114,9 @@ export default function createRequestObject(type, filter) {
 				}),
 				headers: {
 					method: 'POST',
+					headers: new Headers({
+						"content-type": "application/json;charset=UTF-8"
+					}),
 					body: JSON.stringify({
 						"operationName": "SearchProducts",
 						"variables": {
@@ -139,6 +143,9 @@ export default function createRequestObject(type, filter) {
 				}),
 				headers: {
 					method: 'POST',
+					headers: new Headers({
+						"content-type": "application/json;charset=UTF-8"
+					}),
 					body: JSON.stringify({
 						"query": `query {
 							productDetails(id: ${filter.pid}) {

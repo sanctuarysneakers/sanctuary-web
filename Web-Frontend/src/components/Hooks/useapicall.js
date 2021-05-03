@@ -1,7 +1,9 @@
 import { useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
-import { browseCall, updateItem } from '../../redux/actions'
+import { browseCall, updateItem, updatePrices } from '../../redux/actions'
 import createRequestObject from './createrequest'
+import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, grailedLowestPrice, 
+    ebayLowestPrice, depopLowestPrice, klektLowestPrice, sneakerconLowestPrice } from './scrapers'
 import getCurrencyRate from './currencyrate'
 
 
@@ -46,7 +48,17 @@ export default function useAPICall(callType) {
 
 
     async function getPrices() {
-        
+        let results = []
+        let size = 10
+        results.push(await stockxLowestPrice(item.skuId, size, currency))
+        results.push(await goatLowestPrice(item.skuId, size, currency))
+        results.push(await flightclubLowestPrice(item.skuId, size, currency))
+        results.push(await grailedLowestPrice(item.modelName, size, currency))
+        results.push(await klektLowestPrice(item.skuId, size, currency))
+        //results.push(await ebayLowestPrice(item.skuId, size, currency))
+        //results.push(await depopLowestPrice(item.modelName, size, currency))
+        //results.push(await sneakerconLowestPrice(item.skuId, size, currency))
+        dispatch(updatePrices(results))
     }
 
 
