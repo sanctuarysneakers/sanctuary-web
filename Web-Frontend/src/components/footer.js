@@ -23,6 +23,19 @@ export default function Footer() {
             await fetch(email_url + email)
             setEmailSubmitted(true)
         }
+
+        const url = 'https://in-automate.sendinblue.com/api/v2/identify'
+        const options = {
+        method: 'POST',
+        headers: {Accept: 'application/json', 'Content-Type': 'application/json', 
+        'ma-key': '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',},
+        body: JSON.stringify({email:email})
+        };
+
+        fetch(url, options)
+        .then(res => res.json())
+        .then(json => console.log(json))
+        .catch(err => console.error('error:' + err));
     }
 
     let email_url = `https://sanctuaryapi.net/emails?email=`
