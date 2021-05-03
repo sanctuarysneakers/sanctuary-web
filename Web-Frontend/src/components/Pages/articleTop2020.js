@@ -1,7 +1,5 @@
 import React from 'react'
 import author from '../../assets/images/ColeVanHinte.jpg'
-import pictureOne from '../../assets/images/articleEngineering1.jpg'
-import pictureTwo from '../../assets/images/articleEngineering2.jpg'
 import ReadNext from '../readnext.js'
 
 export default function ArticleTop2020() {
@@ -45,7 +43,7 @@ export default function ArticleTop2020() {
                        most iconic silhouettes. Although some may say it’s bold, we think it’s brilliant.
                     </p>
                     <div className='article-image'>
-                        <img src="https://cutt.ly/qc4ZIsx" alt="Ben and Jerry's x Nike SB Dunk Low 'Chunky Dunky'" />
+                        <img src="https://i.ibb.co/4ZRn4dx/ben-and-jerry-dunk.png" alt="Ben and Jerry's x Nike SB Dunk Low 'Chunky Dunky'" />
                         <h4 className='image-source'>
                             Image via SneakerNews 
                         </h4>
@@ -60,14 +58,14 @@ export default function ArticleTop2020() {
                     </p>
                     
                     <div className='article-image'>
-                            <img src="https://cutt.ly/uc4Z25V" alt="Off-White x Air Jordan 4 ‘Sail’" />
+                            <img src="https://i.ibb.co/d0phDm0/offwhite-aj4.png" alt="Off-White x Air Jordan 4 ‘Sail’" />
                             <h4 className='image-source'>
                                 Image via SoleCollector
                             </h4>
                     </div>
 
                     <p>
-                    <strong>Joe Freshgoods x New Balance 992</strong>
+                    <strong>Joe Freshgoods x New Balance 992</strong> <br />
                     Dropping amidst the NBA’s All-Star weekend, Joe Freshgoods’ take on the New Balance 992 brought an 
                     energetic perspective to a classic silhouette. This coveted collaboration started a new era for the 
                     New Balance 992, paving way for many more releases in various colourways. The sneaker’s red and pink 
@@ -76,7 +74,7 @@ export default function ArticleTop2020() {
                     </p>
 
                     <div className='article-image'>
-                            <img src="https://cutt.ly/Ic4XrTb" alt='Joe Freshgoods x New Balance 992' />
+                            <img src="https://i.ibb.co/80yNpM4/new-balance-994.png" alt='Joe Freshgoods x New Balance 992' />
                             <h4 className='image-source'>
                                 Image via SneakerNews
                             </h4>
