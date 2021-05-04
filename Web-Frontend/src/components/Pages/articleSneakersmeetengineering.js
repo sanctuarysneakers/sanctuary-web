@@ -1,7 +1,4 @@
 import React from 'react'
-import author from '../../assets/images/JonahHarding.jpg'
-import pictureOne from '../../assets/images/articleEngineering1.jpg'
-import pictureTwo from '../../assets/images/articleEngineering2.jpg'
 import ReadNext from '../readnext.js'
 
 export default function ArticleSneakersMeetEngineering() {
@@ -14,7 +11,7 @@ export default function ArticleSneakersMeetEngineering() {
                             <div className='article-header-content'>
                                 <h1> How Adidas and Carbon3D are Revolutionizing Sneaker Production </h1>
                                 <div className='article-author'>
-                                        <img src={author} />
+                                        <img src='https://i.ibb.co/4R2gT62/Jonah-Harding.jpg' />
                                         <div className='author-date'>
                                             <h5>
                                                 Jonah Harding
@@ -38,7 +35,7 @@ export default function ArticleSneakersMeetEngineering() {
 
                     </p>
                     <div className='article-image'>
-                            <img src={pictureOne} alt='Adidas Futurecraft 4D' />
+                            <img src='https://i.ibb.co/pvmRPGx/article-Engineering1.webp' alt='Adidas Futurecraft 4D' />
                             <h4 className='image-source'>
                                 Image via Adidas 
                             </h4>
@@ -58,7 +55,7 @@ export default function ArticleSneakersMeetEngineering() {
                     </p>
 
                     <div className='article-image'>
-                            <img src={pictureTwo} alt='Engineered midsole' />
+                            <img src='https://i.ibb.co/gvRdQ2D/article-Engineering2.png' alt='Engineered midsole' />
                             <h4 className='image-source'>
                                 Image via Carbon 
                             </h4>

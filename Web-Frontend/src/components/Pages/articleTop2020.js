@@ -1,5 +1,4 @@
 import React from 'react'
-import author from '../../assets/images/ColeVanHinte.jpg'
 import ReadNext from '../readnext.js'
 
 export default function ArticleTop2020() {
@@ -12,7 +11,7 @@ export default function ArticleTop2020() {
                             <div className='article-header-content'>
                                 <h1> Our Top Picks of 2020 </h1>
                                 <div className='article-author'>
-                                        <img src={author} />
+                                        <img src="https://i.ibb.co/9hY3RJp/Cole-Van-Hinte.jpg" alt="Cole Van Hinte" />
                                         <div className='author-date'>
                                             <h5>
                                                 Cole Van Hinte

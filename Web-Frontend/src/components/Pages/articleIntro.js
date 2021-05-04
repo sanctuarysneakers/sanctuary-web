@@ -1,8 +1,4 @@
 import React from 'react'
-import pictureOne from '../../assets/images/Article1-1.jpg'
-import pictureTwo from '../../assets/images/Article1-2.jpg'
-import pictureThree from '../../assets/images/Article1-3.jpg'
-import author from '../../assets/images/ColeVanHinte.jpg'
 import ReadNext from '../readnext.js'
 
 export default function ArticleIntro() {
@@ -20,7 +16,7 @@ export default function ArticleIntro() {
                                     Sanctuary: Our Story
                                 </h1>
                                 <div className='article-author'>
-                                    <img src={author} />
+                                    <img src='https://i.ibb.co/9hY3RJp/Cole-Van-Hinte.jpg' />
                                     <div className='author-date'>
                                         <h5>
                                             Cole Van Hinte
@@ -43,7 +39,7 @@ export default function ArticleIntro() {
                         </p>
 
                         <div className='article-image'>
-                            <img src={pictureTwo} alt='article-1' />
+                            <img src='https://i.ibb.co/7rmB3jy/Article1-2.jpg' alt='Woman writing on laptop' />
                             <h4 className='image-source'>
                                 Image via Unsplash 
                             </h4>
@@ -66,7 +62,7 @@ export default function ArticleIntro() {
                         </p>
 
                         <div className='article-image'>
-                            <img src={pictureOne} alt='article-1' />
+                            <img src='https://i.ibb.co/8jJLZyq/Article1-1.jpg' alt='Crowd at sneaker convention' />
                             <h4 className='image-source'>
                                 Image via Blue Bite 
                             </h4>
@@ -110,7 +106,7 @@ export default function ArticleIntro() {
                         </p>
 
                         <div className='article-image'>
-                            <img src={pictureThree} alt='article-1' />
+                            <img src='https://i.ibb.co/rmYGJbL/Article1-3.jpg' alt='Planning whiteboard' />
                             <h4 className='image-source'>
                                 Image via Unsplash 
                             </h4>

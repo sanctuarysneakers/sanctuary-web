@@ -1,7 +1,4 @@
 import React from 'react'
-import author from '../../assets/images/ColeVanHinte.jpg'
-import pictureOne from '../../assets/images/articledemystifying1.jpg'
-import pictureTwo from '../../assets/images/articledemystifying2.jpg'
 import ReadNext from '../readnext.js'
 
 export default function ArticleDemystifying() {
@@ -17,7 +14,7 @@ export default function ArticleDemystifying() {
                                     Demystifying the Sneaker Market
                                 </h1>
                                 <div className='article-author'>
-                                    <img src={author} />
+                                    <img src='https://i.ibb.co/9hY3RJp/Cole-Van-Hinte.jpg' />
                                     <div className='author-date'>
                                         <h5>
                                             Cole Van Hinte
@@ -39,7 +36,7 @@ export default function ArticleDemystifying() {
 
                         
                         <div className='article-image'>
-                            <img src={pictureTwo} alt='Sneaker market diagram' />
+                            <img src='https://i.ibb.co/zfbpTsY/articledemystifying2.jpg' alt='Sneaker market diagram' />
                             <h4 className='image-source'>
                                     Image via Wall Street Journal
                             </h4>
@@ -62,7 +59,7 @@ export default function ArticleDemystifying() {
                         </p>  
 
                         <div className='article-image'>
-                            <img src={pictureOne} alt='Wall of sneakers' />
+                            <img src='https://i.ibb.co/Kj0yW4t/articledemystifying1.webp' alt='Wall of sneakers' />
                             <h4 className='image-source'>
                                     Image via GQ
                             </h4>
