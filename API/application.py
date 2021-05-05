@@ -27,13 +27,13 @@ class GetPrice(Resource):
 			return ebay_lowest_price(search, size, ship_to)
 		elif source == 'depop':
 			return depop_lowest_price(search, size)
-		elif source == 'sneakercon':
-			return sneakercon_lowest_price(search, size)
+		# elif source == 'sneakercon':
+		# 	return sneakercon_lowest_price(search, size)
 
 
 # Set API endpoints
 api.add_resource(GetPrice, '/getprice')
 
 if __name__ == '__main__':
-	application.run(debug=True)        # debugging
-	#application.run(host='0.0.0.0')    # production
+	#application.run(debug=True)        # local dev
+	application.run(host='0.0.0.0')    # production
