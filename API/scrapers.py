@@ -141,64 +141,6 @@ def grailed_lowest_price(model_name, size):
     }]
 
 
-def ebay_lowest_price(sku_id, size, ship_to='US'):
-	url = "https://svcs.ebay.com/services/search/FindingService/v1"
-	headers = {
-		"X-EBAY-SOA-SECURITY-APPNAME": "Sanctuar-jasontho-PRD-ad4af8740-c80ac57c",
-		"X-EBAY-SOA-RESPONSE-DATA-FORMAT": "JSON", "X-EBAY-SOA-OPERATION-NAME": "findItemsAdvanced"
-	}
-	parameters = {
-		"keywords": sku_id,
-		"categoryId": "93427",
-		"sortOrder": "PricePlusShippingLowest",
-		"itemFilter(0).name": "AvailableTo",
-		"itemFilter(0).value": ship_to,
-		"itemFilter(1).name": "Condition",
-		"itemFilter(1).value": 1000,
-		"itemFilter(2).name": "HideDuplicateItems",
-		"itemFilter(2).value": True,
-		"aspectFilter(0).aspectName": "US Shoe Size (Men's)",
-		"aspectFilter(0).aspectValueName": str(size)
-	}
-
-	response = requests.get(url, headers=headers, params=parameters)
-	item_data = response.json()['findItemsAdvancedResponse'][0]['searchResult'][0]['item']
-
-	if len(item_data) == 0: return []
-	return [{
-		"source": "eBay",
-		"price": float(item_data[0]['sellingStatus'][0]['currentPrice'][0]['__value__']),
-		"url": item_data[0]['viewItemURL'][0]
-	}]
-
-
-def depop_lowest_price(model_name, size):
-	url = "https://webapi.depop.com/api/v2/search/products"
-	headers = {
-		"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36",
-	}
-
-	size_map = {7:"2", 7.5:"3", 8:"4", 8.5:"5", 9:"6", 9.5:"7", 10:"8", 10.5:"9", 11:"10", 11.5:"11",
-		12: "12", 12.5:"13", 13:"14", 13.5:"15", 14:"16", 14.5:"17", 15:"18"}
-
-	parameters = {
-		"what": model_name,
-		"sizes": "6-77." + size_map[size],
-		"country": "us",
-		"conditions": "brand_new, used_like_new"
-	}
-
-	response = requests.get(url, headers=headers, params=parameters)
-	item_data = response.json()["products"]
-
-	if len(item_data) == 0: return []
-	return [{
-		"source": "Depop",
-		"price": float(item_data[0]["price"]["priceAmount"]),
-		"url": "depop.com/products/" + item_data[0]["slug"]
-	}]
-
-
 def klekt_lowest_price(sku_id, size):
 	url = "https://apiv2.klekt.com/shop-api?vendure-token=iqrhumfu2u9mumwq369"
 
@@ -247,6 +189,64 @@ def klekt_lowest_price(sku_id, size):
 	return result
 
 
+def ebay_lowest_price(sku_id, size, ship_to):
+	url = "https://svcs.ebay.com/services/search/FindingService/v1"
+	headers = {
+		"X-EBAY-SOA-SECURITY-APPNAME": "Sanctuar-jasontho-PRD-ad4af8740-c80ac57c",
+		"X-EBAY-SOA-RESPONSE-DATA-FORMAT": "JSON", "X-EBAY-SOA-OPERATION-NAME": "findItemsAdvanced"
+	}
+	parameters = {
+		"keywords": sku_id,
+		"categoryId": "93427",
+		"sortOrder": "PricePlusShippingLowest",
+		"itemFilter(0).name": "AvailableTo",
+		"itemFilter(0).value": ship_to,
+		"itemFilter(1).name": "Condition",
+		"itemFilter(1).value": 1000,
+		"itemFilter(2).name": "HideDuplicateItems",
+		"itemFilter(2).value": True,
+		"aspectFilter(0).aspectName": "US Shoe Size (Men's)",
+		"aspectFilter(0).aspectValueName": size
+	}
+
+	response = requests.get(url, headers=headers, params=parameters)
+	item_data = response.json()['findItemsAdvancedResponse'][0]['searchResult'][0]['item']
+
+	if len(item_data) == 0: return []
+	return [{
+		"source": "ebay",
+		"price": float(item_data[0]['sellingStatus'][0]['currentPrice'][0]['__value__']),
+		"url": item_data[0]['viewItemURL'][0]
+	}]
+
+
+def depop_lowest_price(model_name, size):
+	url = "https://webapi.depop.com/api/v2/search/products"
+	headers = {
+		"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36",
+	}
+
+	size_map = {'7':'2','7.5':'3','8':'4','8.5':'5','9':'6','9.5':'7','10':'8','10.5':'9','11':'10', 
+		'11.5':'11','12':'12','12.5':'13','13':'14','13.5':'15','14':'16','14.5':'17','15':'18'}
+
+	parameters = {
+		"what": model_name,
+		"sizes": "6-77." + size_map[size],
+		"country": "us",
+		"conditions": "brand_new, used_like_new"
+	}
+
+	response = requests.get(url, headers=headers, params=parameters)
+	item_data = response.json()["products"]
+
+	if len(item_data) == 0: return []
+	return [{
+		"source": "depop",
+		"price": float(item_data[0]["price"]["priceAmount"]),
+		"url": "depop.com/products/" + item_data[0]["slug"]
+	}]
+
+
 def sneakercon_lowest_price(sku_id, size):
 	url = "https://war6i72q7j.execute-api.us-east-1.amazonaws.com/prod/public/marketplace/all"
 	headers = {
@@ -268,11 +268,11 @@ def sneakercon_lowest_price(sku_id, size):
 	price_data = requests.get(prices_url, headers=headers).json()
 	item_price = None
 	for p in price_data:
-		if p['size'] == str(size):
+		if p['size'] == size:
 			item_price = p['salePrice']
 
 	return [{
-		"source": 'Sneaker Con',
+		"source": 'sneakercon',
 		"price": item_price,
 		"url": "sneakercon.com/product/" + str(item['id']) + '-' + item['nickname'].replace(' ', '-')
 	}]
