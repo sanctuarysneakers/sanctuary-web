@@ -197,8 +197,7 @@ def ebay_lowest_price(sku_id, size, ship_to):
 	}
 	parameters = {
 		"keywords": sku_id,
-		"categoryId": "93427",
-		"sortOrder": "PricePlusShippingLowest",
+		"sortOrder": "BestMatch",
 		"itemFilter(0).name": "AvailableTo",
 		"itemFilter(0).value": ship_to,
 		"itemFilter(1).name": "Condition",
