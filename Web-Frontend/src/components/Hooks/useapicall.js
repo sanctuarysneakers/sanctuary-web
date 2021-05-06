@@ -55,8 +55,8 @@ export default function useAPICall(callType) {
         results.push(await flightclubLowestPrice(item.skuId, size, currency))
         results.push(await grailedLowestPrice(item.modelName, size, currency))
         results.push(await klektLowestPrice(item.skuId, size, currency))
-        //results.push(await ebayLowestPrice(item.skuId, size, currency))
-        //results.push(await depopLowestPrice(item.modelName, size, currency))
+        results.push(await ebayLowestPrice(item.skuId, item.modelName, size))
+        results.push(await depopLowestPrice(item.modelName, size, currency))
         //results.push(await sneakerconLowestPrice(item.skuId, size, currency))
         dispatch(updatePrices(results))
     }

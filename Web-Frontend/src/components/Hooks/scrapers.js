@@ -69,40 +69,6 @@ export async function grailedLowestPrice(modelName, size, currencyRate) {
 }
 
 
-export async function ebayLowestPrice(skuId, size, currencyRate, location='US') {
-	const request = createRequestObject('ebay', {
-		search: skuId, size: size, shipTo: location
-	})
-	const response = await fetch(request.url, request.headers)
-	let rawData = await response.json()
-	let itemData = rawData['findItemsAdvancedResponse'][0]['searchResult'][0]['item']
-
-	if (itemData.length == 0) return null
-	return {
-		source: "ebay",
-		price: Math.round(parseFloat(itemData[0]['sellingStatus'][0]['currentPrice'][0]['__value__']) * currencyRate),
-		url: itemData[0]['viewItemURL'][0]
-	}
-}
-
-
-export async function depopLowestPrice(modelName, size, currencyRate) {
-	const request = createRequestObject('depop', {
-		search: modelName, size: size
-	})
-	const response = await fetch(request.url, request.headers)
-	let rawData = await response.json()
-	let itemData = rawData["products"]
-
-	if (itemData.length == 0) return null
-	return {
-		source: "depop",
-		price: Math.round(parseFloat(itemData[0]["price"]["priceAmount"])),
-		url: "depop.com/products/" + itemData[0]["slug"]
-	}
-}
-
-
 export async function klektLowestPrice(skuId, size, currencyRate) {
 	// request1: get product id for sneaker model
 	const request1 = createRequestObject('klekt1', { search: skuId })
@@ -131,31 +97,50 @@ export async function klektLowestPrice(skuId, size, currencyRate) {
 }
 
 
-export async function sneakerconLowestPrice(skuId, size, currencyRate) {
-	// request1: get item data for sneaker model
-	const request1 = createRequestObject('sneakercon1', {
-		search: skuId, size: size
+export async function ebayLowestPrice(skuId, modelName, size, location='US', currencyRate) {
+	const request = createRequestObject('ebay', {
+		sku: skuId, model: modelName, size: size, shipTo: location
 	})
-	const response1 = await fetch(request1.url, request1.headers)
-	let rawData1 = await response1.json()
-	if (rawData1.length == 0) return null
-	let item = rawData1[0]
+	const response = await fetch(request.url, request.headers)
+	let itemData = await response.json()
 
-	// request2: get price based on item id
-	const request2 = createRequestObject('sneakercon2', { pid: item['id'] })
-	const response2 = await fetch(request2.url, request2.headers)
-	let rawData2 = await response2.json()
-	let itemPrice = null
-	for (const product of rawData2) {
-		if (product['size'] == size.toString())
-			itemPrice = product['salePrice']
-	}
-
-	if (itemPrice == null) return null
+	if (itemData.length == 0) return null
 	return {
-		source: 'sneakercon',
-		price: itemPrice * currencyRate,
-		url: "sneakercon.com/product/" + item['id'].toString() + '-' + item['nickname'].replace(' ', '-')
+		source: "ebay",
+		price: itemData[0]['price'],
+		url: itemData[0]['url']
+	}
+}
+
+
+export async function depopLowestPrice(modelName, size, currencyRate) {
+	const request = createRequestObject('depop', {
+		model: modelName, size: size
+	})
+	const response = await fetch(request.url, request.headers)
+	let itemData = await response.json()
+
+	if (itemData.length == 0) return null
+	return {
+		source: "depop",
+		price: itemData[0]['price'],
+		url: itemData[0]['url']
+	}
+}
+
+
+export async function sneakerconLowestPrice(skuId, size, currencyRate) {
+	const request = createRequestObject('sneakercon', {
+		sku: skuId, size: size
+	})
+	const response = await fetch(request.url, request.headers)
+	let itemData = await response.json()
+
+	if (itemData.length == 0) return null
+	return {
+		source: "sneakercon",
+		price: itemData[0]['price'],
+		url: itemData[0]['url']
 	}
 }
 

@@ -60,7 +60,7 @@ export default function createRequestObject(type, filter) {
 					method: 'POST',
 					body: JSON.stringify({
 						"requests": [{
-							"indexName": "Listing_by_low_price_production",
+							"indexName": "Listing_production",
 							"params": new URLSearchParams({
 								"query": filter.search,
 								"facetFilters": `[[\"category_size:footwear.${filter.size}\"], [\"condition:is_new\",\"condition:is_gently_used\"]]`,
@@ -71,37 +71,35 @@ export default function createRequestObject(type, filter) {
 			}
 		case 'ebay':
 			return {
-				url: 'https://svcs.ebay.com/services/search/FindingService/v1?' + new URLSearchParams({
-					"keywords": filter.search,
-					"categoryId": "93427",
-					"sortOrder": "PricePlusShippingLowest",
-					"itemFilter(0).name": "AvailableTo",
-					"itemFilter(0).value": filter.shipTo,
-					"itemFilter(1).name": "Condition",
-					"itemFilter(1).value": 1000,
-					"itemFilter(2).name": "HideDuplicateItems",
-					"itemFilter(2).value": true,
-					"aspectFilter(0).aspectName": "US Shoe Size (Men's)",
-					"aspectFilter(0).aspectValueName": filter.size.toString()
+				url: 'https://sanctuaryapi.net/getprice?' + new URLSearchParams({
+					'source': 'ebay',
+					'sku': filter.sku,
+					'model': filter.model,
+					'size': filter.size,
+					'ship_to': filter.shipTo
 				}),
 				headers: {
-					method: 'GET',
-					headers: new Headers({
-						"X-EBAY-SOA-SECURITY-APPNAME": "Sanctuar-jasontho-PRD-ad4af8740-c80ac57c",
-						"X-EBAY-SOA-RESPONSE-DATA-FORMAT": "JSON",
-						"X-EBAY-SOA-OPERATION-NAME": "findItemsAdvanced"
-					})
+					method: 'GET'
 				}
 			}
 		case 'depop':
-			const size_map = {7:"2", 7.5:"3", 8:"4", 8.5:"5", 9:"6", 9.5:"7", 10:"8", 10.5:"9", 11:"10", 11.5:"11",
-				12: "12", 12.5:"13", 13:"14", 13.5:"15", 14:"16", 14.5:"17", 15:"18"}
 			return {
-				url: 'https://webapi.depop.com/api/v2/search/products?' + new URLSearchParams({
-					"what": filter.search,
-					"sizes": "6-77." + size_map[filter.size],
-					"country": "us",
-					"conditions": "brand_new, used_like_new"
+				url: 'https://sanctuaryapi.net/getprice?' + new URLSearchParams({
+					'source': 'depop',
+					'sku': filter.sku,
+					'model': filter.model,
+					'size': filter.size
+				}),
+				headers: {
+					method: 'GET'
+				}
+			}
+		case 'sneakercon':
+			return {
+				url: 'https://sanctuaryapi.net/getprice?' + new URLSearchParams({
+					'source': 'sneakercon',
+					'sku': filter.sku,
+					'size': filter.size
 				}),
 				headers: {
 					method: 'GET'
@@ -152,31 +150,6 @@ export default function createRequestObject(type, filter) {
 								name slug variants { availableCount priceWithTax facetValues { code } }
 							}
 						}`
-					})
-				}
-			}
-		case 'sneakercon1':
-			return {
-				url: 'https://war6i72q7j.execute-api.us-east-1.amazonaws.com/prod/public/marketplace/all?' + new URLSearchParams({
-					"search": filter.search,
-					"size": filter.size,
-					"limit": "1",
-					"isNew": "true"
-				}),
-				headers: {
-					method: 'GET',
-					headers: new Headers({
-						"origin": "https://sneakercon.com"
-					})
-				}
-			}
-		case 'sneakercon2':
-			return {
-				url: `https://war6i72q7j.execute-api.us-east-1.amazonaws.com/prod/public/bid/new/makeofferdetails/${filter.pid}`,
-				headers: {
-					method: 'GET',
-					headers: new Headers({
-						"origin": "https://sneakercon.com"
 					})
 				}
 			}
