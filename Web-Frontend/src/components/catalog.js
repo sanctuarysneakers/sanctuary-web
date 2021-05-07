@@ -10,10 +10,10 @@ export default function Catalog() {
 
     const dispatch = useDispatch()
 
-    const browseData = useSelector(state => state.browseData)
-	const itemTiles = browseData.map((item) => <ItemTile data={item}></ItemTile>)
-
     const filter = useSelector(state => state.filter)
+    const browseData = useSelector(state => state.browseData)
+    
+	const itemTiles = browseData.map((item) => <ItemTile data={item}></ItemTile>)
         
     const setTypingTimer = sleep_time => {
         const timer = setTimeout(() => {

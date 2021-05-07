@@ -13,10 +13,11 @@ export default function Item() {
     dispatch(updateItemKey(urlKey))
 
     const itemInfo = useSelector(state => state.item)
-    useAPICall('getiteminfo')
-
     const itemPrices = useSelector(state => state.itemPrices)
+    
+    useAPICall('getiteminfo')
     useAPICall('getitemprices')
+
     console.log(itemPrices)
 
     return (

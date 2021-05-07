@@ -1,4 +1,5 @@
 import { useEffect } from "react"
+import { useHistory } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
 import { browseCall, updateItem, updatePrices } from '../../redux/actions'
 import createRequestObject from './createrequest'
@@ -8,6 +9,8 @@ import getCurrencyRate from './currencyrate'
 
 
 export default function useAPICall(callType) {
+
+    const history = useHistory()
 
     const dispatch = useDispatch()
     const newSearchHappened = useSelector(state => state.newSearchHappened)
@@ -36,14 +39,18 @@ export default function useAPICall(callType) {
     
     async function getItemInfo() {
         const request = createRequestObject('browse', {search: itemKey})
-        const response = await fetch(request.url, request.headers)
-        let rawData = await response.json()
-        let item = rawData['Products'][0]
-        dispatch(updateItem({
-            modelName: item['title'],
-            skuId: item['styleId'],
-            image: item['media']['imageUrl']
-        }))
+        try {
+            const response = await fetch(request.url, request.headers)
+            let rawData = await response.json()
+            let item = rawData['Products'][0]
+            dispatch(updateItem({
+                modelName: item['title'],
+                skuId: item['styleId'],
+                image: item['media']['imageUrl']
+            }))
+        } catch (e) {
+            history.push(`/page-not-found`)
+        }
     }
 
 
