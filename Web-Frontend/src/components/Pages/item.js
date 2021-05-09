@@ -14,11 +14,14 @@ export default function Item() {
 
     const itemInfo = useSelector(state => state.item)
     const itemPrices = useSelector(state => state.itemPrices)
+    const itemListings = useSelector(state => state.itemListings)
+    
+    console.log(itemPrices)
+    console.log(itemListings)
     
     useAPICall('getiteminfo')
     useAPICall('getitemprices')
-
-    console.log(itemPrices)
+    useAPICall('getitemlistings')
 
     return (
         <div>

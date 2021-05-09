@@ -69,9 +69,41 @@ export default function createRequestObject(type, filter) {
 					})
 				}
 			}
+		case 'grailedListings':
+			return {
+				url: 'https://mnrwefss2q-dsn.algolia.net/1/indexes/*/queries?' + new URLSearchParams({
+					"x-algolia-agent": "Algolia for JavaScript (3.35.1); Browser",
+					"x-algolia-application-id": "MNRWEFSS2Q", "x-algolia-api-key": "a3a4de2e05d9e9b463911705fb6323ad"
+				}),
+				headers: {
+					method: 'POST',
+					body: JSON.stringify({
+						"requests": [{
+							"indexName": "Listing_production",
+							"params": new URLSearchParams({
+								"query": filter.search,
+								"facetFilters": `[[\"category_size:footwear.${filter.size}\"]]`,
+							}).toString()
+						}]
+					})
+				}
+			}
 		case 'ebay':
 			return {
-				url: 'https://sanctuaryapi.net/getprice?' + new URLSearchParams({
+				url: 'https://sanctuaryapi.net/lowestnewprices?' + new URLSearchParams({
+					'source': 'ebay',
+					'sku': filter.sku,
+					'model': filter.model,
+					'size': filter.size,
+					'ship_to': filter.shipTo
+				}),
+				headers: {
+					method: 'GET'
+				}
+			}
+		case 'ebayListings':
+			return {
+				url: 'https://sanctuaryapi.net/itemlistings?' + new URLSearchParams({
 					'source': 'ebay',
 					'sku': filter.sku,
 					'model': filter.model,
@@ -84,9 +116,8 @@ export default function createRequestObject(type, filter) {
 			}
 		case 'depop':
 			return {
-				url: 'https://sanctuaryapi.net/getprice?' + new URLSearchParams({
+				url: 'https://sanctuaryapi.net/lowestnewprices?' + new URLSearchParams({
 					'source': 'depop',
-					'sku': filter.sku,
 					'model': filter.model,
 					'size': filter.size
 				}),
@@ -94,11 +125,11 @@ export default function createRequestObject(type, filter) {
 					method: 'GET'
 				}
 			}
-		case 'sneakercon':
+		case 'depopListings':
 			return {
-				url: 'https://sanctuaryapi.net/getprice?' + new URLSearchParams({
-					'source': 'sneakercon',
-					'sku': filter.sku,
+				url: 'https://sanctuaryapi.net/itemlistings?' + new URLSearchParams({
+					'source': 'depop',
+					'model': filter.model,
 					'size': filter.size
 				}),
 				headers: {

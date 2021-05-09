@@ -221,13 +221,9 @@ def ebay_lowest_price(sku_id, size, ship_to):
 
 def depop_lowest_price(model_name, size):
 	url = "https://webapi.depop.com/api/v2/search/products"
-	headers = {
-		"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36",
-	}
 
 	size_map = {'7':'2','7.5':'3','8':'4','8.5':'5','9':'6','9.5':'7','10':'8','10.5':'9','11':'10', 
 		'11.5':'11','12':'12','12.5':'13','13':'14','13.5':'15','14':'16','14.5':'17','15':'18'}
-
 	parameters = {
 		"what": model_name,
 		"sizes": "6-77." + size_map[size],
@@ -235,7 +231,7 @@ def depop_lowest_price(model_name, size):
 		"conditions": "brand_new, used_like_new"
 	}
 
-	response = requests.get(url, headers=headers, params=parameters)
+	response = requests.get(url, params=parameters)
 	item_data = response.json()["products"]
 
 	if len(item_data) == 0: return []
@@ -301,7 +297,7 @@ def goat_used(sku_id, size):
 	for item in request_data:
 		url_suffix = '/used' if item['shoe_condition'] == 'used' else '/defects'
 		results.append({
-			'source': "Goat",
+			'source': "goat",
 			'price': int(item['lowest_price_cents']/100),
 			'condition': item['shoe_condition'],
 			'image': item['grid_display_picture_url'],
@@ -311,19 +307,18 @@ def goat_used(sku_id, size):
 	return results
 
 
-def grailed_used(model_name, size, max_items=7):
+def grailed_used(model_name, size, max_items=5):
 	url = "https://mnrwefss2q-dsn.algolia.net/1/indexes/*/queries"
 	params = {
 		"x-algolia-agent": "Algolia for JavaScript (3.35.1); Browser",
 		"x-algolia-application-id": "MNRWEFSS2Q", "x-algolia-api-key": "a3a4de2e05d9e9b463911705fb6323ad"
 	}
-	
 	post_json = {
 		"requests": [{
 			"indexName": "Listing_production",
 			"params": urlencode({
 				"query": model_name,
-				"facetFilters": f"[[\"category_size:footwear.{size}\"], [\"category_path:footwear.hitop_sneakers\", \"category_path:footwear.lowtop_sneakers\"]]",
+				"facetFilters": f"[[\"category_size:footwear.{size}\"]]",
 				#"numericFilters": f"[\"price_i>={price_low}\",\"price_i<={price_high}\"]",
 			})
 		}]
@@ -336,7 +331,7 @@ def grailed_used(model_name, size, max_items=7):
 	for item in request_data:
 		if len(results) >= max_items: break
 		results.append({
-			"source": "Grailed",
+			"source": "grailed",
 			"price": item['price'],
 			"image": item['cover_photo']['url'],
 			"url": "grailed.com/listings/" + str(item['id'])
@@ -345,30 +340,68 @@ def grailed_used(model_name, size, max_items=7):
 	return results
 
 
-def depop_used(model_name, size, max_items=7):
-    url = "https://webapi.depop.com/api/v2/search/products"
+def ebay_used(query, size, ship_to, max_items=5):
+	url = "https://svcs.ebay.com/services/search/FindingService/v1"
+	headers = {
+		"X-EBAY-SOA-SECURITY-APPNAME": "Sanctuar-jasontho-PRD-ad4af8740-c80ac57c",
+		"X-EBAY-SOA-RESPONSE-DATA-FORMAT": "JSON",
+		"X-EBAY-SOA-OPERATION-NAME": "findItemsAdvanced"
+	}
 
-    size_map = {7:"2", 7.5:"3", 8:"4", 8.5:"5", 9:"6", 9.5:"7", 10:"8", 10.5:"9", 11:"10", 
-                11.5:"11", 12: "12", 12.5:"13", 13:"14", 13.5:"15", 14:"16", 14.5:"17", 15:"18"}
-    parameters = {
-        "what": model_name,
-        "sizes": "6-77." + size_map[size],
-        "itemsPerPage": max_items,
-        "country": "us"
-    }
+	parameters = {
+		"keywords": query,
+		"categoryId": "93427",
+		"sortOrder": "BestMatch",
+		"itemFilter(0).name": "AvailableTo",
+		"itemFilter(0).value": ship_to,
+		"itemFilter(1).name": "HideDuplicateItems",
+		"itemFilter(1).value": True,
+		"itemFilter(2).name": "ListingType",
+		"itemFilter(2).value": "FixedPrice",
+		"aspectFilter(0).aspectName": "US Shoe Size (Men's)",
+		"aspectFilter(0).aspectValueName": size
+	}
 
-    response = requests.get(url, params=parameters)
-    item_data = response.json()["products"]
+	response = requests.get(url, headers=headers, params=parameters)
+	item_data = response.json()['findItemsAdvancedResponse'][0]['searchResult'][0]['item']
 
-    results = []
-    for item in item_data:
-        if len(results) >= max_items: break
-        results.append({
-            "source": "Depop",
-            "price": float(item["price"]["priceAmount"]),
-            "image": item["preview"]["320"],
-            "url": "depop.com/products/" + item["slug"]
-        })
+	results = []
+	for item in item_data:
+		if len(results) >= max_items: break
+		results.append({
+			"source": "ebay",
+			"price": float(item['sellingStatus'][0]['currentPrice'][0]['__value__']),
+			"image": item['galleryURL'][0],
+			"url": item['viewItemURL'][0]
+		})
 
-    return results
+	return results
+
+
+def depop_used(model_name, size, max_items=5):
+	url = "https://webapi.depop.com/api/v2/search/products"
+
+	size_map = {'7':'2','7.5':'3','8':'4','8.5':'5','9':'6','9.5':'7','10':'8','10.5':'9','11':'10', 
+		'11.5':'11','12':'12','12.5':'13','13':'14','13.5':'15','14':'16','14.5':'17','15':'18'}
+	parameters = {
+		"what": model_name,
+		"sizes": "6-77." + size_map[size],
+		"itemsPerPage": max_items,
+		"country": "us"
+	}
+
+	response = requests.get(url, params=parameters)
+	item_data = response.json()["products"]
+
+	results = []
+	for item in item_data:
+		if len(results) >= max_items: break
+		results.append({
+			"source": "depop",
+			"price": float(item["price"]["priceAmount"]),
+			"image": item["preview"]["320"],
+			"url": "depop.com/products/" + item["slug"]
+		})
+
+	return results
 

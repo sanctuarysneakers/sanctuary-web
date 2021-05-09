@@ -1,10 +1,10 @@
 import { useEffect } from "react"
 import { useHistory } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
-import { browseCall, updateItem, updatePrices } from '../../redux/actions'
+import { browseCall, updateItem, updatePrices, updateItemListings } from '../../redux/actions'
 import createRequestObject from './createrequest'
 import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, grailedLowestPrice, 
-    ebayLowestPrice, depopLowestPrice, klektLowestPrice, sneakerconLowestPrice } from './scrapers'
+    ebayLowestPrice, depopLowestPrice, klektLowestPrice, grailedListings, ebayListings, depopListings } from './scrapers'
 import getCurrencyRate from './currencyrate'
 
 
@@ -43,6 +43,7 @@ export default function useAPICall(callType) {
             const response = await fetch(request.url, request.headers)
             let rawData = await response.json()
             let item = rawData['Products'][0]
+
             dispatch(updateItem({
                 modelName: item['title'],
                 skuId: item['styleId'],
@@ -57,15 +58,31 @@ export default function useAPICall(callType) {
     async function getPrices() {
         let results = []
         let size = 10
-        results.push(await stockxLowestPrice(item.skuId, size, currency))
-        results.push(await goatLowestPrice(item.skuId, size, currency))
-        results.push(await flightclubLowestPrice(item.skuId, size, currency))
-        results.push(await grailedLowestPrice(item.modelName, size, currency))
-        results.push(await klektLowestPrice(item.skuId, size, currency))
-        results.push(await ebayLowestPrice(item.skuId, item.modelName, size))
-        results.push(await depopLowestPrice(item.modelName, size, currency))
-        //results.push(await sneakerconLowestPrice(item.skuId, size, currency))
+        let location = 'US'
+
+        //TODO: convert currency
+        results.push(...await stockxLowestPrice(item.skuId, size, currency))
+        results.push(...await goatLowestPrice(item.skuId, size, currency))
+        results.push(...await flightclubLowestPrice(item.skuId, size, currency))
+        results.push(...await grailedLowestPrice(item.modelName, size, currency))
+        results.push(...await klektLowestPrice(item.skuId, size, currency))
+        results.push(...await ebayLowestPrice(item.skuId, item.modelName, size, location, currency))
+        results.push(...await depopLowestPrice(item.modelName, size, currency))
         dispatch(updatePrices(results))
+    }
+
+
+    async function getItemListings() {
+        let results = []
+        let size = 10
+        let location = 'US'
+
+        //TODO: convert currency
+        results.push(...await grailedListings(item.modelName, size))
+        results.push(...await ebayListings(item.skuId, item.modelName, size, location))
+        results.push(...await depopListings(item.modelName, size))
+        results.sort((a, b) => a.price - b.price)
+        dispatch(updateItemListings(results))
     }
 
 
@@ -82,6 +99,11 @@ export default function useAPICall(callType) {
     useEffect(() => {
         if (callType === 'getitemprices')
             getPrices()
+    }, [item])
+
+    useEffect(() => {
+        if (callType === 'getitemlistings')
+            getItemListings()
     }, [item])
 
 }
