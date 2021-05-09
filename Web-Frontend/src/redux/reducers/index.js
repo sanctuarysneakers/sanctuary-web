@@ -3,6 +3,7 @@ import browseDataReducer from './browsedatareducer'
 import itemReducer from './itemreducer'
 import itemKeyReducer from './itemkeyreducer'
 import itemPricesReducer from './itempricesreducer'
+import itemListingsReducer from './itemlistingsreducer'
 import filterReducer from './filterreducer'
 import currencyReducer from './currencyreducer'
 import aboutModalVisibleReducer from './aboutmodalvisiblereducer'
@@ -23,6 +24,7 @@ const globalReducer = combineReducers({
     item: itemReducer,
     itemKey: itemKeyReducer,
     itemPrices: itemPricesReducer,
+    itemListings: itemListingsReducer,
     searchBarVisible: searchBarVisibleReducer,
     isSearchBarCollapsed: searchBarCollapseReducer,
     newSearchHappened: newSearchHappenedReducer,

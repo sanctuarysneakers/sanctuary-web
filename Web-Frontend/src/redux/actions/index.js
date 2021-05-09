@@ -22,6 +22,13 @@ export const updatePrices = prices => {
     }
 }
 
+export const updateItemListings = listings => {
+    return {
+        type: 'UPDATE_LISTINGS',
+        payload: listings
+    }
+}
+
 // API Call Actions
 
 export const browseCall = data => {
