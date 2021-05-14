@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Component } from 'react'
 import { Switch, Route } from 'react-router-dom'
 
 import NavBar from "./components/navbar"
@@ -37,6 +37,7 @@ import Loader from './components/loader'
 function App() {
 
   const dispatch = useDispatch()
+  
 
   const shoeModalVisible = useSelector(state => state.shoeModalVisible)
   const aboutModalVisible = useSelector(state => state.aboutModalVisible)
@@ -45,6 +46,15 @@ function App() {
   const deleteModalVisible = useSelector(state => state.deleteModalVisible)
 
   const [loader, setLoader] = useState(true)
+  
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      console.log("Latitude is :", position.coords.latitude);
+      console.log("Longitude is :", position.coords.longitude);
+    });
+  } else {
+    console.log("Not Available");
+  }
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {

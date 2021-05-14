@@ -13,7 +13,6 @@ import HamburgerIcon from '../assets/images/icons/hamburgerIcon'
 import FilterIcon from '../assets/images/icons/filterIcon'
 import ProfileIcon from '../assets/images/icons/profileIcon'
 
-
 export default function NavBar() {
 
     const dispatch = useDispatch()
@@ -35,7 +34,6 @@ export default function NavBar() {
         { label: '¥ JPY', value: 'JPY' },
         { label: '$ USD', value: 'USD' }
     ];
-
     const handleCurrencyChange = (e) => {
         const newCurrency = e.value;
         dispatch(updateCurrency(newCurrency));
