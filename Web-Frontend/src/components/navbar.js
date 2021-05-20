@@ -39,6 +39,25 @@ export default function NavBar() {
         dispatch(updateCurrency(newCurrency));
     }
 
+    var IPGeolocationAPI = require('ip-geolocation-api-javascript-sdk');
+  
+    function handleResponse(json) {
+      console.log(json);
+      if(["CAD", "EUR", "GBP", "JPY", "USD"].includes(json["currency"]["code"])) {
+        dispatch(updateCurrency(json["currency"]["code"]));
+      } 
+    }
+    
+    useEffect(() => {
+      if ("geolocation" in navigator) {
+        var ipgeolocationApi = new IPGeolocationAPI("1f95fae0512f4f3883d008c37c5c9c75"); 
+        ipgeolocationApi.getGeolocation(handleResponse);
+      } else {
+        console.log("Not Available");
+      }
+  
+    }, []);
+
     const handleClick = () => {
         window.scrollTo(0, 0)
     }
