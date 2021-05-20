@@ -47,14 +47,17 @@ function App() {
 
   const [loader, setLoader] = useState(true)
   
-  if ("geolocation" in navigator) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      console.log("Latitude is :", position.coords.latitude);
-      console.log("Longitude is :", position.coords.longitude);
-    });
-  } else {
-    console.log("Not Available");
-  }
+  useEffect(() => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        console.log("Latitude is :", position.coords.latitude);
+        console.log("Longitude is :", position.coords.longitude);
+      });
+    } else {
+      console.log("Not Available");
+    }
+
+  }, [])
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
