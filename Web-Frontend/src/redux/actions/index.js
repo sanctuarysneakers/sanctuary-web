@@ -1,17 +1,17 @@
 
 // Item Data Actions
 
-export const updateItem = itemInfo => {
-    return {
-        type: 'UPDATE_ITEM',
-        payload: itemInfo
-    }
-}
-
 export const updateItemKey = itemKey => {
     return {
         type: 'UPDATE_ITEM_KEY',
         payload: itemKey
+    }
+}
+
+export const updateItem = itemInfo => {
+    return {
+        type: 'UPDATE_ITEM',
+        payload: itemInfo
     }
 }
 
@@ -83,6 +83,29 @@ export const updateCurrency = currency => {
     }
 }
 
+// Callback Triggers
+
+export const newSearchHappened = () => {
+    return {
+        type: 'NEW_SEARCH_HAPPENED'
+    }
+}
+
+// User Account Actions
+
+export const setUser = user => {
+    return {
+        type: 'SET_USER',
+        payload: user
+    }
+}
+
+export const clearUser = () => {
+    return {
+        type: 'CLEAR_USER'
+    }
+}
+
 // Modal Actions
 
 export const showAboutModal = () => {
@@ -133,20 +156,6 @@ export const hideDeleteModal = () => {
     }
 }
 
-// Search Bar Collapse/Expand on mobile
-
-export const collapseBar = () => {
-    return {
-        type: 'COLLAPSE_BAR'
-    }
-}
-
-export const expandBar = () => {
-    return {
-        type: 'EXPAND_BAR'
-    }
-}
-
 // Search Bar visible/disable per page
 
 export const showHomeSeach = () => {
@@ -161,11 +170,17 @@ export const hideHomeSearch = () => {
     }
 }
 
-// Callback Triggers
+// Search Bar Collapse/Expand on mobile
 
-export const newSearchHappened = () => {
+export const collapseBar = () => {
     return {
-        type: 'NEW_SEARCH_HAPPENED'
+        type: 'COLLAPSE_BAR'
+    }
+}
+
+export const expandBar = () => {
+    return {
+        type: 'EXPAND_BAR'
     }
 }
 
@@ -175,20 +190,5 @@ export const recordSplashHeight = splashHeight => {
     return {
         type: 'RECORD_SPLASH_HEIGHT',
         payload: splashHeight
-    }
-}
-
-// User Account Actions
-
-export const setUser = user => {
-    return {
-        type: 'SET_USER',
-        payload: user
-    }
-}
-
-export const clearUser = () => {
-    return {
-        type: 'CLEAR_USER'
     }
 }
