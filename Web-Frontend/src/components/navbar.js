@@ -25,7 +25,9 @@ export default function NavBar() {
     const history = useHistory()
     // const user = firebase.auth().currentUser
     const user = useSelector(state => state.user)
-    const currency = useSelector(state => state.currency);
+    const currency = useSelector(state => state.currency)
+
+    const handleClick = () => window.scrollTo(0, 0)
 
     const currencyOptions = [
         { label: '$ CAD', value: 'CAD' },
@@ -33,34 +35,27 @@ export default function NavBar() {
         { label: '£ GBP', value: 'GBP' },
         { label: '¥ JPY', value: 'JPY' },
         { label: '$ USD', value: 'USD' }
-    ];
+    ]
     const handleCurrencyChange = (e) => {
-        const newCurrency = e.value;
-        dispatch(updateCurrency(newCurrency));
+        const newCurrency = e.value
+        dispatch(updateCurrency(newCurrency))
     }
 
-    var IPGeolocationAPI = require('ip-geolocation-api-javascript-sdk');
+    var IPGeolocationAPI = require('ip-geolocation-api-javascript-sdk')
   
-    function handleResponse(json) {
-      console.log(json);
-      if(["CAD", "EUR", "GBP", "JPY", "USD"].includes(json["currency"]["code"])) {
-        dispatch(updateCurrency(json["currency"]["code"]));
-      } 
+    async function handleGeolocationResponse(json) {
+        await new Promise(r => setTimeout(r, 1000)) // wait 1 second before updating
+        if (["CAD", "EUR", "GBP", "JPY", "USD"].includes(json["currency"]["code"])) {
+            dispatch(updateCurrency(json["currency"]["code"]))
+        }
     }
     
     useEffect(() => {
-      if ("geolocation" in navigator) {
-        var ipgeolocationApi = new IPGeolocationAPI("1f95fae0512f4f3883d008c37c5c9c75"); 
-        ipgeolocationApi.getGeolocation(handleResponse);
-      } else {
-        console.log("Not Available");
-      }
-  
-    }, []);
-
-    const handleClick = () => {
-        window.scrollTo(0, 0)
-    }
+        if ("geolocation" in navigator) {
+            var ipgeolocationApi = new IPGeolocationAPI("1f95fae0512f4f3883d008c37c5c9c75")
+            ipgeolocationApi.getGeolocation(handleGeolocationResponse)
+        }
+    }, [])
 
     // control Search bar visibility depending on scroll height
     useEffect(() => {
@@ -68,12 +63,12 @@ export default function NavBar() {
             
             const onScroll = () => {
                 setSearchBarVisibility(window.scrollY >= splashHeight)
-            };
-            window.addEventListener("scroll", onScroll);
+            }
+            window.addEventListener("scroll", onScroll)
 
-            return () => window.removeEventListener("scroll", onScroll);
+            return () => window.removeEventListener("scroll", onScroll)
         }
-    });
+    })
 
     // Ensures the nav bar layout is not in collapsed mode when switching to desktop view
     useEffect(() => {
