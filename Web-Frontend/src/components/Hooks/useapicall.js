@@ -11,8 +11,8 @@ import getCurrencyRate from './currencyrate'
 export default function useAPICall(callType) {
 
     const history = useHistory()
-
     const dispatch = useDispatch()
+
     const newSearchHappened = useSelector(state => state.newSearchHappened)
     const filter = useSelector(state => state.filter)
     const itemKey = useSelector(state => state.itemKey)
@@ -38,6 +38,8 @@ export default function useAPICall(callType) {
 
     
     async function getItemInfo() {
+        //dispatch(updateItem({}))  // clear old item info
+        
         const request = createRequestObject('browse', {search: itemKey})
         try {
             const response = await fetch(request.url, request.headers)
@@ -59,7 +61,6 @@ export default function useAPICall(callType) {
         let results = []
         let size = 10
         let location = 'US'
-
         //TODO: convert currency
         results.push(...await stockxLowestPrice(item.skuId, size, currency))
         results.push(...await goatLowestPrice(item.skuId, size, currency))
@@ -76,7 +77,6 @@ export default function useAPICall(callType) {
         let results = []
         let size = 10
         let location = 'US'
-
         //TODO: convert currency
         results.push(...await grailedListings(item.modelName, size))
         results.push(...await ebayListings(item.skuId, item.modelName, size, location))
@@ -97,13 +97,12 @@ export default function useAPICall(callType) {
     }, [itemKey])
 
     useEffect(() => {
-        if (callType === 'getitemprices')
+        if (callType === 'getitemprices') {
+            console.log(itemKey)
+            console.log(item)
             getPrices()
-    }, [item])
-
-    useEffect(() => {
-        if (callType === 'getitemlistings')
             getItemListings()
+        }
     }, [item])
 
 }
