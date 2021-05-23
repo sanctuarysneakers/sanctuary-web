@@ -5,7 +5,6 @@ import filterReducer from './filterreducer'
 import currencyReducer from './currencyreducer'
 import aboutModalVisibleReducer from './aboutmodalvisiblereducer'
 import searchBarCollapseReducer from './searchBarCollapseReducer'
-import newSearchHappenedReducer from './newsearchhappenedreducer'
 import recordSplashHeightReducer from './recordsplashheightreducer'
 import filterModalVisibleReducer from './filtermodalvisiblereducer'
 import hamburgerModalVisibleReducer from './hamburgermodalvisiblereducer'
@@ -21,7 +20,6 @@ const globalReducer = combineReducers({
     itemData: itemDataReducer,
     searchBarVisible: searchBarVisibleReducer,
     isSearchBarCollapsed: searchBarCollapseReducer,
-    newSearchHappened: newSearchHappenedReducer,
     splashHeight: recordSplashHeightReducer,
     filterModalVisible: filterModalVisibleReducer,
     hamburgerModalVisible: hamburgerModalVisibleReducer,

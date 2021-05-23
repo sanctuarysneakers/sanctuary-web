@@ -13,13 +13,12 @@ export default function useAPICall(callType, params) {
     const history = useHistory()
     const dispatch = useDispatch()
 
-    const newSearchHappened = useSelector(state => state.newSearchHappened)
     const filter = useSelector(state => state.filter)
     const currency = useSelector(state => state.currency)
 
 
-    async function browse(itemLimit = 30) {
-        const request = createRequestObject('browse', filter)
+    async function browse(query, itemLimit=30) {
+        const request = createRequestObject('browse', {search: query})
         const response = await fetch(request.url, request.headers)
         let rawData = await response.json()
         let results = []
@@ -35,8 +34,8 @@ export default function useAPICall(callType, params) {
     }
 
     
-    async function getItemInfo() {
-        const request = createRequestObject('browse', {search: params.itemKey})
+    async function getItemInfo(itemKey) {
+        const request = createRequestObject('browse', {search: itemKey})
         try {
             const response = await fetch(request.url, request.headers)
             let rawData = await response.json()
@@ -50,7 +49,6 @@ export default function useAPICall(callType, params) {
             history.push(`/page-not-found`)
         }
     }
-
 
     async function getItemPrices(item) {
         let results = []
@@ -67,7 +65,6 @@ export default function useAPICall(callType, params) {
         return results
     }
 
-
     async function getItemListings(item) {
         let results = []
         let size = 10
@@ -80,9 +77,8 @@ export default function useAPICall(callType, params) {
         return results
     }
 
-
-    async function getItem() {
-        const itemInfo = await getItemInfo()
+    async function getItem(itemKey) {
+        const itemInfo = await getItemInfo(itemKey)
         const itemPrices = await getItemPrices(itemInfo)
         const itemListings = await getItemListings(itemInfo)
         dispatch(updateItemData({
@@ -95,12 +91,12 @@ export default function useAPICall(callType, params) {
 
     useEffect(() => {
         if (callType === 'browse')
-            browse()
-    }, [newSearchHappened])
+            browse(params.query)
+    }, [])
 
     useEffect(() => {
         if (callType === 'getitem')
-            getItem()
+            getItem(params.itemKey)
     }, [])
 
 }

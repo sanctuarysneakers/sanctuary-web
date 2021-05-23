@@ -2,32 +2,27 @@ import React from 'react'
 import { RiSearchLine } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
 import { useMediaQuery } from 'react-responsive'
-import { updateSearch } from '../redux/actions'
+import { useHistory } from 'react-router'
 
 
 export default function SearchBar() {
 
     const dispatch = useDispatch()
-    const search = useSelector(state => state.filter.search)
-    const splashHeight = useSelector(state => state.splashHeight)
+    const history = useHistory()
+
     const isDesktop = useMediaQuery({ query: '(min-width: 930px)' })
-
-    const scrollToCatalog = () => {
-        if (window.scrollY < splashHeight) {
-            window.scrollTo(0, splashHeight)
-        }
-    }
-
-    const handleKeyDown = e => {
-        if (e.key === 'Enter') scrollToCatalog()
-    }
-
     const searchBarStyle = isDesktop ? "searchBar-desktop" : "searchBar-mobile"
     const searchTextStyle = isDesktop ? "searchText" : "mobileSearchText"
 
+    const handleKeyDown = e => {
+        if (e.key === 'Enter') {
+            history.push(`/browse/${e.target.value}`)  // redirect to browse page
+            history.go(0)  // refresh page with new query
+        }
+    }
+
     return (
         <React.Fragment>
-
             <div className={searchBarStyle}>
                 <div className="searchIcon">
                     <RiSearchLine />
@@ -36,12 +31,9 @@ export default function SearchBar() {
                     className={searchTextStyle}
                     type="text"
                     placeholder="Search"
-                    onChange={e => dispatch(updateSearch(e.target.value))}
                     onKeyDown={e => handleKeyDown(e)}
-                    value={search}
                 />
             </div>
-
         </React.Fragment>
     )
 }

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { use100vh } from 'react-div-100vh'
 import { useMediaQuery } from 'react-responsive'
 import { Helmet } from 'react-helmet'
-import SearchBar from '../searchbar'
 import { recordSplashHeight, hideHomeSearch } from '../../redux/actions'
 
 
@@ -20,7 +19,7 @@ export default function Home() {
     dispatch(recordSplashHeight(splashHeight))
 
     // Hide search bar
-    dispatch(hideHomeSearch())
+    //dispatch(hideHomeSearch())
 
     return (
         <div>

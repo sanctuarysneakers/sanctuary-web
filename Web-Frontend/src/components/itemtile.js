@@ -1,6 +1,7 @@
 import React from 'react'
 import { useHistory } from "react-router-dom"
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { updateItemData } from '../redux/actions'
 
 export default function ItemTile({data}) {
 
@@ -9,6 +10,7 @@ export default function ItemTile({data}) {
 
     const clickHandler = () => {
         history.push(`/item/${data.urlKey}`)  // redirect to item page
+        dispatch(updateItemData({}))  // clear old item data
     }
 
     return (

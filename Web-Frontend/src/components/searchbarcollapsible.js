@@ -2,22 +2,28 @@ import React from 'react'
 import { RiSearchLine } from 'react-icons/ri'
 import SearchIcon from '../assets/images/icons/searchIcon'
 import { useDispatch, useSelector } from 'react-redux'
-import { collapseBar, expandBar, updateSearch } from '../redux/actions'
+import { collapseBar, expandBar } from '../redux/actions'
+import { useHistory } from 'react-router'
 
 
 export default function CollapsibleSearchBar() {
 
     const dispatch = useDispatch()
-    const search = useSelector(state => state.filter.search)
-    const isCollapsed = useSelector(state => state.isSearchBarCollapsed)
+    const history = useHistory()
 
+    const isCollapsed = useSelector(state => state.isSearchBarCollapsed)
     const searchBarStyle = isCollapsed ? 'searchBar-collapsed' : 'searchBar-expanded'
+
+    const handleKeyDown = e => {
+        if (e.key === 'Enter') {
+            history.push(`/browse/${e.target.value}`)  // redirect to browse page
+            history.go(0)  // refresh page with new query
+        }
+    }
 
     return (
         <React.Fragment>
-
             <div className={`${searchBarStyle}`}>
-
                 <div
                     className="searchIcon"
                     onClick={() => dispatch(expandBar())}
@@ -31,11 +37,9 @@ export default function CollapsibleSearchBar() {
                         className='mobileSearchText'
                         type="text"
                         placeholder="Search"
-                        onChange={e => dispatch(updateSearch(e.target.value))}
-                        value={search}
+                        onKeyDown={e => handleKeyDown(e)}
                     />
                 }
-                
             </div>
 
             {!isCollapsed &&

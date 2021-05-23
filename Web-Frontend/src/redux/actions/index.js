@@ -17,13 +17,6 @@ export const updateItemData = itemData => {
 
 // Filter Actions
 
-export const updateSearch = search => {
-    return {
-        type: 'UPDATE_SEARCH',
-        payload: search
-    }
-}
-
 export const updateSizeFilter = size => {
     return {
         type: 'UPDATE_SIZE_FILTER',
@@ -57,14 +50,6 @@ export const updateCurrency = currency => {
     return {
         type: 'UPDATE_CURRENCY',
         payload: currency
-    }
-}
-
-// Callback Triggers
-
-export const newSearchHappened = () => {
-    return {
-        type: 'NEW_SEARCH_HAPPENED'
     }
 }
 

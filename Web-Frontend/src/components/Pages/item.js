@@ -1,24 +1,23 @@
 import React from 'react'
-import { useParams } from "react-router-dom"
+import { useParams } from 'react-router'
 import { Helmet } from 'react-helmet'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import useAPICall from '../Hooks/useapicall'
 
 export default function Item() {
 
-    const dispatch = useDispatch()
-
     const {urlKey} = useParams()
-
-    useAPICall('getitem', {itemKey: urlKey})
-
     const itemData = useSelector(state => state.itemData)
     console.log(itemData)
 
+    useAPICall('getitem', {itemKey: urlKey})
+
     return (
+        // trying to display item attributes causes an error because
+        // itemData is initially an empty object
         <div>
-            <p>{/*itemInfo.modelName*/}</p>
-            <p>{/*itemInfo.skuId*/}</p>
+            <p>{/*itemData.info.modelName*/}</p>
+            <p>{/*itemData.info.skuId*/}</p>
         </div>
     )
 }
