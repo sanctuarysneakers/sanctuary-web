@@ -14,7 +14,6 @@ export default function useAPICall(callType, params) {
     const dispatch = useDispatch()
 
     const newSearchHappened = useSelector(state => state.newSearchHappened)
-    //const itemHit = useSelector(state => state.itemHit)
     const filter = useSelector(state => state.filter)
     const currency = useSelector(state => state.currency)
 

@@ -2,13 +2,11 @@ import React from 'react'
 import { useParams } from "react-router-dom"
 import { Helmet } from 'react-helmet'
 import { useDispatch, useSelector } from 'react-redux'
-import { newItemHit } from '../../redux/actions'
 import useAPICall from '../Hooks/useapicall'
 
 export default function Item() {
 
     const dispatch = useDispatch()
-    //dispatch(newItemHit())
 
     const {urlKey} = useParams()
 

@@ -68,12 +68,6 @@ export const newSearchHappened = () => {
     }
 }
 
-export const newItemHit = () => {
-    return {
-        type: 'NEW_ITEM_HIT'
-    }
-}
-
 // User Account Actions
 
 export const setUser = user => {
