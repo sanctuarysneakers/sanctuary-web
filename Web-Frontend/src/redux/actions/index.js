@@ -1,40 +1,17 @@
 
-// Item Data Actions
-
-export const updateItemKey = itemKey => {
-    return {
-        type: 'UPDATE_ITEM_KEY',
-        payload: itemKey
-    }
-}
-
-export const updateItem = itemInfo => {
-    return {
-        type: 'UPDATE_ITEM',
-        payload: itemInfo
-    }
-}
-
-export const updatePrices = prices => {
-    return {
-        type: 'UPDATE_PRICES',
-        payload: prices
-    }
-}
-
-export const updateItemListings = listings => {
-    return {
-        type: 'UPDATE_LISTINGS',
-        payload: listings
-    }
-}
-
-// API Call Actions
+// Data Actions
 
 export const browseCall = data => {
     return {
         type: 'BROWSE_CALL',
         payload: data
+    }
+}
+
+export const updateItemData = itemData => {
+    return {
+        type: 'UPDATE_ITEM_DATA',
+        payload: itemData
     }
 }
 
@@ -88,6 +65,12 @@ export const updateCurrency = currency => {
 export const newSearchHappened = () => {
     return {
         type: 'NEW_SEARCH_HAPPENED'
+    }
+}
+
+export const newItemHit = () => {
+    return {
+        type: 'NEW_ITEM_HIT'
     }
 }
 

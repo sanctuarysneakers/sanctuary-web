@@ -1,22 +1,21 @@
 import { useEffect } from "react"
 import { useHistory } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
-import { browseCall, updateItem, updatePrices, updateItemListings } from '../../redux/actions'
+import { browseCall, updateItemData } from '../../redux/actions'
 import createRequestObject from './createrequest'
 import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, grailedLowestPrice, 
     ebayLowestPrice, depopLowestPrice, klektLowestPrice, grailedListings, ebayListings, depopListings } from './scrapers'
 import getCurrencyRate from './currencyrate'
 
 
-export default function useAPICall(callType) {
+export default function useAPICall(callType, params) {
 
     const history = useHistory()
     const dispatch = useDispatch()
 
     const newSearchHappened = useSelector(state => state.newSearchHappened)
+    //const itemHit = useSelector(state => state.itemHit)
     const filter = useSelector(state => state.filter)
-    const itemKey = useSelector(state => state.itemKey)
-    const item = useSelector(state => state.item)
     const currency = useSelector(state => state.currency)
 
 
@@ -38,26 +37,23 @@ export default function useAPICall(callType) {
 
     
     async function getItemInfo() {
-        //dispatch(updateItem({}))  // clear old item info
-        
-        const request = createRequestObject('browse', {search: itemKey})
+        const request = createRequestObject('browse', {search: params.itemKey})
         try {
             const response = await fetch(request.url, request.headers)
             let rawData = await response.json()
             let item = rawData['Products'][0]
-
-            dispatch(updateItem({
+            return {
                 modelName: item['title'],
                 skuId: item['styleId'],
                 image: item['media']['imageUrl']
-            }))
+            }
         } catch (e) {
             history.push(`/page-not-found`)
         }
     }
 
 
-    async function getPrices() {
+    async function getItemPrices(item) {
         let results = []
         let size = 10
         let location = 'US'
@@ -69,11 +65,11 @@ export default function useAPICall(callType) {
         results.push(...await klektLowestPrice(item.skuId, size, currency))
         results.push(...await ebayLowestPrice(item.skuId, item.modelName, size, location, currency))
         results.push(...await depopLowestPrice(item.modelName, size, currency))
-        dispatch(updatePrices(results))
+        return results
     }
 
 
-    async function getItemListings() {
+    async function getItemListings(item) {
         let results = []
         let size = 10
         let location = 'US'
@@ -82,7 +78,19 @@ export default function useAPICall(callType) {
         results.push(...await ebayListings(item.skuId, item.modelName, size, location))
         results.push(...await depopListings(item.modelName, size))
         results.sort((a, b) => a.price - b.price)
-        dispatch(updateItemListings(results))
+        return results
+    }
+
+
+    async function getItem() {
+        const itemInfo = await getItemInfo()
+        const itemPrices = await getItemPrices(itemInfo)
+        const itemListings = await getItemListings(itemInfo)
+        dispatch(updateItemData({
+            info: itemInfo,
+            prices: itemPrices,
+            listings: itemListings
+        }))
     }
 
 
@@ -92,17 +100,8 @@ export default function useAPICall(callType) {
     }, [newSearchHappened])
 
     useEffect(() => {
-        if (callType === 'getiteminfo')
-            getItemInfo()
-    }, [itemKey])
-
-    useEffect(() => {
-        if (callType === 'getitemprices') {
-            console.log(itemKey)
-            console.log(item)
-            getPrices()
-            getItemListings()
-        }
-    }, [item])
+        if (callType === 'getitem')
+            getItem()
+    }, [])
 
 }

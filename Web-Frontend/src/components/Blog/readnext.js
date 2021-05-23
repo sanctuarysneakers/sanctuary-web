@@ -27,8 +27,6 @@ export default function Footer() {
     }
 
     const nextArticles = getArticles(currPage);
-    console.log(nextArticles);
-    console.log(nextArticles[0][1][2]);
     return (
         <React.Fragment>
         <div className='newsroom-read-next-articles'> 
