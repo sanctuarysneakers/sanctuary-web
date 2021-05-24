@@ -71,7 +71,7 @@ export default function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/home" component={Home} />
-          <Route path="/browse/:query" component={Browse} />
+          <Route path="/browse/:query?" component={Browse} />
           <Route path="/item/:urlKey" component={Item} />
           <Route path="/sign-in" component={SignInOptions} />
           <Route path="/sign-in-email" component={SignInEmail} />

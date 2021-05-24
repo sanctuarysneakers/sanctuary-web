@@ -25,6 +25,7 @@ export default function useAPICall(callType, params) {
         for (const item of rawData['Products']) {
             if (results.length >= itemLimit) break
             results.push({
+                id: item['id'],
                 model: item['title'],
                 urlKey: item['urlKey'],
                 imageThumbnail: item['media']['imageUrl'].split('?', 1)[0] + '?w=300&q=50&trim=color'

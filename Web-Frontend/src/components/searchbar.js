@@ -1,14 +1,9 @@
 import React from 'react'
 import { RiSearchLine } from 'react-icons/ri'
-import { useDispatch, useSelector } from 'react-redux'
 import { useMediaQuery } from 'react-responsive'
-import { useHistory } from 'react-router'
 
 
 export default function SearchBar() {
-
-    const dispatch = useDispatch()
-    const history = useHistory()
 
     const isDesktop = useMediaQuery({ query: '(min-width: 930px)' })
     const searchBarStyle = isDesktop ? "searchBar-desktop" : "searchBar-mobile"
@@ -16,8 +11,8 @@ export default function SearchBar() {
 
     const handleKeyDown = e => {
         if (e.key === 'Enter') {
-            history.push(`/browse/${e.target.value}`)  // redirect to browse page
-            history.go(0)  // refresh page with new query
+            // redirect to browse page with search query as url param
+            document.location.href = `/browse/${e.target.value}`
         }
     }
 

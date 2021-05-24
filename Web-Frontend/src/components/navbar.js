@@ -38,7 +38,7 @@ export default function NavBar() {
     }
 
     const handleLogoClick = () => {
-        history.push('')
+        document.location.href = '/'
     }
 
     // Ensure nav bar layout is not in collapsed mode when switching to desktop view
