@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Component } from 'react'
 import { Switch, Route } from 'react-router-dom'
 
 import NavBar from "./components/navbar"
@@ -35,8 +35,9 @@ import ScrollToTop from './components/Hooks/scrolltotop'
 import Loader from './components/loader'
 
 function App() {
-
+  
   const dispatch = useDispatch()
+  
 
   const shoeModalVisible = useSelector(state => state.shoeModalVisible)
   const aboutModalVisible = useSelector(state => state.aboutModalVisible)
