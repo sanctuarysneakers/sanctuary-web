@@ -189,14 +189,14 @@ def klekt_lowest_price(sku_id, size):
 	return result
 
 
-def ebay_lowest_price(sku_id, size, ship_to):
+def ebay_lowest_price(search_query, size, ship_to):
 	url = "https://svcs.ebay.com/services/search/FindingService/v1"
 	headers = {
 		"X-EBAY-SOA-SECURITY-APPNAME": "Sanctuar-jasontho-PRD-ad4af8740-c80ac57c",
 		"X-EBAY-SOA-RESPONSE-DATA-FORMAT": "JSON", "X-EBAY-SOA-OPERATION-NAME": "findItemsAdvanced"
 	}
 	parameters = {
-		"keywords": sku_id,
+		"keywords": search_query,
 		"sortOrder": "BestMatch",
 		"itemFilter(0).name": "AvailableTo",
 		"itemFilter(0).value": ship_to,
@@ -340,7 +340,7 @@ def grailed_used(model_name, size, max_items=5):
 	return results
 
 
-def ebay_used(query, size, ship_to, max_items=5):
+def ebay_used(search_query, size, ship_to, max_items=5):
 	url = "https://svcs.ebay.com/services/search/FindingService/v1"
 	headers = {
 		"X-EBAY-SOA-SECURITY-APPNAME": "Sanctuar-jasontho-PRD-ad4af8740-c80ac57c",
@@ -349,7 +349,7 @@ def ebay_used(query, size, ship_to, max_items=5):
 	}
 
 	parameters = {
-		"keywords": query,
+		"keywords": search_query,
 		"categoryId": "93427",
 		"sortOrder": "BestMatch",
 		"itemFilter(0).name": "AvailableTo",
@@ -378,13 +378,13 @@ def ebay_used(query, size, ship_to, max_items=5):
 	return results
 
 
-def depop_used(model_name, size, max_items=5):
+def depop_used(search_query, size, max_items=5):
 	url = "https://webapi.depop.com/api/v2/search/products"
 
 	size_map = {'7':'2','7.5':'3','8':'4','8.5':'5','9':'6','9.5':'7','10':'8','10.5':'9','11':'10', 
 		'11.5':'11','12':'12','12.5':'13','13':'14','13.5':'15','14':'16','14.5':'17','15':'18'}
 	parameters = {
-		"what": model_name,
+		"what": search_query,
 		"sizes": "6-77." + size_map[size],
 		"itemsPerPage": max_items,
 		"country": "us"

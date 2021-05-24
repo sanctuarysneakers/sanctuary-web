@@ -3,13 +3,17 @@ import createRequestObject from './createrequest'
 
 /**** Lowest Prices (New) ****/
 
-export async function stockxLowestPrice(skuId, size, currencyRate) {
-	const request = createRequestObject('stockx', {search: skuId, size: size})
+export async function stockxLowestPrice(skuId, modelName, size) {
+	let search = skuId
+	if (skuId === '') search = modelName
+
+	const request = createRequestObject('stockx', {search: search, size: size})
 	try {
 		const response = await fetch(request.url, request.headers)
+		if (!response.ok) throw new Error()
+
 		let rawData = await response.json()
 		let itemData = rawData["Products"]
-
 		return [{
 			source: "stockx",
 			price: Math.round(itemData[0]["market"]["lowestAsk"]),
@@ -21,13 +25,17 @@ export async function stockxLowestPrice(skuId, size, currencyRate) {
 }
 
 
-export async function goatLowestPrice(skuId, size, currencyRate) {
-	const request = createRequestObject('goat', {search: skuId, size: size})
+export async function goatLowestPrice(skuId, modelName, size) {
+	let search = skuId
+	if (skuId === '') search = modelName
+	
+	const request = createRequestObject('goat', {search: search, size: size})
 	try {
 		const response = await fetch(request.url, request.headers)
+		if (!response.ok) throw new Error()
+
 		let rawData = await response.json()
 		let itemData = rawData['hits']
-
 		return [{
 			source: "goat",
 			price: Math.round(itemData[0]['lowest_price_cents']/100),
@@ -39,13 +47,17 @@ export async function goatLowestPrice(skuId, size, currencyRate) {
 }
 
 
-export async function flightclubLowestPrice(skuId, size, currencyRate) {
-	const request = createRequestObject('flightclub', {search: skuId, size: size})
+export async function flightclubLowestPrice(skuId, modelName, size) {
+	let search = skuId
+	if (skuId === '') search = modelName
+	
+	const request = createRequestObject('flightclub', {search: search, size: size})
 	try {
 		const response = await fetch(request.url, request.headers)
+		if (!response.ok) throw new Error()
+
 		let rawData = await response.json()
 		let itemData = rawData['hits']
-
 		return [{
 			source: "flightclub",
 			price: Math.round(itemData[0]['lowest_price_cents']/100),
@@ -57,35 +69,24 @@ export async function flightclubLowestPrice(skuId, size, currencyRate) {
 }
 
 
-export async function grailedLowestPrice(modelName, size, currencyRate) {
-	const request = createRequestObject('grailed', {search: modelName, size: size})
-	try {
-		const response = await fetch(request.url, request.headers)
-		let rawData = await response.json()
-		let itemData = rawData["results"][0]["hits"]
+export async function klektLowestPrice(skuId, modelName, size) {
+	let search = skuId
+	if (skuId === '') search = modelName
 
-		return [{
-			source: "grailed",
-			price: Math.round(itemData[0]['price']),
-			url: "grailed.com/listings/" + itemData[0]['id'].toString()
-		}]
-	} catch (e) {
-		return []
-	}
-}
-
-
-export async function klektLowestPrice(skuId, size, currencyRate) {
 	// request1: get product id for sneaker model
-	const request1 = createRequestObject('klekt1', { search: skuId })
+	const request1 = createRequestObject('klekt1', { search: search })
 	try {
 		const response1 = await fetch(request1.url, request1.headers)
+		if (!response1.ok) throw new Error()
+
 		let rawData1 = await response1.json()
 		let item = rawData1["data"]["search"]["items"][0]
 
 		// request2: get price based on product id
 		const request2 = createRequestObject('klekt2', { pid: item["productId"] })
 		const response2 = await fetch(request2.url, request2.headers)
+		if (!response2.ok) throw new Error()
+
 		let rawData2 = await response2.json()
 		let productVariants = rawData2["data"]["productDetails"]["variants"]
 
@@ -106,12 +107,15 @@ export async function klektLowestPrice(skuId, size, currencyRate) {
 }
 
 
-export async function ebayLowestPrice(skuId, modelName, size, location, currencyRate) {
-	const request = createRequestObject('ebay', {sku: skuId, model: modelName, size: size, shipTo: location})
+export async function ebayLowestPrice(skuId, modelName, size, location) {
+	let search = modelName.concat(' ', skuId)
+
+	const request = createRequestObject('ebay', {search: search, size: size, shipTo: location})
 	try {
 		const response = await fetch(request.url, request.headers)
-		let itemData = await response.json()
+		if (!response.ok) throw new Error()
 
+		let itemData = await response.json()
 		return [{
 			source: "ebay",
 			price: itemData[0]['price'],
@@ -123,32 +127,46 @@ export async function ebayLowestPrice(skuId, modelName, size, location, currency
 }
 
 
-export async function depopLowestPrice(modelName, size, currencyRate) {
-	const request = createRequestObject('depop', {model: modelName, size: size})
+/**** Listings (New/Used) ****/
+
+export async function ebayListings(skuId, modelName, size, location) {
+	let search = modelName.concat(' ', skuId)
+	
+	const request = createRequestObject('ebayListings', {search: search, size: size, shipTo: location})
 	try {
 		const response = await fetch(request.url, request.headers)
-		let itemData = await response.json()
+		if (!response.ok) throw new Error()
 
-		return [{
-			source: "depop",
-			price: itemData[0]['price'],
-			url: itemData[0]['url']
-		}]
+		let itemData = await response.json()
+		return itemData
 	} catch (e) {
 		return []
 	}
 }
 
 
-/**** Listings (New/Used) ****/
+export async function depopListings(modelName, size) {
+	const request = createRequestObject('depopListings', {search: modelName, size: size})
+	try {
+		const response = await fetch(request.url, request.headers)
+		if (!response.ok) throw new Error()
+
+		let itemData = await response.json()
+		return itemData
+	} catch (e) {
+		return []
+	}
+}
+
 
 export async function grailedListings(modelName, size, maxItems=5) {
 	const request = createRequestObject('grailedListings', {search: modelName, size: size})
 	try {
 		const response = await fetch(request.url, request.headers)
+		if (!response.ok) throw new Error()
+		
 		let rawData = await response.json()
 		let itemData = rawData["results"][0]["hits"]
-
 		let results = []
 		for (const item of itemData) {
 			if (results.length >= maxItems) break
@@ -160,30 +178,6 @@ export async function grailedListings(modelName, size, maxItems=5) {
 			})
 		}
 		return results
-	} catch (e) {
-		return []
-	}
-}
-
-
-export async function ebayListings(skuId, modelName, size, location) {
-	const request = createRequestObject('ebayListings', {sku: skuId, model: modelName, size: size, shipTo: location})
-	try {
-		const response = await fetch(request.url, request.headers)
-		let itemData = await response.json()
-		return itemData
-	} catch (e) {
-		return []
-	}
-}
-
-
-export async function depopListings(modelName, size) {
-	const request = createRequestObject('depopListings', {model: modelName, size: size})
-	try {
-		const response = await fetch(request.url, request.headers)
-		let itemData = await response.json()
-		return itemData
 	} catch (e) {
 		return []
 	}

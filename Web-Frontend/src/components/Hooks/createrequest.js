@@ -92,8 +92,7 @@ export default function createRequestObject(type, filter) {
 			return {
 				url: 'https://sanctuaryapi.net/lowestnewprices?' + new URLSearchParams({
 					'source': 'ebay',
-					'sku': filter.sku,
-					'model': filter.model,
+					'search': filter.search,
 					'size': filter.size,
 					'ship_to': filter.shipTo
 				}),
@@ -105,8 +104,7 @@ export default function createRequestObject(type, filter) {
 			return {
 				url: 'https://sanctuaryapi.net/itemlistings?' + new URLSearchParams({
 					'source': 'ebay',
-					'sku': filter.sku,
-					'model': filter.model,
+					'search': filter.search,
 					'size': filter.size,
 					'ship_to': filter.shipTo
 				}),
@@ -118,7 +116,7 @@ export default function createRequestObject(type, filter) {
 			return {
 				url: 'https://sanctuaryapi.net/lowestnewprices?' + new URLSearchParams({
 					'source': 'depop',
-					'model': filter.model,
+					'search': filter.search,
 					'size': filter.size
 				}),
 				headers: {
@@ -129,7 +127,7 @@ export default function createRequestObject(type, filter) {
 			return {
 				url: 'https://sanctuaryapi.net/itemlistings?' + new URLSearchParams({
 					'source': 'depop',
-					'model': filter.model,
+					'search': filter.search,
 					'size': filter.size
 				}),
 				headers: {

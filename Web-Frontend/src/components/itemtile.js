@@ -9,8 +9,8 @@ export default function ItemTile({data}) {
     const history = useHistory()
 
     const clickHandler = () => {
-        history.push(`/item/${data.urlKey}`)  // redirect to item page
-        dispatch(updateItemData({}))  // clear old item data
+        // redirect to item page
+        document.location.href = `/item/${data.urlKey}`
     }
 
     return (

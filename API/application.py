@@ -11,8 +11,7 @@ api = Api(application)
 # Specify request query parameters
 parser = reqparse.RequestParser()
 parser.add_argument('source', type=str)
-parser.add_argument('sku', type=str, default='')
-parser.add_argument('model', type=str, default='')
+parser.add_argument('search', type=str, default='')
 parser.add_argument('size', type=str, default='10')
 parser.add_argument('ship_to', type=str, default='CA')
 
@@ -21,16 +20,14 @@ class LowestNewPrices(Resource):
 	def get(self):
 		args = parser.parse_args()
 		source = args['source']
-		sku = args['sku']
-		model = args['model']
+		search = args['search']
 		size = args['size']
 		ship_to = args['ship_to']
 
 		if source == 'ebay':
-			query = model + ' ' + sku
-			return ebay_lowest_price(query, size, ship_to)
+			return ebay_lowest_price(search, size, ship_to)
 		elif source == 'depop':
-			return depop_lowest_price(model, size)
+			return depop_lowest_price(search, size)
 		# elif source == 'sneakercon':
 		# 	return sneakercon_lowest_price(sku, size)
 
@@ -39,16 +36,14 @@ class ItemListings(Resource):
 	def get(self):
 		args = parser.parse_args()
 		source = args['source']
-		sku = args['sku']
-		model = args['model']
+		search = args['search']
 		size = args['size']
 		ship_to = args['ship_to']
 
 		if source == 'ebay':
-			query = model + ' ' + sku
-			return ebay_used(query, size, ship_to)
+			return ebay_used(search, size, ship_to)
 		elif source == 'depop':
-			return depop_used(model, size)
+			return depop_used(search, size)
 
 
 # Set API endpoints
@@ -56,5 +51,5 @@ api.add_resource(LowestNewPrices, '/lowestnewprices')
 api.add_resource(ItemListings, '/itemlistings')
 
 if __name__ == '__main__':
-	application.run(debug=True)        # local dev
-	#application.run(host='0.0.0.0')    # production
+	#application.run(debug=True)        # local dev
+	application.run(host='0.0.0.0')    # production
