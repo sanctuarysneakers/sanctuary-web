@@ -1,12 +1,7 @@
 import React from 'react'
-import { useHistory } from "react-router-dom"
-import { useDispatch } from 'react-redux'
-import { updateItemData } from '../redux/actions'
+
 
 export default function ItemTile({data}) {
-
-    const dispatch = useDispatch()
-    const history = useHistory()
 
     const clickHandler = () => {
         // redirect to item page
