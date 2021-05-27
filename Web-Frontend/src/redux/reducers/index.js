@@ -11,6 +11,7 @@ import hamburgerModalVisibleReducer from './hamburgermodalvisiblereducer'
 import userReducer from './userreducer'
 import deleteModalVisibleReducer from './deletemodalvisiblereducer'
 import searchBarVisibleReducer from './searchbarvisiblereducer'
+import locationReducer from './locationreducer'
 
 const globalReducer = combineReducers({
     browseData: browseDataReducer,
@@ -25,6 +26,7 @@ const globalReducer = combineReducers({
     hamburgerModalVisible: hamburgerModalVisibleReducer,
     user: userReducer,
     deleteModalVisible: deleteModalVisibleReducer,
+    location: locationReducer,
 })
 
 export default globalReducer

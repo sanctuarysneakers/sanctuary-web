@@ -8,9 +8,9 @@ export default function Item() {
 
     const {urlKey} = useParams()
     const itemData = useSelector(state => state.itemData)
-    console.log(itemData)
-
-    useAPICall('getitem', {itemKey: urlKey})
+    const currency = useSelector(state => state.currency);
+    console.log(itemData);
+    useAPICall('getitem', {itemKey: urlKey});
 
     return (
         // trying to display item attributes causes an error because

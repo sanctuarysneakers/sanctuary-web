@@ -16,7 +16,7 @@ import TermsOfUse from './components/Pages/termsofuse'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { RemoveScroll } from 'react-remove-scroll'
-import { setUser } from './redux/actions'
+import { setUser, updateLocation, updateCurrency } from './redux/actions'
 import SignInOptions from './components/Accounts/signinoptions'
 import SignInEmail from './components/Accounts/signinemail'
 import CreateAccountOptions from './components/Accounts/createaccountoptions'
@@ -44,6 +44,7 @@ export default function App() {
   const filterModalVisible = useSelector(state => state.filterModalVisible)
   const hamburgerModalVisible = useSelector(state => state.hamburgerModalVisible)
   const deleteModalVisible = useSelector(state => state.deleteModalVisible)
+  const location = useSelector(state => state.location);
 
   const [loader, setLoader] = useState(true)
 
@@ -58,6 +59,28 @@ export default function App() {
       }
     })
   })
+
+  var IPGeolocationAPI = require('ip-geolocation-api-javascript-sdk');
+  
+  async function handleGeolocationResponse(json) {
+      await new Promise(r => setTimeout(r, 1000)); // wait 1 second before updating
+      dispatch(updateLocation(json));
+  }
+  
+  useEffect(() => {
+      if ("geolocation" in navigator) {
+          var ipgeolocationApi = new IPGeolocationAPI("1f95fae0512f4f3883d008c37c5c9c75");
+          ipgeolocationApi.getGeolocation(handleGeolocationResponse);
+      }
+  }, []);
+
+  useEffect(() => {
+    if(location) {
+      if (["CAD", "EUR", "GBP", "JPY", "USD"].includes(location["currency"]["code"])) {
+        dispatch(updateCurrency(location["currency"]["code"]))
+    }
+    }
+  }, [location]);
 
   if (loader) {
     return (
