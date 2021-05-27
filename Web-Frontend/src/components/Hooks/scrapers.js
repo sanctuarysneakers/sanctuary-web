@@ -129,7 +129,7 @@ export async function ebayLowestPrice(skuId, modelName, size, location, currency
 
 /**** Listings (New/Used) ****/
 
-export async function ebayListings(skuId, modelName, size, location) {
+export async function ebayListings(skuId, modelName, size, location, currencyRate) {
 	let search = modelName.concat(' ', skuId)
 	
 	const request = createRequestObject('ebayListings', {search: search, size: size, shipTo: location})
@@ -138,6 +138,9 @@ export async function ebayListings(skuId, modelName, size, location) {
 		if (!response.ok) throw new Error()
 
 		let itemData = await response.json()
+		for(var i = 0; i < itemData.length; i++) {
+			itemData[i]["price"] = Math.round(itemData[i]["price"] * currencyRate);
+		}
 		return itemData
 	} catch (e) {
 		return []
@@ -145,13 +148,16 @@ export async function ebayListings(skuId, modelName, size, location) {
 }
 
 
-export async function depopListings(modelName, size) {
+export async function depopListings(modelName, size, currencyRate) {
 	const request = createRequestObject('depopListings', {search: modelName, size: size})
 	try {
 		const response = await fetch(request.url, request.headers)
 		if (!response.ok) throw new Error()
 
 		let itemData = await response.json()
+		for(var i = 0; i < itemData.length; i++) {
+			itemData[i]["price"] = Math.round(itemData[i]["price"] * currencyRate);
+		}
 		return itemData
 	} catch (e) {
 		return []
