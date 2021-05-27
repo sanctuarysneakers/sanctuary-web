@@ -3,7 +3,7 @@ import createRequestObject from './createrequest'
 
 /**** Lowest Prices (New) ****/
 
-export async function stockxLowestPrice(skuId, modelName, size) {
+export async function stockxLowestPrice(skuId, modelName, size, currencyRate) {
 	let search = skuId
 	if (skuId === '') search = modelName
 
@@ -16,7 +16,7 @@ export async function stockxLowestPrice(skuId, modelName, size) {
 		let itemData = rawData["Products"]
 		return [{
 			source: "stockx",
-			price: Math.round(itemData[0]["market"]["lowestAsk"]),
+			price: Math.round(itemData[0]["market"]["lowestAsk"] * currencyRate),
 			url: "stockx.com/" + itemData[0]["urlKey"]
 		}]
 	} catch (e) {
@@ -25,7 +25,7 @@ export async function stockxLowestPrice(skuId, modelName, size) {
 }
 
 
-export async function goatLowestPrice(skuId, modelName, size) {
+export async function goatLowestPrice(skuId, modelName, size, currencyRate) {
 	let search = skuId
 	if (skuId === '') search = modelName
 	
@@ -38,7 +38,7 @@ export async function goatLowestPrice(skuId, modelName, size) {
 		let itemData = rawData['hits']
 		return [{
 			source: "goat",
-			price: Math.round(itemData[0]['lowest_price_cents']/100),
+			price: Math.round((itemData[0]['lowest_price_cents']/100) * currencyRate),
 			url: 'goat.com/sneakers/' + itemData[0]['slug']
 		}]
 	} catch (e) {
@@ -47,7 +47,7 @@ export async function goatLowestPrice(skuId, modelName, size) {
 }
 
 
-export async function flightclubLowestPrice(skuId, modelName, size) {
+export async function flightclubLowestPrice(skuId, modelName, size, currencyRate) {
 	let search = skuId
 	if (skuId === '') search = modelName
 	
@@ -60,7 +60,7 @@ export async function flightclubLowestPrice(skuId, modelName, size) {
 		let itemData = rawData['hits']
 		return [{
 			source: "flightclub",
-			price: Math.round(itemData[0]['lowest_price_cents']/100),
+			price: Math.round((itemData[0]['lowest_price_cents']/100) * currencyRate),
 			url: 'flightclub.com/' + itemData[0]['slug']
 		}]
 	} catch (e) {
@@ -69,7 +69,7 @@ export async function flightclubLowestPrice(skuId, modelName, size) {
 }
 
 
-export async function klektLowestPrice(skuId, modelName, size) {
+export async function klektLowestPrice(skuId, modelName, size, currencyRate) {
 	let search = skuId
 	if (skuId === '') search = modelName
 
@@ -96,7 +96,7 @@ export async function klektLowestPrice(skuId, modelName, size) {
 			if (parseFloat(vSize) == parseFloat(size)) {
 				return [{
 					source: 'klekt',
-					price: variant["priceWithTax"]/100,  /// PRICE IN EUROS ///
+					price: variant["priceWithTax"]/100 * currencyRate,  /// PRICE IN EUROS ///
 					url: "klekt.com/product/" + rawData2["data"]["productDetails"]["slug"]
 				}]
 			}
@@ -107,7 +107,7 @@ export async function klektLowestPrice(skuId, modelName, size) {
 }
 
 
-export async function ebayLowestPrice(skuId, modelName, size, location) {
+export async function ebayLowestPrice(skuId, modelName, size, location, currencyRate) {
 	let search = modelName.concat(' ', skuId)
 
 	const request = createRequestObject('ebay', {search: search, size: size, shipTo: location})
@@ -118,7 +118,7 @@ export async function ebayLowestPrice(skuId, modelName, size, location) {
 		let itemData = await response.json()
 		return [{
 			source: "ebay",
-			price: itemData[0]['price'],
+			price: itemData[0]['price'] * currencyRate,
 			url: itemData[0]['url']
 		}]
 	} catch (e) {
@@ -129,7 +129,7 @@ export async function ebayLowestPrice(skuId, modelName, size, location) {
 
 /**** Listings (New/Used) ****/
 
-export async function ebayListings(skuId, modelName, size, location) {
+export async function ebayListings(skuId, modelName, size, location, currencyRate) {
 	let search = modelName.concat(' ', skuId)
 	
 	const request = createRequestObject('ebayListings', {search: search, size: size, shipTo: location})
@@ -138,6 +138,9 @@ export async function ebayListings(skuId, modelName, size, location) {
 		if (!response.ok) throw new Error()
 
 		let itemData = await response.json()
+		for(var i = 0; i < itemData.length; i++) {
+			itemData[i]["price"] = Math.round(itemData[i]["price"] * currencyRate);
+		}
 		return itemData
 	} catch (e) {
 		return []
@@ -145,13 +148,16 @@ export async function ebayListings(skuId, modelName, size, location) {
 }
 
 
-export async function depopListings(modelName, size) {
+export async function depopListings(modelName, size, currencyRate) {
 	const request = createRequestObject('depopListings', {search: modelName, size: size})
 	try {
 		const response = await fetch(request.url, request.headers)
 		if (!response.ok) throw new Error()
 
 		let itemData = await response.json()
+		for(var i = 0; i < itemData.length; i++) {
+			itemData[i]["price"] = Math.round(itemData[i]["price"] * currencyRate);
+		}
 		return itemData
 	} catch (e) {
 		return []
@@ -159,7 +165,7 @@ export async function depopListings(modelName, size) {
 }
 
 
-export async function grailedListings(modelName, size, maxItems=5) {
+export async function grailedListings(modelName, size, maxItems=5, currencyRate) {
 	const request = createRequestObject('grailedListings', {search: modelName, size: size})
 	try {
 		const response = await fetch(request.url, request.headers)
@@ -172,7 +178,7 @@ export async function grailedListings(modelName, size, maxItems=5) {
 			if (results.length >= maxItems) break
 			results.push({
 				source: "grailed",
-				price: Math.round(item['price']),
+				price: Math.round((item['price']) * currencyRate),
 				image: item['cover_photo']['url'],
 				url: "grailed.com/listings/" + item['id'].toString()
 			})

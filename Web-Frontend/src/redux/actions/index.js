@@ -154,3 +154,12 @@ export const recordSplashHeight = splashHeight => {
         payload: splashHeight
     }
 }
+
+// Location action
+
+export const updateLocation = json => {
+    return {
+        type: 'UPDATE_LOCATION',
+        payload: json
+    }
+}
