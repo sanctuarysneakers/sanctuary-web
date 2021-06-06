@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 
 import NavBar from "./components/navbar"
 import Footer from "./components/footer"
-import Home from "./components/Pages/home"
+import Home from "./components/Home/home"
 import Browse from "./components/Pages/browse"
 import Item from "./components/Pages/item"
 import AboutModal from "./components/Pages/aboutmodal"

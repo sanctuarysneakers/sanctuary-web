@@ -1,0 +1,97 @@
+.item {
+    .item-info {
+        display: flex;
+        height: 550px;
+        width: 1000px;
+        margin: 0px auto;
+
+        .item-shoe {
+            display: flex;
+            align-items: center;
+            width: 500px;
+
+            img {
+                width: 500px;
+            }
+        }
+
+        .item-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-end;
+            width: 500px;
+            text-align: center;
+
+            .item-model {
+                font-size: 32px;
+                font-weight: 600;
+                color: #000000;
+                line-height: 38px;
+                letter-spacing: -1.5px;
+
+                width: 335px;
+                padding-bottom: 28px;
+            }
+
+            .item-price {
+                background: #292828;
+                border-radius: 10px;
+                width: 335px;
+
+                p {
+                    font-size: 16.5px;
+                    font-weight: 500;
+                    color: #FFFFFF;
+
+                    padding: 10px 0px;
+                }
+            }
+
+            .item-specifics {
+                display: flex;
+                justify-content: center;
+                width: 335px;
+                padding-top: 38px;
+                padding-bottom: 120px;
+
+                .item-size, .item-condition, .item-website {
+                    width: 105px;
+
+                    h4 {
+                        font-size: 11px;
+                        font-weight: 400;
+                        color: #B1B1B4;
+                    }
+
+                    p {
+                        font-size: 21px;
+                        font-weight: 500;
+                        color: #8E8E92;
+                        padding-top: 4px;
+                    }
+                }
+
+                .item-specifics-divider {
+                    width: 0.5px;
+                    height: 40px;
+                    margin: auto 0px;
+                    background: #C6C6C8;
+                }
+
+                .item-website {
+                    img {
+                        width: 85px;
+                        padding-top: 12px;
+                    }
+                }
+            }
+        }
+    }
+
+    .item-listings {
+        height: 1000px;
+        background: #F7F9FC;
+        padding-bottom: 166px;
+    }
+}

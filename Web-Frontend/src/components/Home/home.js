@@ -4,6 +4,11 @@ import { use100vh } from 'react-div-100vh'
 import { useMediaQuery } from 'react-responsive'
 import { Helmet } from 'react-helmet'
 import { recordSplashHeight, hideHomeSearch } from '../../redux/actions'
+import HomeSplash from './homeSplash'
+import HomeTrending from './homeTrending'
+import HomeNewsroom from './homeNewsroom'
+import HomeAccount from './homeAccount'
+import HomeContact from './homeContact'
 
 
 export default function Home() {
@@ -15,7 +20,7 @@ export default function Home() {
         query: '(min-width: 1120px)'
     })
     const height = use100vh()
-    const splashHeight = isDesktop ? height - 91 : height - 61
+    const splashHeight = isDesktop ? height - 71 : height - 61
     dispatch(recordSplashHeight(splashHeight))
 
     // Hide search bar
@@ -33,13 +38,23 @@ export default function Home() {
                              you don't have to! Stay up-to-date with price drop alerts, and release reminders."
                 />
             </Helmet>
-            <div className="splash" style={{ height: splashHeight }}>
+            {/* <div className="splash" style={{ height: splashHeight }}>
                 <div className='bg-image' style={{ height: splashHeight }}></div>
                 <div className='splashWrap'>
                     <h1>Find Your Perfect Pair</h1>
                     <h3>Get the best price on sneakers from your favourite websites</h3>
                 </div>
-            </div>
+            </div> */}
+
+            <HomeSplash />
+
+            <HomeTrending />
+
+            <HomeNewsroom />
+
+            <HomeAccount />
+
+            <HomeContact />
         </div>
     )
 }

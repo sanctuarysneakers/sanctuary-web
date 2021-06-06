@@ -1,0 +1,27 @@
+.home-splash {
+    display: flex;
+    align-items: center;
+    background: #ECF5FF;
+
+    .home-splash-text {
+        width: 484px;
+        padding-left: 220px;
+
+        h2 {
+            font-size: 60.5px;
+            font-weight: 600;
+            color: #416F93;
+            line-height: 64px;
+            letter-spacing: -2px;
+        }
+    
+        p {
+            font-size: 20px;
+            font-weight: 400;
+            color: #416F93;
+            line-height: 32px;
+            letter-spacing: -0.9px;
+            padding: 33px 0px;
+        }
+    }
+}

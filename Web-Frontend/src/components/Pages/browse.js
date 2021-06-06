@@ -16,15 +16,38 @@ export default function Browse() {
     dispatch(showHomeSeach())
 
     return (
-        <div>
-            <main className='filter-catalog'>
-                <h2>{query === '' ? 'Browse' : query}</h2>
-                <section id="section-b" className='catalogrow'>
-                    <div className='b-wrap'>
-                        <Catalog search_query={query} />
-                    </div>
-                </section>
-            </main>
+        <div className='browse'>
+            <div className='browse-results'>
+                <div className='browse-results-wrapper'>
+
+                    {!query && <div className='browse-results-text'> 
+                        <h2> Browse </h2>
+                    </div>}
+
+                    {query && <div className='browse-results-text'>
+                        <h2> Search results for </h2>
+                        <h2> '{query}' </h2>
+                    </div>}
+
+                </div>
+            </div>
+
+            <div className='browse-catalog'>
+                <Catalog search_query={query} />
+            </div>
         </div>
     )
+
+    // return (
+    //     <div>
+    //         <main className='filter-catalog'>
+    //             <h2>{query === '' ? 'Browse' : query}</h2>
+    //             <section id="section-b" className='catalogrow'>
+    //                 <div className='b-wrap'>
+    //                     <Catalog search_query={query} />
+    //                 </div>
+    //             </section>
+    //         </main>
+    //     </div>
+    // )
 }

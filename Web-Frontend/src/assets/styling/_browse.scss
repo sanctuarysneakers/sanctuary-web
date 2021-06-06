@@ -1,0 +1,29 @@
+.browse {
+
+    .browse-results {
+        height: 277px;
+        background: #FFFFFF;
+
+        .browse-results-wrapper {
+            width: 1000px;
+            margin: 0px auto;
+
+            .browse-results-text {
+                padding-top: 136px;
+
+                h2 {
+                    font-size: 36px;
+                    font-weight: 600;
+                    color: #000000;
+                    line-height: 45px;
+                    letter-spacing: -1px;
+                }
+            }
+        }
+    }
+
+    .browse-catalog {
+        background: #F5F5F7;
+        padding: 166px;
+    }
+}

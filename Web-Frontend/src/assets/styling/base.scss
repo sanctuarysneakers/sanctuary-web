@@ -23,6 +23,13 @@
 @import "./blogarticle";
 @import "./loader";
 @import "./readnext";
+@import "./homeSplash";
+@import "./homeTrending";
+@import "./homeNewsroom";
+@import "./homeAccount";
+@import "./homeContact";
+@import "./browse";
+@import "./item";
 
 @import "swiper/swiper";
 @import 'swiper/components/navigation/navigation';
@@ -31,7 +38,7 @@ body {
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     color: $text-color;
-    background: #F5F5F7;
+    background: #FFFFFF;
     margin: 0;
 
     width: 100vw;

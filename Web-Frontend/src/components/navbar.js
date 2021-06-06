@@ -58,7 +58,7 @@ export default function NavBar() {
 
                     <div className='navbar-desktop-links'>
                         {searchBarVisible && <div className='navbar-desktop-searchbar'>
-                            <SearchBar />
+                            {/* <SearchBar /> */}
                         </div>}
                          
                         <Select
@@ -67,6 +67,10 @@ export default function NavBar() {
                             options={currencyOptions} 
                             onChange={handleCurrencyChange}
                         />
+
+                        <Link to="browse">
+                            Browse
+                        </Link>
 
                         <Link to="blog">
                             Newsroom
