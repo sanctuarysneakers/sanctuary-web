@@ -5,6 +5,7 @@ export default function ItemListing({data}) {
     return (
         <div className='item-listing'>
             <div className='item-listing-source'>
+
                 <div className='item-listing-image'>
                     <img src={data.image} alt='sneaker image' />
                 </div>
@@ -17,6 +18,7 @@ export default function ItemListing({data}) {
                         Used
                     </p>
                 </div>
+                
             </div>
 
             <div className='item-listing-link'>

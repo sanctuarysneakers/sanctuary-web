@@ -9,10 +9,20 @@
         display: flex;
 
         .item-listing-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             height: 105px;
             width: 105px;
             border-radius: 8px;
-            background: #D3D0C7;
+            overflow: hidden;
+            border: 0.5px solid #E7E7E7;
+
+            img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
         }
 
         .item-listing-text {
