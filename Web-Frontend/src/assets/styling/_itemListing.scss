@@ -1,0 +1,49 @@
+.item-listing {
+    display: flex;
+    justify-content: space-between;
+    height: 125px;
+    width: 460px;
+    border-bottom: 1px solid #DDDDDD;
+
+    .item-listing-source {
+        display: flex;
+
+        .item-listing-image {
+            height: 105px;
+            width: 105px;
+            border-radius: 8px;
+            background: #D3D0C7;
+        }
+
+        .item-listing-text {
+            padding-left: 20px;
+
+            .used-text {
+                font-size: 20px;
+                font-weight: 500;
+                color: #000000;
+                letter-spacing: -0.41px;
+            }
+
+            p {
+                font-size: 15px;
+                font-weight: 400;
+                color: #767678;
+                letter-spacing: -0.41px;
+            }
+        }
+    }
+
+    .item-listing-link {
+
+        .item-listing-amount {
+
+            h4 {
+                font-size: 20px;
+                font-weight: 400;
+                color: #000000;
+                letter-spacing: -0.41px;
+            }
+        }
+    }
+}

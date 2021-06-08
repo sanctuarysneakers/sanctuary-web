@@ -1,4 +1,5 @@
 .item {
+
     .item-info {
         display: flex;
         height: 550px;
@@ -34,7 +35,7 @@
                 padding-bottom: 28px;
             }
 
-            .item-price {
+            .item-buy {
                 background: #292828;
                 border-radius: 10px;
                 width: 335px;
@@ -90,8 +91,63 @@
     }
 
     .item-listings {
-        height: 1000px;
         background: #F7F9FC;
         padding-bottom: 166px;
+
+        .item-listings-wrapper {
+            width: 1000px;
+            margin: 0px auto;
+
+            .item-listings-cheapest {
+                padding-top: 26px;
+
+                .lowest-prices-title {
+                    font-size: 28px;
+                    font-weight: 600;
+                    color: #000000;
+                    letter-spacing: -0.41px;
+                }
+
+                .item-lowest-prices {
+                    background: #FFFFFF;
+                    border-radius: 10px;
+                    margin-top: 21px;
+                    margin-bottom: 84px;
+
+                    .item-lowest-prices-wrapper {
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        gap: 20px;
+                        padding-top: 20px;
+                        padding-right: 20px;
+                        padding-left: 20px;
+
+                    }
+                }
+            }
+
+            .item-listings-used {
+                h2 {
+                    font-size: 28px;
+                    font-weight: 600;
+                    color: #000000;
+                    letter-spacing: -0.41px;
+                }
+
+                .item-more-listings {
+                    background: #FFFFFF;
+                    border-radius: 10px;
+
+                    .item-more-listings-wrapper {
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        gap: 20px;
+                        padding-top: 20px;
+                        padding-right: 20px;
+                        padding-left: 20px;
+                    }
+                }
+            }
+        }
     }
 }

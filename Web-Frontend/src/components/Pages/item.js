@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux'
 import useAPICall from '../Hooks/useapicall'
 import Loader from '../loader'
 import stockX from '../../assets/images/stockx-new.png'
+import ItemPrice from '../itemPrice'
+import ItemListing from '../itemListing'
 
 export default function Item() {
 
@@ -13,6 +15,16 @@ export default function Item() {
     const currency = useSelector(state => state.currency);
     console.log(itemData);
     useAPICall('getitem', { itemKey: urlKey });
+
+    let itemPrices;
+    if (itemData.prices) {
+        itemPrices = itemData.prices.map((item) => <ItemPrice data={item}></ItemPrice>)
+    }
+
+    let itemListings;
+    if (itemData.listings) {
+        itemListings = itemData.listings.map((item) => <ItemListing data={item}></ItemListing>)
+    }
 
     const [loader, setLoader] = useState(true)
 
@@ -39,7 +51,7 @@ export default function Item() {
                             {itemData.info.modelName}
                         </h2>
 
-                        <div className='item-price'>
+                        <div className='item-buy'>
                             <p> Buy ${itemData.prices[0].price}</p>
                         </div>
 
@@ -63,6 +75,32 @@ export default function Item() {
                 </div>
 
                 <div className='item-listings'>
+                    <div className='item-listings-wrapper'>
+
+                        <div className='item-listings-cheapest'>
+                            <h2 className='lowest-prices-title'> 
+                                Lowest Prices 
+                            </h2>
+
+                            <div className='item-lowest-prices'>
+                                <div className='item-lowest-prices-wrapper'>
+                                    {itemPrices}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className='item-listings-used'>
+                            <h2 className='more-listings-title'>
+                                More Listings
+                            </h2>
+
+                            <div className='item-more-listings'>
+                                <div className='item-more-listings-wrapper'>
+                                    {itemListings}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         )
