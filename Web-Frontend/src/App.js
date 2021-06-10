@@ -16,7 +16,7 @@ import TermsOfUse from './components/Pages/termsofuse'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { RemoveScroll } from 'react-remove-scroll'
-import { setUser, updateLocation, updateCurrency } from './redux/actions'
+import { setUser, updateLocation } from './redux/actions'
 import SignInOptions from './components/Accounts/signinoptions'
 import SignInEmail from './components/Accounts/signinemail'
 import CreateAccountOptions from './components/Accounts/createaccountoptions'
@@ -73,14 +73,6 @@ export default function App() {
           ipgeolocationApi.getGeolocation(handleGeolocationResponse);
       }
   }, []);
-
-  useEffect(() => {
-    if(location) {
-      if (["CAD", "EUR", "GBP", "JPY", "USD"].includes(location["currency"]["code"])) {
-        dispatch(updateCurrency(location["currency"]["code"]))
-    }
-    }
-  }, [location]);
 
   if (loader) {
     return (

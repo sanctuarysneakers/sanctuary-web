@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useHistory } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
 import { browseCall, updateItemData } from '../../redux/actions'
-import getCurrencyRate from './currencyrate'
+import { getCurrencyRate, getKlektCurrencyRate } from './currencyrate'
 import createRequestObject from './createrequest'
 import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPrice, 
     klektLowestPrice, grailedListings, ebayListings, depopListings } from './scrapers'
@@ -60,12 +60,13 @@ export default function useAPICall(callType, params) {
 
     async function getItemPrices(item) {
         const currencyRate = await getCurrencyRate(currency);
+        const klektCurrencyRate = await getKlektCurrencyRate(currency);
         let results = [];
         let size = 10;
         results.push(...await stockxLowestPrice(item.skuId, item.modelName, size, currencyRate));
         results.push(...await goatLowestPrice(item.skuId, item.modelName, size, currencyRate));
         results.push(...await flightclubLowestPrice(item.skuId, item.modelName, size, currencyRate));
-        results.push(...await klektLowestPrice(item.skuId, item.modelName, size, currencyRate));
+        results.push(...await klektLowestPrice(item.skuId, item.modelName, size, klektCurrencyRate));
         if (typeof(location["country_code2"]) != "undefined") {
             results.push(...await ebayLowestPrice(item.skuId, item.modelName, size, location["country_code2"], currencyRate));
         } else {
@@ -84,7 +85,7 @@ export default function useAPICall(callType, params) {
             results.push(...await ebayListings(item.skuId, item.modelName, size, "US", currencyRate));
         }
         results.push(...await depopListings(item.modelName, size, currencyRate));
-        results.push(...await grailedListings(item.modelName, size, currencyRate));
+        results.push(...await grailedListings(item.modelName, size, 5, currencyRate));
         results.sort((a, b) => a.price - b.price);
         return results;
     }

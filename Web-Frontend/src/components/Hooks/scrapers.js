@@ -96,7 +96,7 @@ export async function klektLowestPrice(skuId, modelName, size, currencyRate) {
 			if (parseFloat(vSize) == parseFloat(size)) {
 				return [{
 					source: 'klekt',
-					price: variant["priceWithTax"]/100 * currencyRate,  /// PRICE IN EUROS ///
+					price: Math.round(variant["priceWithTax"]/100 * currencyRate),  /// PRICE IN EUROS ///
 					url: "klekt.com/product/" + rawData2["data"]["productDetails"]["slug"]
 				}]
 			}
@@ -118,7 +118,7 @@ export async function ebayLowestPrice(skuId, modelName, size, location, currency
 		let itemData = await response.json()
 		return [{
 			source: "ebay",
-			price: itemData[0]['price'] * currencyRate,
+			price: Math.round(itemData[0]['price'] * currencyRate),
 			url: itemData[0]['url']
 		}]
 	} catch (e) {
@@ -176,6 +176,7 @@ export async function grailedListings(modelName, size, maxItems=5, currencyRate)
 		let results = []
 		for (const item of itemData) {
 			if (results.length >= maxItems) break
+			console.log("PRICE: ", (item['price']) * currencyRate);
 			results.push({
 				source: "grailed",
 				price: Math.round((item['price']) * currencyRate),
