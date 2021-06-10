@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import { useHistory } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
 import { browseCall, updateItemData } from '../../redux/actions'
+import getCurrencyRate from './currencyrate'
 import createRequestObject from './createrequest'
 import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPrice, 
     klektLowestPrice, grailedListings, ebayListings, depopListings } from './scrapers'
@@ -14,18 +15,6 @@ export default function useAPICall(callType, params) {
     const filter = useSelector(state => state.filter);
     const currency = useSelector(state => state.currency);
     const location = useSelector(state => state.location);
-    async function getCurrencyRate(currency) {
-        const url = "https://currency-exchange.p.rapidapi.com/exchange?q=1.0&from=USD&to=" + currency;
-        const response = await fetch(url, {
-            "method": "GET",
-            "headers": {
-                "x-rapidapi-key": "c799b6c79bmsh22a306cdcd27be8p1b7882jsnca195ac45bce",
-                "x-rapidapi-host": "currency-exchange.p.rapidapi.com"
-            }
-        })
-        const data = await response.json();
-        return data;
-    }
 
     async function browse(query, itemLimit=30) {
         const request = createRequestObject('browse', {search: query})
@@ -77,7 +66,7 @@ export default function useAPICall(callType, params) {
         results.push(...await goatLowestPrice(item.skuId, item.modelName, size, currencyRate));
         results.push(...await flightclubLowestPrice(item.skuId, item.modelName, size, currencyRate));
         results.push(...await klektLowestPrice(item.skuId, item.modelName, size, currencyRate));
-        if(typeof(location["country_code2"]) != "undefined") {
+        if (typeof(location["country_code2"]) != "undefined") {
             results.push(...await ebayLowestPrice(item.skuId, item.modelName, size, location["country_code2"], currencyRate));
         } else {
             results.push(...await ebayLowestPrice(item.skuId, item.modelName, size, "US", currencyRate));
@@ -89,7 +78,7 @@ export default function useAPICall(callType, params) {
         const currencyRate = await getCurrencyRate(currency);
         let results = [];
         let size = 10;
-        if(typeof(location["country_code2"]) != "undefined") {
+        if (typeof(location["country_code2"]) != "undefined") {
             results.push(...await ebayListings(item.skuId, item.modelName, size, location["country_code2"], currencyRate));
         } else {
             results.push(...await ebayListings(item.skuId, item.modelName, size, "US", currencyRate));

@@ -68,11 +68,11 @@ export default function NavBar() {
                             onChange={handleCurrencyChange}
                         />
 
-                        <Link to="browse">
+                        <Link to="/browse">
                             Browse
                         </Link>
 
-                        <Link to="blog">
+                        <Link to="/blog">
                             Newsroom
                         </Link>
 
@@ -80,11 +80,11 @@ export default function NavBar() {
                             About
                         </a>
 
-                        {!user && <Link to="sign-in">
+                        {!user && <Link to="/sign-in">
                             Sign In
                         </Link>}
 
-                        {!user && <Link to="create-account" className='navbar-desktop-create-account'>
+                        {!user && <Link to="/create-account" className='navbar-desktop-create-account'>
                             Sign Up
                         </Link>}
 

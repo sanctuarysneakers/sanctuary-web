@@ -12,9 +12,9 @@ export default function Item() {
 
     const { urlKey } = useParams()
     const itemData = useSelector(state => state.itemData)
-    const currency = useSelector(state => state.currency);
-    console.log(itemData);
-    useAPICall('getitem', { itemKey: urlKey });
+    const currency = useSelector(state => state.currency)
+    console.log(itemData)
+    useAPICall('getitem', { itemKey: urlKey })
 
     let itemPrices;
     if (itemData.prices) {
@@ -29,9 +29,8 @@ export default function Item() {
     const [loader, setLoader] = useState(true)
 
     useEffect(() => {
-        if (itemData.info) {
+        if (itemData.info)
             setLoader(false)
-        }
     })
 
     if (loader) {
