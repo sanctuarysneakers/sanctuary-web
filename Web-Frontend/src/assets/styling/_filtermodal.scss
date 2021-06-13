@@ -1,0 +1,34 @@
+.filters::-webkit-scrollbar {
+    display: none;  /* Safari and Chrome */
+}
+
+.filters {
+    width: 910px;
+    overflow-y: auto;
+    overflow-x: auto;
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+
+    .close-area {
+        height: 130px;
+        width: 910px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+    }
+
+    .filterBox {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        height: 1185px;
+        width: 910px;
+        background: white;
+        border-radius: 20px;
+        margin-top: 10px;
+    }
+
+   
+}
+

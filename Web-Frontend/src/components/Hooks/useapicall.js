@@ -15,6 +15,7 @@ export default function useAPICall(callType, params) {
     const filter = useSelector(state => state.filter);
     const currency = useSelector(state => state.currency);
     const location = useSelector(state => state.location);
+    const size = useSelector(state => state.size);
 
     async function browse(query, itemLimit=30) {
         const request = createRequestObject('browse', {search: query})
@@ -58,11 +59,10 @@ export default function useAPICall(callType, params) {
         }
     }
 
-    async function getItemPrices(item) {
+    async function getItemPrices(item, size) {
         const currencyRate = await getCurrencyRate(currency);
         const klektCurrencyRate = await getKlektCurrencyRate(currency);
         let results = [];
-        let size = 10;
         results.push(...await stockxLowestPrice(item.skuId, item.modelName, size, currencyRate));
         results.push(...await goatLowestPrice(item.skuId, item.modelName, size, currencyRate));
         results.push(...await flightclubLowestPrice(item.skuId, item.modelName, size, currencyRate));
@@ -75,10 +75,9 @@ export default function useAPICall(callType, params) {
         return results;
     }
 
-    async function getItemListings(item) {
+    async function getItemListings(item, size) {
         const currencyRate = await getCurrencyRate(currency);
         let results = [];
-        let size = 10;
         if (typeof(location["country_code2"]) != "undefined") {
             results.push(...await ebayListings(item.skuId, item.modelName, size, location["country_code2"], currencyRate));
         } else {
@@ -90,10 +89,10 @@ export default function useAPICall(callType, params) {
         return results;
     }
 
-    async function getItem(itemKey) {
+    async function getItem(itemKey, size) {
         const itemInfo = await getItemInfo(itemKey);
-        const itemPrices = await getItemPrices(itemInfo);
-        const itemListings = await getItemListings(itemInfo);
+        const itemPrices = await getItemPrices(itemInfo, size);
+        const itemListings = await getItemListings(itemInfo, size);
         dispatch(updateItemData({
             info: itemInfo,
             prices: itemPrices,
@@ -109,7 +108,7 @@ export default function useAPICall(callType, params) {
 
     useEffect(() => {
         if (callType === 'getitem')
-            getItem(params.itemKey);
-    }, [currency])
+            getItem(params.itemKey, params.size);
+    }, [currency, size])
 
 }

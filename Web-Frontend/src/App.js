@@ -40,6 +40,7 @@ export default function App() {
 
   const dispatch = useDispatch()
 
+  const filterVisible = useSelector(state => state.filterVisible)
   const aboutModalVisible = useSelector(state => state.aboutModalVisible)
   const filterModalVisible = useSelector(state => state.filterModalVisible)
   const hamburgerModalVisible = useSelector(state => state.hamburgerModalVisible)
@@ -113,7 +114,7 @@ export default function App() {
           </RemoveScroll>
         }
         {
-          filterModalVisible &&
+          filterVisible &&
           <RemoveScroll>
             <FilterModal />
           </RemoveScroll>

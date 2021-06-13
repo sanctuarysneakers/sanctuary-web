@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { Helmet } from 'react-helmet'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import useAPICall from '../Hooks/useapicall'
 import Loader from '../loader'
 import stockX from '../../assets/images/stockx-new.png'
 import ItemPrice from '../itemPrice'
 import ItemListing from '../itemListing'
-
+import { showFilter } from '../../redux/actions'
 export default function Item() {
 
+    const dispatch = useDispatch()
     const { urlKey } = useParams()
     const itemData = useSelector(state => state.itemData)
-    const currency = useSelector(state => state.currency)
     console.log(itemData)
-    useAPICall('getitem', { itemKey: urlKey })
+    const size = useSelector(state => state.size);
+    useAPICall('getitem', { itemKey: urlKey, size: size });
 
     let itemPrices;
     if (itemData.prices) {
@@ -44,7 +45,6 @@ export default function Item() {
                     <div className='item-shoe'>
                         <img src={itemData.info.image} alt='sneaker image' />
                     </div>
-
                     <div className='item-text'>
                         <h2 className='item-model'>
                             {itemData.info.modelName}
@@ -78,9 +78,9 @@ export default function Item() {
 
                         <div className='item-listings-cheapest'>
                             <h2 className='lowest-prices-title'> 
-                                Lowest Prices 
+                                Lowest Prices
+                                <p className='item-filter' onClick={() => dispatch(showFilter())}>FILTER</p>
                             </h2>
-
                             <div className='item-lowest-prices'>
                                 <div className='item-lowest-prices-wrapper'>
                                     {itemPrices}

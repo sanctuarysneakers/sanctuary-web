@@ -70,6 +70,18 @@ export const clearUser = () => {
 
 // Modal Actions
 
+export const showFilter = () => {
+    return {
+        type: 'SHOW_FILTER'
+    }
+}
+
+export const hideFilter = () => {
+    return {
+        type: 'HIDE_FILTER'
+    }
+}
+
 export const showAboutModal = () => {
     return {
         type: 'SHOW_ABOUT_MODAL'
@@ -161,5 +173,14 @@ export const updateLocation = json => {
     return {
         type: 'UPDATE_LOCATION',
         payload: json
+    }
+}
+
+// Update size 
+
+export const updateSize = size => {
+    return {
+        type: 'UPDATE_SIZE',
+        payload: size
     }
 }
