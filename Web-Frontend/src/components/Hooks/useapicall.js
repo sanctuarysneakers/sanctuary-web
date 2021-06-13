@@ -66,6 +66,7 @@ export default function useAPICall(callType, params) {
         results.push(...await stockxLowestPrice(item.skuId, item.modelName, size, currencyRate));
         results.push(...await goatLowestPrice(item.skuId, item.modelName, size, currencyRate));
         results.push(...await flightclubLowestPrice(item.skuId, item.modelName, size, currencyRate));
+        console.log(size);
         results.push(...await klektLowestPrice(item.skuId, item.modelName, size, klektCurrencyRate));
         if (typeof(location["country_code2"]) != "undefined") {
             results.push(...await ebayLowestPrice(item.skuId, item.modelName, size, location["country_code2"], currencyRate));

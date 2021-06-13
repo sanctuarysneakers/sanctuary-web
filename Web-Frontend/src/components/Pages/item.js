@@ -57,7 +57,7 @@ export default function Item() {
                         <div className='item-specifics'>
                             <div className='item-size'>
                                 <h4> SIZE </h4>
-                                <p> 10 </p>
+                                <p> {size} </p>
                             </div>
                             <div className='item-specifics-divider' />
                             <div className='item-condition'>
