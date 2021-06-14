@@ -12,7 +12,6 @@ export default function Browse() {
     let {query} = useParams()
     if (!query) query = ''
 
-    // Show the search bar
     dispatch(showHomeSeach())
 
     return (
@@ -38,16 +37,4 @@ export default function Browse() {
         </div>
     )
 
-    // return (
-    //     <div>
-    //         <main className='filter-catalog'>
-    //             <h2>{query === '' ? 'Browse' : query}</h2>
-    //             <section id="section-b" className='catalogrow'>
-    //                 <div className='b-wrap'>
-    //                     <Catalog search_query={query} />
-    //                 </div>
-    //             </section>
-    //         </main>
-    //     </div>
-    // )
 }

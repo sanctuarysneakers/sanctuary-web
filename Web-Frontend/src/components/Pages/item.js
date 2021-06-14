@@ -8,14 +8,16 @@ import stockX from '../../assets/images/stockx-new.png'
 import ItemPrice from '../itemPrice'
 import ItemListing from '../itemListing'
 import { showFilter } from '../../redux/actions'
+
 export default function Item() {
 
     const dispatch = useDispatch()
     const { urlKey } = useParams()
     const itemData = useSelector(state => state.itemData)
+    const size = useSelector(state => state.size)
+
+    useAPICall('getitem', { itemKey: urlKey, size: size })
     console.log(itemData)
-    const size = useSelector(state => state.size);
-    useAPICall('getitem', { itemKey: urlKey, size: size });
 
     let itemPrices;
     if (itemData.prices) {
@@ -35,9 +37,7 @@ export default function Item() {
     })
 
     if (loader) {
-        return (
-            <Loader />
-        )
+        return (<Loader />)
     } else {
         return (
             <div className='item'>
@@ -105,12 +105,4 @@ export default function Item() {
         )
     }
 
-    // return (
-    //     // trying to display item attributes causes an error because
-    //     // itemData is initially an empty object
-    //     <div>
-    //         <p>{/*itemData.info.modelName*/}</p>
-    //         <p>{/*itemData.info.skuId*/}</p>
-    //     </div>
-    // )
 }
