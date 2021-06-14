@@ -9,91 +9,88 @@ import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPr
 
 
 export default function useAPICall(callType, params) {
-    const history = useHistory();
-    const dispatch = useDispatch();
+    const history = useHistory()
+    const dispatch = useDispatch()
 
-    const filter = useSelector(state => state.filter);
-    const currency = useSelector(state => state.currency);
-    const location = useSelector(state => state.location);
-    const size = useSelector(state => state.size);
+    const currency = useSelector(state => state.currency)
+    const location = useSelector(state => state.location)
+    const size = useSelector(state => state.size)
 
-    async function browse(query, itemLimit=30) {
+    async function browse(query) {
         const request = createRequestObject('browse', {search: query})
         try {
-            const response = await fetch(request.url, request.headers);
-            if (!response.ok) throw new Error();
+            const response = await fetch(request.url, request.headers)
+            if (!response.ok) throw new Error()
 
-            let rawData = await response.json();
-            let results = [];
-            for (const item of rawData['Products']) {
-                if (results.length >= itemLimit) break
-                results.push({
-                    id: item['id'],
-                    model: item['title'],
-                    urlKey: item['urlKey'],
-                    imageThumbnail: item['media']['imageUrl'].split('?', 1)[0] + '?w=300&q=50&trim=color'
-                })
-            }
-            dispatch(browseCall(results));
+            let results = await response.json()
+            // let results = []
+            // for (const item of rawData['Products']) {
+            //     if (results.length >= itemLimit) break
+            //     results.push({
+            //         id: item['id'],
+            //         model: item['title'],
+            //         urlKey: item['urlKey'],
+            //         imageThumbnail: item['media']['imageUrl'].split('?', 1)[0] + '?w=300&q=50&trim=color'
+            //     })
+            // }
+            dispatch(browseCall(results))
         } catch (e) {
-            history.push(`/page-not-found`);
+            history.push(`/page-not-found`)
         }
     }
 
-    
     async function getItemInfo(itemKey) {
-        const request = createRequestObject('browse', {search: itemKey});
+        const request = createRequestObject('browse', {search: itemKey})
         try {
-            const response = await fetch(request.url, request.headers);
-            if (!response.ok) throw new Error();
+            const response = await fetch(request.url, request.headers)
+            if (!response.ok) throw new Error()
 
-            let rawData = await response.json();
-            let item = rawData['Products'][0];
+            let itemData = await response.json()
+            let item = itemData[0]
             return {
-                skuId: item['styleId'],
-                modelName: item['title'],
-                image: item['media']['imageUrl']
+                skuId: item['sku'],
+                modelName: item['model'],
+                image: item['image']
             }
         } catch (e) {
-            history.push(`/page-not-found`);
+            history.push(`/page-not-found`)
         }
     }
 
     async function getItemPrices(item, size) {
-        const currencyRate = await getCurrencyRate(currency);
-        const klektCurrencyRate = await getKlektCurrencyRate(currency);
-        let results = [];
-        results.push(...await stockxLowestPrice(item.skuId, item.modelName, size, currencyRate));
-        results.push(...await goatLowestPrice(item.skuId, item.modelName, size, currencyRate));
-        results.push(...await flightclubLowestPrice(item.skuId, item.modelName, size, currencyRate));
-        console.log(size);
-        results.push(...await klektLowestPrice(item.skuId, item.modelName, size, klektCurrencyRate));
+        const currencyRate = await getCurrencyRate(currency)
+        const klektCurrencyRate = await getKlektCurrencyRate(currency)
+        let results = []
+        results.push(...await stockxLowestPrice(item.skuId, item.modelName, size, currencyRate))
+        results.push(...await goatLowestPrice(item.skuId, item.modelName, size, currencyRate))
+        results.push(...await flightclubLowestPrice(item.skuId, item.modelName, size, currencyRate))
+        results.push(...await klektLowestPrice(item.skuId, item.modelName, size, klektCurrencyRate))
         if (typeof(location["country_code2"]) != "undefined") {
-            results.push(...await ebayLowestPrice(item.skuId, item.modelName, size, location["country_code2"], currencyRate));
+            results.push(...await ebayLowestPrice(item.skuId, item.modelName, size, location["country_code2"], currencyRate))
         } else {
-            results.push(...await ebayLowestPrice(item.skuId, item.modelName, size, "US", currencyRate));
+            results.push(...await ebayLowestPrice(item.skuId, item.modelName, size, "US", currencyRate))
         }
-        return results;
+        return results
     }
 
     async function getItemListings(item, size) {
-        const currencyRate = await getCurrencyRate(currency);
-        let results = [];
+        const currencyRate = await getCurrencyRate(currency)
+        let results = []
         if (typeof(location["country_code2"]) != "undefined") {
-            results.push(...await ebayListings(item.skuId, item.modelName, size, location["country_code2"], currencyRate));
+            results.push(...await ebayListings(item.skuId, item.modelName, size, location["country_code2"], currencyRate))
         } else {
-            results.push(...await ebayListings(item.skuId, item.modelName, size, "US", currencyRate));
+            results.push(...await ebayListings(item.skuId, item.modelName, size, "US", currencyRate))
         }
-        results.push(...await depopListings(item.modelName, size, currencyRate));
-        results.push(...await grailedListings(item.modelName, size, 5, currencyRate));
-        results.sort((a, b) => a.price - b.price);
-        return results;
+        results.push(...await depopListings(item.modelName, size, currencyRate))
+        results.push(...await grailedListings(item.modelName, size, 5, currencyRate))
+        results.sort((a, b) => a.price - b.price)
+        return results
     }
 
     async function getItem(itemKey, size) {
-        const itemInfo = await getItemInfo(itemKey);
-        const itemPrices = await getItemPrices(itemInfo, size);
-        const itemListings = await getItemListings(itemInfo, size);
+        const itemInfo = await getItemInfo(itemKey)
+        const itemPrices = await getItemPrices(itemInfo, size)
+        const itemListings = await getItemListings(itemInfo, size)
         dispatch(updateItemData({
             info: itemInfo,
             prices: itemPrices,
@@ -101,15 +98,14 @@ export default function useAPICall(callType, params) {
         }))
     }
 
-
     useEffect(() => {
         if (callType === 'browse')
-            browse(params.query);
+            browse(params.query)
     }, [])
 
     useEffect(() => {
         if (callType === 'getitem')
-            getItem(params.itemKey, params.size);
+            getItem(params.itemKey, params.size)
     }, [currency, size])
 
 }

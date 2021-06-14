@@ -3,10 +3,8 @@ export default function createRequestObject(type, filter) {
 	switch (type) {
 		case 'browse':
 			return {
-				url: 'https://stockx.com/api/browse?' + new URLSearchParams({
-					"_search": filter.search,
-					"productCategory": "sneakers",
-					"gender": "men"
+				url: 'https://sanctuaryapi.net/browse?' + new URLSearchParams({
+					"search": filter.search
 				}),
 				headers: {
 					method: 'GET'
@@ -14,9 +12,22 @@ export default function createRequestObject(type, filter) {
 			}
 		case 'stockx':
 			return {
-				url: 'https://stockx.com/api/browse?' + new URLSearchParams({
-					"_search": filter.search,
-					"shoeSize": filter.size
+				url: 'https://sanctuaryapi.net/lowestprice?' + new URLSearchParams({
+					"source": "stockx",
+					"search": filter.search,
+					"size": filter.size
+				}),
+				headers: {
+					method: 'GET'
+				}
+			}
+		case 'ebay':
+			return {
+				url: 'https://sanctuaryapi.net/lowestprice?' + new URLSearchParams({
+					'source': 'ebay',
+					'search': filter.search,
+					'size': filter.size,
+					'ship_to': filter.shipTo
 				}),
 				headers: {
 					method: 'GET'
@@ -50,23 +61,16 @@ export default function createRequestObject(type, filter) {
 					})
 				}
 			}
-		case 'grailed':
+		case 'ebayListings':
 			return {
-				url: 'https://mnrwefss2q-dsn.algolia.net/1/indexes/*/queries?' + new URLSearchParams({
-					"x-algolia-agent": "Algolia for JavaScript (3.35.1); Browser",
-					"x-algolia-application-id": "MNRWEFSS2Q", "x-algolia-api-key": "a3a4de2e05d9e9b463911705fb6323ad"
+				url: 'https://sanctuaryapi.net/itemlistings?' + new URLSearchParams({
+					'source': 'ebay',
+					'search': filter.search,
+					'size': filter.size,
+					'ship_to': filter.shipTo
 				}),
 				headers: {
-					method: 'POST',
-					body: JSON.stringify({
-						"requests": [{
-							"indexName": "Listing_production",
-							"params": new URLSearchParams({
-								"query": filter.search,
-								"facetFilters": `[[\"category_size:footwear.${filter.size}\"], [\"condition:is_new\",\"condition:is_gently_used\"]]`,
-							}).toString()
-						}]
-					})
+					method: 'GET'
 				}
 			}
 		case 'grailedListings':
@@ -86,41 +90,6 @@ export default function createRequestObject(type, filter) {
 							}).toString()
 						}]
 					})
-				}
-			}
-		case 'ebay':
-			return {
-				url: 'https://sanctuaryapi.net/lowestnewprices?' + new URLSearchParams({
-					'source': 'ebay',
-					'search': filter.search,
-					'size': filter.size,
-					'ship_to': filter.shipTo
-				}),
-				headers: {
-					method: 'GET'
-				}
-			}
-		case 'ebayListings':
-			return {
-				url: 'https://sanctuaryapi.net/itemlistings?' + new URLSearchParams({
-					'source': 'ebay',
-					'search': filter.search,
-					'size': filter.size,
-					'ship_to': filter.shipTo
-				}),
-				headers: {
-					method: 'GET'
-				}
-			}
-		case 'depop':
-			return {
-				url: 'https://sanctuaryapi.net/lowestnewprices?' + new URLSearchParams({
-					'source': 'depop',
-					'search': filter.search,
-					'size': filter.size
-				}),
-				headers: {
-					method: 'GET'
 				}
 			}
 		case 'depopListings':
