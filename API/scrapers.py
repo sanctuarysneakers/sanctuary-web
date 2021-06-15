@@ -23,9 +23,8 @@ def browse_stockx(search, page=1):
 			results.append({
 				"id": item["id"],
 				"model": item["title"],
-				"sku": item['styleId'],
+				"sku": item["styleId"],
 				"urlKey": item["urlKey"],
-				"image": item["media"]["imageUrl"],
 				"imageThumbnail": item["media"]["thumbUrl"]
 			})
 		return results
