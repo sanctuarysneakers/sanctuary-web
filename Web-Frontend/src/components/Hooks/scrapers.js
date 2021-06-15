@@ -13,14 +13,11 @@ export async function stockxLowestPrice(skuId, modelName, size, currencyRate) {
 		if (!response.ok) throw new Error()
 
 		let itemData = await response.json()
-		return itemData
-		// let rawData = await response.json()
-		// let itemData = rawData["Products"]
-		// return [{
-		// 	source: "stockx",
-		// 	price: Math.round(itemData[0]["market"]["lowestAsk"] * currencyRate),
-		// 	url: "stockx.com/" + itemData[0]["urlKey"]
-		// }]
+		return [{
+			source: 'stockx',
+			price: Math.round(itemData[0]['price'] * currencyRate),
+			url: itemData[0]['url']
+		}]
 	} catch (e) {
 		return []
 	}
@@ -37,7 +34,7 @@ export async function ebayLowestPrice(skuId, modelName, size, location, currency
 
 		let itemData = await response.json()
 		return [{
-			source: "ebay",
+			source: 'ebay',
 			price: Math.round(itemData[0]['price'] * currencyRate),
 			url: itemData[0]['url']
 		}]
@@ -59,7 +56,7 @@ export async function goatLowestPrice(skuId, modelName, size, currencyRate) {
 		let rawData = await response.json()
 		let itemData = rawData['hits']
 		return [{
-			source: "goat",
+			source: 'goat',
 			price: Math.round((itemData[0]['lowest_price_cents']/100) * currencyRate),
 			url: 'goat.com/sneakers/' + itemData[0]['slug']
 		}]
@@ -81,7 +78,7 @@ export async function flightclubLowestPrice(skuId, modelName, size, currencyRate
 		let rawData = await response.json()
 		let itemData = rawData['hits']
 		return [{
-			source: "flightclub",
+			source: 'flightclub',
 			price: Math.round((itemData[0]['lowest_price_cents']/100) * currencyRate),
 			url: 'flightclub.com/' + itemData[0]['slug']
 		}]
@@ -102,27 +99,28 @@ export async function klektLowestPrice(skuId, modelName, size, currencyRate) {
 		if (!response1.ok) throw new Error()
 
 		let rawData1 = await response1.json()
-		let item = rawData1["data"]["search"]["items"][0]
+		let item = rawData1['data']['search']['items'][0]
 
 		// request2: get price based on product id
-		const request2 = createRequestObject('klekt2', { pid: item["productId"] })
+		const request2 = createRequestObject('klekt2', { pid: item['productId'] })
 		const response2 = await fetch(request2.url, request2.headers)
 		if (!response2.ok) throw new Error()
 
 		let rawData2 = await response2.json()
-		let productVariants = rawData2["data"]["productDetails"]["variants"]
+		let productVariants = rawData2['data']['productDetails']['variants']
 
 		// find the correct size from productVariants
 		for (const variant of productVariants) {
-			const vSize = variant["facetValues"][0]["code"].replace("us", "")
+			const vSize = variant['facetValues'][0]['code'].replace('us', '')
 			if (parseFloat(vSize) == parseFloat(size)) {
 				return [{
 					source: 'klekt',
-					price: Math.round(variant["priceWithTax"]/100 * currencyRate),  /// PRICE IN EUROS ///
-					url: "klekt.com/product/" + rawData2["data"]["productDetails"]["slug"]
+					price: Math.round(variant['priceWithTax']/100 * currencyRate),  /// PRICE IN EUROS ///
+					url: 'klekt.com/product/' + rawData2['data']['productDetails']['slug']
 				}]
 			}
 		}
+		return []
 	} catch (e) {
 		return []
 	}
@@ -141,7 +139,7 @@ export async function ebayListings(skuId, modelName, size, location, currencyRat
 
 		let itemData = await response.json()
 		for (var i = 0; i < itemData.length; i++) {
-			itemData[i]["price"] = Math.round(itemData[i]["price"] * currencyRate);
+			itemData[i]['price'] = Math.round(itemData[i]['price'] * currencyRate);
 		}
 		return itemData
 	} catch (e) {
@@ -158,7 +156,7 @@ export async function depopListings(modelName, size, currencyRate) {
 
 		let itemData = await response.json()
 		for(var i = 0; i < itemData.length; i++) {
-			itemData[i]["price"] = Math.round(itemData[i]["price"] * currencyRate);
+			itemData[i]['price'] = Math.round(itemData[i]['price'] * currencyRate);
 		}
 		return itemData
 	} catch (e) {
@@ -167,22 +165,22 @@ export async function depopListings(modelName, size, currencyRate) {
 }
 
 
-export async function grailedListings(modelName, size, maxItems=5, currencyRate) {
+export async function grailedListings(modelName, size, maxItems=7, currencyRate) {
 	const request = createRequestObject('grailedListings', {search: modelName, size: size})
 	try {
 		const response = await fetch(request.url, request.headers)
 		if (!response.ok) throw new Error()
 		
 		let rawData = await response.json()
-		let itemData = rawData["results"][0]["hits"]
+		let itemData = rawData['results'][0]['hits']
 		let results = []
 		for (const item of itemData) {
 			if (results.length >= maxItems) break
 			results.push({
-				source: "grailed",
+				source: 'grailed',
 				price: Math.round((item['price']) * currencyRate),
 				image: item['cover_photo']['url'],
-				url: "grailed.com/listings/" + item['id'].toString()
+				url: 'grailed.com/listings/' + item['id'].toString()
 			})
 		}
 		return results

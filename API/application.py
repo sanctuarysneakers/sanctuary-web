@@ -31,8 +31,8 @@ class Browse(Resource):
 		search = args['search']
 		page = args['page']
 
-		response = browse_stockx(search, page)
-		return response if response else bad_request()
+		results = browse_stockx(search, page)
+		return results if results else bad_request()
 
 
 class LowestPrice(Resource):
@@ -44,11 +44,11 @@ class LowestPrice(Resource):
 		ship_to = args['ship_to']
 
 		if source == 'stockx':
-			response = stockx_lowest_price(search, size)
-			return response if response else bad_request()
+			results = stockx_lowest_price(search, size)
+			return results if results else bad_request()
 		elif source == 'ebay':
-			response = ebay_lowest_price(search, size, ship_to)
-			return response if response else bad_request()
+			results = ebay_lowest_price(search, size, ship_to)
+			return results if results else bad_request()
 
 
 class ItemListings(Resource):
@@ -60,11 +60,11 @@ class ItemListings(Resource):
 		ship_to = args['ship_to']
 
 		if source == 'ebay':
-			response = ebay_listings(search, size, ship_to)
-			return response if response else bad_request()
+			results = ebay_listings(search, size, ship_to)
+			return results if results else bad_request()
 		elif source == 'depop':
-			response = depop_listings(search, size)
-			return response if response else bad_request()
+			results = depop_listings(search, size)
+			return results if results else bad_request()
 
 
 @cached(cache=TTLCache(maxsize=100, ttl=18000))
@@ -87,5 +87,5 @@ api.add_resource(ItemListings, '/itemlistings')
 api.add_resource(CurrencyRate, '/currencyrate')
 
 if __name__ == '__main__':
-	application.run(debug=True)        # local dev
-	#application.run(host='0.0.0.0')    # production
+	#application.run(debug=True)        # local dev
+	application.run(host='0.0.0.0')    # production
