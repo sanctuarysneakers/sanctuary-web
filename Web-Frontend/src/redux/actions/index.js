@@ -184,3 +184,12 @@ export const updateSize = size => {
         payload: size
     }
 }
+
+// Update sneaker list
+
+export const updateSneakers = sneakers => {
+    return {
+        type: 'GET_SNEAKERS',
+        payload: sneakers
+    }
+}

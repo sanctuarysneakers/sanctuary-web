@@ -8,6 +8,7 @@ import stockX from '../../assets/images/stockx-new.png'
 import ItemPrice from '../itemPrice'
 import ItemListing from '../itemListing'
 import { showFilter } from '../../redux/actions'
+import PortFolioButton from '../portfolioupdater'
 
 export default function Item() {
 
@@ -15,9 +16,9 @@ export default function Item() {
     const { urlKey } = useParams()
     const itemData = useSelector(state => state.itemData)
     const size = useSelector(state => state.size)
-
+    var url = window.location.href;
     useAPICall('getitem', { itemKey: urlKey, size: size })
-    console.log(itemData)
+    //console.log(itemData)
 
     let itemPrices;
     if (itemData.prices) {
@@ -52,6 +53,7 @@ export default function Item() {
 
                         <div className='item-buy'>
                             <p> Buy ${itemData.prices[0].price}</p>
+                            <PortFolioButton url={url} /> 
                         </div>
 
                         <div className='item-specifics'>
