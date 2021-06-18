@@ -16,7 +16,7 @@ import TermsOfUse from './components/Pages/termsofuse'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { RemoveScroll } from 'react-remove-scroll'
-import { setUser, updateLocation, updateSneakers } from './redux/actions'
+import { setUser, updateLocation } from './redux/actions'
 import SignInOptions from './components/Accounts/signinoptions'
 import SignInEmail from './components/Accounts/signinemail'
 import CreateAccountOptions from './components/Accounts/createaccountoptions'
@@ -35,7 +35,6 @@ import ArticleTop2020 from "./components/Blog/Articles/articleTop2020"
 import firebase from './services/firebase'
 import ScrollToTop from './components/Hooks/scrolltotop'
 import Loader from './components/loader'
-import { CodeStarNotifications } from 'aws-sdk'
 
 export default function App() {
 
@@ -47,55 +46,21 @@ export default function App() {
   const hamburgerModalVisible = useSelector(state => state.hamburgerModalVisible)
   const deleteModalVisible = useSelector(state => state.deleteModalVisible)
   const location = useSelector(state => state.location);
-  const user = useSelector(state => state.user);
+
   const [loader, setLoader] = useState(true)
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        dispatch(setUser(user));
-        setLoader(false);
+        dispatch(setUser(user))
+        setLoader(false)
       } else {
-        dispatch(setUser(null));
-        setLoader(false);
+        dispatch(setUser(null))
+        setLoader(false)
       }
     })
   })
 
-  useEffect(() => {
-    getSneakers(user); 
-  }, [user])
-
-  function getSneakers(user) {
-    if (!user) {
-      dispatch(updateSneakers([]));
-      return;
-    }
-    var currShoes = [];
-    var AWS = require('aws-sdk');
-    AWS.config.update({region: 'us-west-2'});
-    var ddb = new AWS.DynamoDB({accessKeyId: "AKIAUZX5JDKL7VXYNI6J", secretAccessKey: "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"});  
-    var readParams = {
-      TableName: 'user_portfolios',
-      Key: {
-          'uid': {'S': user['uid']}
-      },
-    } 
-    ddb.getItem(readParams, function(err, data) {
-      if (err) {
-          console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
-      } else {
-          if (JSON.stringify(data) !== "{}") {
-            var objArr = data['Item']['Sneakers']['L'];
-            for(var i = 0; i < objArr.length; i++) {
-              currShoes.push(objArr[i][['S']]);
-            }
-            dispatch(updateSneakers(currShoes));
-          }
-      }
-    });
-
-  }
   var IPGeolocationAPI = require('ip-geolocation-api-javascript-sdk');
   
   async function handleGeolocationResponse(json) {
@@ -109,8 +74,7 @@ export default function App() {
           ipgeolocationApi.getGeolocation(handleGeolocationResponse);
       }
   }, []);
-  const sneakers = useSelector(state => state.sneakerList);
-  console.log("SNEAKERLIST IN STATE: ", sneakers);
+
   if (loader) {
     return (
       <Loader />
