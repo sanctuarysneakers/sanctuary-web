@@ -41,11 +41,10 @@ export default function useAPICall(callType, params) {
             if (!response.ok) throw new Error()
 
             let itemData = await response.json()
-            let item = itemData[0]
             return {
-                skuId: item['sku'],
-                modelName: item['model'],
-                image: item['image']
+                skuId: itemData[0]['sku'],
+                modelName: itemData[0]['model'],
+                image: itemData[0]['image']
             }
         } catch (e) {
             history.push(`/page-not-found`)
@@ -77,7 +76,7 @@ export default function useAPICall(callType, params) {
             results.push(...await ebayListings(item.skuId, item.modelName, size, "US", currencyRate))
         }
         results.push(...await depopListings(item.modelName, size, currencyRate))
-        results.push(...await grailedListings(item.modelName, size, 5, currencyRate))
+        results.push(...await grailedListings(item.modelName, size, currencyRate))
         results.sort((a, b) => a.price - b.price)
         return results
     }

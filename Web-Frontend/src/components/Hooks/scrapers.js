@@ -165,7 +165,8 @@ export async function depopListings(modelName, size, currencyRate) {
 }
 
 
-export async function grailedListings(modelName, size, maxItems=7, currencyRate) {
+export async function grailedListings(modelName, size, currencyRate) {
+	let maxItems = 7
 	const request = createRequestObject('grailedListings', {search: modelName, size: size})
 	try {
 		const response = await fetch(request.url, request.headers)

@@ -9,6 +9,7 @@ debug.log
 # Backend
 __pycache__
 .elasticbeanstalk
+.ipynb_checkpoints
 
 .DS_Store
 .vscode

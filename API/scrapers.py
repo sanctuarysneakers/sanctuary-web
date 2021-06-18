@@ -12,6 +12,7 @@ def browse_stockx(search, page=1):
 	parameters = {
 		"_search": search,
 		"productCategory": "sneakers",
+		"gender": "men",
 		"page": page
 	}
 
@@ -25,6 +26,7 @@ def browse_stockx(search, page=1):
 				"model": item["title"],
 				"sku": item["styleId"],
 				"urlKey": item["urlKey"],
+				"image": item["media"]["imageUrl"],
 				"imageThumbnail": item["media"]["thumbUrl"]
 			})
 		return results
