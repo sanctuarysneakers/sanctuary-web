@@ -1,4 +1,5 @@
 import requests
+from elasticsearch import Elasticsearch
 from cachetools import cached, TTLCache
 
 
@@ -18,9 +19,9 @@ def browse_stockx(search, page=1):
 
 	response = requests.get(url, headers=headers, params=parameters)
 	try:
-		item_data = response.json()["Products"]
+		browse_data = response.json()["Products"]
 		results = []
-		for item in item_data:
+		for item in browse_data:
 			results.append({
 				"id": item["id"],
 				"model": item["title"],
@@ -32,6 +33,40 @@ def browse_stockx(search, page=1):
 		return results
 	except:
 		return None
+
+
+@cached(cache=TTLCache(maxsize=32768, ttl=3600))
+def browse_es(search):
+	es_host = "https://search-sanctuary-wnpcewotzjgc7vv4ivvgzs4fyy.us-west-2.es.amazonaws.com"
+	username = "master"
+	password = f"%3i6PK@Wu^LisMH"
+	es = Elasticsearch([es_host], http_auth=(username, password))
+
+	if search:
+		response = es.search(index="browse", body={
+			"query": {
+				"match": { "model": search }
+			}, "sort": ["_score", "rank"]
+		}, size=20)
+	else:
+		response = es.search(index="browse", body={
+			"query": {
+				"match_all": {}
+			}, "sort": ["rank"]
+		}, size=20)
+	browse_data = response["hits"]["hits"]
+
+	results = []
+	for item in browse_data:
+		results.append({
+			"id": item["_id"],
+			"model": item["_source"]["model"],
+			"sku": item["_source"]["sku"],
+			"urlKey": item["_source"]["urlKey"],
+			"image": item["_source"]["image"],
+			"imageThumbnail": item["_source"]["imageThumbnail"]
+		})
+	return results
 
 
 @cached(cache=TTLCache(maxsize=32768, ttl=3600))

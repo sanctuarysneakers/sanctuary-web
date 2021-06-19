@@ -29,9 +29,10 @@ class Browse(Resource):
 	def get(self):
 		args = parser.parse_args()
 		search = args['search']
-		page = args['page']
+		#page = args['page']
 
-		results = browse_stockx(search, page)
+		# results = browse_stockx(search, page)
+		results = browse_es(search)
 		return results if results else bad_request()
 
 

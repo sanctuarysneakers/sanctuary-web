@@ -1,7 +1,10 @@
 import requests
 from elasticsearch import Elasticsearch
 
-es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
+es_host = "https://search-sanctuary-wnpcewotzjgc7vv4ivvgzs4fyy.us-west-2.es.amazonaws.com"
+username = "master"
+password = f"%3i6PK@Wu^LisMH"
+es = Elasticsearch([es_host], http_auth=(username, password))
 
 
 url = "https://stockx.com/api/browse"
