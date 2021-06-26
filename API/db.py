@@ -24,7 +24,11 @@ class DB:
 			self.cursor.execute(query, values)
 	
 	def commit(self):
-		self.conn.commit()
+		try:
+			self.conn.commit()
+		except:
+			self.connect()
+			self.conn.commit()
 	
 	def fetchone(self):
 		return self.cursor.fetchone()

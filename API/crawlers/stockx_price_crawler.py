@@ -18,12 +18,11 @@ headers = {
 	"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36",
 }
 
-for s in range(80, 135, 5):
-	size = "%g" % (s/10)
+sizes = ['8', '9', '10', '11', '12', '13']
+for size in sizes:
 	print(f"Size {size}")
-
 	page = 1
-	while page <= 45:
+	while page <= 50:
 		parameters = {
 			"_search": "",
 			"productCategory": "sneakers",
@@ -36,20 +35,22 @@ for s in range(80, 135, 5):
 		if not page_data: break
 
 		for item in page_data:
-			if not item["styleId"]:
-				continue
+			if not item["styleId"]: continue
 			
-			query = f"""REPLACE INTO stockx_price_cache (sku, size, timestamp, data)
-				VALUES (%s, %s, %s, %s);"""
-			cursor.execute(query, (
-				item["styleId"], size, datetime.now(), json.dumps(item))
-			)
+			try:
+				query = f"""REPLACE INTO stockx_price_cache (sku, size, timestamp, data)
+					VALUES (%s, %s, %s, %s);"""
+				cursor.execute(query, (
+					item["styleId"], size, datetime.now(), json.dumps(item))
+				)
+			except:
+				continue
 		conn.commit()
 
 		print(page)
 		page += 1
 	
-	if s != 130:
+	if size != sizes[-1]:
 		time.sleep(60)
 
 cursor.close()

@@ -2,13 +2,11 @@ import requests
 import json
 from datetime import datetime, timedelta
 from elasticsearch import Elasticsearch
-from cachetools import cached, TTLCache
 
-# from db import DB
-# db = DB()
+from db import DB
+db = DB()
 
 
-@cached(cache=TTLCache(maxsize=32768, ttl=10000))
 def browse_es(search):
 	es_host = "https://search-sanctuary-wnpcewotzjgc7vv4ivvgzs4fyy.us-west-2.es.amazonaws.com"
 	username = "master"
@@ -43,29 +41,27 @@ def browse_es(search):
 
 
 def stockx_lowest_price(sku, size):
-	""" reserve database cache until we have more traffic """
 	# check if price is cached before going to stockx api
-	# db.commit()
-	# db.execute(f"""
-	# 	SELECT *
-	# 	FROM stockx_price_cache
-	# 	WHERE sku='{sku}' AND size='{size}';""")
-	# cached_data = db.fetchone()
-	# if cached_data:
-	# 	acceptable_time = datetime.now() - timedelta(hours=0, minutes=40)
-	# 	if cached_data["timestamp"] > acceptable_time:
-	# 		item_data = json.loads(cached_data["data"])
-	# 		return [{
-	# 			"source": "stockx",
-	# 			"price": item_data["market"]["lowestAsk"],
-	# 			"url": "stockx.com/" + item_data["urlKey"],
-	# 			"cached": 1
-	# 		}]
+	db.commit()
+	db.execute(f"""
+		SELECT *
+		FROM stockx_price_cache
+		WHERE sku='{sku}' AND size='{size}';""")
+	cached_data = db.fetchone()
+	if cached_data:
+		acceptable_time = datetime.now() - timedelta(hours=0, minutes=30)
+		if cached_data["timestamp"] > acceptable_time:
+			item_data = json.loads(cached_data["data"])
+			return [{
+				"source": "stockx",
+				"price": item_data["market"]["lowestAsk"],
+				"url": "stockx.com/" + item_data["urlKey"],
+				"cached": 1
+			}]
 	
 	return stockx_api_call(sku, size)
 
 
-@cached(cache=TTLCache(maxsize=32768, ttl=600))
 def stockx_api_call(sku, size):
 	url = "https://stockx.com/api/browse"
 	headers = {
@@ -84,19 +80,18 @@ def stockx_api_call(sku, size):
 	except:
 		return None
 	
-	# try:
-	# 	# insert into external cache
-	# 	query = f"""REPLACE INTO stockx_price_cache (sku, size, timestamp, data)
-	# 		VALUES (%s, %s, %s, %s);"""
-	# 	db.execute(query, (sku, size, datetime.now(), json.dumps(products[0])))
-	# 	db.commit()
-	# except:
-	# 	pass
+	try:
+		# insert into database cache
+		query = f"""REPLACE INTO stockx_price_cache (sku, size, timestamp, data)
+			VALUES (%s, %s, %s, %s);"""
+		db.execute(query, (sku, size, datetime.now(), json.dumps(products[0])))
+		db.commit()
+	except:
+		pass
 
 	return result
 
 
-@cached(cache=TTLCache(maxsize=32768, ttl=600))
 def ebay_lowest_price(search, size, ship_to):
 	url = "https://svcs.ebay.com/services/search/FindingService/v1"
 	headers = {
@@ -128,7 +123,6 @@ def ebay_lowest_price(search, size, ship_to):
 		return None
 
 
-@cached(cache=TTLCache(maxsize=32768, ttl=600))
 def ebay_listings(search, size, ship_to, max_items=7):
 	url = "https://svcs.ebay.com/services/search/FindingService/v1"
 	headers = {
@@ -167,7 +161,6 @@ def ebay_listings(search, size, ship_to, max_items=7):
 		return None
 
 
-@cached(cache=TTLCache(maxsize=32768, ttl=600))
 def depop_listings(search, size, max_items=7):
 	url = "https://webapi.depop.com/api/v2/search/products"
 	size_map = {'7':'2','7.5':'3','8':'4','8.5':'5','9':'6','9.5':'7','10':'8','10.5':'9','11':'10', 
@@ -198,7 +191,6 @@ def depop_listings(search, size, max_items=7):
 
 
 # UNUSED
-@cached(cache=TTLCache(maxsize=32768, ttl=10000))
 def browse_stockx(search, page=1):
 	url = "https://stockx.com/api/browse"
 	headers = {
