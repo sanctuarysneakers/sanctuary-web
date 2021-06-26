@@ -8,10 +8,24 @@ export const browseCall = data => {
     }
 }
 
-export const updateItemData = itemData => {
+export const updateItemInfo = itemInfo => {
     return {
-        type: 'UPDATE_ITEM_DATA',
-        payload: itemData
+        type: 'UPDATE_ITEM_INFO',
+        payload: itemInfo
+    }
+}
+
+export const updateItemPrices = itemPrices => {
+    return {
+        type: 'UPDATE_ITEM_PRICES',
+        payload: itemPrices
+    }
+}
+
+export const updateItemListings = itemListings => {
+    return {
+        type: 'UPDATE_ITEM_LISTINGS',
+        payload: itemListings
     }
 }
 

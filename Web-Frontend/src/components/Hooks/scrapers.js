@@ -3,25 +3,33 @@ import createRequestObject from './createrequest'
 
 /**** Lowest Prices ****/
 
-export async function stockxLowestPrice(skuId, modelName, size, currencyRate) {
-	let search = skuId
-	if (skuId === '') search = modelName
-
-	const request = createRequestObject('stockx', {search: search, size: size})
-	try {
-		const response = await fetch(request.url, request.headers)
-		if (!response.ok) throw new Error()
-
-		let itemData = await response.json()
-		return [{
-			source: 'stockx',
-			price: Math.round(itemData[0]['price'] * currencyRate),
-			url: itemData[0]['url']
-		}]
-	} catch (e) {
-		return []
-	}
+export async function stockxLowestPrice(item, currencyRate) {
+	return [{
+		source: 'stockx',
+		price: Math.round(item.price * currencyRate),
+		url: item.url
+	}]
 }
+
+// export async function stockxLowestPrice(skuId, modelName, size, currencyRate) {
+// 	let search = skuId
+// 	if (skuId === '') search = modelName
+
+// 	const request = createRequestObject('stockx', {search: search, size: size})
+// 	try {
+// 		const response = await fetch(request.url, request.headers)
+// 		if (!response.ok) throw new Error()
+
+// 		let itemData = await response.json()
+// 		return [{
+// 			source: 'stockx',
+// 			price: Math.round(itemData[0]['price'] * currencyRate),
+// 			url: itemData[0]['url']
+// 		}]
+// 	} catch (e) {
+// 		return []
+// 	}
+// }
 
 
 export async function ebayLowestPrice(skuId, modelName, size, location, currencyRate) {

@@ -51,12 +51,14 @@ def stockx_lowest_price(sku, size):
 	if cached_data:
 		acceptable_time = datetime.now() - timedelta(hours=0, minutes=30)
 		if cached_data["timestamp"] > acceptable_time:
-			item_data = json.loads(cached_data["data"])
+			item = json.loads(cached_data["data"])
 			return [{
 				"source": "stockx",
-				"price": item_data["market"]["lowestAsk"],
-				"url": "stockx.com/" + item_data["urlKey"],
-				"cached": 1
+				"model": item["title"],
+				"sku": item["styleId"],
+				"price": item["market"]["lowestAsk"],
+				"url": "stockx.com/" + item["urlKey"],
+				"image": item["media"]["imageUrl"]
 			}]
 	
 	return stockx_api_call(sku, size)
@@ -70,12 +72,16 @@ def stockx_api_call(sku, size):
 	}
 	parameters = { "_search": sku, "shoeSize": size }
 	response = requests.get(url, headers=headers, params=parameters)
+	
 	try:
 		products = response.json()["Products"]
 		result = [{
 			"source": "stockx",
+			"model": products[0]["title"],
+			"sku": products[0]["styleId"],
 			"price": products[0]["market"]["lowestAsk"],
-			"url": "stockx.com/" + products[0]["urlKey"]
+			"url": "stockx.com/" + products[0]["urlKey"],
+			"image": products[0]["media"]["imageUrl"],
 		}]
 	except:
 		return None

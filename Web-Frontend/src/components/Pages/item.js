@@ -2,36 +2,35 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { Helmet } from 'react-helmet'
 import { useDispatch, useSelector } from 'react-redux'
+import { showFilter } from '../../redux/actions'
+import stockX from '../../assets/images/stockx-new.png'
 import useAPICall from '../Hooks/useapicall'
 import Loader from '../loader'
-import stockX from '../../assets/images/stockx-new.png'
 import ItemPrice from '../itemPrice'
 import ItemListing from '../itemListing'
-import { showFilter } from '../../redux/actions'
 
 export default function Item() {
 
     const dispatch = useDispatch()
     const { urlKey } = useParams()
-    const itemData = useSelector(state => state.itemData)
+    const itemInfo = useSelector(state => state.itemInfo)
+    const itemPrices = useSelector(state => state.itemPrices)
+    const itemListings = useSelector(state => state.itemListings)
     const size = useSelector(state => state.size)
 
     useAPICall('getitem', { itemKey: urlKey, size: size })
 
-    let itemPrices;
-    if (itemData.prices) {
-        itemPrices = itemData.prices.map((item) => <ItemPrice data={item}></ItemPrice>)
-    }
-
-    let itemListings;
-    if (itemData.listings) {
-        itemListings = itemData.listings.map((item) => <ItemListing data={item}></ItemListing>)
-    }
+    const itemPriceComponents = itemPrices.map((item) => (
+        <ItemPrice data={item}></ItemPrice>
+    ))
+    const itemListingComponents = itemListings.map((item) => (
+        <ItemListing data={item}></ItemListing>
+    ))
 
     const [loader, setLoader] = useState(true)
 
     useEffect(() => {
-        if (itemData.info)
+        if (itemInfo)
             setLoader(false)
     })
 
@@ -44,15 +43,15 @@ export default function Item() {
             <div className='item'>
                 <div className='item-info'>
                     <div className='item-shoe'>
-                        <img src={itemData.info.image} alt='sneaker image' />
+                        <img src={itemInfo.image} alt='sneaker image' />
                     </div>
                     <div className='item-text'>
                         <h2 className='item-model'>
-                            {itemData.info.modelName}
+                            {itemInfo.modelName}
                         </h2>
 
                         <div className='item-buy'>
-                            <p> Buy ${itemData.prices[0].price}</p>
+                            <p> Buy $TMP{/* itemData.prices[0].price */}</p>
                         </div>
 
                         <div className='item-specifics'>
@@ -84,7 +83,7 @@ export default function Item() {
                             </h2>
                             <div className='item-lowest-prices'>
                                 <div className='item-lowest-prices-wrapper'>
-                                    {itemPrices}
+                                    {itemPriceComponents}
                                 </div>
                             </div>
                         </div>
@@ -96,7 +95,7 @@ export default function Item() {
 
                             <div className='item-more-listings'>
                                 <div className='item-more-listings-wrapper'>
-                                    {itemListings}
+                                    {itemListingComponents}
                                 </div>
                             </div>
                         </div>

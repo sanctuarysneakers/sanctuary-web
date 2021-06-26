@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { collapseBar, showAboutModal, showHamburgerModal, updateCurrency } from '../redux/actions'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Link as Scroll } from 'react-scroll'
 import { useDispatch, useSelector } from 'react-redux'
 import SearchBar from './searchbar'
 import CollapsibleSearchBar from './searchbarcollapsible'
-import sanctuaryLogo from "../assets/images/sanctuary-logo-row.png"
+import sanctuaryLogo from '../assets/images/sanctuary-logo-row.png'
 import { useMediaQuery } from 'react-responsive'
 import Select from 'react-select'
 
@@ -17,12 +17,11 @@ import ProfileIcon from '../assets/images/icons/profileIcon'
 export default function NavBar() {
 
     const dispatch = useDispatch()
-    const history = useHistory()
     const searchBarVisible = useSelector(state => state.searchBarVisible)
     const isCollapsed = useSelector(state => state.isSearchBarCollapsed)
     const isDesktop = useMediaQuery({ query: '(min-width: 1120px)' })
     const user = useSelector(state => state.user)
-    const currency = useSelector(state => state.currency);
+    const currency = useSelector(state => state.currency)
 
     const currencyOptions = [
         { label: '$ CAD', value: 'CAD' },
@@ -30,15 +29,11 @@ export default function NavBar() {
         { label: '£ GBP', value: 'GBP' },
         { label: '¥ JPY', value: 'JPY' },
         { label: '$ USD', value: 'USD' }
-    ];
+    ]
 
     const handleCurrencyChange = (e) => {
-        const newCurrency = e.value;
-        dispatch(updateCurrency(newCurrency));
-    }
-
-    const handleLogoClick = () => {
-        document.location.href = '/'
+        const newCurrency = e.value
+        dispatch(updateCurrency(newCurrency))
     }
 
     // Ensure nav bar layout is not in collapsed mode when switching to desktop view
@@ -52,7 +47,7 @@ export default function NavBar() {
             <div className='navbar-desktop'>
                 <div className='navbar-desktop-content'>
 
-                    <Link to='/' onClick={handleLogoClick}>
+                    <Link onClick={() => {document.location.href = '/'}}>
                         <img className='sanctuary-logo-desktop' src={sanctuaryLogo} alt={"Sanctuary"} />
                     </Link>
 
@@ -68,11 +63,11 @@ export default function NavBar() {
                             onChange={handleCurrencyChange}
                         />
 
-                        <Link to="/browse">
+                        <Link onClick={() => {document.location.href = '/browse'}}>
                             Browse
                         </Link>
 
-                        <Link to="/blog">
+                        <Link onClick={() => {document.location.href = '/blog'}}>
                             Newsroom
                         </Link>
 
@@ -80,16 +75,22 @@ export default function NavBar() {
                             About
                         </a>
 
-                        {!user && <Link to="/sign-in">
-                            Sign In
-                        </Link>}
+                        {!user &&
+                            <Link onClick={() => {document.location.href = '/sign-in'}}>
+                                Sign In
+                            </Link>
+                        }
 
-                        {!user && <Link to="/create-account" className='navbar-desktop-create-account'>
-                            Sign Up
-                        </Link>}
+                        {!user &&
+                            <Link className='navbar-desktop-create-account'
+                                onClick={() => {document.location.href = '/create-account'}}>
+                                Sign Up
+                            </Link>
+                        }
 
                         {user && 
-                            <Link className='navbar-desktop-profile-container' to="/profile">
+                            <Link className='navbar-desktop-profile-container'
+                                onClick={() => {document.location.href = '/profile'}}>
                                 <div className='navbar-desktop-profile'>
                                     {user.photoURL !== null &&
                                         <img className='navbar-desktop-profile-picture'
@@ -112,7 +113,7 @@ export default function NavBar() {
                 <div className='navbar-mobile-content'>
 
                     {isCollapsed &&
-                        <Link to='/' onClick={handleLogoClick}>
+                        <Link onClick={() => {document.location.href = '/'}}>
                             <img className='sanctuary-logo' src={sanctuaryLogo} />
                         </Link>}
 

@@ -1,11 +1,11 @@
 
-const itemDataReducer = (state={}, action) => {
+const itemInfoReducer = (state={}, action) => {
     switch(action.type) {
-        case 'UPDATE_ITEM_DATA':
+        case 'UPDATE_ITEM_INFO':
             return action.payload
         default:
             return state
     }
 }
 
-export default itemDataReducer
+export default itemInfoReducer

@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { browseCall, updateItemData } from '../../redux/actions'
+import { browseCall, updateItemInfo, updateItemPrices, updateItemListings } from '../../redux/actions'
 import createRequestObject from './createrequest'
 import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPrice, 
     klektLowestPrice, grailedListings, ebayListings, depopListings } from './scrapers'
@@ -35,7 +35,7 @@ export default function useAPICall(callType, params) {
     }
 
     async function getItemInfo(itemKey) {
-        const request = createRequestObject('browse', {search: itemKey})
+        const request = createRequestObject('stockx', {search: itemKey, size: size})
         try {
             const response = await fetch(request.url, request.headers)
             if (!response.ok) throw new Error()
@@ -44,7 +44,9 @@ export default function useAPICall(callType, params) {
             return {
                 skuId: itemData[0]['sku'],
                 modelName: itemData[0]['model'],
-                image: itemData[0]['image']
+                price: itemData[0]['price'],
+                image: itemData[0]['image'],
+                url: itemData[0]['url']
             }
         } catch (e) {
             history.push(`/page-not-found`)
@@ -55,7 +57,7 @@ export default function useAPICall(callType, params) {
         const currencyRate = await currencyConversionRate("USD", currency)
         const klektCurrencyRate = await currencyConversionRate("EUR", currency)
         let results = []
-        results.push(...await stockxLowestPrice(item.skuId, item.modelName, size, currencyRate))
+        results.push(...await stockxLowestPrice(item, currencyRate))
         results.push(...await goatLowestPrice(item.skuId, item.modelName, size, currencyRate))
         results.push(...await flightclubLowestPrice(item.skuId, item.modelName, size, currencyRate))
         results.push(...await klektLowestPrice(item.skuId, item.modelName, size, klektCurrencyRate))
@@ -64,6 +66,7 @@ export default function useAPICall(callType, params) {
         } else {
             results.push(...await ebayLowestPrice(item.skuId, item.modelName, size, "US", currencyRate))
         }
+        results.sort((a, b) => a.price - b.price)
         return results
     }
 
@@ -83,13 +86,13 @@ export default function useAPICall(callType, params) {
 
     async function getItem(itemKey, size) {
         const itemInfo = await getItemInfo(itemKey)
+        dispatch(updateItemInfo(itemInfo))
+        
         const itemPrices = await getItemPrices(itemInfo, size)
+        dispatch(updateItemPrices(itemPrices))
+
         const itemListings = await getItemListings(itemInfo, size)
-        dispatch(updateItemData({
-            info: itemInfo,
-            prices: itemPrices,
-            listings: itemListings
-        }))
+        dispatch(updateItemListings(itemListings))
     }
 
     useEffect(() => {
