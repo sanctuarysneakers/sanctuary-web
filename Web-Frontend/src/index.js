@@ -1,9 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {BrowserRouter as Router} from 'react-router-dom';
-import App from './App';
-import "./assets/styling/base.scss";
-import { createStore } from 'redux';
+import ReactDOM from 'react-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
+import App from './App'
+import './assets/styling/base.scss'
+import { createStore } from 'redux'
 import globalReducer from './redux/reducers'
 import { Provider } from 'react-redux'
 
@@ -16,4 +16,4 @@ ReactDOM.render(
     </Router>
   </Provider>,
   document.getElementById('root')
-);
+)

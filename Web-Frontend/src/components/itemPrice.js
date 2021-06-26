@@ -1,19 +1,19 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+
 export default function ItemPrice({data}) {
-    const currency = useSelector(state => state.currency);
+
+    const currency = useSelector(state => state.currency)
     const currencySymbolMap = {
         'USD' : '$',
         'CAD' : '$',
         'EUR' : '€',
         'GBP' : '£',
         'JPY' : '¥'
-    };
-
-    const currencySymbol = currencySymbolMap[currency];
+    }
+    const currencySymbol = currencySymbolMap[currency]
     
     return (
-        
         <div className='item-price'>
             <div className='item-price-source'>
                 <div className='item-source-logo'>

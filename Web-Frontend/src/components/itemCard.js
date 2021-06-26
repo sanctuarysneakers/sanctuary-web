@@ -1,7 +1,6 @@
 import React from 'react'
 
-
-export default function ItemCard({data}) {
+export default function ItemCard({ data }) {
 
     const clickHandler = () => {
         // redirect to item page
@@ -28,5 +27,4 @@ export default function ItemCard({data}) {
             </div>
         </div>
     )
-
 }

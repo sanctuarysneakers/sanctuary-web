@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Switch, Route } from 'react-router-dom'
+import { RemoveScroll } from 'react-remove-scroll'
+import { useSelector, useDispatch } from 'react-redux'
+import { setUser, updateLocation } from './redux/actions'
 
 import NavBar from "./components/navbar"
 import Footer from "./components/footer"
@@ -14,9 +17,6 @@ import PageNotFound from "./components/Pages/pagenotfound"
 import PrivacyPolicy from './components/Pages/privacypolicy'
 import TermsOfUse from './components/Pages/termsofuse'
 
-import { useSelector, useDispatch } from 'react-redux'
-import { RemoveScroll } from 'react-remove-scroll'
-import { setUser, updateLocation } from './redux/actions'
 import SignInOptions from './components/Accounts/signinoptions'
 import SignInEmail from './components/Accounts/signinemail'
 import CreateAccountOptions from './components/Accounts/createaccountoptions'
@@ -36,16 +36,15 @@ import firebase from './services/firebase'
 import ScrollToTop from './components/Hooks/scrolltotop'
 import Loader from './components/loader'
 
+
 export default function App() {
 
   const dispatch = useDispatch()
 
   const filterVisible = useSelector(state => state.filterVisible)
   const aboutModalVisible = useSelector(state => state.aboutModalVisible)
-  const filterModalVisible = useSelector(state => state.filterModalVisible)
   const hamburgerModalVisible = useSelector(state => state.hamburgerModalVisible)
   const deleteModalVisible = useSelector(state => state.deleteModalVisible)
-  const location = useSelector(state => state.location);
 
   const [loader, setLoader] = useState(true)
 
@@ -61,19 +60,19 @@ export default function App() {
     })
   })
 
-  var IPGeolocationAPI = require('ip-geolocation-api-javascript-sdk');
+  var IPGeolocationAPI = require('ip-geolocation-api-javascript-sdk')
   
   async function handleGeolocationResponse(json) {
-      await new Promise(r => setTimeout(r, 1000)); // wait 1 second before updating
-      dispatch(updateLocation(json));
+      await new Promise(r => setTimeout(r, 1000)) // wait 1 second before updating
+      dispatch(updateLocation(json))
   }
   
   useEffect(() => {
-      if ("geolocation" in navigator) {
-          var ipgeolocationApi = new IPGeolocationAPI("1f95fae0512f4f3883d008c37c5c9c75");
-          ipgeolocationApi.getGeolocation(handleGeolocationResponse);
-      }
-  }, []);
+    if ("geolocation" in navigator) {
+        var ipgeolocationApi = new IPGeolocationAPI("1f95fae0512f4f3883d008c37c5c9c75")
+        ipgeolocationApi.getGeolocation(handleGeolocationResponse)
+    }
+  }, [])
 
   if (loader) {
     return (

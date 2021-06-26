@@ -17,7 +17,6 @@ export default function Item() {
     const size = useSelector(state => state.size)
 
     useAPICall('getitem', { itemKey: urlKey, size: size })
-    console.log(itemData)
 
     let itemPrices;
     if (itemData.prices) {
@@ -37,7 +36,9 @@ export default function Item() {
     })
 
     if (loader) {
-        return (<Loader />)
+        return (
+            <Loader />
+        )
     } else {
         return (
             <div className='item'>
