@@ -27,14 +27,16 @@ for tag in tags:
 			"page": page
 		}
 		response = requests.get(url, headers=headers, params=parameters)
+		if not response.ok: break
+
 		page_data = response.json()["Products"]
 		if not page_data: break
 
 		for item in page_data:
 			doc = {
 				"model": item["title"],
-				"sku": item["styleId"],
-				"featured": item["market"]["featured"],
+				"sku": item["styleId"].split('/', 1)[0],
+				"sales": item["market"]["salesLast72Hours"],
 				"urlKey": item["urlKey"],
 				"image": item["media"]["imageUrl"],
 				"imageThumbnail": item["media"]["thumbUrl"]

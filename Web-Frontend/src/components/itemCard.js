@@ -3,8 +3,10 @@ import React from 'react'
 export default function ItemCard({ data }) {
 
     const clickHandler = () => {
-        // redirect to item page
-        document.location.href = `/item/${data.urlKey}`
+        if (data['sku'])
+            document.location.href = `/item/${data['sku']}`
+        else
+            document.location.href = `/item/${data['urlKey']}`
     }
 
     return (

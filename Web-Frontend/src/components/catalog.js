@@ -6,7 +6,9 @@ import ItemCard from './itemCard'
 export default function Catalog({ search_query }) {
 
     const browseData = useSelector(state => state.browseData)
-	const itemCards = browseData.map((item) => <ItemCard key={item.id} data={item}></ItemCard>)
+	const itemCards = browseData.map((item) => (
+        <ItemCard key={item.id} data={item}></ItemCard>
+    ))
 
     useAPICall('browse', {query: search_query})
 

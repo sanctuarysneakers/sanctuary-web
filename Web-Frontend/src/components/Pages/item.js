@@ -10,15 +10,15 @@ import ItemPrice from '../itemPrice'
 import ItemListing from '../itemListing'
 
 export default function Item() {
-
     const dispatch = useDispatch()
-    const { urlKey } = useParams()
+
+    const { sku } = useParams()
+    const size = useSelector(state => state.size)
     const itemInfo = useSelector(state => state.itemInfo)
     const itemPrices = useSelector(state => state.itemPrices)
     const itemListings = useSelector(state => state.itemListings)
-    const size = useSelector(state => state.size)
 
-    useAPICall('getitem', { itemKey: urlKey, size: size })
+    useAPICall('getitem', { sku: sku, size: size })
 
     const itemPriceComponents = itemPrices.map((item) => (
         <ItemPrice data={item}></ItemPrice>

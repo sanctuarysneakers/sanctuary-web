@@ -13,18 +13,24 @@ def browse_es(search):
 	password = f"%3i6PK@Wu^LisMH"
 	es = Elasticsearch([es_host], http_auth=(username, password))
 
-	if search:
-		response = es.search(index="browse", body={
-			"query": {
-				"match": { "model": search }
+	default_query = { "match_all": {} }
+	search_query = { "match": { "model": search } }
+
+	response = es.search(index="browse", body={
+		"query": {
+			"function_score": {
+				"query": search_query if search else default_query,
+				"functions": [{
+					"field_value_factor": {
+						"field": "sales",
+						"factor": 1/200
+					}
+				}],
+				"boost_mode": "sum",
+				"max_boost": 2
 			}
-		}, size=24)
-	else:
-		response = es.search(index="browse", body={
-			"query": {
-				"match": { "featured": 1 }
-			}
-		}, size=24)
+		}
+	}, size=24)
 	browse_data = response["hits"]["hits"]
 
 	results = []
@@ -72,7 +78,7 @@ def stockx_api_call(sku, size):
 	}
 	parameters = { "_search": sku, "shoeSize": size }
 	response = requests.get(url, headers=headers, params=parameters)
-	
+
 	try:
 		products = response.json()["Products"]
 		result = [{

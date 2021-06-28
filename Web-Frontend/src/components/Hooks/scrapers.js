@@ -11,26 +11,6 @@ export async function stockxLowestPrice(item, currencyRate) {
 	}]
 }
 
-// export async function stockxLowestPrice(skuId, modelName, size, currencyRate) {
-// 	let search = skuId
-// 	if (skuId === '') search = modelName
-
-// 	const request = createRequestObject('stockx', {search: search, size: size})
-// 	try {
-// 		const response = await fetch(request.url, request.headers)
-// 		if (!response.ok) throw new Error()
-
-// 		let itemData = await response.json()
-// 		return [{
-// 			source: 'stockx',
-// 			price: Math.round(itemData[0]['price'] * currencyRate),
-// 			url: itemData[0]['url']
-// 		}]
-// 	} catch (e) {
-// 		return []
-// 	}
-// }
-
 
 export async function ebayLowestPrice(skuId, modelName, size, location, currencyRate) {
 	let search = modelName.concat(' ', skuId)
@@ -118,17 +98,18 @@ export async function klektLowestPrice(skuId, modelName, size, currencyRate) {
 		let productVariants = rawData2['data']['productDetails']['variants']
 
 		// find the correct size from productVariants
+		let result = []
 		for (const variant of productVariants) {
 			const vSize = variant['facetValues'][0]['code'].replace('us', '')
 			if (parseFloat(vSize) == parseFloat(size)) {
-				return [{
+				result.push({
 					source: 'klekt',
 					price: Math.round(variant['priceWithTax']/100 * currencyRate),  /// PRICE IN EUROS ///
 					url: 'klekt.com/product/' + rawData2['data']['productDetails']['slug']
-				}]
+				})
 			}
 		}
-		return []
+		return result
 	} catch (e) {
 		return []
 	}
@@ -146,10 +127,16 @@ export async function ebayListings(skuId, modelName, size, location, currencyRat
 		if (!response.ok) throw new Error()
 
 		let itemData = await response.json()
-		for (var i = 0; i < itemData.length; i++) {
-			itemData[i]['price'] = Math.round(itemData[i]['price'] * currencyRate);
+		let results = []
+		for (const item of itemData) {
+			results.push({
+				source: 'ebay',
+				price: Math.round(item['price'] * currencyRate),
+				image: item['image'],
+				url: item['url']
+			})
 		}
-		return itemData
+		return results
 	} catch (e) {
 		return []
 	}
@@ -163,10 +150,16 @@ export async function depopListings(modelName, size, currencyRate) {
 		if (!response.ok) throw new Error()
 
 		let itemData = await response.json()
-		for(var i = 0; i < itemData.length; i++) {
-			itemData[i]['price'] = Math.round(itemData[i]['price'] * currencyRate);
+		let results = []
+		for (const item of itemData) {
+			results.push({
+				source: 'depop',
+				price: Math.round(item['price'] * currencyRate),
+				image: item['image'],
+				url: item['url']
+			})
 		}
-		return itemData
+		return results
 	} catch (e) {
 		return []
 	}
@@ -197,4 +190,3 @@ export async function grailedListings(modelName, size, currencyRate) {
 		return []
 	}
 }
-

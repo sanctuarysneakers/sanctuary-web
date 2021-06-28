@@ -34,15 +34,15 @@ export default function useAPICall(callType, params) {
         }
     }
 
-    async function getItemInfo(itemKey) {
-        const request = createRequestObject('stockx', {search: itemKey, size: size})
+    async function getItemInfo(sku, size) {
+        const request = createRequestObject('stockx', {search: sku, size: size})
         try {
             const response = await fetch(request.url, request.headers)
             if (!response.ok) throw new Error()
 
             let itemData = await response.json()
             return {
-                skuId: itemData[0]['sku'],
+                skuId: sku.replaceAll('-', ' '),
                 modelName: itemData[0]['model'],
                 price: itemData[0]['price'],
                 image: itemData[0]['image'],
@@ -84,8 +84,8 @@ export default function useAPICall(callType, params) {
         return results
     }
 
-    async function getItem(itemKey, size) {
-        const itemInfo = await getItemInfo(itemKey)
+    async function getItem(sku, size) {
+        const itemInfo = await getItemInfo(sku, size)
         dispatch(updateItemInfo(itemInfo))
         
         const itemPrices = await getItemPrices(itemInfo, size)
@@ -102,7 +102,7 @@ export default function useAPICall(callType, params) {
 
     useEffect(() => {
         if (callType === 'getitem')
-            getItem(params.itemKey, params.size)
+            getItem(params.sku, params.size)
     }, [currency, size])
 
 }
