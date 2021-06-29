@@ -1,8 +1,7 @@
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
 from flask_cors import CORS
-from scrapers import *
-from forex_python.converter import CurrencyRates
+from data_pull import *
 
 application = Flask(__name__)
 cors = CORS(application, resources={r"*": {"origins": "*"}})
@@ -66,10 +65,6 @@ class ItemListings(Resource):
 			results = depop_listings(search, size)
 			return results if results else bad_request()
 
-
-def currency_rate(from_curr, to_curr):
-	c = CurrencyRates()
-	return c.get_rate(from_curr, to_curr)
 
 class CurrencyRate(Resource):
 	def get(self):

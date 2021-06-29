@@ -130,6 +130,7 @@ export async function ebayListings(skuId, modelName, size, location, currencyRat
 		let results = []
 		for (const item of itemData) {
 			results.push({
+				id: item['id'],
 				source: 'ebay',
 				price: Math.round(item['price'] * currencyRate),
 				image: item['image'],
@@ -153,6 +154,7 @@ export async function depopListings(modelName, size, currencyRate) {
 		let results = []
 		for (const item of itemData) {
 			results.push({
+				id: item['id'],
 				source: 'depop',
 				price: Math.round(item['price'] * currencyRate),
 				image: item['image'],
@@ -179,6 +181,7 @@ export async function grailedListings(modelName, size, currencyRate) {
 		for (const item of itemData) {
 			if (results.length >= maxItems) break
 			results.push({
+				id: item['id'],
 				source: 'grailed',
 				price: Math.round((item['price']) * currencyRate),
 				image: item['cover_photo']['url'],

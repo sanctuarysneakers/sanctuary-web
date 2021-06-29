@@ -56,30 +56,34 @@ export default function useAPICall(callType, params) {
     async function getItemPrices(item, size) {
         const currencyRate = await currencyConversionRate("USD", currency)
         const klektCurrencyRate = await currencyConversionRate("EUR", currency)
+
         let results = []
         results.push(...await stockxLowestPrice(item, currencyRate))
         results.push(...await goatLowestPrice(item.skuId, item.modelName, size, currencyRate))
         results.push(...await flightclubLowestPrice(item.skuId, item.modelName, size, currencyRate))
         results.push(...await klektLowestPrice(item.skuId, item.modelName, size, klektCurrencyRate))
-        if (typeof(location["country_code2"]) != "undefined") {
+        
+        if (typeof(location["country_code2"]) != "undefined")
             results.push(...await ebayLowestPrice(item.skuId, item.modelName, size, location["country_code2"], currencyRate))
-        } else {
+        else
             results.push(...await ebayLowestPrice(item.skuId, item.modelName, size, "US", currencyRate))
-        }
+
         results.sort((a, b) => a.price - b.price)
         return results
     }
 
     async function getItemListings(item, size) {
         const currencyRate = await currencyConversionRate("USD", currency)
+        
         let results = []
-        if (typeof(location["country_code2"]) != "undefined") {
-            results.push(...await ebayListings(item.skuId, item.modelName, size, location["country_code2"], currencyRate))
-        } else {
-            results.push(...await ebayListings(item.skuId, item.modelName, size, "US", currencyRate))
-        }
         results.push(...await depopListings(item.modelName, size, currencyRate))
         results.push(...await grailedListings(item.modelName, size, currencyRate))
+        
+        if (typeof(location["country_code2"]) != "undefined")
+            results.push(...await ebayListings(item.skuId, item.modelName, size, location["country_code2"], currencyRate))
+        else
+            results.push(...await ebayListings(item.skuId, item.modelName, size, "US", currencyRate))
+
         results.sort((a, b) => a.price - b.price)
         return results
     }

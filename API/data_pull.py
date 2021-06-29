@@ -2,9 +2,38 @@ import requests
 import json
 from datetime import datetime, timedelta
 from elasticsearch import Elasticsearch
+from forex_python.converter import CurrencyRates
 
 from db import DB
 db = DB()
+
+
+def currency_rate(from_curr, to_curr):
+	# check if currency rate is cached before calling api
+	db.commit()
+	db.execute(f"""
+		SELECT *
+		FROM currency_rates
+		WHERE from_curr='{from_curr}' AND to_curr='{to_curr}';""")
+	cached_rate = db.fetchone()
+	if cached_rate:
+		acceptable_time = datetime.now() - timedelta(hours=12)
+		if cached_rate["timestamp"] > acceptable_time:
+			return cached_rate["rate"]
+
+	cr = CurrencyRates()
+	rate = float(cr.get_rate(from_curr, to_curr))
+
+	# insert into database cache
+	try:
+		query = f"""REPLACE INTO currency_rates (from_curr, to_curr, rate, timestamp)
+			VALUES (%s, %s, %s, %s);"""
+		db.execute(query, (from_curr, to_curr, rate, datetime.now()))
+		db.commit()
+	except:
+		pass
+	
+	return rate
 
 
 def browse_es(search):
@@ -47,7 +76,7 @@ def browse_es(search):
 
 
 def stockx_lowest_price(sku, size):
-	# check if price is cached before going to stockx api
+	# check if price is cached before calling stockx api
 	db.commit()
 	db.execute(f"""
 		SELECT *
@@ -92,8 +121,8 @@ def stockx_api_call(sku, size):
 	except:
 		return None
 	
+	# insert into database cache
 	try:
-		# insert into database cache
 		query = f"""REPLACE INTO stockx_price_cache (sku, size, timestamp, data)
 			VALUES (%s, %s, %s, %s);"""
 		db.execute(query, (sku, size, datetime.now(), json.dumps(products[0])))
@@ -163,7 +192,7 @@ def ebay_listings(search, size, ship_to, max_items=7):
 		for item in products:
 			if len(results) >= max_items: break
 			results.append({
-				"source": "ebay",
+				"id": int(item['itemId'][0]),
 				"price": float(item['sellingStatus'][0]['currentPrice'][0]['__value__']),
 				"image": item['galleryURL'][0],
 				"url": item['viewItemURL'][0]
@@ -191,7 +220,7 @@ def depop_listings(search, size, max_items=7):
 		for item in products:
 			if len(results) >= max_items: break
 			results.append({
-				"source": "depop",
+				"id": item["id"],
 				"price": float(item["price"]["priceAmount"]),
 				"image": item["preview"]["320"],
 				"url": "depop.com/products/" + item["slug"]
@@ -202,38 +231,7 @@ def depop_listings(search, size, max_items=7):
 
 
 
-# UNUSED
-def browse_stockx(search, page=1):
-	url = "https://stockx.com/api/browse"
-	headers = {
-		"referer": "https://stockx.com/",
-		"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36",
-	}
-	parameters = {
-		"_search": search,
-		"productCategory": "sneakers",
-		"gender": "men",
-		"page": page
-	}
-
-	response = requests.get(url, headers=headers, params=parameters)
-	try:
-		products = response.json()["Products"]
-		results = []
-		for item in products:
-			results.append({
-				"id": item["id"],
-				"model": item["title"],
-				"sku": item["styleId"],
-				"urlKey": item["urlKey"],
-				"image": item["media"]["imageUrl"],
-				"imageThumbnail": item["media"]["thumbUrl"]
-			})
-		return results
-	except:
-		return None
-
-# UNUSED
+# IN PROGRESS
 def sneakercon_lowest_price(sku_id, size):
 	url = "https://war6i72q7j.execute-api.us-east-1.amazonaws.com/prod/public/marketplace/all"
 	headers = {
@@ -264,7 +262,7 @@ def sneakercon_lowest_price(sku_id, size):
 		"url": "sneakercon.com/product/" + str(item['id']) + '-' + item['nickname'].replace(' ', '-')
 	}]
 
-# UNUSED
+# IN PROGRESS
 def goat_used(sku_id, size):
 	url = "https://2fwotdvm2o-dsn.algolia.net/1/indexes/product_variants_v2/query"
 	params = {
