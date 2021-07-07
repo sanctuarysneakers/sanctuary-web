@@ -33,6 +33,27 @@ export default function CreateAccountEmail() {
                     r.user.updateProfile({ displayName: name })
                     history.push("/")
                     window.scrollTo(0, 0)
+                    const fullName = name.split(" ");
+                    
+                    const sendEmailURL = 'https://api.sendinblue.com/v3/smtp/email';
+                    const sendEmailOptions = {
+                        method: 'POST',
+                        headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
+                            'api-key': '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'
+                        },
+                        body: JSON.stringify({
+                            sender: {name: 'Sanctuary Sneakers', email: 'contact@sanctuarysneakers.com'},
+                            to: [{email: email, name: fullName[0]}],
+                            templateId: 3
+                        })
+                    };
+
+                    fetch(sendEmailURL, sendEmailOptions)
+                    .then(res => res.json())
+                    .then(json => console.log(json))
+                    .catch(err => console.error('error:' + err));
                 })
                 .catch(e => {
                     setErrorMessage(e.message)
