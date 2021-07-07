@@ -21,10 +21,10 @@ export default function Item() {
     useAPICall('getitem', { sku: sku, size: size })
 
     const itemPriceComponents = itemPrices.map((item) => (
-        <ItemPrice data={item}></ItemPrice>
+        <ItemPrice key={item.source} data={item}></ItemPrice>
     ))
     const itemListingComponents = itemListings.map((item) => (
-        <ItemListing data={item}></ItemListing>
+        <ItemListing key={item.id} data={item}></ItemListing>
     ))
 
     const [loader, setLoader] = useState(true)

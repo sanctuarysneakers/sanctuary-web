@@ -12,7 +12,7 @@ export default function FilterModal() {
     const wrapperRef = useRef(null)
     const dispatch = useDispatch()
     useOutsideAlerter(wrapperRef)
-    const size = useSelector(state => state.size);
+    const size = useSelector(state => state.size)
 
     const sizeOptions = [
         { label: '6', value: 6 },
@@ -30,11 +30,11 @@ export default function FilterModal() {
         { label: '12', value: 12 },
         { label: '12.5', value: 12.5 },
         { label: '13', value: 13 }
-    ];
+    ]
 
     const handleSizeChange = (e) => {
         const newSize = e.value;
-        dispatch(updateSize(newSize));
+        dispatch(updateSize(newSize))
     }
 
     return (

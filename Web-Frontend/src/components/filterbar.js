@@ -1,35 +1,35 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateSizeFilter, updatePriceLowFilter, updatePriceHighFilter, clearFilter, updateCurrency} from '../redux/actions'
+import { updateSizeFilter, updatePriceLowFilter, updatePriceHighFilter, clearFilter} from '../redux/actions'
 
 export default function FilterBar() {
 
-    const dispatch = useDispatch();
-    const [filtersVisibile, toggleFilters] = useState(false);
-    const filter = useSelector(state => state.filter);
+    const dispatch = useDispatch()
+    const [filtersVisibile, toggleFilters] = useState(false)
+    const filter = useSelector(state => state.filter)
 
     const defaultFilter = {
         'size': '10',
         'price_low': '0',
         'price_high': '100000'
-    };
+    }
 
     function handleChange(e, field) {
-        let value = e.target.value;
+        let value = e.target.value
 
         if (value === '')
-            value = defaultFilter[field];
+            value = defaultFilter[field]
 
         let dispatchMap = {
             'size': updateSizeFilter,
             'price_low': updatePriceLowFilter,
             'price_high': updatePriceHighFilter
-        };
-        dispatch(dispatchMap[field](value));
+        }
+        dispatch(dispatchMap[field](value))
     }
 
     const handleClear = () => {
-        dispatch(clearFilter());
+        dispatch(clearFilter())
     }
 
     const filters = (
