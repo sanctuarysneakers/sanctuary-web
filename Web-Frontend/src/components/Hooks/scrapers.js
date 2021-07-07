@@ -101,7 +101,7 @@ export async function klektLowestPrice(skuId, modelName, size, currencyRate) {
 		let result = []
 		for (const variant of productVariants) {
 			const vSize = variant['facetValues'][0]['code'].replace('us', '')
-			if (parseFloat(vSize) == parseFloat(size)) {
+			if (parseFloat(vSize) === parseFloat(size)) {
 				result.push({
 					source: 'klekt',
 					price: Math.round(variant['priceWithTax']/100 * currencyRate),  /// PRICE IN EUROS ///
