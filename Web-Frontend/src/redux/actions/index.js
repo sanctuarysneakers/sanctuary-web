@@ -144,6 +144,18 @@ export const hideDeleteModal = () => {
     }
 }
 
+export const showSearchModal = () => {
+    return {
+        type: 'SHOW_SEARCH_MODAL'
+    }
+}
+
+export const hideSearchModal = () => {
+    return {
+        type: 'HIDE_SEARCH_MODAL'
+    }
+}
+
 // Search Bar visible/disable per page
 
 export const showHomeSeach = () => {

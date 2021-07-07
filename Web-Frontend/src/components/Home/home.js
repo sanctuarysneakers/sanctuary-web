@@ -7,7 +7,6 @@ import { recordSplashHeight, hideHomeSearch } from '../../redux/actions'
 import HomeSplash from './homeSplash'
 import HomeTrending from './homeTrending'
 import HomeNewsroom from './homeNewsroom'
-import HomeAccount from './homeAccount'
 import HomeContact from './homeContact'
 
 
@@ -20,7 +19,7 @@ export default function Home() {
         query: '(min-width: 1120px)'
     })
     const height = use100vh()
-    const splashHeight = isDesktop ? height - 71 : height - 61
+    const splashHeight = isDesktop ? height - 70 : height - 60
     dispatch(recordSplashHeight(splashHeight))
 
     // Hide search bar
@@ -51,8 +50,6 @@ export default function Home() {
             <HomeTrending />
 
             <HomeNewsroom />
-
-            <HomeAccount />
 
             <HomeContact />
         </div>

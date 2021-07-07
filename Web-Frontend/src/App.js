@@ -4,7 +4,7 @@ import { RemoveScroll } from 'react-remove-scroll'
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser, updateLocation } from './redux/actions'
 
-import NavBar from "./components/navbar"
+import Navbar from "./components/navbar"
 import Footer from "./components/footer"
 import Home from "./components/Home/home"
 import Browse from "./components/Pages/browse"
@@ -13,6 +13,7 @@ import AboutModal from "./components/Pages/aboutmodal"
 import FilterModal from "./components/Pages/filterModal"
 import HamburgerModal from "./components/Pages/hamburgermodal"
 import DeleteModal from "./components/Pages/deletemodal"
+import SearchModal from './components/Pages/searchModal'
 import PageNotFound from "./components/Pages/pagenotfound"
 import PrivacyPolicy from './components/Pages/privacypolicy'
 import TermsOfUse from './components/Pages/termsofuse'
@@ -45,6 +46,7 @@ export default function App() {
   const aboutModalVisible = useSelector(state => state.aboutModalVisible)
   const hamburgerModalVisible = useSelector(state => state.hamburgerModalVisible)
   const deleteModalVisible = useSelector(state => state.deleteModalVisible)
+  const searchModalVisible = useSelector(state => state.searchModalVisible)
 
   const [loader, setLoader] = useState(true)
 
@@ -82,7 +84,7 @@ export default function App() {
     return (
       <React.Fragment>
         <ScrollToTop />
-        <NavBar />
+        <Navbar />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/home" component={Home} />
@@ -98,7 +100,7 @@ export default function App() {
           <Route path="/profile-edit-password" component={EditProfilePassword} />
           <Route path="/privacy-policy" component={PrivacyPolicy} />
           <Route path="/terms-of-use" component={TermsOfUse} />
-          <Route path="/blog" component={Blog} />
+          <Route path="/newsroom" component={Blog} />
           <Route path="/article-introduction" component={ArticleIntro} />
           <Route path="/article-sneakersmeetengineering" component={ArticleSneakersMeetEngineering}/>
           <Route path="/article-demystifying" component={ArticleDemystifying}/>
@@ -130,8 +132,14 @@ export default function App() {
             <DeleteModal />
           </RemoveScroll>
         }
+        {
+          searchModalVisible &&
+          <RemoveScroll>
+            <SearchModal />
+          </RemoveScroll>
+        }
 
-        <Footer />
+        {/* <Footer /> */}
       </React.Fragment>
     )
   }

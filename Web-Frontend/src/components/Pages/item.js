@@ -79,7 +79,7 @@ export default function Item() {
                         <div className='item-listings-cheapest'>
                             <h2 className='lowest-prices-title'> 
                                 Lowest Prices
-                                <p className='item-filter' onClick={() => dispatch(showFilter())}>FILTER</p>
+                                {/* <p className='item-filter' onClick={() => dispatch(showFilter())}>FILTER</p> */}
                             </h2>
                             <div className='item-lowest-prices'>
                                 <div className='item-lowest-prices-wrapper'>

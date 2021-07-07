@@ -1,4 +1,5 @@
 import React from 'react'
+import {ReactComponent as RightArrow} from '../assets/images/RightArrow.svg'
 
 export default function ItemListing({data}) {
 
@@ -27,6 +28,8 @@ export default function ItemListing({data}) {
                         ${data.price}
                     </h4>
                 </div>
+
+                <RightArrow />
             </div>
         </div>
     )

@@ -2,8 +2,8 @@
     display: flex;
     justify-content: space-between;
     height: 82px;
-    width: 460px;
-    border-bottom: 1px solid #DDDDDD;
+    max-width: 460px;
+    border-bottom: 1px solid #EEF1F6;
 
     .item-price-source {
         display: flex;

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import {ReactComponent as RightArrow} from '../assets/images/RightArrow.svg'
 
 export default function ItemPrice({data}) {
 
@@ -35,6 +36,8 @@ export default function ItemPrice({data}) {
                         {currencySymbol}{data.price}
                     </h2>
                 </div>
+
+                <RightArrow />
             </div>
         </div>
     )

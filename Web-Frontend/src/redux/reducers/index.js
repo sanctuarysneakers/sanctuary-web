@@ -16,6 +16,7 @@ import searchBarVisibleReducer from './searchbarvisiblereducer'
 import locationReducer from './locationreducer'
 import showfilterreducer from './showfilterreducer'
 import updateSizeReducer from './updatesizereducer'
+import searchModalReducer from './searchModalReducer'
 
 const globalReducer = combineReducers({
     size: updateSizeReducer,
@@ -34,7 +35,8 @@ const globalReducer = combineReducers({
     user: userReducer,
     deleteModalVisible: deleteModalVisibleReducer,
     location: locationReducer,
-    filterVisible: showfilterreducer
+    filterVisible: showfilterreducer,
+    searchModalVisible: searchModalReducer
 })
 
 export default globalReducer
