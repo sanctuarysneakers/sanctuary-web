@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
+import { useMediaQuery } from 'react-responsive'
 import { Helmet } from 'react-helmet'
 import { useDispatch, useSelector } from 'react-redux'
 import { showFilter } from '../../redux/actions'
@@ -10,7 +11,9 @@ import ItemPrice from '../itemPrice'
 import ItemListing from '../itemListing'
 
 export default function Item() {
+
     const dispatch = useDispatch()
+    const isDesktop = useMediaQuery({ query: '(min-width: 768px)' })
 
     const { sku } = useParams()
     const size = useSelector(state => state.size)
@@ -31,6 +34,8 @@ export default function Item() {
 
     console.log(itemPrices)
 
+
+
     useEffect(() => {
         if (itemInfo)
             setLoader(false)
@@ -40,16 +45,22 @@ export default function Item() {
         <div className='item'>
             <div className='item-sneaker'>
                 <div className='item-sneaker-content'>
+                    {!isDesktop && <div className='item-sneaker-filters mobile'>
+                        <div className='item-sneaker-select-size'>
+                            <h4> Select size </h4>
+                        </div>
+                    </div>}
+
                     <div className='item-sneaker-image'>
                         <img src={itemInfo.image} alt='sneaker image' />
                     </div>
 
                     <div className='item-sneaker-info'>
-                        <div className='item-sneaker-filters'>
+                        {isDesktop && <div className='item-sneaker-filters'>
                             <div className='item-sneaker-select-size'>
                                 <h4> Select size </h4>
                             </div>
-                        </div>
+                        </div>}
 
                         <div className='item-sneaker-text'>
                             <div className='item-sneaker-model'>
@@ -58,8 +69,25 @@ export default function Item() {
 
                             <div className='item-sneaker-price'>
                                 <a>
-                                    Buy
+                                    <h2> Buy $630 </h2>
                                 </a>
+                            </div>
+
+                            <div className='item-specifics'>
+                                <div className='item-size'>
+                                    <h4> SIZE </h4>
+                                    <p> {size} </p>
+                                </div>
+                                <div className='item-specifics-divider' />
+                                <div className='item-condition'>
+                                    <h4> CONDITION </h4>
+                                    <p> New </p>
+                                </div>
+                                <div className='item-specifics-divider' />
+                                <div className='item-website'>
+                                    <h4> WEBSITE </h4>
+                                    <img src={stockX} alt='StockX' />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -68,7 +96,25 @@ export default function Item() {
 
             <div className='item-price-listings'>
                 <div className='item-price-listings-content'>
+                    <div className='item-lowest-prices'>
+                        <h6> Lowest Prices </h6>
 
+                        <div className='item-lowest-prices-rows'>
+                            <div className='item-lowest-prices-rows-content'>
+                                {itemPriceComponents}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className='item-more-listings'>
+                        <h6> More Listings </h6>
+
+                        <div className='item-more-listings-rows'>
+                            <div className='item-more-listings-rows-content'>
+                                {itemListingComponents}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

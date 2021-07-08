@@ -13,7 +13,7 @@ export default function ItemPrice({data}) {
         'JPY' : '¥'
     }
     const currencySymbol = currencySymbolMap[currency]
-    
+
     return (
         <div className='item-price'>
             <div className='item-price-source'>

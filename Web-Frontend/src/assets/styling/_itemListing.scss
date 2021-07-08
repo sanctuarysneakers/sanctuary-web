@@ -1,22 +1,19 @@
 .item-listing {
     display: flex;
     justify-content: space-between;
-    height: 125px;
-    max-width: 460px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 20px;
     border-bottom: 1px solid #EEF1F6;
 
     .item-listing-source {
         display: flex;
 
         .item-listing-image {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 105px;
-            width: 105px;
+            width: 100px;
+            height: 100px;
             border-radius: 8px;
             overflow: hidden;
-            // border: 0.5px solid #E7E7E7;
 
             img {
                 height: 100%;
@@ -28,79 +25,200 @@
         .item-listing-text {
             padding-left: 20px;
 
-            .used-text {
-                font-size: 20px;
+            h4 {
+                font-size: 21px;
                 font-weight: 500;
-                color: #000000;
-                letter-spacing: -0.41px;
+                color: black;
             }
 
             p {
-                font-size: 15px;
-                font-weight: 400;
-                color: #767678;
-                letter-spacing: -0.41px;
+                font-size: 16px;
+                font-weight: 300;
+                color: #777F93;
             }
         }
     }
 
     .item-listing-link {
+        display: flex;
 
         .item-listing-amount {
+            padding-right: 20px;
 
             h4 {
-                font-size: 20px;
+                font-size: 21px;
                 font-weight: 400;
-                color: #000000;
-                letter-spacing: -0.41px;
+                color: black;
+            }
+        }
+
+        svg {
+            height: 16px;
+            padding-top: 7px;
+
+            path {
+                stroke-width: 2px;
             }
         }
     }
 }
 
-@media screen and (max-width: 440px) {
+@media screen and (max-width: 767px) {
     .item-listing {
-        height: 103px;
-
+        padding-top: 16px;
+        padding-bottom: 16px;
+        padding-right: 14px;
+    
         .item-listing-source {
             .item-listing-image {
                 width: 91px;
                 height: 91px;
                 border-radius: 5px;
             }
-
+    
             .item-listing-text {
-                padding-left: 12px;
-
-                .used-text {
-                    font-size: 16px;
-                    letter-spacing: 0px;
+                height: auto;
+                padding: 0px 12px;
+    
+                h4 {
+                    font-size: 16.5px;
                 }
-
+    
                 p {
                     font-size: 14px;
-                    letter-spacing: 0px;
-                    padding-top: 2px;
                 }
             }
         }
-
+    
         .item-listing-link {
-            display: flex;
-            padding-right: 14px;
-
             .item-listing-amount {
+                padding-right: 14px;
+    
                 h4 {
-                    font-size: 16px;
-                    font-weight: 400;
-                    letter-spacing: 0px;
+                    font-size: 16.5px;
                 }
             }
-
+    
             svg {
+                height: 14px;
                 padding-top: 5px;
-                padding-left: 15px;
+    
+                path {
+                    stroke-width: 1.5px;
+                }
             }
         }
-    }
+    } 
 }
+
+
+
+
+
+
+// .item-listing {
+//     display: flex;
+//     justify-content: space-between;
+//     height: 125px;
+//     max-width: 460px;
+//     border-bottom: 1px solid #EEF1F6;
+
+//     .item-listing-source {
+//         display: flex;
+
+//         .item-listing-image {
+//             display: flex;
+//             align-items: center;
+//             justify-content: center;
+//             height: 105px;
+//             width: 105px;
+//             border-radius: 8px;
+//             overflow: hidden;
+//             // border: 0.5px solid #E7E7E7;
+
+//             img {
+//                 height: 100%;
+//                 width: 100%;
+//                 object-fit: cover;
+//             }
+//         }
+
+//         .item-listing-text {
+//             padding-left: 20px;
+
+//             .used-text {
+//                 font-size: 20px;
+//                 font-weight: 500;
+//                 color: #000000;
+//                 letter-spacing: -0.41px;
+//             }
+
+//             p {
+//                 font-size: 15px;
+//                 font-weight: 400;
+//                 color: #767678;
+//                 letter-spacing: -0.41px;
+//             }
+//         }
+//     }
+
+//     .item-listing-link {
+
+//         .item-listing-amount {
+
+//             h4 {
+//                 font-size: 20px;
+//                 font-weight: 400;
+//                 color: #000000;
+//                 letter-spacing: -0.41px;
+//             }
+//         }
+//     }
+// }
+
+// @media screen and (max-width: 440px) {
+//     .item-listing {
+//         height: 103px;
+
+//         .item-listing-source {
+//             .item-listing-image {
+//                 width: 91px;
+//                 height: 91px;
+//                 border-radius: 5px;
+//             }
+
+//             .item-listing-text {
+//                 padding-left: 12px;
+
+//                 .used-text {
+//                     font-size: 16px;
+//                     letter-spacing: 0px;
+//                 }
+
+//                 p {
+//                     font-size: 14px;
+//                     letter-spacing: 0px;
+//                     padding-top: 2px;
+//                 }
+//             }
+//         }
+
+//         .item-listing-link {
+//             display: flex;
+//             padding-right: 14px;
+
+//             .item-listing-amount {
+//                 h4 {
+//                     font-size: 16px;
+//                     font-weight: 400;
+//                     letter-spacing: 0px;
+//                 }
+//             }
+
+//             svg {
+//                 padding-top: 5px;
+//                 padding-left: 15px;
+//             }
+//         }
+//     }
+// }
