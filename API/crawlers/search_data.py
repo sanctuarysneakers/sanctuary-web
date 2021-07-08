@@ -43,7 +43,8 @@ for tag in categories:
 				"sales": item["market"]["salesLast72Hours"],
 				"urlKey": item["urlKey"],
 				"image": item["media"]["imageUrl"],
-				"imageThumbnail": item["media"]["thumbUrl"]
+				"imageThumbnail":
+					item["media"]["thumbUrl"].split('?')[0] + "?fit=fill&w=155&h=100&auto=format&q=90&dpr=3"
 			}
 			es.index(index="browse", id=item["id"], body=doc)
 		print(page)
