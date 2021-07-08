@@ -1,297 +1,365 @@
 .item {
+    .item-sneaker {
+        background: white;
 
-    .item-info {
-        display: flex;
-        // height: 550px;
-        max-width: 1000px;
-        margin: 0px auto;
-
-        .item-shoe {
+        .item-sneaker-content {
             display: flex;
-            align-items: center;
-            width: 500px;
-
-            img {
-                width: 500px;
-            }
-        }
-
-        .item-text {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: flex-end;
-            max-width: 500px;
-            text-align: center;
-
-            .item-model {
-                font-size: 32px;
-                font-weight: 600;
-                color: #000000;
-                line-height: 38px;
-                letter-spacing: -1.5px;
-
-                width: 335px;
-                padding-bottom: 28px;
-            }
-
-            .item-buy {
-                background: #292828;
-                border-radius: 10px;
-                width: 335px;
-
-                p {
-                    font-size: 16.5px;
-                    font-weight: 500;
-                    color: #FFFFFF;
-
-                    padding: 10px 0px;
-                }
-            }
-
-            .item-specifics {
-                display: flex;
-                justify-content: center;
-                width: 335px;
-                padding-top: 38px;
-                padding-bottom: 120px;
-
-                .item-size, .item-condition, .item-website {
-                    width: 105px;
-
-                    h4 {
-                        font-size: 11px;
-                        font-weight: 400;
-                        color: #B1B1B4;
-                    }
-
-                    p {
-                        font-size: 21px;
-                        font-weight: 500;
-                        color: #8E8E92;
-                        padding-top: 4px;
-                    }
-                }
-
-                .item-specifics-divider {
-                    width: 0.5px;
-                    height: 40px;
-                    margin: auto 0px;
-                    background: #C6C6C8;
-                }
-
-                .item-website {
-                    img {
-                        width: 85px;
-                        padding-top: 12px;
-                    }
-                }
-            }
-        }
-    }
-
-    .item-listings {
-        background: #F7F9FC;
-        padding-bottom: 166px;
-
-        .item-listings-wrapper {
+            justify-content: space-between;
             max-width: 1000px;
-            margin: 0px auto;
-
-            .item-listings-cheapest {
-                padding-top: 26px;
-
-                .lowest-prices-title {
-                    font-size: 28px;
-                    font-weight: 600;
-                    color: #000000;
-                    letter-spacing: -0.41px;
-                }
-
-                .item-filter {
-                    display: inline;
-                    float: right;
-                    background: #292828;
-                    border-radius: 10px;
-                    width: 120px;
-                    color: white;
-                    padding-left: 40px;
-                }
-
-                .item-lowest-prices {
-                    background: #FFFFFF;
-                    border-radius: 10px;
-                    // margin-top: 21px;
-                    // margin-bottom: 84px;
-
-                    .item-lowest-prices-wrapper {
-                        display: grid;
-                        grid-template-columns: repeat(2, 1fr);
-                        gap: 20px;
-                        padding-top: 20px;
-                        padding-right: 20px;
-                        padding-left: 20px;
-
-                    }
-                }
-            }
-
-            .item-listings-used {
-                h2 {
-                    font-size: 28px;
-                    font-weight: 600;
-                    color: #000000;
-                    letter-spacing: -0.41px;
-                }
-
-                .item-more-listings {
-                    background: #FFFFFF;
-                    border-radius: 10px;
-                    margin-top: 21px;
-
-                    .item-more-listings-wrapper {
-                        display: grid;
-                        grid-template-columns: repeat(2, 1fr);
-                        gap: 20px;
-                        padding-top: 20px;
-                        padding-right: 20px;
-                        padding-left: 20px;
-                    }
-                }
-            }
-        }
-    }
-}
-
-@media screen and (max-width: 440px) {
-    .item {
-        .item-info {
-            flex-direction: column;
+            margin: auto;
             padding: 0px 20px;
 
-            .item-shoe {
-                width: 280px;
-                margin: 0px auto;
-                padding-top: 68px;
-                padding-bottom: 46px;
-
+            .item-sneaker-image {
                 img {
-                    width: 280px;
+                    display: block;
+                    width: auto;
+                    height: 350px;
+                    padding: 100px 0px;
                 }
             }
 
-            .item-text {
-                width: 335px;
-                margin: 0px auto;
+            .item-sneaker-info {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
 
-                .item-model {
-                    font-size: 24px;
-                    font-weight: 600;
-                    line-height: 34px;
-                    letter-spacing: -0.41px;
-                }
+                .item-sneaker-filters {
+                    display: flex;
+                    justify-content: flex-end;
+                    padding-top: 52px;
 
-                .item-specifics {
-                    padding-top: 43px;
-                    padding-bottom: 53px;
-                }
-            }
-        }
+                    .item-sneaker-select-size {
+                        background: #F7F9FC;
+                        border-radius: 100px;
 
-        .item-listings {
-            padding-bottom: 100px;
-
-            .item-listings-wrapper {
-                padding: 0px 20px;
-
-                .item-listings-cheapest  {
-                    padding-top: 50px;
-
-                    .lowest-prices-title {
-                        font-size: 21px;
-                        font-weight: 600;
-                        letter-spacing: -0.2px;
-                    }
-
-                    .item-lowest-prices {
-                        margin-top: 15px;
-
-                        .item-lowest-prices-wrapper {
-                            grid-template-columns: repeat(1, 1fr);
-                            gap: 16px;
-                            padding-top: 16px;
-                            padding-left: 14px;
-                            padding-right: 0px;
-
-                            .item-price {
-                                height: 60px;
-
-                                .item-price-source {
-                                    .item-source-logo {
-                                        width: 44px;
-                                        height: 44px;
-                                        border-radius: 5px;
-                                    }
-
-                                    .item-source-text {
-                                        padding-left: 12px;
-
-                                        h2 {
-                                            font-size: 16px;
-                                            font-weight: 500;
-                                            letter-spacing: -0.28px;
-                                        }
-
-                                        p {
-                                            font-size: 14px;
-                                        }
-                                    }
-                                }
-
-                                .item-price-link {
-                                    display: flex;
-                                    padding-right: 14px;
-
-                                    .item-amount {
-                                        h2 {
-                                            font-size: 16px;
-                                            font-weight: 400;
-                                            letter-spacing: -0.28px;
-                                        }
-                                    }
-
-                                    svg {
-                                        padding-top: 5px;
-                                        padding-left: 15px;
-                                    }
-                                }
-                            }
+                        h4 {
+                            font-size: 14px;
+                            font-weight: 400;
+                            color: #919BB1;
+                            letter-spacing: -0.288px;
+                            padding: 4px 16px;
                         }
                     }
                 }
 
-                .item-listings-used {
-                    padding-top: 50px;
+                .item-sneaker-text {
 
-                    .more-listings-title {
-                        font-size: 21px;
-                        font-weight: 600;
-                        letter-spacing: -0.2px;
-                    }
-
-                    .item-more-listings {
-                        margin-top: 15px;
-
-                        .item-more-listings-wrapper {
-                            grid-template-columns: repeat(1, 1fr);
-                            gap: 12px;
-                            padding-top: 16px;
-                            padding-left: 14px;
-                            padding-right: 0px;
-                        }
-                    }
                 }
             }
         }
     }
+
+    .item-price-listings {
+        background: #F7F9FC;
+        padding-top: 80px;
+        padding-bottom: 166px;
+
+        .item-price-listings-content {
+            max-width: 1000px;
+        }
+    }
 }
+
+
+
+
+
+
+// .item {
+
+//     .item-info {
+//         display: flex;
+//         // height: 550px;
+//         max-width: 1000px;
+//         margin: 0px auto;
+//         justify-content: space-between;
+
+//         .item-shoe {
+//             display: flex;
+//             align-items: center;
+//             width: 500px;
+
+//             img {
+//                 width: 500px;
+//             }
+//         }
+
+//         .item-text {
+//             display: flex;
+//             flex-direction: column;
+//             justify-content: flex-end;
+//             align-items: flex-end;
+//             max-width: 500px;
+//             text-align: center;
+
+//             .item-model {
+//                 font-size: 32px;
+//                 font-weight: 600;
+//                 color: #000000;
+//                 line-height: 38px;
+//                 letter-spacing: -1.5px;
+
+//                 width: 335px;
+//                 padding-bottom: 28px;
+//             }
+
+//             .item-buy {
+//                 background: #292828;
+//                 border-radius: 10px;
+//                 width: 335px;
+
+//                 p {
+//                     font-size: 16.5px;
+//                     font-weight: 500;
+//                     color: #FFFFFF;
+
+//                     padding: 10px 0px;
+//                 }
+//             }
+
+//             .item-specifics {
+//                 display: flex;
+//                 justify-content: center;
+//                 width: 335px;
+//                 padding-top: 38px;
+//                 padding-bottom: 120px;
+
+//                 .item-size, .item-condition, .item-website {
+//                     width: 105px;
+
+//                     h4 {
+//                         font-size: 11px;
+//                         font-weight: 400;
+//                         color: #B1B1B4;
+//                     }
+
+//                     p {
+//                         font-size: 21px;
+//                         font-weight: 500;
+//                         color: #8E8E92;
+//                         padding-top: 4px;
+//                     }
+//                 }
+
+//                 .item-specifics-divider {
+//                     width: 0.5px;
+//                     height: 40px;
+//                     margin: auto 0px;
+//                     background: #C6C6C8;
+//                 }
+
+//                 .item-website {
+//                     img {
+//                         width: 85px;
+//                         padding-top: 12px;
+//                     }
+//                 }
+//             }
+//         }
+//     }
+
+//     .item-listings {
+//         background: #F7F9FC;
+//         padding-bottom: 166px;
+
+//         .item-listings-wrapper {
+//             max-width: 1000px;
+//             margin: 0px auto;
+
+//             .item-listings-cheapest {
+//                 padding-top: 26px;
+
+//                 .lowest-prices-title {
+//                     font-size: 28px;
+//                     font-weight: 600;
+//                     color: #000000;
+//                     letter-spacing: -0.41px;
+//                 }
+
+//                 .item-filter {
+//                     display: inline;
+//                     float: right;
+//                     background: #292828;
+//                     border-radius: 10px;
+//                     width: 120px;
+//                     color: white;
+//                     padding-left: 40px;
+//                 }
+
+//                 .item-lowest-prices {
+//                     background: #FFFFFF;
+//                     border-radius: 10px;
+//                     // margin-top: 21px;
+//                     // margin-bottom: 84px;
+
+//                     .item-lowest-prices-wrapper {
+//                         display: grid;
+//                         grid-template-columns: repeat(2, 1fr);
+//                         gap: 20px;
+//                         padding-top: 20px;
+//                         padding-right: 20px;
+//                         padding-left: 20px;
+
+//                     }
+//                 }
+//             }
+
+//             .item-listings-used {
+//                 h2 {
+//                     font-size: 28px;
+//                     font-weight: 600;
+//                     color: #000000;
+//                     letter-spacing: -0.41px;
+//                 }
+
+//                 .item-more-listings {
+//                     background: #FFFFFF;
+//                     border-radius: 10px;
+//                     margin-top: 21px;
+
+//                     .item-more-listings-wrapper {
+//                         display: grid;
+//                         grid-template-columns: repeat(2, 1fr);
+//                         gap: 20px;
+//                         padding-top: 20px;
+//                         padding-right: 20px;
+//                         padding-left: 20px;
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
+
+// @media screen and (max-width: 440px) {
+//     .item {
+//         .item-info {
+//             flex-direction: column;
+//             padding: 0px 20px;
+
+//             .item-shoe {
+//                 width: 280px;
+//                 margin: 0px auto;
+//                 padding-top: 68px;
+//                 padding-bottom: 46px;
+
+//                 img {
+//                     width: 280px;
+//                 }
+//             }
+
+//             .item-text {
+//                 width: 335px;
+//                 margin: 0px auto;
+
+//                 .item-model {
+//                     font-size: 24px;
+//                     font-weight: 600;
+//                     line-height: 34px;
+//                     letter-spacing: -0.41px;
+//                 }
+
+//                 .item-specifics {
+//                     padding-top: 43px;
+//                     padding-bottom: 53px;
+//                 }
+//             }
+//         }
+
+//         .item-listings {
+//             padding-bottom: 100px;
+
+//             .item-listings-wrapper {
+//                 padding: 0px 20px;
+
+//                 .item-listings-cheapest  {
+//                     padding-top: 50px;
+
+//                     .lowest-prices-title {
+//                         font-size: 21px;
+//                         font-weight: 600;
+//                         letter-spacing: -0.2px;
+//                     }
+
+//                     .item-lowest-prices {
+//                         margin-top: 15px;
+
+//                         .item-lowest-prices-wrapper {
+//                             grid-template-columns: repeat(1, 1fr);
+//                             gap: 16px;
+//                             padding-top: 16px;
+//                             padding-left: 14px;
+//                             padding-right: 0px;
+
+//                             .item-price {
+//                                 height: 60px;
+
+//                                 .item-price-source {
+//                                     .item-source-logo {
+//                                         width: 44px;
+//                                         height: 44px;
+//                                         border-radius: 5px;
+//                                     }
+
+//                                     .item-source-text {
+//                                         padding-left: 12px;
+
+//                                         h2 {
+//                                             font-size: 16px;
+//                                             font-weight: 500;
+//                                             letter-spacing: -0.28px;
+//                                         }
+
+//                                         p {
+//                                             font-size: 14px;
+//                                         }
+//                                     }
+//                                 }
+
+//                                 .item-price-link {
+//                                     display: flex;
+//                                     padding-right: 14px;
+
+//                                     .item-amount {
+//                                         h2 {
+//                                             font-size: 16px;
+//                                             font-weight: 400;
+//                                             letter-spacing: -0.28px;
+//                                         }
+//                                     }
+
+//                                     svg {
+//                                         padding-top: 5px;
+//                                         padding-left: 15px;
+//                                     }
+//                                 }
+//                             }
+//                         }
+//                     }
+//                 }
+
+//                 .item-listings-used {
+//                     padding-top: 50px;
+
+//                     .more-listings-title {
+//                         font-size: 21px;
+//                         font-weight: 600;
+//                         letter-spacing: -0.2px;
+//                     }
+
+//                     .item-more-listings {
+//                         margin-top: 15px;
+
+//                         .item-more-listings-wrapper {
+//                             grid-template-columns: repeat(1, 1fr);
+//                             gap: 12px;
+//                             padding-top: 16px;
+//                             padding-left: 14px;
+//                             padding-right: 0px;
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
