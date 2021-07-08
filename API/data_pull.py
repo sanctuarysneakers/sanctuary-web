@@ -42,24 +42,27 @@ def browse_es(search):
 	password = f"%3i6PK@Wu^LisMH"
 	es = Elasticsearch([es_host], http_auth=(username, password))
 
-	default_query = { "match_all": {} }
-	search_query = { "match": { "model": search } }
-
-	response = es.search(index="browse", body={
-		"query": {
-			"function_score": {
-				"query": search_query if search else default_query,
-				"functions": [{
-					"field_value_factor": {
-						"field": "sales",
-						"factor": 1/200
-					}
-				}],
-				"boost_mode": "sum",
-				"max_boost": 2
+	if search:
+		response = es.search(index="browse", body={
+			"query": {
+				"function_score": {
+					"query": { "match": { "model": search } },
+					"functions": [{
+						"field_value_factor": {
+							"field": "sales",
+							"factor": 1/200
+						}
+					}],
+					"boost_mode": "sum",
+					"max_boost": 2
+				}
 			}
-		}
-	}, size=24)
+		}, size=24)
+	else:
+		response = es.search(index="featured", body={
+			"query": { "match_all": {} }
+		}, sort="rank", size=24)
+
 	browse_data = response["hits"]["hits"]
 
 	results = []

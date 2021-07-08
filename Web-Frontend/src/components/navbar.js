@@ -29,26 +29,28 @@ export default function Navbar() {
             <div className='navbar-content'>
                 {isDesktop && <div className='desktop-content'>
 
-                    <Link className='sanctuary-logo' to='/'>
+                    <Link className='sanctuary-logo'
+                        onClick={() => document.location.href = '/'}>
                         <SanctuaryLogo />
                     </Link>
 
                     <div className='navbar-links'>
                         <Search onClick={() => dispatch(showSearchModal())} />
 
-                        <Link to='/browse'>
+                        <Link onClick={() => document.location.href = '/browse'}>
                             Browse
                         </Link>
 
-                        <Link to='/newsroom'>
+                        <Link onClick={() => document.location.href = '/newsroom'}>
                             Newsroom
                         </Link>
 
-                        <Link to='/sign-in'>
+                        <Link onClick={() => document.location.href = '/sign-in'}>
                             Sign In
                         </Link>
 
-                        <Link className='create-account' to='/create-account'>
+                        <Link className='create-account'
+                            onClick={() => document.location.href = '/create-account'}>
                             Create Account
                         </Link>
                     </div>
@@ -57,7 +59,8 @@ export default function Navbar() {
                 {!isDesktop && <div className='mobile-content'>
                     <Hamburger />
 
-                    <Link className='sanctuary-logo' to='/'>
+                    <Link className='sanctuary-logo'
+                        onClick={() => document.location.href = '/'}>
                         <SanctuaryLogo />
                     </Link>
 

@@ -4,6 +4,11 @@ import time
 from datetime import datetime
 import json
 
+""" 
+	Crawls StockX data for top 1000 models to populate
+	external MySQL price cache.
+"""
+
 db_host = "mysql-db-master.cmamugrum56i.us-west-2.rds.amazonaws.com"
 db_user = "admin"
 db_password = "4tDqfnvbQ8R8RGuh"
@@ -11,8 +16,7 @@ conn = mysql.connector.connect(host=db_host, user=db_user, passwd=db_password)
 cursor = conn.cursor(dictionary=True)
 cursor.execute("USE sneakers;")
 
-
-url = "https://stockx.com/api/browse"
+stockx_api = "https://stockx.com/api/browse"
 headers = {
 	"referer": "https://stockx.com/",
 	"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36",
@@ -21,6 +25,7 @@ headers = {
 sizes = ['8', '9', '10', '11', '12', '13']
 for size in sizes:
 	print(f"Size {size}")
+	
 	page = 1
 	while page <= 50:
 		parameters = {
@@ -30,7 +35,7 @@ for size in sizes:
 			"gender": "men",
 			"page": page
 		}
-		response = requests.get(url, headers=headers, params=parameters)
+		response = requests.get(stockx_api, headers=headers, params=parameters)
 		page_data = response.json()["Products"]
 		if not page_data: break
 

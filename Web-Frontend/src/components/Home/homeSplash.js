@@ -15,7 +15,7 @@ export default function HomeSplash() {
                 <Fade bottom>
                     <div className='home-splash-text'>
                         <h1> Your favourite sneakers. </h1>
-                        <h1> At the best price. </h1>
+                        <h1> At the best prices. </h1>
                         <p> Sanctuary compares prices from leading sneaker websites to find you the best deals. </p>
                         <SearchBox location={'home-splash'} />
                     </div>

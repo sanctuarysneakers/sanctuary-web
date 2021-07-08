@@ -54,8 +54,11 @@ export default function useAPICall(callType, params) {
     }
 
     async function getItemPrices(item, size) {
-        const currencyRate = await currencyConversionRate("USD", currency)
-        const klektCurrencyRate = await currencyConversionRate("EUR", currency)
+        let currencyRate;
+        if (currency != "USD")
+            currencyRate = await currencyConversionRate("USD", currency)
+        else currencyRate = 1
+        let klektCurrencyRate = await currencyConversionRate("EUR", currency)
 
         let results = []
         results.push(...await stockxLowestPrice(item, currencyRate))
@@ -73,7 +76,10 @@ export default function useAPICall(callType, params) {
     }
 
     async function getItemListings(item, size) {
-        const currencyRate = await currencyConversionRate("USD", currency)
+        let currencyRate;
+        if (currency != "USD")
+            currencyRate = await currencyConversionRate("USD", currency)
+        else currencyRate = 1
         
         let results = []
         results.push(...await depopListings(item.modelName, size, currencyRate))
