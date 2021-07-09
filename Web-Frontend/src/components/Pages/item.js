@@ -9,6 +9,7 @@ import useAPICall from '../Hooks/useapicall'
 import Loader from '../loader'
 import ItemPrice from '../itemPrice'
 import ItemListing from '../itemListing'
+import ItemLoader from '../itemLoader'
 
 export default function Item() {
 
@@ -30,15 +31,25 @@ export default function Item() {
         <ItemListing key={item.id} data={item}></ItemListing>
     ))
 
-    const [loader, setLoader] = useState(true)
+    const [pricesLoader, setPricesLoader] = useState(true)
+    const [listingsLoader, setListingsLoader] = useState(true)
 
-    console.log(itemPrices)
+    // console.log(itemPrices)
 
-
+    // if (itemPrices.length !== 0) {
+    //     setLoader()
+    // } else {
+    //     console.log("data found")
+    // }
 
     useEffect(() => {
-        if (itemInfo)
-            setLoader(false)
+        if (itemPrices.length !== 0)
+            setPricesLoader(false)
+    })
+
+    useEffect(() => {
+        if (itemListings.length !== 0)
+            setListingsLoader(false)
     })
 
     return (
@@ -100,9 +111,11 @@ export default function Item() {
                         <h6> Lowest Prices </h6>
 
                         <div className='item-lowest-prices-rows'>
-                            <div className='item-lowest-prices-rows-content'>
+                            {pricesLoader && <ItemLoader version={'prices'} />}
+
+                            {!pricesLoader && <div className='item-lowest-prices-rows-content'>
                                 {itemPriceComponents}
-                            </div>
+                            </div>}
                         </div>
                     </div>
 
@@ -110,9 +123,11 @@ export default function Item() {
                         <h6> More Listings </h6>
 
                         <div className='item-more-listings-rows'>
-                            <div className='item-more-listings-rows-content'>
+                            {listingsLoader && <ItemLoader version={'listings'} />}
+
+                            {!listingsLoader && <div className='item-more-listings-rows-content'>
                                 {itemListingComponents}
-                            </div>
+                            </div>}
                         </div>
                     </div>
                 </div>
