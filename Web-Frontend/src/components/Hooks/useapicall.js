@@ -72,7 +72,7 @@ export default function useAPICall(callType, params) {
             results.push(...await ebayLowestPrice(item.skuId, item.modelName, size, "US", currencyRate))
 
         results.sort((a, b) => a.price - b.price)
-        return results
+        return results.length ? results : null
     }
 
     async function getItemListings(item, size) {
@@ -91,7 +91,7 @@ export default function useAPICall(callType, params) {
             results.push(...await ebayListings(item.skuId, item.modelName, size, "US", currencyRate))
 
         results.sort((a, b) => a.price - b.price)
-        return results
+        return results.length ? results : null
     }
 
     async function getItem(sku, size) {
