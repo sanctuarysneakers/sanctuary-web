@@ -16,6 +16,10 @@
                     height: 350px;
                     padding: 100px 0px;
                 }
+                
+                img:not([src]) {
+                    visibility: hidden;
+                }
             }
 
             .item-sneaker-info {
