@@ -78,9 +78,15 @@ export default function Item() {
                             <div className='item-sneaker-price'>
                                 <a>
                                     {pricesLoader && 
-                                        <h2> Finding Best Price... </h2>}
+                                        <h2 className='price-loading'> 
+                                            Finding Best Price
+                                        </h2>
+                                    }
                                     {!pricesLoader && 
-                                        <h2> Best Price:&ensp;${itemPrices[0].price} </h2>}
+                                        <h2> 
+                                            Best Price:&ensp;${itemPrices[0].price} 
+                                        </h2>
+                                    }
                                 </a>
                             </div>
 
