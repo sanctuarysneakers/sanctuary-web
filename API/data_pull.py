@@ -1,119 +1,30 @@
 import requests
-import json
-from datetime import datetime, timedelta
-from elasticsearch import Elasticsearch
+from db_cache import Cache
 from forex_python.converter import CurrencyRates
 
-from db import DB
-db = DB()
-
-
-def currency_rate(from_curr, to_curr):
-	# check if currency rate is cached before calling api
-	db.commit()
-	db.execute(f"""
-		SELECT *
-		FROM currency_rates
-		WHERE from_curr='{from_curr}' AND to_curr='{to_curr}';""")
-	cached_rate = db.fetchone()
-	if cached_rate:
-		acceptable_time = datetime.now() - timedelta(hours=12)
-		if cached_rate["timestamp"] > acceptable_time:
-			return cached_rate["rate"]
-
-	cr = CurrencyRates()
-	rate = float(cr.get_rate(from_curr, to_curr))
-
-	# insert into database cache
-	try:
-		query = f"""REPLACE INTO currency_rates (from_curr, to_curr, rate, timestamp)
-			VALUES (%s, %s, %s, %s);"""
-		db.execute(query, (from_curr, to_curr, rate, datetime.now()))
-		db.commit()
-	except:
-		pass
-	
-	return rate
-
-
-def browse_es(search):
-	es_host = "https://search-sanctuary-wnpcewotzjgc7vv4ivvgzs4fyy.us-west-2.es.amazonaws.com"
-	username = "master"
-	password = f"%3i6PK@Wu^LisMH"
-	es = Elasticsearch([es_host], http_auth=(username, password))
-
-	if search:
-		response = es.search(index="browse", body={
-			"query": {
-				"function_score": {
-					"query": { "match": { "model": search } },
-					"functions": [{
-						"field_value_factor": {
-							"field": "sales",
-							"factor": 1/200
-						}
-					}],
-					"boost_mode": "sum",
-					"max_boost": 2
-				}
-			}
-		}, size=24)
-	else:
-		response = es.search(index="featured", body={
-			"query": { "match_all": {} }
-		}, sort="rank", size=24)
-
-	browse_data = response["hits"]["hits"]
-
-	results = []
-	for item in browse_data:
-		results.append({
-			"id": item["_id"],
-			"model": item["_source"]["model"],
-			"sku": item["_source"]["sku"],
-			"urlKey": item["_source"]["urlKey"],
-			"image": item["_source"]["image"],
-			"imageThumbnail": item["_source"]["imageThumbnail"]
-		})
-	return results
+cache = Cache()
 
 
 def stockx_lowest_price(sku, size):
-	# check if price is cached before calling stockx api
-	db.commit()
-	db.execute(f"""
-		SELECT *
-		FROM stockx_price_cache
-		WHERE sku='{sku}' AND size='{size}';""")
-	cached_data = db.fetchone()
-	if cached_data:
-		acceptable_time = datetime.now() - timedelta(hours=0, minutes=30)
-		if cached_data["timestamp"] > acceptable_time:
-			item = json.loads(cached_data["data"])
-			return [{
-				"source": "stockx",
-				"model": item["title"],
-				"sku": item["styleId"],
-				"price": item["market"]["lowestAsk"],
-				"url": "stockx.com/" + item["urlKey"],
-				"image": item["media"]["imageUrl"]
-			}]
-	
-	return stockx_api_call(sku, size)
-
-
-def stockx_api_call(sku, size):
-	url = "https://stockx.com/api/browse"
+	api = "https://stockx.com/api/browse"
 	headers = {
 		"referer": "https://stockx.com/",
 		"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36",
 	}
-	parameters = { "_search": sku, "shoeSize": size }
-	response = requests.get(url, headers=headers, params=parameters)
+	parameters = { 
+		"_search": sku, 
+		"shoeSize": size 
+	}
+	
+	response_data = cache.get(parameters)
+	if not response_data:
+		response = requests.get(api, headers=headers, params=parameters)
+		response_data = response.json()
+		cache.set("stockx", parameters, response_data)
 
 	try:
-		products = response.json()["Products"]
-		result = [{
+		products = response_data["Products"]
+		return [{
 			"source": "stockx",
 			"model": products[0]["title"],
 			"sku": products[0]["styleId"],
@@ -123,21 +34,10 @@ def stockx_api_call(sku, size):
 		}]
 	except:
 		return None
-	
-	# insert into database cache
-	try:
-		query = f"""REPLACE INTO stockx_price_cache (sku, size, timestamp, data)
-			VALUES (%s, %s, %s, %s);"""
-		db.execute(query, (sku, size, datetime.now(), json.dumps(products[0])))
-		db.commit()
-	except:
-		pass
-
-	return result
 
 
 def ebay_lowest_price(search, size, ship_to):
-	url = "https://svcs.ebay.com/services/search/FindingService/v1"
+	api = "https://svcs.ebay.com/services/search/FindingService/v1"
 	headers = {
 		"X-EBAY-SOA-SECURITY-APPNAME": "Sanctuar-jasontho-PRD-ad4af8740-c80ac57c",
 		"X-EBAY-SOA-RESPONSE-DATA-FORMAT": "JSON", "X-EBAY-SOA-OPERATION-NAME": "findItemsAdvanced"
@@ -149,15 +49,18 @@ def ebay_lowest_price(search, size, ship_to):
 		"itemFilter(0).value": ship_to,
 		"itemFilter(1).name": "Condition",
 		"itemFilter(1).value": 1000,
-		"itemFilter(2).name": "HideDuplicateItems",
-		"itemFilter(2).value": True,
 		"aspectFilter(0).aspectName": "US Shoe Size (Men's)",
 		"aspectFilter(0).aspectValueName": size
 	}
 
-	response = requests.get(url, headers=headers, params=parameters)
+	response_data = cache.get(parameters)
+	if not response_data:
+		response = requests.get(api, headers=headers, params=parameters)
+		response_data = response.json()
+		cache.set("ebay", parameters, response_data)
+
 	try:
-		products = response.json()['findItemsAdvancedResponse'][0]['searchResult'][0]['item']
+		products = response_data['findItemsAdvancedResponse'][0]['searchResult'][0]['item']
 		return [{
 			"source": "ebay",
 			"price": float(products[0]['sellingStatus'][0]['currentPrice'][0]['__value__']),
@@ -168,7 +71,7 @@ def ebay_lowest_price(search, size, ship_to):
 
 
 def ebay_listings(search, size, ship_to, max_items=7):
-	url = "https://svcs.ebay.com/services/search/FindingService/v1"
+	api = "https://svcs.ebay.com/services/search/FindingService/v1"
 	headers = {
 		"X-EBAY-SOA-SECURITY-APPNAME": "Sanctuar-jasontho-PRD-ad4af8740-c80ac57c",
 		"X-EBAY-SOA-RESPONSE-DATA-FORMAT": "JSON",
@@ -176,21 +79,21 @@ def ebay_listings(search, size, ship_to, max_items=7):
 	}
 	parameters = {
 		"keywords": search,
-		"categoryId": "93427",
 		"sortOrder": "BestMatch",
 		"itemFilter(0).name": "AvailableTo",
 		"itemFilter(0).value": ship_to,
-		"itemFilter(1).name": "HideDuplicateItems",
-		"itemFilter(1).value": True,
-		"itemFilter(2).name": "ListingType",
-		"itemFilter(2).value": "FixedPrice",
 		"aspectFilter(0).aspectName": "US Shoe Size (Men's)",
 		"aspectFilter(0).aspectValueName": size
 	}
 
-	response = requests.get(url, headers=headers, params=parameters)
+	response_data = cache.get(parameters)
+	if not response_data:
+		response = requests.get(api, headers=headers, params=parameters)
+		response_data = response.json()
+		cache.set("ebay", parameters, response_data)
+
 	try:
-		products = response.json()['findItemsAdvancedResponse'][0]['searchResult'][0]['item']
+		products = response_data['findItemsAdvancedResponse'][0]['searchResult'][0]['item']
 		results = []
 		for item in products:
 			if len(results) >= max_items: break
@@ -206,7 +109,7 @@ def ebay_listings(search, size, ship_to, max_items=7):
 
 
 def depop_listings(search, size, max_items=7):
-	url = "https://webapi.depop.com/api/v2/search/products"
+	api = "https://webapi.depop.com/api/v2/search/products"
 	size_map = {'7':'2','7.5':'3','8':'4','8.5':'5','9':'6','9.5':'7','10':'8','10.5':'9','11':'10', 
 		'11.5':'11','12':'12','12.5':'13','13':'14','13.5':'15','14':'16','14.5':'17','15':'18'}
 	parameters = {
@@ -215,10 +118,15 @@ def depop_listings(search, size, max_items=7):
 		"itemsPerPage": max_items,
 		"country": "us"
 	}
+	
+	response_data = cache.get(parameters)
+	if not response_data:
+		response = requests.get(api, params=parameters)
+		response_data = response.json()
+		cache.set("depop", parameters, response_data)
 
-	response = requests.get(url, params=parameters)
 	try:
-		products = response.json()["products"]
+		products = response_data["products"]
 		results = []
 		for item in products:
 			if len(results) >= max_items: break
@@ -231,6 +139,17 @@ def depop_listings(search, size, max_items=7):
 		return results
 	except:
 		return None
+
+
+def exchange_rate(from_curr, to_curr):
+	param = f"{from_curr} -> {to_curr}"
+	rate = cache.get(param, hours=10)
+	if not rate:
+		cr = CurrencyRates()
+		rate = cr.get_rate(from_curr, to_curr)
+		cache.set("currency", param, rate)
+	
+	return float(rate)
 
 
 

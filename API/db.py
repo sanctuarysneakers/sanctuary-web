@@ -1,20 +1,21 @@
-import mysql.connector
-from mysql.connector import cursor
+import mysql.connector as mc
+import os
+from dotenv import load_dotenv
 
-class DB:
-	host = "mysql-db-master.cmamugrum56i.us-west-2.rds.amazonaws.com"
-	user = "admin"
-	password = "4tDqfnvbQ8R8RGuh"
+load_dotenv()
+host = os.environ.get("DB_HOST")
+user = os.environ.get("DB_USER")
+password = os.environ.get("DB_PASSWORD")
+
+class Client:
 
 	def __init__(self):
 		self.connect()
 
 	def connect(self):
-		self.conn = mysql.connector.connect(
-			host=DB.host, user=DB.user, passwd=DB.password
-		)
+		self.conn = mc.connect(host=host, user=user, passwd=password)
 		self.cursor = self.conn.cursor(dictionary=True)
-		self.cursor.execute("USE sneakers;")
+		self.cursor.execute("USE Main;")
 
 	def execute(self, query, values=None):
 		try:
@@ -28,7 +29,6 @@ class DB:
 			self.conn.commit()
 		except:
 			self.connect()
-			self.conn.commit()
 	
 	def fetchone(self):
 		return self.cursor.fetchone()

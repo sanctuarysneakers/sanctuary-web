@@ -32,7 +32,7 @@ export default function Item() {
     useEffect(() => {
         if (!itemPrices)
             setNoPrices(true)
-        else if (itemPrices.length !== 0) {
+        else if (itemPrices.length) {
             setPricesLoader(false)
             setPriceComponents(itemPrices.map((item) =>
                 <ItemPrice key={item.source} data={item}></ItemPrice>
@@ -41,7 +41,7 @@ export default function Item() {
 
         if (!itemListings)
             setNoListings(true)
-        else if (itemListings.length !== 0) {
+        else if (itemListings.length) {
             setListingsLoader(false)
             setListingComponents(itemListings.map((item) =>
                 <ItemListing key={item.id} data={item}></ItemListing>
