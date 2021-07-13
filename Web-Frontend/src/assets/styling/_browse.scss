@@ -1,11 +1,12 @@
 .browse {
-
     .browse-results {
         height: 277px;
         background: #FFFFFF;
 
         .browse-results-wrapper {
-            width: 1000px;
+            max-width: 1000px;
+            height: 100%;
+            padding: 0px 20px;
             margin: 0px auto;
 
             .browse-results-text {
@@ -16,15 +17,40 @@
                     font-weight: 600;
                     color: #000000;
                     line-height: 45px;
-                    letter-spacing: -1px;
+                    letter-spacing: -0.41px;
                 }
             }
         }
     }
 
     .browse-catalog {
-        background: #F5F5F7;
+        background: #F7F9FC;
         padding-top: 120px;
         padding-bottom: 166px;
+    }
+}
+
+@media screen and (max-width: 619px) {
+    .browse {
+        .browse-results {
+            height: 200px;
+
+            .browse-results-wrapper {
+                .browse-results-text {
+                    padding-top: 80px;
+
+                    h2 {
+                        font-size: 28px;
+                        letter-spacing: -0.28px;
+                        line-height: 37px;
+                    }
+                }
+            }
+        }
+
+        .browse-catalog {
+            padding-top: 50px;
+            padding-bottom: 100px;
+        }
     }
 }

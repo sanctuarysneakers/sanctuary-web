@@ -1,34 +1,35 @@
 .catalog {
-    max-width: 1200px;
-    margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
+    gap: 20px;
+    max-width: 1200px;
+    padding: 0px 20px;
+    margin: 0px auto;
 }
 
-.stockxLogo, .goatLogo, .grailedLogo, .flightclubLogo {
-    margin-left: 66px;
-}
+// .stockxLogo, .goatLogo, .grailedLogo, .flightclubLogo {
+//     margin-left: 66px;
+// }
 
-.stockxLogo {
-    height: 51.67px;
-    width: 100px;
-}
+// .stockxLogo {
+//     height: 51.67px;
+//     width: 100px;
+// }
 
-.goatLogo {
-    height: 33px;
-    width: 105.46px;
-}
+// .goatLogo {
+//     height: 33px;
+//     width: 105.46px;
+// }
 
-.grailedLogo {
-    height: 18.67px;
-    width: 150px;
-}
+// .grailedLogo {
+//     height: 18.67px;
+//     width: 150px;
+// }
 
-.flightclubLogo {
-    height: 33px;
-    width: 136px;
-}
+// .flightclubLogo {
+//     height: 33px;
+//     width: 136px;
+// }
 
 .no-results {
     display: flex;
@@ -45,12 +46,24 @@
     }
 }
 
-@media screen and (max-width: 929px) {
-    .stockxLogo, .goatLogo, .grailedLogo, .flightclubLogo {
-        margin-left: 24px;
-    }
-
+@media (min-width: 920px) and (max-width: 1240px) {
     .catalog {
-        padding-bottom: 70px;
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 880px;
+    }
+}
+
+@media (min-width: 620px) and (max-width: 919px) {
+    .catalog {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 580px;
+    }
+}
+
+@media screen and (max-width: 619px) {
+    .catalog {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 11px;
+        max-width: 335px;
     }
 }
