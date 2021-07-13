@@ -1,6 +1,7 @@
-from flask import Flask
+from flask import Flask, request
 from flask_restful import Resource, Api, reqparse
 from flask_cors import CORS
+import requests
 from browse import browse_es
 from data_pull import *
 
@@ -55,15 +56,21 @@ class ItemListings(Resource):
 class CurrencyRate(Resource):
 	def get(self):
 		args = parser.parse_args()
-		from_curr = args['from_curr']
-		to_curr = args['to_curr']
-		return exchange_rate(from_curr, to_curr)
+		return exchange_rate(args['from_curr'], args['to_curr'])
+
+
+class Location(Resource):
+	def get(self):
+		ip = request.environ['HTTP_X_FORWARDED_FOR']
+		response = requests.get(f"https://json.geoiplookup.io/{ip}")
+		return response.json()
 
 
 api.add_resource(Browse, '/browse')
 api.add_resource(LowestPrice, '/lowestprice')
 api.add_resource(ItemListings, '/itemlistings')
 api.add_resource(CurrencyRate, '/currencyrate')
+api.add_resource(Location, '/location')
 
 if __name__ == '__main__':
 	# application.run(debug=True)  # dev

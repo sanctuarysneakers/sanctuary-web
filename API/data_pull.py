@@ -4,6 +4,7 @@ from forex_python.converter import CurrencyRates
 
 cache = Cache()
 
+""" Sneaker price data """
 
 def stockx_lowest_price(sku, size):
 	api = "https://stockx.com/api/browse"
@@ -34,7 +35,6 @@ def stockx_lowest_price(sku, size):
 		}]
 	except:
 		return None
-
 
 def ebay_lowest_price(search, size, ship_to):
 	api = "https://svcs.ebay.com/services/search/FindingService/v1"
@@ -68,7 +68,6 @@ def ebay_lowest_price(search, size, ship_to):
 		}]
 	except:
 		return None
-
 
 def ebay_listings(search, size, ship_to, max_items=7):
 	api = "https://svcs.ebay.com/services/search/FindingService/v1"
@@ -107,7 +106,6 @@ def ebay_listings(search, size, ship_to, max_items=7):
 	except:
 		return None
 
-
 def depop_listings(search, size, max_items=7):
 	api = "https://webapi.depop.com/api/v2/search/products"
 	size_map = {'7':'2','7.5':'3','8':'4','8.5':'5','9':'6','9.5':'7','10':'8','10.5':'9','11':'10', 
@@ -140,6 +138,7 @@ def depop_listings(search, size, max_items=7):
 	except:
 		return None
 
+""" Currency conversion """
 
 def exchange_rate(from_curr, to_curr):
 	param = f"{from_curr} -> {to_curr}"
@@ -153,7 +152,9 @@ def exchange_rate(from_curr, to_curr):
 
 
 
-# IN PROGRESS
+
+""" In Progess """
+
 def sneakercon_lowest_price(sku_id, size):
 	url = "https://war6i72q7j.execute-api.us-east-1.amazonaws.com/prod/public/marketplace/all"
 	headers = {
@@ -184,7 +185,6 @@ def sneakercon_lowest_price(sku_id, size):
 		"url": "sneakercon.com/product/" + str(item['id']) + '-' + item['nickname'].replace(' ', '-')
 	}]
 
-# IN PROGRESS
 def goat_used(sku_id, size):
 	url = "https://2fwotdvm2o-dsn.algolia.net/1/indexes/product_variants_v2/query"
 	params = {
