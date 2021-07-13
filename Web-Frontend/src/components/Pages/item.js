@@ -1,19 +1,35 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { useMediaQuery } from 'react-responsive'
-import { Helmet } from 'react-helmet'
 import { useSelector } from 'react-redux'
 import { showFilter } from '../../redux/actions'
-import stockX from '../../assets/images/stockx-new.png'
 import useAPICall from '../Hooks/useapicall'
-import Loader from '../loader'
 import ItemPrice from '../itemPrice'
 import ItemListing from '../itemListing'
 import ItemLoader from '../itemLoader'
+import Footer from '../footer'
+import StockXGrey from '../../assets/images/stockx.png'
+import GOATGrey from '../../assets/images/goat-grey.svg'
+import GrailedGrey from '../../assets/images/grailed-grey.svg'
+import flightClubGrey from '../../assets/images/flightClub-grey.svg'
+import DepopGrey from '../../assets/images/depop-grey.svg'
+import KLEKTGrey from '../../assets/images/klekt-grey.svg'
+import eBayGrey from '../../assets/images/ebay-grey.svg'
 
 export default function Item() {
-    const isDesktop = useMediaQuery({query: '(min-width: 768px)'})
 
+    const websiteLogoMap = {
+        'stockx' : StockXGrey,
+        'goat' : GOATGrey,
+        'grailed' : GrailedGrey,
+        'flightclub' : flightClubGrey,
+        'depop' : DepopGrey,
+        'klekt' : KLEKTGrey,
+        'ebay' : eBayGrey
+    }
+
+    // const isDesktop = useMediaQuery({query: '(min-width: 768px)'})
+    const isDesktop = useMediaQuery({query: '(min-width: 870px)'})
     const { sku } = useParams()
     const size = useSelector(state => state.size)
     useAPICall('getitem', { sku: sku, size: size })
@@ -34,8 +50,8 @@ export default function Item() {
             setNoPrices(true)
         else if (itemPrices.length) {
             setPricesLoader(false)
-            setPriceComponents(itemPrices.map((item) =>
-                <ItemPrice key={item.source} data={item}></ItemPrice>
+            setPriceComponents(itemPrices.map((item, index) =>
+                <ItemPrice key={item.source} data={item} index={index} length={itemPrices.length} />
             ))
         }
 
@@ -43,8 +59,8 @@ export default function Item() {
             setNoListings(true)
         else if (itemListings.length) {
             setListingsLoader(false)
-            setListingComponents(itemListings.map((item) =>
-                <ItemListing key={item.id} data={item}></ItemListing>
+            setListingComponents(itemListings.map((item, index) =>
+                <ItemListing key={item.id} data={item} index={index} length={itemListings.length} />
             ))
         }
     }, [itemPrices, itemListings])
@@ -75,37 +91,40 @@ export default function Item() {
                                 <h1> {itemInfo.modelName} </h1>
                             </div>
 
-                            <div className='item-sneaker-price'>
-                                <a>
-                                    {pricesLoader && 
-                                        <h2 className='price-loading'> 
-                                            Finding Best Price
-                                        </h2>
-                                    }
-                                    {!pricesLoader && 
-                                        <h2> 
-                                            Best Price:&ensp;${itemPrices[0].price} 
-                                        </h2>
-                                    }
-                                </a>
-                            </div>
+                            {pricesLoader && <ItemLoader version={'info'} />}
 
-                            <div className='item-specifics'>
-                                <div className='item-size'>
-                                    <h4> SIZE </h4>
-                                    <p> {size} </p>
+                            {!pricesLoader && <div className='item-sneaker-price-details'>
+
+                                <a target='_blank' href={`https://${itemPrices[0].url}`}>
+                                    <div className='item-sneaker-price'>
+                                        <h2> Buy ${itemPrices[0].price} </h2>
+                                    </div>
+                                </a>
+
+                                <div className='item-sneaker-details'>
+                                    <div className='item-sneaker-data'>
+                                        <p> SIZE </p>
+                                        <h4> {size} </h4>
+                                    </div>
+
+                                    <div className='item-sneaker-data-border' />
+                                    <div className='item-sneaker-data middle'>
+                                        <p> CONDITION </p>
+                                        <h4> New </h4>
+                                    </div>
+                                    <div className='item-sneaker-data-border' />
+
+                                    <div className='item-sneaker-data'>
+                                        <p> WEBSITE </p>
+                                        <div className={`item-sneaker-site ${itemPrices[0].source}`}>
+
+                                            <img src={websiteLogoMap[itemPrices[0].source]} 
+                                                alt='website logo' 
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className='item-specifics-divider' />
-                                <div className='item-condition'>
-                                    <h4> CONDITION </h4>
-                                    <p> New </p>
-                                </div>
-                                <div className='item-specifics-divider' />
-                                <div className='item-website'>
-                                    <h4> WEBSITE </h4>
-                                    <img src={stockX} alt='StockX' />
-                                </div>
-                            </div>
+                            </div>}
                         </div>
                     </div>
                 </div>
@@ -140,6 +159,8 @@ export default function Item() {
                     </div>
                 </div>
             </div>
+
+            <Footer colour={'blue'} />
         </div>
     )
 

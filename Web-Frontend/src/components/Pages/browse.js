@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router'
 import { showHomeSeach } from '../../redux/actions'
 import Catalog from '../catalog'
+import Footer from '../footer'
 
 export default function Browse() {
 
@@ -34,6 +35,8 @@ export default function Browse() {
             <div className='browse-catalog'>
                 <Catalog search_query={query} />
             </div>
+
+            <Footer colour={'blue'} />
         </div>
     )
 

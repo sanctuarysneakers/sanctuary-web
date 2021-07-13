@@ -1,93 +1,207 @@
-.footer {
-    // background: #F7F9FC;
-    background: #F3F6FB;
+// Background colour styling for different pages
+.footer.white {
+    background: #F7F9FC;
+}
 
-    .footer-wrapper {
-        width: 1000px;
-        margin: 0px auto;
+.footer.blue {
+    background: #EEF1F6;
+}
 
-        .footer-links {
-            display: flex;
-            padding-top: 67px;
-            padding-bottom: 113px;
+.footer-content {
+    max-width: 1000px;
+    padding: 0px 20px;
+    margin: auto;
 
-            .footer-links-social {
-                width: 253px;
-                padding-right: 120px;
+    .footer-links {
+        display: flex;
+        padding: 65px 0px;
+        border-bottom: 1px solid #D2DAE9;
 
-                .sanctuary-logo {
-                    height: 27px;
-                }
+        .footer-links-logos {
+            padding-right: 120px;
 
-                p {
-                    font-size: 15px;
-                    font-weight: 500;
-                    color: #4A525E;
-                    line-height: 22px;
-                    letter-spacing: -0.41px;
+            .footer-logo {
+                cursor: pointer;
 
-                    padding: 25px 0px;
+                svg {
+                    display: block;
+                    width: 120px;
+                    height: auto;
                 }
             }
 
-            .footer-links-map {
+            .footer-social {
                 display: flex;
+                justify-content: space-between;
+                width: 132px;
+                padding-top: 25px;
 
-                .footer-links-company, .footer-links-account, .footer-links-support {
-
-                    h2 {
-                        font-size: 18px;
-                        font-weight: 500;
-                        color: #4A525E;
-                        letter-spacing: -0.41px;
-
-                        padding-right: 120px;
-                    }
-
-                    p {
-                        font-size: 18px;
-                        font-weight: 400;
-                        color: #4A525E;
-                        letter-spacing: -0.41px;
-
-                        padding-top: 20px;
+                a {
+                    svg {
+                        display: block;
                     }
                 }
             }
         }
 
-        .footer-legal-and-currency {
+        .footer-links-site {
+            display: flex;
+
+            .footer-link-text {
+                display: flex;
+                flex-direction: column;
+
+                h2 {
+                    font-size: 15px;
+                    font-weight: 500;
+                    color: #4A525E;
+                    letter-spacing: -0.165px;
+                    padding-right: 120px;
+                }
+
+                a {
+                    font-size: 15px;
+                    font-weight: 300;
+                    color: #4A525E;
+                    letter-spacing: -0.165px;
+                    padding-top: 13px;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    .footer-legal-currency {
+        padding: 30px 0px;
+
+        .footer-legal-currency-content {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            height: 92px;
-            border-top: 1px solid #D2DAE9;
 
-            .footer-legal {
-
-                p {
-                    font-size: 13px;
-                    font-weight: 400;
-                    color: #919BB1;
-                    letter-spacing: -0.41px;
-                }
+            p {
+                font-size: 13px;
+                font-weight: 300;
+                color: #919BB1;
+                letter-spacing: -0.1905px;
             }
 
             .footer-currency {
                 display: flex;
 
                 p {
-                    font-size: 13px;
-                    font-weight: 400;
-                    color: #919BB1;
-                    letter-spacing: -0.41px;
-
-                    padding-right: 12px;
+                    letter-spacing: -0.13px;
+                    padding-right: 10px;
                 }
             }
         }
     }
 }
+
+
+
+
+
+
+
+
+// .footer {
+//     // background: #F7F9FC;
+//     background: #F3F6FB;
+
+//     .footer-wrapper {
+//         width: 1000px;
+//         margin: 0px auto;
+
+//         .footer-links {
+//             display: flex;
+//             padding-top: 67px;
+//             padding-bottom: 113px;
+
+//             .footer-links-social {
+//                 width: 253px;
+//                 padding-right: 120px;
+
+//                 .sanctuary-logo {
+//                     height: 27px;
+//                 }
+
+//                 p {
+//                     font-size: 15px;
+//                     font-weight: 500;
+//                     color: #4A525E;
+//                     line-height: 22px;
+//                     letter-spacing: -0.41px;
+
+//                     padding: 25px 0px;
+//                 }
+//             }
+
+//             .footer-links-map {
+//                 display: flex;
+
+//                 .footer-links-company, .footer-links-account, .footer-links-support {
+
+//                     h2 {
+//                         font-size: 18px;
+//                         font-weight: 500;
+//                         color: #4A525E;
+//                         letter-spacing: -0.41px;
+
+//                         padding-right: 120px;
+//                     }
+
+//                     p {
+//                         font-size: 18px;
+//                         font-weight: 400;
+//                         color: #4A525E;
+//                         letter-spacing: -0.41px;
+
+//                         padding-top: 20px;
+//                     }
+//                 }
+//             }
+//         }
+
+//         .footer-legal-and-currency {
+//             display: flex;
+//             justify-content: space-between;
+//             align-items: center;
+//             height: 92px;
+//             border-top: 1px solid #D2DAE9;
+
+//             .footer-legal {
+
+//                 p {
+//                     font-size: 13px;
+//                     font-weight: 400;
+//                     color: #919BB1;
+//                     letter-spacing: -0.41px;
+//                 }
+//             }
+
+//             .footer-currency {
+//                 display: flex;
+
+//                 p {
+//                     font-size: 13px;
+//                     font-weight: 400;
+//                     color: #919BB1;
+//                     letter-spacing: -0.41px;
+
+//                     padding-right: 12px;
+//                 }
+//             }
+//         }
+//     }
+// }
+
+
+
+
+
+
+
+
 
 
 // // Bottom NavBar

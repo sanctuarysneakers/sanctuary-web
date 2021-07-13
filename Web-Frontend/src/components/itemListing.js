@@ -1,10 +1,21 @@
 import React from 'react'
 import {ReactComponent as RightArrow} from '../assets/images/RightArrow.svg'
 
-export default function ItemListing({data}) {
+export default function ItemListing({ data, index, length }) {
+
+    const websiteTextMap = {
+        'stockx' : 'StockX',
+        'goat' : 'GOAT',
+        'grailed' : 'Grailed',
+        'flightclub' : 'Flight Club',
+        'depop' : 'Depop',
+        'klekt' : 'KLEKT',
+        'ebay' : 'eBay'
+    }
+    const websiteText = websiteTextMap[data.source]
 
     return (
-        <div className='item-listing'>
+        <div className={(index === length - 1) ? 'item-listing last' : 'item-listing'}>
             <div className='item-listing-source'>
 
                 <div className='item-listing-image'>
@@ -12,25 +23,23 @@ export default function ItemListing({data}) {
                 </div>
                 
                 <div className='item-listing-text'>
-                    <h4 className='used-text'>
-                        {data.source}
-                    </h4>
-                    <p>
-                        Used
-                    </p>
+                    <h2> {websiteText} </h2>
+                    <p> Used </p>
                 </div>
                 
             </div>
 
-            <div className='item-listing-link'>
-                <div className='item-listing-amount'>
-                    <h4>
-                        ${data.price}
-                    </h4>
-                </div>
+            <a target='_blank' href={`https://${data.url}`}>
+                <div className='item-listing-link'>
+                    <div className='item-listing-amount'>
+                        <h2>
+                            ${data.price}
+                        </h2>
+                    </div>
 
-                <RightArrow />
-            </div>
+                    <RightArrow />
+                </div>
+            </a>
         </div>
     )
 }

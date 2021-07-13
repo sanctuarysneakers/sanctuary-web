@@ -1,67 +1,204 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { ReactComponent as SanctuaryFooterLogo } from '../assets/images/SanctuaryFooterLogo.svg'
+import { ReactComponent as FacebookLogo } from '../assets/images/facebook.svg'
+import { ReactComponent as InstagramLogo } from '../assets/images/instagram.svg'
+import { ReactComponent as TwitterLogo } from '../assets/images/twitter.svg'
+import { ReactComponent as TiktokLogo } from '../assets/images/tiktok.svg'
 import { Link } from 'react-router-dom'
-import sanctuaryLogo from "../assets/images/sanctuary-black.png"
-import SocialMedia from "../assets/images/socialMedia.png"
+// import { useDispatch } from 'react-redux'
+// import { Link } from 'react-router-dom'
+// import sanctuaryLogo from "../assets/images/sanctuary-black.png"
+// import SocialMedia from "../assets/images/socialMedia.png"
 import flag from "../assets/images/flag.png"
 
-import img from '../assets/images/footerDrawing.webp'
-import { FiInstagram, FiTwitter, FiFacebook } from 'react-icons/fi'
 
+export default function Footer({ colour }) {
 
-export default function Footer() {
     return (
-        <div className='footer'>
-            <div className='footer-wrapper'>
+        <div className={`footer ${colour}`}>
+            <div className='footer-content'>
                 <div className='footer-links'>
-                    <div className='footer-links-social'>
-                        <img className='sanctuary-logo' src={sanctuaryLogo} alt='Sanctuary' />
-                        <p>
-                            Sanctuary compares prices from
-                            leading sneaker websites to find you
-                            the best deals.
-                        </p>
-                        <img className='social-media' src={SocialMedia} alt='social media links' />
+                    <div className='footer-links-logos'>
+                        <div className='footer-logo'
+                            onClick={() => document.location.href = '/'}>
+                            <SanctuaryFooterLogo />
+                        </div>
+
+                        <div className='footer-social'>
+                            <a href="https://www.facebook.com/sanctuarysneakers">
+                                <FacebookLogo />
+                            </a>
+
+                            <a href="https://www.instagram.com/sanctuarysneakers/">
+                                <InstagramLogo />
+                            </a>
+
+                            <a href="https://twitter.com/sanctuarysnkrs">
+                                <TwitterLogo />
+                            </a>
+
+                            <a href="https://www.tiktok.com/@sanctuarysneakers">
+                                <TiktokLogo />
+                            </a>
+                        </div>
                     </div>
 
-                    <div className='footer-links-map'>
-                        <div className='footer-links-company'>
-                            <h2> Company </h2>
-                            <p> Shop </p>
-                            <p> Newsroom </p>
-                            <p> How it Works </p>
-                            <p> About Us </p>
+                    <div className='footer-links-site'>
+                        <div className='footer-link-text'>
+                            <h2> Trending </h2>
+
+                            <Link onClick={() => { document.location.href = '/browse/Nike%20Dunk%20Low' }}>
+                                Nike Dunk Low
+                            </Link>
+
+                            <Link onClick={() => { document.location.href = '/browse/Air%20Jordan%201' }}>
+                                Air Jordan 1
+                            </Link>
+
+                            <Link onClick={() => { document.location.href = '/browse/Adidas%20Yeezy%20Boost%20350' }}>
+                                Yeezy Boost 350
+                            </Link>
+
+                            <Link onClick={() => { document.location.href = '/browse/Aime%20Leon%20Dore' }}>
+                                Aime Leon Dore
+                            </Link>
                         </div>
 
-                        <div className='footer-links-account'>
+                        <div className='footer-link-text'>
+                            <h2> Discover </h2>
+
+                            <Link onClick={() => document.location.href = '/browse'}>
+                                Browse
+                            </Link>
+
+                            <Link onClick={() => document.location.href = '/newsroom'}>
+                                Newsroom
+                            </Link>
+
+                            <Link>
+                                How it Works
+                            </Link>
+                        </div>
+
+                        <div className='footer-link-text'>
                             <h2> Account </h2>
-                            <p> Create Account </p>
-                            <p> Sign In </p>
+
+                            <Link onClick={() => document.location.href = '/create-account'}>
+                                Create Account
+                            </Link>
+
+                            <Link onClick={() => document.location.href = '/sign-in'}>
+                                Sign In
+                            </Link>
                         </div>
 
-                        <div className='footer-links-support'>
+                        <div className='footer-link-text last'>
                             <h2> Support </h2>
-                            <p> Privacy Policy </p>
-                            <p> Terms of Use </p>
-                            <p> Contact Us </p>
+
+                            <Link onClick={() => document.location.href = '/privacy-policy'}>
+                                Privacy Policy
+                            </Link>
+
+                            <Link onClick={() => document.location.href = '/terms-of-use'}>
+                                Terms of Use
+                            </Link>
+
+                            <a className='footer-contact-us'
+                                href="mailto: contact@sanctuarysneakers.com">
+                                Contact Us
+                            </a>
                         </div>
                     </div>
                 </div>
 
-                <div className='footer-legal-and-currency'>
-                    <div className='footer-legal'>
+                <div className='footer-legal-currency'>
+                    <div className='footer-legal-currency-content'>
                         <p> 2021 Sanctuary Streetwear Marketplace Inc. </p>
-                    </div>
 
-                    <div className='footer-currency'>
-                        <p> Currency </p>
-                        <img src={flag} alt='country' />
+                        <div className='footer-currency'>
+                            <p> Currency </p>
+                            <img src={flag} alt='country' />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     )
+
+
+
+
+
+
+
+
+
+    // return (
+    //     <div className='footer'>
+    //         <div className='footer-wrapper'>
+    //             <div className='footer-links'>
+    //                 <div className='footer-links-social'>
+    //                     <img className='sanctuary-logo' src={sanctuaryLogo} alt='Sanctuary' />
+    //                     <p>
+    //                         Sanctuary compares prices from
+    //                         leading sneaker websites to find you
+    //                         the best deals.
+    //                     </p>
+    //                     <img className='social-media' src={SocialMedia} alt='social media links' />
+    //                 </div>
+
+    //                 <div className='footer-links-map'>
+    //                     <div className='footer-links-company'>
+    //                         <h2> Company </h2>
+    //                         <p> Shop </p>
+    //                         <p> Newsroom </p>
+    //                         <p> How it Works </p>
+    //                         <p> About Us </p>
+    //                     </div>
+
+    //                     <div className='footer-links-account'>
+    //                         <h2> Account </h2>
+    //                         <p> Create Account </p>
+    //                         <p> Sign In </p>
+    //                     </div>
+
+    //                     <div className='footer-links-support'>
+    //                         <h2> Support </h2>
+    //                         <p> Privacy Policy </p>
+    //                         <p> Terms of Use </p>
+    //                         <p> Contact Us </p>
+    //                     </div>
+    //                 </div>
+    //             </div>
+
+    //             <div className='footer-legal-and-currency'>
+    //                 <div className='footer-legal'>
+    //                     <p> 2021 Sanctuary Streetwear Marketplace Inc. </p>
+    //                 </div>
+
+    //                 <div className='footer-currency'>
+    //                     <p> Currency </p>
+    //                     <img src={flag} alt='country' />
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     </div>
+    // )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // export default function Footer() {

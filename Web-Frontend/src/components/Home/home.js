@@ -8,6 +8,7 @@ import HomeSplash from './homeSplash'
 import HomeTrending from './homeTrending'
 import HomeNewsroom from './homeNewsroom'
 import HomeContact from './homeContact'
+import Footer from '../footer'
 
 
 export default function Home() {
@@ -52,6 +53,8 @@ export default function Home() {
             <HomeNewsroom />
 
             <HomeContact />
+
+            <Footer colour={'white'} />
         </div>
     )
 }
