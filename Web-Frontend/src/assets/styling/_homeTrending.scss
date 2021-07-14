@@ -24,7 +24,7 @@
 
                 h1 {
                     width: 470px;
-                    padding-bottom: 20px;
+                    padding-bottom: 5px;
                 }
 
                 .nike {
@@ -58,7 +58,7 @@
                 justify-content: space-between;
                 width: 361px;
                 margin: 0px auto;
-                padding-top: 19px;
+                padding-top: 30px;
 
                 .home-trending-browse {
                     font-size: 18px;
@@ -387,12 +387,13 @@
                     max-width: 400px;
                     min-width: 300px;
                     height: 450px;
+                    border-radius: 12px;
 
                     .home-trending-sneaker-img {
                         height: 100%;
 
                         img {
-                            width: 80%;
+                            width: 95%;
                         }
                     }
 
@@ -401,7 +402,7 @@
                         min-width: 300px;
 
                         p {
-                            font-size: 16px;
+                            font-size: 18px;
                             padding-bottom: 60px;
                         }
                     }
