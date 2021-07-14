@@ -8,13 +8,14 @@ import InfoIcon from '../../assets/images/icons/infoIcon'
 import ProfileIcon from '../../assets/images/icons/profileIcon'
 import SignOutIcon from '../../assets/images/icons/signOutIcon.js'
 import BlogIcon from '../../assets/images/icons/blogIcon.js'
+import {ReactComponent as BrowseIcon} from '../../assets/images/browseIcon.svg'
 
 
 export default function HamburgerModal() {
 
     // const user = firebase.auth().currentUser
     const user = useSelector(state => state.user)
-    
+
     const dispatch = useDispatch()
     const wrapperRef = useRef(null)
     const history = useHistory()
@@ -32,17 +33,17 @@ export default function HamburgerModal() {
 
     const signOut = () => {
         firebase.auth().signOut()
-        .then(() => {
-            dispatch(hideHamburgerModal())
-            history.push("/")
-            window.scrollTo(0, 0)
-        })
+            .then(() => {
+                dispatch(hideHamburgerModal())
+                history.push("/")
+                window.scrollTo(0, 0)
+            })
     }
 
     return (
         <div className='modal-hamburger'>
             <div className='menu' ref={wrapperRef}>
-                
+
                 <div className='menu-header'>
                     <div className='menu-pull-tab'></div>
                     <h2> Menu </h2>
@@ -55,7 +56,7 @@ export default function HamburgerModal() {
 
                         {user && <div className='profile-area'>
 
-                            {user.photoURL !== null && 
+                            {user.photoURL !== null &&
                                 <img className='profilePicture' src={user.photoURL} alt='profile-picture' />
                             }
 
@@ -67,54 +68,61 @@ export default function HamburgerModal() {
                             <p> Become a member today! </p>
                         </div>}
 
-                        {user && 
-                            <Link className='account-description-signed-in' 
-                            onClick={handlecloseModal} 
-                            to="/profile">
+                        {user &&
+                            <Link className='account-description-signed-in'
+                                onClick={handlecloseModal}
+                                to="/profile">
 
                                 <h2> {user.displayName} </h2>
                                 <p> Edit Profile </p>
-                                
+
                             </Link>
                         }
                     </div>
 
                     {!user && <div className='menu-account-bottom'>
 
-                        <Link className='create-account' 
-                            onClick={handlecloseModal} 
+                        <Link className='create-account'
+                            onClick={handlecloseModal}
                             to="/create-account">
-                                
+
                             <button className='create-account-button'>
-                                Create account 
+                                Create account
                             </button>
                         </Link>
-                        
+
                         <Link className='sign-in'
-                            onClick={handlecloseModal} 
+                            onClick={handlecloseModal}
                             to="/sign-in">
 
-                                <button className='sign-in-button'> 
-                                    Sign in 
-                                </button>
+                            <button className='sign-in-button'>
+                                Sign in
+                            </button>
                         </Link>
                     </div>}
                 </div>
 
                 <div className='menu-options'>
+                    <Link className='menu-options-browse' onClick={handlecloseModal} to='/browse'>
+                        <BrowseIcon />
+                        <div className='title'>
+                            <p> Browse </p>
+                        </div>
+                    </Link>
+
+                    <Link className='menu-options-blog' onClick={handlecloseModal} to="/newsroom">
+                        <BlogIcon />
+                        <div className='title'>
+                            <p> Newsroom </p>
+                        </div>
+                    </Link>
+
                     <div className='menu-options-how-it-works' onClick={handleShowAboutModal}>
                         <InfoIcon />
                         <div className='title'>
                             <p> How it Works </p>
                         </div>
                     </div>
-
-                    <Link className='menu-options-blog' onClick={handlecloseModal} to="/blog">
-                        <BlogIcon />
-                        <div className='title'>
-                            <p> Newsroom </p>
-                        </div>
-                    </Link>
 
                     {user && <div className='menu-options-sign-out' onClick={signOut}>
                         <SignOutIcon />

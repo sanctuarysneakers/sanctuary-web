@@ -7,6 +7,7 @@ import { useMediaQuery } from 'react-responsive'
 import facebook from "../../assets/images/logos/facebook.png"
 import google from "../../assets/images/logos/google.svg"
 import mail from "../../assets/images/logos/mail.svg"
+import Footer from '../footer'
 
 export default function SignInOptions() {
 
@@ -92,6 +93,8 @@ export default function SignInOptions() {
                 </div>
 
             </div>
+
+            <Footer colour={'white'} />
         </div>
     )
 }

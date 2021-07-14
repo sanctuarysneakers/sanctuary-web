@@ -67,24 +67,19 @@ export default function AboutModal() {
 
                     <div className='cardTwo-bottom'>
                         <div className='leftText'>
-                            <h3>Specific site?</h3>
+                            <h3>Want to browse?</h3>
                             <p>
-                                On the homepage, browse websites
-                                by row.
-                            </p>
-
-                            <h3>Specific filters?</h3>
-                            <p>
-                                Customize filters such as size,
-                                condition, and price.
+                                Take a scroll through our home page
+                                for inspiration, or check out the browse
+                                page to view our catalog!
                             </p>
 
                             <h3>Specific item?</h3>
                             <p>
                                 Search for a sneaker, and we will
                                 provide you with the best price. We
-                                compare prices from StockX, Goat,
-                                Grailed, and FlightClub.
+                                compare prices from StockX, GOAT,
+                                Grailed, eBay, Flight Club, Depop and KLEKT.
                             </p>
 
                             <h3>Ready to buy?</h3>

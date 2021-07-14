@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { hideHomeSearch } from '../../redux/actions'
 import { useMediaQuery } from 'react-responsive'
 import BlogArticles from './blogarticles'
+import Footer from '../footer'
 import SanctuaryLogo from '../../assets/images/Sanctuary-white.png'
 import NewsroomHeader from '../../assets/images/newsroom.png'
 import NewsroomMobile from '../../assets/images/newsroomMobile.png'
@@ -37,6 +38,8 @@ export default function Newsroom() {
             </div>
 
             <BlogArticles />
+
+            <Footer colour={'blue'} />
 
         </div>
     )

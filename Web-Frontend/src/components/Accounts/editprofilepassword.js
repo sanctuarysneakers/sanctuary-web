@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
 import { hideHomeSearch } from '../../redux/actions'
+import Footer from '../footer'
 
 export default function EditProfilePassword() {
 
@@ -81,6 +82,8 @@ export default function EditProfilePassword() {
                 </div>
 
             </div>
+
+            <Footer colour={'white'} />
         </div>
     )
 }

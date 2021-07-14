@@ -1,0 +1,68 @@
+.currency-filter {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 88px;
+    height: 20px;
+
+    h4 {
+        font-size: 13px;
+        font-weight: 400;
+        color: #919BB1;
+    }
+
+    .currency-filter-flag {
+        width: 20px;
+        height: 20px;
+
+        img {
+            width: 20px;
+            height: auto;
+        }
+    }
+
+    .currency-filter-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        .currency-filter__control {
+            background: none;
+            border: none;
+            cursor: pointer;
+
+            .currency-filter__value-container {
+                .currency-filter__single-value {
+                    width: 0px;
+                }
+            }
+
+            .currency-filter__indicators {
+                height: 20px;
+
+                .currency-filter__indicator-separator {
+                    width: 0px;
+                    margin: 0px;
+                }
+
+                .currency-filter__indicator {
+                    width: 0px;
+                    padding: 0px;
+                }
+            }
+        }
+    }
+}
+
+.currency-filter__control.css-yk16xz-control {
+    height: 20px;
+    min-height: 20px;
+    min-width: 88px;
+}
+
+.currency-filter__control.css-1pahdxg-control {
+    height: 20px;
+    min-height: 20px;
+    min-width: 88px;
+    box-shadow: none;
+}

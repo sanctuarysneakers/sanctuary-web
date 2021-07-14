@@ -1,18 +1,18 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { showAboutModal } from '../redux/actions'
+import CurrencyFilter from './currencyFilter'
 import { ReactComponent as SanctuaryFooterLogo } from '../assets/images/SanctuaryFooterLogo.svg'
 import { ReactComponent as FacebookLogo } from '../assets/images/facebook.svg'
 import { ReactComponent as InstagramLogo } from '../assets/images/instagram.svg'
 import { ReactComponent as TwitterLogo } from '../assets/images/twitter.svg'
 import { ReactComponent as TiktokLogo } from '../assets/images/tiktok.svg'
-import { Link } from 'react-router-dom'
-// import { useDispatch } from 'react-redux'
-// import { Link } from 'react-router-dom'
-// import sanctuaryLogo from "../assets/images/sanctuary-black.png"
-// import SocialMedia from "../assets/images/socialMedia.png"
-import flag from "../assets/images/flag.png"
 
 
 export default function Footer({ colour }) {
+
+    const dispatch = useDispatch()
 
     return (
         <div className={`footer ${colour}`}>
@@ -44,69 +44,73 @@ export default function Footer({ colour }) {
                     </div>
 
                     <div className='footer-links-site'>
-                        <div className='footer-link-text'>
-                            <h2> Trending </h2>
+                        <div className='footer-links-site-left'>
+                            <div className='footer-link-text'>
+                                <h2> Trending </h2>
 
-                            <Link onClick={() => { document.location.href = '/browse/Nike%20Dunk%20Low' }}>
-                                Nike Dunk Low
-                            </Link>
+                                <Link onClick={() => { document.location.href = '/browse/Nike%20Dunk%20Low' }}>
+                                    Nike Dunk Low
+                                </Link>
 
-                            <Link onClick={() => { document.location.href = '/browse/Air%20Jordan%201' }}>
-                                Air Jordan 1
-                            </Link>
+                                <Link onClick={() => { document.location.href = '/browse/Air%20Jordan%201' }}>
+                                    Air Jordan 1
+                                </Link>
 
-                            <Link onClick={() => { document.location.href = '/browse/Adidas%20Yeezy%20Boost%20350' }}>
-                                Yeezy Boost 350
-                            </Link>
+                                <Link onClick={() => { document.location.href = '/browse/Adidas%20Yeezy%20Boost%20350' }}>
+                                    Yeezy Boost 350
+                                </Link>
 
-                            <Link onClick={() => { document.location.href = '/browse/Aime%20Leon%20Dore' }}>
-                                Aime Leon Dore
-                            </Link>
+                                <Link onClick={() => { document.location.href = '/browse/Aime%20Leon%20Dore' }}>
+                                    Aime Leon Dore
+                                </Link>
+                            </div>
+
+                            <div className='footer-link-text'>
+                                <h2> Discover </h2>
+
+                                <Link onClick={() => document.location.href = '/browse'}>
+                                    Browse
+                                </Link>
+
+                                <Link onClick={() => document.location.href = '/newsroom'}>
+                                    Newsroom
+                                </Link>
+
+                                <Link onClick={() => dispatch(showAboutModal())}>
+                                    How it Works
+                                </Link>
+                            </div>
                         </div>
 
-                        <div className='footer-link-text'>
-                            <h2> Discover </h2>
+                        <div className='footer-links-site-right'>
+                            <div className='footer-link-text'>
+                                <h2> Account </h2>
 
-                            <Link onClick={() => document.location.href = '/browse'}>
-                                Browse
-                            </Link>
+                                <Link onClick={() => document.location.href = '/create-account'}>
+                                    Create Account
+                                </Link>
 
-                            <Link onClick={() => document.location.href = '/newsroom'}>
-                                Newsroom
-                            </Link>
+                                <Link onClick={() => document.location.href = '/sign-in'}>
+                                    Sign In
+                                </Link>
+                            </div>
 
-                            <Link>
-                                How it Works
-                            </Link>
-                        </div>
+                            <div className='footer-link-text last'>
+                                <h2> Support </h2>
 
-                        <div className='footer-link-text'>
-                            <h2> Account </h2>
+                                <Link onClick={() => document.location.href = '/privacy-policy'}>
+                                    Privacy Policy
+                                </Link>
 
-                            <Link onClick={() => document.location.href = '/create-account'}>
-                                Create Account
-                            </Link>
+                                <Link onClick={() => document.location.href = '/terms-of-use'}>
+                                    Terms of Use
+                                </Link>
 
-                            <Link onClick={() => document.location.href = '/sign-in'}>
-                                Sign In
-                            </Link>
-                        </div>
-
-                        <div className='footer-link-text last'>
-                            <h2> Support </h2>
-
-                            <Link onClick={() => document.location.href = '/privacy-policy'}>
-                                Privacy Policy
-                            </Link>
-
-                            <Link onClick={() => document.location.href = '/terms-of-use'}>
-                                Terms of Use
-                            </Link>
-
-                            <a className='footer-contact-us'
-                                href="mailto: contact@sanctuarysneakers.com">
-                                Contact Us
-                            </a>
+                                <a className='footer-contact-us'
+                                    href="mailto: contact@sanctuarysneakers.com">
+                                    Contact Us
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -115,10 +119,7 @@ export default function Footer({ colour }) {
                     <div className='footer-legal-currency-content'>
                         <p> 2021 Sanctuary Streetwear Marketplace Inc. </p>
 
-                        <div className='footer-currency'>
-                            <p> Currency </p>
-                            <img src={flag} alt='country' />
-                        </div>
+                        <CurrencyFilter />
                     </div>
                 </div>
             </div>

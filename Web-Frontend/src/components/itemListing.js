@@ -1,7 +1,18 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import {ReactComponent as RightArrow} from '../assets/images/RightArrow.svg'
 
 export default function ItemListing({ data, index, length }) {
+
+    const currency = useSelector(state => state.currency)
+    const currencySymbolMap = {
+        'USD' : '$',
+        'CAD' : '$',
+        'EUR' : '€',
+        'GBP' : '£',
+        'JPY' : '¥'
+    }
+    const currencySymbol = currencySymbolMap[currency]
 
     const websiteTextMap = {
         'stockx' : 'StockX',
@@ -33,7 +44,7 @@ export default function ItemListing({ data, index, length }) {
                 <div className='item-listing-link'>
                     <div className='item-listing-amount'>
                         <h2>
-                            ${data.price}
+                            {currencySymbol}{data.price}
                         </h2>
                     </div>
 

@@ -3,6 +3,7 @@ import author from '../../../assets/images/JonahHarding.jpg'
 import pictureOne from '../../../assets/images/articleEngineering1.jpg'
 import pictureTwo from '../../../assets/images/articleEngineering2.jpg'
 import ReadNext from '../readnext.js'
+import Footer from '../../footer'
 
 export default function ArticleSneakersMeetEngineering() {
     return (
@@ -73,6 +74,7 @@ export default function ArticleSneakersMeetEngineering() {
                 </div>
             </div>
             <ReadNext />
+            <Footer colour={'blue'} />
         </div>
     )
 

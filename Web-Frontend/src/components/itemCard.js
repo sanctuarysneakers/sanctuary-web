@@ -20,7 +20,7 @@ export default function ItemCard({ data }) {
                 <div className='item-card-text'>
                     <h2> {data.model} </h2>
 
-                    <p> Learn More </p>
+                    <p> See Prices </p>
                 </div>
             </div>
         </div>

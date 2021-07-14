@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { useMediaQuery } from 'react-responsive'
 import { useSelector } from 'react-redux'
-import { showFilter } from '../../redux/actions'
+import SizeFilter from '../sizeFilter'
 import useAPICall from '../Hooks/useapicall'
 import ItemPrice from '../itemPrice'
 import ItemListing from '../itemListing'
@@ -18,6 +18,16 @@ import eBayGrey from '../../assets/images/ebay-grey.svg'
 
 export default function Item() {
 
+    const currency = useSelector(state => state.currency)
+    const currencySymbolMap = {
+        'USD' : '$',
+        'CAD' : '$',
+        'EUR' : '€',
+        'GBP' : '£',
+        'JPY' : '¥'
+    }
+    const currencySymbol = currencySymbolMap[currency]
+
     const websiteLogoMap = {
         'stockx' : StockXGrey,
         'goat' : GOATGrey,
@@ -28,7 +38,6 @@ export default function Item() {
         'ebay' : eBayGrey
     }
 
-    // const isDesktop = useMediaQuery({query: '(min-width: 768px)'})
     const isDesktop = useMediaQuery({query: '(min-width: 870px)'})
     const { sku } = useParams()
     const size = useSelector(state => state.size)
@@ -46,8 +55,10 @@ export default function Item() {
     const [noListings, setNoListings] = useState(false)
 
     useEffect(() => {
-        if (!itemPrices)
+        if (!itemPrices) {
+            setPricesLoader(false)
             setNoPrices(true)
+        }
         else if (itemPrices.length) {
             setPricesLoader(false)
             setPriceComponents(itemPrices.map((item, index) =>
@@ -55,8 +66,10 @@ export default function Item() {
             ))
         }
 
-        if (!itemListings)
-            setNoListings(true)
+        if (!itemListings) {
+            setListingsLoader(false)
+            setNoListings(true) 
+        }
         else if (itemListings.length) {
             setListingsLoader(false)
             setListingComponents(itemListings.map((item, index) =>
@@ -70,9 +83,7 @@ export default function Item() {
             <div className='item-sneaker'>
                 <div className='item-sneaker-content'>
                     {!isDesktop && <div className='item-sneaker-filters mobile'>
-                        <div className='item-sneaker-select-size'>
-                            <h4> Select size </h4>
-                        </div>
+                        <SizeFilter />
                     </div>}
 
                     <div className='item-sneaker-image'>
@@ -81,9 +92,7 @@ export default function Item() {
 
                     <div className='item-sneaker-info'>
                         {isDesktop && <div className='item-sneaker-filters'>
-                            <div className='item-sneaker-select-size'>
-                                <h4> Select size </h4>
-                            </div>
+                            <SizeFilter />
                         </div>}
 
                         <div className='item-sneaker-text'>
@@ -97,7 +106,7 @@ export default function Item() {
 
                                 <a target='_blank' href={`https://${itemPrices[0].url}`}>
                                     <div className='item-sneaker-price'>
-                                        <h2> Buy ${itemPrices[0].price} </h2>
+                                        <h2> Buy {currencySymbol}{itemPrices[0].price} </h2>
                                     </div>
                                 </a>
 
@@ -150,7 +159,10 @@ export default function Item() {
 
                         <div className='item-more-listings-rows'>
                             {listingsLoader && <ItemLoader version={'listings'} />}
-                            {noListings && console.log('no listings')}
+
+                            {noListings && <div className='item-no-results'>
+                                <p> No results found </p>
+                            </div>}
 
                             {!listingsLoader && <div className='item-more-listings-rows-content'>
                                 {listingComponents}

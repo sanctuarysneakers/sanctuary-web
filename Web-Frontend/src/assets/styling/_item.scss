@@ -216,6 +216,19 @@
                     background: white;
                     border-radius: 10px;
                     margin-top: 25px;
+
+                    .item-no-results {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 140px;
+
+                        p {
+                            font-size: 21px;
+                            font-weight: 400;
+                            color: #919BB1;
+                        }
+                    }
                 }
 
                 .item-more-listings-rows-content {
@@ -231,25 +244,13 @@
     display: flex;
     justify-content: flex-end;
     padding-top: 52px;
-
-    .item-sneaker-select-size {
-        background: #F7F9FC;
-        border-radius: 100px;
-
-        h4 {
-            font-size: 14px;
-            font-weight: 400;
-            color: #919BB1;
-            letter-spacing: -0.288px;
-            padding: 4px 16px;
-        }
-    }
 }
 
 .item-sneaker-filters.mobile {
     padding-top: 24px;
 }
 
+// Mobile responsiveness
 @media (min-width: 870px) and (max-width: 1099px) {
     .item {
         .item-sneaker {
@@ -283,7 +284,7 @@
     }
 }
 
-@media (min-width: 660px) and (max-width: 869px) {
+@media (min-width: 768px) and (max-width: 869px) {
     .item {
         .item-sneaker {
             .item-sneaker-content {
@@ -358,6 +359,100 @@
 
                     .item-more-listings-rows {
                         margin-top: 15px;
+
+                        .item-more-listings-rows-content {
+                            padding-left: 15px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 660px) and (max-width: 767px) {
+    .item {
+        .item-sneaker {
+            .item-sneaker-content {
+                flex-direction: column;
+
+                .item-sneaker-image {
+                    img {
+                        height: 375px;
+                        margin: auto;
+                        padding: 70px 0px;
+                    }
+                }
+
+                .item-sneaker-info {
+                    .item-sneaker-text {
+                        width: 100%;
+
+                        .item-sneaker-model {
+                            padding-bottom: 30px;
+                            max-width: 360px;
+                            margin: 0px auto;
+
+                            h1 {
+                                font-size: 32px;
+                                line-height: 44px;
+                            }
+                        }
+
+                        .item-sneaker-price-details {
+                            a {
+                                .item-sneaker-price {
+                                    max-width: 360px;
+                                    margin-left: auto;
+                                    margin-right: auto;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .item-price-listings {
+            padding-top: 50px;
+            padding-bottom: 100px;
+
+            .item-price-listings-content {
+                .item-lowest-prices {
+                    h6 {
+                        font-size: 21px;
+                        line-height: 32px;
+                        letter-spacing: 0px;
+                    }
+
+                    .item-lowest-prices-rows {
+                        margin-top: 15px;
+
+                        .item-lowest-prices-rows-content {
+                            padding-left: 15px;
+                        }
+                    }
+                }
+
+                .item-more-listings {
+                    padding-top: 50px;
+
+                    h6 {
+                        font-size: 21px;
+                        line-height: 32px;
+                        letter-spacing: 0px;
+                    }
+
+                    .item-more-listings-rows {
+                        margin-top: 15px;
+
+                        .item-no-results {
+                            height: 120px;
+    
+                            p {
+                                font-size: 16.5px;
+                            }
+                        }
 
                         .item-more-listings-rows-content {
                             padding-left: 15px;
@@ -444,6 +539,14 @@
 
                     .item-more-listings-rows {
                         margin-top: 15px;
+
+                        .item-no-results {
+                            height: 120px;
+    
+                            p {
+                                font-size: 16.5px;
+                            }
+                        }
 
                         .item-more-listings-rows-content {
                             padding-left: 15px;
@@ -535,6 +638,14 @@
 
                     .item-more-listings-rows {
                         margin-top: 15px;
+
+                        .item-no-results {
+                            height: 120px;
+    
+                            p {
+                                font-size: 16.5px;
+                            }
+                        }
 
                         .item-more-listings-rows-content {
                             padding-left: 15px;

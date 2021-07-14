@@ -138,7 +138,7 @@
     position: absolute;
     top: 0;
     height: 100%;
-    background: linear-gradient(to right, transparent 0%, #F3F6FA 50%, transparent 100%);
+    background: linear-gradient(90deg, hsla(218, 31%, 95%, 1) 0%, hsla(214, 41%, 97%, 1) 50%, hsla(218, 31%, 95%, 1) 100%);
     animation: load 1.2s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
 }
 

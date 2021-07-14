@@ -32,6 +32,11 @@
             text-align: center;
 
             h2 {
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+
                 font-size: 18px;
                 font-weight: 500; 
                 color: black;
@@ -48,8 +53,12 @@
 }
 
 .item-card:hover {
-    p {
-        text-decoration: underline;
+    .item-card-content {
+        .item-card-text {
+            p {
+                color: #FF6C5C;
+            }
+        }
     }
 }
 

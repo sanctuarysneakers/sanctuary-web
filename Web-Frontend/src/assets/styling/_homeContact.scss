@@ -4,7 +4,7 @@
     .home-contact-content {
         max-width: 1000px;
         margin: 0px auto;
-        padding: 166px 0px;
+        padding: 166px 20px;
 
         .home-contact-text {
             width: 577px;
@@ -42,6 +42,109 @@
                 padding: 14px 30px;
                 border-radius: 100px;
                 text-decoration: none;
+            }
+
+            .home-contact-us:hover {
+                background: #424141;
+            }
+        }
+    }
+}
+
+@media (min-width: 700px) and (max-width: 1199px) {
+    .home-contact {
+        .home-contact-content {
+            .home-contact-text {
+                h1 {
+                    font-size: 48px;
+                    line-height: 53px;
+                }
+
+                p {
+                    font-size: 19px;
+                }
+
+                .home-contact-b-text {
+                    padding-bottom: 30px;
+                }
+
+                .home-contact-us {
+                    font-size: 14px;
+                    padding: 14px 30px;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 500px) and (max-width: 699px) {
+    .home-contact {
+        .home-contact-content {
+            padding: 100px 0px;
+
+            .home-contact-text {
+                width: auto;
+
+                h1 {
+                    font-size: 36px;
+                    line-height: 44px;
+                    letter-spacing: -0.41px;
+                }
+
+                p {
+                    font-size: 18px;
+                    line-height: 30px;
+                    width: 420px;
+                    margin: 0px auto;
+                }
+
+                .home-contact-b-text {
+                    padding-bottom: 30px;
+                }
+
+                .home-contact-us {
+                    font-size: 14px;
+                    padding: 11px 24px;
+                    max-width: 88px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 499px) {
+    .home-contact {
+        .home-contact-content {
+            padding: 100px 0px;
+
+            .home-contact-text {
+                width: auto;
+
+                h1 {
+                    font-size: 45px;
+                    line-height: 53px;
+                    width: 100%;
+                    letter-spacing: -0.41px;
+                    margin-bottom: 15px;
+                }
+
+                p {
+                    font-size: 18px;
+                    line-height: 30px;
+                    width: 300px;
+                    margin: 0px auto;
+                }
+
+                .home-contact-b-text {
+                    padding-top: 10px;
+                    padding-bottom: 30px;
+                }
+
+                .home-contact-us {
+                    font-size: 14px;
+                    padding: 11px 24px;
+                    max-width: 88px;
+                }
             }
         }
     }

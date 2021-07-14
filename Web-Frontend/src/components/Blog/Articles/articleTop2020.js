@@ -3,6 +3,7 @@ import author from '../../../assets/images/ColeVanHinte.jpg'
 import pictureOne from '../../../assets/images/articleEngineering1.jpg'
 import pictureTwo from '../../../assets/images/articleEngineering2.jpg'
 import ReadNext from '../readnext.js'
+import Footer from '../../footer'
 
 export default function ArticleTop2020() {
     return (
@@ -86,6 +87,7 @@ export default function ArticleTop2020() {
                 </div>
             </div>
             <ReadNext />
+            <Footer colour={'blue'} />
         </div>
     )
 

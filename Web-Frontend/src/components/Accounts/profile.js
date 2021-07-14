@@ -5,6 +5,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { showDeleteModal, hideHomeSearch } from '../../redux/actions'
 import { FaChevronRight } from 'react-icons/fa'
 import ProfileIcon from '../../assets/images/icons/profileIcon'
+import Footer from '../footer'
 
 export default function Profile() {
 
@@ -100,6 +101,8 @@ export default function Profile() {
                 </div>
 
             </div>}
+
+            <Footer colour={'white'} />
         </div>
     )
 }

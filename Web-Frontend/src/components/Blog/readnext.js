@@ -1,13 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import TopSneakers from '../../assets/images/topSneakers.jpg'
+import SneakerBoxes from '../../assets/images/sneakerBoxes.jpg'
+import Adidas3D from '../../assets/images/adidas3d.jpg'
+import SanctuaryArticle from '../../assets/images/sanctuaryArticle.jpg'
 import ArticleImage3 from '../../assets/images/article-3-pic.svg'
 
 export default function Footer() {
 
-    const articles = {'/article-introduction' : ['Sanctuary: Our Story', 'January 31st, 2021', 'https://lh3.googleusercontent.com/l_Odt2_TM0dwECOc0_VvHMovDjaW9EIQv3b2Jve2c6gDbUARgGPWFJoYBanMdvZNKMoAGA1uMxAPGjlFv9XE7cRqR_V_g933dpq7pVwBy7yODfBkMiiCqYtIoHGHB5CezpYBymxI=w2400'],
-                      '/article-sneakersmeetengineering' : ['Sneakers, Meet Engineering', 'March 28, 2021', 'https://lh3.googleusercontent.com/Sv-WC8N7m7UanzGuALvNGMKAj7y6wUMVbTXY0MiUCFfH8oKnu0PfbAij--wHbxEy5NiUSR24NtfR7NQaD5ctycy7fJ7OFBT5pGbC2UNIdOIwAVt0R3AVObPCMlN_o4KFwFje4H6R=w2400'],
-                      '/article-demystifying' : ['Demystifying the Sneaker Market', 'March 29, 2021', 'https://lh3.googleusercontent.com/nPV2FmjI1UfU3ZyzfOzqGXCYwqAs_5QsNRDKCK9LWpOqoA_I_zPzjzIREsEByWXBFbzJLjQSTtUM1HDJirO57Z1F7zk-ukXcRkdNKJeUQuUxIBiAlx-xqHAtE9NAvkpj5MqP_nXL=w2400'],
-                      '/article-toppicks' : ['Our Top Picks of 2020', 'April 20th 2021', 'https://lh3.googleusercontent.com/avGvO0Bk7uMnfmchWMhmkJ43PDzSZis49Fvb9Z_R6LIk1N34xQicmnL8Cd3Ol6eC6263gI3KyAd3D8rnC4D2wl_AngAGppMgA2HjfsKeNR3c7lyEZOctD-NrPvOM2Jsp16jOhaKC=w2400']
+    const articles = {'/article-introduction' : ['Sanctuary: Our Story', 'January 31st, 2021', SanctuaryArticle],
+                      '/article-sneakersmeetengineering' : ['Sneakers, Meet Engineering', 'March 28, 2021', Adidas3D],
+                      '/article-demystifying' : ['Demystifying the Sneaker Market', 'March 29, 2021', SneakerBoxes],
+                      '/article-toppicks' : ['Our Top Picks of 2020', 'April 20th 2021', TopSneakers]
                     }
     const currPage = window.location.pathname;
 

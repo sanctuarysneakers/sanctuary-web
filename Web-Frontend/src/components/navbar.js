@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch,  useSelector } from 'react-redux'
 import { useMediaQuery } from 'react-responsive'
-import { showSearchModal } from '../redux/actions'
+import { showSearchModal, showHamburgerModal } from '../redux/actions'
+import ProfileIcon from '../assets/images/icons/profileIcon'
 import {ReactComponent as SanctuaryLogo} from '../assets/images/SanctuaryLogo.svg'
 import {ReactComponent as Search} from '../assets/images/Search.svg'
 import {ReactComponent as Hamburger} from '../assets/images/Hamburger.svg'
@@ -12,6 +13,7 @@ export default function Navbar() {
     const [navbar, setNavbar] = useState(false)
     
     const dispatch = useDispatch()
+    const user = useSelector(state => state.user)
     const isDesktop = useMediaQuery({ query: '(min-width: 768px)' })
 
     const setDropShadow = () => {
@@ -45,19 +47,38 @@ export default function Navbar() {
                             Newsroom
                         </Link>
 
-                        <Link onClick={() => document.location.href = '/sign-in'}>
+                        {!user && <Link onClick={() => document.location.href = '/sign-in'}>
                             Sign In
-                        </Link>
+                        </Link>}
 
-                        <Link className='create-account'
+                        {!user && <Link className='create-account'
                             onClick={() => document.location.href = '/create-account'}>
                             Create Account
-                        </Link>
+                        </Link>}
+
+                        {user && 
+                            <Link className='navbar-profile'
+                                onClick={() => {document.location.href = '/profile'}}>
+
+                                <div className='navbar-profile-content'>
+                                    {user.photoURL !== null &&
+                                        <img className='navbar-profile-picture'
+                                            src={user.photoURL}
+                                            alt="desktop-profile-picture"
+                                        />
+                                    }
+
+                                    {user.photoURL === null && <ProfileIcon />} 
+                                </div>
+                            </Link>
+                        }
                     </div>
                 </div>}
 
                 {!isDesktop && <div className='mobile-content'>
-                    <Hamburger />
+                    <div className='hamburger-icon' onClick={() => dispatch(showHamburgerModal())}>
+                        <Hamburger />
+                    </div>
 
                     <Link className='sanctuary-logo'
                         onClick={() => document.location.href = '/'}>

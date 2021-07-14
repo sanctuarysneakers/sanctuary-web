@@ -136,7 +136,7 @@
     .menu-options {
         padding-left: 20px;
     
-        .menu-options-how-it-works, .menu-options-sign-out, .menu-options-blog {
+        .menu-options-how-it-works, .menu-options-sign-out, .menu-options-blog, .menu-options-browse {
             display: flex;
             align-items: center;
             text-decoration: none;
@@ -170,6 +170,12 @@
                     color: black;
                     letter-spacing: 0.25px;
                 }
+            }
+        }
+
+        .menu-options-browse {
+            svg {
+                padding-right: 20px;
             }
         }
     }
