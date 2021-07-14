@@ -9,6 +9,7 @@
 
 .footer-content {
     max-width: 1000px;
+    min-width: 280px;
     padding: 0px 20px;
     margin: auto;
 
@@ -141,6 +142,14 @@
                 flex-direction: column;
                 padding-top: 50px;
 
+                .footer-links-site-left {
+                    .footer-link-text.second {
+                        h2 {
+                            padding-right: 0px;
+                        }
+                    }
+                }
+
                 .footer-links-site-right {
                     padding-top: 40px;
                 }
@@ -174,6 +183,14 @@
             .footer-links-site {
                 flex-direction: column;
                 padding-top: 50px;
+
+                .footer-links-site-left {
+                    .footer-link-text.second {
+                        h2 {
+                            padding-right: 0px;
+                        }
+                    }
+                }
 
                 .footer-links-site-right {
                     padding-top: 40px;

@@ -65,7 +65,7 @@ export default function Footer({ colour }) {
                                 </Link>
                             </div>
 
-                            <div className='footer-link-text'>
+                            <div className='footer-link-text second'>
                                 <h2> Discover </h2>
 
                                 <Link onClick={() => document.location.href = '/browse'}>
