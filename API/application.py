@@ -21,8 +21,7 @@ parser.add_argument('to_curr', type=str)
 class Browse(Resource):
 	def get(self):
 		args = parser.parse_args()
-		search = args['search']
-		return browse_es(search)
+		return browse_es(args['search'])
 
 
 class LowestPrice(Resource):

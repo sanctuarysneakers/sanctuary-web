@@ -50,7 +50,8 @@ def ebay_lowest_price(search, size, ship_to):
 		"itemFilter(1).name": "Condition",
 		"itemFilter(1).value": 1000,
 		"aspectFilter(0).aspectName": "US Shoe Size (Men's)",
-		"aspectFilter(0).aspectValueName": size
+		"aspectFilter(0).aspectValueName": size,
+		"paginationInput.entriesPerPage": 20
 	}
 
 	response_data = cache.get(parameters)
@@ -64,7 +65,7 @@ def ebay_lowest_price(search, size, ship_to):
 		return [{
 			"source": "ebay",
 			"price": float(products[0]['sellingStatus'][0]['currentPrice'][0]['__value__']),
-			"url": products[0]['viewItemURL'][0]
+			"url": products[0]['viewItemURL'][0].replace("https://", "")
 		}]
 	except:
 		return None
@@ -82,7 +83,8 @@ def ebay_listings(search, size, ship_to, max_items=7):
 		"itemFilter(0).name": "AvailableTo",
 		"itemFilter(0).value": ship_to,
 		"aspectFilter(0).aspectName": "US Shoe Size (Men's)",
-		"aspectFilter(0).aspectValueName": size
+		"aspectFilter(0).aspectValueName": size,
+		"paginationInput.entriesPerPage": 20
 	}
 
 	response_data = cache.get(parameters)
@@ -100,7 +102,7 @@ def ebay_listings(search, size, ship_to, max_items=7):
 				"id": int(item['itemId'][0]),
 				"price": float(item['sellingStatus'][0]['currentPrice'][0]['__value__']),
 				"image": item['galleryURL'][0],
-				"url": item['viewItemURL'][0]
+				"url": item['viewItemURL'][0].replace("https://", "")
 			})
 		return results
 	except:
