@@ -1,44 +1,42 @@
-import shoeReducer from './shoereducer'
-import stockxDataReducer from './stockxdatareducer'
-import goatDataReducer from './goatdatareducer'
-import grailedDataReducer from './graileddatareducer'
-import flightClubDataReducer from './flightclubdatareducer'
+import { combineReducers } from 'redux'
+import browseDataReducer from './browsedatareducer'
+import itemInfoReducer from './itemInfoReducer'
+import itemPricesReducer from './itemPricesReducer'
+import itemListingsReducer from './itemListingsReducer'
 import filterReducer from './filterreducer'
 import currencyReducer from './currencyreducer'
-import shoeModalVisibleReducer from './shoemodalvisiblereducer'
 import aboutModalVisibleReducer from './aboutmodalvisiblereducer'
 import searchBarCollapseReducer from './searchBarCollapseReducer'
-import shoeComparisonDataReducer from './shoecomparisondatareducer'
-import newSearchHappenedReducer from './newsearchhappenedreducer'
 import recordSplashHeightReducer from './recordsplashheightreducer'
-import { combineReducers } from 'redux'
-import uuidReducer from './uuidreducer'
 import filterModalVisibleReducer from './filtermodalvisiblereducer'
 import hamburgerModalVisibleReducer from './hamburgermodalvisiblereducer'
 import userReducer from './userreducer'
 import deleteModalVisibleReducer from './deletemodalvisiblereducer'
-import homeSearchVisibleReducer from './homesearchvisiblereducer'
+import searchBarVisibleReducer from './searchbarvisiblereducer'
+import locationReducer from './locationreducer'
+import showfilterreducer from './showfilterreducer'
+import updateSizeReducer from './updatesizereducer'
+import searchModalReducer from './searchModalReducer'
 
 const globalReducer = combineReducers({
-    shoeModalVisible: shoeModalVisibleReducer,
+    size: updateSizeReducer,
+    browseData: browseDataReducer,
     aboutModalVisible: aboutModalVisibleReducer,
     filter: filterReducer,
     currency : currencyReducer,
-    shoe: shoeReducer,
-    stockxData: stockxDataReducer,
-    goatData: goatDataReducer,
-    grailedData: grailedDataReducer,
-    flightClubData: flightClubDataReducer,
+    itemInfo: itemInfoReducer,
+    itemPrices: itemPricesReducer,
+    itemListings: itemListingsReducer,
+    searchBarVisible: searchBarVisibleReducer,
     isSearchBarCollapsed: searchBarCollapseReducer,
-    shoeComparisonData: shoeComparisonDataReducer,
-    newSearchHappened: newSearchHappenedReducer,
     splashHeight: recordSplashHeightReducer,
-    uuid: uuidReducer,
     filterModalVisible: filterModalVisibleReducer,
     hamburgerModalVisible: hamburgerModalVisibleReducer,
     user: userReducer,
     deleteModalVisible: deleteModalVisibleReducer,
-    homeSearchVisible: homeSearchVisibleReducer
+    location: locationReducer,
+    filterVisible: showfilterreducer,
+    searchModalVisible: searchModalReducer
 })
 
 export default globalReducer

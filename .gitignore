@@ -7,8 +7,10 @@ yarn.lock
 debug.log
 
 # Backend
+.env
 __pycache__
 .elasticbeanstalk
+.ipynb_checkpoints
 
 .DS_Store
 .vscode

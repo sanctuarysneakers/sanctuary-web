@@ -1,7 +1,10 @@
 .email-form {
-    padding: 0px 24px;
-    padding-bottom: 60px;
     padding-top: 26px;
+
+    .email-form-content {
+        padding: 0px 20px;
+        padding-bottom: 100px;
+    }
 
     .email-form-header {
         display: flex;
@@ -96,7 +99,9 @@
 
 @media screen and (min-width: 930px) {
     .email-form {
-        padding-bottom: 100px;
+        .email-form-content {
+            padding-bottom: 166px;
+        }
 
         .email-form-header {
             margin-top: 20px;

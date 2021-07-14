@@ -1,119 +1,118 @@
-import { useEffect } from "react"
+import { useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { stockxCall, goatCall, grailedCall, flightClubCall, shoeComparisonCall } from '../../redux/actions'
+import { browseCall, updateItemInfo, updateItemPrices, updateItemListings } from '../../redux/actions'
 import createRequestObject from './createrequest'
-import processData from './processdata'
+import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPrice, 
+    klektLowestPrice, grailedListings, ebayListings, depopListings } from './scrapers'
 
 
-export default function useAPICall(callType) {
-    /* 
-        callType is either 'catalog' or 'comparison' which indicates whether the API call
-        is being made to update the main catalog or if it is being made to update the
-        shoes for price comparison inside of a shoe modal.
-    */
+export default function useAPICall(callType, params) {
+    const history = useHistory()
+    const dispatch = useDispatch()
 
-    const dispatch = useDispatch();
-    const filter = useSelector(state => state.filter);
-    const shoe = useSelector(state => state.shoe);
-    const newSearchHappened = useSelector(state => state.newSearchHappened);
-    const currency = useSelector(state => state.currency);
+    const currency = useSelector(state => state.currency)
+    const location = useSelector(state => state.location)
+    const size = useSelector(state => state.size)
 
-    async function getCurrencyRate(currency) {
-        const url = "https://currency-exchange.p.rapidapi.com/exchange?q=1.0&from=USD&to=" + currency;
-        const response = await fetch(url, {
-            "method": "GET",
-            "headers": {
-                "x-rapidapi-key": "c799b6c79bmsh22a306cdcd27be8p1b7882jsnca195ac45bce",
-                "x-rapidapi-host": "currency-exchange.p.rapidapi.com"
-            }
-        })
-        const data = await response.json();
-        return data;
+    async function currencyConversionRate(from, to) {
+        const url = `https://sanctuaryapi.net/currencyrate?from_curr=${from}&to_curr=${to}`
+        const response = await fetch(url)
+        return await response.json()
     }
 
-    async function catalogAPICall() {
-
-        const sites = ["stockx", "goat", "grailed", "flightclub"];
-        const sliderItemLimit = 20;
-
-        const dispatchMap = {
-            'stockx': stockxCall,
-            'goat': goatCall,
-            'grailed': grailedCall,
-            'flightclub': flightClubCall
-        };
-        const currencyRate = await getCurrencyRate(currency);
-
-        for await (const site of sites) {
-            const request = createRequestObject(site, filter);
-            const response = await fetch(request.url, request.headers);
-            let rawData = await response.json();
-            let processedData = processData(rawData, site, sliderItemLimit, currency, currencyRate);
-            dispatch(dispatchMap[site](processedData));
+    async function browse(query) {
+        const request = createRequestObject('browse', {search: query})
+        try {
+            const response = await fetch(request.url, request.headers)
+            if (!response.ok) throw new Error()
+            
+            let results = await response.json()
+            dispatch(browseCall(results))
+        } catch (e) {
+            history.push(`/page-not-found`)
         }
-
     }
 
-    async function comparisonAPICall() {
+    async function getItemInfo(sku, size) {
+        const request = createRequestObject('stockx', {search: sku, size: size})
+        try {
+            const response = await fetch(request.url, request.headers)
+            if (!response.ok) throw new Error()
 
-        const siteCompareMap = {
-            'stockx': ['goat', 'flightclub', 'grailed'],
-            'goat': ['stockx', 'flightclub', 'grailed'],
-            'grailed': [],
-            'flightclub': ['stockx', 'goat', 'grailed']
-        };
-
-        const compareFilter = {
-            search: shoe.sku_id,
-            size: shoe.size.toString(),
-            price_low: '0',
-            price_high: '100000'
-        };
-
-        const compareFilterGrailed = {
-            search: shoe.model,
-            size: shoe.size.toString(),
-            price_low: '0',
-            price_high: '100000'
-        };
-
-        const itemLimit = 1; // per site
-
-        const currencyRate = await getCurrencyRate(currency);
-
-        let results = [];
-        for await (const site of siteCompareMap[shoe.source]) {
-            if (site == "grailed") {
-                const request = createRequestObject(site, compareFilterGrailed); 
-                const response = await fetch(request.url, request.headers);
-                let rawData = await response.json();
-                let processedData = processData(rawData, site, itemLimit, currency, currencyRate);
-                results.push(...processedData);   
-            } else {
-                const request = createRequestObject(site, compareFilter);
-                const response = await fetch(request.url, request.headers);
-                let rawData = await response.json();
-                let processedData = processData(rawData, site, itemLimit, currency, currencyRate);
-                results.push(...processedData);
+            let itemData = await response.json()
+            return {
+                skuId: sku.replaceAll('-', ' '),
+                modelName: itemData[0]['model'],
+                price: itemData[0]['price'],
+                image: itemData[0]['image'],
+                url: itemData[0]['url']
             }
+        } catch (e) {
+            history.push(`/page-not-found`)
         }
+    }
 
-        dispatch(shoeComparisonCall(results));
+    async function getItemPrices(item, size) {
+        let currencyRate;
+        if (currency != "USD")
+            currencyRate = await currencyConversionRate("USD", currency)
+        else currencyRate = 1
+        let klektCurrencyRate = await currencyConversionRate("EUR", currency)
+
+        let results = []
+        results.push(...await stockxLowestPrice(item, currencyRate))
+        results.push(...await goatLowestPrice(item.skuId, item.modelName, size, currencyRate))
+        results.push(...await flightclubLowestPrice(item.skuId, item.modelName, size, currencyRate))
+        results.push(...await klektLowestPrice(item.skuId, item.modelName, size, klektCurrencyRate))
+        
+        if (typeof(location["country_code2"]) != "undefined")
+            results.push(...await ebayLowestPrice(item.skuId, item.modelName, size, location["country_code2"], currencyRate))
+        else
+            results.push(...await ebayLowestPrice(item.skuId, item.modelName, size, "US", currencyRate))
+
+        results.sort((a, b) => a.price - b.price)
+        return results.length ? results : null
+    }
+
+    async function getItemListings(item, size) {
+        let currencyRate;
+        if (currency != "USD")
+            currencyRate = await currencyConversionRate("USD", currency)
+        else currencyRate = 1
+        
+        let results = []
+        results.push(...await depopListings(item.modelName, size, currencyRate))
+        results.push(...await grailedListings(item.modelName, size, currencyRate))
+        
+        if (typeof(location["country_code2"]) != "undefined")
+            results.push(...await ebayListings(item.skuId, item.modelName, size, location["country_code2"], currencyRate))
+        else
+            results.push(...await ebayListings(item.skuId, item.modelName, size, "US", currencyRate))
+
+        results.sort((a, b) => a.price - b.price)
+        return results.length ? results : null
+    }
+
+    async function getItem(sku, size) {
+        const itemInfo = await getItemInfo(sku, size)
+        dispatch(updateItemInfo(itemInfo))
+        
+        const itemPrices = await getItemPrices(itemInfo, size)
+        dispatch(updateItemPrices(itemPrices))
+
+        const itemListings = await getItemListings(itemInfo, size)
+        dispatch(updateItemListings(itemListings))
     }
 
     useEffect(() => {
-        if (callType === 'catalog')
-            catalogAPICall()
-    }, [newSearchHappened])
+        if (callType === 'browse')
+            browse(params.query)
+    }, [])
 
     useEffect(() => {
-        if (callType === 'comparison')
-            comparisonAPICall()
-    }, [shoe])
-
-    useEffect(() => {
-        if (callType === 'catalog')
-            catalogAPICall()
-    }, [currency])
+        if (callType === 'getitem')
+            getItem(params.sku, params.size)
+    }, [currency, size])
 
 }

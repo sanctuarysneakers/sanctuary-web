@@ -1,55 +1,35 @@
-export const updateShoe = shoe => {
-    return {
-        type: 'UPDATE_SHOE',
-        payload: shoe
-    }
-}
 
-// API Call Actions
+// Data Actions
 
-export const stockxCall = data => {
+export const browseCall = data => {
     return {
-        type: 'STOCKX_CALL',
+        type: 'BROWSE_CALL',
         payload: data
     }
 }
 
-export const goatCall = data => {
+export const updateItemInfo = itemInfo => {
     return {
-        type: 'GOAT_CALL',
-        payload: data
+        type: 'UPDATE_ITEM_INFO',
+        payload: itemInfo
     }
 }
 
-export const grailedCall = data => {
+export const updateItemPrices = itemPrices => {
     return {
-        type: 'GRAILED_CALL',
-        payload: data
+        type: 'UPDATE_ITEM_PRICES',
+        payload: itemPrices
     }
 }
 
-export const flightClubCall = data => {
+export const updateItemListings = itemListings => {
     return {
-        type: 'FLIGHTCLUB_CALL',
-        payload: data
-    }
-}
-
-export const shoeComparisonCall = data => {
-    return {
-        type: 'SHOE_COMPARISON_CALL',
-        payload: data
+        type: 'UPDATE_ITEM_LISTINGS',
+        payload: itemListings
     }
 }
 
 // Filter Actions
-
-export const updateSearch = search => {
-    return {
-        type: 'UPDATE_SEARCH',
-        payload: search
-    }
-}
 
 export const updateSizeFilter = size => {
     return {
@@ -87,17 +67,32 @@ export const updateCurrency = currency => {
     }
 }
 
-// Modal Actions
+// User Account Actions
 
-export const showShoeModal = () => {
+export const setUser = user => {
     return {
-        type: 'SHOW_SHOE_MODAL'
+        type: 'SET_USER',
+        payload: user
     }
 }
 
-export const hideShoeModal = () => {
+export const clearUser = () => {
     return {
-        type: 'HIDE_SHOE_MODAL'
+        type: 'CLEAR_USER'
+    }
+}
+
+// Modal Actions
+
+export const showFilter = () => {
+    return {
+        type: 'SHOW_FILTER'
+    }
+}
+
+export const hideFilter = () => {
+    return {
+        type: 'HIDE_FILTER'
     }
 }
 
@@ -149,17 +144,15 @@ export const hideDeleteModal = () => {
     }
 }
 
-// Search Bar Collapse/Expand on mobile
-
-export const collapseBar = () => {
+export const showSearchModal = () => {
     return {
-        type: 'COLLAPSE_BAR'
+        type: 'SHOW_SEARCH_MODAL'
     }
 }
 
-export const expandBar = () => {
+export const hideSearchModal = () => {
     return {
-        type: 'EXPAND_BAR'
+        type: 'HIDE_SEARCH_MODAL'
     }
 }
 
@@ -177,11 +170,17 @@ export const hideHomeSearch = () => {
     }
 }
 
-// Callback Triggers
+// Search Bar Collapse/Expand on mobile
 
-export const newSearchHappened = () => {
+export const collapseBar = () => {
     return {
-        type: 'NEW_SEARCH_HAPPENED'
+        type: 'COLLAPSE_BAR'
+    }
+}
+
+export const expandBar = () => {
+    return {
+        type: 'EXPAND_BAR'
     }
 }
 
@@ -194,30 +193,20 @@ export const recordSplashHeight = splashHeight => {
     }
 }
 
-// Account 
+// Location action
 
-export const setUuid = uuid => {
+export const updateLocation = json => {
     return {
-        type: 'SET_UUID',
-        payload: uuid
+        type: 'UPDATE_LOCATION',
+        payload: json
     }
 }
 
-export const clearUuid = () => {
-    return {
-        type: 'CLEAR_UUID'
-    }
-}
+// Update size 
 
-export const setUser = user => {
+export const updateSize = size => {
     return {
-        type: 'SET_USER',
-        payload: user
-    }
-}
-
-export const clearUser = () => {
-    return {
-        type: 'CLEAR_USER'
+        type: 'UPDATE_SIZE',
+        payload: size
     }
 }

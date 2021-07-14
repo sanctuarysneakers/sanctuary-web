@@ -1,4 +1,5 @@
-const currencyReducer = (state = 'USD', action) => {
+
+const currencyReducer = (state='USD', action) => {
     switch(action.type) {
         case 'UPDATE_CURRENCY':
             return action.payload
@@ -7,4 +8,4 @@ const currencyReducer = (state = 'USD', action) => {
     }
 }
 
-export default currencyReducer;
+export default currencyReducer

@@ -1,0 +1,339 @@
+.item-price {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 20px;
+    border-bottom: 1px solid #EEF1F6;
+
+    .item-price-source {
+        display: flex;
+
+        // Styling for all website icons
+        .item-source-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        // Styling for StockX icon
+        .item-source-logo.stockx {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #D5D1C8;
+
+            img {
+                width: 30px;
+                height: auto;
+            }
+        }
+
+        // Styling for GOAT icon
+        .item-source-logo.goat {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: black;
+
+            img {
+                width: 26px;
+                height: auto;
+            }
+        }
+
+        // Styling for Grailed icon
+        .item-source-logo.grailed {
+            img {
+                width: 60px;
+                height: auto;
+            }
+        }
+
+        // Styling for Flight Club icon
+        .item-source-logo.flightclub {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            background: white;
+            border: 1px solid #EEF1F6;
+
+            img {
+                width: 42px;
+                height: auto;
+            }
+        }
+
+        // Styling for Depop icon
+        .item-source-logo.depop {
+            background: #FF2300;
+
+            img {
+                padding-left: 11px;
+                padding-top: 12px;
+            }
+        }
+
+        // Styling for KLEKT icon
+        .item-source-logo.klekt {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            background: white;
+            border: 1px solid #EEF1F6;
+
+            img {
+                width: 52px;
+                height: auto;
+            }
+        }
+
+        // Styling for eBay icon
+        .item-source-logo.ebay {
+            display: flex;
+            justify-content: center;
+            box-sizing: border-box;
+            background: white;
+            border: 1px solid #EEF1F6;
+
+            img {
+                width: 48px;
+                height: auto;
+                padding-top: 1px;
+            }
+        }
+
+        .item-source-text {
+            height: 56px;
+            padding: 2px 15px;
+
+            h2 {
+                font-size: 21px;
+                font-weight: 500;
+                color: black;
+                line-height: 32px;
+            }
+
+            p {
+                font-size: 16px;
+                font-weight: 300;
+                color: #777F93;
+                line-height: 24px;
+            }
+        }
+    }
+
+    a {
+        height: 36px;
+        text-decoration: none;
+
+        .item-price-link {
+            display: flex;
+
+            .item-amount {
+                padding: 2px 15px;
+
+                h2 {
+                    font-size: 21px;
+                    font-weight: 400;
+                    color: black;
+                    line-height: 32px;
+                }
+            }
+
+            svg {
+                height: 16px;
+                padding-top: 9px;
+
+                path {
+                    stroke-width: 2px;
+                }
+            }
+        }
+    }
+
+    a:hover {
+        h2 {
+            text-decoration: underline;
+        }
+    }
+}
+
+.item-price.last {
+    border-bottom: none;
+}
+
+// Mobile responsiveness
+@media screen and (max-width: 767px) {
+    .item-price {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        padding-right: 15px;
+    
+        .item-price-source {
+            .item-source-logo {
+                width: 44px;
+                height: 44px;
+                border-radius: 6px;
+            }
+
+            // Styling fot StockX icon
+            .item-source-logo.stockx {
+                img {
+                    width: 22px;
+                    height: auto;
+                }
+            }
+
+            // Styling fot GOAT icon
+            .item-source-logo.goat {
+                img {
+                    width: 19px;
+                    height: auto;
+                }
+            }
+
+            // Styling for Grailed icon
+            .item-source-logo.grailed {
+                img {
+                    width: 44px;
+                    height: auto;
+                }
+            }
+
+            // Styling fot Flight Club icon
+            .item-source-logo.flightclub {
+                img {
+                    width: 30.8px;
+                    height: auto;
+                }
+            }
+
+            // Styling for Depop icon
+            .item-source-logo.depop {
+                img {
+                    width: 25.67px;
+                    padding-left: 8px;
+                    padding-top: 9px;
+                }
+            }
+
+            // Styling fot KLEKT icon
+            .item-source-logo.klekt {
+                img {
+                    width: 38.13px;
+                    height: auto;
+                }
+            }
+
+            // Styling for eBay icon
+            .item-source-logo.ebay {
+                img {
+                    width: 35.2px;
+                    height: auto;
+                    padding-top: 1px;
+                }
+            }
+    
+            .item-source-text {
+                height: auto;
+                padding: 0px 12px;
+    
+                h2 {
+                    font-size: 16.5px;
+                    line-height: 24px;
+                }
+    
+                p {
+                    font-size: 14px;
+                    line-height: 20px;
+                }
+            }
+        }
+
+        a {
+            height: 44px;
+            
+            .item-price-link {
+                .item-amount {
+                    padding: 0px 12px;
+        
+                    h2 {
+                        font-size: 16.5px;
+                        line-height: 24px;
+                    }
+                }
+        
+                svg {
+                    height: 14px;
+                    padding-top: 4px;
+        
+                    path {
+                        stroke-width: 1.5px;
+                    }
+                }
+            }
+        }
+    } 
+}
+
+
+
+
+
+
+
+
+
+// .item-price {
+//     display: flex;
+//     justify-content: space-between;
+//     height: 80px;
+//     max-width: 980px;
+//     border-bottom: 1px solid #EEF1F6;
+
+//     .item-price-source {
+//         display: flex;
+
+//         .item-source-logo {
+//             height: 60px;
+//             width: 60px;
+//             background: #D3D0C7;
+//             border-radius: 8px;
+//         }
+
+//         .item-source-text {
+//             padding-left: 20px;
+
+//             h2 {
+//                 font-size: 21px;
+//                 font-weight: 500;
+//                 color: #000000;
+//                 letter-spacing: -0.41px;
+//             }
+
+//             p {
+//                 font-size: 16px;
+//                 font-weight: 400;
+//                 color: #767678;
+//                 letter-spacing: -0.41px;
+//             }
+//         }
+//     }
+
+//     .item-price-link {
+
+//         .item-amount {
+
+//             h2 {
+//                 font-size: 20px;
+//                 font-weight: 400;
+//                 color: #000000;
+//                 letter-spacing: -0.41px;
+//             }
+//         }
+//     }
+// }

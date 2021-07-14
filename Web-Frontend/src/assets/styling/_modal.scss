@@ -1,4 +1,4 @@
-.modal-shoe, .modal-about, .modal-terms, .modal-privacy, .modal-delete {
+.modal-shoe, .modal-about, .modal-terms, .modal-privacy, .modal-delete, .modal-filter {
     position: fixed;
     top: 0;
     left: 0;
@@ -6,7 +6,7 @@
     bottom: 0;
     display: flex;
     justify-content: center;
-    z-index: 10;
+    z-index: 100;
 
     backdrop-filter: blur(25px) brightness(0.85);
     -webkit-backdrop-filter: blur(20px) brightness(0.7); 

@@ -1,0 +1,56 @@
+import React from 'react'
+import { useSelector } from 'react-redux'
+import {ReactComponent as RightArrow} from '../assets/images/RightArrow.svg'
+
+export default function ItemListing({ data, index, length }) {
+
+    const currency = useSelector(state => state.currency)
+    const currencySymbolMap = {
+        'USD' : '$',
+        'CAD' : '$',
+        'EUR' : '€',
+        'GBP' : '£',
+        'JPY' : '¥'
+    }
+    const currencySymbol = currencySymbolMap[currency]
+
+    const websiteTextMap = {
+        'stockx' : 'StockX',
+        'goat' : 'GOAT',
+        'grailed' : 'Grailed',
+        'flightclub' : 'Flight Club',
+        'depop' : 'Depop',
+        'klekt' : 'KLEKT',
+        'ebay' : 'eBay'
+    }
+    const websiteText = websiteTextMap[data.source]
+
+    return (
+        <div className={(index === length - 1) ? 'item-listing last' : 'item-listing'}>
+            <div className='item-listing-source'>
+
+                <div className='item-listing-image'>
+                    <img src={data.image} alt='sneaker image' />
+                </div>
+                
+                <div className='item-listing-text'>
+                    <h2> {websiteText} </h2>
+                    <p> Used </p>
+                </div>
+                
+            </div>
+
+            <a target='_blank' href={`https://${data.url}`}>
+                <div className='item-listing-link'>
+                    <div className='item-listing-amount'>
+                        <h2>
+                            {currencySymbol}{data.price}
+                        </h2>
+                    </div>
+
+                    <RightArrow />
+                </div>
+            </a>
+        </div>
+    )
+}

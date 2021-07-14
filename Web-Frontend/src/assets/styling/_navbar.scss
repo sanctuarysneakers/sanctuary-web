@@ -1,195 +1,335 @@
-// Good version!!!
-
-.navbar-mobile {
+.navbar {
     position: sticky;
     position: -webkit-sticky;
     top: 0px;
-    border-bottom: 1px solid #DDDDDD;
-    background: #F5F5F7;
-    z-index: 10;
-    height: 60px;
+    z-index: 99;
+    width: 100%;
+    background: white;
+    transition: 0.2s;
 
-    .navbar-mobile-content {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        height: 100%;
-        padding: 0px 24px;
+    .navbar-content {
+        max-width: 1000px;
+        margin: 0px auto;
+        padding: 0px 20px;
 
-        a {
-            display: flex;
-
-            .sanctuary-logo {
-                height: 26px;
-                animation: fade-in-out 0.6s;
-            }
-        }
-
-        .icons {
+        // Styling for desktop navbar links
+        .desktop-content {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            height: 70px;
 
-            .searchBar-collapsed, .filterIcon, .hamburgerIcon, .profileIcon, .profilePicture {
-                cursor: pointer;
-                display: flex;
-                animation: fade-in-out 0.6s;
+            .sanctuary-logo {
+                width: 120px;
+                height: 100%;
 
-                .searchIcon {
-                    height: 18px;
-                 }
-            }
-
-            .filterIcon {
-                margin: 0px 23px;
-            }
-
-            .profile-button {
-                width: 20px;
-                height: 20px;
-                border-radius: 100px;
-                overflow: hidden;
-
-                img, svg {
-                    height: 20px;
+                svg {
+                    width: 120px;
+                    height: 100%;
                 }
             }
 
-            .searchBar-expanded {
+            .navbar-links {
                 display: flex;
                 align-items: center;
-                width: calc(100vw - 119px);
-                height: 36px;
-                background: #EAEAEB;
-                border-radius: 10px;
 
-                .searchIcon {
-                    display: flex;
-                    margin: 0px 10px;
+                svg {
+                    padding-top: 2px;
+                    cursor: pointer;
+                }
 
-                    svg {
-                        color: #707070;
+                svg:hover {
+                    path {
+                        stroke: #646464;
+                    }
+
+                    rect {
+                        fill: #646464;
                     }
                 }
 
-                .mobileSearchText {
-                    width: calc(100% - 72px);
-                    font-size: 16px;
-                    font-weight: 300;
-                    font-family: 'Poppins', sans-serif;
-                    background: none;
-                    outline: none;
-                    border: none;
-                    margin-top: 1px;
+                a {
+                    font-size: 15px;
+                    font-weight: 400;
+                    color: black;
+                    letter-spacing: -0.28px;
+                    text-decoration: none;
+                    padding-left: 30px;
+                }
+
+                a:hover {
+                    color: #646464;
+                }
+
+                .create-account {
+                    font-weight: 500;
+                    color: #EC3E26;
+                }
+
+                .create-account:hover {
+                    color: #FF6C5C;
+                }
+
+                .navbar-profile {
+                    .navbar-profile-content {
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 100px;
+                        overflow: hidden;
+
+                        .navbar-profile-picture {
+                            width: 100%;
+                            height: 100%;
+                        }
+
+                        .profileIcon {
+                            svg {
+                                width: 30px;
+                                height: auto;
+                            }
+                        }
+                    }
                 }
             }
-
-            .cancelIcon-mobile {
-                font-size: 13px;
-                font-weight: 500;
-                color: #3478F6;
-                width: 47px;
-                margin-left: 24px;
-                cursor: pointer;
-            }
-        }
-    }
-}
-
-.hamburger-button, .profile-button {
-    background: none;
-    outline: none;
-}
-
-// Desktop
-
-.navbar-desktop {
-    position: sticky;
-    position: -webkit-sticky;
-    top: 0px;
-    border-bottom: 1px solid #DDDDDD;
-    background: #F5F5F7;
-    z-index: 10;
-    height: 90px;
-
-    .navbar-desktop-content {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        height: 100%;
-        padding: 0px 66px;
-
-        a {
-            display: flex;
-
-            .sanctuary-logo-desktop {
-                height: 37px;
-            }
         }
 
-        .navbar-desktop-links {
+        // Styling for mobile navbar links
+        .mobile-content {
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            height: 60px;
 
-            .searchBar-desktop {
-                background: #E6E6E9;
-                width: 350px;
-                animation: fade-in-out 0.6s;
-            }
-          
-            .currencyFilter {
-                width: 110px;
-                margin-left: 20px;
-
-                .css-yk16xz-control {
-                    background-color: #F5F5F7;
+            .hamburger-icon {
+                svg {
+                    display: block;
                 }
             }
 
-            a {
-                font-size: 14px;
-                font-weight: 500;
-                color: black;
-                letter-spacing: 0.3px;
-                text-decoration: none;
-                margin-left: 20px;
+            .sanctuary-logo {
+                width: 110px;
+                height: 100%;
+
+                svg {
+                    width: 110px;
+                    height: 100%;
+                }
+            }
+
+            svg {
                 cursor: pointer;
             }
-
-            a:hover {
-                text-decoration: underline;
-            }
-
-            .navbar-desktop-create-account {
-                font-weight: 600;
-                color: #B14B63;
-            }
-
-            .navbar-desktop-profile-container {
-                margin-left: 0px;
-            }
-
-            .navbar-desktop-profile {
-                width: 35px;
-                height: 35px;
-                border-radius: 100px;
-                overflow: hidden;
-                margin-left: 20px;
-
-                .navbar-desktop-profile-picture {
-                    height: 35px;
-                }
-
-                .profileIcon {
-                    height: 35px;
-
-                    svg {
-                        height: 35px;
-                        width: 35px;
-                    }
-                }
-            }
-            
         }
     }
 }
+
+.navbar.active {
+    box-shadow: 0px 1px 10px rgba(0,0,0,0.1);
+}
+
+
+
+
+
+
+
+
+
+
+
+// // Good version!!!
+
+// .navbar-mobile {
+//     position: sticky;
+//     position: -webkit-sticky;
+//     top: 0px;
+//     border-bottom: 1px solid #DDDDDD;
+//     background: #F5F5F7;
+//     z-index: 10;
+//     height: 60px;
+
+//     .navbar-mobile-content {
+//         display: flex;
+//         align-items: center;
+//         justify-content: space-between;
+//         height: 100%;
+//         padding: 0px 24px;
+
+//         a {
+//             display: flex;
+
+//             .sanctuary-logo {
+//                 height: 26px;
+//                 animation: fade-in-out 0.6s;
+//             }
+//         }
+
+//         .icons {
+//             display: flex;
+//             align-items: center;
+//             justify-content: space-between;
+
+//             .searchBar-collapsed, .filterIcon, .hamburgerIcon, .profileIcon, .profilePicture {
+//                 cursor: pointer;
+//                 display: flex;
+//                 animation: fade-in-out 0.6s;
+
+//                 .searchIcon {
+//                     height: 18px;
+//                  }
+//             }
+
+//             .filterIcon {
+//                 margin: 0px 23px;
+//             }
+
+//             .profile-button {
+//                 width: 20px;
+//                 height: 20px;
+//                 border-radius: 100px;
+//                 overflow: hidden;
+
+//                 img, svg {
+//                     height: 20px;
+//                 }
+//             }
+
+//             .searchBar-expanded {
+//                 display: flex;
+//                 align-items: center;
+//                 width: calc(100vw - 119px);
+//                 height: 36px;
+//                 background: #EAEAEB;
+//                 border-radius: 10px;
+
+//                 .searchIcon {
+//                     display: flex;
+//                     margin: 0px 10px;
+
+//                     svg {
+//                         color: #707070;
+//                     }
+//                 }
+
+//                 .mobileSearchText {
+//                     width: calc(100% - 72px);
+//                     font-size: 16px;
+//                     font-weight: 300;
+//                     font-family: 'Poppins', sans-serif;
+//                     background: none;
+//                     outline: none;
+//                     border: none;
+//                     margin-top: 1px;
+//                 }
+//             }
+
+//             .cancelIcon-mobile {
+//                 font-size: 13px;
+//                 font-weight: 500;
+//                 color: #3478F6;
+//                 width: 47px;
+//                 margin-left: 24px;
+//                 cursor: pointer;
+//             }
+//         }
+//     }
+// }
+
+// .hamburger-button, .profile-button {
+//     background: none;
+//     outline: none;
+// }
+
+// // Desktop
+
+// .navbar-desktop {
+//     position: sticky;
+//     position: -webkit-sticky;
+//     top: 0px;
+//     border-bottom: 1px solid #DDDDDD;
+//     background: #FFFFFF;
+//     z-index: 10;
+//     height: 70px;
+
+//     .navbar-desktop-content {
+//         display: flex;
+//         align-items: center;
+//         justify-content: space-between;
+//         height: 100%;
+
+//         a {
+//             display: flex;
+
+//             .sanctuary-logo-desktop {
+//                 height: 27px;
+//                 padding-left: 220px;
+//             }
+//         }
+
+//         .navbar-desktop-links {
+//             display: flex;
+//             align-items: center;
+//             padding-right: 220px;
+
+//             .searchBar-desktop {
+//                 background: #E6E6E9;
+//                 width: 450px;
+//                 animation: fade-in-out 0.6s;
+//             }
+          
+//             .currencyFilter {
+//                 width: 110px;
+//                 margin-left: 20px;
+
+//                 .css-yk16xz-control {
+//                     background-color: #F5F5F7;
+//                 }
+//             }
+
+//             a {
+//                 font-size: 14px;
+//                 font-weight: 500;
+//                 color: black;
+//                 letter-spacing: 0.3px;
+//                 text-decoration: none;
+//                 margin-left: 20px;
+//                 cursor: pointer;
+//             }
+
+//             a:hover {
+//                 text-decoration: underline;
+//             }
+
+//             .navbar-desktop-create-account {
+//                 font-weight: 600;
+//                 color: #B14B63;
+//             }
+
+//             .navbar-desktop-profile-container {
+//                 margin-left: 0px;
+//             }
+
+//             .navbar-desktop-profile {
+//                 width: 35px;
+//                 height: 35px;
+//                 border-radius: 100px;
+//                 overflow: hidden;
+//                 margin-left: 20px;
+
+//                 .navbar-desktop-profile-picture {
+//                     height: 35px;
+//                 }
+
+//                 .profileIcon {
+//                     height: 35px;
+
+//                     svg {
+//                         height: 35px;
+//                         width: 35px;
+//                     }
+//                 }
+//             }
+            
+//         }
+//     }
+// }

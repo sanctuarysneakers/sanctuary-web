@@ -3,12 +3,9 @@
 @import "./splash";
 @import "./catalog";
 @import "./searchbar";
-@import "./sneaker";
 @import "./footer";
 @import "./filterbar";
 @import "./aboutmodal";
-@import "./shoemodal";
-@import "./slider";
 @import "./modal";
 @import "./pagenotfound";
 @import "./termsofuse";
@@ -25,6 +22,20 @@
 @import "./blogarticle";
 @import "./loader";
 @import "./readnext";
+@import "./homeSplash";
+@import "./homeTrending";
+@import "./homeNewsroom";
+@import "./homeAccount";
+@import "./homeContact";
+@import "./browse";
+@import "./item";
+@import "./itemPrice";
+@import "./itemListing";
+@import "./searchModal";
+@import "./itemLoader";
+@import "./itemCard";
+@import "./sizeFilter";
+@import "./currencyFilter";
 
 @import "swiper/swiper";
 @import 'swiper/components/navigation/navigation';
@@ -33,10 +44,11 @@ body {
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     color: $text-color;
-    background: #F5F5F7;
+    background: #FFFFFF;
     margin: 0;
 
-    width: 100vw;
+    // width: 100vw;
+    width: auto;
     height: 100%;
     overflow-x: hidden;
 }

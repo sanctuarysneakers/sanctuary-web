@@ -1,0 +1,295 @@
+.item-loader {
+
+    // Styling for prices/listings rows
+    .item-loader-content {
+        padding-left: 20px;
+    
+        .item-loader-row {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 20px;
+            border-bottom: 1px solid #EEF1F6;
+
+            .item-loader-source {
+                display: flex;
+
+                .item-loader-logo.prices {
+                    width: 60px;
+                    height: 60px;
+                    background: #EEF1F6;
+                    border-radius: 8px;
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .item-loader-logo.listings {
+                    width: 100px;
+                    height: 100px;
+                    background: #EEF1F6;
+                    border-radius: 8px;
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .item-loader-text {
+                    padding-left: 15px;
+
+                    .item-loader-price {
+                        width: 120px;
+                        height: 16px;
+                        background: #EEF1F6;
+                        border-radius: 4px;
+                        margin-top: 9px;
+                        position: relative;
+                        overflow: hidden;
+                    }
+
+                    .item-loader-condition {
+                        width: 60px;
+                        height: 11px;
+                        background: #EEF1F6;
+                        border-radius: 3px;
+                        margin-top: 16px;
+                        position: relative;
+                        overflow: hidden;
+                    }
+                }
+            }
+
+            .item-loader-link {
+                .item-loader-amount {
+                    width: 110px;
+                    height: 16px;
+                    background: #EEF1F6;
+                    border-radius: 4px;
+                    margin-top: 9px;
+                    position: relative;
+                    overflow: hidden;
+                }
+            }
+        }
+
+        .item-loader-row.last {
+            border-bottom: none;
+        }
+    }
+
+    // Styling for sneaker info
+    .item-info-loader-content {
+        .item-info-loader-price {
+            max-width: 360px;
+            min-width: 280px;
+            height: 45px;
+            border-radius: 10px;
+            background: #EEF1F6;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 43px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .item-info-loader-details {
+            padding-bottom: 70px;
+            position: relative;
+            overflow: hidden;
+
+            .item-info-loader-data-top {
+                width: 265px;
+                height: 17px;
+                border-radius: 5px;
+                background: #EEF1F6;
+                margin: 0px auto;
+                margin-bottom: 11px;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .item-info-loader-data-bottom {
+                width: 265px;
+                height: 25px;
+                border-radius: 5px;
+                background: #EEF1F6;
+                margin: 0px auto;
+                position: relative;
+                overflow: hidden;
+            }
+        }
+    }
+}
+
+// Loading Animation
+@keyframes load {
+    from {
+        left: -150px;
+    }
+    to   {
+        left: 100%;
+    }
+}
+
+.item-loader-logo.prices::before, .item-loader-logo.listings::before, .item-loader-price::before,
+.item-loader-condition::before, .item-loader-amount::before, .item-info-loader-price::before,
+.item-info-loader-data-top::before, .item-info-loader-data-bottom::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background: linear-gradient(90deg, hsla(218, 31%, 95%, 1) 0%, hsla(214, 41%, 97%, 1) 50%, hsla(218, 31%, 95%, 1) 100%);
+    animation: load 1.2s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+}
+
+.item-loader-logo.prices::before {
+    left: -60px;
+    width: 60px;
+}
+
+.item-loader-logo.listings::before {
+    left: -100px;
+    width: 100px;
+}
+
+.item-loader-price::before {
+    left: -120px;
+    width: 120px;
+}
+
+.item-loader-condition::before {
+    left: -60px;
+    width: 60px;
+}
+
+.item-loader-amount::before {
+    left: -110px;
+    width: 110px;
+}
+
+.item-info-loader-price::before {
+    left: -335px;
+    width: 335px;
+}
+
+.item-info-loader-data-top::before, .item-info-loader-data-bottom::before {
+    left: -265px;
+    width: 265px;
+}
+
+// Mobile responsiveness 
+@media (min-width: 500px) and (max-width: 767px) {
+    .item-loader {
+        .item-loader-content {
+            padding-left: 15px;
+
+            .item-loader-row {
+                padding-top: 15px;
+                padding-bottom: 15px;
+                padding-right: 15px;
+
+                .item-loader-source {
+                    .item-loader-logo.prices {
+                        width: 44px;
+                        height: 44px;
+                        border-radius: 6px;
+                    }
+
+                    .item-loader-logo.listings {
+                        width: 90px;
+                        height: 90px;
+                        border-radius: 6px;
+                    }
+
+                    .item-loader-text {
+                        padding-left: 12px;
+
+                        .item-loader-price {
+                            width: 80px;
+                            height: 12px;
+                            border-radius: 3px;
+                            margin-top: 6px;
+                        }
+
+                        .item-loader-condition {
+                            width: 40px;
+                            height: 10px;
+                            border-radius: 3px;
+                            margin-top: 11px;
+                        }
+                    }
+                }
+
+                .item-loader-link {
+                    .item-loader-amount {
+                        width: 60px;
+                        height: 12px;
+                        border-radius: 3px;
+                        margin-top: 6px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 499px) {
+    .item-loader {
+        .item-loader-content {
+            padding-left: 15px;
+
+            .item-loader-row {
+                padding-top: 15px;
+                padding-bottom: 15px;
+                padding-right: 15px;
+
+                .item-loader-source {
+                    .item-loader-logo.prices {
+                        width: 44px;
+                        height: 44px;
+                        border-radius: 6px;
+                    }
+
+                    .item-loader-logo.listings {
+                        width: 90px;
+                        height: 90px;
+                        border-radius: 6px;
+                    }
+
+                    .item-loader-text {
+                        padding-left: 12px;
+
+                        .item-loader-price {
+                            width: 80px;
+                            height: 12px;
+                            border-radius: 3px;
+                            margin-top: 6px;
+                        }
+
+                        .item-loader-condition {
+                            width: 40px;
+                            height: 10px;
+                            border-radius: 3px;
+                            margin-top: 11px;
+                        }
+                    }
+                }
+
+                .item-loader-link {
+                    .item-loader-amount {
+                        width: 60px;
+                        height: 12px;
+                        border-radius: 3px;
+                        margin-top: 6px;
+                    }
+                }
+            }
+        }
+
+        .item-info-loader-content {
+            .item-info-loader-details {
+                padding-bottom: 43px;
+            }
+        }
+    }
+}

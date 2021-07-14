@@ -1,179 +1,76 @@
 from flask import Flask, request
 from flask_restful import Resource, Api, reqparse
 from flask_cors import CORS
-import mysql.connector
-from mysql.connector import ProgrammingError
 import requests
-from datetime import datetime
-from scrapers import *
-
+from browse import browse_es
+from data_pull import *
 
 application = Flask(__name__)
 cors = CORS(application, resources={r"*": {"origins": "*"}})
 api = Api(application)
 
-
-def connect_to_db():
-	host = "mysql-db-master.cmamugrum56i.us-west-2.rds.amazonaws.com"
-	user = "admin"
-	passwd = "4tDqfnvbQ8R8RGuh"
-	db_name = "sneakers"
-	try:
-		connection = mysql.connector.connect(host=host, user=user, passwd=passwd, database=db_name)
-		cursor = connection.cursor(dictionary=True) # Returns data in a dictonary
-		cursor.execute("USE sneakers;")
-		return connection, cursor
-	except ProgrammingError:
-		print("couldn't connect to database")
-
-# Set up connection to database and initialize cursor
-conn, c = connect_to_db()
-
-
-# Execute a query on the database
-def execute_query(query):
-	global conn, c
-
-	# re-connect to database if timed out
-	try:
-		c.execute(query)
-	except:
-		conn, c = connect_to_db()
-		c.execute(query)
-	conn.commit()
-
-# Processes return data
-def process_data(data, currency):
-	# Change price currency if not USD
-	if currency == 'USD':
-		return data
-	rate = currency_rate(currency)
-	for item in data:
-		item["price"] = round(rate * item["price"])
-	return data
-
-# Gets conversion rate of a currency from USD
-def currency_rate(currency):
-	req = requests.get(f'https://api.exchangeratesapi.io/latest?symbols={currency}&base=USD')
-	rates = req.json()['rates']
-	return rates[currency]
-
-# Get request information and store in the ip_log table
-def log_request(search_query):
-	request_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-	request_ip = request.environ['HTTP_X_FORWARDED_FOR']
-	request_id = abs(hash(request_date+' '+request_ip)) % (10**8)
-	
-	query = f"INSERT IGNORE INTO ip_log (id, date, ip, search_query) VALUES ({request_id}, '{request_date}', '{request_ip}', '{search_query}');"
-	execute_query(query)
-
-
-# Add request parameters to the parser
 parser = reqparse.RequestParser()
-parser.add_argument('source', type=str, default='stockx')
+parser.add_argument('source', type=str)
 parser.add_argument('search', type=str, default='')
 parser.add_argument('size', type=str, default='10')
-parser.add_argument('price_low', type=int, default=0)
-parser.add_argument('price_high', type=int, default=100000)
-parser.add_argument('page', type=int, default=0)
-parser.add_argument('currency', type=str, default='USD')
-parser.add_argument('email', type=str)
-parser.add_argument('sku', type=str)
-parser.add_argument('model', type=str)
+parser.add_argument('ship_to', type=str, default='US')
+parser.add_argument('from_curr', type=str, default='USD')
+parser.add_argument('to_curr', type=str)
 
 
-# Main search resource for returning data
-class Search(Resource):
+class Browse(Resource):
 	def get(self):
-		# Get request parameters
 		args = parser.parse_args()
-		source = args['source'].lower()
+		return browse_es(args['search'])
+
+
+class LowestPrice(Resource):
+	def get(self):
+		args = parser.parse_args()
+		source = args['source']
 		search = args['search']
 		size = args['size']
-		price_low = args['price_low']
-		price_high = args['price_high']
-		currency = args['currency']
+		ship_to = args['ship_to']
 
-		# Page number and element limit
-		page = args['page']
-		limit = 20
-
-		try:
-			log_request(search)
-		except KeyError:
-			pass
-
-		if source == "grailed":
-			sort = "trending"
-			data = get_grailed_data(search, size, price_low, price_high, sort, page, limit)
-			return process_data(data, currency)
-		elif source == "stockx":
-			data = get_stockx_data(search, size, price_low, price_high, page+1, limit)
-			return process_data(data, currency)
-		elif source == "goat":
-			data = get_goat_data(search, size, price_low, price_high, page, limit)
-			return process_data(data, currency)
-		elif source == "flightclub":
-			data = get_flightclub_data(search, size, price_low, price_high, page, limit)
-			return process_data(data, currency)
-		else:
-			return {"Error": "Enter a correct source name"}
+		if source == 'stockx':
+			return stockx_lowest_price(search, size)
+		elif source == 'ebay':
+			return ebay_lowest_price(search, size, ship_to)
 
 
-# Comparison feature resource
-class Compare(Resource):
+class ItemListings(Resource):
 	def get(self):
-		# Get request parameters
 		args = parser.parse_args()
-		source = args['source'].lower()
-		sku = args['sku']
-		model = args['model']
+		source = args['source']
+		search = args['search']
 		size = args['size']
-		price_low = args['price_low']
-		price_high = args['price_high']
-		currency = args['currency']
+		ship_to = args['ship_to']
 
-		# Page number and element limit
-		page = 0
-		limit = 1
-
-		if source == "stockx":
-			data = []
-			data.extend(get_goat_data(sku, size, price_low, price_high, page, limit))
-			data.extend(get_flightclub_data(sku, size, price_low, price_high, page, limit))
-			return process_data(data, currency)
-		elif source == "goat":
-			data = []
-			data.extend(get_stockx_data(sku, size, price_low, price_high, page+1, limit))
-			data.extend(get_flightclub_data(sku, size, price_low, price_high, page, limit))
-			return process_data(data, currency)
-		elif source == "flightclub":
-			data = []
-			data.extend(get_goat_data(sku, size, price_low, price_high, page, limit))
-			data.extend(get_stockx_data(sku, size, price_low, price_high, page+1, limit))
-			return process_data(data, currency)
-		else:
-			return {"Error": "Enter a correct source name"}
-
-		# TODO: Grailed
+		if source == 'ebay':
+			return ebay_listings(search, size, ship_to)
+		elif source == 'depop':
+			return depop_listings(search, size)
 
 
-# Email list resource
-class Emails(Resource):
+class CurrencyRate(Resource):
 	def get(self):
-		# Get email request parameter and create SQL query
 		args = parser.parse_args()
-		email = args['email']
-		query = f"INSERT IGNORE INTO email_list (email) VALUES ('{email}');"
-		execute_query(query)
+		return exchange_rate(args['from_curr'], args['to_curr'])
 
 
-# Add resources to the API and set endpoints
-api.add_resource(Search, '/')
-api.add_resource(Compare, '/compare')
-api.add_resource(Emails, '/emails')
+class Location(Resource):
+	def get(self):
+		ip = request.environ['HTTP_X_FORWARDED_FOR']
+		response = requests.get(f"https://json.geoiplookup.io/{ip}")
+		return response.json()
 
+
+api.add_resource(Browse, '/browse')
+api.add_resource(LowestPrice, '/lowestprice')
+api.add_resource(ItemListings, '/itemlistings')
+api.add_resource(CurrencyRate, '/currencyrate')
+api.add_resource(Location, '/location')
 
 if __name__ == '__main__':
-	#application.run(debug=True)        # For debugging
-	application.run(host='0.0.0.0')    # For production
+	# application.run(debug=True)  # dev
+	application.run(host='0.0.0.0')  # prod
