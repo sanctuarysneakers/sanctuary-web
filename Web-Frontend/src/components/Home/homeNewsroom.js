@@ -16,12 +16,12 @@ export default function HomeNewsroom() {
     const settings = {
         className: "slider variable-width",
         dots: true,
-        autoplay: true,
+        // autoplay: true,
         infinite: true,
         centerMode: true,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplaySpeed: 2500,
+        autoplaySpeed: 6000,
         pauseOnHover: false,
         variableWidth: true
     }

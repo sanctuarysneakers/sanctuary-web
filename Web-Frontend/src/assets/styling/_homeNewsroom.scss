@@ -226,7 +226,7 @@
     .home-newsroom {
         .home-newsroom-content {
             .home-newsroom-text {
-                max-width: 655px;
+                max-width: 630px;
 
                 h1 {
                     font-size: 48px;
@@ -324,18 +324,18 @@
                 padding-top: 50px;
 
                 .home-newsroom-a1, .home-newsroom-a2, .home-newsroom-a3, .home-newsroom-a4 {
-                    height: 450px;
+                    height: 500px;
                     margin: 5px;
                     border-radius: 12px;
 
                     .home-newsroom-article-gradient {
-                        height: 250px;
+                        height: 350px;
 
                         .home-newsroom-article-content {
-                            padding: 25px;
+                            padding: 30px;
 
                             p {
-                                font-size: 11px;
+                                font-size: 12px;
                                 font-weight: 400;
                                 color: white;
                             }
@@ -351,7 +351,7 @@
                     }
 
                     .home-newsroom-article-gradient.sanctuary {
-                        height: 100px;
+                        height: 200px;
                     }
                 }
             }
@@ -363,7 +363,7 @@
     }
 
     .slick-track, .slick-list {
-        height: 467px !important;
+        height: 520px !important;
     }
 }
 
@@ -440,7 +440,7 @@
     }
 
     .slick-track, .slick-list {
-        height: 467px !important;
+        height: 470px !important;
     }
 }
 
