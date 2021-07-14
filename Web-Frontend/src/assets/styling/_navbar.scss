@@ -1,7 +1,7 @@
 .navbar {
     position: sticky;
+    position: -webkit-sticky;
     top: 0px;
-    left: 0;
     z-index: 99;
     width: 100%;
     background: white;

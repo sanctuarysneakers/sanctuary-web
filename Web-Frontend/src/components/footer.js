@@ -119,7 +119,7 @@ export default function Footer({ colour }) {
                     <div className='footer-legal-currency-content'>
                         <p> 2021 Sanctuary Streetwear Marketplace Inc. </p>
 
-                        <CurrencyFilter />
+                        {/* <CurrencyFilter /> */}
                     </div>
                 </div>
             </div>

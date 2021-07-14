@@ -82,9 +82,9 @@ export default function Item() {
         <div className='item'>
             <div className='item-sneaker'>
                 <div className='item-sneaker-content'>
-                    {!isDesktop && <div className='item-sneaker-filters mobile'>
+                    {/* {!isDesktop && <div className='item-sneaker-filters mobile'>
                         <SizeFilter />
-                    </div>}
+                    </div>} */}
 
                     <div className='item-sneaker-image'>
                         <img src={itemInfo.image} alt='sneaker image' />
