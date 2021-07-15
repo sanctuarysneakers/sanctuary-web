@@ -30,7 +30,7 @@ export default function ItemListing({ data, index, length }) {
             <div className='item-listing-source'>
 
                 <div className='item-listing-image'>
-                    <img src={data.image} alt='sneaker image' />
+                    <img src={data.image} alt='the sneaker' />
                 </div>
                 
                 <div className='item-listing-text'>
@@ -40,7 +40,7 @@ export default function ItemListing({ data, index, length }) {
                 
             </div>
 
-            <a target='_blank' href={`https://${data.url}`}>
+            <a target='_blank' href={`https://${data.url}`}  rel="noopener noreferrer">
                 <div className='item-listing-link'>
                     <div className='item-listing-amount'>
                         <h2>

@@ -21,7 +21,7 @@ export default function HomeTrending() {
         if (isVisible) {
             setRender(true)
         }
-    })
+    }, [isVisible])
 
     return (
         <div className='home-trending'>

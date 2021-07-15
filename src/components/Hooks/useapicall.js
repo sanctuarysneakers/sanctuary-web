@@ -55,7 +55,7 @@ export default function useAPICall(callType, params) {
 
     async function getItemPrices(item, size) {
         let currencyRate;
-        if (currency != "USD")
+        if (currency !== "USD")
             currencyRate = await currencyConversionRate("USD", currency)
         else currencyRate = 1
         let klektCurrencyRate = await currencyConversionRate("EUR", currency)
@@ -66,7 +66,7 @@ export default function useAPICall(callType, params) {
         results.push(...await flightclubLowestPrice(item.skuId, item.modelName, size, currencyRate))
         results.push(...await klektLowestPrice(item.skuId, item.modelName, size, klektCurrencyRate))
         
-        if (typeof(location["country_code2"]) != "undefined")
+        if (typeof(location["country_code2"]) !== "undefined")
             results.push(...await ebayLowestPrice(item.skuId, item.modelName, size, location["country_code2"], currencyRate))
         else
             results.push(...await ebayLowestPrice(item.skuId, item.modelName, size, "US", currencyRate))
@@ -77,7 +77,7 @@ export default function useAPICall(callType, params) {
 
     async function getItemListings(item, size) {
         let currencyRate;
-        if (currency != "USD")
+        if (currency !== "USD")
             currencyRate = await currencyConversionRate("USD", currency)
         else currencyRate = 1
         
@@ -85,7 +85,7 @@ export default function useAPICall(callType, params) {
         results.push(...await depopListings(item.modelName, size, currencyRate))
         results.push(...await grailedListings(item.modelName, size, currencyRate))
         
-        if (typeof(location["country_code2"]) != "undefined")
+        if (typeof(location["country_code2"]) !== "undefined")
             results.push(...await ebayListings(item.skuId, item.modelName, size, location["country_code2"], currencyRate))
         else
             results.push(...await ebayListings(item.skuId, item.modelName, size, "US", currencyRate))
@@ -108,11 +108,13 @@ export default function useAPICall(callType, params) {
     useEffect(() => {
         if (callType === 'browse')
             browse(params.query)
-    }, [])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [callType, params.query])
 
     useEffect(() => {
         if (callType === 'getitem')
             getItem(params.sku, params.size)
-    }, [currency, size])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currency, size, callType, params.size, params.sku])
 
 }

@@ -87,7 +87,7 @@ export default function Item() {
                     </div>}
 
                     <div className='item-sneaker-image'>
-                        <img src={itemInfo.image} alt='sneaker image' />
+                        <img src={itemInfo.image} alt='sneaker' />
                     </div>
 
                     <div className='item-sneaker-info'>
@@ -104,7 +104,7 @@ export default function Item() {
 
                             {!pricesLoader && <div className='item-sneaker-price-details'>
 
-                                <a target='_blank' href={`https://${itemPrices[0].url}`}>
+                                <a target='_blank' href={`https://${itemPrices[0].url}`} rel="noopener noreferrer">
                                     <div className='item-sneaker-price'>
                                         <h2> Buy {currencySymbol}{itemPrices[0].price} </h2>
                                     </div>

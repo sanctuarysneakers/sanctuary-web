@@ -64,7 +64,7 @@ export default function Navbar() {
                                     {user.photoURL !== null &&
                                         <img className='navbar-profile-picture'
                                             src={user.photoURL}
-                                            alt="desktop-profile-picture"
+                                            alt="desktop-profile"
                                         />
                                     }
 

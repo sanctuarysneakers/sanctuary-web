@@ -18,7 +18,7 @@ export default function ArticleDemystifying() {
                                     Demystifying the Sneaker Market
                                 </h1>
                                 <div className='article-author'>
-                                    <img src={author} />
+                                    <img src={author} alt='Cole Van Hinte'/>
                                     <div className='author-date'>
                                         <h5>
                                             Cole Van Hinte

@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setUser, updateLocation } from './redux/actions'
 
 import Navbar from "./components/navbar"
-import Footer from "./components/footer"
 import Home from "./components/Home/home"
 import Browse from "./components/Pages/browse"
 import Item from "./components/Pages/item"
@@ -73,8 +72,10 @@ export default function App() {
     if ("geolocation" in navigator) {
         var ipgeolocationApi = new IPGeolocationAPI("1f95fae0512f4f3883d008c37c5c9c75")
         ipgeolocationApi.getGeolocation(handleGeolocationResponse)
+        
     }
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [IPGeolocationAPI])
 
   if (loader) {
     return (

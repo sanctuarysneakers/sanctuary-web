@@ -58,7 +58,7 @@ export default function ItemPrice({ data, index, length }) {
                 </div>
             </div>
 
-            <a target='_blank' href={`https://${data.url}`}>
+            <a target='_blank' href={`https://${data.url}`} rel="noopener noreferrer">
                 <div className='item-price-link'>
                     <div className='item-amount'>
                         <h2> {currencySymbol}{data.price} </h2>

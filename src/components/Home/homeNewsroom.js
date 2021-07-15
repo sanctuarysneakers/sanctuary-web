@@ -30,7 +30,7 @@ export default function HomeNewsroom() {
         if (isVisible) {
             setRender(true)
         }
-    })
+    }, [isVisible])
 
     return (
         <div className='home-newsroom'>

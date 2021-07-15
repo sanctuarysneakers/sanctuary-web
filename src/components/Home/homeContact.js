@@ -13,7 +13,7 @@ export default function HomeContact() {
         if (isVisible) {
             setRender(true)
         }
-    })
+    }, [isVisible])
 
     return (
         <div className='home-contact'>

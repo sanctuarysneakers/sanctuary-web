@@ -57,7 +57,7 @@ export default function HamburgerModal() {
                         {user && <div className='profile-area'>
 
                             {user.photoURL !== null &&
-                                <img className='profilePicture' src={user.photoURL} alt='profile-picture' />
+                                <img className='profilePicture' src={user.photoURL} alt='profile' />
                             }
 
                             {user.photoURL === null && <ProfileIcon />}

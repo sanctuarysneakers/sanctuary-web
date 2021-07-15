@@ -4,7 +4,6 @@ import TopSneakers from '../../assets/images/topSneakers.jpg'
 import SneakerBoxes from '../../assets/images/sneakerBoxes.jpg'
 import Adidas3D from '../../assets/images/adidas3d.jpg'
 import SanctuaryArticle from '../../assets/images/sanctuaryArticle.jpg'
-import ArticleImage3 from '../../assets/images/article-3-pic.svg'
 
 export default function Footer() {
 

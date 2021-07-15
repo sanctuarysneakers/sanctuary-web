@@ -1,5 +1,4 @@
 import React from 'react'
-import { Helmet } from 'react-helmet'
 import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router'
 import { showHomeSeach } from '../../redux/actions'

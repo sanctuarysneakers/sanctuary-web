@@ -86,7 +86,7 @@ export default function createRequestObject(type, filter) {
 							"indexName": "Listing_production",
 							"params": new URLSearchParams({
 								"query": filter.search,
-								"facetFilters": `[[\"category_size:footwear.${filter.size}\"]]`,
+								"facetFilters": `[["category_size:footwear.${filter.size}"]]`,
 							}).toString()
 						}]
 					})
@@ -149,6 +149,15 @@ export default function createRequestObject(type, filter) {
 							}
 						}`
 					})
+				}
+			}
+		default: 
+			return {
+				url: 'https://sanctuaryapi.net/browse?' + new URLSearchParams({
+					"search": filter.search
+				}),
+				headers: {
+					method: 'GET'
 				}
 			}
 	}

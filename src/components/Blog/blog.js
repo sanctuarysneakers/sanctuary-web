@@ -29,7 +29,7 @@ export default function Newsroom() {
 
                 <div className='newsroom-header-content'>
                     <div className='newsroom-logo'>
-                        <img src={SanctuaryLogo} />
+                        <img src={SanctuaryLogo} alt='Sanctuary logo'/>
                         <h1> Newsroom </h1>
                     </div>
                     <p> Your source for the latest Sanctuary news, sneaker drops, and upcoming raffles. </p>
