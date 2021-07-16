@@ -153,9 +153,7 @@ export default function createRequestObject(type, filter) {
 			}
 		default: 
 			return {
-				url: 'https://sanctuaryapi.net/browse?' + new URLSearchParams({
-					"search": filter.search
-				}),
+				url: 'https://sanctuaryapi.net/browse',
 				headers: {
 					method: 'GET'
 				}

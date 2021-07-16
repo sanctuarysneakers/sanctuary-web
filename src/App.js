@@ -33,7 +33,6 @@ import ArticleDemystifying from "./components/Blog/Articles/articleDemystifying"
 import ArticleTop2020 from "./components/Blog/Articles/articleTop2020"
 
 import firebase from './services/firebase'
-import ScrollToTop from './components/Hooks/scrolltotop'
 import Loader from './components/loader'
 
 
@@ -82,7 +81,6 @@ export default function App() {
   } else {
     return (
       <React.Fragment>
-        <ScrollToTop />
         <Navbar />
         <Switch>
           <Route exact path="/" component={Home} />
