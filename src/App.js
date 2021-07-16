@@ -61,21 +61,19 @@ export default function App() {
     })
   })
 
-  var IPGeolocationAPI = require('ip-geolocation-api-javascript-sdk')
+  // var IPGeolocationAPI = require('ip-geolocation-api-javascript-sdk')
   
-  async function handleGeolocationResponse(json) {
-      await new Promise(r => setTimeout(r, 1000)) // wait 1 second before updating
-      dispatch(updateLocation(json))
-  }
+  // async function handleGeolocationResponse(json) {
+  //     await new Promise(r => setTimeout(r, 1000)) // wait 1 second before updating
+  //     dispatch(updateLocation(json))
+  // }
   
-  useEffect(() => {
-    if ("geolocation" in navigator) {
-        var ipgeolocationApi = new IPGeolocationAPI("1f95fae0512f4f3883d008c37c5c9c75")
-        ipgeolocationApi.getGeolocation(handleGeolocationResponse)
-        
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [IPGeolocationAPI])
+  // useEffect(() => {
+  //   if ("geolocation" in navigator) {
+  //       var ipgeolocationApi = new IPGeolocationAPI("1f95fae0512f4f3883d008c37c5c9c75")
+  //       ipgeolocationApi.getGeolocation(handleGeolocationResponse)
+  //   }
+  // }, [IPGeolocationAPI])
 
   if (loader) {
     return (
