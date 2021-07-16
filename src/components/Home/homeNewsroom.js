@@ -2,18 +2,14 @@ import React, { useRef, useState, useEffect } from 'react'
 import FadeIn from 'react-fade-in'
 import Slider from 'react-slick'
 import VisibleOnScreen from '../Hooks/visibleOnScreen'
-
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
 
 export default function HomeNewsroom() {
 
     const [render, setRender] = useState(false)
 
-    const ref = useRef()
-    const isVisible = VisibleOnScreen(ref)
-
-    const settings = {
+    const sliderSettings = {
         className: "slider variable-width",
         dots: true,
         autoplay: true,
@@ -26,10 +22,12 @@ export default function HomeNewsroom() {
         variableWidth: true
     }
 
+    const ref = useRef()
+    const isVisible = VisibleOnScreen(ref)
+
     useEffect(() => {
-        if (isVisible) {
+        if (isVisible)
             setRender(true)
-        }
     }, [isVisible])
 
     return (
@@ -51,7 +49,7 @@ export default function HomeNewsroom() {
                 </div>
 
                 <div className='home-newsroom-articles'>
-                    <Slider {...settings}>
+                    <Slider {...sliderSettings}>
                         <div style={{ width: 1020 }}>
                             <div className='home-newsroom-a1'
                                 onClick={() => document.location.href = '/article-sneakersmeetengineering'}>
@@ -112,91 +110,4 @@ export default function HomeNewsroom() {
             </div>
         </div>
     )
-
-
-
-    // const settings = {
-    //     centerMode: true,
-    //     infinite: true,
-    //     autoplay: true,
-    //     autoplaySpeed: 3000,
-    //     centerPadding: '210px',
-    //     slidesToShow: 1,
-    //     dots: true,
-    //     pauseOnHover: false
-    // }
-
-    // return (
-    //     <div className='home-newsroom'>
-    //         <div className='home-newsroom-content'>
-
-    //             <Fade bottom>
-    //                 <div className='home-newsroom-text'>
-    //                     <h1> Everything you need to know about sneakers is here. </h1>
-    //                     <p>
-    //                         Stay up to date with the latest Sanctuary news and original articles. 
-    //                         It's the ultimate place for all sneakerheads alike; curated by our team.
-    //                     </p>
-    //                     <Link className='home-newsroom-read' to='/newsroom'>
-    //                         Start reading
-    //                     </Link>
-    //                 </div>
-    //             </Fade>
-
-    //             <div className='home-newsroom-articles'>
-    //                 <Slider {...settings}>
-    //                     <div className='home-newsroom-article'>
-    //                         <h2> first </h2>
-    //                     </div>
-    //                     <div className='home-newsroom-article'>
-    //                         <h2> second </h2>
-    //                     </div>
-    //                     <div className='home-newsroom-article'>
-    //                         <h2> third </h2>
-    //                     </div>
-    //                     <div className='home-newsroom-article'>
-    //                         <h2> fourth </h2>
-    //                     </div>
-    //                 </Slider>
-    //             </div>
-    //         </div>
-    //     </div>
-    // )
-
-
-
-
-
-    // return (
-    //     <div className='home-newsroom'>
-    //         <div className='home-newsroom-wrapper'>
-    //             <div className='home-newsroom-headline'>
-    //                 <div className='home-newsroom-text'>
-    //                     <h2>
-    //                         Everything you need to know about sneakers is here.
-    //                     </h2>
-    //                     <p>
-    //                         Stay up to date with the latest Sanctuary news and headlines
-    //                         within the industry. It’s the ultimate place for all sneakerheads
-    //                         alike; curated by our team.
-    //                     </p>
-    //                 </div>
-
-    //                 <div className='home-newsroom-buttons'>
-    //                     <div className='home-newsroom-read-now'>
-    //                         <p>
-    //                             Start reading now
-    //                         </p>
-    //                     </div>
-    //                 </div>
-    //             </div>
-
-    //             <div className='home-newsroom-articles'>
-    //                 <div className='home-newsroom-article1'></div>
-    //                 <div className='home-newsroom-article2'></div>
-    //                 <div className='home-newsroom-article3'></div>
-    //             </div>
-    //         </div>
-    //     </div>
-    // )
 }

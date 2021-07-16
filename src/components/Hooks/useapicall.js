@@ -108,13 +108,11 @@ export default function useAPICall(callType, params) {
     useEffect(() => {
         if (callType === 'browse')
             browse(params.query)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [callType, params.query])
+    }, [])
 
     useEffect(() => {
         if (callType === 'getitem')
             getItem(params.sku, params.size)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currency, size, callType, params.size, params.sku])
+    }, [currency, size])
 
 }

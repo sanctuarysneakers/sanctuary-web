@@ -10,7 +10,6 @@ import HomeNewsroom from './homeNewsroom'
 import HomeContact from './homeContact'
 import Footer from '../footer'
 
-
 export default function Home() {
 
     const dispatch = useDispatch()
@@ -22,9 +21,6 @@ export default function Home() {
     const height = use100vh()
     const splashHeight = isDesktop ? height - 70 : height - 60
     dispatch(recordSplashHeight(splashHeight))
-
-    // Hide search bar
-    //dispatch(hideHomeSearch())
 
     return (
         <div>
@@ -38,22 +34,11 @@ export default function Home() {
                              you don't have to! Stay up-to-date with price drop alerts, and release reminders."
                 />
             </Helmet>
-            {/* <div className="splash" style={{ height: splashHeight }}>
-                <div className='bg-image' style={{ height: splashHeight }}></div>
-                <div className='splashWrap'>
-                    <h1>Find Your Perfect Pair</h1>
-                    <h3>Get the best price on sneakers from your favourite websites</h3>
-                </div>
-            </div> */}
 
             <HomeSplash />
-
             <HomeTrending />
-
             <HomeNewsroom />
-
             <HomeContact />
-
             <Footer colour={'white'} />
         </div>
     )
