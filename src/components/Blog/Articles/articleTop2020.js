@@ -1,6 +1,6 @@
 import React from 'react'
 import author from '../../../assets/images/ColeVanHinte.jpg'
-import ReadNext from '../readnext.js'
+import ReadNext from '../readNext.js'
 import Footer from '../../footer'
 
 export default function ArticleTop2020() {

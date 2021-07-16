@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import useOutsideAlerter from '../Hooks/useoutsidealerter'
+import useOutsideAlerter from '../Hooks/useOutsideAlerter'
 import { useDispatch, useSelector } from 'react-redux'
 import { RiCloseLine } from 'react-icons/ri'
 import Select from 'react-select'

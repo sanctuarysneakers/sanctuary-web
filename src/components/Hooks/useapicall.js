@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { browseCall, updateItemInfo, updateItemPrices, updateItemListings } from '../../redux/actions'
-import createRequestObject from './createrequest'
+import createRequestObject from './createRequest'
 import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPrice, 
     klektLowestPrice, grailedListings, ebayListings, depopListings } from './scrapers'
 
@@ -108,11 +108,13 @@ export default function useAPICall(callType, params) {
     useEffect(() => {
         if (callType === 'browse')
             browse(params.query)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
         if (callType === 'getitem')
             getItem(params.sku, params.size)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currency, size])
 
 }

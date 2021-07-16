@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { hideDeleteModal } from '../../redux/actions'
 import { useHistory } from 'react-router-dom'
-import useOutsideAlerter from '../Hooks/useoutsidealerter'
+import useOutsideAlerter from '../Hooks/useOutsideAlerter'
 
 export default function DeleteModal() {
 

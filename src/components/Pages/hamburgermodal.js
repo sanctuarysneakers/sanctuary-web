@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import firebase from '../../services/firebase.js'
-import useOutsideAlerter from '../Hooks/useoutsidealerter'
+import useOutsideAlerter from '../Hooks/useOutsideAlerter'
 import { useDispatch, useSelector } from 'react-redux'
 import { hideHamburgerModal, showAboutModal } from '../../redux/actions'
 import { Link, useHistory } from 'react-router-dom'

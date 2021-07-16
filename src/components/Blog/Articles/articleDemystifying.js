@@ -2,7 +2,7 @@ import React from 'react'
 import author from '../../../assets/images/ColeVanHinte.jpg'
 import pictureOne from '../../../assets/images/articledemystifying1.jpg'
 import pictureTwo from '../../../assets/images/articledemystifying2.jpg'
-import ReadNext from '../readnext.js'
+import ReadNext from '../readNext.js'
 import Footer from '../../footer'
 
 export default function ArticleDemystifying() {

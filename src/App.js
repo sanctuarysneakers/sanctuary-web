@@ -2,29 +2,29 @@ import React, { useEffect, useState } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { RemoveScroll } from 'react-remove-scroll'
 import { useSelector, useDispatch } from 'react-redux'
-import { setUser, updateLocation } from './redux/actions'
+import { setUser } from './redux/actions'
 
 import Navbar from "./components/navbar"
 import Home from "./components/Home/home"
 import Browse from "./components/Pages/browse"
 import Item from "./components/Pages/item"
-import AboutModal from "./components/Pages/aboutmodal"
+import AboutModal from "./components/Pages/aboutModal"
 import FilterModal from "./components/Pages/filterModal"
-import HamburgerModal from "./components/Pages/hamburgermodal"
-import DeleteModal from "./components/Pages/deletemodal"
+import HamburgerModal from "./components/Pages/hamburgerModal"
+import DeleteModal from "./components/Pages/deleteModal"
 import SearchModal from './components/Pages/searchModal'
-import PageNotFound from "./components/Pages/pagenotfound"
-import PrivacyPolicy from './components/Pages/privacypolicy'
-import TermsOfUse from './components/Pages/termsofuse'
+import PageNotFound from "./components/Pages/pageNotFound"
+import PrivacyPolicy from './components/Pages/privacyPolicy'
+import TermsOfUse from './components/Pages/termsOfUse'
 
-import SignInOptions from './components/Accounts/signinoptions'
-import SignInEmail from './components/Accounts/signinemail'
-import CreateAccountOptions from './components/Accounts/createaccountoptions'
+import SignInOptions from './components/Accounts/signInOptions'
+import SignInEmail from './components/Accounts/signInEmail'
+import CreateAccountOptions from './components/Accounts/createAccountOptions'
 import CreateAccountEmail from './components/Accounts/createaccountemail'
 import Profile from './components/Accounts/profile'
-import EditProfileName from './components/Accounts/editprofilename'
-import EditProfileEmail from './components/Accounts/editprofileemail'
-import EditProfilePassword from './components/Accounts/editprofilepassword'
+import EditProfileName from './components/Accounts/editProfileName'
+import EditProfileEmail from './components/Accounts/editProfileEmail'
+import EditProfilePassword from './components/Accounts/editProfilePassword'
 
 import Blog from "./components/Blog/blog"
 import ArticleIntro from "./components/Blog/Articles/articleIntro"
