@@ -1,8 +1,6 @@
 import React from 'react'
 import author from '../../../assets/images/ColeVanHinte.jpg'
-import pictureOne from '../../../assets/images/articleEngineering1.jpg'
-import pictureTwo from '../../../assets/images/articleEngineering2.jpg'
-import ReadNext from '../readnext.js'
+import ReadNext from '../readNext.js'
 import Footer from '../../footer'
 
 export default function ArticleTop2020() {
@@ -15,7 +13,7 @@ export default function ArticleTop2020() {
                             <div className='article-header-content'>
                                 <h1> Our Top Picks of 2020 </h1>
                                 <div className='article-author'>
-                                        <img src={author} />
+                                        <img src={author} alt='Cole Van Hinte'/>
                                         <div className='author-date'>
                                             <h5>
                                                 Cole Van Hinte

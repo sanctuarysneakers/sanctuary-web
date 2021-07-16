@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import { useDispatch } from 'react-redux'
 import { hideSearchModal } from '../../redux/actions'
-import useOutsideAlerter from '../Hooks/useoutsidealerter'
+import useOutsideAlerter from '../Hooks/useOutsideAlerter'
 import SearchBox from '../searchBox'
 
 export default function SearchModal() {

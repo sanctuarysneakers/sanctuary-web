@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import useAPICall from './Hooks/useapicall'
+import useAPICall from './Hooks/useApiCall'
 import ItemCard from './itemCard'
 
 export default function Catalog({ search_query }) {

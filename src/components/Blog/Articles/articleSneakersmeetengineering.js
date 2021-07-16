@@ -2,7 +2,7 @@ import React from 'react'
 import author from '../../../assets/images/JonahHarding.jpg'
 import pictureOne from '../../../assets/images/articleEngineering1.jpg'
 import pictureTwo from '../../../assets/images/articleEngineering2.jpg'
-import ReadNext from '../readnext.js'
+import ReadNext from '../readNext.js'
 import Footer from '../../footer'
 
 export default function ArticleSneakersMeetEngineering() {
@@ -15,7 +15,7 @@ export default function ArticleSneakersMeetEngineering() {
                             <div className='article-header-content'>
                                 <h1> How Adidas and Carbon3D are Revolutionizing Sneaker Production </h1>
                                 <div className='article-author'>
-                                        <img src={author} />
+                                        <img src={author} alt='Jonah Harding'/>
                                         <div className='author-date'>
                                             <h5>
                                                 Jonah Harding

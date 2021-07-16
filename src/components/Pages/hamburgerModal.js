@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import firebase from '../../services/firebase.js'
-import useOutsideAlerter from '../Hooks/useoutsidealerter'
+import useOutsideAlerter from '../Hooks/useOutsideAlerter'
 import { useDispatch, useSelector } from 'react-redux'
 import { hideHamburgerModal, showAboutModal } from '../../redux/actions'
 import { Link, useHistory } from 'react-router-dom'
@@ -57,7 +57,7 @@ export default function HamburgerModal() {
                         {user && <div className='profile-area'>
 
                             {user.photoURL !== null &&
-                                <img className='profilePicture' src={user.photoURL} alt='profile-picture' />
+                                <img className='profilePicture' src={user.photoURL} alt='profile' />
                             }
 
                             {user.photoURL === null && <ProfileIcon />}

@@ -5,7 +5,7 @@ export default function ItemLoader({ version }) {
     return (
         <div className='item-loader'>
 
-            {/* Loader for prices/listings rows  */}
+            {/* Loader for prices/listings rows */}
 
             {version !== 'info' && <div className='item-loader-content'>
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { hideHomeSearch } from '../../redux/actions'
 import { useMediaQuery } from 'react-responsive'
-import BlogArticles from './blogarticles'
+import BlogArticles from './blogArticles'
 import Footer from '../footer'
 import SanctuaryLogo from '../../assets/images/Sanctuary-white.png'
 import NewsroomHeader from '../../assets/images/newsroom.png'
@@ -29,7 +29,7 @@ export default function Newsroom() {
 
                 <div className='newsroom-header-content'>
                     <div className='newsroom-logo'>
-                        <img src={SanctuaryLogo} />
+                        <img src={SanctuaryLogo} alt='Sanctuary logo'/>
                         <h1> Newsroom </h1>
                     </div>
                     <p> Your source for the latest Sanctuary news, sneaker drops, and upcoming raffles. </p>

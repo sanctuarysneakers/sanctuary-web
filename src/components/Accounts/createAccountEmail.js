@@ -8,7 +8,6 @@ import sanctuary from "../../assets/images/logos/sanctuary-bird-black.png"
 import Footer from '../footer'
 
 export default function CreateAccountEmail() {
-    // TODO: Change these initial values to empty strings LOL
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
