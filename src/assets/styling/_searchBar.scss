@@ -1,0 +1,259 @@
+.searchBar-mobile {
+    display: none;
+}
+
+.searchBar-desktop {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    width: 544px;
+    border-radius: 100px;
+    backdrop-filter: blur(5px);
+    background-color: rgba(255, 255, 255, 0.82);
+
+    @supports not (backdrop-filter: blur(5px)) {
+        background:  rgba(255, 255, 255, 0.95);
+    } 
+
+    .searchIcon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+        width: 40px;
+
+        svg {
+            color: #707070;
+        }
+    }
+
+    .searchText {
+        width: calc(100% - 80px);
+        border: none;
+        outline: none;
+        background: none;
+        font-family: 'Poppins', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        color: #353234;
+    }
+}
+
+::placeholder {
+    //color: #989898;
+    color: #707070;
+    font-weight: 300;
+}
+
+
+
+// .searchBar {
+//     display: flex;
+//     background: white;
+//     height: 45px;
+//     border-radius: 100px;
+//     border: 1px solid #E0E1E5;
+// }
+
+.no-border {
+    border: none;
+}
+
+// .searchBarIcons {
+//     display: flex;
+//     align-items: center;
+
+//     svg {
+//         color: #989898;
+//         height: 18px;
+//         width: 18px;
+//         padding: 0px 13.5px;
+
+//     }
+// }
+
+.closeIcon {
+    float: right;
+}
+
+// .searchText {
+//     border: none;
+//     background: none;
+//     outline: none;
+//     color: #353234;
+//     font-family: 'Poppins', sans-serif;
+//     font-size: 14px;
+//     font-weight: 400;
+//     width: 503px;
+//     padding-right: 21px;
+// }
+
+// .mobileSearchText {
+//     width: 50vw;
+// }
+
+// .mobile {
+//     display: none;
+// }
+
+// .desktop {
+//     display: flex;
+// }
+
+// ::placeholder {
+//     color: #989898;
+//     font-weight: 300;
+// }
+
+/* Tablet */
+
+@media (max-width: 929px) and (min-width: 548px) {
+    .searchBar-desktop {
+        display: none;
+    }
+    .searchBar-mobile {
+        display: flex;
+        align-items: center;
+        width: 423px;
+        border-radius: 100px;
+        backdrop-filter: blur(5px);
+        background-color: rgba(255, 255, 255, 0.82);
+
+        @supports not (backdrop-filter: blur(5px)) {
+            background:  rgba(255, 255, 255, 0.95);
+        } 
+
+        .searchIcon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 36px;
+            width: 36px;
+
+            svg {
+                color: #707070;
+            }
+            
+        }
+        .mobileSearchText {
+            width: calc(100% - 60px);
+            background: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 300;
+            color: #353234;
+            outline: none;
+            border: none;
+        }
+    }
+}
+
+/* Mobile */
+
+@media screen and (max-width: 547px) {
+    .searchBar-desktop {
+        display: none;
+    }
+    .searchBar-mobile {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 36px;
+        border-radius: 100px;
+        backdrop-filter: blur(5px);
+        background-color: rgba(255, 255, 255, 0.82);
+
+        @supports not (backdrop-filter: blur(5px)) {
+            background:  rgba(255, 255, 255, 0.90);
+        } 
+
+        .searchIcon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 36px;
+            width: 36px;
+
+            svg {
+                color: #707070;
+            }
+            
+        }
+        .mobileSearchText {
+            width: calc(100% - 60px);
+            background: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 300;
+            color: #353234;
+            outline: none;
+            border: none;
+        }
+        
+
+        // .searchIcon {
+        //     width: 36px;
+        //     height: 36px;
+        //     display: flex;
+        //     align-items: center;
+        //     justify-content: center;
+
+        //     svg {
+        //         color: #707070;
+        //     }
+        // }
+
+        // .mobileSearchText {
+        //     width: 351px;
+        //     font-family: 'Poppins', sans-serif;
+        //     font-size: 13px;
+        //     font-weight: 400;
+        //     color: #353234;
+        //     outline: none;
+        //     border: none;
+        //     background: none;
+        // }
+    }
+
+
+//     .searchBar-mobile {
+//         display: flex;
+
+//         .searchIcon {
+//             cursor: pointer;
+//             height: 18px;
+//             padding: 0px;
+    
+//             svg {
+//                 height: 18px;
+//                 width: 18px;
+//                 color: #353234;
+//             }
+//         }
+
+//         .mobileSearchText {
+//             width: calc(100vw - 124px);
+//             margin: 0px 20px;
+//             outline: none;
+//             border: none;
+
+//             font-family: 'Poppins', sans-serif;
+//             font-size: 14px;
+//             font-weight: 400;
+//             color: #353234;
+
+//         }
+//     }
+
+//     .closeIcon-mobile {
+//         cursor: pointer;
+//         height: 18px;
+
+//         svg {
+//             width: 18px;
+//             height: 18px;
+//             color: #353234;
+//         }
+//     }
+// }
+}

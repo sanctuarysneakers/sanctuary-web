@@ -1,0 +1,80 @@
+// Article Teasers
+.articleImage {
+    height: 250px;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.container {
+    width: 100%;
+    text-align: center;
+}
+.articleContainer {
+    margin-top: 50px;
+    margin-left: 50px;
+    margin-bottom: 50px;
+    width: 375px;
+    background-color: silver;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.articleContainerLeft {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    width: 375px;
+    background-color: silver;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.articleHeader {
+    text-align: center;
+    color: black;
+    margin-bottom:0px;
+}
+
+.articleSubHeader {
+    text-align: center;
+}
+
+// Raffles
+
+.upcomingHeader {
+    color: black;
+    margin-left: 50px;
+}
+
+.raffle {
+    margin-top:60px;
+}
+
+.raffleDesc {
+    display:inline-block;
+    vertical-align: top;
+    width: 70%;
+}
+
+.raffleImage {
+    width:400px;
+    display:inline-block;
+}
+
+.raffleHeader {
+    color: black;
+    vertical-align: top;
+}
+
+// Drops
+
+.horizontalLine {
+    border-top: 1px solid black;
+    width: 75%;
+    margin:auto;
+    margin-bottom:40px;
+    margin-top:40px;
+}
+
+.drop {
+    margin-top:60px;
+    margin-left:50px;
+}

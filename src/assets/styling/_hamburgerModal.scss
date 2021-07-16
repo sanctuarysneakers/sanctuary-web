@@ -1,0 +1,213 @@
+.menu {
+    height: 387px;
+    width: 100%;
+    max-width: 428px;
+    min-width: 320px;
+    background: #F5F5F7;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+
+    .menu-header {
+        border-bottom: 0.5px solid #D7D7D7;
+
+        .menu-pull-tab {
+            width: 37px;
+            height: 4px;
+            border-radius: 100px;
+            background: #D7D7D7;
+            margin: 0px auto;
+            margin-top: 12px;
+        }
+
+        h2 {
+            font-size: 23px;
+            font-weight: 700;
+            color: black;
+            margin-left: 20px;
+            margin-top: 8px;
+            margin-bottom: 8px;
+            letter-spacing: 0.25px;
+        }
+    }
+
+    .menu-account {
+        padding: 17px 20px;
+        border-bottom: 0.5px solid #D7D7D7;
+
+        .menu-account-top {
+            display: flex;
+
+            .profileIcon {
+                height: 57px;
+            }
+
+            .profile-area {
+                height: 57px;
+                border-radius: 100px;
+                overflow: hidden;
+
+                .profilePicture {
+                    height: 57px;
+                }
+            }
+
+            .account-description {
+                width: 100%;
+                height: 57px;
+                margin-left: 20px;
+                display: flex;
+                align-items: center;
+
+                p {
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: black;
+                    letter-spacing: 0.35px;
+                }
+            }
+
+            .account-description-signed-in {
+                width: calc(100% - 77px);
+                margin-left: 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                text-decoration: none;
+
+                h2 {
+                    font-size: 17px;
+                    font-weight: 500;
+                    color: black;
+                    letter-spacing: 0.25px;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 1;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                p {
+                    font-size: 15px;
+                    font-weight: 300;
+                    color: #89888B;
+                    line-height: 20px;
+                    letter-spacing: 0.25px;
+                }
+            }
+        }
+
+        .menu-account-bottom {
+            display: flex;
+            justify-content: space-between;
+
+            .create-account, .sign-in {
+                width: 100%;
+            }
+
+            .create-account {
+                margin-right: 20px;
+            }
+
+            .create-account-button, .sign-in-button {
+                width: 100%;
+                height: 35px;
+                border-radius: 10px;
+                font-family: 'Poppins', sans-serif;
+                font-size: 12.5px;
+                font-weight: 400;
+                letter-spacing: 0.25px;
+                margin-top: 17px;
+                outline: none;
+                cursor: pointer;
+            }
+
+            .create-account-button {
+                color: white;
+                background: linear-gradient(45deg, #F14F8E, #EF6660);
+            }
+
+            .sign-in-button {
+                color: black;
+                background: #E3E3E3;
+            }
+        }
+    }
+
+    .menu-options {
+        padding-left: 20px;
+    
+        .menu-options-how-it-works, .menu-options-sign-out, .menu-options-blog, .menu-options-browse {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            cursor: pointer;
+
+            .infoIcon {
+                height: 23px;
+                margin-right: 18px;
+            }
+
+            .signOutIcon {
+                height: 18px;
+                margin-right: 18px;
+            }
+
+            .blogIcon {
+                height: 18px;
+                margin-right: 22px;
+            }
+
+            .title {
+                height: 52px;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                border-bottom: 0.5px solid #D7D7D7;
+
+                p {
+                    font-size: 15px;
+                    font-weight: 500;
+                    color: black;
+                    letter-spacing: 0.25px;
+                }
+            }
+        }
+
+        .menu-options-browse {
+            svg {
+                padding-right: 20px;
+            }
+        }
+    }
+}
+
+// iPhone 5/5s/SE Size Support
+
+@media screen and (max-width: 374px) {
+    .menu {
+        height: 350px;
+
+        .menu-account-top {
+            .account-description {
+                p {
+                    font-size: 12.75px !important;
+                }
+            }
+        }
+
+        .menu-account-bottom {
+            .create-account-button, .sign-in-button {
+                font-size: 11.5px !important;
+            }
+        }
+
+        .menu-options-how-it-works, .menu-options-sign-out {
+            .title {
+
+                p {
+                    font-size: 13.5px !important;
+                }
+            }
+        }
+    }
+}

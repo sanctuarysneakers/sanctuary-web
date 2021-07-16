@@ -1,0 +1,191 @@
+.article {
+    padding-bottom: 30px;
+
+    .article-wrapper {
+
+        // Each article header image
+        .article-header-intro {
+            background: url('../images/sanctuaryArticle.jpg');
+            // background: #333 url("https://lh3.googleusercontent.com/-L9JAZXUqyXM-Z0zySex_Y98_ioErwshGnIEY7GByA5GitLL_lELkf05ndGpY40N3dIVZ45-eOLu_keM_5q4dRvpurE-6hgxVEDyYdRjnJQYNCexbcYS3_7SBAgwIig2uRyYw_vg=w2400");
+        }
+        .article-header-engineering {
+            background: url('../images/adidas3d.jpg');
+            // background: #333 url("https://lh3.googleusercontent.com/Sv-WC8N7m7UanzGuALvNGMKAj7y6wUMVbTXY0MiUCFfH8oKnu0PfbAij--wHbxEy5NiUSR24NtfR7NQaD5ctycy7fJ7OFBT5pGbC2UNIdOIwAVt0R3AVObPCMlN_o4KFwFje4H6R=w2400");
+        }
+        .article-header-market {
+            background: url('../images/sneakerBoxes.jpg');
+            background-position: center bottom !important;
+            // background: #333 url("https://lh3.googleusercontent.com/nPV2FmjI1UfU3ZyzfOzqGXCYwqAs_5QsNRDKCK9LWpOqoA_I_zPzjzIREsEByWXBFbzJLjQSTtUM1HDJirO57Z1F7zk-ukXcRkdNKJeUQuUxIBiAlx-xqHAtE9NAvkpj5MqP_nXL=w2400");
+        }
+        .article-header-20 {
+            background: url('../images/topSneakers.jpg');
+            // background: #333 url("https://lh3.googleusercontent.com/avGvO0Bk7uMnfmchWMhmkJ43PDzSZis49Fvb9Z_R6LIk1N34xQicmnL8Cd3Ol6eC6263gI3KyAd3D8rnC4D2wl_AngAGppMgA2HjfsKeNR3c7lyEZOctD-NrPvOM2Jsp16jOhaKC=w2400");
+        }
+
+        .article-header-intro, .article-header-market, .article-header-engineering, .article-header-20 {
+            display: flex;
+            align-items: flex-end;
+            height: 420px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+
+            .article-header-gradient {
+                display: flex;
+                align-items: flex-end;
+                width: 100%;
+                height: 200px;
+                background: linear-gradient(0deg, hsla(0, 0%, 0%, 1) 7%, hsla(0, 0%, 0%, 0) 100%);
+
+                .article-header-content {
+                    margin: 24px 24px;
+
+                    h1 {
+                        font-size: 31px;
+                        font-weight: 600;
+                        line-height: 40px;
+                        margin-bottom: 15px;
+                    }
+
+                    .article-author {
+                        display: flex;
+                        align-items: center;
+
+                        img {
+                            height: 28px;
+                            width: 28px;
+                            border-radius: 100px;
+                            overflow: hidden;
+                        }
+
+                        .author-date {
+                            margin-left: 8px;
+
+                            h5 {
+                                font-size: 12px;
+                                font-weight: 500;
+                                color: white;
+                            }
+
+                            h6 {
+                                font-size: 10px;
+                                font-weight: 400;
+                                color: white;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .article-header-intro {
+            .article-header-gradient {
+                background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(0,0,0,0.40) 0%, rgba(255,255,255,0) 100%);
+            }
+        }
+
+        .article-content {
+            margin: 40px 24px;
+
+            p {
+                font-size: 16px;
+                font-weight: 300;
+                padding: 15px 0px;
+                line-height: 28px;
+                color: black;
+            }
+
+            a {
+                text-decoration: none;
+                color: #2766C5;
+            }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+            .article-image {
+                margin: 30px 0px;
+
+                img {
+                    width: 100%;
+                    border-radius: 18px;
+                    overflow: hidden;
+                }
+
+                h4 {
+                    font-size: 8px;
+                    font-weight: 300;
+                    color: rgb(65, 65, 65);
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 980px) {
+
+    .article {
+        padding-bottom: 80px;
+
+        .article-wrapper {
+            width: 980px;
+            margin: 0px auto;
+
+            .article-header-intro, .article-header-market, .article-header-engineering, .article-header-20 {
+                margin-bottom: 60px;
+
+                .article-header-content {
+                    width: 800px;
+                    margin: 30px auto !important;
+
+                    h1 {
+                        font-size: 45px !important;
+                        font-weight: 600 !important;
+                    }
+
+                    .article-author {
+
+                        img {
+                            height: 35px !important;
+                            width: 35px !important;
+                        }
+
+                        .author-date {
+                            h5 {
+                                font-size: 14px !important;
+                                font-weight: 500 !important;
+                            }
+                            h6 {
+                                font-size: 12px !important;
+                                font-weight: 400 !important;
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            .article-content {
+                width: 800px;
+                margin: 0px auto;
+
+                .article-image {
+                    h4 {
+                        font-size: 10px !important;
+                    }
+                }
+
+                p {
+                    padding: 15px 0px;
+                    font-size: 17px;
+                    font-weight: 400;
+                    line-height: 30px;
+                }
+
+
+            }
+        }
+    }
+    
+}
