@@ -202,6 +202,18 @@ export const updateLocation = json => {
     }
 }
 
+export const showLocationPopup = () => {
+    return {
+        type: 'SHOW_LOCATION_POPUP'
+    }
+}
+
+export const hideLocationPopup = () => {
+    return {
+        type: 'HIDE_LOCATION_POPUP'
+    }
+}
+
 // Update size 
 
 export const updateSize = size => {

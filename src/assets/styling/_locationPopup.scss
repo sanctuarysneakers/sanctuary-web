@@ -1,0 +1,15 @@
+.location-popup {
+    width: 910px;
+    overflow-y: auto;
+    overflow-x: auto;
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+
+    .close-area-location {
+        height: 130px;
+        width: 910px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+    }
+}
