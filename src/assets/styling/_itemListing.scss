@@ -1,55 +1,54 @@
 .item-listing {
-    display: flex;
-    justify-content: space-between;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-right: 20px;
-    border-bottom: 1px solid #EEF1F6;
-
-    .item-listing-source {
-        display: flex;
-
-        .item-listing-image {
-            width: 100px;
-            height: 100px;
-            border-radius: 8px;
-            box-sizing: border-box;
-            border: 1px solid #EEF1F6;
-            overflow: hidden;
-
-            img {
-                height: 100%;
-                width: 100%;
-                object-fit: cover;
-            }
-        }
-
-        .item-listing-text {
-            height: 56px;
-            padding: 2px 15px;
-
-            h2 {
-                font-size: 21px;
-                font-weight: 500;
-                color: black;
-                line-height: 32px;
-            }
-
-            p {
-                font-size: 16px;
-                font-weight: 300;
-                color: #777F93;
-                line-height: 24px;
-            }
-        }
-    }
-
     a {
-        height: 36px;
+        display: flex;
+        justify-content: space-between;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-right: 20px;
+        border-bottom: 1px solid #EEF1F6;
         text-decoration: none;
+    
+        .item-listing-source {
+            display: flex;
+
+            .item-listing-image {
+                width: 100px;
+                height: 100px;
+                border-radius: 8px;
+                box-sizing: border-box;
+                border: 1px solid #EEF1F6;
+                overflow: hidden;
+
+                img {
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
+                }
+            }
+
+            .item-listing-text {
+                height: 56px;
+                padding: 2px 15px;
+
+                h2 {
+                    font-size: 21px;
+                    font-weight: 500;
+                    color: black;
+                    line-height: 32px;
+                }
+
+                p {
+                    font-size: 16px;
+                    font-weight: 300;
+                    color: #777F93;
+                    line-height: 24px;
+                }
+            }
+        }
 
         .item-listing-link {
             display: flex;
+            height: 36px;
 
             .item-listing-amount {
                 padding: 2px 15px;
@@ -70,53 +69,67 @@
                     stroke-width: 2px;
                 }
             }
-        }
+        }  
     }
-    
+
     a:hover {
-        h2 {
-            text-decoration: underline;
+        .item-listing-source {
+            .item-listing-text {
+                h2 {
+                    color: #646464;
+                }
+            }
+        }
+
+        .item-listing-link {
+            .item-listing-amount {
+                h2 {
+                    color: #646464;
+                }
+            }
         }
     }
 }
 
 .item-listing.last {
-    border-bottom: none;
+    a {
+        border-bottom: none;
+    }
 }
 
 @media screen and (max-width: 767px) {
     .item-listing {
-        padding-top: 15px;
-        padding-bottom: 15px;
-        padding-right: 15px;
-    
-        .item-listing-source {
-            .item-listing-image {
-                width: 90px;
-                height: 90px;
-                border-radius: 6px;
-            }
-    
-            .item-listing-text {
-                height: auto;
-                padding: 0px 12px;
-    
-                h2 {
-                    font-size: 16.5px;
-                    line-height: 24px;
-                }
-    
-                p {
-                    font-size: 14px;
-                    line-height: 20px;
-                }
-            }
-        }
-    
         a {
-            height: 44px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            padding-right: 15px;
 
+            .item-listing-source {
+                .item-listing-image {
+                    width: 90px;
+                    height: 90px;
+                    border-radius: 6px;
+                }
+        
+                .item-listing-text {
+                    height: auto;
+                    padding: 0px 12px;
+        
+                    h2 {
+                        font-size: 16.5px;
+                        line-height: 24px;
+                    }
+        
+                    p {
+                        font-size: 14px;
+                        line-height: 20px;
+                    }
+                }
+            }
+        
             .item-listing-link {
+                height: 44px;
+
                 .item-listing-amount {
                     padding: 0px 12px;
         

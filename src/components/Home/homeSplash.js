@@ -1,17 +1,14 @@
 import React from 'react'
 import FadeIn from 'react-fade-in'
-import { use100vh } from 'react-div-100vh'
 import SearchBox from '../searchBox'
 import {ReactComponent as Shoe} from '../../assets/images/LandingShoe.svg'
 import {ReactComponent as Boxes} from '../../assets/images/LandingBoxes.svg'
 
 export default function HomeSplash() {
 
-    const splashHeight = use100vh() - 70
-
     return (
         <div className='home-splash'>
-            <div className='home-splash-content' style={{ height: splashHeight}}>
+            <div className='home-splash-content'>
                 <div className='home-splash-text'>
                     <FadeIn delay={150} transitionDuration={600}>
                         <h1> Your favourite sneakers. </h1>

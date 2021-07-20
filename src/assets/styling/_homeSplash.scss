@@ -1,14 +1,15 @@
 .home-splash {
     width: 100%;
+    height: 700px;
     background: #F7F9FC;
 
     .home-splash-content {
         display: flex;
-        align-items: center;
         padding-left: calc(220px + ((100vw - 1440px) / 2));
         
         .home-splash-text {
             width: 479px;
+            padding-top: 150px;
 
             h1 {
                 font-size: 58px;
@@ -25,8 +26,8 @@
                 line-height: 32px;
                 letter-spacing: -0.6px;
 
-                padding-top: 29px;
-                padding-bottom: 40px;
+                padding-top: 24px;
+                padding-bottom: 35px;
             }
 
             .search-box {
@@ -87,41 +88,40 @@
         }
 
         .home-splash-graphic {
-            height: 100%;
             padding-left: 176px;
 
             .jordan-1 {
-                padding-top: 65px;
-                padding-left: 175px;
+                padding-top: 69px;
+                padding-left: 172px;
                 transform: translatey(0px);
 	            animation: float 3s ease-in-out infinite;
 
                 svg {
                     display: block;
-                    width: 117px;
-                    height: 100%;
+                    width: 115px;
+                    height: auto;
                 }
             }
 
-            @keyframes float {
-                0% {
-                    transform: translatey(0px);
-                }
-                50% {
-                    transform: translatey(-20px);
-                }
-                100% {
-                    transform: translatey(0px);
-                }
-            }
+            // @keyframes float {
+            //     0% {
+            //         transform: translatey(0px);
+            //     }
+            //     50% {
+            //         transform: translatey(-20px);
+            //     }
+            //     100% {
+            //         transform: translatey(0px);
+            //     }
+            // }
 
             .shoe-boxes {
-                padding-top: 61px;
+                padding-top: 62px;
 
                 svg {
                     display: block;
-                    width: 407px;
-                    height: 100%;
+                    width: 400px;
+                    height: auto;
                 }
             }
         }
@@ -130,23 +130,23 @@
 
 @media (min-width: 980px) and (max-width: 1199px) {
     .home-splash {
+        height: 675px;
+
         .home-splash-content {
-            justify-content: center;
-            padding-left: 0px;
+            padding-left: calc(175px + ((100vw - 1199px) / 2));
 
             .home-splash-text {
                 width: 394px;
-                padding-right: 20px;
 
                 h1 {
                     font-size: 48px;
-                    line-height: 53px;
+                    line-height: 55px;
                 }
 
                 p {
                     font-size: 19px;
-                    padding-top: 22px;
-                    padding-bottom: 26px;
+                    padding-top: 14px;
+                    padding-bottom: 25px;
                 }
 
                 .search-box {
@@ -163,10 +163,10 @@
             }
 
             .home-splash-graphic {
-                padding-left: 113px;
+                padding-left: 146px;
 
                 .jordan-1 {
-                    padding-top: 115px;
+                    padding-top: 71px;
                     padding-left: 149px;
 
                     svg {

@@ -46,19 +46,20 @@ export default function ItemPrice({ data, index, length }) {
     return (
         <div className={(index === length - 1) ? 'item-price last' : 'item-price'}>
 
-            <div className='item-price-source'>
-                <div className={`item-source-logo ${data.source}`}>
-                    <img src={websiteLogo} alt='website logo' />
-                </div>
-
-                <div className='item-source-text'>
-                    <h2> {websiteText} </h2>
-
-                    <p> New </p>
-                </div>
-            </div>
-
             <a target='_blank' href={`https://${data.url}`} rel="noopener noreferrer">
+                <div className='item-price-source'>
+                    <div className={`item-source-logo ${data.source}`}>
+                        <img src={websiteLogo} alt='website logo' />
+                    </div>
+
+                    <div className='item-source-text'>
+                        <h2> {websiteText} </h2>
+
+                        <p> New </p>
+                    </div>
+                </div>
+
+                
                 <div className='item-price-link'>
                     <div className='item-amount'>
                         <h2> {currencySymbol}{data.price} </h2>
