@@ -103,17 +103,17 @@
                 }
             }
 
-            // @keyframes float {
-            //     0% {
-            //         transform: translatey(0px);
-            //     }
-            //     50% {
-            //         transform: translatey(-20px);
-            //     }
-            //     100% {
-            //         transform: translatey(0px);
-            //     }
-            // }
+            @keyframes float {
+                0% {
+                    transform: translatey(0px);
+                }
+                50% {
+                    transform: translatey(-20px);
+                }
+                100% {
+                    transform: translatey(0px);
+                }
+            }
 
             .shoe-boxes {
                 padding-top: 62px;
@@ -188,22 +188,18 @@
 
 @media (min-width: 700px) and (max-width: 979px) {
     .home-splash {
+        height: auto;
+
         .home-splash-content {
             flex-direction: column;
-            padding: 100px 0px;
-            height: auto !important;
+            align-items: center;
+            padding-left: 0px;
 
             .home-splash-text {
-                text-align: center;
-
-                p {
-                    padding-top: 25px;
-                    padding-bottom: 35px;
-                }
+                padding-top: 130px;
             }
 
             .home-splash-graphic {
-                padding-top: 30px;
                 padding-left: 40px;
             }
         }
@@ -271,32 +267,36 @@
 
 @media screen and (max-width: 499px) {
     .home-splash {
+        height: auto;
+
         .home-splash-content {
             flex-direction: column;
-            padding-top: 80px;
-            padding-bottom: 100px;
-            height: auto !important;
+            width: 315px;
+            margin: 0px auto;
 
             .home-splash-text {
-                width: 326px;
-                text-align: center;
+                width: 100%;
+                padding-top: 50px;
 
                 h1 {
-                    font-size: 40px;
-                    line-height: 48px;
+                    font-size: 50px;
+                    line-height: 56px;
+                    letter-spacing: -0.6px;
+                    width: 262px;
                 }
 
                 p {
-                    font-size: 18px;
-                    line-height: 28px;
-                    padding-top: 22px;
-                    padding-bottom: 26px;
+                    font-size: 19px;
+                    line-height: 30px;
+                    letter-spacing: -0.5px;
+                    width: 280px;
+                    padding-top: 25px;
+                    padding-bottom: 25px;
                 }
 
                 .search-box {
-                    width: 304px;
+                    width: 315px;
                     height: 36px;
-                    margin: 0px auto;
                     border-radius: 9px;
 
                     .search-box-content {
@@ -304,19 +304,20 @@
                             padding: 0px 8px;
 
                             svg {
-                                width: 12px;
+                                width: 15px;
                             }
                         }
 
                         .search-box-input {
-                            width: calc(304px - 56px);
+                            width: 247px;
                         }
 
                         .search-box-clear {
-                            padding-left: 4px;
+                            padding-left: 8px;
+                            padding-right: 12px;
 
                             svg {
-                                width: 12px;
+                                width: 17px;
                             }
                         }
                     }
@@ -324,28 +325,112 @@
             }
 
             .home-splash-graphic {
-                padding-left: 7px;
+                padding-left: 0px;
+                padding-bottom: 100px;
 
                 .jordan-1 {
-                    padding-top: 110px;
-                    padding-left: 125px;
+                    padding-top: 90px;
+                    padding-left: 144px;
 
                     svg {
-                        width: 83px;
+                        width: 86px;
                     }
                 }
 
                 .shoe-boxes {
-                    padding-top: 46px;
+                    padding-top: 47px;
 
                     svg {
-                        width: 290px;
+                        width: 300px;
+                        padding-left: 15px;
                     }
                 }
             }
         }
     }
 }
+
+
+
+
+
+// @media screen and (max-width: 499px) {
+//     .home-splash {
+//         .home-splash-content {
+//             flex-direction: column;
+//             padding-top: 80px;
+//             padding-bottom: 100px;
+//             height: auto !important;
+
+//             .home-splash-text {
+//                 width: 326px;
+//                 text-align: center;
+
+//                 h1 {
+//                     font-size: 40px;
+//                     line-height: 48px;
+//                 }
+
+//                 p {
+//                     font-size: 18px;
+//                     line-height: 28px;
+//                     padding-top: 22px;
+//                     padding-bottom: 26px;
+//                 }
+
+//                 .search-box {
+//                     width: 304px;
+//                     height: 36px;
+//                     margin: 0px auto;
+//                     border-radius: 9px;
+
+//                     .search-box-content {
+//                         .search-box-icon {
+//                             padding: 0px 8px;
+
+//                             svg {
+//                                 width: 12px;
+//                             }
+//                         }
+
+//                         .search-box-input {
+//                             width: calc(304px - 56px);
+//                         }
+
+//                         .search-box-clear {
+//                             padding-left: 4px;
+
+//                             svg {
+//                                 width: 12px;
+//                             }
+//                         }
+//                     }
+//                 }
+//             }
+
+//             .home-splash-graphic {
+//                 padding-left: 7px;
+
+//                 .jordan-1 {
+//                     padding-top: 110px;
+//                     padding-left: 125px;
+
+//                     svg {
+//                         width: 83px;
+//                     }
+//                 }
+
+//                 .shoe-boxes {
+//                     padding-top: 46px;
+
+//                     svg {
+//                         width: 290px;
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
 
 
 
