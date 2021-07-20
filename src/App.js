@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { RemoveScroll } from 'react-remove-scroll'
 import { useSelector, useDispatch } from 'react-redux'
-import { setUser, updateLocation, showLocationPopup, hideLocationPopup } from './redux/actions'
+import { setUser, showLocationPopup } from './redux/actions'
 
 import Navbar from "./components/navbar"
 import Home from "./components/Home/home"
@@ -46,10 +46,7 @@ export default function App() {
     const hamburgerModalVisible = useSelector(state => state.hamburgerModalVisible)
     const deleteModalVisible = useSelector(state => state.deleteModalVisible)
     const searchModalVisible = useSelector(state => state.searchModalVisible)
-    const location = useSelector(state => state.location)
     const locationPopup = useSelector(state => state.locationPopup)
-    console.log(locationPopup)
-
     const [loader, setLoader] = useState(true)
 
     useEffect(() => {
@@ -68,15 +65,12 @@ export default function App() {
         fetch('https://sanctuaryapi.net/location')
         .then(response => response.json())
         .then(data => {
-            console.log("hi,", data['country_code'])
             // if (data['country_code'] !== 'US' && data['country_code'] !== location['country_code']) {
             if (data['country_code'] !== 'US') {
-                // open popup
-                console.log("opening popup")
-                dispatch(updateLocation(data))
-                dispatch(showLocationPopup())
+                dispatch(showLocationPopup(data))
             }
         })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     if (loader) {

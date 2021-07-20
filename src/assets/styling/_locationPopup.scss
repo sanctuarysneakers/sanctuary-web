@@ -12,4 +12,54 @@
         align-items: flex-end;
         justify-content: flex-end;
     }
+
+    
+    .card-one-location {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        height: 500px;
+        width: 910px;
+        background: white;
+        border-radius: 20px;
+        margin-top: 10px;
+
+        .card-one-content {
+            display: flex;
+            flex-direction: column;
+            // justify-content: space-between;
+
+            // height: 905px;
+            width: 658px;
+            text-align: center;
+
+            .card-one-title {
+
+                h1 {
+                    font-size: 58px;
+                    font-weight: 600;
+                    color: #353234;
+                    line-height: 56pt;
+                }
+    
+                h2 {
+                    font-size: 32px;
+                    font-weight: 500;
+                    color: #353234;
+                    margin-top: 15px;
+                }
+            }
+
+            img {
+                width: 100%;
+            }
+
+            p {
+                font-size: 22px;
+                font-weight: 500;
+                color: #353234;
+            }
+        }
+    }
 }

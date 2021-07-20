@@ -202,9 +202,10 @@ export const updateLocation = json => {
     }
 }
 
-export const showLocationPopup = () => {
+export const showLocationPopup = data => {
     return {
-        type: 'SHOW_LOCATION_POPUP'
+        type: 'SHOW_LOCATION_POPUP',
+        payload: data
     }
 }
 

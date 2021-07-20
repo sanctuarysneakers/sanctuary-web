@@ -21,7 +21,7 @@ export default function Item() {
     const currency = useSelector(state => state.currency)
     const currencySymbolMap = {
         'USD' : '$',
-        'CAD' : '$',
+        'CAD' : 'CA$',
         'EUR' : '€',
         'GBP' : '£',
         'JPY' : '¥'
