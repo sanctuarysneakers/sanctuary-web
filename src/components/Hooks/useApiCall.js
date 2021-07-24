@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { browseCall, updateItemInfo, updateItemPrices, updateItemListings } from '../../redux/actions'
 import createRequestObject from './createRequest'
 import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPrice, 
@@ -8,6 +8,7 @@ import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPr
 
 
 export default function useAPICall(callType, params) {
+
     const history = useHistory()
     const dispatch = useDispatch()
 

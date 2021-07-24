@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { RemoveScroll } from 'react-remove-scroll'
 import { useSelector, useDispatch } from 'react-redux'
-import { setUser, showLocationPopup } from './redux/actions'
+import { setUser } from './redux/actions'
 
 import Navbar from "./components/navbar"
 import Home from "./components/Home/home"
@@ -16,6 +16,7 @@ import PageNotFound from "./components/Pages/pageNotFound"
 import PrivacyPolicy from './components/Pages/privacyPolicy'
 import TermsOfUse from './components/Pages/termsOfUse'
 import LocationPopup from './components/locationPopup'
+import useLocationDetection from './components/Hooks/useLocationDetection'
 
 import SignInOptions from './components/Accounts/signInOptions'
 import SignInEmail from './components/Accounts/signInEmail'
@@ -39,14 +40,16 @@ import Loader from './components/loader'
 export default function App() {
 
     const dispatch = useDispatch()
-
-    const aboutModalVisible = useSelector(state => state.aboutModalVisible)
-    const hamburgerModalVisible = useSelector(state => state.hamburgerModalVisible)
-    const deleteModalVisible = useSelector(state => state.deleteModalVisible)
-    const searchModalVisible = useSelector(state => state.searchModalVisible)
+    
     const locationPopup = useSelector(state => state.locationPopup)
+    const searchModalVisible = useSelector(state => state.searchModalVisible)
+    const hamburgerModalVisible = useSelector(state => state.hamburgerModalVisible)
+    const aboutModalVisible = useSelector(state => state.aboutModalVisible)
+    const deleteModalVisible = useSelector(state => state.deleteModalVisible)
     const [loader, setLoader] = useState(true)
-
+    
+    useLocationDetection()
+    
     useEffect(() => {
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
@@ -58,18 +61,6 @@ export default function App() {
             }
         })
     })
-
-    useEffect(() => {
-        fetch('https://sanctuaryapi.net/location')
-        .then(response => response.json())
-        .then(data => {
-            // if (data['country_code'] !== 'US' && data['country_code'] !== location['country_code']) {
-            if (data['country_code'] !== 'US') {
-                dispatch(showLocationPopup(data))
-            }
-        })
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
 
     if (loader) {
         return (
@@ -107,26 +98,22 @@ export default function App() {
                         <LocationPopup />
                     </RemoveScroll>
                 }
-                {
-                    aboutModalVisible &&
+                { aboutModalVisible &&
                     <RemoveScroll>
                         <AboutModal />
                     </RemoveScroll>
                 }
-                {
-                    hamburgerModalVisible &&
+                { hamburgerModalVisible &&
                     <RemoveScroll>
                         <HamburgerModal />
                     </RemoveScroll>
                 }
-                {
-                    deleteModalVisible &&
+                { deleteModalVisible &&
                     <RemoveScroll>
                         <DeleteModal />
                     </RemoveScroll>
                 }
-                {
-                    searchModalVisible &&
+                { searchModalVisible &&
                     <RemoveScroll>
                         <SearchModal />
                     </RemoveScroll>
