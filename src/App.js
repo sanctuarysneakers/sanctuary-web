@@ -9,7 +9,6 @@ import Home from "./components/Home/home"
 import Browse from "./components/Pages/browse"
 import Item from "./components/Pages/item"
 import AboutModal from "./components/Pages/aboutModal"
-import FilterModal from "./components/Pages/filterModal"
 import HamburgerModal from "./components/Pages/hamburgerModal"
 import DeleteModal from "./components/Pages/deleteModal"
 import SearchModal from './components/Pages/searchModal'
@@ -40,7 +39,6 @@ export default function App() {
 
     const dispatch = useDispatch()
 
-    const filterVisible = useSelector(state => state.filterVisible)
     const aboutModalVisible = useSelector(state => state.aboutModalVisible)
     const hamburgerModalVisible = useSelector(state => state.hamburgerModalVisible)
     const deleteModalVisible = useSelector(state => state.deleteModalVisible)
@@ -95,12 +93,6 @@ export default function App() {
                     aboutModalVisible &&
                     <RemoveScroll>
                         <AboutModal />
-                    </RemoveScroll>
-                }
-                {
-                    filterVisible &&
-                    <RemoveScroll>
-                        <FilterModal />
                     </RemoveScroll>
                 }
                 {
