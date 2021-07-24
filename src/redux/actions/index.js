@@ -108,18 +108,6 @@ export const hideAboutModal = () => {
     }
 }
 
-export const showFilterModal = () => {
-    return {
-        type: 'SHOW_FILTER_MODAL'
-    }
-}
-
-export const hideFilterModal = () => {
-    return {
-        type: 'HIDE_FILTER_MODAL'
-    }
-}
-
 export const showHamburgerModal = () => {
     return {
         type: 'SHOW_HAMBURGER_MODAL'
