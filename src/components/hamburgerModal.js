@@ -1,14 +1,14 @@
 import React, { useRef } from 'react'
-import firebase from '../../services/firebase.js'
-import useOutsideAlerter from '../Hooks/useOutsideAlerter'
 import { useDispatch, useSelector } from 'react-redux'
-import { hideHamburgerModal, showAboutModal } from '../../redux/actions'
+import { hideHamburgerModal, showAboutModal } from '../redux/actions'
 import { Link, useHistory } from 'react-router-dom'
-import InfoIcon from '../../assets/images/icons/infoIcon'
-import ProfileIcon from '../../assets/images/icons/profileIcon'
-import SignOutIcon from '../../assets/images/icons/signOutIcon.js'
-import BlogIcon from '../../assets/images/icons/blogIcon.js'
-import {ReactComponent as BrowseIcon} from '../../assets/images/browseIcon.svg'
+import firebase from '../services/firebase.js'
+import useOutsideAlerter from './Hooks/useOutsideAlerter'
+import InfoIcon from '../assets/images/icons/infoIcon'
+import ProfileIcon from '../assets/images/icons/profileIcon'
+import SignOutIcon from '../assets/images/icons/signOutIcon.js'
+import BlogIcon from '../assets/images/icons/blogIcon.js'
+import {ReactComponent as BrowseIcon} from '../assets/images/browseIcon.svg'
 
 
 export default function HamburgerModal() {

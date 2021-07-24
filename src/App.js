@@ -9,9 +9,9 @@ import Home from "./components/Home/home"
 import Browse from "./components/Pages/browse"
 import Item from "./components/Pages/item"
 import AboutModal from "./components/Pages/aboutModal"
-import HamburgerModal from "./components/Pages/hamburgerModal"
-import DeleteModal from "./components/Pages/deleteModal"
-import SearchModal from './components/Pages/searchModal'
+import HamburgerModal from "./components/hamburgerModal"
+import DeleteModal from "./components/deleteModal"
+import SearchModal from './components/searchModal'
 import PageNotFound from "./components/Pages/pageNotFound"
 import PrivacyPolicy from './components/Pages/privacyPolicy'
 import TermsOfUse from './components/Pages/termsOfUse'
