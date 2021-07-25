@@ -17,7 +17,8 @@ export default function ItemPrice({ data, index, length }) {
         'CAD' : 'CA$',
         'EUR' : '€',
         'GBP' : '£',
-        'JPY' : '¥'
+        'JPY' : '¥',
+        'AUD' : 'A$'
     }
     const currencySymbol = currencySymbolMap[currency]
 

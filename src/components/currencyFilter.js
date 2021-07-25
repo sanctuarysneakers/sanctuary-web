@@ -18,15 +18,17 @@ export default function CurrencyFilter() {
         { label: '$ CAD', value: 'CAD' },
         { label: '¥ JPY', value: 'JPY' },
         { label: '€ EUR', value: 'EUR' },
-        { label: '£ GBP', value: 'GBP' }
+        { label: '£ GBP', value: 'GBP' },
+        { label: '$ AUD', value: 'AUD' },
     ]
 
-    const countryCurrencyMap = {
+    const currencyFlagMap = {
         'USD' : unitedStates,
         'CAD' : canada,
         'JPY' : japan,
         'EUR' : europeanUnion,
-        'GBP' : unitedKingdom
+        'GBP' : unitedKingdom,
+        'AUD' : unitedKingdom,
     }
 
     const handleCurrencyChange = (e) => {
@@ -39,7 +41,7 @@ export default function CurrencyFilter() {
             <h4> Currency </h4>
 
             <div className='currency-filter-flag'>
-                <img src={countryCurrencyMap[currency]} alt='flag' />
+                <img src={currencyFlagMap[currency]} alt='flag' />
             </div>
 
             <Select
