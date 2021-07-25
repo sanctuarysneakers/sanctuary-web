@@ -1,24 +1,30 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { showLocationPopup } from '../../redux/actions'
+import { showLocationPopup, updateLocation } from '../../redux/actions'
 
 export default function useLocationDetection() {
 
 	const dispatch = useDispatch()
 
-	const currency = useSelector(state => state.currency)
     const location = useSelector(state => state.location)
+	const currencies = ['USD','CAD','JPY','EUR','GBP','AUD']
 
-	async function detectLocation() { 
+	async function getLocation() { 
 		const response = await fetch('https://sanctuaryapi.net/location')
 		const data = await response.json()
-		// if (data['country_code'] !== 'US' && data['country_code'] !== location['country_code']) {
-		if (data['country_code'] !== 'US')
-			dispatch(showLocationPopup(data))
+		dispatch(updateLocation(data))
+
+		// show popup to suggest currency change depending on location
+		if (data['country_code'] !== 'US' && currencies.includes(data['currency_code']))
+			dispatch(showLocationPopup({
+				country: data['country_name'],
+				currency: data['currency_code'],
+			}))
 	}
 
 	useEffect(() => {
-		detectLocation()
+		if (location === null)
+			getLocation()
 	}, [])
 
 }
