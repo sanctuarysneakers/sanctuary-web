@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { browseCall, updateItemInfo, updateItemPrices, updateItemListings } from '../../redux/actions'
 import createRequestObject from './createRequest'
 import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPrice, 
@@ -8,6 +8,7 @@ import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPr
 
 
 export default function useAPICall(callType, params) {
+
     const history = useHistory()
     const dispatch = useDispatch()
 
@@ -65,11 +66,7 @@ export default function useAPICall(callType, params) {
         results.push(...await goatLowestPrice(item.skuId, item.modelName, size, currencyRate))
         results.push(...await flightclubLowestPrice(item.skuId, item.modelName, size, currencyRate))
         results.push(...await klektLowestPrice(item.skuId, item.modelName, size, klektCurrencyRate))
-        
-        if (typeof(location["country_code2"]) !== "undefined")
-            results.push(...await ebayLowestPrice(item.skuId, item.modelName, size, location["country_code2"], currencyRate))
-        else
-            results.push(...await ebayLowestPrice(item.skuId, item.modelName, size, "US", currencyRate))
+        results.push(...await ebayLowestPrice(item.skuId, item.modelName, size, location['country_code'], currencyRate))
 
         results.sort((a, b) => a.price - b.price)
         return results.length ? results : null
@@ -84,11 +81,7 @@ export default function useAPICall(callType, params) {
         let results = []
         results.push(...await depopListings(item.modelName, size, currencyRate))
         results.push(...await grailedListings(item.modelName, size, currencyRate))
-        
-        if (typeof(location["country_code2"]) !== "undefined")
-            results.push(...await ebayListings(item.skuId, item.modelName, size, location["country_code2"], currencyRate))
-        else
-            results.push(...await ebayListings(item.skuId, item.modelName, size, "US", currencyRate))
+        results.push(...await ebayListings(item.skuId, item.modelName, size, location['country_code'], currencyRate))
 
         results.sort((a, b) => a.price - b.price)
         return results.length ? results : null
@@ -108,13 +101,11 @@ export default function useAPICall(callType, params) {
     useEffect(() => {
         if (callType === 'browse')
             browse(params.query)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
         if (callType === 'getitem')
             getItem(params.sku, params.size)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currency, size])
 
 }

@@ -28,6 +28,7 @@
     "react-slick": "^0.28.1",
     "react-text-loop": "^2.3.0",
     "redux": "^4.0.5",
+    "redux-persist": "^6.0.0",
     "slick-carousel": "^1.8.1",
     "swiper": "^6.1.1"
   },

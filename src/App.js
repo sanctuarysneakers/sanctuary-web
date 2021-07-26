@@ -15,6 +15,8 @@ import SearchModal from './components/searchModal'
 import PageNotFound from "./components/Pages/pageNotFound"
 import PrivacyPolicy from './components/Pages/privacyPolicy'
 import TermsOfUse from './components/Pages/termsOfUse'
+import LocationPopup from './components/locationPopup'
+import useLocationDetection from './components/Hooks/useLocationDetection'
 
 import SignInOptions from './components/Accounts/signInOptions'
 import SignInEmail from './components/Accounts/signInEmail'
@@ -38,14 +40,16 @@ import Loader from './components/loader'
 export default function App() {
 
     const dispatch = useDispatch()
-
-    const aboutModalVisible = useSelector(state => state.aboutModalVisible)
-    const hamburgerModalVisible = useSelector(state => state.hamburgerModalVisible)
-    const deleteModalVisible = useSelector(state => state.deleteModalVisible)
+    
+    const locationPopup = useSelector(state => state.locationPopup)
     const searchModalVisible = useSelector(state => state.searchModalVisible)
-
+    const hamburgerModalVisible = useSelector(state => state.hamburgerModalVisible)
+    const aboutModalVisible = useSelector(state => state.aboutModalVisible)
+    const deleteModalVisible = useSelector(state => state.deleteModalVisible)
     const [loader, setLoader] = useState(true)
-
+    
+    useLocationDetection()
+    
     useEffect(() => {
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
@@ -89,26 +93,27 @@ export default function App() {
                 <Route component={PageNotFound} />
                 </Switch>
 
-                {
-                    aboutModalVisible &&
+                { locationPopup && 
+                    <RemoveScroll>
+                        <LocationPopup />
+                    </RemoveScroll>
+                }
+                { aboutModalVisible &&
                     <RemoveScroll>
                         <AboutModal />
                     </RemoveScroll>
                 }
-                {
-                    hamburgerModalVisible &&
+                { hamburgerModalVisible &&
                     <RemoveScroll>
                         <HamburgerModal />
                     </RemoveScroll>
                 }
-                {
-                    deleteModalVisible &&
+                { deleteModalVisible &&
                     <RemoveScroll>
                         <DeleteModal />
                     </RemoveScroll>
                 }
-                {
-                    searchModalVisible &&
+                { searchModalVisible &&
                     <RemoveScroll>
                         <SearchModal />
                     </RemoveScroll>

@@ -190,6 +190,19 @@ export const updateLocation = json => {
     }
 }
 
+export const showLocationPopup = data => {
+    return {
+        type: 'SHOW_LOCATION_POPUP',
+        payload: data
+    }
+}
+
+export const hideLocationPopup = () => {
+    return {
+        type: 'HIDE_LOCATION_POPUP'
+    }
+}
+
 // Update size 
 
 export const updateSize = size => {

@@ -1,5 +1,5 @@
 
-const updateSizeReducer = (state=10, action) => {
+const sizeReducer = (state=10, action) => {
     switch(action.type) {
         case 'UPDATE_SIZE':
             return action.payload
@@ -8,4 +8,4 @@ const updateSizeReducer = (state=10, action) => {
     }
 }
 
-export default updateSizeReducer
+export default sizeReducer

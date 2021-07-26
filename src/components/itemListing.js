@@ -7,10 +7,11 @@ export default function ItemListing({ data, index, length }) {
     const currency = useSelector(state => state.currency)
     const currencySymbolMap = {
         'USD' : '$',
-        'CAD' : '$',
+        'CAD' : 'CA$',
         'EUR' : '€',
         'GBP' : '£',
-        'JPY' : '¥'
+        'JPY' : '¥',
+        'AUD' : 'A$'
     }
     const currencySymbol = currencySymbolMap[currency]
 

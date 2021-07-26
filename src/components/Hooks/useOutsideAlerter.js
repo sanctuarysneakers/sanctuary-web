@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { hideAboutModal, hideFilter, hideHamburgerModal,
-    hideDeleteModal, hideSearchModal } from '../../redux/actions'
+    hideDeleteModal, hideSearchModal, hideLocationPopup,  } from '../../redux/actions'
 
 export default function useOutsideAlerter(ref) {
     const dispatch = useDispatch()
@@ -15,6 +15,7 @@ export default function useOutsideAlerter(ref) {
                 dispatch(hideHamburgerModal())
                 dispatch(hideDeleteModal())
                 dispatch(hideSearchModal())
+                dispatch(hideLocationPopup())
             }
         }
 
