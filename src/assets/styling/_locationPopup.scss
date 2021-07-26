@@ -18,13 +18,20 @@
         .card-one-content {
             display: flex;
             flex-direction: column;
+            justify-content: center;
             text-align: center;
+
+            img {
+                width: 20vh;
+                margin: auto;
+            }
 
             .card-one-title {
                 h1 {
                     font-size: 36px;
                     font-weight: 500;
                     color: #353234;
+                    padding: 4vh;
                 }
             }
             .button-container {
@@ -32,7 +39,6 @@
                 justify-content: space-between;
                 width: 300px;
                 margin: 0 auto;
-                margin-top: 25px;
             }
             .change-button {
                 background-color: #EC3E26;
@@ -82,13 +88,20 @@
         .card-one-content {
             display: flex;
             flex-direction: column;
+            justify-content: center;
             text-align: center;
+
+            img {
+                width: 12vh;
+                margin: auto;
+            }
 
             .card-one-title {
                 h1 {
                     font-size: 22px;
                     font-weight: 500;
                     color: #353234;
+                    padding: 1vh;
                 }
             }
             .button-container {
@@ -96,7 +109,6 @@
                 justify-content: space-between;
                 width: 270px;
                 margin: 0 auto;
-                margin-top: 7px;
             }
             .change-button {
                 background-color: #EC3E26;

@@ -2,6 +2,11 @@ import React, { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { hideLocationPopup, updateCurrency } from '../redux/actions'
 import useOutsideAlerter from './Hooks/useOutsideAlerter'
+import canada from '../assets/images/ca.svg'
+import japan from '../assets/images/jp.svg'
+import europeanUnion from '../assets/images/eu.svg'
+import unitedKingdom from '../assets/images/gb.svg'
+import australia from '../assets/images/au.svg'
 
 export default function LocationPopup() {
 
@@ -17,11 +22,11 @@ export default function LocationPopup() {
 		'AUD' : 'A$',
 	}
 	const flagMap = {
-		'CAD' : '🇨🇦',
-		'EUR' : '🇪🇺',
-		'GBP' : '🇬🇧',
-		'JPY' : '🇯🇵',
-		'AUD' : '🇦🇺',
+		'CAD' : canada,
+		'EUR' : europeanUnion,
+		'GBP' : unitedKingdom,
+		'JPY' : japan,
+		'AUD' : australia,
 	}
 
 	const handleCurrencyChange = () => {
@@ -37,7 +42,7 @@ export default function LocationPopup() {
 			<div className='location-popup' ref={wrapperRef}>
 				<div className='card-one-location'>
 					<div className='card-one-content'>
-						<h1> {flagMap[currency]} </h1>
+						<img src={flagMap[currency]} alt='flag' />
 						<div className='card-one-title'>
 							<h1> Change currency to {currencyMap[currency]}? </h1>
 						</div>
