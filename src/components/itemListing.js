@@ -6,14 +6,8 @@ export default function ItemListing({ data, index, length }) {
 
     const currency = useSelector(state => state.currency)
     const currencySymbolMap = {
-        'USD' : '$',
-        'CAD' : 'CA$',
-        'EUR' : '€',
-        'GBP' : '£',
-        'JPY' : '¥',
-        'AUD' : 'A$'
+        'USD':'$', 'CAD':'CA$', 'EUR':'€', 'GBP':'£', 'JPY':'¥', 'AUD':'A$'
     }
-    const currencySymbol = currencySymbolMap[currency]
 
     const websiteTextMap = {
         'stockx' : 'StockX',
@@ -45,7 +39,7 @@ export default function ItemListing({ data, index, length }) {
                 <div className='item-listing-link'>
                     <div className='item-listing-amount'>
                         <h2>
-                            {currencySymbol}{data.price}
+                            {currencySymbolMap[currency]}{data.price}
                         </h2>
                     </div>
 

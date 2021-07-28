@@ -3,6 +3,8 @@ import browseDataReducer from './browseDataReducer'
 import itemInfoReducer from './itemInfoReducer'
 import itemPricesReducer from './itemPricesReducer'
 import itemListingsReducer from './itemListingsReducer'
+import loadingItemPricesReducer from './loadingItemPricesReducer'
+import loadingItemListingsReducer from './loadingItemListingsReducer'
 import filterReducer from './filterReducer'
 import currencyReducer from './currencyReducer'
 import aboutModalVisibleReducer from './aboutModalVisibleReducer'
@@ -25,6 +27,8 @@ const globalReducer = combineReducers({
     itemInfo: itemInfoReducer,
     itemPrices: itemPricesReducer,
     itemListings: itemListingsReducer,
+    loadingItemPrices: loadingItemPricesReducer,
+    loadingItemListings: loadingItemListingsReducer,
     splashHeight: recordSplashHeightReducer,
     hamburgerModalVisible: hamburgerModalVisibleReducer,
     user: userReducer,

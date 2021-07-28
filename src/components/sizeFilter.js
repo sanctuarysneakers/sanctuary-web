@@ -1,7 +1,7 @@
 import React from 'react'
 import Select from 'react-select'
 import { useDispatch } from 'react-redux'
-import { updateSize } from '../redux/actions'
+import { updateSize, setItemPricesLoading, setItemListingsLoading } from '../redux/actions'
 
 export default function SizeFilter() {
 
@@ -26,14 +26,14 @@ export default function SizeFilter() {
     ]
 
     const handleSizeChange = (e) => {
-        const newSize = e.value;
-        dispatch(updateSize(newSize))
+        dispatch(updateSize(e.value))
+        dispatch(setItemPricesLoading(true))
+        dispatch(setItemListingsLoading(true))
     }
 
     return (
         <div className='size-filter'>
             <h4> Select size </h4>
-
             <Select
                 className='size-filter-content'
                 classNamePrefix='size-filter'
