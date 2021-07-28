@@ -29,6 +29,20 @@ export const updateItemListings = itemListings => {
     }
 }
 
+export const setItemPricesLoading = isLoading => {
+    return {
+        type: 'LOADING_ITEM_PRICES',
+        payload: isLoading
+    }
+}
+
+export const setItemListingsLoading = isLoading => {
+    return {
+        type: 'LOADING_ITEM_LISTINGS',
+        payload: isLoading
+    }
+}
+
 // Filter Actions
 
 export const updateSizeFilter = size => {

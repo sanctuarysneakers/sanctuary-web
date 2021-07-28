@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useParams } from 'react-router'
 import { useMediaQuery } from 'react-responsive'
 import { useSelector } from 'react-redux'
@@ -18,17 +18,7 @@ import eBayGrey from '../../assets/images/ebay-grey.svg'
 
 export default function Item() {
 
-    const currency = useSelector(state => state.currency)
-    const currencySymbolMap = {
-        'USD' : '$',
-        'CAD' : 'CA$',
-        'EUR' : '€',
-        'GBP' : '£',
-        'JPY' : '¥',
-        'AUD' : 'A$'
-    }
-    const currencySymbol = currencySymbolMap[currency]
-
+    const isDesktop = useMediaQuery({query: '(min-width: 870px)'})
     const websiteLogoMap = {
         'stockx' : StockXGrey,
         'goat' : GOATGrey,
@@ -39,7 +29,11 @@ export default function Item() {
         'ebay' : eBayGrey
     }
 
-    const isDesktop = useMediaQuery({query: '(min-width: 870px)'})
+    const currency = useSelector(state => state.currency)
+    const currencySymbolMap = {
+        'USD':'$', 'CAD':'CA$', 'EUR':'€', 'GBP':'£', 'JPY':'¥', 'AUD':'A$'
+    }
+
     const { sku } = useParams()
     const size = useSelector(state => state.size)
     useAPICall('getitem', { sku: sku, size: size })
@@ -47,37 +41,17 @@ export default function Item() {
     const itemInfo = useSelector(state => state.itemInfo)
     const itemPrices = useSelector(state => state.itemPrices)
     const itemListings = useSelector(state => state.itemListings)
+    const pricesLoading = useSelector(state => state.loadingItemPrices)
+    const listingsLoading = useSelector(state => state.loadingItemListings)
 
-    const [pricesLoader, setPricesLoader] = useState(true)
-    const [listingsLoader, setListingsLoader] = useState(true)
-    const [priceComponents, setPriceComponents] = useState(false)
-    const [listingComponents, setListingComponents] = useState(false)
-    const [noPrices, setNoPrices] = useState(false)
-    const [noListings, setNoListings] = useState(false)
-
-    useEffect(() => {
-        if (!itemPrices) {
-            setPricesLoader(false)
-            setNoPrices(true)
-        }
-        else if (itemPrices.length) {
-            setPricesLoader(false)
-            setPriceComponents(itemPrices.map((item, index) =>
-                <ItemPrice key={item.source} data={item} index={index} length={itemPrices.length} />
-            ))
-        }
-
-        if (!itemListings) {
-            setListingsLoader(false)
-            setNoListings(true) 
-        }
-        else if (itemListings.length) {
-            setListingsLoader(false)
-            setListingComponents(itemListings.map((item, index) =>
-                <ItemListing key={item.id} data={item} index={index} length={itemListings.length} />
-            ))
-        }
-    }, [itemPrices, itemListings])
+    const priceComponents = itemPrices.map((item, index) =>
+        <ItemPrice key={item.source} data={item} index={index}
+            length={itemPrices.length} />
+    )
+    const listingComponents = itemListings.map((item, index) =>
+        <ItemListing key={item.id} data={item} index={index}
+            length={itemListings.length} />
+    )
 
     return (
         <div className='item'>
@@ -101,13 +75,13 @@ export default function Item() {
                                 <h1> {itemInfo.modelName} </h1>
                             </div>
 
-                            {pricesLoader && <ItemLoader version={'info'} />}
+                            {pricesLoading && <ItemLoader version={'info'} />}
 
-                            {!pricesLoader && <div className='item-sneaker-price-details'>
+                            {!pricesLoading && <div className='item-sneaker-price-details'>
 
                                 <a target='_blank' href={`https://${itemPrices[0].url}`} rel="noopener noreferrer">
                                     <div className='item-sneaker-price'>
-                                        <h2> Buy {currencySymbol}{itemPrices[0].price} </h2>
+                                        <h2> Buy {currencySymbolMap[currency]}{itemPrices[0].price} </h2>
                                     </div>
                                 </a>
 
@@ -146,10 +120,9 @@ export default function Item() {
                         <h6> Lowest Prices </h6>
 
                         <div className='item-lowest-prices-rows'>
-                            {pricesLoader && <ItemLoader version={'prices'} />}
-                            {noPrices && console.log('no prices')}
+                            {pricesLoading && <ItemLoader version={'prices'} />}
 
-                            {!pricesLoader && <div className='item-lowest-prices-rows-content'>
+                            {!pricesLoading && <div className='item-lowest-prices-rows-content'>
                                 {priceComponents}
                             </div>}
                         </div>
@@ -159,14 +132,13 @@ export default function Item() {
                         <h6> More Listings </h6>
 
                         <div className='item-more-listings-rows'>
-                            {listingsLoader && <ItemLoader version={'listings'} />}
+                            {listingsLoading && <ItemLoader version={'listings'} />}
 
-                            {noListings && <div className='item-no-results'>
-                                <p> No results found </p>
-                            </div>}
-
-                            {!listingsLoader && <div className='item-more-listings-rows-content'>
-                                {listingComponents}
+                            {!listingsLoading && <div className='item-more-listings-rows-content'>
+                                {itemListings.length ? listingComponents :
+                                <div className='item-no-results'>
+                                    <p> No results found </p>
+                                </div>}
                             </div>}
                         </div>
                     </div>
