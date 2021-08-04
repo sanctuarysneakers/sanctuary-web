@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import TopSneakers from '../../assets/images/topSneakers.jpg'
-import SneakerBoxes from '../../assets/images/sneakerBoxes.jpg'
-import Adidas3D from '../../assets/images/adidas3d.jpg'
-import SanctuaryArticle from '../../assets/images/sanctuaryArticle.jpg'
+import TopSneakers from '../../assets/images/top-sneakers.jpg'
+import SneakerBoxes from '../../assets/images/demystifying-sneakers.jpg'
+import Adidas3D from '../../assets/images/adidas-3d.jpg'
+import SanctuaryArticle from '../../assets/images/sanctuary-story.jpg'
 
 export default function Footer() {
 

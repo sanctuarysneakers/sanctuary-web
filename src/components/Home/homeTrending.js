@@ -12,26 +12,29 @@ import airMax from '../../assets/images/airMax.png'
 export default function HomeTrending() {
 
     const dispatch = useDispatch()
-    const [render, setRender] = useState(false)
-
     const ref = useRef()
     const isVisible = VisibleOnScreen(ref)
+    
+    const [render, setRender] = useState(false)
+    const [firstFlip, setFirstFlip] = useState(false)
 
     useEffect(() => {
-        if (isVisible)
+        if (isVisible && !firstFlip) {
             setRender(true)
-    }, [isVisible])
+            setFirstFlip(true)
+        }
+    }, [isVisible, firstFlip])
 
     return (
         <div className='home-trending'>
             <div className='home-trending-content'>
                 
                 <div ref={ref} className='home-trending-text'>
-                    <FadeIn visible={render} delay={250} transitionDuration={500}>
+                    <FadeIn visible={render} delay={200} transitionDuration={500}>
                         <h1> Shop the hottest collections from </h1>
 
                         <div className='flipping-brands'>
-                            <TextLoop interval={1500} fade={false}>
+                            <TextLoop interval={firstFlip ? 1500 : 0} fade={false}>
                                 <h1 className='nike'> Nike. </h1>
                                 <h1 className='air-jordan'> Air Jordan. </h1>
                                 <h1 className='adidas'> Adidas. </h1>

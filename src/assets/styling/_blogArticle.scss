@@ -5,7 +5,7 @@
 
         // Each article header image
         .article-header-intro {
-            background: url('../images/sanctuaryArticle.jpg');
+            background: url('../images/sanctuary-story.jpg');
             // background: #333 url("https://lh3.googleusercontent.com/-L9JAZXUqyXM-Z0zySex_Y98_ioErwshGnIEY7GByA5GitLL_lELkf05ndGpY40N3dIVZ45-eOLu_keM_5q4dRvpurE-6hgxVEDyYdRjnJQYNCexbcYS3_7SBAgwIig2uRyYw_vg=w2400");
         }
         .article-header-engineering {
@@ -45,6 +45,7 @@
                         font-weight: 600;
                         line-height: 40px;
                         margin-bottom: 15px;
+                        color: white;
                     }
 
                     .article-author {
@@ -80,7 +81,7 @@
 
         .article-header-intro {
             .article-header-gradient {
-                background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(0,0,0,0.40) 0%, rgba(255,255,255,0) 100%);
+                background: linear-gradient(0deg, hsla(0, 0%, 0%, 0.25) 0%, hsla(0, 0%, 100%, 0) 100%);
             }
         }
 

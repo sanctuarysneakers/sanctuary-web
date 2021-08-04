@@ -7,7 +7,12 @@ import "slick-carousel/slick/slick-theme.css"
 
 export default function HomeNewsroom() {
 
+    const ref = useRef()
+    const isVisible = VisibleOnScreen(ref)
+    const sliderRef = useRef()
+
     const [render, setRender] = useState(false)
+    const [firstFlip, setFirstFlip] = useState(false)
 
     const sliderSettings = {
         className: "slider variable-width",
@@ -22,13 +27,20 @@ export default function HomeNewsroom() {
         variableWidth: true
     }
 
-    const ref = useRef()
-    const isVisible = VisibleOnScreen(ref)
-
     useEffect(() => {
         if (isVisible)
             setRender(true)
     }, [isVisible])
+
+    useEffect(() => {
+        if (!isVisible && !firstFlip) {
+            sliderRef.current.slickPause()
+        }
+        else if (isVisible && !firstFlip) {
+            setFirstFlip(true)
+            sliderRef.current.slickPlay()
+        }
+    }, [isVisible, firstFlip])
 
     return (
         <div className='home-newsroom'>
@@ -39,7 +51,7 @@ export default function HomeNewsroom() {
                         <h1> Everything you need to know about sneakers is here. </h1>
                         <p>
                             Stay up to date with the latest Sanctuary news and original articles.
-                            It's the ultimate place for all sneakerheads alike; curated by our team.
+                            It's the ultimate place for all sneakerheads alike, curated by our team.
                         </p>
                         <div className='home-newsroom-read' 
                             onClick={() => document.location.href = '/newsroom'}>
@@ -49,7 +61,7 @@ export default function HomeNewsroom() {
                 </div>
 
                 <div className='home-newsroom-articles'>
-                    <Slider {...sliderSettings}>
+                    <Slider {...sliderSettings} ref={sliderRef}>
                         <div style={{ width: 1020 }}>
                             <div className='home-newsroom-a1'
                                 onClick={() => document.location.href = '/article-sneakersmeetengineering'}>
