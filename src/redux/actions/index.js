@@ -29,6 +29,20 @@ export const updateItemListings = itemListings => {
     }
 }
 
+export const setItemPricesLoading = isLoading => {
+    return {
+        type: 'LOADING_ITEM_PRICES',
+        payload: isLoading
+    }
+}
+
+export const setItemListingsLoading = isLoading => {
+    return {
+        type: 'LOADING_ITEM_LISTINGS',
+        payload: isLoading
+    }
+}
+
 // Filter Actions
 
 export const updateSizeFilter = size => {
@@ -187,6 +201,19 @@ export const updateLocation = json => {
     return {
         type: 'UPDATE_LOCATION',
         payload: json
+    }
+}
+
+export const showLocationPopup = data => {
+    return {
+        type: 'SHOW_LOCATION_POPUP',
+        payload: data
+    }
+}
+
+export const hideLocationPopup = () => {
+    return {
+        type: 'HIDE_LOCATION_POPUP'
     }
 }
 

@@ -1,0 +1,142 @@
+
+.location-popup {
+    display: flex;
+    align-items: center;
+    height: 95vh;
+
+    .card-one-location {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        height: 290px;
+        width: 575px;
+        background: white;
+        border-radius: 20px;
+
+        .card-one-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+
+            img {
+                width: 20vh;
+                margin: auto;
+            }
+
+            .card-one-title {
+                h1 {
+                    font-size: 36px;
+                    font-weight: 500;
+                    color: #353234;
+                    padding: 4vh;
+                }
+            }
+            .button-container {
+                display: flex;
+                justify-content: space-between;
+                width: 300px;
+                margin: 0 auto;
+            }
+            .change-button {
+                background-color: #EC3E26;
+                color: white;
+                font-size: 14px;
+                width: 140px;
+                height: 50px;
+                border-radius: 8px;
+                font-family: 'Poppins', sans-serif !important;
+            }
+            .change-button:hover {
+                background: #DD3924;
+                cursor: pointer;
+            }
+            .no-change-button {
+                font-size: 14px;
+                width: 140px;
+                height: 50px;
+                border-radius: 8px;
+                font-family: 'Poppins', sans-serif !important;
+            }
+            .no-change-button:hover {
+                background: #E2E2E2;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+/* Mobile */
+@media screen and (max-width: 734px) {
+
+.location-popup {
+    display: flex;
+    align-items: center;
+    height: 90vh;
+
+    .card-one-location {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        height: 200px;
+        width: 330px;
+        background: white;
+        border-radius: 20px;
+
+        .card-one-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+
+            img {
+                width: 12vh;
+                margin: auto;
+            }
+
+            .card-one-title {
+                h1 {
+                    font-size: 22px;
+                    font-weight: 500;
+                    color: #353234;
+                    padding: 1vh;
+                }
+            }
+            .button-container {
+                display: flex;
+                justify-content: space-between;
+                width: 270px;
+                margin: 0 auto;
+            }
+            .change-button {
+                background-color: #EC3E26;
+                color: white;
+                font-size: 14px;
+                width: 125px;
+                height: 42px;
+                border-radius: 8px;
+            }
+            .change-button:hover {
+                background: #DD3924;
+                cursor: pointer;
+            }
+            .no-change-button {
+                background-color: #ECECEC;
+                font-size: 14px;
+                width: 125px;
+                height: 42px;
+                border-radius: 8px;
+            }
+            .no-change-button:hover {
+                background: #E2E2E2;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+}

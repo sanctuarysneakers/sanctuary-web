@@ -1,18 +1,22 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createStore } from 'redux'
-import globalReducer from './redux/reducers'
-import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import configureStore from './redux/configureStore'
+import { PersistGate } from 'redux-persist/lib/integration/react'
+
 import App from './App'
+import Loader from './components/loader'
 import './assets/styling/base.scss'
 
-const store = createStore(globalReducer)
+const { store, persistor } = configureStore()
 
 ReactDOM.render(
     <Provider store={store}>
         <Router>
-            <App/>
+            <PersistGate loading={<Loader />} persistor={persistor}>
+                <App/>
+            </PersistGate>
         </Router>
     </Provider>,
     document.getElementById('root')

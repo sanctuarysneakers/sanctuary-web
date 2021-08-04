@@ -13,13 +13,8 @@ export default function ItemPrice({ data, index, length }) {
 
     const currency = useSelector(state => state.currency)
     const currencySymbolMap = {
-        'USD' : '$',
-        'CAD' : '$',
-        'EUR' : '€',
-        'GBP' : '£',
-        'JPY' : '¥'
+        'USD':'$', 'CAD':'CA$', 'EUR':'€', 'GBP':'£', 'JPY':'¥', 'AUD':'A$'
     }
-    const currencySymbol = currencySymbolMap[currency]
 
     const websiteLogoMap = {
         'stockx' : StockXIcon,
@@ -62,7 +57,7 @@ export default function ItemPrice({ data, index, length }) {
                 
                 <div className='item-price-link'>
                     <div className='item-amount'>
-                        <h2> {currencySymbol}{data.price} </h2>
+                        <h2> {currencySymbolMap[currency]}{data.price} </h2>
                     </div>
 
                     <RightArrow />

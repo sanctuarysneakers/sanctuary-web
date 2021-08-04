@@ -1,11 +1,12 @@
-export const locationReducer = (state = false, action) => {
+
+export const locationReducer = (state=null, action) => {
     switch(action.type) {
         case 'UPDATE_LOCATION':
-            return action.payload;
+            return action.payload
         default:
-            return state;     
+            return state
         
     }
 }
 
-export default locationReducer;
+export default locationReducer
