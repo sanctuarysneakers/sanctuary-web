@@ -20,25 +20,25 @@ export default function Item() {
 
     const currency = useSelector(state => state.currency)
     const currencySymbolMap = {
-        'USD' : '$',
-        'CAD' : '$',
-        'EUR' : '€',
-        'GBP' : '£',
-        'JPY' : '¥'
+        'USD': '$',
+        'CAD': '$',
+        'EUR': '€',
+        'GBP': '£',
+        'JPY': '¥'
     }
     const currencySymbol = currencySymbolMap[currency]
 
     const websiteLogoMap = {
-        'stockx' : StockXGrey,
-        'goat' : GOATGrey,
-        'grailed' : GrailedGrey,
-        'flightclub' : flightClubGrey,
-        'depop' : DepopGrey,
-        'klekt' : KLEKTGrey,
-        'ebay' : eBayGrey
+        'stockx': StockXGrey,
+        'goat': GOATGrey,
+        'grailed': GrailedGrey,
+        'flightclub': flightClubGrey,
+        'depop': DepopGrey,
+        'klekt': KLEKTGrey,
+        'ebay': eBayGrey
     }
 
-    const isDesktop = useMediaQuery({query: '(min-width: 870px)'})
+    const isDesktop = useMediaQuery({ query: '(min-width: 870px)' })
     const { sku } = useParams()
     const size = useSelector(state => state.size)
     useAPICall('getitem', { sku: sku, size: size })
@@ -68,7 +68,7 @@ export default function Item() {
 
         if (!itemListings) {
             setListingsLoader(false)
-            setNoListings(true) 
+            setNoListings(true)
         }
         else if (itemListings.length) {
             setListingsLoader(false)
@@ -82,20 +82,19 @@ export default function Item() {
         <div className='item'>
             <div className='item-sneaker'>
                 <div className='item-sneaker-content'>
-                    {!isDesktop && <div className='item-sneaker-filters mobile'>
-                        <SizeFilter />
-                    </div>}
-
                     <div className='item-sneaker-image'>
                         <img src={itemInfo.image} alt='sneaker' />
                     </div>
 
                     <div className='item-sneaker-info'>
-                        {isDesktop && <div className='item-sneaker-filters'>
-                            <SizeFilter />
-                        </div>}
-
                         <div className='item-sneaker-text'>
+
+                            {!pricesLoader && <div className={`item-sneaker-site ${itemPrices[0].source}`}>
+                                <img src={websiteLogoMap[itemPrices[0].source]}
+                                    alt='website logo'
+                                />
+                            </div>}
+
                             <div className='item-sneaker-model'>
                                 <h1> {itemInfo.modelName} </h1>
                             </div>
@@ -106,33 +105,11 @@ export default function Item() {
 
                                 <a target='_blank' href={`https://${itemPrices[0].url}`} rel="noopener noreferrer">
                                     <div className='item-sneaker-price'>
-                                        <h2> Buy {currencySymbol}{itemPrices[0].price} </h2>
+                                        <h2> Buy New {currencySymbol}{itemPrices[0].price} </h2>
                                     </div>
                                 </a>
 
-                                <div className='item-sneaker-details'>
-                                    <div className='item-sneaker-data'>
-                                        <p> SIZE </p>
-                                        <h4> {size} </h4>
-                                    </div>
-
-                                    <div className='item-sneaker-data-border' />
-                                    <div className='item-sneaker-data middle'>
-                                        <p> CONDITION </p>
-                                        <h4> New </h4>
-                                    </div>
-                                    <div className='item-sneaker-data-border' />
-
-                                    <div className='item-sneaker-data'>
-                                        <p> WEBSITE </p>
-                                        <div className={`item-sneaker-site ${itemPrices[0].source}`}>
-
-                                            <img src={websiteLogoMap[itemPrices[0].source]} 
-                                                alt='website logo' 
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
+                                <SizeFilter />
                             </div>}
                         </div>
                     </div>
