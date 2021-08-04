@@ -7,6 +7,7 @@ import canada from '../assets/images/canada.svg'
 import japan from '../assets/images/japan.svg'
 import europeanUnion from '../assets/images/europeanUnion.svg'
 import unitedKingdom from '../assets/images/unitedKingdom.svg'
+import australia from '../assets/images/australia.svg'
 
 export default function CurrencyFilter() {
 
@@ -27,7 +28,7 @@ export default function CurrencyFilter() {
         'JPY' : japan,
         'EUR' : europeanUnion,
         'GBP' : unitedKingdom,
-        'AUD' : unitedKingdom,
+        'AUD' : australia,
     }
 
     const handleCurrencyChange = (e) => {
