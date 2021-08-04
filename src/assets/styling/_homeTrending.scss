@@ -267,6 +267,12 @@
                         }
                     }
                 }
+
+                .home-trending-sneaker:hover {
+                    .home-trending-sneaker-img {
+                        transform: none;
+                    }
+                }
             }
         }
     }
@@ -342,6 +348,12 @@
                             padding-bottom: 0px;
                             padding-left: 35px;
                         }
+                    }
+                }
+
+                .home-trending-sneaker:hover {
+                    .home-trending-sneaker-img {
+                        transform: none;
                     }
                 }
             }
@@ -420,6 +432,12 @@
                         }
                     }
                 }
+
+                .home-trending-sneaker:hover {
+                    .home-trending-sneaker-img {
+                        transform: scale(1.05);
+                    }
+                }
             }
         }
     }
@@ -494,6 +512,12 @@
                             font-size: 20px;
                             padding-bottom: 70px;
                         }
+                    }
+                }
+
+                .home-trending-sneaker:hover {
+                    .home-trending-sneaker-img {
+                        transform: none;
                     }
                 }
             }
