@@ -1,16 +1,24 @@
 .size-filter {
     position: relative;
-    width: 101px;
-    height: 28px;
-    background: #EEF1F6;
-    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 360px;
+    min-width: 280px;
+    height: 45px;
+    background: #E5E9F1;
+    border-radius: 10px;
     text-align: center;
+    margin: auto;
 
     h4 {
-        font-size: 13.5px;
-        font-weight: 400;
+        font-size: 16.5px;
+        font-weight: 500;
         color: #777F93;
-        padding-top: 4px;
+    }
+
+    svg {
+        padding-left: 7px;
     }
 
     .size-filter-content {
@@ -30,7 +38,7 @@
             }
 
             .size-filter__indicators {
-                height: 29px;
+                height: 45px;
 
                 .size-filter__indicator-separator {
                     width: 0px;
@@ -47,53 +55,32 @@
 }
 
 .size-filter__control.css-yk16xz-control {
-    min-height: 29px;
-    min-width: 101px;
+    min-height: 45px;
+    min-width: 335px;
 }
 
 .size-filter__control.css-1pahdxg-control {
-    min-height: 29px;
-    min-width: 101px;
+    min-height: 45px;
+    min-width: 335px;
     box-shadow: none;
 }
 
+@media (min-width: 400px) and (max-width: 869px) {
+    .size-filter__control.css-yk16xz-control {
+        min-width: 360px;
+    }
+    
+    .size-filter__control.css-1pahdxg-control {
+        min-width: 360px;
+    }
+}
 
-
-
-
-// .filters::-webkit-scrollbar {
-//     display: none;  /* Safari and Chrome */
-// }
-
-// .filters {
-//     width: 910px;
-//     overflow-y: auto;
-//     overflow-x: auto;
-//     scrollbar-width: none;  /* Firefox */
-//     -ms-overflow-style: none;  /* Internet Explorer 10+ */
-
-//     .close-area {
-//         height: 130px;
-//         width: 910px;
-//         display: flex;
-//         align-items: flex-end;
-//         justify-content: flex-end;
-//     }
-
-//     .filterBox {
-//         display: flex;
-//         align-items: center;
-//         justify-content: center;
-
-//         height: 1185px;
-//         width: 910px;
-//         background: white;
-//         border-radius: 20px;
-//         margin-top: 10px;
-//     }
-
-   
-// }
-
-
-
+@media screen and (max-width: 399px) {
+    .size-filter__control.css-yk16xz-control {
+        min-width: calc(100vw - 40px);
+    }
+    
+    .size-filter__control.css-1pahdxg-control {
+        min-width: calc(100vw - 40px);
+    }
+}

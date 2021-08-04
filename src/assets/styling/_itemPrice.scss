@@ -291,5 +291,23 @@
             }
             
         }
+
+        a:hover {
+            .item-price-source {
+                .item-source-text {
+                    h2 {
+                        color: black;
+                    }
+                }
+            }
+    
+            .item-price-link {
+                .item-amount {
+                    h2 {
+                        color: black;
+                    }
+                }
+            }
+        }
     } 
 }

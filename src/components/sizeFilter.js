@@ -2,6 +2,7 @@ import React from 'react'
 import Select from 'react-select'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateSize, setItemPricesLoading, setItemListingsLoading } from '../redux/actions'
+import {ReactComponent as DownArrow} from '../assets/images/arrowDown.svg'
 
 export default function SizeFilter() {
 
@@ -34,13 +35,17 @@ export default function SizeFilter() {
 
     return (
         <div className='size-filter'>
-            <h4> Select size </h4>
+            <h4> Size {size} </h4>
+            <DownArrow />
+
             <Select
                 className='size-filter-content'
                 classNamePrefix='size-filter'
                 isSearchable={false}
-                defaultValue={sizeOptions[8]}
+                defaultValue={sizeOptions[Math.round(2 * (size - 6))]}
                 options={sizeOptions}
+                maxMenuHeight={200}
+                menuPlacement={"auto"}
                 onChange={handleSizeChange}
             />
         </div>

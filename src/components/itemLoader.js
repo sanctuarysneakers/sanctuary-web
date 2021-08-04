@@ -7,7 +7,7 @@ export default function ItemLoader({ version }) {
 
             {/* Loader for prices/listings rows */}
 
-            {version !== 'info' && <div className='item-loader-content'>
+            {version !== 'source' && version !== 'info' && <div className='item-loader-content'>
 
                 <div className='item-loader-row'>
                     <div className='item-loader-source'>
@@ -88,15 +88,16 @@ export default function ItemLoader({ version }) {
 
             </div>}
 
-            {/* Loader for sneaker info */}
+            {/* Loader for sneaker source and info */}
+
+            {version === 'source' && <div className='item-source-loader-content'>
+                <div className='item-source-loader-website' />
+            </div>}
 
             {version === 'info' && <div className='item-info-loader-content'>
-                <div className='item-info-loader-price' />
+                <div className='item-info-loader-price' /> 
 
-                <div className='item-info-loader-details'>
-                    <div className='item-info-loader-data-top' />
-                    <div className='item-info-loader-data-bottom' />
-                </div>  
+                <div className='item-info-loader-size' /> 
             </div>}
         </div>
     )

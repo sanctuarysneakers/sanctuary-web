@@ -61,6 +61,7 @@ export default function Item() {
 
                     <div className='item-sneaker-info'>
                         <div className='item-sneaker-text'>
+                            {pricesLoading && <ItemLoader version={'source'} />}
 
                             {!pricesLoading && <div className={`item-sneaker-site ${itemPrices[0].source}`}>
                                 <img src={websiteLogoMap[itemPrices[0].source]}
@@ -78,7 +79,7 @@ export default function Item() {
 
                                 <a target='_blank' href={`https://${itemPrices[0].url}`} rel="noopener noreferrer">
                                     <div className='item-sneaker-price'>
-                                        <h2> Buy {currencySymbolMap[currency]}{itemPrices[0].price} </h2>
+                                        <h2> New {currencySymbolMap[currency]}{itemPrices[0].price} </h2>
                                     </div>
                                 </a>
 
