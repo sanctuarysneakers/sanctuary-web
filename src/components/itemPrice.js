@@ -38,6 +38,16 @@ export default function ItemPrice({ data, index, length }) {
     }
     const websiteText = websiteTextMap[data.source]
 
+    var url = data.url
+
+    if (websiteText === 'eBay') {
+        if (url.slice(-1) === '=') {
+            url = url.concat('&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5338823385&customid=&toolid=10001&mkevt=1')
+        } else {
+            url = url.concat('?mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5338823385&customid=&toolid=10001&mkevt=1')
+        }
+    }
+
     return (
         <div className={(index === length - 1) ? 'item-price last' : 'item-price'}>
 
@@ -53,7 +63,7 @@ export default function ItemPrice({ data, index, length }) {
                 </div>
             </div>
 
-            <a target='_blank' href={`https://${data.url}`} rel="noopener noreferrer">
+            <a target='_blank' href={`https://${url}`} rel="noopener noreferrer">
                 <div className='item-price-link'>
                     <div className='item-amount'>
                         <h2> {currencySymbolMap[currency]}{data.price} </h2>
