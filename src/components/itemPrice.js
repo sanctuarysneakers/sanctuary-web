@@ -25,7 +25,6 @@ export default function ItemPrice({ data, index, length }) {
         'klekt' : KLEKT,
         'ebay' : eBay
     }
-    const websiteLogo = websiteLogoMap[data.source]
 
     const websiteTextMap = {
         'stockx' : 'StockX',
@@ -36,33 +35,27 @@ export default function ItemPrice({ data, index, length }) {
         'klekt' : 'KLEKT',
         'ebay' : 'eBay'
     }
-    const websiteText = websiteTextMap[data.source]
 
     return (
         <div className={(index === length - 1) ? 'item-price last' : 'item-price'}>
-
             <div className='item-price-source'>
                 <div className={`item-source-logo ${data.source}`}>
-                    <img src={websiteLogo} alt='website logo' />
+                    <img src={websiteLogoMap[data.source]} alt='website logo' />
                 </div>
-
                 <div className='item-source-text'>
-                    <h2> {websiteText} </h2>
-
+                    <h2> {websiteTextMap[data.source]} </h2>
                     <p> New </p>
                 </div>
             </div>
 
-            <a target='_blank' href={`https://${data.url}`} rel="noopener noreferrer">
+            <a target='_blank' href={data.url} rel="noopener noreferrer">
                 <div className='item-price-link'>
                     <div className='item-amount'>
                         <h2> {currencySymbolMap[currency]}{data.price} </h2>
                     </div>
-
                     <RightArrow />
                 </div>
             </a>
-
         </div>
     )
 }
