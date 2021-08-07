@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom'
 import TopSneakers from '../../assets/images/top-sneakers.jpg'
 import SneakerBoxes from '../../assets/images/demystifying-sneakers.jpg'
 import Adidas3D from '../../assets/images/adidas-3d.jpg'
-import SanctuaryArticle from '../../assets/images/sanctuary-story.jpg'
+import sanctuary3D from '../../assets/images/3D-sanctuary-small.gif'
 
 export default function Footer() {
 
-    const articles = {'/article-introduction' : ['Sanctuary: Our Story', 'January 31st, 2021', SanctuaryArticle],
+    const articles = {'/article-introduction' : ['Sanctuary: Our Story', 'January 31st, 2021', sanctuary3D],
                       '/article-sneakersmeetengineering' : ['Sneakers, Meet Engineering', 'March 28, 2021', Adidas3D],
                       '/article-demystifying' : ['Demystifying the Sneaker Market', 'March 29, 2021', SneakerBoxes],
                       '/article-toppicks' : ['Our Top Picks of 2020', 'April 20th 2021', TopSneakers]

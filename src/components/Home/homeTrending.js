@@ -30,18 +30,20 @@ export default function HomeTrending() {
             <div className='home-trending-content'>
                 
                 <div ref={ref} className='home-trending-text'>
-                    <FadeIn visible={render} delay={200} transitionDuration={500}>
-                        <h1> Shop the hottest collections from </h1>
+                    <FadeIn visible={render} delay={350} transitionDuration={1200}>
+                        <div className='home-trending-header'>
+                            <h1> Shop the hottest collections from </h1>
 
-                        <div className='flipping-brands'>
-                            <TextLoop interval={firstFlip ? 1500 : 0} fade={false}>
-                                <h1 className='nike'> Nike. </h1>
-                                <h1 className='air-jordan'> Air Jordan. </h1>
-                                <h1 className='adidas'> Adidas. </h1>
-                                <h1 className='yeezy'> Yeezy. </h1>
-                                <h1 className='new-balance'> New Balance. </h1>
-                                <h1 className='converse'> Converse. </h1>
-                            </TextLoop>{" "}
+                            <div className='flipping-brands'>
+                                <TextLoop interval={firstFlip ? 1500 : 0} fade={false}>
+                                    <h1 className='nike'> Nike. </h1>
+                                    <h1 className='air-jordan'> Air Jordan. </h1>
+                                    <h1 className='adidas'> Adidas. </h1>
+                                    <h1 className='yeezy'> Yeezy. </h1>
+                                    <h1 className='new-balance'> New Balance. </h1>
+                                    <h1 className='converse'> Converse. </h1>
+                                </TextLoop>{" "}
+                            </div>
                         </div>
 
                         <div className='home-trending-buttons'>

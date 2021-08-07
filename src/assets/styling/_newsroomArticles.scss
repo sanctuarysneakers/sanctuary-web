@@ -130,25 +130,30 @@
             padding-top: 25px;
 
             .newsroom-featured-article {
+                align-items: center;
+                justify-content: center;
                 max-width: 980px;
                 width: 980px;
                 height: 435px;
-                background: white;
+                background: #1A1A1A;
 
                 img {
-                    width: auto;
-                    height: 100%;
-                    margin: auto;
+                    width: 500px;
+                    height: auto;
+                    outline: 1px solid #1A1A1A;
+                    outline-offset: -1px;
                 }
 
                 .newsroom-featured-article-gradient {
-                    padding: 0px 50px;
-                    padding-bottom: 35px;
-                    padding-top: 50px;
-                    .newsroom-featured-article-text {
+                    width: 100%;
+                    padding: 40px 0px;
 
+                    .newsroom-featured-article-text {
+                        padding-left: 50px;
+                        padding-right: 50px;
+                        
                         p {
-                            font-size: 18px;
+                            font-size: 15px;
                             margin-bottom: 10px;
                         }
 

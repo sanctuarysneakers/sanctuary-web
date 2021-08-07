@@ -11,17 +11,19 @@
             width: 479px;
             padding-top: 150px;
 
-            h1 {
-                font-size: 58px;
-                font-weight: 600;
-                color: #303A57;
-                line-height: 62px;
-                letter-spacing: -1px;
+            .home-splash-header {
+                h1 {
+                    font-size: 58px;
+                    font-weight: 600;
+                    color: #303A57;
+                    line-height: 62px;
+                    letter-spacing: -1px;
+                }
             }
 
             p {
                 font-size: 20px;
-                font-weight: 300;
+                font-weight: 400;
                 color: #303A57;
                 line-height: 32px;
                 letter-spacing: -0.6px;
@@ -103,17 +105,17 @@
                 }
             }
 
-            @keyframes float {
-                0% {
-                    transform: translatey(0px);
-                }
-                50% {
-                    transform: translatey(-20px);
-                }
-                100% {
-                    transform: translatey(0px);
-                }
-            }
+            // @keyframes float {
+            //     0% {
+            //         transform: translatey(0px);
+            //     }
+            //     50% {
+            //         transform: translatey(-20px);
+            //     }
+            //     100% {
+            //         transform: translatey(0px);
+            //     }
+            // }
 
             .shoe-boxes {
                 padding-top: 62px;
@@ -138,9 +140,11 @@
             .home-splash-text {
                 width: 394px;
 
-                h1 {
-                    font-size: 48px;
-                    line-height: 55px;
+                .home-splash-header {
+                    h1 {
+                        font-size: 48px;
+                        line-height: 55px;
+                    }
                 }
 
                 p {
@@ -224,9 +228,11 @@
                 width: 394px;
                 padding-top: 110px;
 
-                h1 {
-                    font-size: 48px;
-                    line-height: 55px;
+                .home-splash-header {
+                    h1 {
+                        font-size: 48px;
+                        line-height: 55px;
+                    }
                 }
 
                 p {
@@ -273,7 +279,96 @@
     }
 }
 
-@media screen and (max-width: 499px) {
+// iPhone XR / 11 / XS Max / 11 Pro Max / 12 Pro Max
+@media (min-width: 414px) and (max-width: 499px) {
+    .home-splash {
+        height: auto;
+
+        .home-splash-content {
+            flex-direction: column;
+            width: 340px;
+            margin: 0px auto;
+
+            .home-splash-text {
+                width: 100%;
+                padding-top: 65px;
+
+                .home-splash-header {
+                    h1 {
+                        font-size: 57px;
+                        line-height: 64px;
+                        letter-spacing: -0.6px;
+                        width: 300px;
+                    }
+                }
+
+                p {
+                    font-size: 21px;
+                    line-height: 30px;
+                    letter-spacing: -0.5px;
+                    width: 320px;
+                    padding-top: 32px;
+                    padding-bottom: 32px;
+                }
+
+                .search-box {
+                    width: 340px;
+                    height: 36px;
+                    border-radius: 9px;
+
+                    .search-box-content {
+                        .search-box-icon {
+                            padding: 0px 8px;
+
+                            svg {
+                                width: 15px;
+                            }
+                        }
+
+                        .search-box-input {
+                            width: 272px;
+                        }
+
+                        .search-box-clear {
+                            padding-left: 8px;
+                            padding-right: 12px;
+
+                            svg {
+                                width: 17px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .home-splash-graphic {
+                padding-left: 0px;
+                padding-bottom: 100px;
+
+                .jordan-1 {
+                    padding-top: 120px;
+                    padding-left: 154px;
+
+                    svg {
+                        width: 80px;
+                    }
+                }
+
+                .shoe-boxes {
+                    padding-top: 47px;
+
+                    svg {
+                        width: 275px;
+                        padding-left: 36px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// iPhone X / XS / 11 Pro
+@media screen and (max-width: 413px) {
     .home-splash {
         height: auto;
 
@@ -286,11 +381,13 @@
                 width: 100%;
                 padding-top: 50px;
 
-                h1 {
-                    font-size: 50px;
-                    line-height: 56px;
-                    letter-spacing: -0.6px;
-                    width: 262px;
+                .home-splash-header {
+                    h1 {
+                        font-size: 50px;
+                        line-height: 56px;
+                        letter-spacing: -0.6px;
+                        width: 262px;
+                    }
                 }
 
                 p {
@@ -337,11 +434,11 @@
                 padding-bottom: 100px;
 
                 .jordan-1 {
-                    padding-top: 90px;
-                    padding-left: 144px;
+                    padding-top: 100px;
+                    padding-left: 147px;
 
                     svg {
-                        width: 86px;
+                        width: 80px;
                     }
                 }
 
@@ -349,328 +446,11 @@
                     padding-top: 47px;
 
                     svg {
-                        width: 300px;
-                        padding-left: 15px;
+                        width: 275px;
+                        padding-left: 32px;
                     }
                 }
             }
         }
     }
 }
-
-
-
-
-
-// @media screen and (max-width: 499px) {
-//     .home-splash {
-//         .home-splash-content {
-//             flex-direction: column;
-//             padding-top: 80px;
-//             padding-bottom: 100px;
-//             height: auto !important;
-
-//             .home-splash-text {
-//                 width: 326px;
-//                 text-align: center;
-
-//                 h1 {
-//                     font-size: 40px;
-//                     line-height: 48px;
-//                 }
-
-//                 p {
-//                     font-size: 18px;
-//                     line-height: 28px;
-//                     padding-top: 22px;
-//                     padding-bottom: 26px;
-//                 }
-
-//                 .search-box {
-//                     width: 304px;
-//                     height: 36px;
-//                     margin: 0px auto;
-//                     border-radius: 9px;
-
-//                     .search-box-content {
-//                         .search-box-icon {
-//                             padding: 0px 8px;
-
-//                             svg {
-//                                 width: 12px;
-//                             }
-//                         }
-
-//                         .search-box-input {
-//                             width: calc(304px - 56px);
-//                         }
-
-//                         .search-box-clear {
-//                             padding-left: 4px;
-
-//                             svg {
-//                                 width: 12px;
-//                             }
-//                         }
-//                     }
-//                 }
-//             }
-
-//             .home-splash-graphic {
-//                 padding-left: 7px;
-
-//                 .jordan-1 {
-//                     padding-top: 110px;
-//                     padding-left: 125px;
-
-//                     svg {
-//                         width: 83px;
-//                     }
-//                 }
-
-//                 .shoe-boxes {
-//                     padding-top: 46px;
-
-//                     svg {
-//                         width: 290px;
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
-
-
-
-
-// @media (min-width: 1100px) and (max-width: 1199px) {
-//     .home-splash {
-//         .home-splash-content {
-//             .home-splash-graphic {
-//                 padding-left: calc(176px + ((100vw - 1199px) / 2));
-//             }
-//         }
-//     }
-// }
-
-// @media (min-width: 895px) and (max-width: 1099px) {
-//     .home-splash {
-//         .home-splash-content {
-//             padding-left: 0px;
-//             width: 855px;
-//             margin: 0px auto;
-
-//             .home-splash-text {
-//                 width: 394px;
-
-//                 h1 {
-//                     font-size: 45px;
-//                     line-height: 55px;
-//                 }
-
-//                 p {
-//                     font-size: 19px;
-//                     padding-top: 20px;
-//                     padding-bottom: 20px;
-//                 }
-
-//                 .searchbar-design {
-//                     width: 394px;
-//                     height: 40px;
-//                 }
-//             }
-
-//             .home-splash-graphic {
-//                 padding-left: 113px;
-
-//                 .jordan-1 {
-//                     height: 138px;
-//                     padding-left: 149px;
-//                     padding-top: 101px;
-
-//                     svg {
-//                         width: 100px;
-//                         height: auto;
-//                     }
-//                 }
-
-//                 .shoe-boxes {
-//                     height: 274px;
-//                     padding-top: 54px;
-
-//                     svg {
-//                         width: 348px;
-//                         height: auto;
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
-
-// @media (min-width: 600px) and (max-width: 894px) {
-//     .home-splash {
-//         .home-splash-content {
-//             height: 1187px !important;
-//             flex-direction: column;
-//             text-align: center;
-
-//             .home-splash-text {
-//                 padding-top: 75px;
-//             }
-
-//             .home-splash-graphic {
-//                 padding-left: 50px;
-//             }
-//         }
-//     }
-// }
-
-// @media (min-width: 440px) and (max-width: 599px) {
-//     .home-splash {
-//         .home-splash-content {
-//             height: 1051px !important;
-//             flex-direction: column;
-//             text-align: center;
-
-//             .home-splash-text {
-//                 width: 394px;
-//                 padding-top: 75px;
-
-//                 h1 {
-//                     font-size: 45px;
-//                     line-height: 55px;
-//                 }
-
-//                 p {
-//                     font-size: 19px;
-//                     padding-top: 20px;
-//                     padding-bottom: 20px;
-//                 }
-
-//                 .searchbar-design {
-//                     width: 394px;
-//                     height: 40px;
-//                 }
-//             }
-
-//             .home-splash-graphic {
-//                 padding-left: 30px;
-
-//                 .jordan-1 {
-//                     height: 138px;
-//                     padding-left: 80px;
-//                     padding-top: 101px;
-
-//                     svg {
-//                         width: 100px;
-//                         height: auto;
-//                     }
-//                 }
-
-//                 .shoe-boxes {
-//                     height: 274px;
-//                     padding-top: 54px;
-
-//                     svg {
-//                         width: 348px;
-//                         height: auto;
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
-
-// @media screen and (max-width: 439px) {
-//     .home-splash {
-//         .home-splash-content {
-//             height: 986px !important;
-//             flex-direction: column;
-//             text-align: center;
-
-//             .home-splash-text {
-//                 width: 317px;
-//                 padding-top: 60px;
-
-//                 h1 {
-//                     font-size: 39px;
-//                     line-height: 50px;
-//                 }
-
-//                 p {
-//                     font-size: 18px;
-//                     line-height: 28px;
-//                     padding-top: 20px;
-//                     padding-bottom: 20px;
-//                 }
-
-//                 .searchbar-design {
-//                     width: 304px;
-//                     height: 36px;
-//                     border-radius: 9px;
-//                     margin: auto;
-//                 }
-//             }
-
-//             .home-splash-graphic {
-//                 padding-left: 25px;
-
-//                 .jordan-1 {
-//                     height: 116px;
-//                     padding-left: 60px;
-//                     padding-top: 110px;
-
-//                     svg {
-//                         width: 83px;
-//                         height: auto;
-//                     }
-//                 }
-
-//                 .shoe-boxes {
-//                     height: 228px;
-//                     padding-top: 54px;
-
-//                     svg {
-//                         width: 290px;
-//                         height: auto;
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
-
-
-
-
-
-
-
-// .home-splash {
-//     display: flex;
-//     align-items: center;
-//     background: #F7F9FC;
-
-//     .home-splash-text {
-//         width: 484px;
-//         padding-left: 220px;
-
-//         h2 {
-//             font-size: 60.5px;
-//             font-weight: 600;
-//             color: #416F93;
-//             line-height: 64px;
-//             letter-spacing: -2px;
-//         }
-    
-//         p {
-//             font-size: 20px;
-//             font-weight: 400;
-//             color: #416F93;
-//             line-height: 32px;
-//             letter-spacing: -0.9px;
-//             padding: 33px 0px;
-//         }
-//     }
-// }

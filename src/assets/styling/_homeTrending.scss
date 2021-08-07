@@ -11,44 +11,46 @@
             margin: 0px auto;
             text-align: center;
 
-            h1 {
-                font-size: 58px;
-                font-weight: 600;
-                color: #292828;
-                line-height: 67px;
-                letter-spacing: -1px;
-            }
-
-            .flipping-brands {
-                overflow: hidden;
-
+            .home-trending-header {
                 h1 {
-                    width: 470px;
-                    padding-bottom: 5px;
+                    font-size: 58px;
+                    font-weight: 600;
+                    color: #292828;
+                    line-height: 67px;
+                    letter-spacing: -1px;
                 }
 
-                .nike {
-                    color: #FF6403;
-                }
+                .flipping-brands {
+                    overflow: hidden;
 
-                .air-jordan {
-                    color: #C7C8CA;
-                }
+                    h1 {
+                        width: 470px;
+                        padding-bottom: 5px;
+                    }
 
-                .adidas {
-                    color: #0084D6;
-                }
+                    .nike {
+                        color: #FF6403;
+                    }
 
-                .yeezy {
-                    color: #CA8530;
-                }
+                    .air-jordan {
+                        color: #C7C8CA;
+                    }
 
-                .new-balance {
-                    color: #E31836;
-                }
+                    .adidas {
+                        color: #0084D6;
+                    }
 
-                .converse {
-                    color: #2C476A;
+                    .yeezy {
+                        color: #CA8530;
+                    }
+
+                    .new-balance {
+                        color: #E31836;
+                    }
+
+                    .converse {
+                        color: #2C476A;
+                    }
                 }
             }
 
@@ -129,7 +131,7 @@
                     p {
                         font-size: 18px;
                         font-weight: 500;
-                        color: black;
+                        color: #292828;
                         padding-bottom: 70px;
                     }
                 }
@@ -150,29 +152,31 @@
             .home-trending-text {
                 width: 394px;
 
-                h1 {
-                    font-size: 48px;
-                    line-height: 53px;
-                }
-
-                .flipping-brands {
+                .home-trending-header {
                     h1 {
-                        width: 394px;
+                        font-size: 48px;
+                        line-height: 53px;
+                    }
+
+                    .flipping-brands {
+                        h1 {
+                            width: 394px;
+                        }
                     }
                 }
 
                 .home-trending-buttons {
-                    width: 300px;
-                    padding-top: 25px;
+                    width: 320px;
+                    padding-top: 30px;
 
                     .home-trending-browse {
-                        font-size: 14px;
-                        padding: 14px 30px;
+                        font-size: 16px;
+                        padding: 13px 26px;
 
                     }
 
                     .home-trending-works {
-                        font-size: 14px;
+                        font-size: 16px;
                     }
                 }
             }
@@ -206,29 +210,31 @@
             .home-trending-text {
                 width: 394px;
 
-                h1 {
-                    font-size: 48px;
-                    line-height: 53px;
-                }
-
-                .flipping-brands {
+                .home-trending-header {
                     h1 {
-                        width: 394px;
+                        font-size: 48px;
+                        line-height: 53px;
+                    }
+
+                    .flipping-brands {
+                        h1 {
+                            width: 394px;
+                        }
                     }
                 }
 
                 .home-trending-buttons {
-                    width: 300px;
-                    padding-top: 25px;
+                    width: 320px;
+                    padding-top: 30px;
 
                     .home-trending-browse {
-                        font-size: 14px;
-                        padding: 14px 30px;
+                        font-size: 16px;
+                        padding: 13px 26px;
 
                     }
 
                     .home-trending-works {
-                        font-size: 14px;
+                        font-size: 16px;
                     }
                 }
             }
@@ -286,30 +292,32 @@
             .home-trending-text {
                 width: 335px;
 
-                h1 {
-                    font-size: 36px;
-                    line-height: 44px;
-                }
-
-                .flipping-brands {
+                .home-trending-header {
                     h1 {
-                        width: 335px;
+                        font-size: 36px;
+                        line-height: 44px;
+                    }
+
+                    .flipping-brands {
+                        h1 {
+                            width: 335px;
+                        }
                     }
                 }
 
                 .home-trending-buttons {
                     flex-direction: column;
                     width: auto;
-                    padding-top: 20px;
+                    padding-top: 25px;
 
                     .home-trending-browse {
-                        font-size: 14px;
+                        font-size: 16px;
                         padding: 11px 24px;
 
                     }
 
                     .home-trending-works {
-                        font-size: 14px;
+                        font-size: 16px;
                         padding-top: 20px;
                     }
                 }
@@ -319,7 +327,7 @@
                 flex-direction: column;
                 width: 450px;
                 height: 590px;
-                padding-top: 50px;
+                padding-top: 60px;
                 margin: 0px auto;
 
                 .home-trending-sneaker {
@@ -369,30 +377,32 @@
             .home-trending-text {
                 width: 335px;
 
-                h1 {
-                    font-size: 36px;
-                    line-height: 44px;
-                }
-
-                .flipping-brands {
+                .home-trending-header {
                     h1 {
-                        width: 335px;
+                        font-size: 36px;
+                        line-height: 44px;
+                    }
+
+                    .flipping-brands {
+                        h1 {
+                            width: 335px;
+                        }
                     }
                 }
 
                 .home-trending-buttons {
                     flex-direction: column;
                     width: auto;
-                    padding-top: 20px;
+                    padding-top: 25px;
 
                     .home-trending-browse {
-                        font-size: 14px;
+                        font-size: 16px;
                         padding: 11px 24px;
 
                     }
 
                     .home-trending-works {
-                        font-size: 14px;
+                        font-size: 16px;
                         padding-top: 20px;
                     }
                 }
@@ -405,7 +415,7 @@
                 height: 1540px;
                 margin: 0px auto;
                 padding: 0px 20px;
-                padding-top: 50px;
+                padding-top: 60px;
 
                 .home-trending-sneaker {
                     width: auto;
@@ -435,7 +445,7 @@
 
                 .home-trending-sneaker:hover {
                     .home-trending-sneaker-img {
-                        transform: scale(1.05);
+                        transform: none;
                     }
                 }
             }
@@ -451,30 +461,33 @@
             .home-trending-text {
                 width: 335px;
 
-                h1 {
-                    font-size: 36px;
-                    line-height: 44px;
-                }
-
-                .flipping-brands {
+                .home-trending-header {
                     h1 {
-                        width: 335px;
+                        font-size: 36px;
+                        line-height: 44px;
+                    }
+
+                    .flipping-brands {
+                        h1 {
+                            width: 335px;
+                        }
                     }
                 }
 
                 .home-trending-buttons {
                     flex-direction: column;
                     width: auto;
-                    padding-top: 20px;
+                    padding-top: 25px;
 
                     .home-trending-browse {
-                        font-size: 14px;
+                        font-size: 16px;
+                        letter-spacing: 0px;
                         padding: 11px 24px;
 
                     }
 
                     .home-trending-works {
-                        font-size: 14px;
+                        font-size: 16px;
                         padding-top: 20px;
                     }
                 }
@@ -484,23 +497,23 @@
                 flex-direction: column;
                 width: auto;
                 max-width: 400px;
-                height: 1540px;
+                height: 1480px;
                 margin: 0px auto;
-                padding: 0px 20px;
-                padding-top: 50px;
+                padding: 0px 27.5px;
+                padding-top: 60px;
 
                 .home-trending-sneaker {
                     width: auto;
                     max-width: 380px;
                     min-width: 300px;
-                    height: 500px;
-                    border-radius: 12px;
+                    height: 480px;
+                    border-radius: 18px;
 
                     .home-trending-sneaker-img {
                         height: 100%;
 
                         img {
-                            width: 92%;
+                            width: 93.5%;
                         }
                     }
 
@@ -509,7 +522,7 @@
                         min-width: 300px;
 
                         p {
-                            font-size: 20px;
+                            font-size: 22px;
                             padding-bottom: 70px;
                         }
                     }
@@ -524,189 +537,3 @@
         }
     }
 }
-
-
-
-// @media (min-width: 840px) and (max-width: 1039px) {
-//     .home-trending {
-//         .home-trending-content {
-//             .home-trending-text {
-//                 h1 {
-//                     font-size: 48px;
-//                     line-height: 55px;
-//                 }
-
-//                 .home-trending-buttons {
-//                     width: 320px;
-
-//                     .home-trending-browse, .home-trending-works {
-//                         font-size: 16px;
-//                     }
-//                 }
-//             }
-
-//             .home-trending-products {
-//                 width: 800px;
-//                 margin: auto;
-
-//                 .home-trending-sneaker {
-//                     width: 256px;
-//                     height: 400px;
-//                 }
-//             }
-//         }
-//     }
-
-// }
-
-// @media (min-width: 335px) and (max-width: 839px) {
-//     .home-trending {
-//         .home-trending-content {
-//             padding: 100px 0px;
-
-//             .home-trending-text {
-//                 width: 335px;
-
-//                 h1 {
-//                     font-size: 36px;
-//                     line-height: 44px;
-//                 }
-
-//                 .flipping-brands {
-//                     h1 {
-//                         width: 335px;
-//                     }
-//                 }
-
-//                 .home-trending-buttons {
-//                     flex-direction: column;
-//                     width: 320px;
-//                     padding-top: 30px;
-
-//                     .home-trending-browse, .home-trending-works {
-//                         font-size: 14px;
-//                     }
-
-//                     .home-trending-works {
-//                         padding-top: 20px;
-//                     }
-//                 }
-//             }
-
-//             .home-trending-products {
-//                 flex-direction: column;
-//                 align-items: center;
-//                 width: 100%;
-//                 height: 1380px;
-//                 margin: auto;
-
-//                 .home-trending-sneaker {
-//                     width: 335px;
-//                     height: 450px;
-//                 }
-//             }
-//         }
-//     }
-
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-// .home-trending {
-//     display: flex;
-//     justify-content: center;
-
-//     .home-trending-wrapper {
-//         width: 1000px;
-//         padding: 166px 0px;
-
-//         .home-trending-headline {
-//             text-align: center;
-
-//             .home-trending-text {
-//                 width: 476px;
-//                 padding-bottom: 40px;
-//                 margin: 0px auto;
-
-//                 h2 {
-//                     font-size: 60.5px;
-//                     font-weight: 600;
-//                     color: #000000;
-//                     line-height: 64px;
-//                     letter-spacing: -2px;
-//                 }
-
-//                 .flipping-text {
-//                     color: #FF6403;
-//                 }
-//             }
-
-//             .home-trending-buttons {
-//                 display: flex;
-//                 justify-content: space-between;
-//                 width: 370px;
-//                 padding-bottom: 115px;
-//                 margin: 0px auto;
-
-//                 .home-trending-browse {
-//                     background: #36638A;
-//                     border-radius: 100px;
-
-//                     p {
-//                         font-size: 18px;
-//                         font-weight: 400;
-//                         color: #FFFFFF;
-//                         letter-spacing: -0.41px;
-
-//                         padding: 15px 35px;
-//                     }
-//                 }
-
-//                 .home-trending-how-it-works {
-
-//                     p {
-//                         font-size: 18px;
-//                         font-weight: 400;
-//                         color: #36638A;
-//                         letter-spacing: -0.41px;
-
-//                         padding: 15px 0px;
-//                     }
-
-//                 }
-//             }
-//         }
-
-//         .home-trending-products {
-
-//             .home-trending-product-top {
-//                 height: 400px;
-//                 border-radius: 18px;
-//                 background: #F5F5F7;
-//                 margin-bottom: 16px;
-//             }
-
-//             .home-trending-product-middle {
-//                 display: flex;
-//                 justify-content: space-between;
-
-//                 .home-trending-card {
-//                     width: 492px;
-//                     height: 450px;
-//                     border-radius: 18px;
-//                     background: #F5F5F7;
-//                 }
-//             }
-//         }
-//     }
-// }
