@@ -32,15 +32,15 @@ export default function HomeNewsroom() {
             setRender(true)
     }, [isVisible])
 
-    // useEffect(() => {
-    //     if (!isVisible && !firstFlip) {
-    //         sliderRef.current.slickPause()
-    //     }
-    //     else if (isVisible && !firstFlip) {
-    //         setFirstFlip(true)
-    //         sliderRef.current.slickPlay()
-    //     }
-    // }, [isVisible, firstFlip])
+    useEffect(() => {
+        if (!isVisible && !firstFlip) {
+            sliderRef.current.slickPause()
+        }
+        else if (isVisible && !firstFlip) {
+            setFirstFlip(true)
+            sliderRef.current.slickPlay()
+        }
+    }, [isVisible, firstFlip])
 
     return (
         <div className='home-newsroom'>
