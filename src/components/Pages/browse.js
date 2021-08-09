@@ -17,7 +17,7 @@ export default function Browse() {
     return (
         <div className='browse'>
             <div className='browse-results'>
-                <div className='browse-results-wrapper'>
+                <div className='browse-results-content'>
 
                     {!query && <div className='browse-results-text'> 
                         <h2> Browse </h2>

@@ -1,4 +1,5 @@
 import React from 'react'
+import {ReactComponent as RightArrow} from '../assets/images/RightArrow.svg'
 
 export default function ItemCard({ data }) {
 
@@ -19,7 +20,10 @@ export default function ItemCard({ data }) {
                 <div className='item-card-text'>
                     <h2> {data.model} </h2>
 
-                    <p> See Prices </p>
+                    <div className='item-card-see-prices'>
+                        <p> See Prices </p>
+                        <RightArrow />
+                    </div>
                 </div>
             </div>
         </div>
