@@ -12,6 +12,8 @@ import AboutModal from "./components/Pages/aboutModal"
 import HamburgerModal from "./components/hamburgerModal"
 import DeleteModal from "./components/deleteModal"
 import SearchModal from './components/searchModal'
+import SizeModal from './components/sizeModal'
+import CurrencyModal from './components/currencyModal'
 import PageNotFound from "./components/Pages/pageNotFound"
 import PrivacyPolicy from './components/Pages/privacyPolicy'
 import TermsOfUse from './components/Pages/termsOfUse'
@@ -42,6 +44,8 @@ export default function App() {
     const dispatch = useDispatch()
     
     const locationPopup = useSelector(state => state.locationPopup)
+    const sizeModalVisible = useSelector(state => state.sizeModalVisible)
+    const currencyModalVisible = useSelector(state => state.currencyModalVisible)
     const searchModalVisible = useSelector(state => state.searchModalVisible)
     const hamburgerModalVisible = useSelector(state => state.hamburgerModalVisible)
     const aboutModalVisible = useSelector(state => state.aboutModalVisible)
@@ -96,6 +100,16 @@ export default function App() {
                 { locationPopup && 
                     <RemoveScroll>
                         <LocationPopup />
+                    </RemoveScroll>
+                }
+                { sizeModalVisible &&
+                    <RemoveScroll>
+                        <SizeModal />
+                    </RemoveScroll>
+                }
+                { currencyModalVisible &&
+                    <RemoveScroll>
+                        <CurrencyModal />
                     </RemoveScroll>
                 }
                 { aboutModalVisible &&
