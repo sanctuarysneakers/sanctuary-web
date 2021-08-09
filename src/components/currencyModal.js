@@ -30,7 +30,7 @@ export default function CurrencyModal() {
 
                     <div className='currency-modal-text'>
                         <h1> Change currency </h1>
-                        <p> options </p>
+                        <p> Select </p>
                     </div>
 
                     <div className='currency-modal-buttons'>

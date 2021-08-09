@@ -29,7 +29,7 @@ export default function Item() {
 
     const currency = useSelector(state => state.currency)
     const currencySymbolMap = {
-        'USD':'$', 'CAD':'CA$', 'EUR':'€', 'GBP':'£', 'JPY':'¥', 'AUD':'A$'
+        'USD':'$', 'CAD':'C$', 'EUR':'€', 'GBP':'£', 'JPY':'¥', 'AUD':'A$'
     }
 
     const { sku } = useParams()

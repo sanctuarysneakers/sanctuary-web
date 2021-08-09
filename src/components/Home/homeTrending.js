@@ -47,7 +47,7 @@ export default function HomeTrending() {
                         </div>
 
                         <div className='home-trending-buttons'>
-                            <Link className='home-trending-browse' to='/browse'>
+                            <Link className='home-trending-browse' onClick={() => document.location.href = '/browse'}>
                                 Start browsing
                             </Link>
 

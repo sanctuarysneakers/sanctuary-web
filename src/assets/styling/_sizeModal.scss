@@ -32,8 +32,12 @@
                 width: 28px;
                 height: 28px;
                 border-radius: 100px;
-                background: #E5E9F1;
+                background: #EEF1F6;
                 cursor: pointer;
+            }
+
+            button:hover {
+                background: #E5E9F1;
             }
         }
 

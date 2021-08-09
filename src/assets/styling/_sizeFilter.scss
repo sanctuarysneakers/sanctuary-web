@@ -1,5 +1,4 @@
 .size-filter {
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -10,6 +9,7 @@
     border-radius: 10px;
     text-align: center;
     margin: auto;
+    cursor: pointer;
 
     h4 {
         font-size: 16.5px;
@@ -20,67 +20,8 @@
     svg {
         padding-left: 7px;
     }
-
-    .size-filter-content {
-        position: absolute;
-        top: 0;
-        left: 0;
-
-        .size-filter__control {
-            background: none;
-            border: none;
-            cursor: pointer;
-
-            .size-filter__value-container {
-                .size-filter__single-value {
-                    width: 0px;
-                }
-            }
-
-            .size-filter__indicators {
-                height: 45px;
-
-                .size-filter__indicator-separator {
-                    width: 0px;
-                    margin: 0px;
-                }
-
-                .size-filter__indicator {
-                    width: 0px;
-                    padding: 0px;
-                }
-            }
-        }
-    }
 }
 
-.size-filter__control.css-yk16xz-control {
-    min-height: 45px;
-    min-width: 335px;
-}
-
-.size-filter__control.css-1pahdxg-control {
-    min-height: 45px;
-    min-width: 335px;
-    box-shadow: none;
-}
-
-@media (min-width: 400px) and (max-width: 869px) {
-    .size-filter__control.css-yk16xz-control {
-        min-width: 360px;
-    }
-    
-    .size-filter__control.css-1pahdxg-control {
-        min-width: 360px;
-    }
-}
-
-@media screen and (max-width: 399px) {
-    .size-filter__control.css-yk16xz-control {
-        min-width: calc(100vw - 40px);
-    }
-    
-    .size-filter__control.css-1pahdxg-control {
-        min-width: calc(100vw - 40px);
-    }
+.size-filter:hover {
+    background: #D9DEE9;
 }
