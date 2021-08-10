@@ -39,31 +39,55 @@ export default function ItemPrice({ data, index, length }) {
     const websiteText = websiteTextMap[data.source]
 
     return (
-        <div className={(index === length - 1) ? 'item-price last' : 'item-price'}>
+        <div className='item-price-wrapper'>
 
-            <a target='_blank' href={`https://${data.url}`} rel="noopener noreferrer">
-                <div className='item-price-source'>
-                    <div className={`item-source-logo ${data.source}`}>
-                        <img src={websiteLogo} alt='website logo' />
+            {/* Styling for no results row */}
+            {(length === 1) && (data.price === 0) && <div className='item-price last'>
+                <a>
+                    <div className='item-price-source'>
+                        <div className={`item-source-logo none`} />
+
+                        <div className='item-source-text'>
+                            <h2> No results </h2>
+
+                            <p> New </p>
+                        </div>
                     </div>
 
-                    <div className='item-source-text'>
-                        <h2> {websiteText} </h2>
-
-                        <p> New </p>
+                    
+                    <div className='item-price-link'>
+                        <div className='item-price-link-none' />
                     </div>
-                </div>
+                </a>
+            </div>}
 
-                
-                <div className='item-price-link'>
-                    <div className='item-amount'>
-                        <h2> {currencySymbolMap[currency]}{data.price} </h2>
+            {/* Styling for regular price row */}
+            {(data.price !== 0) && <div className={(index === length - 1) ? 'item-price last' : 'item-price'}>
+
+                <a target='_blank' href={`https://${data.url}`} rel="noopener noreferrer">
+                    <div className='item-price-source'>
+                        <div className={`item-source-logo ${data.source}`}>
+                            <img src={websiteLogo} alt='website logo' />
+                        </div>
+
+                        <div className='item-source-text'>
+                            <h2> {websiteText} </h2>
+
+                            <p> New </p>
+                        </div>
                     </div>
 
-                    <RightArrow />
-                </div>
-            </a>
+                    
+                    <div className='item-price-link'>
+                        <div className='item-amount'>
+                            <h2> {currencySymbolMap[currency]}{data.price} </h2>
+                        </div>
 
+                        <RightArrow />
+                    </div>
+                </a>
+
+            </div>}
         </div>
     )
 }

@@ -29,7 +29,7 @@ export default function Item() {
 
     const currency = useSelector(state => state.currency)
     const currencySymbolMap = {
-        'USD':'$', 'CAD':'C$', 'EUR':'€', 'GBP':'£', 'JPY':'¥', 'AUD':'A$'
+        'USD': '$', 'CAD': 'C$', 'EUR': '€', 'GBP': '£', 'JPY': '¥', 'AUD': 'A$'
     }
 
     const { sku } = useParams()
@@ -79,7 +79,13 @@ export default function Item() {
 
                                 <a target='_blank' href={`https://${itemPrices[0].url}`} rel="noopener noreferrer">
                                     <div className='item-sneaker-price'>
-                                        <h2> New {currencySymbolMap[currency]}{itemPrices[0].price} </h2>
+                                        {(itemPrices[0].price !== 0) && <h2>
+                                            Buy New {currencySymbolMap[currency]}{itemPrices[0].price}
+                                        </h2>}
+
+                                        {(itemPrices[0].price === 0) && <h2>
+                                            Buy New - No results
+                                        </h2>}
                                     </div>
                                 </a>
 
@@ -113,7 +119,18 @@ export default function Item() {
                             {!listingsLoading && <div className='item-more-listings-rows-content'>
                                 {itemListings.length ? listingComponents :
                                 <div className='item-no-results'>
-                                    <p> No results found </p>
+                                    <div className='item-no-results-source'>
+                                        <div className='item-no-results-logo' />
+
+                                        <div className='item-no-results-text'>
+                                            <h2> No results </h2>
+                                            <p> Used </p>
+                                        </div>
+                                    </div>
+
+                                    <div className='item-no-results-link'>
+                                        <div className='item-no-results-price-link' />
+                                    </div>
                                 </div>}
                             </div>}
                         </div>

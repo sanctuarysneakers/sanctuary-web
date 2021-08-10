@@ -19,6 +19,11 @@
                 overflow: hidden;
             }
 
+            // Styling for no results
+            .item-source-logo.none {
+                background: #EEF1F6;
+            }
+
             // Styling for StockX icon
             .item-source-logo.stockx {
                 display: flex;
@@ -132,6 +137,16 @@
             display: flex;
             height: 36px;
 
+            // Styling for no results
+            .item-price-link-none {
+                width: 110px;
+                height: 16px;
+                background: #EEF1F6;
+                border-radius: 4px;
+                margin-top: 9px;
+            }
+
+            // Styling for price link
             .item-amount {
                 padding: 2px 15px;
 
@@ -252,6 +267,13 @@
 
             .item-price-link {
                 height: 44px;
+
+                .item-price-link-none {
+                    width: 60px;
+                    height: 12px;
+                    border-radius: 3px;
+                    margin-top: 6px;
+                }
 
                 .item-amount {
                     padding: 0px 12px;
