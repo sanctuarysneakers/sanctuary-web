@@ -68,7 +68,8 @@ export default function useAPICall(callType, params) {
         results.push(...await flightclubLowestPrice(item.skuId, item.modelName, size, currencyRate))
         results.push(...await klektLowestPrice(item.skuId, item.modelName, size, klektCurrencyRate))
         results.push(...await ebayLowestPrice(item.skuId, item.modelName, size, location['country_code'], currencyRate))
-
+        
+        results = results.filter(r => r.price !== 0)
         results.sort((a, b) => a.price - b.price)
         return results
     }
