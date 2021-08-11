@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch,  useSelector } from 'react-redux'
 import { useMediaQuery } from 'react-responsive'
 import { showSearchModal, showHamburgerModal } from '../redux/actions'
+import HamburgerMenu from './hamburgerMenu'
 import ProfileIcon from '../assets/images/icons/profileIcon'
 import {ReactComponent as SanctuaryLogo} from '../assets/images/SanctuaryLogo.svg'
 import {ReactComponent as Search} from '../assets/images/Search.svg'
@@ -76,8 +77,9 @@ export default function Navbar() {
                 </div>}
 
                 {!isDesktop && <div className='mobile-content'>
-                    <div className='hamburger-icon' onClick={() => dispatch(showHamburgerModal())}>
-                        <Hamburger />
+                    <div className='hamburger-icon'>
+                        {/* <Hamburger /> */}
+                        <HamburgerMenu />
                     </div>
 
                     <Link className='sanctuary-logo'

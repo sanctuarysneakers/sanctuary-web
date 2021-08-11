@@ -6,6 +6,7 @@ import useAPICall from '../Hooks/useApiCall'
 import ItemPrice from '../itemPrice'
 import ItemListing from '../itemListing'
 import ItemLoader from '../itemLoader'
+import ItemNoResults from '../itemNoResults'
 import Footer from '../footer'
 import StockXGrey from '../../assets/images/stockx.png'
 import GOATGrey from '../../assets/images/goat-grey.svg'
@@ -55,18 +56,26 @@ export default function Item() {
         <div className='item'>
             <div className='item-sneaker'>
                 <div className='item-sneaker-content'>
+
                     <div className='item-sneaker-image'>
                         <img src={itemInfo.image} alt='sneaker' />
                     </div>
 
                     <div className='item-sneaker-info'>
                         <div className='item-sneaker-text'>
-                            {pricesLoading && <ItemLoader version={'source'} />}
 
-                            {!pricesLoading && <div className={`item-sneaker-site ${itemPrices[0].source}`}>
-                                <img src={websiteLogoMap[itemPrices[0].source]}
-                                    alt='website logo'
-                                />
+                            {pricesLoading && <ItemLoader version={'source'} />}
+                            {!pricesLoading && <div className='item-sneaker-source'>
+                                {itemPrices.length ? 
+                                <div className={`item-sneaker-site ${itemPrices[0].source}`}>
+                                    <img 
+                                        src={websiteLogoMap[itemPrices[0].source]} alt='website logo' 
+                                    />
+                                </div> 
+                                : 
+                                <div className='item-sneaker-source-none'>
+                                    <p> --- </p>
+                                </div>} 
                             </div>}
 
                             <div className='item-sneaker-model'>
@@ -74,20 +83,23 @@ export default function Item() {
                             </div>
 
                             {pricesLoading && <ItemLoader version={'info'} />}
-
                             {!pricesLoading && <div className='item-sneaker-price-details'>
-
+                                {itemPrices.length ? 
                                 <a target='_blank' href={`https://${itemPrices[0].url}`} rel="noopener noreferrer">
                                     <div className='item-sneaker-price'>
-                                        {(itemPrices[0].price !== 0) && <h2>
+                                        <h2>
                                             Buy New {currencySymbolMap[currency]}{itemPrices[0].price}
-                                        </h2>}
-
-                                        {(itemPrices[0].price === 0) && <h2>
-                                            Buy New - No results
-                                        </h2>}
+                                        </h2>
                                     </div>
                                 </a>
+                                : 
+                                <a>
+                                    <div className='item-sneaker-price none'>
+                                        <h2>
+                                            Buy New - No Results
+                                        </h2>
+                                    </div>
+                                </a>}
 
                                 <SizeFilter />
                             </div>}
@@ -103,9 +115,8 @@ export default function Item() {
 
                         <div className='item-lowest-prices-rows'>
                             {pricesLoading && <ItemLoader version={'prices'} />}
-
                             {!pricesLoading && <div className='item-lowest-prices-rows-content'>
-                                {priceComponents}
+                                {itemPrices.length ? priceComponents : <ItemNoResults version={'prices'} />}
                             </div>}
                         </div>
                     </div>
@@ -115,23 +126,8 @@ export default function Item() {
 
                         <div className='item-more-listings-rows'>
                             {listingsLoading && <ItemLoader version={'listings'} />}
-
                             {!listingsLoading && <div className='item-more-listings-rows-content'>
-                                {itemListings.length ? listingComponents :
-                                <div className='item-no-results'>
-                                    <div className='item-no-results-source'>
-                                        <div className='item-no-results-logo' />
-
-                                        <div className='item-no-results-text'>
-                                            <h2> No results </h2>
-                                            <p> Used </p>
-                                        </div>
-                                    </div>
-
-                                    <div className='item-no-results-link'>
-                                        <div className='item-no-results-price-link' />
-                                    </div>
-                                </div>}
+                                {itemListings.length ? listingComponents : <ItemNoResults version={'listings'} />}
                             </div>}
                         </div>
                     </div>
