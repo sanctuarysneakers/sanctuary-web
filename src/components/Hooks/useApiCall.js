@@ -43,6 +43,7 @@ export default function useAPICall(callType, params) {
             if (!response.ok) throw new Error()
 
             let itemData = await response.json()
+            if (itemData[0]['sku'] !== sku) throw new Error()
             return {
                 hasPrice: true,
                 skuId: sku.replaceAll('-', ' '),
@@ -54,12 +55,10 @@ export default function useAPICall(callType, params) {
         } catch (e) {
             const request = createRequestObject('stockxInfo', {search: sku})
             const response = await fetch(request.url, request.headers)
-            if (!response.ok) throw new Error()
 
             let itemData = await response.json()
             return {
                 hasPrice: false,
-                skuId: sku.replaceAll('-', ' '),
                 modelName: itemData[0]['model'],
                 image: itemData[0]['image'],
             }
@@ -74,7 +73,7 @@ export default function useAPICall(callType, params) {
         let klektCurrencyRate = await currencyConversionRate("EUR", currency)
 
         let results = []
-        results.push(...await stockxLowestPrice(item, size, currencyRate))
+        results.push(...await stockxLowestPrice(item, currencyRate))
         results.push(...await ebayLowestPrice(item, size, location['country_code'], currencyRate))
         results.push(...await goatLowestPrice(item, size, currencyRate))
         results.push(...await flightclubLowestPrice(item, size, currencyRate))
