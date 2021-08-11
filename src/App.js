@@ -14,7 +14,8 @@ import DeleteModal from "./components/deleteModal"
 import SearchModal from './components/searchModal'
 import SizeModal from './components/sizeModal'
 import CurrencyModal from './components/currencyModal'
-import PageNotFound from "./components/Pages/pageNotFound"
+import PageNotFound from './components/Pages/pageNotFound'
+import ItemNotSupported from './components/Pages/itemNotSupported'
 import PrivacyPolicy from './components/Pages/privacyPolicy'
 import TermsOfUse from './components/Pages/termsOfUse'
 import LocationPopup from './components/locationPopup'
@@ -94,6 +95,7 @@ export default function App() {
                 <Route path="/article-sneakersmeetengineering" component={ArticleSneakersMeetEngineering}/>
                 <Route path="/article-demystifying" component={ArticleDemystifying}/>
                 <Route path="/article-toppicks" component={ArticleTop2020}/>
+                <Route path="/item-not-supported" component={ItemNotSupported} />
                 <Route component={PageNotFound} />
                 </Switch>
 

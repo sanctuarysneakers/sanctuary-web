@@ -32,7 +32,7 @@ export default function useAPICall(callType, params) {
             let results = await response.json()
             dispatch(browseCall(results))
         } catch (e) {
-            history.push(`/page-not-found`)
+            history.replace(`/page-not-found`)
         }
     }
 
@@ -53,14 +53,19 @@ export default function useAPICall(callType, params) {
                 url: itemData[0]['url']
             }
         } catch (e) {
-            const request = createRequestObject('stockxInfo', {search: sku})
-            const response = await fetch(request.url, request.headers)
-
-            let itemData = await response.json()
-            return {
-                hasPrice: false,
-                modelName: itemData[0]['model'],
-                image: itemData[0]['image'],
+            try {
+                const request = createRequestObject('stockxInfo', {search: sku})
+                const response = await fetch(request.url, request.headers)
+    
+                let itemData = await response.json()
+                return {
+                    hasPrice: false,
+                    modelName: itemData[0]['model'],
+                    image: itemData[0]['image'],
+                }
+            } catch (e) {
+                history.replace('/item-not-supported')
+                return null
             }
         }
     }
@@ -103,13 +108,15 @@ export default function useAPICall(callType, params) {
         const itemInfo = await getItemInfo(sku, size)
         dispatch(updateItemInfo(itemInfo))
         
-        const itemPrices = await getItemPrices(itemInfo, size)
-        dispatch(updateItemPrices(itemPrices))
-        dispatch(setItemPricesLoading(false))
-
-        const itemListings = await getItemListings(itemInfo, size)
-        dispatch(updateItemListings(itemListings))
-        dispatch(setItemListingsLoading(false))
+        if (itemInfo) {
+            const itemPrices = await getItemPrices(itemInfo, size)
+            dispatch(updateItemPrices(itemPrices))
+            dispatch(setItemPricesLoading(false))
+    
+            const itemListings = await getItemListings(itemInfo, size)
+            dispatch(updateItemListings(itemListings))
+            dispatch(setItemListingsLoading(false))
+        }
     }
 
     useEffect(() => {
