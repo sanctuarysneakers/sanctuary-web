@@ -10,7 +10,7 @@
         width: 100vw;
         height: 100vh;
         background: rgba(0, 0, 0, 0.6);
-        transition: 550ms;
+        transition: 450ms;
     }
 
     
@@ -22,7 +22,7 @@
         background: #F7F9FC;
         border-top-left-radius: 16px;
         border-top-right-radius: 16px;
-        transition: 500ms;
+        // transition: 10ms;
 
         .hamburger-modal-content {
             padding-top: 12px;
@@ -184,7 +184,7 @@
 
     .hamburger-modal.active {
         bottom: 0;
-        transition: 400ms;
+        transition: 350ms;
     }
 }
 
