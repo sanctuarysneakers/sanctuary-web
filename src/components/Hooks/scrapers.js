@@ -3,17 +3,37 @@ import createRequestObject from './createRequest'
 
 /**** Lowest Prices ****/
 
-export async function stockxLowestPrice(item, currencyRate) {
-	return [{
-		source: 'stockx',
-		price: Math.round(item.price * currencyRate),
-		url: "stockx.pvxt.net/c/2588966/1023711/9060?&u=" + item.url
-	}]
+export async function stockxLowestPrice(item, size, currencyRate) {
+	if (item.hasPrice) {
+		return [{
+			source: 'stockx',
+			price: Math.round(item.price * currencyRate),
+			url: `stockx.pvxt.net/c/2588966/1023711/9060?&u=${item.url}`
+		}]
+	}
+	else {
+		let search = item.skuId !== '' ? item.skuId : item.modelName
+	
+		const request = createRequestObject('stockx', {search: search, size: size})
+		try {
+			const response = await fetch(request.url, request.headers)
+			if (!response.ok) throw new Error()
+	
+			let itemData = await response.json()
+			return {
+				source: 'stockx',
+				price: Math.round(itemData[0]['price'] * currencyRate),
+				url: `stockx.pvxt.net/c/2588966/1023711/9060?&u=${itemData[0]['url']}`
+			}
+		} catch (e) {
+			return []
+		}
+	}
 }
 
 
-export async function ebayLowestPrice(skuId, modelName, size, location, currencyRate) {
-	let search = modelName.concat(' ', skuId)
+export async function ebayLowestPrice(item, size, location, currencyRate) {
+	let search = item.modelName.concat(' ', item.skuId)
 
 	const request = createRequestObject('ebay', {search: search, size: size, shipTo: location})
 	try {
@@ -32,9 +52,8 @@ export async function ebayLowestPrice(skuId, modelName, size, location, currency
 }
 
 
-export async function goatLowestPrice(skuId, modelName, size, currencyRate) {
-	let search = skuId
-	if (skuId === '') search = modelName
+export async function goatLowestPrice(item, size, currencyRate) {
+	let search = item.skuId !== '' ? item.skuId : item.modelName
 	
 	const request = createRequestObject('goat', {search: search, size: size})
 	try {
@@ -54,9 +73,8 @@ export async function goatLowestPrice(skuId, modelName, size, currencyRate) {
 }
 
 
-export async function flightclubLowestPrice(skuId, modelName, size, currencyRate) {
-	let search = skuId
-	if (skuId === '') search = modelName
+export async function flightclubLowestPrice(item, size, currencyRate) {
+	let search = item.skuId !== '' ? item.skuId : item.modelName
 	
 	const request = createRequestObject('flightclub', {search: search, size: size})
 	try {
@@ -76,9 +94,8 @@ export async function flightclubLowestPrice(skuId, modelName, size, currencyRate
 }
 
 
-export async function klektLowestPrice(skuId, modelName, size, currencyRate) {
-	let search = skuId
-	if (skuId === '') search = modelName
+export async function klektLowestPrice(item, size, currencyRate) {
+	let search = item.skuId !== '' ? item.skuId : item.modelName
 
 	// request1: get product id for sneaker model
 	const request1 = createRequestObject('klekt1', { search: search })
@@ -118,8 +135,8 @@ export async function klektLowestPrice(skuId, modelName, size, currencyRate) {
 
 /**** Listings ****/
 
-export async function ebayListings(skuId, modelName, size, location, currencyRate) {
-	let search = modelName.concat(' ', skuId)
+export async function ebayListings(item, size, location, currencyRate) {
+	let search = item.modelName.concat(' ', item.skuId)
 	
 	const request = createRequestObject('ebayListings', {search: search, size: size, shipTo: location})
 	try {
@@ -144,8 +161,8 @@ export async function ebayListings(skuId, modelName, size, location, currencyRat
 }
 
 
-export async function depopListings(modelName, size, currencyRate) {
-	const request = createRequestObject('depopListings', {search: modelName, size: size})
+export async function depopListings(item, size, currencyRate) {
+	const request = createRequestObject('depopListings', {search: item.modelName, size: size})
 	try {
 		const response = await fetch(request.url, request.headers)
 		if (!response.ok) throw new Error()
@@ -168,9 +185,9 @@ export async function depopListings(modelName, size, currencyRate) {
 }
 
 
-export async function grailedListings(modelName, size, currencyRate) {
+export async function grailedListings(item, size, currencyRate) {
 	let maxItems = 7
-	const request = createRequestObject('grailedListings', {search: modelName, size: size})
+	const request = createRequestObject('grailedListings', {search: item.modelName, size: size})
 	try {
 		const response = await fetch(request.url, request.headers)
 		if (!response.ok) throw new Error()

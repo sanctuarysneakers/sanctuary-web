@@ -21,6 +21,16 @@ export default function createRequestObject(type, filter) {
 					method: 'GET'
 				}
 			}
+		case 'stockxInfo':
+			return {
+				url: 'https://sanctuaryapi.net/lowestprice?' + new URLSearchParams({
+					"source": "stockx",
+					"search": filter.search,
+				}),
+				headers: {
+					method: 'GET'
+				}
+			}
 		case 'ebay':
 			return {
 				url: 'https://sanctuaryapi.net/lowestprice?' + new URLSearchParams({

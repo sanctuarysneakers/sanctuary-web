@@ -37,13 +37,14 @@ export default function useAPICall(callType, params) {
     }
 
     async function getItemInfo(sku, size) {
-        const request = createRequestObject('stockx', {search: sku, size: size})
         try {
+            const request = createRequestObject('stockx', {search: sku, size: size})
             const response = await fetch(request.url, request.headers)
             if (!response.ok) throw new Error()
 
             let itemData = await response.json()
             return {
+                hasPrice: true,
                 skuId: sku.replaceAll('-', ' '),
                 modelName: itemData[0]['model'],
                 price: itemData[0]['price'],
@@ -51,7 +52,17 @@ export default function useAPICall(callType, params) {
                 url: itemData[0]['url']
             }
         } catch (e) {
-            history.push(`/page-not-found`)
+            const request = createRequestObject('stockxInfo', {search: sku})
+            const response = await fetch(request.url, request.headers)
+            if (!response.ok) throw new Error()
+
+            let itemData = await response.json()
+            return {
+                hasPrice: false,
+                skuId: sku.replaceAll('-', ' '),
+                modelName: itemData[0]['model'],
+                image: itemData[0]['image'],
+            }
         }
     }
 
@@ -63,11 +74,11 @@ export default function useAPICall(callType, params) {
         let klektCurrencyRate = await currencyConversionRate("EUR", currency)
 
         let results = []
-        results.push(...await stockxLowestPrice(item, currencyRate))
-        results.push(...await goatLowestPrice(item.skuId, item.modelName, size, currencyRate))
-        results.push(...await flightclubLowestPrice(item.skuId, item.modelName, size, currencyRate))
-        results.push(...await klektLowestPrice(item.skuId, item.modelName, size, klektCurrencyRate))
-        results.push(...await ebayLowestPrice(item.skuId, item.modelName, size, location['country_code'], currencyRate))
+        results.push(...await stockxLowestPrice(item, size, currencyRate))
+        results.push(...await ebayLowestPrice(item, size, location['country_code'], currencyRate))
+        results.push(...await goatLowestPrice(item, size, currencyRate))
+        results.push(...await flightclubLowestPrice(item, size, currencyRate))
+        results.push(...await klektLowestPrice(item, size, klektCurrencyRate))
         
         results = results.filter(r => r.price !== 0)
         results.sort((a, b) => a.price - b.price)
@@ -81,9 +92,9 @@ export default function useAPICall(callType, params) {
         else currencyRate = 1
         
         let results = []
-        results.push(...await depopListings(item.modelName, size, currencyRate))
-        results.push(...await grailedListings(item.modelName, size, currencyRate))
-        results.push(...await ebayListings(item.skuId, item.modelName, size, location['country_code'], currencyRate))
+        results.push(...await ebayListings(item, size, location['country_code'], currencyRate))
+        results.push(...await depopListings(item, size, currencyRate))
+        results.push(...await grailedListings(item, size, currencyRate))
 
         results.sort((a, b) => a.price - b.price)
         return results
