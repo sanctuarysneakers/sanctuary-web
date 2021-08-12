@@ -32,18 +32,20 @@ export default function useAPICall(callType, params) {
             let results = await response.json()
             dispatch(browseCall(results))
         } catch (e) {
-            history.push(`/page-not-found`)
+            history.replace(`/page-not-found`)
         }
     }
 
     async function getItemInfo(sku, size) {
-        const request = createRequestObject('stockx', {search: sku, size: size})
         try {
+            const request = createRequestObject('stockx', {search: sku, size: size})
             const response = await fetch(request.url, request.headers)
             if (!response.ok) throw new Error()
 
             let itemData = await response.json()
+            if (itemData[0]['sku'] !== sku) throw new Error()
             return {
+                hasPrice: true,
                 skuId: sku.replaceAll('-', ' '),
                 modelName: itemData[0]['model'],
                 price: itemData[0]['price'],
@@ -51,7 +53,20 @@ export default function useAPICall(callType, params) {
                 url: itemData[0]['url']
             }
         } catch (e) {
-            history.push(`/page-not-found`)
+            try {
+                const request = createRequestObject('stockxInfo', {search: sku})
+                const response = await fetch(request.url, request.headers)
+    
+                let itemData = await response.json()
+                return {
+                    hasPrice: false,
+                    modelName: itemData[0]['model'],
+                    image: itemData[0]['image'],
+                }
+            } catch (e) {
+                history.replace('/item-not-supported')
+                return null
+            }
         }
     }
 
@@ -64,11 +79,12 @@ export default function useAPICall(callType, params) {
 
         let results = []
         results.push(...await stockxLowestPrice(item, currencyRate))
-        results.push(...await goatLowestPrice(item.skuId, item.modelName, size, currencyRate))
-        results.push(...await flightclubLowestPrice(item.skuId, item.modelName, size, currencyRate))
-        results.push(...await klektLowestPrice(item.skuId, item.modelName, size, klektCurrencyRate))
-        results.push(...await ebayLowestPrice(item.skuId, item.modelName, size, location['country_code'], currencyRate))
-
+        results.push(...await ebayLowestPrice(item, size, location['country_code'], currencyRate))
+        results.push(...await goatLowestPrice(item, size, currencyRate))
+        results.push(...await flightclubLowestPrice(item, size, currencyRate))
+        results.push(...await klektLowestPrice(item, size, klektCurrencyRate))
+        
+        results = results.filter(r => r.price !== 0)
         results.sort((a, b) => a.price - b.price)
         return results
     }
@@ -80,9 +96,9 @@ export default function useAPICall(callType, params) {
         else currencyRate = 1
         
         let results = []
-        results.push(...await depopListings(item.modelName, size, currencyRate))
-        results.push(...await grailedListings(item.modelName, size, currencyRate))
-        results.push(...await ebayListings(item.skuId, item.modelName, size, location['country_code'], currencyRate))
+        results.push(...await ebayListings(item, size, location['country_code'], currencyRate))
+        results.push(...await depopListings(item, size, currencyRate))
+        results.push(...await grailedListings(item, size, currencyRate))
 
         results.sort((a, b) => a.price - b.price)
         return results
@@ -92,13 +108,15 @@ export default function useAPICall(callType, params) {
         const itemInfo = await getItemInfo(sku, size)
         dispatch(updateItemInfo(itemInfo))
         
-        const itemPrices = await getItemPrices(itemInfo, size)
-        dispatch(updateItemPrices(itemPrices))
-        dispatch(setItemPricesLoading(false))
-
-        const itemListings = await getItemListings(itemInfo, size)
-        dispatch(updateItemListings(itemListings))
-        dispatch(setItemListingsLoading(false))
+        if (itemInfo) {
+            const itemPrices = await getItemPrices(itemInfo, size)
+            dispatch(updateItemPrices(itemPrices))
+            dispatch(setItemPricesLoading(false))
+    
+            const itemListings = await getItemListings(itemInfo, size)
+            dispatch(updateItemListings(itemListings))
+            dispatch(setItemListingsLoading(false))
+        }
     }
 
     useEffect(() => {

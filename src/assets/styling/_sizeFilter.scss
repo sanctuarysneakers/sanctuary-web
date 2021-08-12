@@ -1,99 +1,27 @@
 .size-filter {
-    position: relative;
-    width: 101px;
-    height: 29px;
-    background: #F7F9FC;
-    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 360px;
+    min-width: 280px;
+    height: 45px;
+    background: #E5E9F1;
+    border-radius: 10px;
     text-align: center;
+    margin: auto;
+    cursor: pointer;
 
     h4 {
-        font-size: 14px;
-        font-weight: 400;
-        color: #919BB1;
-        padding-top: 4px;
+        font-size: 16.5px;
+        font-weight: 500;
+        color: #777F93;
     }
 
-    .size-filter-content {
-        position: absolute;
-        top: 0;
-        left: 0;
-
-        .size-filter__control {
-            background: none;
-            border: none;
-            cursor: pointer;
-
-            .size-filter__value-container {
-                .size-filter__single-value {
-                    width: 0px;
-                }
-            }
-
-            .size-filter__indicators {
-                height: 29px;
-
-                .size-filter__indicator-separator {
-                    width: 0px;
-                    margin: 0px;
-                }
-
-                .size-filter__indicator {
-                    width: 0px;
-                    padding: 0px;
-                }
-            }
-        }
+    svg {
+        padding-left: 7px;
     }
 }
 
-.size-filter__control.css-yk16xz-control {
-    min-height: 29px;
-    min-width: 101px;
+.size-filter:hover {
+    background: #D9DEE9;
 }
-
-.size-filter__control.css-1pahdxg-control {
-    min-height: 29px;
-    min-width: 101px;
-    box-shadow: none;
-}
-
-
-
-
-
-// .filters::-webkit-scrollbar {
-//     display: none;  /* Safari and Chrome */
-// }
-
-// .filters {
-//     width: 910px;
-//     overflow-y: auto;
-//     overflow-x: auto;
-//     scrollbar-width: none;  /* Firefox */
-//     -ms-overflow-style: none;  /* Internet Explorer 10+ */
-
-//     .close-area {
-//         height: 130px;
-//         width: 910px;
-//         display: flex;
-//         align-items: flex-end;
-//         justify-content: flex-end;
-//     }
-
-//     .filterBox {
-//         display: flex;
-//         align-items: center;
-//         justify-content: center;
-
-//         height: 1185px;
-//         width: 910px;
-//         background: white;
-//         border-radius: 20px;
-//         margin-top: 10px;
-//     }
-
-   
-// }
-
-
-

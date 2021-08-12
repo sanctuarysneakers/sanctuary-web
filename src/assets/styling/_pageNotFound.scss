@@ -1,25 +1,117 @@
-.pageNotFoundText {
+.pageNotFoundText-content {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    height: 380px;
+    height: 450px;
+    padding-bottom: 50px;
 
     h1 {
+        font-size: 32px;
+        font-weight: 600;
+        color: #303A57;
+        line-height: 45px;
         text-align: center;
-        font-family: 'Poppins', sans-serif;
-        padding: 0px 66px;
-        color: #8F8F8F;
-        font-size: 24px;
-        font-weight: 400;
+        width: 500px;
+        margin: 0px auto;
+        padding-bottom: 40px;
+    }
+
+    .search-box {
+        width: 479px;
+        height: 44px;
+        background: #E5E9F1;
+        border-radius: 12px;
+        margin: 0px auto;
+
+        .search-box-content {
+            display: flex;
+            align-items: center;
+            height: 100%;
+
+            .search-box-icon {
+                padding-left: 14px;
+                padding-right: 8px;
+
+                svg {
+                    display: block;
+                    width: 14px;
+                    height: auto;
+
+                    path {
+                        stroke: #777F93;
+                    }
+
+                    rect {
+                        fill: #777F93;
+                    }
+                }
+            }
+
+            .search-box-input {
+                font-size: 16px;
+                font-weight: 400;
+                font-family: 'Poppins', sans-serif;
+                color: black;
+                outline: none;
+                background: none;
+                width: calc(479px - 66px);
+            }
+
+            ::placeholder {
+                color: #777F93;
+            }
+
+            .search-box-clear {
+                cursor: pointer;
+
+                svg {
+                    display: block;
+                    width: 16px;
+                    height: auto;
+                }
+            }
+        }
     }
 }
 
-@media screen and (max-width: 929px) {
-
-    .pageNotFoundText {
+@media screen and (max-width: 767px) {
+    .pageNotFoundText-content {
+        height: 400px;
 
         h1 {
-            padding: 0px 24px;
+            font-size: 27px;
+            line-height: 40px;
+            width: 280px;
+            padding-bottom: 30px;
+        }
+
+        .search-box {
+            width: 315px;
+            height: 36px;
+            border-radius: 9px;
+
+            .search-box-content {
+                .search-box-icon {
+                    padding: 0px 8px;
+
+                    svg {
+                        width: 15px;
+                    }
+                }
+
+                .search-box-input {
+                    width: 247px;
+                }
+
+                .search-box-clear {
+                    padding-left: 8px;
+                    padding-right: 12px;
+
+                    svg {
+                        width: 17px;
+                    }
+                }
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ export default function ItemListing({ data, index, length }) {
 
     const currency = useSelector(state => state.currency)
     const currencySymbolMap = {
-        'USD':'$', 'CAD':'CA$', 'EUR':'€', 'GBP':'£', 'JPY':'¥', 'AUD':'A$'
+        'USD':'$', 'CAD':'C$', 'EUR':'€', 'GBP':'£', 'JPY':'¥', 'AUD':'A$'
     }
 
     const websiteTextMap = {
@@ -21,17 +21,18 @@ export default function ItemListing({ data, index, length }) {
 
     return (
         <div className={(index === length - 1) ? 'item-listing last' : 'item-listing'}>
-            <div className='item-listing-source'>
-                <div className='item-listing-image'>
-                    <img src={data.image} alt='the sneaker' />
-                </div>
-                <div className='item-listing-text'>
-                    <h2> {websiteTextMap[data.source]} </h2>
-                    <p> Used </p>
-                </div>
-            </div>
 
             <a target='_blank' href={data.url}  rel="noopener noreferrer">
+                <div className='item-listing-source'>
+                    <div className='item-listing-image'>
+                        <img src={data.image} alt='the sneaker' />
+                    </div>
+                    <div className='item-listing-text'>
+                        <h2> {websiteTextMap[data.source]} </h2>
+                        <p> Used </p>
+                    </div>
+                </div>
+
                 <div className='item-listing-link'>
                     <div className='item-listing-amount'>
                         <h2>
@@ -41,6 +42,7 @@ export default function ItemListing({ data, index, length }) {
                     <RightArrow />
                 </div>
             </a>
+
         </div>
     )
 }

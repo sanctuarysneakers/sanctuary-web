@@ -1,45 +1,90 @@
 .catalog {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    max-width: 1200px;
+    gap: 12px;
+    max-width: 1000px;
     padding: 0px 20px;
-    margin: 0px auto;
+    margin: auto;
 }
 
-.no-results {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 380px;
-    text-align: center;
-    
-    h1 {
-        padding: 0px 66px;
-        color: #8F8F8F;
-        font-size: 24px;
-        font-weight: 400;
-    }
-}
-
-@media (min-width: 920px) and (max-width: 1240px) {
+@media (min-width: 820px) and (max-width: 1099px) {
     .catalog {
         grid-template-columns: repeat(3, 1fr);
-        max-width: 880px;
+        gap: 12px;
+        max-width: 747px;
     }
 }
 
-@media (min-width: 620px) and (max-width: 919px) {
+@media (min-width: 700px) and (max-width: 819px) {
     .catalog {
-        grid-template-columns: repeat(2, 1fr);
-        max-width: 580px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        max-width: 622px;
     }
 }
 
-@media screen and (max-width: 619px) {
+@media (min-width: 548px) and (max-width: 699px) {
+    .catalog {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 11px;
+        max-width: 508px;
+    }
+}
+
+@media screen and (max-width: 547px) {
     .catalog {
         grid-template-columns: repeat(2, 1fr);
         gap: 11px;
         max-width: 335px;
     }
 }
+
+
+
+
+
+// .catalog {
+//     display: grid;
+//     grid-template-columns: repeat(4, 1fr);
+//     gap: 20px;
+//     max-width: 1200px;
+//     padding: 0px 20px;
+//     margin: 0px auto;
+// }
+
+// .no-results {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     height: 380px;
+//     text-align: center;
+    
+//     h1 {
+//         padding: 0px 66px;
+//         color: #8F8F8F;
+//         font-size: 24px;
+//         font-weight: 400;
+//     }
+// }
+
+// @media (min-width: 920px) and (max-width: 1240px) {
+//     .catalog {
+//         grid-template-columns: repeat(3, 1fr);
+//         max-width: 880px;
+//     }
+// }
+
+// @media (min-width: 620px) and (max-width: 919px) {
+//     .catalog {
+//         grid-template-columns: repeat(2, 1fr);
+//         max-width: 580px;
+//     }
+// }
+
+// @media screen and (max-width: 619px) {
+//     .catalog {
+//         grid-template-columns: repeat(2, 1fr);
+//         gap: 11px;
+//         max-width: 335px;
+//     }
+// }

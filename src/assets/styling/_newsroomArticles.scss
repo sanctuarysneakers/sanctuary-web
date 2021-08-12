@@ -26,31 +26,37 @@
             max-width: 380px;
             min-width: 272px;
             margin: 0px auto;
-            background-color: grey;
+            background-color: white;
 
             img {
                 width: 100%;
                 height: auto;
             }
-
-            .newsroom-featured-article-text {
+            .newsroom-featured-article-gradient {
                 position: absolute;
                 bottom: 0;
+                width: calc(100% - 48px);
                 padding: 0px 24px;
                 padding-bottom: 28px;
+                padding-top: 80px;
+                background: linear-gradient(0deg, hsla(0, 0%, 0%, 0.25) 0%, hsla(0, 0%, 100%, 0) 100%);
+                
+                
+            
+                .newsroom-featured-article-text {
+                    p {
+                        font-size: 15px;
+                        font-weight: 500;
+                        color: white;
+                        margin-bottom: 7px;
+                    }
 
-                p {
-                    font-size: 15px;
-                    font-weight: 600;
-                    color: #C6C6C6;
-                    margin-bottom: 7px;
-                }
-
-                h1 {
-                    font-size: 25px;
-                    font-weight: 700;
-                    color: white;
-                    line-height: 36px;
+                    h1 {
+                        font-size: 25px;
+                        font-weight: 600;
+                        color: white;
+                        line-height: 36px;
+                    }
                 }
             }
         }
@@ -124,27 +130,36 @@
             padding-top: 25px;
 
             .newsroom-featured-article {
+                align-items: center;
+                justify-content: center;
                 max-width: 980px;
                 width: 980px;
                 height: 435px;
-                background: grey;
+                background: #1A1A1A;
 
                 img {
-                    width: 100%;
-                    margin: auto;
+                    width: 500px;
+                    height: auto;
+                    outline: 1px solid #1A1A1A;
+                    outline-offset: -1px;
                 }
 
-                .newsroom-featured-article-text {
-                    padding: 0px 50px;
-                    padding-bottom: 35px;
+                .newsroom-featured-article-gradient {
+                    width: 100%;
+                    padding: 40px 0px;
 
-                    p {
-                        font-size: 18px;
-                        margin-bottom: 10px;
-                    }
+                    .newsroom-featured-article-text {
+                        padding-left: 50px;
+                        padding-right: 50px;
+                        
+                        p {
+                            font-size: 15px;
+                            margin-bottom: 10px;
+                        }
 
-                    h1 {
-                        font-size: 36px;
+                        h1 {
+                            font-size: 36px;
+                        }
                     }
                 }
             }

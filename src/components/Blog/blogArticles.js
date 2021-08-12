@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useMediaQuery } from 'react-responsive'
-import TopSneakers from '../../assets/images/topSneakers.jpg'
-import SneakerBoxes from '../../assets/images/sneakerBoxes.jpg'
-import Adidas3D from '../../assets/images/adidas3d.jpg'
-import SanctuaryArticle from '../../assets/images/sanctuaryArticle.jpg'
-import SanctuaryArticleMobile from '../../assets/images/sanctuaryArticleMobile.jpg'
+import TopSneakers from '../../assets/images/top-sneakers.jpg'
+import SneakerBoxes from '../../assets/images/demystifying-sneakers.jpg'
+import Adidas3D from '../../assets/images/adidas-3d.jpg'
+import sanctuary3D from '../../assets/images/3D-sanctuary-small.gif'
+import sanctuary3DMobile from '../../assets/images/3D-sanctuary-mobile.gif'
 
 export default function LatestArticles() {
 
@@ -22,11 +22,13 @@ export default function LatestArticles() {
 
                 <Link to="/article-introduction">
                     <div className='newsroom-featured-article'>
-                        {!isDesktop && <img src={SanctuaryArticleMobile} alt='Featured Article' />}
-                        {isDesktop && <img src={SanctuaryArticle} alt='Featured Article' />}
-                        <div className='newsroom-featured-article-text'>
-                            <p> January 31, 2021 </p>
-                            <h1> Sanctuary: Our Story </h1>
+                        {!isDesktop && <img src={sanctuary3DMobile} alt='Featured Article' />}
+                        {isDesktop && <img src={sanctuary3D} alt='Featured Article' />}
+                        <div className='newsroom-featured-article-gradient'>
+                            <div className='newsroom-featured-article-text'>
+                                <p> January 31, 2021 </p>
+                                <h1> Sanctuary: Our Story </h1>
+                            </div>
                         </div>
                     </div>
                 </Link>

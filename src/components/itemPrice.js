@@ -13,7 +13,7 @@ export default function ItemPrice({ data, index, length }) {
 
     const currency = useSelector(state => state.currency)
     const currencySymbolMap = {
-        'USD':'$', 'CAD':'CA$', 'EUR':'€', 'GBP':'£', 'JPY':'¥', 'AUD':'A$'
+        'USD':'$', 'CAD':'C$', 'EUR':'€', 'GBP':'£', 'JPY':'¥', 'AUD':'A$'
     }
 
     const websiteLogoMap = {
@@ -38,17 +38,19 @@ export default function ItemPrice({ data, index, length }) {
 
     return (
         <div className={(index === length - 1) ? 'item-price last' : 'item-price'}>
-            <div className='item-price-source'>
-                <div className={`item-source-logo ${data.source}`}>
-                    <img src={websiteLogoMap[data.source]} alt='website logo' />
-                </div>
-                <div className='item-source-text'>
-                    <h2> {websiteTextMap[data.source]} </h2>
-                    <p> New </p>
-                </div>
-            </div>
 
             <a target='_blank' href={data.url} rel="noopener noreferrer">
+                <div className='item-price-source'>
+                    <div className={`item-source-logo ${data.source}`}>
+                        <img src={websiteLogoMap[data.source]} alt='website logo' />
+                    </div>
+
+                    <div className='item-source-text'>
+                        <h2> {websiteTextMap[data.source]} </h2>
+                        <p> New </p>
+                    </div>
+                </div>
+
                 <div className='item-price-link'>
                     <div className='item-amount'>
                         <h2> {currencySymbolMap[currency]}{data.price} </h2>
@@ -56,6 +58,7 @@ export default function ItemPrice({ data, index, length }) {
                     <RightArrow />
                 </div>
             </a>
+
         </div>
     )
 }

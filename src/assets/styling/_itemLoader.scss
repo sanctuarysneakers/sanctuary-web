@@ -76,46 +76,39 @@
         }
     }
 
-    // Styling for sneaker info
+    // Styling for sneaker source and info
+    .item-source-loader-content {
+        .item-source-loader-website {
+            width: 65px;
+            height: 15px;
+            border-radius: 3px;
+            background: #EEF1F6;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 6px;
+            margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+    }
+
     .item-info-loader-content {
-        .item-info-loader-price {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100px;
+
+        .item-info-loader-price, .item-info-loader-size {
             max-width: 360px;
             min-width: 280px;
+            width: 100%;
             height: 45px;
             border-radius: 10px;
             background: #EEF1F6;
             margin-left: auto;
             margin-right: auto;
-            margin-bottom: 43px;
             position: relative;
             overflow: hidden;
-        }
-
-        .item-info-loader-details {
-            padding-bottom: 70px;
-            position: relative;
-            overflow: hidden;
-
-            .item-info-loader-data-top {
-                width: 265px;
-                height: 17px;
-                border-radius: 5px;
-                background: #EEF1F6;
-                margin: 0px auto;
-                margin-bottom: 11px;
-                position: relative;
-                overflow: hidden;
-            }
-
-            .item-info-loader-data-bottom {
-                width: 265px;
-                height: 25px;
-                border-radius: 5px;
-                background: #EEF1F6;
-                margin: 0px auto;
-                position: relative;
-                overflow: hidden;
-            }
         }
     }
 }
@@ -132,7 +125,7 @@
 
 .item-loader-logo.prices::before, .item-loader-logo.listings::before, .item-loader-price::before,
 .item-loader-condition::before, .item-loader-amount::before, .item-info-loader-price::before,
-.item-info-loader-data-top::before, .item-info-loader-data-bottom::before {
+.item-info-loader-size::before, .item-source-loader-website::before {
     content: '';
     display: block;
     position: absolute;
@@ -167,14 +160,14 @@
     width: 110px;
 }
 
-.item-info-loader-price::before {
+.item-info-loader-price::before, .item-info-loader-size::before {
     left: -335px;
     width: 335px;
 }
 
-.item-info-loader-data-top::before, .item-info-loader-data-bottom::before {
-    left: -265px;
-    width: 265px;
+.item-source-loader-website::before {
+    left: -65px;
+    width: 65px;
 }
 
 // Mobile responsiveness 

@@ -19,16 +19,17 @@ export default function HomeContact() {
             <div className='home-contact-content'>
 
                 <div ref={ref} className='home-contact-text'>
-                    <FadeIn visible={render} delay={200} transitionDuration={500}>
+                    <FadeIn visible={render} delay={300} transitionDuration={1100}>
                         <h1> We love feedback! </h1>
-
-                        <p> Is there something you think we could do better? </p>
-
-                        <p className='home-contact-b-text'> Please feel free to contact us and we'll get back to you shortly! </p>
-
-                        <a className='home-contact-us' href = "mailto: contact@sanctuarysneakers.com">
-                            Contact us
-                        </a>
+                        <p>
+                            Is there something you think we could do better? Please 
+                            feel free to contact us and we'll get back to you shortly!
+                        </p>
+                        <div className='home-contact-button'>
+                            <a href = "mailto: contact@sanctuarysneakers.com">
+                                Contact us
+                            </a>
+                        </div>
                     </FadeIn>
                 </div>
 

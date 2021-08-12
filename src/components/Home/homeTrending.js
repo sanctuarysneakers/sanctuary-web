@@ -12,37 +12,42 @@ import airMax from '../../assets/images/airMax.png'
 export default function HomeTrending() {
 
     const dispatch = useDispatch()
-    const [render, setRender] = useState(false)
-
     const ref = useRef()
     const isVisible = VisibleOnScreen(ref)
+    
+    const [render, setRender] = useState(false)
+    const [firstFlip, setFirstFlip] = useState(false)
 
     useEffect(() => {
-        if (isVisible)
+        if (isVisible && !firstFlip) {
             setRender(true)
-    }, [isVisible])
+            setFirstFlip(true)
+        }
+    }, [isVisible, firstFlip])
 
     return (
         <div className='home-trending'>
             <div className='home-trending-content'>
                 
                 <div ref={ref} className='home-trending-text'>
-                    <FadeIn visible={render} delay={250} transitionDuration={500}>
-                        <h1> Shop the hottest collections from </h1>
+                    <FadeIn visible={render} delay={350} transitionDuration={1200}>
+                        <div className='home-trending-header'>
+                            <h1> Shop the hottest collections from </h1>
 
-                        <div className='flipping-brands'>
-                            <TextLoop interval={1500} fade={false}>
-                                <h1 className='nike'> Nike. </h1>
-                                <h1 className='air-jordan'> Air Jordan. </h1>
-                                <h1 className='adidas'> Adidas. </h1>
-                                <h1 className='yeezy'> Yeezy. </h1>
-                                <h1 className='new-balance'> New Balance. </h1>
-                                <h1 className='converse'> Converse. </h1>
-                            </TextLoop>{" "}
+                            <div className='flipping-brands'>
+                                <TextLoop interval={firstFlip ? 1500 : 0} fade={false}>
+                                    <h1 className='nike'> Nike. </h1>
+                                    <h1 className='air-jordan'> Air Jordan. </h1>
+                                    <h1 className='adidas'> Adidas. </h1>
+                                    <h1 className='yeezy'> Yeezy. </h1>
+                                    <h1 className='new-balance'> New Balance. </h1>
+                                    <h1 className='converse'> Converse. </h1>
+                                </TextLoop>{" "}
+                            </div>
                         </div>
 
                         <div className='home-trending-buttons'>
-                            <Link className='home-trending-browse' to='/browse'>
+                            <Link className='home-trending-browse' onClick={() => document.location.href = '/browse'}>
                                 Start browsing
                             </Link>
 

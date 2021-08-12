@@ -158,6 +158,30 @@ export const hideSearchModal = () => {
     }
 }
 
+export const showSizeModal = () => {
+    return {
+        type: 'SHOW_SIZE_MODAL'
+    }
+}
+
+export const hideSizeModal = () => {
+    return {
+        type: 'HIDE_SIZE_MODAL'
+    }
+}
+
+export const showCurrencyModal = () => {
+    return {
+        type: 'SHOW_CURRENCY_MODAL'
+    }
+}
+
+export const hideCurrencyModal = () => {
+    return {
+        type: 'HIDE_CURRENCY_MODAL'
+    }
+}
+
 // Search Bar visible/disable per page
 
 export const showHomeSeach = () => {
