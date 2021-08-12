@@ -9,7 +9,7 @@ export async function stockxLowestPrice(item, currencyRate) {
 	return [{
 		source: 'stockx',
 		price: Math.round(item.price * currencyRate),
-		url: `stockx.pvxt.net/c/2588966/1023711/9060?&u=${item.url}`
+		url: new URL(`https://stockx.pvxt.net/c/2588966/1023711/9060?&u=${item.url}`)
 	}]
 }
 
@@ -25,10 +25,20 @@ export async function ebayLowestPrice(item, size, location, currencyRate) {
 		if (!response.ok) throw new Error()
 
 		let itemData = await response.json()
+
+		let url = new URL(`https://${itemData[0]['url']}`)
+		url.searchParams.set('mkcid', '1')
+        url.searchParams.set('mkrid', '711-53200-19255-0')
+        url.searchParams.set('siteid', '0')
+        url.searchParams.set('campid', '5338823385')
+        url.searchParams.set('customid', '')
+        url.searchParams.set('toolid', '10001')
+        url.searchParams.set('mkevt', '1')
+
 		return [{
 			source: 'ebay',
 			price: Math.round(itemData[0]['price'] * currencyRate),
-			url: itemData[0]['url']
+			url: url
 		}]
 	} catch (e) {
 		return []
@@ -51,7 +61,7 @@ export async function goatLowestPrice(item, size, currencyRate) {
 		return [{
 			source: 'goat',
 			price: Math.round((itemData[0]['lowest_price_cents']/100) * currencyRate),
-			url: 'goat.com/sneakers/' + itemData[0]['slug']
+			url: new URL(`https://goat.com/sneakers/${itemData[0]['slug']}`)
 		}]
 	} catch (e) {
 		return []
@@ -74,7 +84,7 @@ export async function flightclubLowestPrice(item, size, currencyRate) {
 		return [{
 			source: 'flightclub',
 			price: Math.round((itemData[0]['lowest_price_cents']/100) * currencyRate),
-			url: 'flightclub.com/' + itemData[0]['slug']
+			url: new URL(`https://flightclub.com/${itemData[0]['slug']}`)
 		}]
 	} catch (e) {
 		return []
@@ -111,8 +121,8 @@ export async function klektLowestPrice(item, size, currencyRate) {
 			if (parseFloat(vSize) === parseFloat(size)) {
 				result.push({
 					source: 'klekt',
-					price: Math.round(variant['priceWithTax']/100 * currencyRate),  /// PRICE IN EUROS ///
-					url: 'klekt.com/product/' + rawData2['data']['productDetails']['slug']
+					price: Math.round(variant['priceWithTax']/100 * currencyRate),
+					url: new URL(`https://klekt.com/product/${rawData2['data']['productDetails']['slug']}`)
 				})
 			}
 		}
@@ -138,12 +148,21 @@ export async function ebayListings(item, size, location, currencyRate) {
 		let itemData = await response.json()
 		let results = []
 		for (const item of itemData) {
+			let url = new URL(`https://${item['url']}`)
+			url.searchParams.set('mkcid', '1')
+			url.searchParams.set('mkrid', '711-53200-19255-0')
+			url.searchParams.set('siteid', '0')
+			url.searchParams.set('campid', '5338823385')
+			url.searchParams.set('customid', '')
+			url.searchParams.set('toolid', '10001')
+			url.searchParams.set('mkevt', '1')
+
 			results.push({
 				id: item['id'],
 				source: 'ebay',
 				price: Math.round(item['price'] * currencyRate),
 				image: item['image'],
-				url: item['url']
+				url: url
 			})
 		}
 		return results
@@ -198,7 +217,7 @@ export async function grailedListings(item, size, currencyRate) {
 				source: 'grailed',
 				price: Math.round((item['price']) * currencyRate),
 				image: item['cover_photo']['url'],
-				url: 'grailed.com/listings/' + item['id'].toString()
+				url: new URL(`https://grailed.com/listings/${item['id'].toString()}`)
 			})
 		}
 		return results
