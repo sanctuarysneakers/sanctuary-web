@@ -9,7 +9,7 @@ import Home from "./components/Home/home"
 import Browse from "./components/Pages/browse"
 import Item from "./components/Pages/item"
 import AboutModal from "./components/Pages/aboutModal"
-import HamburgerModal from "./components/hamburgerModal"
+import HamburgerMenu from './components/hamburgerMenu'
 import DeleteModal from "./components/deleteModal"
 import SearchModal from './components/searchModal'
 import SizeModal from './components/sizeModal'
@@ -48,7 +48,6 @@ export default function App() {
     const sizeModalVisible = useSelector(state => state.sizeModalVisible)
     const currencyModalVisible = useSelector(state => state.currencyModalVisible)
     const searchModalVisible = useSelector(state => state.searchModalVisible)
-    const hamburgerModalVisible = useSelector(state => state.hamburgerModalVisible)
     const aboutModalVisible = useSelector(state => state.aboutModalVisible)
     const deleteModalVisible = useSelector(state => state.deleteModalVisible)
     const [loader, setLoader] = useState(true)
@@ -119,11 +118,6 @@ export default function App() {
                         <AboutModal />
                     </RemoveScroll>
                 }
-                { hamburgerModalVisible &&
-                    <RemoveScroll>
-                        <HamburgerModal />
-                    </RemoveScroll>
-                }
                 { deleteModalVisible &&
                     <RemoveScroll>
                         <DeleteModal />
@@ -134,6 +128,7 @@ export default function App() {
                         <SearchModal />
                     </RemoveScroll>
                 }
+                <HamburgerMenu />
             </React.Fragment>
         )
     }
