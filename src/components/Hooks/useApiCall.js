@@ -43,7 +43,7 @@ export default function useAPICall(callType, params) {
             if (!response.ok) throw new Error()
 
             let itemData = await response.json()
-            if (itemData[0]['sku'] !== sku) throw new Error()
+            if (!itemData[0]['sku'].includes(sku)) throw new Error()
             return {
                 hasPrice: true,
                 skuId: sku.replaceAll('-', ' '),
