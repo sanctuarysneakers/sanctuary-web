@@ -1,7 +1,7 @@
 import createRequestObject from './createRequest'
 
 
-/**** Lowest Prices ****/
+/********** Lowest Prices **********/
 
 export async function stockxLowestPrice(item, currencyRate) {
 	if (!item.hasPrice) return []
@@ -39,6 +39,29 @@ export async function ebayLowestPrice(item, size, location, currencyRate) {
 			source: 'ebay',
 			price: Math.round(itemData[0]['price'] * currencyRate),
 			url: url
+		}]
+	} catch (e) {
+		return []
+	}
+}
+
+
+export async function klektLowestPrice(item, size, currencyRate) {
+	if (!item.hasPrice) return []
+
+	let search = item.skuId !== '' ? item.skuId : item.modelName
+
+	const request = createRequestObject('klekt', {search: search, size: size})
+	try {
+		const response = await fetch(request.url, request.headers)
+		if (!response.ok) throw new Error()
+
+		let itemData = await response.json()
+
+		return [{
+			source: 'klekt',
+			price: Math.round(itemData[0]['price'] * currencyRate),
+			url: new URL(`https://${itemData[0]['url']}`)
 		}]
 	} catch (e) {
 		return []
@@ -92,48 +115,7 @@ export async function flightclubLowestPrice(item, size, currencyRate) {
 }
 
 
-export async function klektLowestPrice(item, size, currencyRate) {
-	if (!item.hasPrice) return []
-
-	let search = item.skuId !== '' ? item.skuId : item.modelName
-
-	// request1: get product id for sneaker model
-	const request1 = createRequestObject('klekt1', { search: search })
-	try {
-		const response1 = await fetch(request1.url, request1.headers)
-		if (!response1.ok) throw new Error()
-
-		let rawData1 = await response1.json()
-		let item = rawData1['data']['search']['items'][0]
-
-		// request2: get price based on product id
-		const request2 = createRequestObject('klekt2', { pid: item['productId'] })
-		const response2 = await fetch(request2.url, request2.headers)
-		if (!response2.ok) throw new Error()
-
-		let rawData2 = await response2.json()
-		let productVariants = rawData2['data']['productDetails']['variants']
-
-		// find the correct size from productVariants
-		let result = []
-		for (const variant of productVariants) {
-			const vSize = variant['facetValues'][0]['code'].replace('us', '')
-			if (parseFloat(vSize) === parseFloat(size)) {
-				result.push({
-					source: 'klekt',
-					price: Math.round(variant['priceWithTax']/100 * currencyRate),
-					url: new URL(`https://klekt.com/product/${rawData2['data']['productDetails']['slug']}`)
-				})
-			}
-		}
-		return result
-	} catch (e) {
-		return []
-	}
-}
-
-
-/**** Listings ****/
+/********** Listings **********/
 
 export async function ebayListings(item, size, location, currencyRate) {
 	if (!item.hasPrice) return []
