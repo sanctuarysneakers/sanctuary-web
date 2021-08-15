@@ -43,6 +43,17 @@ export default function createRequestObject(type, filter) {
 					method: 'GET'
 				}
 			}
+		case 'klekt':
+			return {
+				url: 'https://sanctuaryapi.net/lowestprice?' + new URLSearchParams({
+					"source": "klekt",
+					"search": filter.search,
+					"size": filter.size
+				}),
+				headers: {
+					method: 'GET'
+				}
+			}
 		case 'goat':
 			return {
 				url: 'https://2fwotdvm2o-dsn.algolia.net/1/indexes/product_variants_v2/query?' + new URLSearchParams({
@@ -111,54 +122,6 @@ export default function createRequestObject(type, filter) {
 				}),
 				headers: {
 					method: 'GET'
-				}
-			}
-		case 'klekt1':
-			return {
-				url: 'https://apiv2.klekt.com/shop-api?' + new URLSearchParams({
-					"vendure-token": "iqrhumfu2u9mumwq369"
-				}),
-				headers: {
-					method: 'POST',
-					headers: new Headers({
-						"content-type": "application/json;charset=UTF-8"
-					}),
-					body: JSON.stringify({
-						"operationName": "SearchProducts",
-						"variables": {
-							"input": {
-								"availability": "available",
-								"facetSlugs": [],
-								"facetValueIds": [],
-								"groupByProduct": true,
-								"sizeType": null,
-								"sort": {"featured": "DESC"},
-								"take": 1, "skip": 0,
-								"term": filter.search
-							}
-						},
-						"query": `query SearchProducts($input: SearchInput!) {
-							search(input: $input) { items { productId } } }`
-					})
-				}
-			}
-		case 'klekt2':
-			return {
-				url: 'https://apiv2.klekt.com/shop-api?' + new URLSearchParams({
-					"vendure-token": "iqrhumfu2u9mumwq369"
-				}),
-				headers: {
-					method: 'POST',
-					headers: new Headers({
-						"content-type": "application/json;charset=UTF-8"
-					}),
-					body: JSON.stringify({
-						"query": `query {
-							productDetails(id: ${filter.pid}) {
-								name slug variants { availableCount priceWithTax facetValues { code } }
-							}
-						}`
-					})
 				}
 			}
 		default: 
