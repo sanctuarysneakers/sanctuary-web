@@ -85,7 +85,7 @@ export default function Item() {
                             {pricesLoading && <ItemLoader version={'info'} />}
                             {!pricesLoading && <div className='item-sneaker-price-details'>
                                 {itemPrices.length ? 
-                                <a target='_blank' href={`https://${itemPrices[0].url}`} rel="noopener noreferrer">
+                                <a target='_blank' href={itemPrices[0].url} rel="noopener noreferrer">
                                     <div className='item-sneaker-price'>
                                         <h2>
                                             Buy New {currencySymbolMap[currency]}{itemPrices[0].price}
