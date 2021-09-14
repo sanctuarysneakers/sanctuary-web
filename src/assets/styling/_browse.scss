@@ -9,7 +9,7 @@
 
             .browse-results-text {
                 padding: 89px 0px;
-
+                
                 h2 {
                     font-size: 36px;
                     font-weight: 600;
@@ -23,6 +23,18 @@
     .browse-catalog {
         background: #F7F9FC;
         padding-bottom: 166px;
+    }
+}
+
+@media (min-width: 1099px)  {
+    .browse-results-content {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin: auto;
+        max-width: 1000px;
+        padding: 0px 20px;
+        margin: auto;
     }
 }
 
@@ -41,9 +53,10 @@
         .browse-results {
             .browse-results-content {
                 max-width: 622px;
-
+                padding-bottom: 40px;
+                
                 .browse-results-text {
-                    padding: 59px 0px;
+                    padding: 59px 0px 30px;
 
                     h2 {
                         font-size: 28px;
@@ -64,10 +77,11 @@
         .browse-results {
             .browse-results-content {
                 max-width: 508px;
+                padding-bottom: 40px;
 
                 .browse-results-text {
-                    padding: 59px 0px;
-
+                    padding: 59px 0px 30px;
+                    
                     h2 {
                         font-size: 28px;
                         line-height: 42px;
@@ -87,9 +101,10 @@
         .browse-results {
             .browse-results-content {
                 max-width: 335px;
+                padding-bottom: 40px;
 
                 .browse-results-text {
-                    padding: 59px 0px;
+                    padding: 59px 0px 30px;
 
                     h2 {
                         font-size: 28px;

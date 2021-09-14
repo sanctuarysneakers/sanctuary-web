@@ -1,0 +1,102 @@
+.category-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.6);
+    animation: fade-in-out 0.3s;
+
+    .category-modal-content {
+        width: 550px;
+        height: 500px;
+        background: white;
+        border-radius: 23px;
+    }
+
+    .category-modal-padding {
+        padding: 20px;
+
+        .category-modal-close {
+            display: flex;
+            justify-content: flex-end;
+
+            button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 28px;
+                height: 28px;
+                border-radius: 100px;
+                background: #EEF1F6;
+                cursor: pointer;
+            }
+
+            button:hover {
+                background: #E5E9F1;
+            }
+        }
+
+        .category-modal-text {
+            width: 400px;
+            margin: auto;
+            padding-top: 20px;
+
+            h1 {
+                font-size: 29.5px;
+                font-weight: 600;
+                color: black;
+                line-height: 45px;
+            }
+
+            p {
+                font-size: 16px;
+                font-weight: 400;
+                color: #919BB1;
+                line-height: 24px;
+                padding-top: 7px;
+            }
+        }
+
+        .category-modal-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 5px;
+            width: 400px;
+            padding-top: 18px;
+            margin: auto;
+        }
+    }
+}
+
+// Mobile responsiveness
+@media screen and (max-width: 767px) {
+    .category-modal {
+        .category-modal-content {
+            width: 335px;
+            height: 500px;
+            border-radius: 22px;
+
+            .category-modal-padding {
+                .category-modal-text {
+                    width: 280px;
+                    padding-top: 35px;
+
+                    h1 {
+                        font-size: 26px;
+                        line-height: 39px
+                    }
+                }
+
+                .category-modal-buttons {
+                    width: 280px;
+                    padding-top: 17px;
+                }
+            }
+        }
+    }
+}

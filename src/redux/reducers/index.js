@@ -19,6 +19,7 @@ import searchModalReducer from './searchModalReducer'
 import locationPopupReducer  from './locationPopupReducer'
 import sizeModalReducer from './sizeModalReducer'
 import currencyModalReducer from './currencyModalReducer'
+import categoryFilterModalReducer from './categoryFilterReducer'
 
 const globalReducer = combineReducers({
     size: sizeReducer,
@@ -40,7 +41,8 @@ const globalReducer = combineReducers({
     searchModalVisible: searchModalReducer,
     locationPopup: locationPopupReducer,
     sizeModalVisible: sizeModalReducer,
-    currencyModalVisible: currencyModalReducer
+    currencyModalVisible: currencyModalReducer,
+    categoryFilterModalVisible: categoryFilterModalReducer
 })
 
 export default globalReducer
