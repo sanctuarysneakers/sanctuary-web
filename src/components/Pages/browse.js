@@ -4,6 +4,7 @@ import { useParams } from 'react-router'
 import { showHomeSeach } from '../../redux/actions'
 import Catalog from '../catalog'
 import Footer from '../footer'
+import CategoryFilter from '../categoryFilter'
 
 export default function Browse() {
 
@@ -22,12 +23,11 @@ export default function Browse() {
                     {!query && <div className='browse-results-text'> 
                         <h2> Browse </h2>
                     </div>}
-
                     {query && <div className='browse-results-text'>
                         <h2> Search results for </h2>
                         <h2> '{query}' </h2>
                     </div>}
-
+                    <CategoryFilter />
                 </div>
             </div>
 
