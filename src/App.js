@@ -31,6 +31,7 @@ import EditProfileEmail from './components/Accounts/editProfileEmail'
 import EditProfilePassword from './components/Accounts/editProfilePassword'
 
 import Blog from "./components/Blog/blog"
+import Newsroom from './components/Newsroom/newsroom'
 import ArticleIntro from "./components/Blog/Articles/articleIntro"
 import ArticleSneakersMeetEngineering from "./components/Blog/Articles/articleSneakersmeetengineering"
 import ArticleDemystifying from "./components/Blog/Articles/articleDemystifying"
@@ -89,7 +90,7 @@ export default function App() {
                 <Route path="/profile-edit-password" component={EditProfilePassword} />
                 <Route path="/privacy-policy" component={PrivacyPolicy} />
                 <Route path="/terms-of-use" component={TermsOfUse} />
-                <Route path="/newsroom" component={Blog} />
+                <Route path="/newsroom" component={Newsroom} />
                 <Route path="/article-introduction" component={ArticleIntro} />
                 <Route path="/article-sneakersmeetengineering" component={ArticleSneakersMeetEngineering}/>
                 <Route path="/article-demystifying" component={ArticleDemystifying}/>
