@@ -1,37 +1,54 @@
 import React from 'react'
+import FadeIn from 'react-fade-in'
 import Footer from '../footer'
+import ArticleCard from './articleCard'
 import { ArticleData } from './articleData'
 import {ReactComponent as SanctuaryIconBlack} from '../../assets/images/sanctuaryIconBlack.svg'
 
 export default function Newsroom() {
 
+    const featuredImage = {
+        backgroundImage: `url(${ArticleData[0]['image']})`
+    }
+
+    const articleCards = ArticleData.slice(1).map((article) => 
+        <ArticleCard data={article} />
+    )
+
     return (
         <div className='newsroom'>
             <div className='newsroom-content'>
                 <div className='newsroom-header'>
-                    <div className='newsroom-header-logo'>
-                        <SanctuaryIconBlack />
-                        <h1> Newsroom </h1>
-                    </div>
+                    <FadeIn delay={200} transitionDuration={1000}>
+                        <div className='newsroom-header-logo'>
+                            <SanctuaryIconBlack />
+                            <h1> Newsroom </h1>
+                        </div>
 
-                    <p>
-                        Your source for the latest Sanctuary news, sneaker
-                        drops, and upcoming raffles.
-                    </p>
+                        <p>
+                            Your source for the latest Sanctuary news, sneaker
+                            drops, and upcoming raffles.
+                        </p>
+                    </FadeIn>
                 </div>
 
                 <div className='newsroom-latest-articles'>
                     <h2> Latest Articles </h2>
 
-                    <div className='newsroom-featured-article' onClick={() => document.location.href = ArticleData[0]['path']}>
-                        <img className='newsroom-featured-image' src={ArticleData[0]['image']} alt='featured article' />
-                        
-                        <div className='newsroom-featured-gradient-text'>
-                            <p> {ArticleData[0]['date']} </p>
-                            <h3> {ArticleData[0]['title']} </h3>
+                    <div className='newsroom-featured-article' onClick={() => document.location.href = `${ArticleData[0]['path']}`}>
+                        <div className='newsroom-featured-image' style={featuredImage} />
+
+                        <div className='newsroom-featured-gradient'>
+                            <div className='newsroom-featured-text'>
+                                <p> {ArticleData[0]['date']} </p>
+                                <h4> {ArticleData[0]['title']} </h4>
+                            </div>
                         </div>
                     </div>
 
+                    <div className='newsroom-all-articles'>
+                        {articleCards}
+                    </div>
                 </div>
             </div>
 

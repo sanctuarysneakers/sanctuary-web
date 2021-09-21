@@ -30,8 +30,13 @@ import EditProfileName from './components/Accounts/editProfileName'
 import EditProfileEmail from './components/Accounts/editProfileEmail'
 import EditProfilePassword from './components/Accounts/editProfilePassword'
 
-import Blog from "./components/Blog/blog"
 import Newsroom from './components/Newsroom/newsroom'
+import SanctuaryStory from './components/Newsroom/Articles/sanctuaryStory'
+import AdidasCarbon3D from './components/Newsroom/Articles/adidasCarbon3D'
+import TopDrops2020 from './components/Newsroom/Articles/topDrops2020'
+import SneakerMarket from './components/Newsroom/Articles/sneakerMarket'
+
+
 import ArticleIntro from "./components/Blog/Articles/articleIntro"
 import ArticleSneakersMeetEngineering from "./components/Blog/Articles/articleSneakersmeetengineering"
 import ArticleDemystifying from "./components/Blog/Articles/articleDemystifying"
@@ -91,6 +96,10 @@ export default function App() {
                 <Route path="/privacy-policy" component={PrivacyPolicy} />
                 <Route path="/terms-of-use" component={TermsOfUse} />
                 <Route path="/newsroom" component={Newsroom} />
+                <Route path="/newsroom-sanctuary-our-story" component={SanctuaryStory} />
+                <Route path="/newsroom-how-adidas-and-carbon-3d-are-revolutionizing-sneaker-production" component={AdidasCarbon3D} />
+                <Route path="/newsroom-our-top-drops-of-2020" component={TopDrops2020} />
+                <Route path="/newsroom-demystifying-the-sneaker-market" component={SneakerMarket} />
                 <Route path="/article-introduction" component={ArticleIntro} />
                 <Route path="/article-sneakersmeetengineering" component={ArticleSneakersMeetEngineering}/>
                 <Route path="/article-demystifying" component={ArticleDemystifying}/>
