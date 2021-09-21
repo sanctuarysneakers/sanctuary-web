@@ -3,6 +3,9 @@ import NextArticles from '../nextArticles'
 import Footer from '../../footer'
 import ProfilePic from '../../../assets/images/ColeVanHinte.jpg'
 import HeaderPic from '../../../assets/images/top-sneakers.jpg'
+import pictureOne from '../../../assets/images/drop2020-1.jpg'
+import pictureTwo from '../../../assets/images/drop2020-2.webp'
+import pictureThree from '../../../assets/images/drop2020-3.webp'
 
 export default function TopDrops2020() {
 
@@ -45,9 +48,9 @@ export default function TopDrops2020() {
                     </p>
                 </div>
 
-                <div className='newsroom-article-image same'>
-                    <img src="https://cutt.ly/qc4ZIsx" />
-                    <p> Image via Sneaker News </p>
+                <div className='newsroom-article-image'>
+                    <img src={pictureOne} alt='article content' />
+                    <p> Image via Nike </p>
                 </div>
 
                 <div className='newsroom-article-text'>
@@ -61,9 +64,9 @@ export default function TopDrops2020() {
                     </p>
                 </div>
 
-                <div className='newsroom-article-image same'>
-                    <img src="https://cutt.ly/uc4Z25V" alt='lol' />
-                    <p> Image via Sole Collector </p>
+                <div className='newsroom-article-image'>
+                    <img src={pictureTwo} alt='article content' />
+                    <p> Image via Highsnobiety </p>
                 </div>
 
                 <div className='newsroom-article-text'>
@@ -77,9 +80,9 @@ export default function TopDrops2020() {
                     </p>
                 </div>
 
-                <div className='newsroom-article-image same'>
-                    <img src="https://cutt.ly/Ic4XrTb" />
-                    <p> Image via Sneaker News </p>
+                <div className='newsroom-article-image'>
+                    <img src={pictureThree} alt='article content' />
+                    <p> Image via Stadium Goods </p>
                 </div>
             </div>
             

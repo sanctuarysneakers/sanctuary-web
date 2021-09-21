@@ -76,15 +76,6 @@
             }
         }
 
-        .newsroom-article-image.same {
-            img {
-                display: block;
-                width: 1000px;
-                margin: 0px auto;
-                border-radius: 18px;
-            }
-        }
-
         .newsroom-article-text {
             max-width: 680px;
             margin: 0px auto;
@@ -263,8 +254,8 @@
 
             .newsroom-article-image.same {
                 img {
-                    width: 327px;
-
+                    max-width: 410px;
+                    min-width: 327px;
                 }
             }
 
@@ -279,10 +270,10 @@
                 }
     
                 h4 {
-                    font-size: 22px;
+                    font-size: 19px;
                     font-weight: 600;
                     color: black;
-                    margin-bottom: 10px;
+                    margin-bottom: 6px;
                 }
     
                 a {
