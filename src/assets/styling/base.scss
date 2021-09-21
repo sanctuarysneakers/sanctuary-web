@@ -14,7 +14,7 @@
 @import "./accountButtonForm";
 @import "./profile";
 @import "./newsroom";
-@import "./newsroomArticles";
+@import "./newsroomArticle";
 @import "./newsroom-drops";
 @import "./deleteModal";
 @import "./editProfile";
@@ -45,6 +45,8 @@
 @import "./categoryFilterModal";
 @import "./categoryOption";
 @import "./categoryFilter";
+@import "./articleCard";
+@import "./nextArticles";
 
 @import "swiper/swiper";
 @import 'swiper/components/navigation/navigation';

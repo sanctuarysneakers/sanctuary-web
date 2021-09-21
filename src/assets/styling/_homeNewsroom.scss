@@ -54,7 +54,7 @@
         .home-newsroom-articles {
             padding-top: 100px;
 
-            .home-newsroom-a1, .home-newsroom-a2, .home-newsroom-a3, .home-newsroom-a4 {
+            .home-newsroom-article {
                 position: relative;
                 height: 500px;
                 margin: 10px;
@@ -97,61 +97,15 @@
                 }
             }
 
-            .home-newsroom-a1-image {
+            .home-newsroom-img {
                 height: 100%;
-                // background-image: url('../images/adidas3d.jpg');
-                background-image: url('../images//adidas-3d.jpg');
                 background-position: center;
                 background-size: cover;
                 transition: .2s ease-in-out;
             }
 
-            .home-newsroom-a2-image {
-                height: 100%;
-                // background-image: url('../images/sneakerBoxes.jpg');
-                background-image: url('../images/demystifying-sneakers.jpg');
-                background-position: center bottom;
-                background-size: cover;
-                transition: .2s ease-in-out;
-            }
-
-            .home-newsroom-a3-image {
-                height: 100%;
-                // background-image: url('../images/topSneakers.jpg');
-                background-image: url('../images/top-sneakers.jpg');
-                background-position: center;
-                background-size: cover;
-                transition: .2s ease-in-out;
-            }
-
-            .home-newsroom-a4 {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background: #1A1A1A;
-            }
-
-            .home-newsroom-a4-image {
-                width: 600px;
-                height: auto;
-                outline: 1px solid #1A1A1A;
-                outline-offset: -1px;
-            }
-
-            .home-newsroom-a1:hover {
-                .home-newsroom-a1-image {
-                    transform: scale(1.05);
-                }
-            }
-
-            .home-newsroom-a2:hover {
-                .home-newsroom-a2-image {
-                    transform: scale(1.05);
-                }
-            }
-
-            .home-newsroom-a3:hover {
-                .home-newsroom-a3-image {
+            .home-newsroom-article:hover {
+                .home-newsroom-img {
                     transform: scale(1.05);
                 }
             }
@@ -214,7 +168,7 @@
             }
 
             .home-newsroom-articles {
-                .home-newsroom-a1, .home-newsroom-a2, .home-newsroom-a3, .home-newsroom-a4 {
+                .home-newsroom-article {
                     height: 400px;
 
                     .home-newsroom-article-gradient {
@@ -243,10 +197,6 @@
                     .home-newsroom-article-gradient.sanctuary {
                         height: 200px;
                     }
-                }
-    
-                .home-newsroom-a4-image {
-                    width: 450px;
                 }
             }
         }
@@ -288,7 +238,7 @@
             }
 
             .home-newsroom-articles {
-                .home-newsroom-a1, .home-newsroom-a2, .home-newsroom-a3, .home-newsroom-a4 {
+                .home-newsroom-article {
                     height: 400px;
 
                     .home-newsroom-article-gradient {
@@ -317,10 +267,6 @@
                     .home-newsroom-article-gradient.sanctuary {
                         height: 200px;
                     }
-                }
-    
-                .home-newsroom-a4-image {
-                    width: 450px;
                 }
             }
         }
@@ -362,7 +308,7 @@
             }
 
             .home-newsroom-articles {
-                .home-newsroom-a1, .home-newsroom-a2, .home-newsroom-a3, .home-newsroom-a4 {
+                .home-newsroom-article {
                     height: 315px;
                     margin: 7px;
                     border-radius: 12px;
@@ -395,33 +341,11 @@
                     }
                 }
 
-                .home-newsroom-a4-image {
-                    width: 375px;
-                }
-
-                .home-newsroom-a1:hover {
-                    .home-newsroom-a1-image {
+                .home-newsroom-article:hover {
+                    .home-newsroom-img {
                         transform: none;
                     }
-                }
-    
-                .home-newsroom-a2:hover {
-                    .home-newsroom-a2-image {
-                        transform: none;
-                    }
-                }
-    
-                .home-newsroom-a3:hover {
-                    .home-newsroom-a3-image {
-                        transform: none;
-                    }
-                }
-    
-                .home-newsroom-a4:hover {
-                    .home-newsroom-a4-image {
-                        transform: none;
-                    }
-                }
+                }   
             }
         }
     }
@@ -470,7 +394,7 @@
             .home-newsroom-articles {
                 padding-top: 60px;
 
-                .home-newsroom-a1, .home-newsroom-a2, .home-newsroom-a3, .home-newsroom-a4 {
+                .home-newsroom-article {
                     height: 480px;
                     margin: 5px;
                     border-radius: 18px;
@@ -502,24 +426,8 @@
                     }
                 }
 
-                .home-newsroom-a4-image {
-                    width: 100%;
-                }
-
-                .home-newsroom-a1:hover {
-                    .home-newsroom-a1-image {
-                        transform: none;
-                    }
-                }
-    
-                .home-newsroom-a2:hover {
-                    .home-newsroom-a2-image {
-                        transform: none;
-                    }
-                }
-    
-                .home-newsroom-a3:hover {
-                    .home-newsroom-a3-image {
+                .home-newsroom-article:hover {
+                    .home-newsroom-img {
                         transform: none;
                     }
                 }
@@ -570,7 +478,7 @@
             .home-newsroom-articles {
                 padding-top: 60px;
 
-                .home-newsroom-a1, .home-newsroom-a2, .home-newsroom-a3, .home-newsroom-a4 {
+                .home-newsroom-article {
                     height: 450px;
                     margin: 5px;
                     border-radius: 12px;
@@ -602,30 +510,8 @@
                     }
                 }
 
-                .home-newsroom-a4-image {
-                    width: 100%;
-                }
-
-                .home-newsroom-a1:hover {
-                    .home-newsroom-a1-image {
-                        transform: none;
-                    }
-                }
-    
-                .home-newsroom-a2:hover {
-                    .home-newsroom-a2-image {
-                        transform: none;
-                    }
-                }
-    
-                .home-newsroom-a3:hover {
-                    .home-newsroom-a3-image {
-                        transform: none;
-                    }
-                }
-    
-                .home-newsroom-a4:hover {
-                    .home-newsroom-a4-image {
+                .home-newsroom-article:hover {
+                    .home-newsroom-img {
                         transform: none;
                     }
                 }
