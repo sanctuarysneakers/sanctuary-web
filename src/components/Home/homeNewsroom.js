@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react'
+import { ArticleData } from '../Newsroom/articleData'
 import FadeIn from 'react-fade-in'
 import Slider from 'react-slick'
 import VisibleOnScreen from '../Hooks/visibleOnScreen'
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import sanctuary3D from '../../assets/images/3D-sanctuary-small.gif'
 
 export default function HomeNewsroom() {
 
@@ -25,6 +25,10 @@ export default function HomeNewsroom() {
         autoplaySpeed: 6000,
         pauseOnHover: false,
         variableWidth: true
+    }
+
+    const featuredImage = {
+        backgroundImage: `url(${ArticleData[0]['image']})`
     }
 
     useEffect(() => {
@@ -63,56 +67,56 @@ export default function HomeNewsroom() {
                 <div className='home-newsroom-articles'>
                     <Slider {...sliderSettings} ref={sliderRef}>
                         <div style={{ width: 1020 }}>
-                            <div className='home-newsroom-a4'
+                            <div className='home-newsroom-article'
                                 onClick={() => document.location.href = '/article-introduction'}>
 
-                                <img className='home-newsroom-a4-image' src={sanctuary3D} alt='spinning logo' />
+                                <div className='home-newsroom-img' style={{ backgroundImage: `url(${ArticleData[0]['image']})` }} />
                                 <div className='home-newsroom-article-gradient sanctuary'>
                                     <div className='home-newsroom-article-content'>
-                                        <p> January 31, 2021 </p>
-                                        <h2> Sanctuary: Our story </h2>
+                                        <p> {ArticleData[0]['date']} </p>
+                                        <h2> {ArticleData[0]['title']} </h2>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div style={{ width: 1020 }}>
-                            <div className='home-newsroom-a2'
+                            <div className='home-newsroom-article'
                                 onClick={() => document.location.href = '/article-demystifying'}>
 
-                                <div className='home-newsroom-a2-image' />
+                                <div className='home-newsroom-img' style={{ backgroundImage: `url(${ArticleData[1]['image']})` }} />
                                 <div className='home-newsroom-article-gradient'>
                                     <div className='home-newsroom-article-content'>
-                                        <p> March 29, 2021 </p>
-                                        <h2> Demystifying the sneaker market </h2>
+                                        <p> {ArticleData[1]['date']} </p>
+                                        <h2> {ArticleData[1]['title']} </h2>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div style={{ width: 1020 }}>
-                            <div className='home-newsroom-a1'
+                            <div className='home-newsroom-article'
                                 onClick={() => document.location.href = '/article-sneakersmeetengineering'}>
 
-                                <div className='home-newsroom-a1-image' />
+                                <div className='home-newsroom-img' style={{ backgroundImage: `url(${ArticleData[2]['image']})` }} />
                                 <div className='home-newsroom-article-gradient'>
                                     <div className='home-newsroom-article-content'>
-                                        <p> March 28, 2021 </p>
-                                        <h2> How Adidas and Carbon3D are revolutionizing sneaker production </h2>
+                                        <p> {ArticleData[2]['date']} </p>
+                                        <h2> {ArticleData[2]['title']} </h2>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div style={{ width: 1020 }}>
-                            <div className='home-newsroom-a3'
+                            <div className='home-newsroom-article'
                                 onClick={() => document.location.href = '/article-toppicks'}>
 
-                                <div className='home-newsroom-a3-image' />
+                                <div className='home-newsroom-img' style={{ backgroundImage: `url(${ArticleData[3]['image']})` }} />
                                 <div className='home-newsroom-article-gradient'>
                                     <div className='home-newsroom-article-content'>
-                                        <p> April 20, 2021 </p>
-                                        <h2> Our favourite sneakers of 2020 </h2>
+                                        <p> {ArticleData[3]['date']} </p>
+                                        <h2> {ArticleData[3]['title']} </h2>
                                     </div>
                                 </div>
                             </div>
