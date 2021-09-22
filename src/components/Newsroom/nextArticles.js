@@ -14,7 +14,6 @@ export default function NextArticles() {
         let numArticles = 0
         let recommended = []
         shuffle(ArticleData)
-        console.log(ArticleData)
         for (let article in ArticleData) {
             if (numArticles >= 3)   // Edit value to change # of articles to display next
                 break
