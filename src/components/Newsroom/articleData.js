@@ -1,6 +1,7 @@
 import Sanctuary3D from '../../assets/images/sanctuary-3D.gif'
 import AdidasCarbon from '../../assets/images/adidas-3d.jpg'
 import TopSneakers from '../../assets/images/top-sneakers.jpg'
+import AJ4 from '../../assets/images/blog_articles/buy_your_pair/aj4.jpg'
 import DemystifyingSneakers from '../../assets/images/demystifying-sneakers.jpg'
 
 export const ArticleData = [
@@ -28,4 +29,10 @@ export const ArticleData = [
         image: DemystifyingSneakers,
         path: '/newsroom-demystifying-the-sneaker-market'
     },
+    {
+        title: 'How to Buy Your Perfect Pair: A Beginner’s Guide',
+        date: 'September 22, 2021',
+        image: AJ4,
+        path: 'newsroom-buy-your-pair'
+    }
 ]
