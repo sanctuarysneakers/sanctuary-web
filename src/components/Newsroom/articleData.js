@@ -6,6 +6,12 @@ import DemystifyingSneakers from '../../assets/images/demystifying-sneakers.jpg'
 
 export const ArticleData = [
     {
+        title: 'How to Buy Your Perfect Pair: A Beginner’s Guide',
+        date: 'September 22, 2021',
+        image: AJ4,
+        path: '/newsroom-buy-your-pair'
+    },
+    {
         title: 'Sanctuary: Our story',
         date: 'April 20, 2021',
         image: Sanctuary3D,
@@ -28,11 +34,5 @@ export const ArticleData = [
         date: 'March 9, 2021',
         image: DemystifyingSneakers,
         path: '/newsroom-demystifying-the-sneaker-market'
-    },
-    {
-        title: 'How to Buy Your Perfect Pair: A Beginner’s Guide',
-        date: 'September 22, 2021',
-        image: AJ4,
-        path: 'newsroom-buy-your-pair'
     }
 ]
