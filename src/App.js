@@ -36,7 +36,7 @@ import SanctuaryStory from './components/Newsroom/Articles/sanctuaryStory'
 import AdidasCarbon3D from './components/Newsroom/Articles/adidasCarbon3D'
 import TopDrops2020 from './components/Newsroom/Articles/topDrops2020'
 import SneakerMarket from './components/Newsroom/Articles/sneakerMarket'
-
+import BuyYourPair from "./components/Newsroom/Articles/buyYourPair"
 
 import ArticleIntro from "./components/Blog/Articles/articleIntro"
 import ArticleSneakersMeetEngineering from "./components/Blog/Articles/articleSneakersmeetengineering"
@@ -98,6 +98,7 @@ export default function App() {
                 <Route path="/terms-of-use" component={TermsOfUse} />
                 <Route path="/newsroom" component={Newsroom} />
                 <Route path="/newsroom-sanctuary-our-story" component={SanctuaryStory} />
+                <Route path="/newsroom-buy-your-pair" component={BuyYourPair} />
                 <Route path="/newsroom-how-adidas-and-carbon-3d-are-revolutionizing-sneaker-production" component={AdidasCarbon3D} />
                 <Route path="/newsroom-our-top-drops-of-2020" component={TopDrops2020} />
                 <Route path="/newsroom-demystifying-the-sneaker-market" component={SneakerMarket} />
