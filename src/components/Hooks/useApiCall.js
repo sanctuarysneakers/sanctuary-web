@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { browseCall, updateItemInfo, updateItemPrices, updateItemListings,
+import { browseCall, updateItemInfo, updateItemPrices, updateItemListings, updateRate,
     setItemPricesLoading, setItemListingsLoading } from '../../redux/actions'
 import createRequestObject from './createRequest'
 import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPrice, 
@@ -14,6 +14,8 @@ export default function useAPICall(callType, params) {
     const dispatch = useDispatch()
 
     const currency = useSelector(state => state.currency)
+    const rate = useSelector(state => state.rate)
+
     const location = useSelector(state => state.location)
     const size = useSelector(state => state.size)
 
@@ -23,6 +25,31 @@ export default function useAPICall(callType, params) {
         return await response.json()
     }
 
+    async function updateCurrencyRate(to) {
+        var flag = true
+        var data;
+        while (flag) {
+            const url = `https://sanctuaryapi.net/currencyrate?from_curr=USD&to_curr=${to}`
+            const response = await fetch(url)
+            if (response.status === 200) {
+                data = await response.json()
+                flag = false    
+            } else await new Promise(r => setTimeout(r, 500));
+        }
+        dispatch(updateRate(data))
+    }
+
+    async function convertResults(results) {
+        for (let i = 0; i < results.length; i++) {
+            if (!isNaN(rate))
+                results[i]["lastSale"] = Math.round(results[i]["lastSale"] * rate)
+            else {
+                results[i]["lastSale"] = "---"
+            }
+        }
+        return results
+    }
+
     async function browse(query) {
         const request = createRequestObject('browse', {search: query})
         try {
@@ -30,6 +57,8 @@ export default function useAPICall(callType, params) {
             if (!response.ok) throw new Error()
             
             let results = await response.json()
+            results = await convertResults(results)
+
             dispatch(browseCall(results))
         } catch (e) {
             history.replace(`/page-not-found`)
@@ -120,9 +149,13 @@ export default function useAPICall(callType, params) {
     }
 
     useEffect(() => {
+        updateCurrencyRate(currency)
+    }, [currency])
+
+    useEffect(() => {
         if (callType === 'browse')
             browse(params.query)
-    }, [])
+    }, [rate])
 
     useEffect(() => {
         if (callType === 'getitem')

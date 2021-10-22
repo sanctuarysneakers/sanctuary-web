@@ -7,6 +7,7 @@ import loadingItemPricesReducer from './loadingItemPricesReducer'
 import loadingItemListingsReducer from './loadingItemListingsReducer'
 import filterReducer from './filterReducer'
 import currencyReducer from './currencyReducer'
+import rateReducer from './rateReducer'
 import aboutModalVisibleReducer from './aboutModalVisibleReducer'
 import recordSplashHeightReducer from './recordSplashHeightReducer'
 import hamburgerModalVisibleReducer from './hamburgerModalVisibleReducer'
@@ -27,6 +28,7 @@ const globalReducer = combineReducers({
     aboutModalVisible: aboutModalVisibleReducer,
     filter: filterReducer,
     currency : currencyReducer,
+    rate: rateReducer,
     itemInfo: itemInfoReducer,
     itemPrices: itemPricesReducer,
     itemListings: itemListingsReducer,

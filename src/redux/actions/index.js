@@ -81,6 +81,13 @@ export const updateCurrency = currency => {
     }
 }
 
+export const updateRate = rate => {
+    return {
+        type: 'UPDATE_RATE',
+        payload: rate
+    }
+}
+
 // User Account Actions
 
 export const setUser = user => {

@@ -42,6 +42,20 @@
                 overflow: hidden;
             }
 
+            .item-card-estimated-price {
+                display: flex;
+                .item-card-estimated {
+                    color: #777F93;
+                    font-weight: 500;
+                }
+
+                .item-card-price {
+                    margin-left: 5px;
+                    color: black;
+                    font-weight: 600;
+                }
+            }
+
             .item-card-see-prices {
                 display: flex;
                 align-items: center;
