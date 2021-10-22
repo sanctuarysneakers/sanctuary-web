@@ -55,30 +55,6 @@
                     font-weight: 600;
                 }
             }
-
-            .item-card-see-prices {
-                display: flex;
-                align-items: center;
-                padding-bottom: 8px;
-
-                p {
-                    font-size: 14px;
-                    font-weight: 400;
-                    color: #777F93;
-                }
-
-                svg {
-                    width: 5px;
-                    height: auto;
-                    padding-left: 8px;
-                    padding-top: 1px;
-
-                    path {
-                        stroke: #777F93;
-                        stroke-width: 2.5;
-                    }
-                }
-            }
         }
     }
 }
@@ -107,10 +83,6 @@
                 h2 {
                     font-size: 15.5px;
                     line-height: 22px;
-                }
-
-                .item-card-see-prices {
-                    padding-bottom: 9px;
                 }
             }
         }
@@ -143,119 +115,7 @@
                     font-size: 15.5px;
                     line-height: 22px;
                 }
-
-                .item-card-see-prices {
-                    padding-bottom: 12px;
-
-                    p {
-                        font-size: 14px;
-                    }
-                }
             }
         }
     }
 }
-
-
-
-
-
-
-// .item-card {
-//     width: 280px;
-//     height: 400px;
-//     background: white;
-//     border-radius: 10px;
-//     cursor: pointer;
-
-//     .item-card-content {
-//         width: 240px;
-//         margin: 0px auto;
-
-//         .item-card-sneaker {
-//             display: flex;
-//             align-items: flex-end;
-//             justify-content: center;
-//             height: 215px;
-//             padding-bottom: 25px;
-
-//             img {
-//                 display: block;
-//                 width: 224.5px;
-//                 height: auto;
-//             }
-//         }
-
-//         .item-card-text {
-//             display: flex;
-//             flex-direction: column;
-//             justify-content: space-between;
-//             height: 160px;
-//             padding: 0px 10px;
-//             text-align: center;
-
-//             h2 {
-//                 display: -webkit-box;
-//                 -webkit-line-clamp: 3;
-//                 -webkit-box-orient: vertical;
-//                 overflow: hidden;
-
-//                 font-size: 18px;
-//                 font-weight: 500; 
-//                 color: black;
-//             }
-
-//             p {
-//                 font-size: 16px;
-//                 font-weight: 500;
-//                 color: #EC3E26;
-//                 padding-bottom: 30px;
-//             }
-//         }
-//     }
-// }
-
-// .item-card:hover {
-//     .item-card-content {
-//         .item-card-text {
-//             p {
-//                 color: #FF6C5C;
-//             }
-//         }
-//     }
-// }
-
-// @media screen and (max-width: 619px) {
-//     .item-card {
-//         width: 162px;
-//         height: 300px;
-
-//         .item-card-content {
-//             width: 126px;
-
-//             .item-card-sneaker {
-//                 height: 130px;
-
-//                 img {
-//                     width: 126px;
-//                 }
-//             }
-
-//             .item-card-text {
-//                 height: 145px;
-//                 padding: 0px;
-
-//                 h2 {
-//                     font-size: 15px;
-//                 }
-
-//                 p {
-//                     font-size: 14px;
-//                     padding-bottom: 25px;
-//                 }
-//             }
-//         }
-//     }
-// }
-
-
