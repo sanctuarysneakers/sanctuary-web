@@ -8,6 +8,27 @@ export const browseCall = data => {
     }
 }
 
+export const trendingCall = data => {
+    return {
+        type: 'TRENDING_CALL',
+        payload: data
+    }
+}
+
+export const under200Call = data => {
+    return {
+        type: 'UNDER_200_CALL',
+        payload: data
+    }
+}
+
+export const under300Call = data => {
+    return {
+        type: 'UNDER_300_CALL',
+        payload: data
+    }
+}
+
 export const updateItemInfo = itemInfo => {
     return {
         type: 'UPDATE_ITEM_INFO',

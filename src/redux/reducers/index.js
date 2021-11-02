@@ -1,5 +1,8 @@
 import { combineReducers } from 'redux'
 import browseDataReducer from './browseDataReducer'
+import trendingReducer from './trendingReducer'
+import under200Reducer from './under200Reducer'
+import under300Reducer from './under300Reducer'
 import itemInfoReducer from './itemInfoReducer'
 import itemPricesReducer from './itemPricesReducer'
 import itemListingsReducer from './itemListingsReducer'
@@ -25,6 +28,9 @@ import categoryFilterModalReducer from './categoryFilterReducer'
 const globalReducer = combineReducers({
     size: sizeReducer,
     browseData: browseDataReducer,
+    trending: trendingReducer,
+    under200: under200Reducer,
+    under300: under300Reducer,
     aboutModalVisible: aboutModalVisibleReducer,
     filter: filterReducer,
     currency : currencyReducer,

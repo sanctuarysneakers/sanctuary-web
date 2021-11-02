@@ -1,0 +1,24 @@
+.home-carousel-container {
+    margin-left: 120px;
+    margin-bottom: 26px;
+}
+
+.home-carousel-cards {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    flex-shrink: 0;
+    margin: 0 -1px;
+}
+
+@media (min-width: 700px) and (max-width: 819px) {
+    .home-brand-card {
+    }       
+}
+
+@media screen and (max-width: 699px) {
+    .home-carousel-container {
+        margin-left: 10px;
+        margin-bottom: 26px;
+    }    
+}

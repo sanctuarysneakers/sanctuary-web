@@ -5,9 +5,6 @@ import { showAboutModal } from '../../redux/actions'
 import VisibleOnScreen from '../Hooks/visibleOnScreen'
 import FadeIn from 'react-fade-in'
 import TextLoop from 'react-text-loop'
-import nikeDunk from '../../assets/images/nikeDunk.png'
-import airJordan1 from '../../assets/images/airJordan1.png'
-import airMax from '../../assets/images/airMax.png'
 
 export default function HomeTrending() {
 
@@ -56,44 +53,6 @@ export default function HomeTrending() {
                             </Link>
                         </div>
                     </FadeIn>
-                </div>
-
-                <div className='home-trending-products'>
-                    <div className='home-trending-sneaker' 
-                        onClick={() => document.location.href = '/browse/Nike%20Dunk%20Low'}>
-                            
-                        <div className='home-trending-sneaker-img'>
-                            <img src={nikeDunk} alt='featured sneaker' />
-                        </div>
-
-                        <div className='home-trending-sneaker-text'>
-                            <p> Nike Dunk Low </p>
-                        </div>
-                    </div>
-
-                    <div className='home-trending-sneaker' 
-                        onClick={() => document.location.href = '/browse/Air%20Jordan%201'}>
-
-                        <div className='home-trending-sneaker-img'>
-                            <img src={airJordan1} alt='featured sneaker' />
-                        </div>
-
-                        <div className='home-trending-sneaker-text'>
-                            <p> Air Jordan 1 </p>
-                        </div>
-                    </div>
-
-                    <div className='home-trending-sneaker' 
-                        onClick={() => document.location.href = '/browse/Nike%20Air%20Max'}>
-
-                        <div className='home-trending-sneaker-img'>
-                            <img src={airMax} alt='featured sneaker' />
-                        </div>
-
-                        <div className='home-trending-sneaker-text'>
-                            <p> Nike Air Max </p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

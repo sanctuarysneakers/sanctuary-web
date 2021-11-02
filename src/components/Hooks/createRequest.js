@@ -10,6 +10,15 @@ export default function createRequestObject(type, filter) {
 					method: 'GET'
 				}
 			}
+		case 'extendedbrowse':
+			return {
+				url: 'https://sanctuaryapi.net/extendedbrowse?' + new URLSearchParams({
+					"max_price": filter.max_price
+				}),
+				headers: {
+					method: 'GET'
+				}
+			}
 		case 'stockx':
 			return {
 				url: 'https://sanctuaryapi.net/lowestprice?' + new URLSearchParams({

@@ -2,7 +2,8 @@ import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { browseCall, updateItemInfo, updateItemPrices, updateItemListings, updateRate,
-    setItemPricesLoading, setItemListingsLoading } from '../../redux/actions'
+    setItemPricesLoading, setItemListingsLoading, trendingCall, 
+    under200Call, under300Call } from '../../redux/actions'
 import createRequestObject from './createRequest'
 import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPrice, 
     klektLowestPrice, grailedListings, ebayListings, depopListings } from './scrapers'
@@ -62,6 +63,43 @@ export default function useAPICall(callType, params) {
             dispatch(browseCall(results))
         } catch (e) {
             history.replace(`/page-not-found`)
+        }
+    }
+
+    async function trending() {
+        const request = createRequestObject('browse', {search: ''})
+        try {
+            const response = await fetch(request.url, request.headers)
+            if (!response.ok) throw new Error()
+            
+            let results = await response.json()
+            if (!results.length) throw new Error()
+            results = await convertResults(results)
+            dispatch(trendingCall(results))
+        } catch (e) {
+            dispatch(trendingCall(false))
+        }
+    }
+
+    async function extendedBrowse(type) {
+        var limit = (type === 'under200') ? 200 : 300
+        const request = createRequestObject('extendedbrowse', {max_price: limit})
+        try {
+            const response = await fetch(request.url, request.headers)
+            if (!response.ok) throw new Error()
+            
+            let results = await response.json()
+            if (!results.length) throw new Error()
+            results = await convertResults(results)
+            if (type === 'under200')
+                dispatch(under200Call(results)) 
+            else if (type === 'under300')
+                dispatch(under300Call(results))
+        } catch (e) {
+            if (type === 'under200')
+                dispatch(under200Call(false))  
+            else if (type === 'under300')
+                dispatch(under300Call(false))
         }
     }
 
@@ -155,7 +193,18 @@ export default function useAPICall(callType, params) {
     useEffect(() => {
         if (callType === 'browse')
             browse(params.query)
-    }, [rate])
+
+        if (callType === 'trending')
+            trending()
+
+        if (callType === 'under300')
+            extendedBrowse('under300')
+
+        if (callType === 'under200')
+            extendedBrowse('under200')
+
+
+    }, [currency,rate])
 
     useEffect(() => {
         if (callType === 'getitem')

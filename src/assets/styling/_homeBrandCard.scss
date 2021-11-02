@@ -1,0 +1,26 @@
+.home-brand-card {
+    min-width: 140px;
+    width: 180px;
+    height: 100px;
+    max-height: 100px;
+    background: white;
+    border-radius: 16px;
+    cursor: pointer;
+    // border: 1px black solid;
+    text-align: center;
+    margin: 0 1px;
+
+    .home-brand-name {
+        line-height: 100px;
+    }
+}
+
+@media (min-width: 700px) and (max-width: 819px) {
+    .home-brand-card {
+    }       
+}
+
+@media screen and (max-width: 699px) {
+    .home-brand-card {
+    }
+}
