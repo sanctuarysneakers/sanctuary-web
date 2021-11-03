@@ -1,4 +1,5 @@
 import React from 'react'
+import { Helmet } from 'react-helmet';
 import FadeIn from 'react-fade-in'
 import Footer from '../footer'
 import ArticleCard from './articleCard'
@@ -17,6 +18,9 @@ export default function Newsroom() {
 
     return (
         <div className='newsroom'>
+            <Helmet>
+                <title>Sanctuary: Newsroom</title>
+            </Helmet>
             <div className='newsroom-content'>
                 <div className='newsroom-header'>
                     <FadeIn delay={200} transitionDuration={1000}>

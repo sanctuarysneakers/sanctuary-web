@@ -1,4 +1,5 @@
 import React from 'react'
+import { Helmet } from 'react-helmet';
 import NextArticles from '../nextArticles'
 import Footer from '../../footer'
 import ProfilePic from '../../../assets/images/fiona_oflynn.jpg'
@@ -12,6 +13,9 @@ export default function BuyYourPair() {
 
     return (
         <div className='newsroom-article'>
+            <Helmet>
+                <title>Sanctuary: Newsroom</title>
+            </Helmet>
             <div className='newsroom-article-content'>
                 <div className='newsroom-article-header'>
                     <h1>
