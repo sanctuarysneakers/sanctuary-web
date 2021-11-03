@@ -1,4 +1,5 @@
 import React from 'react'
+import { Helmet } from 'react-helmet';
 import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router'
 import { showHomeSeach } from '../../redux/actions'
@@ -17,6 +18,9 @@ export default function Browse() {
 
     return (
         <div className='browse'>
+            <Helmet>
+                <title>Sanctuary: Browse</title>
+            </Helmet>
             <div className='browse-results'>
                 <div className='browse-results-content'>
 

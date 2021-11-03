@@ -1,4 +1,5 @@
 import React from 'react'
+import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router'
 import { useSelector } from 'react-redux'
 import SizeFilter from '../sizeFilter'
@@ -54,6 +55,9 @@ export default function Item() {
 
     return (
         <div className='item'>
+            <Helmet>
+                <title>Sanctuary: Item</title>
+            </Helmet>
             <div className='item-sneaker'>
                 <div className='item-sneaker-content'>
 
