@@ -52,11 +52,11 @@ export default function Item() {
         <ItemListing key={item.id} data={item} index={index}
             length={itemListings.length} />
     )
-
+    const title = 'Sanctuary: ' + itemInfo.modelName
     return (
         <div className='item'>
             <Helmet>
-                <title>Sanctuary: Item</title>
+                <title>{title}</title>
             </Helmet>
             <div className='item-sneaker'>
                 <div className='item-sneaker-content'>
