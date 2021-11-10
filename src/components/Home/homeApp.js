@@ -19,7 +19,7 @@ export default function HomeApp() {
         <div className='home-app'>
             <div className='home-app-content'>
                 <div ref={ref} className='home-app-text'>
-                    <FadeIn visible={render} delay={250} transitionDuration={1200}>
+                    <FadeIn visible={render} delay={350} transitionDuration={1200}>
                         <h1>The same great deals, now on your phone.</h1>
 
                         <div className='home-app-badges'>
