@@ -1,0 +1,179 @@
+.home-app {
+    background-color: white;
+
+    .home-app-content {
+        display: flex;
+        justify-content: space-between;
+        max-width: 1000px;
+        margin: 0px auto;
+        padding-top: 110px;
+
+        .home-app-text {
+            padding-top: 24px;
+
+            h1 {
+                font-size: 58px;
+                font-weight: 600;
+                color: #292828;
+                line-height: 62px;
+                letter-spacing: -1px;
+            }
+
+            .home-app-badges {
+                padding-top: 40px;
+                display: flex;
+                align-items: center;
+
+                .home-app-ios {
+                    overflow: hidden; 
+                    border-radius: 7px;
+                    width: 134.62px; 
+                    height: 45px;
+
+                    img {
+                        border-radius: 7px; 
+                        width: 134.62px; 
+                        height: 45px;
+                    }
+                }
+
+                .home-app-android {
+                    width: 172.48px; 
+                    height: 66.75px;
+
+                    img {
+                        width: 172.48px; 
+                        height: 66.75px;
+                    }
+                }
+            }
+        }
+
+        img {
+            width: 467px;
+        }
+    }
+}
+
+@media (min-width: 980px) and (max-width: 1199px) {
+    .home-app { 
+        .home-app-content {
+            max-width: 800px;
+    
+            .home-app-text {
+                padding-top: 24px;
+    
+                h1 {
+                    font-size: 48px;
+                    line-height: 55px;
+                }
+    
+                .home-app-badges {
+                    padding-top: 30px;
+                    display: flex;
+                    align-items: center;
+    
+                    .home-app-ios {
+                        overflow: hidden; 
+                        border-radius: 7px;
+                        width: 134.62px; 
+                        height: 45px;
+    
+                        img {
+                            border-radius: 7px; 
+                            width: 134.62px; 
+                            height: 45px;
+                        }
+                    }
+    
+                    .home-app-android {
+                        width: 172.48px; 
+                        height: 66.75px;
+    
+                        img {
+                            width: 172.48px; 
+                            height: 66.75px;
+                        }
+                    }
+                }
+            }
+    
+            img {
+                width: 380px;
+            }
+        }
+    }
+}
+
+@media (min-width: 700px) and (max-width: 979px) {
+    .home-app {
+        .home-app-content {
+            flex-direction: column;
+            max-width: 467px;
+            padding-top: 150px;
+    
+            .home-app-text {
+                padding-top: 0px;
+                padding-bottom: 70px;
+    
+                .home-app-badges {
+                    padding-top: 30px;
+                }
+            }
+    
+            img {
+                width: 467px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 699px) {
+    .home-app {
+        .home-app-content {
+            flex-direction: column;
+            max-width: 320px;
+            padding-top: 100px;
+
+            .home-app-text {
+                padding-top: 0px;
+    
+                h1 {
+                    font-size: 36px;
+                    line-height: 44px;
+                }
+    
+                .home-app-badges {
+                    padding-top: 20px;
+                    padding-bottom: 40px;
+    
+                    .home-app-ios {
+                        border-radius: 7px;
+                        width: 116.67px; 
+                        height: 39px;
+    
+                        img {
+                            border-radius: 7px; 
+                            width: 116.67px; 
+                            height: 39px;
+                        }
+                    }
+    
+                    .home-app-android {
+                        width: 149.87px; 
+                        height: 57px;
+    
+                        img {
+                            width: 149.87px; 
+                            height: 57px;
+                        }
+                    }
+                }
+            }
+    
+            img {
+                width: 320px;
+            }
+        }
+    }
+}
