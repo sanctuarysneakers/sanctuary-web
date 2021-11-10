@@ -51,8 +51,8 @@ export default function useAPICall(callType, params) {
         return results
     }
 
-    async function browse(query) {
-        const request = createRequestObject('browse', {search: query})
+    async function browse(query, from=0) {
+        const request = createRequestObject('browse', {search: query, from: from})
         try {
             const response = await fetch(request.url, request.headers)
             if (!response.ok) throw new Error()
@@ -191,8 +191,8 @@ export default function useAPICall(callType, params) {
     }, [currency])
 
     useEffect(() => {
-        if (callType === 'browse')
-            browse(params.query)
+        if (callType === 'browse') 
+            browse(params.query, params.from)
 
         if (callType === 'trending')
             trending()
