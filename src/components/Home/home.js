@@ -39,12 +39,12 @@ export default function Home() {
 
             <HomeSplash />
             <HomeTrending />
-            <div className='carousels'>
+            {/* <div className='carousels'>
                 <HomeBrandCarousel />
                 <HomeCarousel type={'trending'}/>
                 <HomeCarousel type={'under200'}/>
                 <HomeCarousel type={'under300'}/>
-            </div>
+            </div> */}
             <HomeNewsroom />
             <HomeApp />
             <Footer colour={'white'} />
