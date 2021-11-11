@@ -2,11 +2,10 @@
 export default function createRequestObject(type, filter) {
 	switch (type) {
 		case 'browse':
-			var from = filter.from ? filter.from : 0
 			return {
 				url: 'https://sanctuaryapi.net/browse?' + new URLSearchParams({
 					"search": filter.search,
-					"from": from
+					"from": filter.from ? filter.from : 0
 				}),
 				headers: {
 					method: 'GET'
