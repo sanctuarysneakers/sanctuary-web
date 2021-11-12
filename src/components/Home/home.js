@@ -6,8 +6,6 @@ import { Helmet } from 'react-helmet'
 import { recordSplashHeight } from '../../redux/actions'
 import HomeSplash from './homeSplash'
 import HomeTrending from './homeTrending'
-import HomeBrandCarousel from './homeBrandCarousel' 
-import HomeCarousel from './homeCarousel'
 import HomeNewsroom from './homeNewsroom'
 import HomeApp from './homeApp'
 import Footer from '../footer'
@@ -39,12 +37,12 @@ export default function Home() {
 
             <HomeSplash />
             <HomeTrending />
-            <div className='carousels'>
+            {/* <div className='carousels'>
                 <HomeBrandCarousel />
                 <HomeCarousel type={'trending'}/>
                 <HomeCarousel type={'under200'}/>
                 <HomeCarousel type={'under300'}/>
-            </div>
+            </div> */}
             <HomeNewsroom />
             <HomeApp />
             <Footer colour={'white'} />

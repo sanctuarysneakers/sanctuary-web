@@ -1,0 +1,85 @@
+.carousel-card {
+    background-color: white;
+    border-radius: 18px;
+    margin-left: 20px;
+    margin-top: 25px;
+    margin-bottom: 70px;
+    box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.05);
+
+    .carousel-card-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        width: 335px;
+        height: 455px;
+
+        .carousel-card-image {
+            margin-bottom: 32px;
+
+            img {
+                width: 215px;
+            }
+        }
+
+        .carousel-card-text {
+            width: 265px;
+            margin-bottom: 32px;
+
+            p {
+                font-size: 14px;
+                font-weight: 500;
+                color: #EC3E26;
+                line-height: 21px;
+            }
+
+            h2 {
+                font-size: 18px;
+                font-weight: 500;
+                color: black;
+                line-height: 25px;
+                height: 50px;
+
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+        }
+
+        .carousel-card-price {
+            width: 265px;
+            margin-bottom: 40px;
+
+            p {
+                font-size: 16px;
+                font-weight: 500;
+                color: #777F93;
+                line-height: 24px;
+            }
+
+            h4 {
+                font-size: 24px;
+                font-weight: 600;
+                color: black;
+                line-height: 36px;
+            }
+        }
+    }
+}
+
+.carousel-card.start {
+    margin-left: calc((100vw - 1000px) / 2);
+}
+
+.carousel-card.end {
+    margin-right: calc((100vw - 1000px) / 2);
+}
+
+@media (min-width: 700px) and (max-width: 1199px) {
+
+}
+
+@media screen and (max-width: 699px) {
+
+}

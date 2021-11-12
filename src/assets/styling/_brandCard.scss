@@ -1,0 +1,49 @@
+.brand-card {
+    display: flex;
+    align-items: center;
+    height: 55px;
+    background-color: #F5F5F7;
+    border-radius: 100px;
+    margin: 0px 7.5px;
+    cursor: pointer;
+
+    .brand-card-content {
+        p {
+            font-size: 18px;
+            font-weight: 400;
+            color: black;
+            line-height: 27px;
+            letter-spacing: -0.28px;
+            padding: 0px 30px;
+        }
+    }
+}
+
+.brand-card:hover {
+    background-color: #ECECF0;
+}
+
+@media (min-width: 900px) and (max-width: 1199px) {
+    .brand-card {
+        height: 50px;
+
+        .brand-card-content {
+            p {
+                font-size: 16px;
+                line-height: 24px;
+                letter-spacing: -0.1px;
+                padding: 0px 26px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 699px) {
+    .brand-card {
+        height: 46px;
+
+        .brand-card-content {
+
+        }
+    }
+}

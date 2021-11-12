@@ -1,19 +1,21 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { showAboutModal } from '../../redux/actions'
 import VisibleOnScreen from '../Hooks/visibleOnScreen'
 import FadeIn from 'react-fade-in'
 import TextLoop from 'react-text-loop'
+import BrandCard from '../brandCard'
+import Carousel from '../carousel'
 
 export default function HomeTrending() {
 
-    const dispatch = useDispatch()
     const ref = useRef()
     const isVisible = VisibleOnScreen(ref)
-    
     const [render, setRender] = useState(false)
     const [firstFlip, setFirstFlip] = useState(false)
+
+    const brands = ['Nike', 'Air Jordan', 'Adidas', 'Yeezy', 'New Balance', 'Converse']
+    const brandCards = brands.map((item) => 
+        <BrandCard key={item} brand={item} />
+    )
 
     useEffect(() => {
         if (isVisible && !firstFlip) {
@@ -44,16 +46,25 @@ export default function HomeTrending() {
                         </div>
 
                         <div className='home-trending-buttons'>
-                            <Link className='home-trending-browse' onClick={() => document.location.href = '/browse'}>
-                                Start browsing
-                            </Link>
-
-                            <Link className='home-trending-works' onClick={() => dispatch(showAboutModal())}>
-                                See how it works
-                            </Link>
+                            {brandCards}
                         </div>
                     </FadeIn>
                 </div>
+
+                <div className='home-trending-sneakers'>
+                    <Carousel type={'trending'} />
+
+                    <h2 className='home-trending-sneakers-header'>
+                        Deals Under $200
+                    </h2>
+                    <Carousel type={'under200'} />
+
+                    <h2 className='home-trending-sneakers-header'>
+                        Deals Under $300
+                    </h2>
+                    <Carousel type={'under300'} />
+                </div>
+
             </div>
         </div>
     )
