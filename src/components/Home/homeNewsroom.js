@@ -27,10 +27,6 @@ export default function HomeNewsroom() {
         variableWidth: true
     }
 
-    const featuredImage = {
-        backgroundImage: `url(${ArticleData[0]['image']})`
-    }
-
     useEffect(() => {
         if (isVisible)
             setRender(true)

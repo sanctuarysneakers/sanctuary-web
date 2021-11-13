@@ -9,7 +9,7 @@ import HomeTrending from './homeTrending'
 import HomeBrandCarousel from './homeBrandCarousel' 
 import HomeCarousel from './homeCarousel'
 import HomeNewsroom from './homeNewsroom'
-import HomeContact from './homeContact'
+import HomeApp from './homeApp'
 import Footer from '../footer'
 
 export default function Home() {
@@ -46,7 +46,7 @@ export default function Home() {
                 <HomeCarousel type={'under300'}/>
             </div>
             <HomeNewsroom />
-            <HomeContact />
+            <HomeApp />
             <Footer colour={'white'} />
         </div>
     )
