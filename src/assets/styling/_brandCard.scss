@@ -4,7 +4,7 @@
     height: 55px;
     background-color: #F5F5F7;
     border-radius: 100px;
-    margin: 0px 7.5px;
+    margin-left: 20px;
     cursor: pointer;
 
     .brand-card-content {
@@ -14,9 +14,14 @@
             color: black;
             line-height: 27px;
             letter-spacing: -0.28px;
+            white-space: nowrap;
             padding: 0px 30px;
         }
     }
+}
+
+.brand-card.start {
+    margin-left: 0px;
 }
 
 .brand-card:hover {
@@ -26,6 +31,7 @@
 @media (min-width: 900px) and (max-width: 1199px) {
     .brand-card {
         height: 50px;
+        margin-left: 15px;
 
         .brand-card-content {
             p {
@@ -38,12 +44,26 @@
     }
 }
 
-@media screen and (max-width: 699px) {
+@media screen and (max-width: 899px) {
     .brand-card {
-        height: 46px;
+        height: 44px;
+        margin-left: 10px;
 
         .brand-card-content {
-
+            p {
+                font-size: 16px;
+                line-height: 24px;
+                letter-spacing: -0.1px;
+                padding: 0px 24px;
+            }
         }
+    }
+
+    .brand-card.start {
+        margin-left: 20px;
+    }
+
+    .brand-card.end {
+        margin-right: 20px;
     }
 }

@@ -13,8 +13,8 @@ export default function HomeTrending() {
     const [firstFlip, setFirstFlip] = useState(false)
 
     const brands = ['Nike', 'Air Jordan', 'Adidas', 'Yeezy', 'New Balance', 'Converse']
-    const brandCards = brands.map((item) => 
-        <BrandCard key={item} brand={item} />
+    const brandCards = brands.map((item, index) => 
+        <BrandCard key={item} brand={item} index={index} length={brands.length} />
     )
 
     useEffect(() => {
@@ -51,7 +51,7 @@ export default function HomeTrending() {
                     </FadeIn>
                 </div>
 
-                <div className='home-trending-sneakers'>
+                {/* <div className='home-trending-sneakers'>
                     <Carousel type={'trending'} />
 
                     <h2 className='home-trending-sneakers-header'>
@@ -63,7 +63,7 @@ export default function HomeTrending() {
                         Deals Under $300
                     </h2>
                     <Carousel type={'under300'} />
-                </div>
+                </div> */}
 
             </div>
         </div>
