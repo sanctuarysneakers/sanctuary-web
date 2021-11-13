@@ -4,6 +4,7 @@
     margin-bottom: 70px;
     background-color: white;
     border-radius: 18px;
+    cursor: pointer;
 }
 .carousel-card.start {
     margin-left: calc((100vw - 1000px) / 2);
@@ -205,6 +206,7 @@
     .carousel-card {
         border-radius: 12px;
         margin-left: 10px;
+        margin-top: 15px;
     }
     .carousel-card.start {
         margin-left: calc((100vw - 550px) / 2);
@@ -307,6 +309,7 @@
     .carousel-card {
         border-radius: 10px;
         margin-left: 10px;
+        margin-top: 15px;
     }
     .carousel-card.start {
         margin-left: calc((100vw - 335px) / 2);

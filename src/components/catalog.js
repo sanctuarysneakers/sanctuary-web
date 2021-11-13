@@ -41,17 +41,15 @@ export default function Catalog({ search_query }) {
     }, [browseData])
 
     return (
-        <div className='catalog'>
-            <InfiniteScroll
-                dataLength={items.length}
-                next={fetchMore}
-                hasMore={hasMore}
-                className='catalog'
-            >
-                    {items.length !== 0 && items.map((item) => (
-                        <ItemCard key={item.id} data={item} />
-                    ))}
-            </InfiniteScroll>
-        </div>
+        <InfiniteScroll
+            dataLength={items.length}
+            next={fetchMore}
+            hasMore={hasMore}
+            className='catalog'
+        >
+            {items.length !== 0 && items.map((item) => (
+                <ItemCard key={item.id} data={item} />
+            ))}
+        </InfiniteScroll>
     )
 }

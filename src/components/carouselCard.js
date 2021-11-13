@@ -17,8 +17,16 @@ export default function CarouselCard({ data, index, type, length }) {
         position = 'carousel-card'
     }
 
+    const clickHandler = () => {
+        if (data['sku']) {
+            document.location.href = `/item/${data['sku']}`
+        } else {
+            document.location.href = `/item/${data['urlKey']}`
+        }
+    }
+
     return (
-        <div className={position}>
+        <div className={position} onClick={clickHandler}>
             {(type === 'trending') && <div className='carousel-card-trending'>
                 <div className='carousel-card-trending-sneaker'>
                     <img src={data.imageThumbnail} />
