@@ -1,5 +1,5 @@
 .home-trending {
-    background: white;
+    background-color: white;
 
     .home-trending-content{
         padding: 166px 0px;
@@ -105,6 +105,18 @@
                     }
                 }
             }
+
+            .home-trending-sneakers {
+                .home-trending-sneakers-header {
+                    font-size: 28px;
+                    font-weight: 600;
+                    color: black;
+                    letter-spacing: -0.28px;
+    
+                    max-width: 800px;
+                    margin: 0px auto;
+                }
+            }
         }
     }
 }
@@ -132,11 +144,23 @@
                     padding-top: 30px;
                 }
             }
+
+            .home-trending-sneakers {
+                padding-top: 50px;
+    
+                .home-trending-sneakers-header {
+                    font-size: 21px;
+                    letter-spacing: 0px;
+
+                    max-width: 550px;
+                    margin: 0px auto;
+                }
+            }
         }
     }
 }
 
-@media (min-width: 501px) and (max-width: 769px) {
+@media (min-width: 700px) and (max-width: 769px) {
     .home-trending {
         .home-trending-content {
             padding: 100px 0px;
@@ -163,11 +187,23 @@
                     padding-top: 30px;
                 }
             }
+
+            .home-trending-sneakers {
+                padding-top: 50px;
+    
+                .home-trending-sneakers-header {
+                    font-size: 21px;
+                    letter-spacing: 0px;
+
+                    max-width: 550px;
+                    margin: 0px auto;
+                }
+            }
         }
     }
 }
 
-@media (min-width: 421px) and (max-width: 500px) {
+@media (min-width: 421px) and (max-width: 699px) {
     .home-trending {
         .home-trending-content {
             padding: 100px 0px;
@@ -192,6 +228,18 @@
                     justify-content: flex-start;
                     overflow-x: auto;
                     padding-top: 30px;
+                }
+            }
+
+            .home-trending-sneakers {
+                padding-top: 50px;
+    
+                .home-trending-sneakers-header {
+                    font-size: 21px;
+                    letter-spacing: 0px;
+    
+                    max-width: 335px;
+                    margin: 0px auto;
                 }
             }
         }
@@ -223,6 +271,18 @@
                     justify-content: flex-start;
                     overflow-x: auto;
                     padding-top: 30px;
+                }
+            }
+
+            .home-trending-sneakers {
+                padding-top: 50px;
+    
+                .home-trending-sneakers-header {
+                    font-size: 21px;
+                    letter-spacing: 0px;
+    
+                    max-width: 335px;
+                    margin: 0px auto;
                 }
             }
         }

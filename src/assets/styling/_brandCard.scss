@@ -44,7 +44,7 @@
     }
 }
 
-@media screen and (max-width: 899px) {
+@media (min-width: 770px) and (max-width: 899px) {
     .brand-card {
         height: 44px;
         margin-left: 10px;
@@ -61,6 +61,54 @@
 
     .brand-card.start {
         margin-left: 20px;
+    }
+
+    .brand-card.end {
+        margin-right: 20px;
+    }
+}
+
+@media (min-width: 700px) and (max-width: 769px) {
+    .brand-card {
+        height: 44px;
+        margin-left: 10px;
+
+        .brand-card-content {
+            p {
+                font-size: 16px;
+                line-height: 24px;
+                letter-spacing: -0.1px;
+                padding: 0px 24px;
+            }
+        }
+    }
+
+    .brand-card.start {
+        margin-left: calc((100vw - 550px) / 2);
+    }
+
+    .brand-card.end {
+        margin-right: 20px;
+    }
+}
+
+@media screen and (max-width: 699px) {
+    .brand-card {
+        height: 44px;
+        margin-left: 10px;
+
+        .brand-card-content {
+            p {
+                font-size: 16px;
+                line-height: 24px;
+                letter-spacing: -0.1px;
+                padding: 0px 24px;
+            }
+        }
+    }
+
+    .brand-card.start {
+        margin-left: calc((100vw - 335px) / 2);
     }
 
     .brand-card.end {

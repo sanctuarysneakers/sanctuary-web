@@ -25,7 +25,7 @@ export default function CarouselCard({ data, index, type, length }) {
                 </div>
 
                 <div className='carousel-card-trending-text'>
-                    <div className='carousel-card-trending-text'>
+                    <div className='carousel-card-trending-model'>
                         <p>TRENDING</p>
                         <h2>{data.model}</h2>
                     </div>
@@ -44,7 +44,6 @@ export default function CarouselCard({ data, index, type, length }) {
                     </div>
 
                     <div className='carousel-card-text'>
-                        <p>TRENDING</p>
                         <h2>{data.model}</h2>
                     </div>
 
