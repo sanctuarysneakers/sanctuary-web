@@ -1,7 +1,7 @@
 .carousel-card {
     margin-left: 15px;
     margin-top: 25px;
-    margin-bottom: 70px;
+    margin-bottom: 25px;
     background-color: white;
     border-radius: 18px;
     cursor: pointer;
@@ -19,7 +19,8 @@
     height: 375px;
     border: 1px solid #E5E9F1;
     border-radius: 18px;
-    box-shadow: 5px 5px 20px 5px rgba(0,0,0,0.03);
+    box-shadow: 4px 4px 20px 5px rgba(0,0,0,0.02);
+    // box-shadow: 5px 5px 20px 5px rgba(0,0,0,0.03);
 
     .carousel-card-trending-sneaker {
         display: flex;
@@ -35,7 +36,7 @@
 
     .carousel-card-trending-text {
         width: 50%;
-        margin-top: 95px;
+        margin-top: 90px;
 
         .carousel-card-trending-model {
             width: 330px;

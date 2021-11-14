@@ -81,6 +81,7 @@
 
                 max-width: 1000px;
                 margin: 0px auto;
+                padding-top: 80px;
             }
         }
     }
@@ -107,6 +108,8 @@
             }
 
             .home-trending-sneakers {
+                padding-top: 35px;
+
                 .home-trending-sneakers-header {
                     font-size: 28px;
                     font-weight: 600;
@@ -154,6 +157,7 @@
 
                     max-width: 550px;
                     margin: 0px auto;
+                    padding-top: 60px;
                 }
             }
         }
@@ -163,7 +167,8 @@
 @media (min-width: 700px) and (max-width: 769px) {
     .home-trending {
         .home-trending-content {
-            padding: 100px 0px;
+            padding-top: 100px;
+            padding-bottom: 75px;
 
             .home-trending-text {
                 .home-trending-header {
@@ -197,6 +202,7 @@
 
                     max-width: 550px;
                     margin: 0px auto;
+                    padding-top: 40px;
                 }
             }
         }
@@ -206,7 +212,8 @@
 @media (min-width: 421px) and (max-width: 699px) {
     .home-trending {
         .home-trending-content {
-            padding: 100px 0px;
+            padding-top: 100px;
+            padding-bottom: 75px;
 
             .home-trending-text {
                 .home-trending-header {
@@ -240,6 +247,7 @@
     
                     max-width: 335px;
                     margin: 0px auto;
+                    padding-top: 40px;
                 }
             }
         }
@@ -249,7 +257,8 @@
 @media screen and (max-width: 420px) {
     .home-trending {
         .home-trending-content {
-            padding: 100px 0px;
+            padding-top: 100px;
+            padding-bottom: 75px;
 
             .home-trending-text {
                 .home-trending-header {
@@ -283,6 +292,7 @@
     
                     max-width: 335px;
                     margin: 0px auto;
+                    padding-top: 40px;
                 }
             }
         }
