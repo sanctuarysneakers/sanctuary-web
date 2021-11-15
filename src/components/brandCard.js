@@ -1,0 +1,25 @@
+import React from "react";
+
+export default function BrandCard({ brand, index, length }) {
+
+    let position
+    if (index === 0) {
+        position = 'brand-card start'
+    } else if (index === length - 1) {
+        position = 'brand-card end'
+    } else {
+        position = 'brand-card'
+    }
+
+    const handleClick = () => {
+        document.location.href = `./browse/${brand}`
+    }
+
+    return (
+        <div className={position} onClick={handleClick}>
+            <div className='brand-card-content'>
+                <p>{brand}</p>
+            </div>
+        </div>
+    )
+}

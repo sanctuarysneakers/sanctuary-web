@@ -29,11 +29,11 @@ export default function ItemCard({ data }) {
 
                     <div className='item-card-estimated-price'>
                         <p className='item-card-estimated'>
-                            EST. 
+                            Estimated 
                         </p>
 
                         <p className='item-card-price'>
-                            {currencySymbolMap[currency]} {data.lastSale}
+                            {currencySymbolMap[currency]}{data.lastSale.toLocaleString('en')}
                         </p>
                     </div>
                 </div>

@@ -1,40 +1,36 @@
 .item-card {
     width: 241px;
-    height: 335px;
+    height: 356px;
     background: white;
-    border-radius: 16px;
+    border-radius: 12px;
     cursor: pointer;
     
     .item-card-content {
-        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        height: 100%;
 
         .item-card-sneaker {
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            width: 100%;
-            height: 149px;
-            overflow: hidden;
+            margin-bottom: 21px;
 
             img {
+                display: block;
                 width: 175px;
-                height: auto;
             }
         }
 
         .item-card-text {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 100%;
-            height: 114px;
-            padding-top: 22px;
+            width: 191px;
 
             h2 {
-                font-size: 16.5px;
-                font-weight: 600;
-                line-height: 25px;
+                font-size: 15px;
+                font-weight: 500;
+                line-height: 21px;
                 color: black;
+                height: 63px;
+                margin-bottom: 22px;
 
                 display: -webkit-box;
                 -webkit-line-clamp: 3;
@@ -43,16 +39,22 @@
             }
 
             .item-card-estimated-price {
-                display: flex;
+                margin-bottom: 28px;
+
                 .item-card-estimated {
-                    color: #777F93;
+                    font-size: 14px;
                     font-weight: 500;
+                    color: #777F93;
+                    line-height: 21px;
+                    letter-spacing: -0.28px;
                 }
 
                 .item-card-price {
-                    margin-left: 5px;
-                    color: black;
+                    font-size: 21px;
                     font-weight: 600;
+                    color: black;
+                    line-height: 32px;
+                    letter-spacing: -0.28px;
                 }
             }
         }
@@ -63,29 +65,42 @@
     .item-card {
         width: 200px;
         height: 290px;
-        border-radius: 15px;
+        border-radius: 10px;
 
         .item-card-content {
-            padding: 22px;
-
             .item-card-sneaker {
-                height: 110px;
+                margin-bottom: 17px;
 
                 img {
-                    width: 145px;
+                    width: 143px;
                 }
             }
 
             .item-card-text {
-                height: 116px;
-                padding-top: 20px;
+                width: 150px;
 
                 h2 {
-                    font-size: 15.5px;
-                    line-height: 22px;
+                    font-size: 13px;
+                    line-height: 17px;
+                    height: 51px;
+                    margin-bottom: 17px;
+                }
+
+                .item-card-estimated-price {
+                    margin-bottom: 22px;
+
+                    .item-card-estimated {
+                        font-size: 12px;
+                        line-height: 17px;
+                    }
+    
+                    .item-card-price {
+                        font-size: 17px;
+                        line-height: 26px;
+                    }
                 }
             }
-        }
+        } 
     }
 }
 
@@ -94,13 +109,11 @@
     .item-card {
         width: 162px;
         height: 280px;
-        border-radius: 13px;
+        border-radius: 10px;
 
         .item-card-content {
-            padding: 19px;
-
             .item-card-sneaker {
-                height: 103px;
+                margin-bottom: 19px;
 
                 img {
                     width: 120px;
@@ -108,12 +121,27 @@
             }
 
             .item-card-text {
-                height: 122px;
-                padding-top: 20px;
+                width: 125px;
 
                 h2 {
-                    font-size: 15.5px;
-                    line-height: 22px;
+                    font-size: 13px;
+                    line-height: 17px;
+                    height: 51px;
+                    margin-bottom: 21px;
+                }
+
+                .item-card-estimated-price {
+                    margin-bottom: 25px;
+
+                    .item-card-estimated {
+                        font-size: 12px;
+                        line-height: 18px;
+                    }
+    
+                    .item-card-price {
+                        font-size: 16px;
+                        line-height: 24px;
+                    }
                 }
             }
         }
