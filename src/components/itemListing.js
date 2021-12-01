@@ -19,6 +19,17 @@ export default function ItemListing({ data, index, length }) {
         'ebay' : 'eBay'
     }
 
+    let condition
+    if (data.source === 'ebay') {
+        try {
+            condition = data.condition[0].conditionDisplayName[0]    
+        } catch(e) {
+            condition = 'Used'
+        }
+    } else {
+          condition = 'Used'
+    }
+
     return (
         <div className={(index === length - 1) ? 'item-listing last' : 'item-listing'}>
 
@@ -29,7 +40,7 @@ export default function ItemListing({ data, index, length }) {
                     </div>
                     <div className='item-listing-text'>
                         <h2> {websiteTextMap[data.source]} </h2>
-                        <p> Used </p>
+                        <p> {condition} </p>
                     </div>
                 </div>
 
