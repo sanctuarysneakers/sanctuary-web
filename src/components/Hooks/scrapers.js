@@ -1,8 +1,6 @@
 import createRequestObject from './createRequest'
 
-
 /********** Lowest Prices **********/
-
 export async function stockxLowestPrice(item, currencyRate) {
 	if (!item.hasPrice) return []
 	
@@ -182,7 +180,9 @@ export async function depopListings(item, size, currencyRate) {
 
 export async function grailedListings(item, size, currencyRate) {
 	if (!item.hasPrice) return []
-
+	if (size < 5) {
+		return []
+	}
 	let maxItems = 7
 	const request = createRequestObject('grailedListings', {search: item.modelName, size: size})
 	try {
