@@ -1,10 +1,10 @@
-const sizeReducer = (state=10, action) => {
+const genderReducer = (state=0, action) => {
     switch(action.type) {
-        case 'UPDATE_SIZE':
+        case 'UPDATE_GENDER':
             return action.payload
         default:
             return state
     }
 }
 
-export default sizeReducer
+export default genderReducer

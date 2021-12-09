@@ -60,6 +60,17 @@
                 line-height: 24px;
                 padding-top: 7px;
             }
+
+            .gender-button {
+                background-color: white;
+                font-family: 'Poppins', sans-serif;
+                font-size: 16px;
+                font-weight: 400;
+                color: #919BB1;
+                line-height: 24px;
+                padding-top: 7px;
+                cursor: pointer;
+            }
         }
 
         .size-modal-buttons {
@@ -90,11 +101,12 @@
                         font-size: 26px;
                         line-height: 39px
                     }
-                }
 
-                .size-modal-buttons {
-                    width: 280px;
-                    padding-top: 17px;
+                    .gender-button {
+                        background-color: white;
+                        font-family: 'Poppins', sans-serif;
+                        font-size: 16px;
+                    }
                 }
             }
         }

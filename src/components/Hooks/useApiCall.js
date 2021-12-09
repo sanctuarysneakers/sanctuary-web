@@ -18,6 +18,7 @@ export default function useAPICall(callType, params) {
     const size = useSelector(state => state.size)
     const currency = useSelector(state => state.currency)
     const rate = useSelector(state => state.rate)
+    const gender = useSelector(state => state.gender)
 
     async function currencyConversionRate(from, to) {
         const url = `https://sanctuaryapi.net/currencyrate?from_curr=${from}&to_curr=${to}`
@@ -143,7 +144,7 @@ export default function useAPICall(callType, params) {
 
         let results = []
         results.push(...await stockxLowestPrice(item, currencyRate))
-        results.push(...await ebayLowestPrice(item, size, location['country_code'], currencyRate))
+        results.push(...await ebayLowestPrice(item, size, location['country_code'], currencyRate)) // update this line if womens sizes
         results.push(...await goatLowestPrice(item, size, currencyRate))
         results.push(...await flightclubLowestPrice(item, size, currencyRate))
         results.push(...await klektLowestPrice(item, size, klektCurrencyRate))
