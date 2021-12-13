@@ -138,13 +138,13 @@ export async function ebayListings(item, size, location, currencyRate) {
 			url.searchParams.set('customid', '')
 			url.searchParams.set('toolid', '10001')
 			url.searchParams.set('mkevt', '1')
-
 			results.push({
 				id: item['id'],
 				source: 'ebay',
 				price: Math.round(item['price'] * currencyRate),
 				image: item['image'],
-				url: url
+				url: url,
+				condition:  item['condition']
 			})
 		}
 		return results

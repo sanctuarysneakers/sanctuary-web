@@ -183,7 +183,6 @@ export default function useAPICall(callType, params) {
         }
     }
 
-
     useEffect(() => {
         updateCurrencyRate(currency)
     }, [currency])
