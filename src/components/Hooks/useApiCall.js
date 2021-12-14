@@ -11,6 +11,7 @@ import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPr
 
 export default function useAPICall(callType, params) {
 
+    
     const history = useHistory()
     const dispatch = useDispatch()
     
@@ -18,8 +19,8 @@ export default function useAPICall(callType, params) {
     const size = useSelector(state => state.size)
     const currency = useSelector(state => state.currency)
     const rate = useSelector(state => state.rate)
-    const gender = useSelector(state => state.gender)
 
+    console.log(size)
     async function currencyConversionRate(from, to) {
         const url = `https://sanctuaryapi.net/currencyrate?from_curr=${from}&to_curr=${to}`
         const response = await fetch(url)

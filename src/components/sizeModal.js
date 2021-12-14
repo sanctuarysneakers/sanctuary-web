@@ -22,7 +22,6 @@ export default function SizeModal() {
 
     function changeGender(newGender) {
         dispatch(updateGender(newGender))
-        dispatch(updateSize(10))
     }
 
     return (
@@ -39,7 +38,7 @@ export default function SizeModal() {
                         <h1> Select your size </h1>
 
                         <div className='gender-select'>
-                            {gender == 0 && 
+                            {gender === 0 && 
                              <p> <b> Mens </b> | <button className='gender-button'
                               onClick={() => changeGender(1)}> Womens </button></p>
                             }

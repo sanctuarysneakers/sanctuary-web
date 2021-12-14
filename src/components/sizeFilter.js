@@ -10,9 +10,11 @@ export default function SizeFilter() {
     const gender = useSelector(state => state.gender)
     const genderSymbol = (gender === 0) ? 'M' : 'W'
 
+    const displayedSize = (gender === 0) ? size : size + 1.5
+
     return (
         <div className='size-filter' onClick={() => dispatch(showSizeModal())}>
-            <h4> Size {genderSymbol} {size} </h4>
+            <h4> Size {genderSymbol} {displayedSize} </h4>
             <DownArrow />
         </div>
     )
