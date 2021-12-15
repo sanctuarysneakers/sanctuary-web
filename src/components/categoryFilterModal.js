@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { hideCategoryFilterModal } from '../redux/actions'
 import useOutsideAlerter from './Hooks/useOutsideAlerter'
 import CategoryOption from './categoryOption'

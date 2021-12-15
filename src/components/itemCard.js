@@ -1,5 +1,4 @@
 import React from 'react'
-import {ReactComponent as RightArrow} from '../assets/images/RightArrow.svg'
 import { useSelector } from 'react-redux'
 
 export default function ItemCard({ data }) {

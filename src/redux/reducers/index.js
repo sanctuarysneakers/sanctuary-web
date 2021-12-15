@@ -19,6 +19,7 @@ import deleteModalVisibleReducer from './deleteModalVisibleReducer'
 import locationReducer from './locationReducer'
 import showfilterreducer from './showFilterReducer'
 import sizeReducer from './sizeReducer'
+import genderReducer from './genderReducer'
 import searchModalReducer from './searchModalReducer'
 import locationPopupReducer  from './locationPopupReducer'
 import sizeModalReducer from './sizeModalReducer'
@@ -27,6 +28,7 @@ import categoryFilterModalReducer from './categoryFilterReducer'
 
 const globalReducer = combineReducers({
     size: sizeReducer,
+    gender: genderReducer,
     browseData: browseDataReducer,
     trending: trendingReducer,
     under200: under200Reducer,
@@ -50,7 +52,7 @@ const globalReducer = combineReducers({
     locationPopup: locationPopupReducer,
     sizeModalVisible: sizeModalReducer,
     currencyModalVisible: currencyModalReducer,
-    categoryFilterModalVisible: categoryFilterModalReducer
+    categoryFilterModalVisible: categoryFilterModalReducer,
 })
 
 export default globalReducer
