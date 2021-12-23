@@ -10,7 +10,6 @@ import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPr
 
 
 export default function useAPICall(callType, params) {
-
     
     const history = useHistory()
     const dispatch = useDispatch()
