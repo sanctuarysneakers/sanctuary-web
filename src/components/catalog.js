@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react'
-import InfiniteScroll from 'react-infinite-scroll-component';
+import InfiniteScroll from 'react-infinite-scroll-component'
 import { useSelector } from 'react-redux'
 import useAPICall from './Hooks/useApiCall'
+import createRequestObject from './Hooks/createRequest'
 import ItemCard from './itemCard'
 
 export default function Catalog({ search_query }) {
@@ -10,30 +11,30 @@ export default function Catalog({ search_query }) {
     const rate = useSelector(state => state.rate)
     
     var [items, updateItems] = useState(browseData)
-    var [i, updateI] = useState(1)
+    var [page, updatePage] = useState(1)
     var [hasMore, setHasMore] = useState(true)
 
     useAPICall('browse', {query: search_query})
     
     function convertResults(results) {
-        for (let j = 0; j < results.length; j++) {
+        for (let i = 0; i < results.length; i++) {
             if (!isNaN(rate))
-                results[j]["lastSale"] = Math.round(results[j]["lastSale"] * rate)
+                results[i]["lastSale"] = Math.round(results[i]["lastSale"] * rate)
             else
-                results[j]["lastSale"] = "---"
+                results[i]["lastSale"] = "---"
         }
         return results
     }
 
     async function fetchMore() {
-        const url = `https://sanctuaryapi.net/browse?search=${search_query}&from=${(i*40)}`
-        const response = await fetch(url, {method: 'GET'})
+        const request = createRequestObject('browse', {search: search_query, page: page+1})
+        const response = await fetch(request.url, request.headers)
         let results = await response.json()
         results = convertResults(results)
-
+        
         updateItems(items.concat(results))
-        updateI(i + 1)
-        if (results.length !== 40) setHasMore(false)
+        updatePage(page + 1)
+        if (results.length < 40) setHasMore(false)
     }
 
     useEffect(() => {

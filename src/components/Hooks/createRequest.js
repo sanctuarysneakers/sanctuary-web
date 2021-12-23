@@ -5,7 +5,8 @@ export default function createRequestObject(type, filter) {
 			return {
 				url: 'https://sanctuaryapi.net/browse?' + new URLSearchParams({
 					"search": filter.search,
-					"from": filter.from ? filter.from : 0
+					"page": filter.page ? filter.page : 1,
+					"gender": filter.gender ? filter.gender : "men"
 				}),
 				headers: {
 					method: 'GET'
