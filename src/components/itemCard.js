@@ -5,9 +5,9 @@ export default function ItemCard({ data }) {
 
     const clickHandler = () => {
         if (data['sku'])
-            document.location.href = `/item/${data['sku']}`
+            document.location.href = `/item/${data['sku']}/${data['gender']}`
         else
-            document.location.href = `/item/${data['urlKey']}`
+            document.location.href = `/item/${data['urlKey']}/${data['gender']}`
     }
 
     const currency = useSelector(state => state.currency)

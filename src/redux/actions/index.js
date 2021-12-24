@@ -289,10 +289,3 @@ export const updateSize = size => {
         payload: size
     }
 }
-
-export const updateGender = gender => {
-    return {
-        type: 'UPDATE_GENDER',
-        payload: gender
-    }
-}

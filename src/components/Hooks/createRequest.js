@@ -6,7 +6,7 @@ export default function createRequestObject(type, filter) {
 				url: 'https://sanctuaryapi.net/browse?' + new URLSearchParams({
 					"search": filter.search,
 					"page": filter.page ? filter.page : 1,
-					"gender": filter.gender ? filter.gender : "men"
+					"gender": filter.gender ? filter.gender : ''
 				}),
 				headers: {
 					method: 'GET'
@@ -26,7 +26,8 @@ export default function createRequestObject(type, filter) {
 				url: 'https://sanctuaryapi.net/lowestprice?' + new URLSearchParams({
 					"source": "stockx",
 					"search": filter.search,
-					"size": filter.size
+					"size": filter.size,
+					"gender": filter.gender
 				}),
 				headers: {
 					method: 'GET'
@@ -37,6 +38,7 @@ export default function createRequestObject(type, filter) {
 				url: 'https://sanctuaryapi.net/lowestprice?' + new URLSearchParams({
 					"source": "stockx",
 					"search": filter.search,
+					"gender": filter.gender
 				}),
 				headers: {
 					method: 'GET'
