@@ -12,15 +12,6 @@ export default function createRequestObject(type, filter) {
 					method: 'GET'
 				}
 			}
-		case 'extendedbrowse':
-			return {
-				url: 'https://sanctuaryapi.net/extendedbrowse?' + new URLSearchParams({
-					"max_price": filter.max_price
-				}),
-				headers: {
-					method: 'GET'
-				}
-			}
 		case 'stockx':
 			return {
 				url: 'https://sanctuaryapi.net/lowestprice?' + new URLSearchParams({
@@ -107,6 +98,18 @@ export default function createRequestObject(type, filter) {
 					method: 'GET'
 				}
 			}
+		case 'depopListings':
+			return {
+				url: 'https://sanctuaryapi.net/itemlistings?' + new URLSearchParams({
+					'source': 'depop',
+					'search': filter.search,
+					'size': filter.size,
+					'gender': filter.gender
+				}),
+				headers: {
+					method: 'GET'
+				}
+			}
 		case 'grailedListings':
 			return {
 				url: 'https://mnrwefss2q-dsn.algolia.net/1/indexes/*/queries?' + new URLSearchParams({
@@ -126,12 +129,10 @@ export default function createRequestObject(type, filter) {
 					})
 				}
 			}
-		case 'depopListings':
+		case 'extendedbrowse':
 			return {
-				url: 'https://sanctuaryapi.net/itemlistings?' + new URLSearchParams({
-					'source': 'depop',
-					'search': filter.search,
-					'size': filter.size
+				url: 'https://sanctuaryapi.net/extendedbrowse?' + new URLSearchParams({
+					"max_price": filter.max_price
 				}),
 				headers: {
 					method: 'GET'

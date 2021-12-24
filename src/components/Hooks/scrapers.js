@@ -155,10 +155,10 @@ export async function ebayListings(item, size, location, currencyRate) {
 }
 
 
-export async function depopListings(item, size, currencyRate) {
+export async function depopListings(item, size, gender, currencyRate) {
 	if (!item.hasPrice) return []
 
-	const request = createRequestObject('depopListings', {search: item.modelName, size: size})
+	const request = createRequestObject('depopListings', {search: item.modelName, size: size, gender: gender})
 	try {
 		const response = await fetch(request.url, request.headers)
 		if (!response.ok) throw new Error()
