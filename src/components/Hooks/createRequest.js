@@ -77,7 +77,7 @@ export default function createRequestObject(type, filter) {
 					method: 'POST',
 					body: JSON.stringify({
 						"query": filter.search,
-						"facetFilters": `(product_category: shoes), (presentation_size: ${filter.size}), (single_gender: men), (shoe_condition:new_no_defects)`,
+						"facetFilters": `(product_category: shoes), (presentation_size: ${filter.size}), (shoe_condition:new_no_defects)`,
 					})
 				}
 			}

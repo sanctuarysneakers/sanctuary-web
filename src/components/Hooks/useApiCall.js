@@ -134,7 +134,7 @@ export default function useAPICall(callType, params) {
         }
     }
 
-    async function getItemPrices(item, size) {
+    async function getItemPrices(item, size, gender) {
         let currencyRate;
         if (currency !== "USD")
             currencyRate = await currencyConversionRate("USD", currency)
@@ -145,7 +145,7 @@ export default function useAPICall(callType, params) {
         results.push(...await stockxLowestPrice(item, currencyRate))
         results.push(...await ebayLowestPrice(item, size, location['country_code'], currencyRate))
         results.push(...await goatLowestPrice(item, size, currencyRate))
-        results.push(...await flightclubLowestPrice(item, size, currencyRate))
+        results.push(...await flightclubLowestPrice(item, size, gender, currencyRate))
         results.push(...await klektLowestPrice(item, size, klektCurrencyRate))
         
         results = results.filter(r => r.price !== 0)
@@ -153,7 +153,7 @@ export default function useAPICall(callType, params) {
         return results
     }
 
-    async function getItemListings(item, size) {
+    async function getItemListings(item, size, gender) {
         let currencyRate;
         if (currency !== "USD")
             currencyRate = await currencyConversionRate("USD", currency)
@@ -173,11 +173,11 @@ export default function useAPICall(callType, params) {
         dispatch(updateItemInfo(itemInfo))
         
         if (itemInfo) {
-            const itemPrices = await getItemPrices(itemInfo, size)
+            const itemPrices = await getItemPrices(itemInfo, size, gender)
             dispatch(updateItemPrices(itemPrices))
             dispatch(setItemPricesLoading(false))
     
-            const itemListings = await getItemListings(itemInfo, size)
+            const itemListings = await getItemListings(itemInfo, size, gender)
             dispatch(updateItemListings(itemListings))
             dispatch(setItemListingsLoading(false))
         }
