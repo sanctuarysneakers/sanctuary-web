@@ -4,10 +4,8 @@ import { useSelector } from 'react-redux'
 export default function ItemCard({ data }) {
 
     const clickHandler = () => {
-        if (data['sku'])
-            document.location.href = `/item/${data['sku']}/${data['gender']}`
-        else
-            document.location.href = `/item/${data['urlKey']}/${data['gender']}`
+        let itemId = data['sku'] ? data['sku'].split('/')[0] : data['urlKey']
+        document.location.href = `/item/${itemId}/${data['gender']}`
     }
 
     const currency = useSelector(state => state.currency)
