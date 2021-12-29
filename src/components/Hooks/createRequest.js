@@ -3,7 +3,7 @@ export default function createRequestObject(type, filter) {
 	switch (type) {
 		case 'browse':
 			return {
-				url: 'https://sanctuaryapi.net/browse?' + new URLSearchParams({
+				url: 'https://hdwj2rvqkb.us-west-2.awsapprunner.com/browse?' + new URLSearchParams({
 					"search": filter.search,
 					"page": filter.page ? filter.page : 1,
 					"gender": filter.gender ? filter.gender : ''
@@ -14,7 +14,7 @@ export default function createRequestObject(type, filter) {
 			}
 		case 'stockx':
 			return {
-				url: 'https://sanctuaryapi.net/lowestprice?' + new URLSearchParams({
+				url: 'https://hdwj2rvqkb.us-west-2.awsapprunner.com/lowestprice?' + new URLSearchParams({
 					"source": "stockx",
 					"search": filter.search,
 					"size": filter.size,
@@ -26,7 +26,7 @@ export default function createRequestObject(type, filter) {
 			}
 		case 'stockxInfo':
 			return {
-				url: 'https://sanctuaryapi.net/lowestprice?' + new URLSearchParams({
+				url: 'https://hdwj2rvqkb.us-west-2.awsapprunner.com/lowestprice?' + new URLSearchParams({
 					"source": "stockx",
 					"search": filter.search,
 					"gender": filter.gender
@@ -37,7 +37,7 @@ export default function createRequestObject(type, filter) {
 			}
 		case 'ebay':
 			return {
-				url: 'https://sanctuaryapi.net/lowestprice?' + new URLSearchParams({
+				url: 'https://hdwj2rvqkb.us-west-2.awsapprunner.com/lowestprice?' + new URLSearchParams({
 					'source': 'ebay',
 					'search': filter.search,
 					'size': filter.size,
@@ -49,7 +49,7 @@ export default function createRequestObject(type, filter) {
 			}
 		case 'klekt':
 			return {
-				url: 'https://sanctuaryapi.net/lowestprice?' + new URLSearchParams({
+				url: 'https://hdwj2rvqkb.us-west-2.awsapprunner.com/lowestprice?' + new URLSearchParams({
 					"source": "klekt",
 					"search": filter.search,
 					"size": filter.size
@@ -88,7 +88,7 @@ export default function createRequestObject(type, filter) {
 			}
 		case 'ebayListings':
 			return {
-				url: 'https://sanctuaryapi.net/itemlistings?' + new URLSearchParams({
+				url: 'https://hdwj2rvqkb.us-west-2.awsapprunner.com/itemlistings?' + new URLSearchParams({
 					'source': 'ebay',
 					'search': filter.search,
 					'size': filter.size,
@@ -100,7 +100,7 @@ export default function createRequestObject(type, filter) {
 			}
 		case 'depopListings':
 			return {
-				url: 'https://sanctuaryapi.net/itemlistings?' + new URLSearchParams({
+				url: 'https://hdwj2rvqkb.us-west-2.awsapprunner.com/itemlistings?' + new URLSearchParams({
 					'source': 'depop',
 					'search': filter.search,
 					'size': filter.size,
@@ -131,7 +131,7 @@ export default function createRequestObject(type, filter) {
 			}
 		case 'extendedbrowse':
 			return {
-				url: 'https://sanctuaryapi.net/extendedbrowse?' + new URLSearchParams({
+				url: 'https://hdwj2rvqkb.us-west-2.awsapprunner.com/extendedbrowse?' + new URLSearchParams({
 					"max_price": filter.max_price
 				}),
 				headers: {
@@ -140,7 +140,7 @@ export default function createRequestObject(type, filter) {
 			}
 		default: 
 			return {
-				url: 'https://sanctuaryapi.net/browse',
+				url: 'https://hdwj2rvqkb.us-west-2.awsapprunner.com/browse',
 				headers: {
 					method: 'GET'
 				}

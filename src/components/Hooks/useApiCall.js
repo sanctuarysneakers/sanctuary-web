@@ -20,7 +20,7 @@ export default function useAPICall(callType, params) {
     const rate = useSelector(state => state.rate)
 
     async function currencyConversionRate(from, to) {
-        const url = `https://sanctuaryapi.net/currencyrate?from_curr=${from}&to_curr=${to}`
+        const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/currencyrate?from_curr=${from}&to_curr=${to}`
         const response = await fetch(url)
         return await response.json()
     }
@@ -28,7 +28,7 @@ export default function useAPICall(callType, params) {
     async function updateCurrencyRate(to) {
         let data;
         while (true) {
-            const url = `https://sanctuaryapi.net/currencyrate?from_curr=USD&to_curr=${to}`
+            const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/currencyrate?from_curr=USD&to_curr=${to}`
             const response = await fetch(url)
             if (response.status === 200) {
                 data = await response.json()

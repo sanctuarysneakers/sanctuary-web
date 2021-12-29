@@ -10,7 +10,7 @@ export default function useLocationDetection() {
 	const currencies = ['USD','CAD','JPY','EUR','GBP','AUD']
 
 	async function getLocation() { 
-		const response = await fetch('https://sanctuaryapi.net/location')
+		const response = await fetch('https://hdwj2rvqkb.us-west-2.awsapprunner.com/location')
 		const data = await response.json()
 		dispatch(updateLocation(data))
 
