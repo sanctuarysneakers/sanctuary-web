@@ -14,15 +14,6 @@ export default function createRequestObject(type, filter) {
 					method: 'GET'
 				}
 			}
-		case 'extendedbrowse':
-			return {
-				url: 'https://hdwj2rvqkb.us-west-2.awsapprunner.com/extendedbrowse?' + new URLSearchParams({
-					"max_price": filter.max_price
-				}),
-				headers: {
-					method: 'GET'
-				}
-			}
 		case 'stockx':
 			return {
 				url: 'https://hdwj2rvqkb.us-west-2.awsapprunner.com/lowestprice?' + new URLSearchParams({
