@@ -1,19 +1,25 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateSize } from '../redux/actions'
 
 export default function ItemCard({ data }) {
 
-    const clickHandler = () => {
-        if (data['sku'])
-            document.location.href = `/item/${data['sku']}`
-        else
-            document.location.href = `/item/${data['urlKey']}`
-    }
-
+    const dispatch = useDispatch()
     const currency = useSelector(state => state.currency)
+    const size = useSelector(state => state.size)
 
 	const currencySymbolMap = {
 		'AUD':'A$', 'CAD':'C$', 'EUR':'€', 'GBP':'£', 'JPY':'¥', 'USD':'$'
+    }
+
+    const clickHandler = () => {
+        if (size < 7 && data['gender'] == 'men')
+			dispatch(updateSize(7))
+		else if (size > 12 && data['gender'] == 'women')
+			dispatch(updateSize(12))
+        
+        let itemId = data['sku'] ? data['sku'].split('/')[0] : data['urlKey']
+        document.location.href = `/item/${itemId}/${data['gender']}`
     }
 
     return (

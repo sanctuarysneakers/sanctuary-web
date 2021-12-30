@@ -10,13 +10,13 @@ export default function Catalog({ search_query }) {
     const browseData = useSelector(state => state.browseData)
     const rate = useSelector(state => state.rate)
     
-    var [items, updateItems] = useState(browseData)
-    var [page, updatePage] = useState(1)
-    var [hasMore, setHasMore] = useState(true)
+    let [items, updateItems] = useState(browseData)
+    let [page, updatePage] = useState(1)
+    let [hasMore, setHasMore] = useState(true)
 
     useAPICall('browse', {query: search_query})
     
-    function convertResults(results) {
+    function convertCurrency(results) {
         for (let i = 0; i < results.length; i++) {
             if (!isNaN(rate))
                 results[i]["lastSale"] = Math.round(results[i]["lastSale"] * rate)
@@ -30,7 +30,7 @@ export default function Catalog({ search_query }) {
         const request = createRequestObject('browse', {search: search_query, page: page+1})
         const response = await fetch(request.url, request.headers)
         let results = await response.json()
-        results = convertResults(results)
+        results = convertCurrency(results)
         
         updateItems(items.concat(results))
         updatePage(page + 1)

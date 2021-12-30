@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router'
 import { useSelector } from 'react-redux'
 import SizeFilter from '../sizeFilter'
+import SizeModal from '../sizeModal'
 import useAPICall from '../Hooks/useApiCall'
 import ItemPrice from '../itemPrice'
 import ItemListing from '../itemListing'
@@ -34,15 +35,16 @@ export default function Item() {
         'USD': '$', 'CAD': 'C$', 'EUR': '€', 'GBP': '£', 'JPY': '¥', 'AUD': 'A$'
     }
 
-    const { sku } = useParams()
+    const { sku, gender } = useParams()
     const size = useSelector(state => state.size)
-    useAPICall('getitem', { sku: sku, size: size })
+    useAPICall('getitem', { sku: sku, size: size, gender: gender })
 
     const itemInfo = useSelector(state => state.itemInfo)
     const itemPrices = useSelector(state => state.itemPrices)
     const itemListings = useSelector(state => state.itemListings)
     const pricesLoading = useSelector(state => state.loadingItemPrices)
     const listingsLoading = useSelector(state => state.loadingItemListings)
+    const sizeModalVisible = useSelector(state => state.sizeModalVisible)
 
     const priceComponents = itemPrices.map((item, index) =>
         <ItemPrice key={item.source} data={item} index={index}
@@ -52,11 +54,11 @@ export default function Item() {
         <ItemListing key={item.id} data={item} index={index}
             length={itemListings.length} />
     )
-    const title = 'Sanctuary: ' + itemInfo.modelName
+
     return (
         <div className='item'>
             <Helmet>
-                <title>{title}</title>
+                <title>{`Sanctuary: ${itemInfo.modelName}`}</title>
             </Helmet>
             <div className='item-sneaker'>
                 <div className='item-sneaker-content'>
@@ -105,7 +107,9 @@ export default function Item() {
                                     </div>
                                 </a>}
 
-                                <SizeFilter />
+                                <SizeFilter gender={gender} />
+                                {sizeModalVisible && <SizeModal gender={gender} />}
+
                             </div>}
                         </div>
                     </div>

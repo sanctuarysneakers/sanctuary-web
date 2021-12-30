@@ -1,6 +1,7 @@
 import createRequestObject from './createRequest'
 
 /********** Lowest Prices **********/
+
 export async function stockxLowestPrice(item, currencyRate) {
 	if (!item.hasPrice) return []
 	
@@ -15,7 +16,7 @@ export async function stockxLowestPrice(item, currencyRate) {
 export async function ebayLowestPrice(item, size, location, currencyRate) {
 	if (!item.hasPrice) return []
 
-	let search = item.modelName.concat(' ', item.skuId)
+	let search = item.modelName.replace('(W)', '').concat(' ', item.skuId)
 
 	const request = createRequestObject('ebay', {search: search, size: size, shipTo: location})
 	try {
@@ -47,7 +48,7 @@ export async function ebayLowestPrice(item, size, location, currencyRate) {
 export async function klektLowestPrice(item, size, currencyRate) {
 	if (!item.hasPrice) return []
 
-	let search = item.skuId !== '' ? item.skuId : item.modelName
+	let search = item.skuId !== '' ? item.skuId : item.modelName.replace('(W)', '')
 
 	const request = createRequestObject('klekt', {search: search, size: size})
 	try {
@@ -70,7 +71,7 @@ export async function klektLowestPrice(item, size, currencyRate) {
 export async function goatLowestPrice(item, size, currencyRate) {
 	if (!item.hasPrice) return []
 
-	let search = item.skuId !== '' ? item.skuId : item.modelName
+	let search = item.skuId !== '' ? item.skuId : item.modelName.replace('(W)', '')
 	
 	const request = createRequestObject('goat', {search: search, size: size})
 	try {
@@ -90,10 +91,11 @@ export async function goatLowestPrice(item, size, currencyRate) {
 }
 
 
-export async function flightclubLowestPrice(item, size, currencyRate) {
+export async function flightclubLowestPrice(item, size, gender, currencyRate) {
 	if (!item.hasPrice) return []
 
-	let search = item.skuId !== '' ? item.skuId : item.modelName
+	let search = item.skuId !== '' ? item.skuId : item.modelName.replace('(W)', '')
+	if (gender === 'women') size -= 1.5
 	
 	const request = createRequestObject('flightclub', {search: search, size: size})
 	try {
@@ -118,7 +120,7 @@ export async function flightclubLowestPrice(item, size, currencyRate) {
 export async function ebayListings(item, size, location, currencyRate) {
 	if (!item.hasPrice) return []
 
-	let search = item.modelName.concat(' ', item.skuId)
+	let search = item.modelName.replace('(W)', '').concat(' ', item.skuId)
 	
 	const request = createRequestObject('ebayListings', {search: search, size: size, shipTo: location})
 	try {
@@ -136,6 +138,7 @@ export async function ebayListings(item, size, location, currencyRate) {
 			url.searchParams.set('customid', '')
 			url.searchParams.set('toolid', '10001')
 			url.searchParams.set('mkevt', '1')
+
 			results.push({
 				id: item['id'],
 				source: 'ebay',
@@ -152,10 +155,11 @@ export async function ebayListings(item, size, location, currencyRate) {
 }
 
 
-export async function depopListings(item, size, currencyRate) {
+export async function depopListings(item, size, gender, currencyRate) {
 	if (!item.hasPrice) return []
 
-	const request = createRequestObject('depopListings', {search: item.modelName, size: size})
+	let search = item.modelName.replace('(W)', '')
+	const request = createRequestObject('depopListings', {search: search, size: size, gender: gender})
 	try {
 		const response = await fetch(request.url, request.headers)
 		if (!response.ok) throw new Error()
@@ -180,11 +184,10 @@ export async function depopListings(item, size, currencyRate) {
 
 export async function grailedListings(item, size, currencyRate) {
 	if (!item.hasPrice) return []
-	if (size < 5) {
-		return []
-	}
+	
 	let maxItems = 7
-	const request = createRequestObject('grailedListings', {search: item.modelName, size: size})
+	let search = item.modelName.replace('(W)', '')
+	const request = createRequestObject('grailedListings', {search: search, size: size})
 	try {
 		const response = await fetch(request.url, request.headers)
 		if (!response.ok) throw new Error()

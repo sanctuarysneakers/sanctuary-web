@@ -20,15 +20,15 @@ export default function useAPICall(callType, params) {
     const rate = useSelector(state => state.rate)
 
     async function currencyConversionRate(from, to) {
-        const url = `https://sanctuaryapi.net/currencyrate?from_curr=${from}&to_curr=${to}`
+        const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/currencyrate?from_curr=${from}&to_curr=${to}`
         const response = await fetch(url)
         return await response.json()
     }
 
     async function updateCurrencyRate(to) {
-        var data;
+        let data;
         while (true) {
-            const url = `https://sanctuaryapi.net/currencyrate?from_curr=USD&to_curr=${to}`
+            const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/currencyrate?from_curr=USD&to_curr=${to}`
             const response = await fetch(url)
             if (response.status === 200) {
                 data = await response.json()
@@ -38,7 +38,7 @@ export default function useAPICall(callType, params) {
         dispatch(updateRate(data))
     }
 
-    async function convertResults(results) {
+    async function convertCurrency(results) {
         for (let i = 0; i < results.length; i++) {
             if (!isNaN(rate))
                 results[i]["lastSale"] = Math.round(results[i]["lastSale"] * rate)
@@ -55,7 +55,7 @@ export default function useAPICall(callType, params) {
             if (!response.ok) throw new Error()
             
             let results = await response.json()
-            results = await convertResults(results)
+            results = await convertCurrency(results)
 
             dispatch(browseCall(results))
         } catch (e) {
@@ -71,7 +71,7 @@ export default function useAPICall(callType, params) {
             
             let results = await response.json()
             if (!results.length) throw new Error()
-            results = await convertResults(results)
+            results = await convertCurrency(results)
             dispatch(trendingCall(results))
         } catch (e) {
             dispatch(trendingCall(false))
@@ -79,7 +79,7 @@ export default function useAPICall(callType, params) {
     }
 
     async function extendedBrowse(type) {
-        var limit = (type === 'under200') ? 200 : 300
+        let limit = (type === 'under200') ? 200 : 300
         const request = createRequestObject('extendedbrowse', {max_price: limit})
         try {
             const response = await fetch(request.url, request.headers)
@@ -87,7 +87,7 @@ export default function useAPICall(callType, params) {
             
             let results = await response.json()
             if (!results.length) throw new Error()
-            results = await convertResults(results)
+            results = await convertCurrency(results)
             if (type === 'under200')
                 dispatch(under200Call(results)) 
             else if (type === 'under300')
@@ -100,9 +100,9 @@ export default function useAPICall(callType, params) {
         }
     }
 
-    async function getItemInfo(sku, size) {
+    async function getItemInfo(sku, size, gender) {
         try {
-            const request = createRequestObject('stockx', {search: sku, size: size})
+            const request = createRequestObject('stockx', {search: sku, size: size, gender: gender})
             const response = await fetch(request.url, request.headers)
             if (!response.ok) throw new Error()
 
@@ -118,7 +118,7 @@ export default function useAPICall(callType, params) {
             }
         } catch (e) {
             try {
-                const request = createRequestObject('stockxInfo', {search: sku})
+                const request = createRequestObject('stockxInfo', {search: sku, gender: gender})
                 const response = await fetch(request.url, request.headers)
     
                 let itemData = await response.json()
@@ -134,7 +134,7 @@ export default function useAPICall(callType, params) {
         }
     }
 
-    async function getItemPrices(item, size) {
+    async function getItemPrices(item, size, gender) {
         let currencyRate;
         if (currency !== "USD")
             currencyRate = await currencyConversionRate("USD", currency)
@@ -145,7 +145,7 @@ export default function useAPICall(callType, params) {
         results.push(...await stockxLowestPrice(item, currencyRate))
         results.push(...await ebayLowestPrice(item, size, location['country_code'], currencyRate))
         results.push(...await goatLowestPrice(item, size, currencyRate))
-        results.push(...await flightclubLowestPrice(item, size, currencyRate))
+        results.push(...await flightclubLowestPrice(item, size, gender, currencyRate))
         results.push(...await klektLowestPrice(item, size, klektCurrencyRate))
         
         results = results.filter(r => r.price !== 0)
@@ -153,7 +153,7 @@ export default function useAPICall(callType, params) {
         return results
     }
 
-    async function getItemListings(item, size) {
+    async function getItemListings(item, size, gender) {
         let currencyRate;
         if (currency !== "USD")
             currencyRate = await currencyConversionRate("USD", currency)
@@ -161,23 +161,23 @@ export default function useAPICall(callType, params) {
         
         let results = []
         results.push(...await ebayListings(item, size, location['country_code'], currencyRate))
-        results.push(...await depopListings(item, size, currencyRate))
+        results.push(...await depopListings(item, size, gender, currencyRate))
         results.push(...await grailedListings(item, size, currencyRate))
 
         results.sort((a, b) => a.price - b.price)
         return results
     }
 
-    async function getItem(sku, size) {
-        const itemInfo = await getItemInfo(sku, size)
+    async function getItem(sku, size, gender) {
+        const itemInfo = await getItemInfo(sku, size, gender)
         dispatch(updateItemInfo(itemInfo))
         
         if (itemInfo) {
-            const itemPrices = await getItemPrices(itemInfo, size)
+            const itemPrices = await getItemPrices(itemInfo, size, gender)
             dispatch(updateItemPrices(itemPrices))
             dispatch(setItemPricesLoading(false))
     
-            const itemListings = await getItemListings(itemInfo, size)
+            const itemListings = await getItemListings(itemInfo, size, gender)
             dispatch(updateItemListings(itemListings))
             dispatch(setItemListingsLoading(false))
         }
@@ -203,7 +203,7 @@ export default function useAPICall(callType, params) {
 
     useEffect(() => {
         if (callType === 'getitem')
-            getItem(params.sku, params.size)
+            getItem(params.sku, params.size, params.gender)
     }, [currency, size])
 
 }

@@ -12,7 +12,6 @@ import AboutModal from "./components/Pages/aboutModal"
 import HamburgerMenu from './components/hamburgerMenu'
 import DeleteModal from "./components/deleteModal"
 import SearchModal from './components/searchModal'
-import SizeModal from './components/sizeModal'
 import CurrencyModal from './components/currencyModal'
 import PageNotFound from './components/Pages/pageNotFound'
 import ItemNotSupported from './components/Pages/itemNotSupported'
@@ -51,15 +50,15 @@ export default function App() {
 
     const dispatch = useDispatch()
     
+    useLocationDetection()
+    
     const locationPopup = useSelector(state => state.locationPopup)
-    const sizeModalVisible = useSelector(state => state.sizeModalVisible)
     const currencyModalVisible = useSelector(state => state.currencyModalVisible)
     const searchModalVisible = useSelector(state => state.searchModalVisible)
     const aboutModalVisible = useSelector(state => state.aboutModalVisible)
     const deleteModalVisible = useSelector(state => state.deleteModalVisible)
     const categoryFilterModalVisible = useSelector(state => state.categoryFilterModalVisible)
     const [loader, setLoader] = useState(true)
-    useLocationDetection()
     
     useEffect(() => {
         firebase.auth().onAuthStateChanged(user => {
@@ -85,7 +84,7 @@ export default function App() {
                 <Route exact path="/" component={Home} />
                 <Route path="/home" component={Home} />
                 <Route path="/browse/:query?" component={Browse} />
-                <Route path="/item/:sku" component={Item} />
+                <Route path="/item/:sku/:gender" component={Item} />
                 <Route path="/sign-in" component={SignInOptions} />
                 <Route path="/sign-in-email" component={SignInEmail} />
                 <Route path="/create-account" component={CreateAccountOptions} />
@@ -113,11 +112,6 @@ export default function App() {
                 { locationPopup && 
                     <RemoveScroll>
                         <LocationPopup />
-                    </RemoveScroll>
-                }
-                { sizeModalVisible &&
-                    <RemoveScroll>
-                       <SizeModal />
                     </RemoveScroll>
                 }
                 { categoryFilterModalVisible &&
