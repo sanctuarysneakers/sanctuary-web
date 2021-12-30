@@ -1,29 +1,33 @@
 import React from "react";
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateSize } from '../redux/actions'
 
 export default function CarouselCard({ data, index, type, length }) {
 
+    const dispatch = useDispatch()
     const currency = useSelector(state => state.currency)
+    const size = useSelector(state => state.size)
+
     const currencySymbolMap = {
         'AUD': 'A$', 'CAD': 'C$', 'EUR': '€', 'GBP': '£', 'JPY': '¥', 'USD': '$'
     }
 
-    let position
-    if (index === 0) {
-        position = 'carousel-card start'
-    } else if (index === length - 1) {
-        position = 'carousel-card end'
-    } else {
-        position = 'carousel-card'
+    const clickHandler = () => {
+        if (size < 7 && data['gender'] == 'men')
+			dispatch(updateSize(7))
+		else if (size > 12 && data['gender'] == 'women')
+			dispatch(updateSize(12))
+
+        let itemId = data['sku'] ? data['sku'].split('/')[0] : data['urlKey']
+        document.location.href = `/item/${itemId}/${data['gender']}`
     }
 
-    const clickHandler = () => {
-        if (data['sku']) {
-            document.location.href = `/item/${data['sku']}`
-        } else {
-            document.location.href = `/item/${data['urlKey']}`
-        }
-    }
+    let position;
+    if (index === 0)
+        position = 'carousel-card start'
+    else if (index === length - 1)
+        position = 'carousel-card end'
+    else position = 'carousel-card'
 
     return (
         <div className={position} onClick={clickHandler}>

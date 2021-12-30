@@ -80,7 +80,7 @@ export default function useAPICall(callType, params) {
 
     async function extendedBrowse(type) {
         let limit = (type === 'under200') ? 200 : 300
-        const request = createRequestObject('extendedbrowse', {max_price: limit})
+        const request = createRequestObject('browse', {max_price: limit})
         try {
             const response = await fetch(request.url, request.headers)
             if (!response.ok) throw new Error()

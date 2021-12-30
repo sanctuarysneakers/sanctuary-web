@@ -4,9 +4,20 @@ export default function createRequestObject(type, filter) {
 		case 'browse':
 			return {
 				url: 'https://hdwj2rvqkb.us-west-2.awsapprunner.com/browse?' + new URLSearchParams({
-					"search": filter.search,
+					"search": filter.search ? filter.search : '',
 					"page": filter.page ? filter.page : 1,
-					"gender": filter.gender ? filter.gender : ''
+					"gender": filter.gender ? filter.gender : '',
+					"min_price": filter.min_price ? filter.min_price : 0,
+					"max_price": filter.max_price ? filter.max_price : 99999
+				}),
+				headers: {
+					method: 'GET'
+				}
+			}
+		case 'extendedbrowse':
+			return {
+				url: 'https://hdwj2rvqkb.us-west-2.awsapprunner.com/extendedbrowse?' + new URLSearchParams({
+					"max_price": filter.max_price
 				}),
 				headers: {
 					method: 'GET'
@@ -127,15 +138,6 @@ export default function createRequestObject(type, filter) {
 							}).toString()
 						}]
 					})
-				}
-			}
-		case 'extendedbrowse':
-			return {
-				url: 'https://hdwj2rvqkb.us-west-2.awsapprunner.com/extendedbrowse?' + new URLSearchParams({
-					"max_price": filter.max_price
-				}),
-				headers: {
-					method: 'GET'
 				}
 			}
 		default: 

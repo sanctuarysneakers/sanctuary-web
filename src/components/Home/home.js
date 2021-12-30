@@ -36,15 +36,13 @@ export default function Home() {
             </Helmet>
 
             <HomeSplash />
+
             <HomeTrending />
-            {/* <div className='carousels'>
-                <HomeBrandCarousel />
-                <HomeCarousel type={'trending'}/>
-                <HomeCarousel type={'under200'}/>
-                <HomeCarousel type={'under300'}/>
-            </div> */}
+
             <HomeNewsroom />
+
             <HomeApp />
+            
             <Footer colour={'white'} />
         </div>
     )
