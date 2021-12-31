@@ -13,9 +13,9 @@ export default function CarouselCard({ data, index, type, length }) {
     }
 
     const clickHandler = () => {
-        if (size < 7 && data['gender'] == 'men')
+        if (size < 7 && data['gender'] === 'men')
 			dispatch(updateSize(7))
-		else if (size > 12 && data['gender'] == 'women')
+		else if (size > 12 && data['gender'] === 'women')
 			dispatch(updateSize(12))
 
         let itemId = data['sku'] ? data['sku'].split('/')[0] : data['urlKey']

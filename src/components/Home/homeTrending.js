@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react'
+import useAPICall from '../Hooks/useApiCall'
 import VisibleOnScreen from '../Hooks/visibleOnScreen'
 import FadeIn from 'react-fade-in'
 import TextLoop from 'react-text-loop'
@@ -11,6 +12,10 @@ export default function HomeTrending() {
     const isVisible = VisibleOnScreen(ref)
     const [render, setRender] = useState(false)
     const [firstFlip, setFirstFlip] = useState(false)
+
+    useAPICall('trending', {query: ''})
+    useAPICall('under200', {query: ''})
+    useAPICall('under300', {query: ''})
 
     const brands = ['Nike', 'Air Jordan', 'Adidas', 'Yeezy', 'New Balance', 'Converse']
     const brandCards = brands.map((item, index) => 

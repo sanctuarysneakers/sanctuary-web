@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { browseCall, updateItemInfo, updateItemPrices, updateItemListings, updateRate,
+import { browseCall, updateItemInfo, updateItemPrices, updateItemListings,
     setItemPricesLoading, setItemListingsLoading, trendingCall, 
     under200Call, under300Call } from '../../redux/actions'
 import createRequestObject from './createRequest'
@@ -17,7 +17,6 @@ export default function useAPICall(callType, params) {
     const location = useSelector(state => state.location)
     const size = useSelector(state => state.size)
     const currency = useSelector(state => state.currency)
-    const rate = useSelector(state => state.rate)
 
     async function currencyConversionRate(from, to) {
         const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/currencyrate?from_curr=${from}&to_curr=${to}`
@@ -25,78 +24,58 @@ export default function useAPICall(callType, params) {
         return await response.json()
     }
 
-    async function updateCurrencyRate(to) {
-        let data;
-        while (true) {
-            const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/currencyrate?from_curr=USD&to_curr=${to}`
-            const response = await fetch(url)
-            if (response.status === 200) {
-                data = await response.json()
-                break
-            } else await new Promise(r => setTimeout(r, 500));
-        }
-        dispatch(updateRate(data))
-    }
-
-    async function convertCurrency(results) {
-        for (let i = 0; i < results.length; i++) {
-            if (!isNaN(rate))
-                results[i]["lastSale"] = Math.round(results[i]["lastSale"] * rate)
-            else
-                results[i]["lastSale"] = "---"
-        }
+    async function convertCurrency(results, currency) {
+        const rate = await currencyConversionRate("USD", currency)
+        for (let i = 0; i < results.length; i++)
+            results[i]["lastSale"] = !isNaN(rate) ? Math.round(results[i]["lastSale"] * rate) : "---"
         return results
     }
 
-    async function browse(query) {
-        const request = createRequestObject('browse', {search: query})
-        try {
-            const response = await fetch(request.url, request.headers)
-            if (!response.ok) throw new Error()
-            
-            let results = await response.json()
-            results = await convertCurrency(results)
-
-            dispatch(browseCall(results))
-        } catch (e) {
-            history.replace(`/page-not-found`)
+    async function browse(type, query) {
+        const price_limit = {
+            'browse': 99999,
+            'trending': 99999,
+            'under200': 200,
+            'under300': 300
         }
-    }
+        const dispatch_map = {
+            'browse': browseCall,
+            'trending': trendingCall,
+            'under200': under200Call,
+            'under300': under300Call
+        }
 
-    async function trending() {
-        const request = createRequestObject('browse', {search: ''})
+        const request = createRequestObject('browse', {
+            search: query,
+            max_price: price_limit[type]
+        })
+
         try {
             const response = await fetch(request.url, request.headers)
             if (!response.ok) throw new Error()
             
             let results = await response.json()
             if (!results.length) throw new Error()
-            results = await convertCurrency(results)
-            dispatch(trendingCall(results))
+            results = await convertCurrency(results, currency)
+
+            dispatch(dispatch_map[type](results))
         } catch (e) {
-            dispatch(trendingCall(false))
+            dispatch(dispatch_map[type](false))
         }
     }
 
-    async function extendedBrowse(type) {
-        let limit = (type === 'under200') ? 200 : 300
-        const request = createRequestObject('browse', {max_price: limit})
-        try {
-            const response = await fetch(request.url, request.headers)
-            if (!response.ok) throw new Error()
-            
-            let results = await response.json()
-            if (!results.length) throw new Error()
-            results = await convertCurrency(results)
-            if (type === 'under200')
-                dispatch(under200Call(results)) 
-            else if (type === 'under300')
-                dispatch(under300Call(results))
-        } catch (e) {
-            if (type === 'under200')
-                dispatch(under200Call(false))  
-            else if (type === 'under300')
-                dispatch(under300Call(false))
+    async function getItem(sku, size, gender) {
+        const itemInfo = await getItemInfo(sku, size, gender)
+        dispatch(updateItemInfo(itemInfo))
+        
+        if (itemInfo) {
+            const itemPrices = await getItemPrices(itemInfo, size, gender)
+            dispatch(updateItemPrices(itemPrices))
+            dispatch(setItemPricesLoading(false))
+    
+            const itemListings = await getItemListings(itemInfo, size, gender)
+            dispatch(updateItemListings(itemListings))
+            dispatch(setItemListingsLoading(false))
         }
     }
 
@@ -168,42 +147,11 @@ export default function useAPICall(callType, params) {
         return results
     }
 
-    async function getItem(sku, size, gender) {
-        const itemInfo = await getItemInfo(sku, size, gender)
-        dispatch(updateItemInfo(itemInfo))
-        
-        if (itemInfo) {
-            const itemPrices = await getItemPrices(itemInfo, size, gender)
-            dispatch(updateItemPrices(itemPrices))
-            dispatch(setItemPricesLoading(false))
-    
-            const itemListings = await getItemListings(itemInfo, size, gender)
-            dispatch(updateItemListings(itemListings))
-            dispatch(setItemListingsLoading(false))
-        }
-    }
-
-    useEffect(() => {
-        updateCurrencyRate(currency)
-    }, [currency])
-
-    useEffect(() => {
-        if (callType === 'browse') 
-            browse(params.query)
-
-        if (callType === 'trending')
-            trending()
-
-        if (callType === 'under300')
-            extendedBrowse('under300')
-
-        if (callType === 'under200')
-            extendedBrowse('under200')
-    }, [currency,rate])
-
     useEffect(() => {
         if (callType === 'getitem')
             getItem(params.sku, params.size, params.gender)
+        else
+            browse(callType, params.query)
     }, [currency, size])
 
 }

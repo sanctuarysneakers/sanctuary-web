@@ -8,21 +8,24 @@ import ItemCard from './itemCard'
 export default function Catalog({ search_query }) {
 
     const browseData = useSelector(state => state.browseData)
-    const rate = useSelector(state => state.rate)
+    const currency = useSelector(state => state.currency)
     
     let [items, updateItems] = useState(browseData)
     let [page, updatePage] = useState(1)
     let [hasMore, setHasMore] = useState(true)
 
     useAPICall('browse', {query: search_query})
+
+    async function currencyConversionRate(from, to) {
+        const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/currencyrate?from_curr=${from}&to_curr=${to}`
+        const response = await fetch(url)
+        return await response.json()
+    }
     
-    function convertCurrency(results) {
-        for (let i = 0; i < results.length; i++) {
-            if (!isNaN(rate))
-                results[i]["lastSale"] = Math.round(results[i]["lastSale"] * rate)
-            else
-                results[i]["lastSale"] = "---"
-        }
+    async function convertCurrency(results) {
+        const rate = await currencyConversionRate("USD", currency)
+        for (let i = 0; i < results.length; i++)
+            results[i]["lastSale"] = !isNaN(rate) ? Math.round(results[i]["lastSale"] * rate) : "---"
         return results
     }
 
@@ -30,7 +33,7 @@ export default function Catalog({ search_query }) {
         const request = createRequestObject('browse', {search: search_query, page: page+1})
         const response = await fetch(request.url, request.headers)
         let results = await response.json()
-        results = convertCurrency(results)
+        results = await convertCurrency(results)
         
         updateItems(items.concat(results))
         updatePage(page + 1)
