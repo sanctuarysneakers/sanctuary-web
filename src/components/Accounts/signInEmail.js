@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import firebase from '../../services/firebase.js'
+import realm from '../../services/realm.js'
 import { useHistory } from "react-router-dom";
 import { Link } from 'react-router-dom'
 import { hideHomeSearch } from '../../redux/actions'
@@ -19,15 +19,16 @@ export default function SignInEmail() {
     dispatch(hideHomeSearch())
 
     const signInEmailPassword = () => {
-        firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(() => {
-                history.push("/")
-                window.scrollTo(0, 0)
-            })
-            .catch(e => {
-                setErrorMessage(e.message)
-            }
-            );
+        
+        try{
+            const credentials = Realm.Credentials.emailPassword(email, passsword) 
+            await realm.logIn(credentials); 
+
+            history.push("/")
+            window.scrollTo(0, 0)
+        } catch(e) {
+            setErrorMessage(e.message) 
+        }
     }
 
     return (

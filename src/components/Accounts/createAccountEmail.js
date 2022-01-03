@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import firebase from '../../services/firebase.js'
+import realm from '../../services/realm.js'
 import { useHistory } from "react-router-dom";
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -28,15 +28,16 @@ export default function CreateAccountEmail() {
             setErrorMessage('Please enter your name.')
         }
         else {
-            firebase.auth().createUserWithEmailAndPassword(email, password)
-                .then(r => {
-                    r.user.updateProfile({ displayName: name })
-                    history.push("/")
-                    window.scrollTo(0, 0)
-                })
-                .catch(e => {
-                    setErrorMessage(e.message)
-                })
+            try {
+                await realm.emailPasswordAuth.registerUser(email, password) 
+                const credentials = Realm.Credentials.emailPassword(email, passsword) 
+                await realm.logIn(credentials); 
+
+                history.push("/")
+                window.scrollTo(0, 0)
+            } catch(e) {
+                setErrorMessage(e.message)
+            }
         }
     }
 

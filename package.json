@@ -27,6 +27,8 @@
     "react-select": "^4.1.0",
     "react-slick": "^0.28.1",
     "react-text-loop": "^2.3.0",
+    "realm": "^10.11.0",
+    "realm-web": "^1.5.1",
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
     "sass": "^1.47.0",

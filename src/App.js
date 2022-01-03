@@ -43,7 +43,7 @@ import ArticleSneakersMeetEngineering from "./components/Blog/Articles/articleSn
 import ArticleDemystifying from "./components/Blog/Articles/articleDemystifying"
 import ArticleTop2020 from "./components/Blog/Articles/articleTop2020"
 
-import firebase from './services/firebase'
+import realm from './services/realm'
 import Loader from './components/loader'
 
 
@@ -63,16 +63,16 @@ export default function App() {
     const [loader, setLoader] = useState(true)
     
     useEffect(() => {
-        firebase.auth().onAuthStateChanged(user => {
-            if (user) {
-                dispatch(setUser(user))
-                setLoader(false)
-            } else {
-                dispatch(setUser(null))
-                setLoader(false)
-            }
-        })
-    })
+        let user = realm.currentUser(); 
+
+        if (user) {
+            dispatch(setUser(user))
+            setLoader(false)
+        } else {
+            dispatch(setUser(null))
+            setLoader(false)
+        }
+    })[realm.currentUser()]
 
     useEffect(() => {
         window.analytics.page(); 

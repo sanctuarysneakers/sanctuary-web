@@ -1,5 +1,5 @@
 import React from 'react'
-import firebase from '../../services/firebase.js'
+import realm from '../../services/realm.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { showDeleteModal, hideHomeSearch } from '../../redux/actions'
@@ -9,7 +9,6 @@ import Footer from '../footer'
 
 export default function Profile() {
 
-    // const user = firebase.auth().currentUser
     const user = useSelector(state => state.user)
     const history = useHistory()
     const dispatch = useDispatch()
@@ -18,10 +17,9 @@ export default function Profile() {
     dispatch(hideHomeSearch())
 
     const signOut = () => {
-        firebase.auth().signOut().then(
-            history.push("/"),
-            window.scrollTo(0, 0)
-        )
+        await realm.currentUser.logOut()
+        history.push("/")
+        window.scrollTo(0, 0)         
     }
 
     return (
