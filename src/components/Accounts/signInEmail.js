@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import * as Realm from 'realm-web'
 import realm from '../../services/realm.js'
 import { useHistory } from "react-router-dom";
 import { Link } from 'react-router-dom'
@@ -18,10 +19,10 @@ export default function SignInEmail() {
     // Hide the search bar
     dispatch(hideHomeSearch())
 
-    const signInEmailPassword = () => {
+    const signInEmailPassword = async () => {
         
         try{
-            const credentials = Realm.Credentials.emailPassword(email, passsword) 
+            const credentials = Realm.Credentials.emailPassword(email, password) 
             await realm.logIn(credentials); 
 
             history.push("/")

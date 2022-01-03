@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import realm from '../../services/realm.js'
+import * as Realm from 'realm-web'
 import { useHistory } from "react-router-dom";
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -20,7 +21,7 @@ export default function CreateAccountEmail() {
     // Hide the search bar
     dispatch(hideHomeSearch())
 
-    const createAccountEmailPassword = () => {
+    const createAccountEmailPassword = async () => {
         if (password !== confirmPassword) {
             setErrorMessage('Passwords do not match.')
         }
@@ -30,7 +31,7 @@ export default function CreateAccountEmail() {
         else {
             try {
                 await realm.emailPasswordAuth.registerUser(email, password) 
-                const credentials = Realm.Credentials.emailPassword(email, passsword) 
+                const credentials = Realm.Credentials.emailPassword(email, password) 
                 await realm.logIn(credentials); 
 
                 history.push("/")

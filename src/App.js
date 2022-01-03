@@ -72,7 +72,7 @@ export default function App() {
             dispatch(setUser(null))
             setLoader(false)
         }
-    })[realm.currentUser()]
+    }, [realm.currentUser()])
 
     useEffect(() => {
         window.analytics.page(); 
