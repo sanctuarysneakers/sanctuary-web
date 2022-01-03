@@ -4,8 +4,8 @@
     top: 0px;
     z-index: 1;
     width: 100%;
-    background: #F7F9FC;
-    transition: 0.9s;
+    background: white;
+    transition: 0.2s;
 
     .navbar-content {
         margin: 0px auto;
@@ -124,5 +124,4 @@
 
 .navbar.active {
     box-shadow: 0px 1px 10px rgba(0,0,0,0.1);
-    background: white;
 }
