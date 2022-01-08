@@ -9,7 +9,6 @@ import ProfileIcon from '../assets/images/icons/profileIcon'
 import SignOutIcon from '../assets/images/icons/signOutIcon.js'
 import BlogIcon from '../assets/images/icons/blogIcon.js'
 import {ReactComponent as BrowseIcon} from '../assets/images/browseIcon.svg'
-import realm from '../services/realm'
 
 
 export default function HamburgerModal() {

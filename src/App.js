@@ -46,6 +46,7 @@ import ArticleTop2020 from "./components/Blog/Articles/articleTop2020"
 import realm from './services/realm'
 import Loader from './components/loader'
 
+require('dotenv').config()
 
 export default function App() {
 

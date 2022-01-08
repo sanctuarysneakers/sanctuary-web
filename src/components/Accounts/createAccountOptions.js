@@ -1,5 +1,6 @@
 import React from 'react'
-import firebase from '../../services/firebase.js'
+import Realm from 'realm'
+import realm from '../../services/realm.js'
 import { hideHomeSearch } from '../../redux/actions'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -10,8 +11,6 @@ import Footer from '../footer'
 
 export default function CreateAccountOptions() {
 
-    const provider = new firebase.auth.GoogleAuthProvider()
-    const facebookProvider = new firebase.auth.FacebookAuthProvider()
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -19,17 +18,29 @@ export default function CreateAccountOptions() {
     dispatch(hideHomeSearch())
 
     const googleAuthentication = () => {
-        firebase.auth().signInWithRedirect(provider).then(
+        // Get Google credentials using Realm SDK
+        const redirectUri = process.env.REACT_APP_SIGN_IN_URL;
+        const credentials = Realm.Credentials.google(redirectUri);
+       
+        //Log the user in to your app
+        realm.logIn(credentials).then((user) => {
+            console.log(`Logged in with id: ${user.id}`);
             history.push("/"),
             window.scrollTo(0, 0)
-        )
+        }).catch((err) => console.error(err));
     }
 
     const facebookAuthentication = () => {
-        firebase.auth().signInWithRedirect(facebookProvider).then(
+        // Get FB credentials using Realm SDK
+        const redirectUri = process.env.REACT_APP_SIGN_IN_URL;
+        const credentials = Realm.Credentials.facebook(redirectUri);
+        
+        //Log the user in to your app
+        realm.logIn(credentials).then(user => {
+            console.log(`Logged in with id: ${user.id}`);
             history.push("/"),
             window.scrollTo(0, 0)
-        )
+        }).catch((err) => console.error(err));;
     }
 
     return (
