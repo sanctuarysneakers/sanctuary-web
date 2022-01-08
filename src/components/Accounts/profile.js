@@ -1,5 +1,5 @@
 import React from 'react'
-import realm from '../../services/realm.js'
+import { realm } from '../../services/realm.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { showDeleteModal, hideHomeSearch } from '../../redux/actions'
@@ -17,7 +17,7 @@ export default function Profile() {
     dispatch(hideHomeSearch())
 
     const signOut = async () => {
-        await realm.currentUser.logOut()
+        await realm.currentUser().logOut()
         history.push("/")
         window.scrollTo(0, 0)         
     }

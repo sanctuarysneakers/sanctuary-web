@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { hideDeleteModal } from '../redux/actions'
 import { useHistory } from 'react-router-dom'
 import useOutsideAlerter from './Hooks/useOutsideAlerter'
+import { realm } from "../services/realm.js"
 
 export default function DeleteModal() {
 
@@ -12,14 +13,20 @@ export default function DeleteModal() {
     const dispatch = useDispatch()
     useOutsideAlerter(wrapperRef)
 
-    const deleteUser = () => {
-        user.delete().then(() => {
+    const deleteUser = async () => {
+
+        // Get a client object for your app's custom user data collection
+        const mongodb = realm.currentUser.mongoClient("mongodb-atlas");
+        const users = mongodb.db("App").collection("User");
+
+        try {
+            await users.findOneAndDelete({userID: user.userID}); 
             dispatch(hideDeleteModal())
             history.push("/")
             window.scrollTo(0, 0)
-        }).catch(e => {
+        } catch(e) {
             alert(e)
-        })
+        } 
     }
 
     return (

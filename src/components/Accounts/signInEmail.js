@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import * as Realm from 'realm-web'
-import realm from '../../services/realm.js'
+import { realm } from '../../services/realm.js'
 import { useHistory } from "react-router-dom";
 import { Link } from 'react-router-dom'
 import { hideHomeSearch } from '../../redux/actions'
@@ -23,12 +23,14 @@ export default function SignInEmail() {
         
         try{
             const credentials = Realm.Credentials.emailPassword(email, password) 
-            await realm.logIn(credentials); 
+            const user = await realm.logIn(credentials); 
+
+            console.log(`Logged in with id: ${user.id}`);
 
             history.push("/")
             window.scrollTo(0, 0)
         } catch(e) {
-            setErrorMessage(e.message) 
+            setErrorMessage("Invalid credentials. Please try again.")
         }
     }
 

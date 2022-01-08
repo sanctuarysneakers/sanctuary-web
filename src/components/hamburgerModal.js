@@ -31,7 +31,7 @@ export default function HamburgerModal() {
     }
 
     const signOut = async () => {
-        await realm.currentUser.currentUser().logOut()
+        await realm.currentUser().logOut()
         dispatch(hideHamburgerModal())
         history.push("/")
         window.scrollTo(0, 0)

@@ -1,6 +1,6 @@
 import React from 'react'
-import Realm from 'realm'
-import realm from '../../services/realm.js'
+import * as Realm from "realm-web";
+import { realm } from '../../services/realm.js'
 import { hideHomeSearch } from '../../redux/actions'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -27,7 +27,7 @@ export default function SignInOptions() {
         //Log the user in to your app
         realm.logIn(credentials).then((user) => {
             console.log(`Logged in with id: ${user.id}`);
-            history.push("/"),
+            history.push("/")
             window.scrollTo(0, 0)
         }).catch((err) => console.error(err));
     }
@@ -40,7 +40,7 @@ export default function SignInOptions() {
          //Log the user in to your app
         realm.logIn(credentials).then(user => {
             console.log(`Logged in with id: ${user.id}`);
-            history.push("/"),
+            history.push("/")
             window.scrollTo(0, 0)
         });
     }

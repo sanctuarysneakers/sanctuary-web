@@ -43,7 +43,9 @@ import ArticleSneakersMeetEngineering from "./components/Blog/Articles/articleSn
 import ArticleDemystifying from "./components/Blog/Articles/articleDemystifying"
 import ArticleTop2020 from "./components/Blog/Articles/articleTop2020"
 
-import realm from './services/realm'
+import * as Realm from 'realm-web'
+import { realm } from './services/realm'
+
 import Loader from './components/loader'
 
 require('dotenv').config()
@@ -64,16 +66,16 @@ export default function App() {
     const [loader, setLoader] = useState(true)
     
     useEffect(() => {
-        let user = realm.currentUser(); 
+        console.log(realm.currentUser);
 
-        if (user) {
-            dispatch(setUser(user))
-            setLoader(false)
-        } else {
+        if(realm.currentUser == null) {
             dispatch(setUser(null))
-            setLoader(false)
-        }
-    }, [realm.currentUser()])
+            setLoader(false);
+        } else {
+            dispatch(setUser(realm.currentUser))
+            setLoader(false);
+        } 
+    }, [realm.currentUser])
 
     useEffect(() => {
         window.analytics.page(); 
