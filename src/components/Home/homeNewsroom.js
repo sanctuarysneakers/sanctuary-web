@@ -42,6 +42,11 @@ export default function HomeNewsroom() {
         }
     }, [isVisible, firstFlip])
 
+    const clickHandler = (path) => {
+        window.analytics.track(`home_newsroom_clicked`, {article: path});
+        document.location.href = path
+    } 
+
     return (
         <div className='home-newsroom'>
             <div className='home-newsroom-content'>
@@ -54,7 +59,7 @@ export default function HomeNewsroom() {
                             It's the ultimate place for all sneakerheads alike, curated by our team.
                         </p>
                         <div className='home-newsroom-read'
-                            onClick={() => document.location.href = '/newsroom'}>
+                            onClick={() => clickHandler('/newsroom')}>
                             Start reading
                         </div>
                     </FadeIn>
@@ -64,7 +69,7 @@ export default function HomeNewsroom() {
                     <Slider {...sliderSettings} ref={sliderRef}>
                         <div style={{ width: 1020 }}>
                             <div className='home-newsroom-article'
-                                onClick={() => document.location.href = '/article-introduction'}>
+                                onClick={() => clickHandler('/article-introduction')}>
 
                                 <div className='home-newsroom-img' style={{ backgroundImage: `url(${ArticleData[0]['image']})` }} />
                                 <div className='home-newsroom-article-gradient sanctuary'>
@@ -78,7 +83,7 @@ export default function HomeNewsroom() {
 
                         <div style={{ width: 1020 }}>
                             <div className='home-newsroom-article'
-                                onClick={() => document.location.href = '/article-demystifying'}>
+                                onClick={() => clickHandler('/article-demystifying')}>
 
                                 <div className='home-newsroom-img' style={{ backgroundImage: `url(${ArticleData[1]['image']})` }} />
                                 <div className='home-newsroom-article-gradient'>
@@ -92,7 +97,7 @@ export default function HomeNewsroom() {
 
                         <div style={{ width: 1020 }}>
                             <div className='home-newsroom-article'
-                                onClick={() => document.location.href = '/article-sneakersmeetengineering'}>
+                                onClick={() => clickHandler('/article-sneakersmeetengineering')}>
 
                                 <div className='home-newsroom-img' style={{ backgroundImage: `url(${ArticleData[2]['image']})` }} />
                                 <div className='home-newsroom-article-gradient'>
@@ -106,7 +111,7 @@ export default function HomeNewsroom() {
 
                         <div style={{ width: 1020 }}>
                             <div className='home-newsroom-article'
-                                onClick={() => document.location.href = '/article-toppicks'}>
+                                onClick={() => clickHandler('/article-toppicks')}>
 
                                 <div className='home-newsroom-img' style={{ backgroundImage: `url(${ArticleData[3]['image']})` }} />
                                 <div className='home-newsroom-article-gradient'>

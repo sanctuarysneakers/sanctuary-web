@@ -19,6 +19,7 @@ export default function CarouselCard({ data, index, type, length }) {
 			dispatch(updateSize(12))
 
         let itemId = data['sku'] ? data['sku'].split('/')[0] : data['urlKey']
+        window.analytics.track(`home_carousel_item_clicked`, {id: itemId, gender: data['gender']});
         document.location.href = `/item/${itemId}/${data['gender']}`
     }
 

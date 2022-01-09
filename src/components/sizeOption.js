@@ -13,6 +13,8 @@ export default function SizeOption({ option, size, gender }) {
         dispatch(hideSizeModal())
         dispatch(setItemPricesLoading(true))
         dispatch(setItemListingsLoading(true))
+
+        window.analytics.track(`item_size_selection`, {size: option});
     }
     
     return (

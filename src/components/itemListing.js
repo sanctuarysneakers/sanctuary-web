@@ -30,10 +30,15 @@ export default function ItemListing({ data, index, length }) {
           condition = 'Used'
     }
 
+    const clickHandler = (url) => {
+        window.analytics.track(`item_more_listings_click_${data.source}`, {url: data.url, price: data.price});
+        window.open(url, '_blank')
+    }
+
     return (
         <div className={(index === length - 1) ? 'item-listing last' : 'item-listing'}>
 
-            <a target='_blank' href={data.url}  rel="noopener noreferrer">
+            <a onClick={() => clickHandler(data.url)}>
                 <div className='item-listing-source'>
                     <div className='item-listing-image'>
                         <img src={data.image} alt='the sneaker' />

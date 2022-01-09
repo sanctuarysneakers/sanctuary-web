@@ -55,6 +55,11 @@ export default function Item() {
             length={itemListings.length} />
     )
 
+    const clickHandler = (url) => {
+        window.analytics.track(`item_buy_new_clicked`, {sku: sku, gender: gender, model: itemInfo.modelName});
+        window.open(url, '_blank')
+    }
+
     return (
         <div className='item'>
             <Helmet>
@@ -91,7 +96,7 @@ export default function Item() {
                             {pricesLoading && <ItemLoader version={'info'} />}
                             {!pricesLoading && <div className='item-sneaker-price-details'>
                                 {itemPrices.length ? 
-                                <a target='_blank' href={itemPrices[0].url} rel="noopener noreferrer">
+                                <a target='_blank' onClick={() => clickHandler(itemPrices[0].url)}>
                                     <div className='item-sneaker-price'>
                                         <h2>
                                             Buy New {currencySymbolMap[currency]}{itemPrices[0].price}
