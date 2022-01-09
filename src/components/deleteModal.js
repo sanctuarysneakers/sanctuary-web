@@ -20,7 +20,7 @@ export default function DeleteModal() {
         const users = mongodb.db("App").collection("User");
 
         try {
-            await users.findOneAndDelete({userID: user.userID}); 
+            await users.findOneAndDelete({userID: user.id}); 
             dispatch(hideDeleteModal())
             history.push("/")
             window.scrollTo(0, 0)

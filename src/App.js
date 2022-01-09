@@ -43,7 +43,6 @@ import ArticleSneakersMeetEngineering from "./components/Blog/Articles/articleSn
 import ArticleDemystifying from "./components/Blog/Articles/articleDemystifying"
 import ArticleTop2020 from "./components/Blog/Articles/articleTop2020"
 
-import * as Realm from 'realm-web'
 import { realm } from './services/realm'
 
 import Loader from './components/loader'
@@ -67,6 +66,9 @@ export default function App() {
     
     useEffect(() => {
         console.log(realm.currentUser);
+        if(realm.currentUser) {
+            console.log(realm.currentUser.customData);
+        }
 
         if(realm.currentUser == null) {
             dispatch(setUser(null))

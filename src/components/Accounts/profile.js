@@ -17,7 +17,7 @@ export default function Profile() {
     dispatch(hideHomeSearch())
 
     const signOut = async () => {
-        await realm.currentUser().logOut()
+        await realm.currentUser.logOut()
         history.push("/")
         window.scrollTo(0, 0)         
     }

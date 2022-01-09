@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { realm } from '../../services/realm'
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
 import { hideHomeSearch } from '../../redux/actions'
@@ -15,15 +16,22 @@ export default function EditProfileEmail() {
     // Hide the search bar
     dispatch(hideHomeSearch())
 
-    const updateEmail = () => {
+    const updateEmail = async () => {
+        // Get a client object for your app's custom user data collection
+        const mongodb = realm.currentUser.mongoClient("mongodb-atlas");
+        const users = mongodb.db("App").collection("User");
 
-        user.updateEmail(newEmail).then(() => {
+        try {
+            await users.updateOne(
+                { _id: user.id }, 
+                { $set: { email: newEmail } } //set email 
+            );
+
             history.push("/profile")
             window.scrollTo(0, 0)
-        }).catch(e => {
+        } catch(e) {
             setErrorMessage(e.message)
-        })
-
+        } 
     }
 
     return (
