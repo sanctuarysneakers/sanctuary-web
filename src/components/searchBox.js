@@ -9,6 +9,7 @@ export default function SearchBox({ location }) {
     const handleKeyDown = e => {
         if (e.key === 'Enter') {
             // redirect to browse page with search query as url param
+            window.analytics.track(`searchbar_entered`, {searchValue: e.target.value});
             document.location.href = `/browse/${e.target.value}`
         }
     }

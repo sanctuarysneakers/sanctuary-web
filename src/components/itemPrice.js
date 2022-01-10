@@ -36,10 +36,15 @@ export default function ItemPrice({ data, index, length }) {
         'ebay' : 'eBay'
     }
 
+    const clickHandler = (url) => {
+        window.analytics.track(`item_lowest_prices_click_${data.source}`, {url: data.url, price: data.price});
+        window.open(url, '_blank')
+    }
+
     return (
         <div className={(index === length - 1) ? 'item-price last' : 'item-price'}>
 
-            <a target='_blank' href={data.url} rel="noopener noreferrer">
+            <a onClick={() => clickHandler(data.url)}>
                 <div className='item-price-source'>
                     <div className={`item-source-logo ${data.source}`}>
                         <img src={websiteLogoMap[data.source]} alt='website logo' />

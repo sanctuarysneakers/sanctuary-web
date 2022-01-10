@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Switch, Route } from 'react-router-dom'
+import { useLocation } from 'react-router'
 import { RemoveScroll } from 'react-remove-scroll'
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser } from './redux/actions'
@@ -49,6 +50,7 @@ import Loader from './components/loader'
 export default function App() {
 
     const dispatch = useDispatch()
+    const urlLocation = useLocation() 
     
     useLocationDetection()
     
@@ -71,6 +73,11 @@ export default function App() {
             }
         })
     })
+
+    useEffect(() => {
+        window.analytics.page(); 
+    }, [urlLocation.pathname])
+
 
     if (loader) {
         return (
