@@ -31,17 +31,14 @@ import EditProfileName from './components/Accounts/editProfileName'
 import EditProfileEmail from './components/Accounts/editProfileEmail'
 import EditProfilePassword from './components/Accounts/editProfilePassword'
 
+import HowItWorks from './components/HowItWorks/howItWorks'
+
 import Newsroom from './components/Newsroom/newsroom'
 import SanctuaryStory from './components/Newsroom/Articles/sanctuaryStory'
 import AdidasCarbon3D from './components/Newsroom/Articles/adidasCarbon3D'
 import TopDrops2020 from './components/Newsroom/Articles/topDrops2020'
 import SneakerMarket from './components/Newsroom/Articles/sneakerMarket'
 import BuyYourPair from "./components/Newsroom/Articles/buyYourPair"
-
-import ArticleIntro from "./components/Blog/Articles/articleIntro"
-import ArticleSneakersMeetEngineering from "./components/Blog/Articles/articleSneakersmeetengineering"
-import ArticleDemystifying from "./components/Blog/Articles/articleDemystifying"
-import ArticleTop2020 from "./components/Blog/Articles/articleTop2020"
 
 import firebase from './services/firebase'
 import Loader from './components/loader'
@@ -102,16 +99,13 @@ export default function App() {
                 <Route path="/profile-edit-password" component={EditProfilePassword} />
                 <Route path="/privacy-policy" component={PrivacyPolicy} />
                 <Route path="/terms-of-use" component={TermsOfUse} />
+                <Route path="/how-it-works" component={HowItWorks} />
                 <Route path="/newsroom" component={Newsroom} />
                 <Route path="/newsroom-sanctuary-our-story" component={SanctuaryStory} />
                 <Route path="/newsroom-buy-your-pair" component={BuyYourPair} />
                 <Route path="/newsroom-how-adidas-and-carbon-3d-are-revolutionizing-sneaker-production" component={AdidasCarbon3D} />
                 <Route path="/newsroom-our-top-drops-of-2020" component={TopDrops2020} />
                 <Route path="/newsroom-demystifying-the-sneaker-market" component={SneakerMarket} />
-                <Route path="/article-introduction" component={ArticleIntro} />
-                <Route path="/article-sneakersmeetengineering" component={ArticleSneakersMeetEngineering}/>
-                <Route path="/article-demystifying" component={ArticleDemystifying}/>
-                <Route path="/article-toppicks" component={ArticleTop2020}/>
                 <Route path="/item-not-supported" component={ItemNotSupported} />
                 <Route component={PageNotFound} />
                 </Switch>

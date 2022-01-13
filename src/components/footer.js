@@ -1,7 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { showAboutModal } from '../redux/actions'
 import CurrencyFilter from './currencyFilter'
 import { ReactComponent as SanctuaryFooterLogo } from '../assets/images/SanctuaryFooterLogo.svg'
 import { ReactComponent as FacebookLogo } from '../assets/images/facebook.svg'
@@ -11,8 +9,6 @@ import { ReactComponent as TiktokLogo } from '../assets/images/tiktok.svg'
 
 
 export default function Footer({ colour }) {
-
-    const dispatch = useDispatch()
 
     return (
         <div className={`footer ${colour}`}>
@@ -76,7 +72,7 @@ export default function Footer({ colour }) {
                                     Newsroom
                                 </Link>
 
-                                <Link onClick={() => dispatch(showAboutModal())}>
+                                <Link onClick={() => document.location.href = '/how-it-works'}>
                                     How it Works
                                 </Link>
                             </div>
