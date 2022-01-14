@@ -1,12 +1,12 @@
-.home-contact {
+.contact-us {
     background: white;
 
-    .home-contact-content {
+    .contact-us-content {
         max-width: 1000px;
         margin: 0px auto;
         padding: 166px 20px;
 
-        .home-contact-text {
+        .contact-us-text {
             width: 577px;
             margin: 0px auto;
             text-align: center;
@@ -29,7 +29,7 @@
                 margin: 20px auto;
             }
 
-            .home-contact-button {
+            .contact-us-button {
                 display: flex;
                 justify-content: center;
 
@@ -54,9 +54,9 @@
 }
 
 @media (min-width: 700px) and (max-width: 1199px) {
-    .home-contact {
-        .home-contact-content {
-            .home-contact-text {
+    .contact-us {
+        .contact-us-content {
+            .contact-us-text {
                 h1 {
                     font-size: 48px;
                     line-height: 53px;
@@ -68,7 +68,7 @@
                     margin: 18px auto;
                 }
 
-                .home-contact-button {
+                .contact-us-button {
                     a {
                         font-size: 16px;
                         padding: 13px 26px;
@@ -80,11 +80,11 @@
 }
 
 @media (min-width: 500px) and (max-width: 699px) {
-    .home-contact {
-        .home-contact-content {
+    .contact-us {
+        .contact-us-content {
             padding: 100px 20px;
 
-            .home-contact-text {
+            .contact-us-text {
                 width: auto;
 
                 h1 {
@@ -99,7 +99,7 @@
                     margin: 18px auto;
                 }
 
-                .home-contact-button {
+                .contact-us-button {
                     a {
                         font-size: 16px;
                         letter-spacing: 0px;
@@ -113,11 +113,11 @@
 }
 
 @media screen and (max-width: 499px) {
-    .home-contact {
-        .home-contact-content {
+    .contact-us {
+        .contact-us-content {
             padding: 100px 20px;
 
-            .home-contact-text {
+            .contact-us-text {
                 width: 305px;
 
                 h1 {
@@ -133,7 +133,7 @@
                     margin-bottom: 24px;
                 }
 
-                .home-contact-button {
+                .contact-us-button {
                     display: flex;
                     justify-content: center;
                     
