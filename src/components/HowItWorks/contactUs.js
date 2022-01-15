@@ -5,30 +5,12 @@ import FadeIn from 'react-fade-in'
 import VisibleOnScreen from '../Hooks/visibleOnScreen'
 
 
-function reducer(state, action) {
-    switch (action.type) {
-        case 'name':
-        return { ...state, name: action.value };
-        case 'email':
-        return { ...state, email: action.value };
-        case 'message':
-        return { ...state, message: action.value };
-        default:
-        throw new Error();
-    }
-}
-
 export default function ContactUs() {
-    const initialState = {
-        name: '',
-        email: '',
-        message: '',
-    };
-    const [formState, dispatch] = useReducer(reducer, initialState);
+
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [message, setMessage] = useState('')
     const [showCaptcha, setShowCaptcha] = useState(false);
-
-    const { name, email, message } = formState;
-
     const [render, setRender] = useState(false)
 
     const ref = useRef();
@@ -46,9 +28,10 @@ export default function ContactUs() {
     };
 
     const sendEmail = () => {    
-
         const params = {
-          ...formState,
+          name, 
+          email,
+          message,
           'g-recaptcha-response': process.env.REACT_APP_EMAILJS_CAPTCHA_PRIVATE_KEY
         };
 
@@ -67,7 +50,6 @@ export default function ContactUs() {
     return (
         <div className='contact-us'>
             <div className='contact-us-content'>
-
                 <div ref={ref} className='contact-us-text'>
                     <FadeIn visible={render} delay={300} transitionDuration={1100}>
                         <h1> We love feedback! </h1>
@@ -82,14 +64,14 @@ export default function ContactUs() {
                                 <input 
                                     type="text" 
                                     value={name}
-                                    onChange={(e) => dispatch({ type: 'name', value: e.target.value })} 
+                                    onChange={(e) => setName(e.target.value)} 
                                     required
                                 />
                                 <label>Email</label>
                                 <input 
                                     type="email" 
                                     value={email}
-                                    onChange={(e) => dispatch({ type: 'email', value: e.target.value })}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     required 
                                 />
                                 <label>Message</label>
@@ -97,7 +79,7 @@ export default function ContactUs() {
                                     rows="5"
                                     type="text"
                                     value={message}
-                                    onChange={(e) => dispatch({ type: 'message', value: e.target.value })}
+                                    onChange={(e) => setMessage(e.target.value)}
                                     required
                                 />
                                 <input type="submit"/>
@@ -110,7 +92,6 @@ export default function ContactUs() {
                         )}
                     </FadeIn>
                 </div>
-
             </div>
         </div>
     )
