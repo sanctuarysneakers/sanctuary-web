@@ -48,8 +48,8 @@ export default function CreateAccountEmail() {
                 await user.refreshCustomData();
 
                 console.log(`Logged in with id: ${user.id}`);
-                // history.push("/")
-                // window.scrollTo(0, 0)
+                history.push("/")
+                window.scrollTo(0, 0)
             } catch(e) {
                 setErrorMessage("Invalid credentials. Please try again.")
             }

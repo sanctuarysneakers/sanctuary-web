@@ -62,22 +62,21 @@ export default function App() {
     const aboutModalVisible = useSelector(state => state.aboutModalVisible)
     const deleteModalVisible = useSelector(state => state.deleteModalVisible)
     const categoryFilterModalVisible = useSelector(state => state.categoryFilterModalVisible)
+    const user = useSelector(state => state.user)
+
     const [loader, setLoader] = useState(true)
     
     useEffect(() => {
-        console.log(realm.currentUser);
-        if(realm.currentUser) {
-            console.log(realm.currentUser.customData);
-        }
-
-        if(realm.currentUser == null) {
+        if(!user && realm.currentUser) { //user logged in
+            dispatch(setUser(realm.currentUser))
+            setLoader(false);
+        } else if (user && !realm.currentUser) { //user logged out
             dispatch(setUser(null))
             setLoader(false);
         } else {
-            dispatch(setUser(realm.currentUser))
             setLoader(false);
-        } 
-    }, [realm.currentUser])
+        }
+    }, [])
 
     useEffect(() => {
         window.analytics.page(); 

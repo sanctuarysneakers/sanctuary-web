@@ -20,7 +20,6 @@ export default function SignInEmail() {
     dispatch(hideHomeSearch())
 
     const signInEmailPassword = async () => {
-        
         try{
             const credentials = Realm.Credentials.emailPassword(email, password) 
             const user = await realm.logIn(credentials); 
