@@ -56,8 +56,8 @@ export default function HamburgerMenu() {
                         {user && <div className='hamburger-menu-account-in'>
                             <div className='hamburger-menu-profile'>
                                 <div className='hamburger-menu-profile-content'>
-                                    {user.photoURL ? <img src={user.photoURL} alt='profile' /> : <ProfileIcon />}
-                                    <h4> {user.displayName} </h4>
+                                    {user.profile.data.pictureUrl ? <img src={user.profile.data.pictureUrl} alt='profile' /> : <ProfileIcon />}
+                                    <h4> {user.profile.data.name} </h4>
                                 </div>
                             </div>
 

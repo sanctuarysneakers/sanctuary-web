@@ -61,14 +61,14 @@ export default function Navbar() {
                                 onClick={() => {document.location.href = '/profile'}}>
 
                                 <div className='navbar-profile-content'>
-                                    {user.photoURL !== null &&
+                                    {user.profile.data.pictureUrl !== null &&
                                         <img className='navbar-profile-picture'
-                                            src={user.photoURL}
+                                            src={user.profile.data.pictureUrl}
                                             alt="desktop-profile"
                                         />
                                     }
 
-                                    {user.photoURL === null && <ProfileIcon />} 
+                                    {user.profile.data.pictureUrl === null && <ProfileIcon />} 
                                 </div>
                             </Link>
                         }

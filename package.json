@@ -6,7 +6,6 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
-    "dotenv": "^10.0.0",
     "ip-geolocation-api-javascript-sdk": "^1.0.7",
     "react": "^16.13.1",
     "react-div-100vh": "^0.5.0",
@@ -34,6 +33,7 @@
     "swiper": "^6.1.1"
   },
   "devDependencies": {
+    "react-error-overlay": "^6.0.9",
     "webpack": "4.42.0"
   },
   "scripts": {

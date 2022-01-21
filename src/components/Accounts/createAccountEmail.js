@@ -32,22 +32,22 @@ export default function CreateAccountEmail() {
             try {
                 await realm.emailPasswordAuth.registerUser(email, password) 
                 const credentials = Realm.Credentials.emailPassword(email, password) 
-                const user = await realm.logIn(credentials); 
+                await realm.logIn(credentials); 
+            
 
-                // Get a client object for your app's custom user data collection
-                const mongo = user.mongoClient("mongodb-atlas");
-                const users = mongo.db("App").collection("User");
+                // // Get a client object for your app's custom user data collection
+                // const mongo = user.mongoClient("mongodb-atlas");
+                // const users = mongo.db("App").collection("User");
 
-                // Update the user's custom data document
-                await users.updateOne(
-                    { _id: user.id }, 
-                    { $set: { displayName: name } } //set display name 
-                );
+                // // Update the user's custom data document
+                // await users.updateOne(
+                //     { _id: user.id }, 
+                //     { $set: { displayName: name } } //set display name 
+                // );
 
-                // Refresh the user's local customData property
-                await user.refreshCustomData();
+                // // Refresh the user's local customData property
+                // await user.refreshCustomData();
 
-                console.log(`Logged in with id: ${user.id}`);
                 history.push("/")
                 window.scrollTo(0, 0)
             } catch(e) {

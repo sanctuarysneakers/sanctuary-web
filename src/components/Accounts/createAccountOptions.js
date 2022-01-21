@@ -18,26 +18,18 @@ export default function CreateAccountOptions() {
     dispatch(hideHomeSearch())
 
     const googleAuthentication = () => {
-        // Get Google credentials using Realm SDK
-        const redirectUri = process.env.REACT_APP_SIGN_IN_URL;
-        const credentials = Realm.Credentials.google(redirectUri);
-       
-        //Log the user in to your app
-        realm.logIn(credentials).then((user) => {
-            console.log(`Logged in with id: ${user.id}`);
+        const credentials = Realm.Credentials.google(process.env.REACT_APP_REDIRECT_URL);
+    
+        realm.logIn(credentials).then(_ => {
             history.push("/")
             window.scrollTo(0, 0)
         }).catch((err) => console.error(err));
     }
 
     const facebookAuthentication = () => {
-        // Get FB credentials using Realm SDK
-        const redirectUri = process.env.REACT_APP_SIGN_IN_URL;
-        const credentials = Realm.Credentials.facebook(redirectUri);
+        const credentials = Realm.Credentials.facebook(process.env.REACT_APP_REDIRECT_URL);
         
-        //Log the user in to your app
-        realm.logIn(credentials).then(user => {
-            console.log(`Logged in with id: ${user.id}`);
+        realm.logIn(credentials).then(_ => {
             history.push("/")
             window.scrollTo(0, 0)
         }).catch((err) => console.error(err));;
@@ -96,7 +88,6 @@ export default function CreateAccountOptions() {
 
                     </div>
                 </div>
-
             </div>
 
             <Footer colour={'white'} />

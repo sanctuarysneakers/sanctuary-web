@@ -3,6 +3,7 @@ import { realm } from '../../services/realm.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { showDeleteModal, hideHomeSearch } from '../../redux/actions'
+import { setUser } from '../../redux/actions'
 import { FaChevronRight } from 'react-icons/fa'
 import ProfileIcon from '../../assets/images/icons/profileIcon'
 import Footer from '../footer'
@@ -17,9 +18,14 @@ export default function Profile() {
     dispatch(hideHomeSearch())
 
     const signOut = async () => {
-        await realm.currentUser.logOut()
+        try {
+            await realm.currentUser.logOut()
+        } catch(err) {
+            console.log(err); 
+        }
+        
         history.push("/")
-        window.scrollTo(0, 0)         
+        window.scrollTo(0, 0)  
     }
 
     return (
@@ -39,17 +45,17 @@ export default function Profile() {
 
                     <div className='profile-picture'>
                         <div className='profile-picture-container'>
-                            {user.photoURL === null && <ProfileIcon />}
+                            {user.profile.data.pictureUrl === null && <ProfileIcon />}
 
-                            {user.photoURL !== null && 
-                                <img src={user.photoURL} alt='Profile' />
+                            {user.profile.data.pictureUrl !== null && 
+                                <img src={user.profile.data.pictureUrl} alt='Profile' />
                             }
                         </div>
                     </div>
 
                     <div className='profile-text'>
-                        <h1> {user.displayName} </h1>
-                        <p> {user.email} </p>
+                        <h1> {user.profile.data.name} </h1>
+                        <p> {user.profile.data.email} </p>
                     </div>
 
                 </div>

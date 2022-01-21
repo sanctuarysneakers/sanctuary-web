@@ -53,11 +53,11 @@ export default function HamburgerModal() {
 
                         {user && <div className='profile-area'>
 
-                            {user.photoURL !== null &&
-                                <img className='profilePicture' src={user.photoURL} alt='profile' />
+                            {user.profile.data.pictureUrl !== null &&
+                                <img className='profilePicture' src={user.profile.data.pictureUrl} alt='profile' />
                             }
 
-                            {user.photoURL === null && <ProfileIcon />}
+                            {user.profile.data.pictureUrl === null && <ProfileIcon />}
 
                         </div>}
 
@@ -70,7 +70,7 @@ export default function HamburgerModal() {
                                 onClick={handlecloseModal}
                                 to="/profile">
 
-                                <h2> {user.displayName} </h2>
+                                <h2> {user.profile.data.name} </h2>
                                 <p> Edit Profile </p>
 
                             </Link>

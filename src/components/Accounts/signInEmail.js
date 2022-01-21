@@ -8,6 +8,7 @@ import { hideHomeSearch } from '../../redux/actions'
 import sanctuary from "../../assets/images/logos/sanctuary-bird-black.png"
 import Footer from '../footer'
 
+
 export default function SignInEmail() {
     const dispatch = useDispatch()
     const history = useHistory()
@@ -21,9 +22,7 @@ export default function SignInEmail() {
     const signInEmailPassword = async () => {
         try{
             const credentials = Realm.Credentials.emailPassword(email, password) 
-            const user = await realm.logIn(credentials); 
-
-            console.log(`Logged in with id: ${user.id}`);
+            await realm.logIn(credentials); 
 
             history.push("/")
             window.scrollTo(0, 0)

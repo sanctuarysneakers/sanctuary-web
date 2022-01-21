@@ -30,6 +30,7 @@ import Profile from './components/Accounts/profile'
 import EditProfileName from './components/Accounts/editProfileName'
 import EditProfileEmail from './components/Accounts/editProfileEmail'
 import EditProfilePassword from './components/Accounts/editProfilePassword'
+import AuthRedirect from './components/Accounts/redirect'
 
 import Newsroom from './components/Newsroom/newsroom'
 import SanctuaryStory from './components/Newsroom/Articles/sanctuaryStory'
@@ -46,8 +47,6 @@ import ArticleTop2020 from "./components/Blog/Articles/articleTop2020"
 import { realm } from './services/realm'
 
 import Loader from './components/loader'
-
-require('dotenv').config()
 
 export default function App() {
 
@@ -68,14 +67,13 @@ export default function App() {
     
     useEffect(() => {
         if(!user && realm.currentUser) { //user logged in
+            console.log(JSON.stringify(realm.currentUser))
             dispatch(setUser(realm.currentUser))
-            setLoader(false);
         } else if (user && !realm.currentUser) { //user logged out
             dispatch(setUser(null))
-            setLoader(false);
-        } else {
-            setLoader(false);
         }
+
+        setLoader(false)
     }, [urlLocation.pathname])
 
     if (loader) {
@@ -112,6 +110,7 @@ export default function App() {
                 <Route path="/article-demystifying" component={ArticleDemystifying}/>
                 <Route path="/article-toppicks" component={ArticleTop2020}/>
                 <Route path="/item-not-supported" component={ItemNotSupported} />
+                <Route path="/redirect" component={AuthRedirect}/> 
                 <Route component={PageNotFound} />
                 </Switch>
 
