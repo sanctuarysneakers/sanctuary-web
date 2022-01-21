@@ -74,6 +74,10 @@ export default function App() {
         }
 
         setLoader(false)
+    })
+
+    useEffect(() => {
+        window.analytics.page(); 
     }, [urlLocation.pathname])
 
     if (loader) {

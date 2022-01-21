@@ -56,7 +56,7 @@ export default function Navbar() {
                             Create Account
                         </Link>}
 
-                        {user && 
+                        {user && user.profile.data &&
                             <Link className='navbar-profile'
                                 onClick={() => {document.location.href = '/profile'}}>
 

@@ -53,7 +53,7 @@ export default function HamburgerMenu() {
                         </div>}
 
                         {/* Styling when user is signed in */}
-                        {user && <div className='hamburger-menu-account-in'>
+                        {user && user.profile.data && <div className='hamburger-menu-account-in'>
                             <div className='hamburger-menu-profile'>
                                 <div className='hamburger-menu-profile-content'>
                                     {user.profile.data.pictureUrl ? <img src={user.profile.data.pictureUrl} alt='profile' /> : <ProfileIcon />}
