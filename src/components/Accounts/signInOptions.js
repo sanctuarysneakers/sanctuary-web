@@ -2,6 +2,7 @@ import React from 'react'
 import * as Realm from "realm-web";
 import { realm } from '../../services/realm.js'
 import { hideHomeSearch } from '../../redux/actions'
+import { setUser } from '../../redux/actions'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useMediaQuery } from 'react-responsive'
@@ -31,7 +32,7 @@ export default function SignInOptions() {
     const facebookAuthentication = () => {
         const credentials = Realm.Credentials.facebook(process.env.REACT_APP_REDIRECT_URL);
     
-        realm.logIn(credentials).then(_ => {
+        realm.logIn(credentials).then(user => {
             history.push("/")
             window.scrollTo(0, 0)
         }).catch((err) => console.error(err));

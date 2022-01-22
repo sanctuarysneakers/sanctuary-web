@@ -51,7 +51,7 @@ export default function HamburgerModal() {
 
                         {!user && <ProfileIcon />}
 
-                        {user && user.profile.data && <div className='profile-area'>
+                        {user && <div className='profile-area'>
 
                             {user.profile.data.pictureUrl !== null &&
                                 <img className='profilePicture' src={user.profile.data.pictureUrl} alt='profile' />
@@ -65,7 +65,7 @@ export default function HamburgerModal() {
                             <p> Become a member today! </p>
                         </div>}
 
-                        {user && user.profile.data &&
+                        {user &&
                             <Link className='account-description-signed-in'
                                 onClick={handlecloseModal}
                                 to="/profile">

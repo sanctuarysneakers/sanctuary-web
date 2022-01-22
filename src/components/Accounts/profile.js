@@ -34,7 +34,7 @@ export default function Profile() {
             {!user && <div className='not-signed-in'>
             </div>}
 
-            {user && user.profile.data && <div className='profile-page-container'>
+            {user && <div className='profile-page-container'>
 
                 <div className='profile-page-title'>
                     <h1> Profile </h1>

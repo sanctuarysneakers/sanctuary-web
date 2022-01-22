@@ -26,6 +26,8 @@ export default function Navbar() {
 
     window.addEventListener('scroll', setDropShadow)
 
+    console.log("user in navbar: " + JSON.stringify(user));
+
     return (
         <nav className={navbar ? 'navbar active' : 'navbar'}>
             <div className='navbar-content'>
@@ -56,7 +58,7 @@ export default function Navbar() {
                             Create Account
                         </Link>}
 
-                        {user && user.profile.data &&
+                        {user &&
                             <Link className='navbar-profile'
                                 onClick={() => {document.location.href = '/profile'}}>
 
