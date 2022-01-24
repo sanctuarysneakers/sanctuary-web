@@ -1,0 +1,186 @@
+.how-it-works-cards {
+    background: #F7F9FC;
+
+    .how-it-works-cards-content {
+        max-width: 1000px;
+        margin: auto;
+        padding-bottom: 166px;
+        padding-left: 20px;
+        padding-right: 20px;
+
+        .how-it-works-card {
+            max-width: 1000px;
+            height: 450px;
+            background: #EEF1F6;
+            border-radius: 18px;
+            margin-bottom: 60px;
+
+            .how-it-works-card-content {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                height: 100%;
+
+                .how-it-works-card-text {
+                    width: 435px;
+                    margin-left: 75px;
+
+                    h1 {
+                        font-size: 60px;
+                        font-weight: 600;
+                        color: #292828;
+                        line-height: 68px;
+                        letter-spacing: -1.5px;
+                    }
+                }
+
+                .how-it-works-card-shoe {
+                    margin-right: 121px;
+
+                    svg {
+                        width: 320px;
+                    }
+                }
+
+                .how-it-works-card-buttons {
+                    margin-right: 89px;
+
+                    svg {
+                        width: 335px;
+                    }
+                }
+
+                .how-it-works-card-prices, .how-it-works-card-listings {
+                    margin-right: 84.5px;
+
+                    svg {
+                        width: 335px;
+                    }
+                }
+            }
+        }
+
+        .how-it-works-card.last {
+            margin-bottom: 0px;
+        }
+    }
+}
+
+@media (min-width: 735px) and (max-width: 1100px) {
+    .how-it-works-cards {
+        .how-it-works-cards-content {
+            max-width: 680px;
+            padding-bottom: 166px;
+
+            .how-it-works-card {
+                height: 350px;
+                margin-bottom: 40px;
+
+                .how-it-works-card-content {
+                    .how-it-works-card-text {
+                        width: 283px;
+                        margin-left: 55px;
+    
+                        h1 {
+                            font-size: 36px;
+                            line-height: 42px;
+                            letter-spacing: -0.41px;
+                        }
+                    }
+
+                    .how-it-works-card-shoe {
+                        margin-right: 65px;
+    
+                        svg {
+                            width: 250px;
+                        }
+                    }
+    
+                    .how-it-works-card-buttons {
+                        margin-right: 45px;
+    
+                        svg {
+                            width: 275px;
+                        }
+                    }
+    
+                    .how-it-works-card-prices, .how-it-works-card-listings {
+                        margin-right: 55px;
+    
+                        svg {
+                            width: 250px;
+                            height: auto;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 734px) {
+    .how-it-works-cards {
+        .how-it-works-cards-content {
+            max-width: 335px;
+            padding-bottom: 100px;
+
+            .how-it-works-card {
+                height: 475px;
+                margin-bottom: 40px;
+
+                .how-it-works-card-content {
+                    flex-direction: column;
+
+                    .how-it-works-card-text {
+                        width: 236px;
+                        margin: auto;
+    
+                        h1 {
+                            font-size: 38px;
+                            line-height: 44px;
+                            letter-spacing: -0.41px;
+                        }
+                    }
+
+                    .how-it-works-card-text.buy {
+                        width: 269px;
+                    }
+
+                    .how-it-works-card-text.price {
+                        width: 274px;
+                    }
+
+                    .how-it-works-card-text.listings {
+                        width: 283px;
+                    }
+
+                    .how-it-works-card-shoe {
+                        margin-right: 0px;
+    
+                        svg {
+                            width: 250px;
+                        }
+                    }
+    
+                    .how-it-works-card-buttons {
+                        margin-right: 0px;
+    
+                        svg {
+                            width: 275px;
+                        }
+                    }
+    
+                    .how-it-works-card-prices, .how-it-works-card-listings {
+                        margin-right: 0px;
+                        margin-bottom: 30px;
+    
+                        svg {
+                            width: 250px;
+                            height: auto;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

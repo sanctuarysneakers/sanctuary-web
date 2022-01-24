@@ -4,8 +4,7 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import FadeIn from 'react-fade-in'
 import VisibleOnScreen from '../Hooks/visibleOnScreen'
 
-
-export default function ContactUs() {
+export default function ContactUs2() {
 
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
