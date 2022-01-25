@@ -19,7 +19,7 @@ export default function HowItWorksSplash() {
         <div className="how-it-works-splash">
             <div className="how-it-works-splash-content">
                 <div ref={ref} className="how-it-works-splash-header">
-                    <FadeIn visible={render} delay={350} transitionDuration={1200}>
+                    <FadeIn visible={render} delay={200} transitionDuration={1500}>
                         <h1>Everything sneakers.</h1>
                         <h1>All in one place.</h1>
                     </FadeIn>

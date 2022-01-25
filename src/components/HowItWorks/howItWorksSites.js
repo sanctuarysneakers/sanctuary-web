@@ -41,7 +41,7 @@ export default function HowItWorksSites() {
                 </div>
 
                 <div ref={ref2} className="how-it-works-sites-images">
-                    <FadeIn visible={renderSites} delay={350} transitionDuration={1200}>
+                    <FadeIn visible={renderSites} delay={300} transitionDuration={1000}>
                         <img className="how-it-works-site" src={StockX} />
                         <img className="how-it-works-site goat" src={GOAT} />
                         <img className="how-it-works-site" src={FlightClub} />

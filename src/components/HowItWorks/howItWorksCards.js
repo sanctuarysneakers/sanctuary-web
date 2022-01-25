@@ -40,7 +40,7 @@ export default function HowItWorksCards() {
                 <div className="how-it-works-card">
                     <div className="how-it-works-card-content">
                         <div ref={ref1} className="how-it-works-card-text browse">
-                            <FadeIn visible={renderBrowse} delay={350} transitionDuration={1200}>
+                            <FadeIn visible={renderBrowse} delay={250} transitionDuration={1000}>
                                 <h1>Browse the latest drops.</h1>
                             </FadeIn>
                         </div>
