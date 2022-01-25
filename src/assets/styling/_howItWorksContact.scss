@@ -39,7 +39,7 @@
                 font-size: 13px;
                 font-weight: 400;
                 color: #292828;
-                margin-bottom: 10px;
+                margin-bottom: 8px;
             }
 
             span {
@@ -69,20 +69,39 @@
                 padding: 20px 20px;
             }
 
+            .how-it-works-contact-captcha {
+                margin-bottom: 40px;
+            }
+
             .how-it-works-contact-submit {
                 width: 450px;
                 height: 52px;
                 background: #EC3E26;
                 border-radius: 12px;
-                font-family: 'Poppins', sans-serif;
-                font-size: 16px;
-                font-weight: 500;
-                color: white;
                 cursor: pointer;
+
+                p {
+                    font-family: 'Poppins', sans-serif;
+                    font-size: 16px;
+                    font-weight: 500;
+                    color: white;
+                }
+
+                svg {
+                    height: 35px;
+                }
+            }
+
+            .how-it-works-contact-submit.true {
+                cursor: default;
             }
 
             .how-it-works-contact-submit:hover {
                 background: #D93822;
+            }
+
+            .how-it-works-contact-submit.true:hover {
+                background: #EC3E26;
             }
         }
     }
@@ -121,10 +140,18 @@
                 .how-it-works-contact-input.message {
                     width: 460px;
                 }
+
+                .how-it-works-contact-captcha {
+                    margin-bottom: 30px;
+                }
     
                 .how-it-works-contact-submit {
                     width: 500px;
                     height: 50px;
+
+                    svg {
+                        height: 33px;
+                    }
                 }
             }
         }
@@ -164,11 +191,21 @@
                 .how-it-works-contact-input.message {
                     width: 295px;
                 }
+
+                .how-it-works-contact-captcha {
+                    margin-bottom: 30px;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
     
                 .how-it-works-contact-submit {
                     width: 335px;
                     height: 45px;
                     border-radius: 10px;
+
+                    svg {
+                        height: 28px;
+                    }
                 }
             }
         }
