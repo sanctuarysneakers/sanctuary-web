@@ -1,159 +1,13 @@
 .how-it-works-contact {
-    background: white;
-
     .how-it-works-contact-content {
-        max-width: 1000px;
-        margin: auto;
-        padding: 166px 20px;
-
-        .how-it-works-contact-text {
-            width: 700px;
-            margin: auto;
-
-            h1 {
-                font-size: 68px;
-                font-weight: 600;
-                color: #292828;
-                line-height: 80px;
-                letter-spacing: -1.5px;
-            }
-
-            p {
-                font-size: 20px;
-                font-weight: 400;
-                color: #292828;
-                line-height: 30px;
-                letter-spacing: -0.41px;
-                margin-top: 15px;
-                margin-bottom: 50px;
-            }
-        }
-
-        .how-it-works-contact-form {
-            display: flex;
-            flex-direction: column;
-            width: 700px;
-            margin: auto;
-
-            .how-it-works-contact-form-title {
-                font-size: 13px;
-                font-weight: 400;
-                color: #292828;
-                margin-bottom: 8px;
-            }
-
-            span {
-                color: #EC3E26;
-            }
-
-            .how-it-works-contact-input {
-                width: 410px;
-                height: 52px;
-                background: #F7F9FC;
-                border-radius: 12px;
-                font-family: 'Poppins', sans-serif;
-                font-size: 16px;
-                font-weight: 300;
-                color: #292828;
-                margin-bottom: 40px;
-                padding: 0px 20px;
-            }
-
-            .how-it-works-contact-input::placeholder {
-                color: #AEB7CA;
-            }
-
-            .how-it-works-contact-input.message {
-                width: 660px;
-                height: 260px;
-                padding: 20px 20px;
-            }
-
-            .how-it-works-contact-captcha {
-                margin-bottom: 40px;
-            }
-
-            .how-it-works-contact-submit {
-                width: 450px;
-                height: 52px;
-                background: #EC3E26;
-                border-radius: 12px;
-                cursor: pointer;
-
-                p {
-                    font-family: 'Poppins', sans-serif;
-                    font-size: 16px;
-                    font-weight: 500;
-                    color: white;
-                }
-
-                svg {
-                    height: 35px;
-                }
-            }
-
-            .how-it-works-contact-submit.true {
-                cursor: default;
-            }
-
-            .how-it-works-contact-submit:hover {
-                background: #D93822;
-            }
-
-            .how-it-works-contact-submit.true:hover {
-                background: #EC3E26;
-            }
-        }
+        padding: 166px 0px;
     }
 }
 
 @media (min-width: 600px) and (max-width: 849px) {
     .how-it-works-contact {
         .how-it-works-contact-content {
-            padding: 100px 20px;
-
-            .how-it-works-contact-text {
-                width: 500px;
-                text-align: center;
-
-                h1 {
-                    font-size: 50px;
-                    line-height: 55px;
-                    letter-spacing: -0.41px;
-                }
-    
-                p {
-                    font-size: 20px;
-                    margin-bottom: 60px;
-                }
-            }
-
-            .how-it-works-contact-form {
-                width: 500px;
-    
-                .how-it-works-contact-input {
-                    width: 460px;
-                    height: 50px;
-                    margin-bottom: 30px;
-                }
-    
-                .how-it-works-contact-input.message {
-                    width: 460px;
-                }
-
-                .how-it-works-contact-captcha {
-                    margin-bottom: 30px;
-                }
-    
-                .how-it-works-contact-submit {
-                    width: 500px;
-                    height: 50px;
-
-                    svg {
-                        height: 33px;
-                    }
-                }
-            }
+            padding: 100px 0px;
         }
     }
 }
@@ -161,53 +15,7 @@
 @media screen and (max-width: 599px) {
     .how-it-works-contact {
         .how-it-works-contact-content {
-            padding: 100px 20px;
-
-            .how-it-works-contact-text {
-                width: 335px;
-                text-align: center;
-
-                h1 {
-                    font-size: 42px;
-                    line-height: 46px;
-                    letter-spacing: -0.41px;
-                }
-    
-                p {
-                    font-size: 18px;
-                }
-            }
-
-            .how-it-works-contact-form {
-                width: 335px;
-    
-                .how-it-works-contact-input {
-                    width: 295px;
-                    height: 45px;
-                    border-radius: 10px;
-                    margin-bottom: 30px;
-                }
-    
-                .how-it-works-contact-input.message {
-                    width: 295px;
-                }
-
-                .how-it-works-contact-captcha {
-                    margin-bottom: 30px;
-                    margin-left: auto;
-                    margin-right: auto;
-                }
-    
-                .how-it-works-contact-submit {
-                    width: 335px;
-                    height: 45px;
-                    border-radius: 10px;
-
-                    svg {
-                        height: 28px;
-                    }
-                }
-            }
+            padding: 100px 0px;
         }
     }
 }

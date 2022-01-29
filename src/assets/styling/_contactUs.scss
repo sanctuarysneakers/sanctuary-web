@@ -2,153 +2,25 @@
     background: white;
 
     .contact-us-content {
-        max-width: 1000px;
-        margin: 0px auto;
-        padding: 166px 20px;
+        padding-top: 120px;
+        padding-bottom: 166px;
+    }
+}
 
-        .contact-us-text {
-            width: 577px;
-            margin: 0px auto;
-            text-align: center;
-
-            h1 {
-                font-size: 58px;
-                font-weight: 600;
-                color: #292828;
-                line-height: 62px;
-                letter-spacing: -1px;
-            }
-
-            p {
-                font-size: 20px;
-                font-weight: 400;
-                color: #292828;
-                line-height: 32px;
-                letter-spacing: -0.41px;
-                width: 482px;
-                margin: 20px auto;
-            }
-
-            .contact-us-button {
-                display: flex;
-                justify-content: center;
-
-                a {
-                    font-size: 18px;
-                    font-weight: 400;
-                    letter-spacing: -0.28px;
-                    color: white;
-                    background: #292828;
-                    padding: 14px 30px;
-                    border-radius: 100px;
-                    text-decoration: none;
-
-                }
-
-                a:hover {
-                    background: #424141;
-                }
-            }
+@media (min-width: 600px) and (max-width: 849px) {
+    .contact-us {
+        .contact-us-content {
+            padding-top: 100px;
+            padding-bottom: 100px;
         }
     }
 }
 
-@media (min-width: 700px) and (max-width: 1199px) {
+@media screen and (max-width: 599px) {
     .contact-us {
         .contact-us-content {
-            .contact-us-text {
-                h1 {
-                    font-size: 48px;
-                    line-height: 53px;
-                }
-
-                p {
-                    font-size: 19px;
-                    width: 450px;
-                    margin: 18px auto;
-                }
-
-                .contact-us-button {
-                    a {
-                        font-size: 16px;
-                        padding: 13px 26px;
-                    }
-                }
-            }
-        }
-    }
-}
-
-@media (min-width: 500px) and (max-width: 699px) {
-    .contact-us {
-        .contact-us-content {
-            padding: 100px 20px;
-
-            .contact-us-text {
-                width: auto;
-
-                h1 {
-                    font-size: 40px;
-                    line-height: 42px;
-                }
-
-                p {
-                    font-size: 19px;
-                    line-height: 30px;
-                    width: 410px;
-                    margin: 18px auto;
-                }
-
-                .contact-us-button {
-                    a {
-                        font-size: 16px;
-                        letter-spacing: 0px;
-                        color: white;
-                        padding: 11px 24px;
-                    }
-                } 
-            }
-        }
-    }
-}
-
-@media screen and (max-width: 499px) {
-    .contact-us {
-        .contact-us-content {
-            padding: 100px 20px;
-
-            .contact-us-text {
-                width: 305px;
-
-                h1 {
-                    font-size: 46px;
-                    line-height: 54px;
-                    margin-bottom: 22px;
-                }
-
-                p {
-                    font-size: 19px;
-                    line-height: 30px;
-                    width: 305px;
-                    margin-bottom: 24px;
-                }
-
-                .contact-us-button {
-                    display: flex;
-                    justify-content: center;
-                    
-                    a {
-                        font-size: 16px;
-                        font-weight: 400;
-                        color: white;
-                        text-decoration: none;
-                        background: #292828;
-                        padding: 11px 24px;
-                        border-radius: 100px;
-                    }
-
-                }
-            }
+            padding-top: 100px;
+            padding-bottom: 100px;
         }
     }
 }

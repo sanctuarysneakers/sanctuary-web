@@ -102,10 +102,9 @@ export default function Footer({ colour }) {
                                     Terms of Use
                                 </Link>
 
-                                <a className='footer-contact-us'
-                                    href="mailto: contact@sanctuarysneakers.com">
+                                <Link onClick={() => document.location.href = '/contact-us'}>
                                     Contact Us
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>

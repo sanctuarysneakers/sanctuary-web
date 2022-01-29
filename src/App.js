@@ -18,6 +18,7 @@ import PageNotFound from './components/Pages/pageNotFound'
 import ItemNotSupported from './components/Pages/itemNotSupported'
 import PrivacyPolicy from './components/Pages/privacyPolicy'
 import TermsOfUse from './components/Pages/termsOfUse'
+import ContactUs from './components/Pages/contactUs'
 import LocationPopup from './components/locationPopup'
 import useLocationDetection from './components/Hooks/useLocationDetection'
 import CategoryFilterModal from './components/categoryFilterModal'
@@ -99,6 +100,7 @@ export default function App() {
                 <Route path="/profile-edit-password" component={EditProfilePassword} />
                 <Route path="/privacy-policy" component={PrivacyPolicy} />
                 <Route path="/terms-of-use" component={TermsOfUse} />
+                <Route path="/contact-us" component={ContactUs} />
                 <Route path="/how-it-works" component={HowItWorks} />
                 <Route path="/newsroom" component={Newsroom} />
                 <Route path="/newsroom-sanctuary-our-story" component={SanctuaryStory} />
