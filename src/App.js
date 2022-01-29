@@ -10,7 +10,7 @@ import Home from "./components/Home/home"
 import Browse from "./components/Pages/browse"
 import Item from "./components/Pages/item"
 import AboutModal from "./components/Pages/aboutModal"
-import HamburgerMenu from './components/hamburgerMenu'
+import HamburgerModal from './components/hamburgerModal'
 import DeleteModal from "./components/deleteModal"
 import SearchModal from './components/searchModal'
 import CurrencyModal from './components/currencyModal'
@@ -142,7 +142,7 @@ export default function App() {
                         <SearchModal />
                     </RemoveScroll>
                 }
-                <HamburgerMenu />
+                <HamburgerModal />
             </React.Fragment>
         )
     }

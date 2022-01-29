@@ -1,135 +1,91 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { hideHamburgerModal, showAboutModal } from '../redux/actions'
-import { Link, useHistory } from 'react-router-dom'
-import firebase from '../services/firebase.js'
-import useOutsideAlerter from './Hooks/useOutsideAlerter'
-import InfoIcon from '../assets/images/icons/infoIcon'
+import { hideHamburgerModal } from '../redux/actions'
 import ProfileIcon from '../assets/images/icons/profileIcon'
-import SignOutIcon from '../assets/images/icons/signOutIcon.js'
-import BlogIcon from '../assets/images/icons/blogIcon.js'
-import {ReactComponent as BrowseIcon} from '../assets/images/browseIcon.svg'
-
+import {ReactComponent as RightArrow} from '../assets/images/RightArrow.svg'
 
 export default function HamburgerModal() {
 
-    // const user = firebase.auth().currentUser
-    const user = useSelector(state => state.user)
-
+    const ref = useRef()
     const dispatch = useDispatch()
-    const wrapperRef = useRef(null)
-    const history = useHistory()
-    useOutsideAlerter(wrapperRef)
+    const user = useSelector(state => state.user)
+    const menuVisible = useSelector(state => state.hamburgerModalVisible)
 
-    const handlecloseModal = () => {
-        dispatch(hideHamburgerModal())
-        window.scrollTo(0, 0)
-    }
-
-    const handleShowAboutModal = () => {
-        dispatch(hideHamburgerModal())
-        dispatch(showAboutModal())
-    }
-
-    const signOut = () => {
-        firebase.auth().signOut()
-            .then(() => {
+    useEffect(() => {
+        const handleClickOut = (e) => {
+            if (menuVisible && ref.current && !ref.current.contains(e.target)) {
                 dispatch(hideHamburgerModal())
-                history.push("/")
-                window.scrollTo(0, 0)
-            })
-    }
+            }
+        }
+        document.addEventListener("mousedown", handleClickOut)
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOut)
+        }
+    })
 
     return (
-        <div className='modal-hamburger'>
-            <div className='menu' ref={wrapperRef}>
+        <div className={menuVisible ? 'hamburger-background active' : 'hamburger-background'}>
+            <div className={menuVisible ? 'hamburger-modal active' : 'hamburger-modal'} ref={ref}>
 
-                <div className='menu-header'>
-                    <div className='menu-pull-tab'></div>
-                    <h2> Menu </h2>
-                </div>
-
-                <div className='menu-account'>
-                    <div className='menu-account-top'>
-
-                        {!user && <ProfileIcon />}
-
-                        {user && <div className='profile-area'>
-
-                            {user.photoURL !== null &&
-                                <img className='profilePicture' src={user.photoURL} alt='profile' />
-                            }
-
-                            {user.photoURL === null && <ProfileIcon />}
-
-                        </div>}
-
-                        {!user && <div className='account-description'>
-                            <p> Become a member today! </p>
-                        </div>}
-
-                        {user &&
-                            <Link className='account-description-signed-in'
-                                onClick={handlecloseModal}
-                                to="/profile">
-
-                                <h2> {user.displayName} </h2>
-                                <p> Edit Profile </p>
-
-                            </Link>
-                        }
+                <div className='hamburger-modal-content'>
+                    <div className='hamburger-modal-header'>
+                        <div className='hamburger-modal-tab' />
+                        <h2> Menu </h2>
                     </div>
 
-                    {!user && <div className='menu-account-bottom'>
-
-                        <Link className='create-account'
-                            onClick={handlecloseModal}
-                            to="/create-account">
-
-                            <button className='create-account-button'>
-                                Create account
+                    <div className='hamburger-modal-account'>
+                        {/* Styling when user is signed out */}
+                        {!user && <div className='hamburger-modal-account-out'>
+                            <button className='create-account' onClick={() => document.location.href = '/create-account'}>
+                                Create Account
                             </button>
-                        </Link>
 
-                        <Link className='sign-in'
-                            onClick={handlecloseModal}
-                            to="/sign-in">
-
-                            <button className='sign-in-button'>
-                                Sign in
+                            <button className='sign-in' onClick={() => document.location.href = '/sign-in'}>
+                                Sign In
                             </button>
-                        </Link>
-                    </div>}
-                </div>
+                        </div>}
 
-                <div className='menu-options'>
-                    <Link className='menu-options-browse' onClick={handlecloseModal} to='/browse'>
-                        <BrowseIcon />
-                        <div className='title'>
-                            <p> Browse </p>
-                        </div>
-                    </Link>
+                        {/* Styling when user is signed in */}
+                        {user && <div className='hamburger-modal-account-in'>
+                            <div className='hamburger-modal-profile'>
+                                <div className='hamburger-modal-profile-content'>
+                                    {user.photoURL ? <img src={user.photoURL} alt='profile' /> : <ProfileIcon />}
+                                    <h4> {user.displayName} </h4>
+                                </div>
+                            </div>
 
-                    <Link className='menu-options-blog' onClick={handlecloseModal} to="/newsroom">
-                        <BlogIcon />
-                        <div className='title'>
-                            <p> Newsroom </p>
-                        </div>
-                    </Link>
-
-                    <div className='menu-options-how-it-works' onClick={handleShowAboutModal}>
-                        <InfoIcon />
-                        <div className='title'>
-                            <p> How it Works </p>
-                        </div>
+                            <div className='hamburger-modal-view-profile' onClick={() => document.location.href = '/profile'}>
+                                <div className='hamburger-modal-view-profile-content'>
+                                    <p> View Profile </p>
+                                    <RightArrow />
+                                </div>
+                            </div>
+                        </div>}
                     </div>
 
-                    {user && <div className='menu-options-sign-out' onClick={signOut}>
-                        <SignOutIcon />
-                        <div className='title'>
-                            <p> Sign Out </p>
+                    <div className='hamburger-modal-links'>
+                        <div className='hamburger-modal-option' onClick={() => document.location.href = '/browse'}>
+                            <div className='hamburger-modal-option-content'>
+                                <p> Browse </p>
+                                <RightArrow />
+                            </div>
                         </div>
-                    </div>}
+
+                        <div className='hamburger-modal-option' onClick={() => document.location.href = '/newsroom'}>
+                            <div className='hamburger-modal-option-content'>
+                                <p> Newsroom </p>
+                                <RightArrow />
+                            </div>
+                        </div>
+
+                        <div className='hamburger-modal-option' onClick={() => document.location.href = '/how-it-works'}>
+                            <div className='hamburger-modal-option-content last'>
+                                <p> How it Works </p>
+                                <RightArrow />
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
