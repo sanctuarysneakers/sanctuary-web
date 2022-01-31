@@ -1,0 +1,26 @@
+.contact-us {
+    background: white;
+
+    .contact-us-content {
+        padding-top: 120px;
+        padding-bottom: 166px;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 849px) {
+    .contact-us {
+        .contact-us-content {
+            padding-top: 100px;
+            padding-bottom: 100px;
+        }
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .contact-us {
+        .contact-us-content {
+            padding-top: 100px;
+            padding-bottom: 100px;
+        }
+    }
+}

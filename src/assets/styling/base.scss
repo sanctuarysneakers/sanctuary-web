@@ -10,7 +10,6 @@
 @import "./termsOfUse";
 @import "./privacyPolicy";
 @import "./loginCreate";
-@import "./hamburgerModal";
 @import "./accountButtonForm";
 @import "./profile";
 @import "./newsroom";
@@ -25,7 +24,7 @@
 @import "./homeTrending";
 @import "./homeNewsroom";
 @import "./homeAccount";
-@import "./homeContact";
+@import "./contactUs";
 @import "./browse";
 @import "./item";
 @import "./itemPrice";
@@ -41,7 +40,7 @@
 @import "./currencyModal";
 @import "./currencyOption";
 @import "./itemNoResults";
-@import "./hamburgerMenu";
+@import "./hamburgerModal";
 @import "./categoryFilterModal";
 @import "./categoryOption";
 @import "./categoryFilter";
@@ -54,6 +53,12 @@
 @import "./homeApp";
 @import "./carousel";
 @import "./carouselCard";
+@import "./howItWorksSplash";
+@import "./howItWorksInfo";
+@import "./howItWorksSites";
+@import "./howItWorksCards";
+@import "./howItWorksContact";
+@import "./contactForm";
 
 @import "swiper/swiper";
 @import 'swiper/components/navigation/navigation';
