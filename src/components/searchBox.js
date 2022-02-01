@@ -1,16 +1,36 @@
 import React, { useState } from 'react'
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
 import { ReactComponent as Search } from '../assets/images/Search.svg'
 import { ReactComponent as Clear } from '../assets/images/Clear.svg'
+
+
+import sampledata from '../assets/sampledata/testdata'
 
 export default function SearchBox({ location }) {
 
     const [input, setInput] = useState('')
 
+    const redirectForSearch = (val) => {
+        document.location.href = `/browse/${val}`
+    }
+
+    const handleSuggestionOrClear = (newValue) => {
+        console.log("value is: " + newValue);
+        if (newValue == null) {
+            setInput('')
+        } else {
+            setInput(newValue); 
+            window.analytics.track(`autocomplete_selected`, {searchValue: newValue});
+            redirectForSearch(newValue); 
+        }
+    }
+
     const handleKeyDown = e => {
         if (e.key === 'Enter') {
             // redirect to browse page with search query as url param
             window.analytics.track(`searchbar_entered`, {searchValue: e.target.value});
-            document.location.href = `/browse/${e.target.value}`
+            redirectForSearch(e.target.value);
         }
     }
 
@@ -22,29 +42,29 @@ export default function SearchBox({ location }) {
                     <Search />
                 </div>
 
-                {/* Search bar component for the navbar modal */}
-                {location === 'search-modal' && <input autoFocus
-                    className='search-box-input'
-                    type='text'
-                    placeholder='Search'
-                    value={input}
-                    onChange={e => setInput(e.target.value)}
+                <Autocomplete
+                    clearOnEscape
+                    clearOnBlur
+                    clearIcon={<Clear/>}
+                    disablePortal
+                    freeSolo
+                    fullWidth
+                    handleHomeEndKeys
+                    inputValue={input}
+                    onInputChange={e => setInput(e.target.value || "")}
+                    onChange={(_, newValue) => handleSuggestionOrClear(newValue)}
                     onKeyDown={e => handleKeyDown(e)}
-                />}
-
-                {/* Search bar component for home splash area */}
-                {location === 'home-splash' && <input
-                    className='search-box-input'
-                    type='text'
-                    placeholder='Search'
-                    value={input}
-                    onChange={e => setInput(e.target.value)}
-                    onKeyDown={e => handleKeyDown(e)}
-                />}
-
-                {input && <div className='search-box-clear' onClick={() => setInput('')}>
-                    <Clear />
-                </div>}
+                    options={sampledata.map((option) => option.title)}
+                    renderInput={(params) =>                 
+                        <TextField 
+                            {...params}
+                            autoFocus={location === 'search-modal' ? false : true}
+                            className='search-box-input'  
+                            placeholder='Search'
+                            type='text'
+                        />
+                    }
+                />
             </div>
         </div>
     )
