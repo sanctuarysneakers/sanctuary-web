@@ -131,6 +131,23 @@ export default function createRequestObject(type, filter) {
 					})
 				}
 			}
+		case 'autocomplete': 
+			return {
+				url: 'https://xw7sbct9v6-dsn.algolia.net/1/indexes/PRODUCTION_PG_FEATURED_DESC/query?' + new URLSearchParams({
+					"x-algolia-agent": "Algolia for vanilla JavaScript 3.25.1",
+					"x-algolia-application-id": "XW7SBCT9V6", "x-algolia-api-key": "YTgyMDU5MDkxYmQ1MDMwZTRiODNiZmIwZTBmNGY2OWRjNWRjOWY4MzkxZWUxOTAzZWQxMGQ3M2FmZjMwNTlhZnZhbGlkVW50aWw9MTY0MzkzNzMzOQ=="
+				}),
+				headers: {
+					method: 'POST',
+					body: JSON.stringify({
+						"query": filter.search,
+						"facets": "",
+						"facetFilters": ["dataType: product", ["gender: men", "gender: women"], "productCategory: sneakers"],
+						"filters": "NOT hidden AND NOT _tags:charity",
+						"page": 0
+					})
+				}
+			}
 		default: 
 			return {
 				url: 'https://hdwj2rvqkb.us-west-2.awsapprunner.com/browse',
