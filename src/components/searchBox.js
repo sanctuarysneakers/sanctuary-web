@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import Autocomplete from '@mui/material/Autocomplete';
+import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import createRequestObject from './Hooks/createRequest'
 import { ReactComponent as Search } from '../assets/images/Search.svg'
 import { ReactComponent as Clear } from '../assets/images/Clear.svg'
 
-// import sampledata from '../assets/sampledata/testdata'
 
 export default function SearchBox({ location }) {
 
@@ -28,7 +28,7 @@ export default function SearchBox({ location }) {
             setOptions([]);
         } else {
             setInput(val)
-
+            
             //make api call and update options
             const request = createRequestObject('autocomplete', {search: val})
             const response = await fetch(request.url, request.headers)
@@ -42,22 +42,18 @@ export default function SearchBox({ location }) {
     }
 
     const handleSuggestionOrClear = (newValue) => {
-        console.log("value is: " + newValue);
         if (newValue == null) {
             setInput('')
         } else {
-            setInput(newValue); 
-            window.analytics.track(`autocomplete_selected`, {searchValue: newValue});
-            redirectForSearch(newValue); 
+            setInput(newValue.title); 
+            window.analytics.track(`autocomplete_selected`, {searchValue: newValue.title});
+            redirectForSearch(newValue.title); 
         }
     }
 
-    const handleKeyDown = e => {
-        if (e.key === 'Enter') {
-            // redirect to browse page with search query as url param
-            window.analytics.track(`searchbar_entered`, {searchValue: e.target.value});
-            redirectForSearch(e.target.value);
-        }
+    const handleEnterPressed = (newValue) => {
+        window.analytics.track(`searchbar_entered`, {searchValue: newValue});
+        redirectForSearch(newValue);
     }
 
     return (
@@ -75,21 +71,41 @@ export default function SearchBox({ location }) {
                     disablePortal
                     freeSolo
                     fullWidth
+                    getOptionLabel={(option) => option.title || ""}
                     handleHomeEndKeys
                     inputValue={input}
                     onInputChange={e => handleLetterInput(e.target.value)}
                     onChange={(_, newValue) => handleSuggestionOrClear(newValue)}
-                    onKeyDown={e => handleKeyDown(e)}
-                    options={options.map((option) => option.title)}
+                    options={options}
                     renderInput={(params) =>                 
                         <TextField 
                             {...params}
                             autoFocus={location === 'search-modal' ? false : true}
                             className='search-box-input'  
+                            inputProps={{
+                                ...params.inputProps,
+                                onKeyDown: (e) => {
+                                      if (e.key === 'Enter') {
+                                        e.stopPropagation();
+                                        handleEnterPressed(e.target.value); 
+                                      }
+                                },
+                              }}
                             placeholder='Search'
                             type='text'
                         />
                     }
+                    renderOption={(props, option) => (
+                        <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                          <img
+                            loading="lazy"
+                            width="80"
+                            src={option.media.thumbUrl}
+                            alt=""
+                          />
+                          {option.title}
+                        </Box>
+                    )}
                 />
             </div>
         </div>

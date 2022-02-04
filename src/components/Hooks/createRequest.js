@@ -135,7 +135,7 @@ export default function createRequestObject(type, filter) {
 			return {
 				url: 'https://xw7sbct9v6-dsn.algolia.net/1/indexes/PRODUCTION_PG_FEATURED_DESC/query?' + new URLSearchParams({
 					"x-algolia-agent": "Algolia for vanilla JavaScript 3.25.1",
-					"x-algolia-application-id": "XW7SBCT9V6", "x-algolia-api-key": "YTgyMDU5MDkxYmQ1MDMwZTRiODNiZmIwZTBmNGY2OWRjNWRjOWY4MzkxZWUxOTAzZWQxMGQ3M2FmZjMwNTlhZnZhbGlkVW50aWw9MTY0MzkzNzMzOQ=="
+					"x-algolia-application-id": "XW7SBCT9V6", "x-algolia-api-key": "ZDZhZWRjNTQ0NDIyYTdlYmUwNjM0NjFkZDdhYWU5MTI4YjU1ZmRhYTVkMmIyYzJmMGQ4OGFlMDY4Y2M4MWI2NXZhbGlkVW50aWw9MTY0NDE2MjI4NQ=="
 				}),
 				headers: {
 					method: 'POST',
