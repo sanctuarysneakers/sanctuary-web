@@ -91,7 +91,6 @@ export default function SearchBox() {
                     renderInput={(params) =>                 
                         <TextField 
                             {...params}
-                            // autoFocus={location === 'search-modal' ? false : true} 
                             placeholder='Search'
                             type='text'
                         />
