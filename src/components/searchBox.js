@@ -36,44 +36,33 @@ export default function SearchBox({ location }) {
         document.location.href = `/browse/${val}`
     }
 
-    const handleLetterInput = async (val) => {
-        if (val == null || val == "") {
-            setInput('')
-            setOptions([]);
-        } else {
-            setInput(val)
-            
+    const handleLetterInput = async (val) => {     
+        if(val && val != "") {
             //make api call and update options
             const request = createRequestObject('autocomplete', {search: val})
             const response = await fetch(request.url, request.headers)
             let results = await response.json()
 
-            console.log("algolia response: " + JSON.stringify(results))
-
             if(results.hits) {
                 const newOptions = results.hits.filter(shoe => shoe.grid_picture_url && !shoe.grid_picture_url.includes("missing")).map(({name, grid_picture_url}) => ({name, grid_picture_url}))
                 setOptions(newOptions)
             }           
-        }
+        }       
     }
 
-    const handleSuggestionOrClear = (newValue) => {
-        if (newValue == null) {
+    const handleChange = async (reason, val, event) => {
+        if(reason == "createOption") {
+            setInput(val)
+            redirectForSearch(val); 
+        } else if (reason == "selectOption") {
+            redirectForSearch(val.name)
+        }  else if (reason == "clear" || reason == "blur") {
             setInput('')
-        } else {
-            setInput(newValue.name); 
-            window.analytics.track(`autocomplete_selected`, {searchValue: newValue.title});
-            redirectForSearch(newValue.name); 
+            setOptions([]);
         }
-    }
-
-    const handleEnterPressed = (newValue) => {
-        window.analytics.track(`searchbar_entered`, {searchValue: newValue});
-        redirectForSearch(newValue);
     }
 
     return (
-
         <div className='search-box'>
             <div className='search-box-content'>
                 <div className='search-box-icon'>
@@ -81,17 +70,16 @@ export default function SearchBox({ location }) {
                 </div>
 
                 <StyledAutocomplete
-                    clearOnEscape
-                    clearOnBlur
                     clearIcon={<Clear/>}
                     disablePortal={true}
                     freeSolo
                     fullWidth
                     getOptionLabel={(option) => option.name || ""}
                     handleHomeEndKeys
-                    inputValue={input}
+                    onChange={(event, value, reason) => {
+                        handleChange(reason, value, event.currentTarget); 
+                    }}
                     onInputChange={e => handleLetterInput(e.target.value)}
-                    onChange={(_, newValue) => handleSuggestionOrClear(newValue)}
                     options={options}
                     PopperComponent={({ style, ...props }) => (
                         <Popper
@@ -104,15 +92,6 @@ export default function SearchBox({ location }) {
                         <TextField 
                             {...params}
                             autoFocus={location === 'search-modal' ? false : true} 
-                            inputProps={{
-                                ...params.inputProps,
-                                onKeyDown: (e) => {
-                                      if (e.key === 'Enter') {
-                                        e.stopPropagation();
-                                        handleEnterPressed(e.target.value); 
-                                      }
-                                },
-                              }}
                             placeholder='Search'
                             type='text'
                         />
@@ -131,7 +110,6 @@ export default function SearchBox({ location }) {
                                 }
                             }} 
                             {...props}
-                            onFocus={(e) => console.log("focused!")}
                         >
                             <img
                                 loading="lazy"
@@ -142,6 +120,7 @@ export default function SearchBox({ location }) {
                             <h4> {option.name} </h4> 
                         </Box>
                     )}
+                    value={input}
                 />
             </div>
         </div>
