@@ -133,21 +133,18 @@ export default function createRequestObject(type, filter) {
 			}
 		case 'autocomplete': 
 			return {
-				url: 'https://xw7sbct9v6-dsn.algolia.net/1/indexes/PRODUCTION_PG_FEATURED_DESC/query?' + new URLSearchParams({
+				url: 'https://2fwotdvm2o-dsn.algolia.net/1/indexes/product_variants_v2_trending_purchase/query?' + new URLSearchParams({
 					"x-algolia-agent": "Algolia for vanilla JavaScript 3.25.1",
-					"x-algolia-application-id": "XW7SBCT9V6", "x-algolia-api-key": "ZDZhZWRjNTQ0NDIyYTdlYmUwNjM0NjFkZDdhYWU5MTI4YjU1ZmRhYTVkMmIyYzJmMGQ4OGFlMDY4Y2M4MWI2NXZhbGlkVW50aWw9MTY0NDE2MjI4NQ=="
+					"x-algolia-application-id": "2FWOTDVM2O", "x-algolia-api-key": "ac96de6fef0e02bb95d433d8d5c7038a"
 				}),
 				headers: {
 					method: 'POST',
-					body: JSON.stringify({
-						"query": filter.search,
-						"facets": "",
-						"facetFilters": ["dataType: product", ["gender: men", "gender: women"], "productCategory: sneakers"],
-						"filters": "NOT hidden AND NOT _tags:charity",
-						"page": 0
-					})
+					body: JSON.stringify({"params":`query=&query=${filter.search}&distinct=true&facetFilters=(product_category%3Ashoes)&page=0&hitsPerPage=10&clickAnalytics=true`})
 				}
 			}
+
+		
+
 		default: 
 			return {
 				url: 'https://hdwj2rvqkb.us-west-2.awsapprunner.com/browse',

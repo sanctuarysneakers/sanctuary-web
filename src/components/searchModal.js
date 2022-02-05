@@ -23,7 +23,7 @@ export default function SearchModal() {
                     </p>}
                 </div>
 
-                <div className='search-modal-trending'>
+                {/* <div className='search-modal-trending'>
                     <div className='search-modal-trending-content'>
                         <h2> Trending Sneakers </h2>
 
@@ -51,7 +51,7 @@ export default function SearchModal() {
                             <h3> Aime Leon Dore </h3>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     )

@@ -1,10 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
+import Popper from '@mui/material/Popper';
+import { styled } from "@mui/material/styles";
 import TextField from '@mui/material/TextField';
 import createRequestObject from './Hooks/createRequest'
 import { ReactComponent as Search } from '../assets/images/Search.svg'
 import { ReactComponent as Clear } from '../assets/images/Clear.svg'
+
+const StyledAutocomplete = styled(Autocomplete)({
+    "& .MuiAutocomplete-inputRoot": {
+      color: "black",
+      fontSize: 16,
+      fontWeight: 400,
+      fontFamily: 'Poppins',
+      "& .MuiOutlinedInput-notchedOutline": {
+        border: "none" 
+      }
+    },
+});
 
 
 export default function SearchBox({ location }) {
@@ -34,8 +48,10 @@ export default function SearchBox({ location }) {
             const response = await fetch(request.url, request.headers)
             let results = await response.json()
 
+            console.log("algolia response: " + JSON.stringify(results))
+
             if(results.hits) {
-                const newOptions = results.hits.map(({title, brand, colorway, media}) => ({title, brand, colorway, media}))
+                const newOptions = results.hits.filter(shoe => shoe.grid_picture_url && !shoe.grid_picture_url.includes("missing")).map(({name, grid_picture_url}) => ({name, grid_picture_url}))
                 setOptions(newOptions)
             }           
         }
@@ -45,9 +61,9 @@ export default function SearchBox({ location }) {
         if (newValue == null) {
             setInput('')
         } else {
-            setInput(newValue.title); 
+            setInput(newValue.name); 
             window.analytics.track(`autocomplete_selected`, {searchValue: newValue.title});
-            redirectForSearch(newValue.title); 
+            redirectForSearch(newValue.name); 
         }
     }
 
@@ -64,24 +80,30 @@ export default function SearchBox({ location }) {
                     <Search />
                 </div>
 
-                <Autocomplete
+                <StyledAutocomplete
                     clearOnEscape
                     clearOnBlur
                     clearIcon={<Clear/>}
-                    disablePortal
+                    disablePortal={true}
                     freeSolo
                     fullWidth
-                    getOptionLabel={(option) => option.title || ""}
+                    getOptionLabel={(option) => option.name || ""}
                     handleHomeEndKeys
                     inputValue={input}
                     onInputChange={e => handleLetterInput(e.target.value)}
                     onChange={(_, newValue) => handleSuggestionOrClear(newValue)}
                     options={options}
+                    PopperComponent={({ style, ...props }) => (
+                        <Popper
+                          {...props}
+                          style={{ ...style, height: 0, zIndex: 1}} // width is passed in 'style' prop
+                        />
+                      )}
+                    ListboxProps={{ style: { maxHeight: '30vh' } }}
                     renderInput={(params) =>                 
                         <TextField 
                             {...params}
-                            autoFocus={location === 'search-modal' ? false : true}
-                            className='search-box-input'  
+                            autoFocus={location === 'search-modal' ? false : true} 
                             inputProps={{
                                 ...params.inputProps,
                                 onKeyDown: (e) => {
@@ -96,14 +118,28 @@ export default function SearchBox({ location }) {
                         />
                     }
                     renderOption={(props, option) => (
-                        <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                          <img
-                            loading="lazy"
-                            width="80"
-                            src={option.media.thumbUrl}
-                            alt=""
-                          />
-                          {option.title}
+                        <Box component="li" 
+                            sx={{ 
+                                '& > img': { mr: 2, flexShrink: 0 },
+                                '& > h4': {
+                                    fontSize: 16, 
+                                    fontWeight: 500, 
+                                    fontFamily: 'Poppins', 
+                                    color: 'black',
+                                    letterSpacing: -0.28,
+                                    margin: 0
+                                }
+                            }} 
+                            {...props}
+                            onFocus={(e) => console.log("focused!")}
+                        >
+                            <img
+                                loading="lazy"
+                                width="80"
+                                src={option.grid_picture_url}
+                                alt=""
+                            />
+                            <h4> {option.name} </h4> 
                         </Box>
                     )}
                 />

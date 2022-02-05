@@ -91,12 +91,14 @@
 
         .home-splash-graphic {
             padding-left: 176px;
+             z-index: 0; 
 
             .jordan-1 {
                 padding-top: 69px;
                 padding-left: 172px;
                 transform: translatey(0px);
 	            animation: float 3s ease-in-out infinite;
+               
 
                 svg {
                     display: block;
