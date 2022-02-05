@@ -17,7 +17,7 @@ export default function SearchModal() {
         <div className='search-modal'>
             <div className='search-modal-content' ref={wrapperRef}>
                 <div className='search-modal-navbar'>
-                    <SearchBox location={'search-modal'} />
+                    <SearchBox/>
                     {!isDesktop && <p onClick={() => dispatch(hideSearchModal())}>
                         Cancel 
                     </p>}

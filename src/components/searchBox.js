@@ -21,7 +21,7 @@ const StyledAutocomplete = styled(Autocomplete)({
 });
 
 
-export default function SearchBox({ location }) {
+export default function SearchBox() {
 
     const [input, setInput] = useState('')
     const [options, setOptions] = useState([])
@@ -91,7 +91,7 @@ export default function SearchBox({ location }) {
                     renderInput={(params) =>                 
                         <TextField 
                             {...params}
-                            autoFocus={location === 'search-modal' ? false : true} 
+                            // autoFocus={location === 'search-modal' ? false : true} 
                             placeholder='Search'
                             type='text'
                         />

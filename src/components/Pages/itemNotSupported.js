@@ -23,7 +23,7 @@ export default function ItemNotSupported() {
                     />
                 </Helmet>
                 <h1> Sorry, the item you're looking for is not supported yet. </h1>
-                <SearchBox location={'home-splash'} />
+                <SearchBox/>
             </div>
 
             <Footer colour={'white'} />
