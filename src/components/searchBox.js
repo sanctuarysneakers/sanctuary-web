@@ -20,7 +20,6 @@ const StyledAutocomplete = styled(Autocomplete)({
     },
 });
 
-
 export default function SearchBox() {
 
     const [input, setInput] = useState('')
@@ -72,6 +71,7 @@ export default function SearchBox() {
                 <StyledAutocomplete
                     clearIcon={<Clear/>}
                     disablePortal={true}
+                    filterOptions={(options) => options}
                     freeSolo
                     fullWidth
                     getOptionLabel={(option) => option.name || ""}
@@ -98,6 +98,9 @@ export default function SearchBox() {
                     renderOption={(props, option) => (
                         <Box component="li" 
                             sx={{ 
+                                '&': {
+                                    height: 85
+                                },
                                 '& > img': { mr: 2, flexShrink: 0 },
                                 '& > h4': {
                                     fontSize: 16, 
@@ -111,7 +114,6 @@ export default function SearchBox() {
                             {...props}
                         >
                             <img
-                                loading="lazy"
                                 width="80"
                                 src={option.grid_picture_url}
                                 alt=""
