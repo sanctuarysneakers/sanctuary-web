@@ -17,13 +17,13 @@ export default function SearchModal() {
         <div className='search-modal'>
             <div className='search-modal-content' ref={wrapperRef}>
                 <div className='search-modal-navbar'>
-                    <SearchBox location={'search-modal'} />
+                    <SearchBox/>
                     {!isDesktop && <p onClick={() => dispatch(hideSearchModal())}>
                         Cancel 
                     </p>}
                 </div>
 
-                <div className='search-modal-trending'>
+                {/* <div className='search-modal-trending'>
                     <div className='search-modal-trending-content'>
                         <h2> Trending Sneakers </h2>
 
@@ -51,7 +51,7 @@ export default function SearchModal() {
                             <h3> Aime Leon Dore </h3>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     )

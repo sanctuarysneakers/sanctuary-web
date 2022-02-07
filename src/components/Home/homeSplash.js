@@ -19,7 +19,7 @@ export default function HomeSplash() {
                             Sanctuary compares prices from leading 
                             sneaker websites to find you the best deals. 
                         </p>
-                        <SearchBox location={'home-splash'} />
+                        <SearchBox/>
                     </FadeIn>
                 </div>
 

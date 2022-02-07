@@ -23,7 +23,7 @@ export default function PageNotFound() {
                     />
                 </Helmet>
                 <h1>Sorry, we can't find the page you're looking for. </h1>
-                <SearchBox location={'home-splash'} />
+                <SearchBox/>
             </div>
 
             <Footer colour={'white'} />

@@ -131,6 +131,20 @@ export default function createRequestObject(type, filter) {
 					})
 				}
 			}
+		case 'autocomplete': 
+			return {
+				url: 'https://2fwotdvm2o-dsn.algolia.net/1/indexes/product_variants_v2_trending_purchase/query?' + new URLSearchParams({
+					"x-algolia-agent": "Algolia for vanilla JavaScript 3.25.1",
+					"x-algolia-application-id": "2FWOTDVM2O", "x-algolia-api-key": "ac96de6fef0e02bb95d433d8d5c7038a"
+				}),
+				headers: {
+					method: 'POST',
+					body: JSON.stringify({"params":`query=&query=${filter.search}&distinct=true&facetFilters=(product_category%3Ashoes)&page=0&hitsPerPage=10&clickAnalytics=true`})
+				}
+			}
+
+		
+
 		default: 
 			return {
 				url: 'https://hdwj2rvqkb.us-west-2.awsapprunner.com/browse',
