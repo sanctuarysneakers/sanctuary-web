@@ -32,7 +32,6 @@
     "react-select": "^4.1.0",
     "react-slick": "^0.28.1",
     "react-text-loop": "^2.3.0",
-    "react-usestateref": "^1.0.8",
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
     "sass": "^1.47.0",
