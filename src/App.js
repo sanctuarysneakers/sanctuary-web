@@ -5,6 +5,7 @@ import { RemoveScroll } from 'react-remove-scroll'
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser } from './redux/actions'
 
+import ProtectedRoute from './components/Routes/protectedRoute'
 import Navbar from "./components/navbar"
 import Home from "./components/Home/home"
 import Browse from "./components/Pages/browse"
@@ -90,14 +91,19 @@ export default function App() {
                 <Route path="/home" component={Home} />
                 <Route path="/browse/:query?" component={Browse} />
                 <Route path="/item/:sku/:gender" component={Item} />
-                <Route path="/sign-in" component={SignInOptions} />
-                <Route path="/sign-in-email" component={SignInEmail} />
-                <Route path="/create-account" component={CreateAccountOptions} />
-                <Route path="/create-account-email" component={CreateAccountEmail} />
-                <Route path="/profile" component={Profile} />
-                <Route path="/profile-edit-name" component={EditProfileName} />
-                <Route path="/profile-edit-email" component={EditProfileEmail} />
-                <Route path="/profile-edit-password" component={EditProfilePassword} />
+
+                {/* redirect user to home page if already signed in  */}
+                <ProtectedRoute path="/sign-in" component={SignInOptions} isEnabled={!firebase.auth().currentUser} />
+                <ProtectedRoute path="/sign-in-email" component={SignInEmail} isEnabled={!firebase.auth().currentUser} />
+                <ProtectedRoute path="/create-account" component={CreateAccountOptions} isEnabled={!firebase.auth().currentUser} />
+                <ProtectedRoute path="/create-account-email" component={CreateAccountEmail} isEnabled={!firebase.auth().currentUser} />
+
+                {/* redirect user to home page if not signed in  */}
+                <ProtectedRoute path="/profile" component={Profile} isEnabled={firebase.auth().currentUser} />
+                <ProtectedRoute path="/profile-edit-name" component={EditProfileName} isEnabled={firebase.auth().currentUser} />
+                <ProtectedRoute path="/profile-edit-email" component={EditProfileEmail} isEnabled={firebase.auth().currentUser} />
+                <ProtectedRoute path="/profile-edit-password" component={EditProfilePassword} isEnabled={firebase.auth().currentUser} />
+            
                 <Route path="/privacy-policy" component={PrivacyPolicy} />
                 <Route path="/terms-of-use" component={TermsOfUse} />
                 <Route path="/contact-us" component={ContactUs} />
