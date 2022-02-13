@@ -1,10 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import useAPICall from '../Hooks/useApiCall'
 import VisibleOnScreen from '../Hooks/visibleOnScreen'
 import FadeIn from 'react-fade-in'
 import TextLoop from 'react-text-loop'
 import BrandCard from '../brandCard'
 import Carousel from '../carousel'
+import { currencySymbolMap }  from '../../assets/constants'
 
 export default function HomeTrending() {
 
@@ -12,6 +14,10 @@ export default function HomeTrending() {
     const isVisible = VisibleOnScreen(ref)
     const [render, setRender] = useState(false)
     const [firstFlip, setFirstFlip] = useState(false)
+    const [under200, setUnder200] = useState("$200")
+    const [under300, setUnder300] = useState("$300")
+
+    const currency = useSelector(state => state.currency)
 
     useAPICall('trending', {query: ''})
     useAPICall('under200', {query: ''})
@@ -21,6 +27,22 @@ export default function HomeTrending() {
     const brandCards = brands.map((item, index) => 
         <BrandCard key={item} brand={item} index={index} length={brands.length} />
     )
+
+    useEffect(() => {
+        async function updateHeaderValues() {
+            const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/currencyrate?from_curr=USD&to_curr=${currency}`
+            const response = await fetch(url)
+            const conversionRate = await response.json()
+
+            let val200 = Math.ceil((200 * conversionRate)/100)*100 > 10000 ? Math.ceil((200 * conversionRate)/1000)*1000 : Math.ceil((200 * conversionRate)/100)*100
+            let val300 = Math.ceil((300 * conversionRate)/100)*100 > 10000 ? Math.ceil((300 * conversionRate)/1000)*1000 : Math.ceil((300 * conversionRate)/100)*100
+        
+            setUnder200(`${currencySymbolMap[currency]}${val200}`) 
+            setUnder300(`${currencySymbolMap[currency]}${val300}`)
+        }
+       
+        updateHeaderValues() 
+    }, [currency])
 
     useEffect(() => {
         if (isVisible && !firstFlip) {
@@ -60,12 +82,12 @@ export default function HomeTrending() {
                     <Carousel type={'trending'} />
 
                     <h2 className='home-trending-sneakers-header'>
-                        Deals Under $200
+                        Deals Under {under200}
                     </h2>
                     <Carousel type={'under200'} />
 
                     <h2 className='home-trending-sneakers-header'>
-                        Deals Under $300
+                        Deals Under {under300}
                     </h2>
                     <Carousel type={'under300'} />
                 </div>
