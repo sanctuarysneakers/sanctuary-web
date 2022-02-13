@@ -1,7 +1,11 @@
 import Australia from './images/australia.svg'
+import Brazil from './images/brazil.svg'
 import Canada from './images/canada.svg'
+import China from './images/china.png'
 import EuropeanUnion from './images/europeanUnion.svg'
+import HongKong from './images/hongkong.png'
 import Japan from './images/japan.svg'
+import Korea from './images/korea.png'
 import UnitedKingdom from './images/unitedKingdom.svg'
 import UnitedStates from './images/unitedStates.svg'
 
@@ -22,28 +26,37 @@ import KLEKTGrey from './images/klekt-grey.svg'
 import eBayGrey from './images/ebay-grey.svg'
 
 
-
 // currencies & flags
 
+export const supportedCurrencies = ['AUD', 'CAD', 'EUR', 'GBP', 'JPY', 'USD', 'HKD', 'BRL', 'CNY', 'KRW' ]
+
 export const currencySymbolMap = {
-    'USD': '$', 'CAD': 'C$', 'EUR': '€', 'GBP': '£', 'JPY': '¥', 'AUD': 'A$'
+    'USD': '$', 'CAD': 'C$', 'EUR': '€', 'GBP': '£', 'JPY': '¥', 'AUD': 'A$', 'HKD': 'HK$', 'BRL': 'R$', 'CNY': 'CN¥', 'KRW': '₩'
 }
 
 export const currencySymbolMapWithAbbrev = {
     'AUD' : 'AUD - A$',
+    'BRL' : 'BRL - R$', 
     'CAD' : 'CAD - C$',
+    'CNY' : 'CNY - CN¥',
     'EUR' : 'EUR - €',
     'GBP' : 'GBP - £',
+    'HKD' : 'HKD - HK$',
     'JPY' : 'JPY - ¥',
+    'KRW' : 'KRW - ₩',
     'USD' : 'USD - $'
 }
 
 export const currencyFlagMap = {
     'AUD' : Australia,
+    'BRL' : Brazil,
     'CAD' : Canada,
+    'CNY': China, 
     'EUR' : EuropeanUnion,
     'GBP' : UnitedKingdom,
+    'HKD' : HongKong,
     'JPY' : Japan,
+    'KRW': Korea, 
     'USD' : UnitedStates
 }
 
