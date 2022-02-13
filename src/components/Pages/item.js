@@ -10,30 +10,12 @@ import ItemListing from '../itemListing'
 import ItemLoader from '../itemLoader'
 import ItemNoResults from '../itemNoResults'
 import Footer from '../footer'
-import StockXGrey from '../../assets/images/stockx.png'
-import GOATGrey from '../../assets/images/goat-grey.svg'
-import GrailedGrey from '../../assets/images/grailed-grey.svg'
-import flightClubGrey from '../../assets/images/flightClub-grey.svg'
-import DepopGrey from '../../assets/images/depop-grey.svg'
-import KLEKTGrey from '../../assets/images/klekt-grey.svg'
-import eBayGrey from '../../assets/images/ebay-grey.svg'
+
+import { websiteLogoMapGrey, currencySymbolMap }  from '../../assets/constants'
 
 export default function Item() {
 
-    const websiteLogoMap = {
-        'stockx': StockXGrey,
-        'goat': GOATGrey,
-        'grailed': GrailedGrey,
-        'flightclub': flightClubGrey,
-        'depop': DepopGrey,
-        'klekt': KLEKTGrey,
-        'ebay': eBayGrey
-    }
-
     const currency = useSelector(state => state.currency)
-    const currencySymbolMap = {
-        'USD': '$', 'CAD': 'C$', 'EUR': '€', 'GBP': '£', 'JPY': '¥', 'AUD': 'A$'
-    }
 
     const { sku, gender } = useParams()
     const size = useSelector(state => state.size)
@@ -80,7 +62,7 @@ export default function Item() {
                                 {itemPrices.length ? 
                                 <div className={`item-sneaker-site ${itemPrices[0].source}`}>
                                     <img 
-                                        src={websiteLogoMap[itemPrices[0].source]} alt='website logo' 
+                                        src={websiteLogoMapGrey[itemPrices[0].source]} alt='website logo' 
                                     />
                                 </div> 
                                 : 

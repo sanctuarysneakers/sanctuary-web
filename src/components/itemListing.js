@@ -1,23 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import {ReactComponent as RightArrow} from '../assets/images/RightArrow.svg'
+import { websiteTextMap, currencySymbolMap } from '../assets/constants'
 
 export default function ItemListing({ data, index, length }) {
 
     const currency = useSelector(state => state.currency)
-    const currencySymbolMap = {
-        'USD':'$', 'CAD':'C$', 'EUR':'€', 'GBP':'£', 'JPY':'¥', 'AUD':'A$'
-    }
-
-    const websiteTextMap = {
-        'stockx' : 'StockX',
-        'goat' : 'GOAT',
-        'grailed' : 'Grailed',
-        'flightclub' : 'Flight Club',
-        'depop' : 'Depop',
-        'klekt' : 'KLEKT',
-        'ebay' : 'eBay'
-    }
 
     let condition
     if (data.source === 'ebay') {

@@ -1,16 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { updateSize } from '../redux/actions'
+import { currencySymbolMap } from '../assets/constants'
 
 export default function CarouselCard({ data, index, type, length }) {
 
     const dispatch = useDispatch()
     const currency = useSelector(state => state.currency)
     const size = useSelector(state => state.size)
-
-    const currencySymbolMap = {
-        'AUD': 'A$', 'CAD': 'C$', 'EUR': '€', 'GBP': '£', 'JPY': '¥', 'USD': '$'
-    }
 
     const clickHandler = () => {
         if (size < 7 && data['gender'] === 'men')
@@ -45,7 +42,7 @@ export default function CarouselCard({ data, index, type, length }) {
 
                     <div className='carousel-card-trending-price'>
                         <p>Estimated</p>
-                        <h4>{currencySymbolMap[currency]}{data.lastSale.toLocaleString('en')}</h4>
+                        <h4>{currencySymbolMap[currency]}{data.price.toLocaleString('en')}</h4>
                     </div>
                 </div>
             </div>}
@@ -62,7 +59,7 @@ export default function CarouselCard({ data, index, type, length }) {
 
                     <div className='carousel-card-price'>
                         <p>Estimated</p>
-                        <h4>{currencySymbolMap[currency]}{data.lastSale.toLocaleString('en')}</h4>
+                        <h4>{currencySymbolMap[currency]}{data.price.toLocaleString('en')}</h4>
                     </div>
                 </div>
             </div>}

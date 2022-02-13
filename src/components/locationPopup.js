@@ -3,11 +3,7 @@ import useOutsideAlerter from './Hooks/useOutsideAlerter'
 import { useDispatch, useSelector } from 'react-redux'
 import { hideLocationPopup, updateCurrency } from '../redux/actions'
 import { ReactComponent as Close } from '../assets/images/close.svg'
-import Australia from '../assets/images/australia.svg'
-import Canada from '../assets/images/canada.svg'
-import EuropeanUnion from '../assets/images/europeanUnion.svg'
-import Japan from '../assets/images/japan.svg'
-import UnitedKingdom from '../assets/images/unitedKingdom.svg'
+import { currencyFlagMap } from '../assets/constants'
 
 
 export default function LocationPopup() {
@@ -16,14 +12,6 @@ export default function LocationPopup() {
 	const wrapperRef = useRef(null)
     const dispatch = useDispatch()
     useOutsideAlerter(wrapperRef)
-
-	const currencyFlagMap = {
-		'AUD' : Australia,
-        'CAD' : Canada,
-		'EUR' : EuropeanUnion,
-        'JPY' : Japan,
-        'GBP' : UnitedKingdom,
-    }
 
 	const handleCurrencyChange = () => {
 		dispatch(updateCurrency(currency))

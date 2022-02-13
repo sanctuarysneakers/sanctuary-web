@@ -27,7 +27,7 @@ export default function useAPICall(callType, params) {
     async function convertCurrency(results, currency) {
         const rate = await currencyConversionRate("USD", currency)
         for (let i = 0; i < results.length; i++)
-            results[i]["lastSale"] = !isNaN(rate) ? Math.round(results[i]["lastSale"] * rate) : "---"
+            results[i]["price"] = !isNaN(rate) ? Math.round(results[i]["price"] * rate) : "---"
         return results
     }
 
@@ -56,6 +56,7 @@ export default function useAPICall(callType, params) {
             
             let results = await response.json()
             if (!results.length) throw new Error()
+
             results = await convertCurrency(results, currency)
 
             dispatch(dispatch_map[type](results))

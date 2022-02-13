@@ -4,6 +4,7 @@ import useOutsideAlerter from './Hooks/useOutsideAlerter'
 import { useDispatch, useSelector } from 'react-redux'
 import { hideCurrencyModal } from '../redux/actions'
 import { ReactComponent as Close } from '../assets/images/close.svg'
+import { supportedCurrencies } from '../assets/constants' 
 
 export default function CurrencyModal() {
 
@@ -12,9 +13,7 @@ export default function CurrencyModal() {
     const dispatch = useDispatch()
     useOutsideAlerter(wrapperRef)
 
-    const countries = ['AUD', 'CAD', 'EUR', 'GBP', 'JPY', 'USD']
-
-    const currencyOptions = countries.map((country) => 
+    const currencyOptions = supportedCurrencies.map((country) => 
         <CurrencyOption option={country} currency={currency} />
     )
 
