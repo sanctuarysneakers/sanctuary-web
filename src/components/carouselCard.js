@@ -42,7 +42,7 @@ export default function CarouselCard({ data, index, type, length }) {
 
                     <div className='carousel-card-trending-price'>
                         <p>Estimated</p>
-                        <h4>{currencySymbolMap[currency]}{data.lastSale.toLocaleString('en')}</h4>
+                        <h4>{currencySymbolMap[currency]}{data.price.toLocaleString('en')}</h4>
                     </div>
                 </div>
             </div>}
@@ -59,7 +59,7 @@ export default function CarouselCard({ data, index, type, length }) {
 
                     <div className='carousel-card-price'>
                         <p>Estimated</p>
-                        <h4>{currencySymbolMap[currency]}{data.lastSale.toLocaleString('en')}</h4>
+                        <h4>{currencySymbolMap[currency]}{data.price.toLocaleString('en')}</h4>
                     </div>
                 </div>
             </div>}

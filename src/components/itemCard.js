@@ -36,7 +36,7 @@ export default function ItemCard({ data }) {
                         </p>
 
                         <p className='item-card-price'>
-                            {currencySymbolMap[currency]}{data.lastSale.toLocaleString('en')}
+                            {currencySymbolMap[currency]}{data.price.toLocaleString('en')}
                         </p>
                     </div>
                 </div>

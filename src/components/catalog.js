@@ -25,7 +25,7 @@ export default function Catalog({ search_query }) {
     async function convertCurrency(results) {
         const rate = await currencyConversionRate("USD", currency)
         for (let i = 0; i < results.length; i++)
-            results[i]["lastSale"] = !isNaN(rate) ? Math.round(results[i]["lastSale"] * rate) : "---"
+            results[i]["price"] = !isNaN(rate) ? Math.round(results[i]["price"] * rate) : "---"
         return results
     }
 
