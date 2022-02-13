@@ -1,16 +1,13 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateSize } from '../redux/actions'
+import { currencySymbolMap }  from '../assets/constants'
 
 export default function ItemCard({ data }) {
 
     const dispatch = useDispatch()
     const currency = useSelector(state => state.currency)
     const size = useSelector(state => state.size)
-
-	const currencySymbolMap = {
-		'AUD':'A$', 'CAD':'C$', 'EUR':'€', 'GBP':'£', 'JPY':'¥', 'USD':'$'
-    }
 
     const clickHandler = () => {
         if (size < 7 && data['gender'] === 'men')
