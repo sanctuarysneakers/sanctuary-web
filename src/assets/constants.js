@@ -1,3 +1,10 @@
+import Australia from './images/australia.svg'
+import Canada from './images/canada.svg'
+import EuropeanUnion from './images/europeanUnion.svg'
+import Japan from './images/japan.svg'
+import UnitedKingdom from './images/unitedKingdom.svg'
+import UnitedStates from './images/unitedStates.svg'
+
 import StockXIcon from './images/stockxIcon.png'
 import GOAT from './images/goat.svg'
 import GrailedIcon from './images/grailedIcon.jpg'
@@ -15,9 +22,32 @@ import KLEKTGrey from './images/klekt-grey.svg'
 import eBayGrey from './images/ebay-grey.svg'
 
 
+
+// currencies & flags
+
 export const currencySymbolMap = {
     'USD': '$', 'CAD': 'C$', 'EUR': '€', 'GBP': '£', 'JPY': '¥', 'AUD': 'A$'
 }
+
+export const currencySymbolMapWithAbbrev = {
+    'AUD' : 'AUD - A$',
+    'CAD' : 'CAD - C$',
+    'EUR' : 'EUR - €',
+    'GBP' : 'GBP - £',
+    'JPY' : 'JPY - ¥',
+    'USD' : 'USD - $'
+}
+
+export const currencyFlagMap = {
+    'AUD' : Australia,
+    'CAD' : Canada,
+    'EUR' : EuropeanUnion,
+    'GBP' : UnitedKingdom,
+    'JPY' : Japan,
+    'USD' : UnitedStates
+}
+
+// brands & logos
 
 export const websiteTextMap = {
     'stockx' : 'StockX',
