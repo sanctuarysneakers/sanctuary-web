@@ -27,7 +27,7 @@ export default function BuyYourPair() {
 
                         <div className='newsroom-article-date'>
                             <h2> Fiona O'Flynn </h2>
-                            <p> Feb 10th, 2022 </p>
+                            <p> February 10th, 2022 </p>
                         </div>
                     </div>
                 </div>
