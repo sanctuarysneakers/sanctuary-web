@@ -69,7 +69,7 @@ export default function HomeNewsroom() {
                     <Slider {...sliderSettings} ref={sliderRef}>
                         <div style={{ width: 1020 }}>
                             <div className='home-newsroom-article'
-                                onClick={() => clickHandler('/article-introduction')}>
+                                onClick={() => clickHandler('/newsroom-buy-your-pair')}>
 
                                 <div className='home-newsroom-img' style={{ backgroundImage: `url(${ArticleData[0]['image']})` }} />
                                 <div className='home-newsroom-article-gradient sanctuary'>
@@ -83,7 +83,7 @@ export default function HomeNewsroom() {
 
                         <div style={{ width: 1020 }}>
                             <div className='home-newsroom-article'
-                                onClick={() => clickHandler('/article-demystifying')}>
+                                onClick={() => clickHandler('/newsroom-demystifying-the-sneaker-market')}>
 
                                 <div className='home-newsroom-img' style={{ backgroundImage: `url(${ArticleData[1]['image']})` }} />
                                 <div className='home-newsroom-article-gradient'>
@@ -97,7 +97,7 @@ export default function HomeNewsroom() {
 
                         <div style={{ width: 1020 }}>
                             <div className='home-newsroom-article'
-                                onClick={() => clickHandler('/article-sneakersmeetengineering')}>
+                                onClick={() => clickHandler('/newsroom-how-adidas-and-carbon-3d-are-revolutionizing-sneaker-production')}>
 
                                 <div className='home-newsroom-img' style={{ backgroundImage: `url(${ArticleData[2]['image']})` }} />
                                 <div className='home-newsroom-article-gradient'>
@@ -111,7 +111,7 @@ export default function HomeNewsroom() {
 
                         <div style={{ width: 1020 }}>
                             <div className='home-newsroom-article'
-                                onClick={() => clickHandler('/article-toppicks')}>
+                                onClick={() => clickHandler('/newsroom-our-top-drops-of-2020')}>
 
                                 <div className='home-newsroom-img' style={{ backgroundImage: `url(${ArticleData[3]['image']})` }} />
                                 <div className='home-newsroom-article-gradient'>

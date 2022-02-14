@@ -25,7 +25,7 @@ export default function SneakerMarket() {
 
                         <div className='newsroom-article-date'>
                             <h2> Cole Van Hinte </h2>
-                            <p> March 9, 2021 </p>
+                            <p> Jan 6, 2022 </p>
                         </div>
                     </div>
                 </div>
