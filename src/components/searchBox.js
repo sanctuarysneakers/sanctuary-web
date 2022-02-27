@@ -68,7 +68,6 @@ export default function SearchBox() {
         } else if (reason == "selectOption") {
             console.log("selected: " + JSON.stringify(val))
             redirectForSelection(val)
-            // redirectForSearch(val.name)
         }  else if (reason == "clear" || reason == "blur") {
             setInput('')
             setOptions([]);
