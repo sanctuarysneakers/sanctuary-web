@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateSize } from '../redux/actions'
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
 import Popper from '@mui/material/Popper';
@@ -25,14 +27,24 @@ export default function SearchBox() {
     const [input, setInput] = useState('')
     const [options, setOptions] = useState([])
 
-    const defaultTrending = []
-
-    useEffect(() => {
-        setOptions(defaultTrending);
-    }, [])
+    const dispatch = useDispatch()
+    const size = useSelector(state => state.size)
 
     const redirectForSearch = (val) => {
         document.location.href = `/browse/${val}`
+    }
+
+    const redirectForSelection = (selectedItem) => {
+		if (size < 7 && selectedItem['single_gender'] === 'men')
+			dispatch(updateSize(7))
+		else if (size > 12 && selectedItem['single_gender'] === 'women')
+			dispatch(updateSize(12))
+
+        let itemId = selectedItem['sku'].replace(/\s/g, '-') 
+        let gender = selectedItem['single_gender']
+
+        window.analytics.track(`home_carousel_item_clicked`, {id: itemId, gender: gender});
+        document.location.href = `/item/${itemId}/${gender}`
     }
 
     const handleLetterInput = async (val) => {     
@@ -43,7 +55,7 @@ export default function SearchBox() {
             let results = await response.json()
 
             if(results.hits) {
-                const newOptions = results.hits.filter(shoe => shoe.grid_picture_url && !shoe.grid_picture_url.includes("missing")).map(({name, grid_picture_url}) => ({name, grid_picture_url}))
+                const newOptions = results.hits.filter(shoe => shoe.grid_picture_url && !shoe.grid_picture_url.includes("missing") && shoe.sku).map(({name, sku, grid_picture_url, single_gender}) => ({name, sku, grid_picture_url, single_gender}))
                 setOptions(newOptions)
             }           
         }       
@@ -54,7 +66,7 @@ export default function SearchBox() {
             setInput(val)
             redirectForSearch(val); 
         } else if (reason == "selectOption") {
-            redirectForSearch(val.name)
+            redirectForSelection(val)
         }  else if (reason == "clear" || reason == "blur") {
             setInput('')
             setOptions([]);
