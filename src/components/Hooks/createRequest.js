@@ -139,7 +139,14 @@ export default function createRequestObject(type, filter) {
 				}),
 				headers: {
 					method: 'POST',
-					body: JSON.stringify({"params":`query=&query=${filter.search}&distinct=true&facetFilters=(product_category%3Ashoes)&page=0&hitsPerPage=10&clickAnalytics=true`})
+					body: JSON.stringify({
+						"query": filter.search,
+						"distinct": true,
+						"facets": "",
+						"facetFilters": ["product_category: shoes", "single_gender: -youth"],
+						"hitsPerPage": 15, 
+						"page": 0
+					})
 				}
 			}
 
