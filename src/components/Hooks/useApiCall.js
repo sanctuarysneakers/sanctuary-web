@@ -124,11 +124,14 @@ export default function useAPICall(callType, params) {
                 shippingPrices['stockX'] = null
                 continue
             }
-            let currencyRate = await currencyConversionRate(obj['currency'], currency)
+            let currencyRate
+            if (obj['currency'] !== currency)
+                currencyRate = await currencyConversionRate(obj['currency'], currency)
+            else
+                currencyRate = 1
             let shippingCost = obj['cost'] * currencyRate
             shippingPrices[rates[i]['site']] = shippingCost 
         }
-        console.log("shipping prices: ", shippingPrices)
         return shippingPrices
     }
 
@@ -141,14 +144,13 @@ export default function useAPICall(callType, params) {
         let shippingPrices = await getShippingPrices(location['country_code'])
         let results = []
         results.push(...await stockxLowestPrice(item, currencyRate))
-        results.push(...await ebayLowestPrice(item, size, location['country_code'], currencyRate))
+        results.push(...await ebayLowestPrice(item, size, location['country_code'], location['postal_code'], currencyRate))
         results.push(...await goatLowestPrice(item, size, currencyRate))
         results.push(...await flightclubLowestPrice(item, size, gender, currencyRate))
         results.push(...await klektLowestPrice(item, size, klektCurrencyRate))
         
         results = results.filter(r => r.price !== 0)
         results.sort((a, b) => a.price - b.price)
-        console.log("shipping prices: ", shippingPrices)
         return results
     }
 

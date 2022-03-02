@@ -62,7 +62,7 @@ export default function getRates() {
         }
     
     const goatRates = {
-        "goat": "goat",
+        "site": "goat",
         "US": {"cost": 13.50, "currency": "USD"},
         "CA": {"cost": 30.00, "currency": "USD"},
         "AT": {"cost": 15.00, "currency": "EUR"},

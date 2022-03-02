@@ -13,12 +13,12 @@ export async function stockxLowestPrice(item, currencyRate) {
 }
 
 
-export async function ebayLowestPrice(item, size, location, currencyRate) {
+export async function ebayLowestPrice(item, size, country, postalCode, currencyRate) {
 	if (!item.hasPrice) return []
 
 	let search = item.modelName.replace('(W)', '').concat(' ', item.skuId)
 
-	const request = createRequestObject('ebay', {search: search, size: size, shipTo: location})
+	const request = createRequestObject('ebay', {search: search, size: size, shipTo: country, postalCode: postalCode})
 	try {
 		const response = await fetch(request.url, request.headers)
 		if (!response.ok) throw new Error()

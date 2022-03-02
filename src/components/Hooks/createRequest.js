@@ -43,7 +43,8 @@ export default function createRequestObject(type, filter) {
 					'source': 'ebay',
 					'search': filter.search,
 					'size': filter.size,
-					'ship_to': filter.shipTo
+					'ship_to': filter.shipTo,
+					'postal_code': filter.postalCode
 				}),
 				headers: {
 					method: 'GET'
