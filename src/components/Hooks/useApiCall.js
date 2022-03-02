@@ -7,7 +7,7 @@ import { browseCall, updateItemInfo, updateItemPrices, updateItemListings,
 import createRequestObject from './createRequest'
 import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPrice, 
     klektLowestPrice, grailedListings, ebayListings, depopListings } from './scrapers'
-
+import getRates from '../../assets/shippingRates'
 
 export default function useAPICall(callType, params) {
     
@@ -114,13 +114,31 @@ export default function useAPICall(callType, params) {
         }
     }
 
+    async function getShippingPrices(country) {
+        let rates = getRates()
+        let shippingPrices = {}
+        for (var i = 0; i < rates.length; i++) {
+            let table = rates[i]
+            let obj = (country in table) ? table[country] : (table['OTHER'])
+            if (obj === null) {
+                shippingPrices['stockX'] = null
+                continue
+            }
+            let currencyRate = await currencyConversionRate(obj['currency'], currency)
+            let shippingCost = obj['cost'] * currencyRate
+            shippingPrices[rates[i]['site']] = shippingCost 
+        }
+        console.log("shipping prices: ", shippingPrices)
+        return shippingPrices
+    }
+
     async function getItemPrices(item, size, gender) {
         let currencyRate;
         if (currency !== "USD")
             currencyRate = await currencyConversionRate("USD", currency)
         else currencyRate = 1
         let klektCurrencyRate = await currencyConversionRate("EUR", currency)
-
+        let shippingPrices = await getShippingPrices(location['country_code'])
         let results = []
         results.push(...await stockxLowestPrice(item, currencyRate))
         results.push(...await ebayLowestPrice(item, size, location['country_code'], currencyRate))
@@ -130,6 +148,7 @@ export default function useAPICall(callType, params) {
         
         results = results.filter(r => r.price !== 0)
         results.sort((a, b) => a.price - b.price)
+        console.log("shipping prices: ", shippingPrices)
         return results
     }
 
