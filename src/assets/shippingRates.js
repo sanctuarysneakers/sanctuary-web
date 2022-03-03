@@ -104,5 +104,41 @@ export default function getRates() {
         "CA":  {"cost": 30.00, "currency": "USD"},
         "OTHER": {"cost": 40.00, "currency": "USD"},
         }
-    return [stockxRates, goatRates, flightClubRates]    
+
+    const klektRates = {
+        "site": "klekt",
+        "US": {"cost": 20.00, "currency": "EUR"},
+        "CA": {"cost": 28.00, "currency": "EUR"},
+        "AT": {"cost": 18.00, "currency": "EUR"},
+        "BE": {"cost": 18.00, "currency": "EUR"},
+        "BG": {"cost": 18.00, "currency": "EUR"},
+        "HR": {"cost": 20.00, "currency": "EUR"},
+        "AU": {"cost": 28.00, "currency": "EUR"},
+        "CY": {"cost": 18.00, "currency": "EUR"},
+        "CZ": {"cost": 18.00, "currency": "EUR"},
+        "DK": {"cost": 18.00, "currency": "EUR"},
+        "EE": {"cost": 18.00, "currency": "EUR"},
+        "FI": {"cost": 18.00, "currency": "EUR"},
+        "FR": {"cost": 12.00, "currency": "EUR"},
+        "DE": {"cost": 12.00, "currency": "EUR"},
+        "GR": {"cost": 20.00, "currency": "EUR"},
+        "HU": {"cost": 18.00, "currency": "EUR"},
+        "IE": {"cost": 18.00, "currency": "EUR"},
+        "IT": {"cost": 13.00, "currency": "EUR"},
+        "LV": {"cost": 18.00, "currency": "EUR"},
+        "LT": {"cost": 18.00, "currency": "EUR"},
+        "LU": {"cost": 18.00, "currency": "EUR"},
+        "MT": {"cost": 35.00, "currency": "EUR"}, 
+        "NL": {"cost": 7.00, "currency": "EUR"},
+        "PL": {"cost": 18.00, "currency": "EUR"},
+        "PT": {"cost": 18.00, "currency": "EUR"},
+        "RO": {"cost": 18.00, "currency": "EUR"},
+        "SK": {"cost": 18.00, "currency": "EUR"},
+        "SI": {"cost": 18.00, "currency": "EUR"},
+        "ES": {"cost": 18.00, "currency": "EUR"},
+        "SE": {"cost": 18.00, "currency": "EUR"},
+        "CN": {"cost": 18.00, "currency": "EUR"},
+        "GB": {"cost": 11.00, "currency": "EUR"},
+    }
+    return [stockxRates, goatRates, flightClubRates, klektRates]    
 }

@@ -142,6 +142,7 @@ export default function useAPICall(callType, params) {
         else currencyRate = 1
         let klektCurrencyRate = await currencyConversionRate("EUR", currency)
         let shippingPrices = await getShippingPrices(location['country_code'])
+        console.log("shipping prices: ", shippingPrices)
         let results = []
         results.push(...await stockxLowestPrice(item, currencyRate))
         results.push(...await ebayLowestPrice(item, size, location['country_code'], location['postal_code'], currencyRate))
