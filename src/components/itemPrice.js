@@ -29,7 +29,12 @@ export default function ItemPrice({ data, index, length }) {
 
                 <div className='item-price-link'>
                     <div className='item-amount'>
-                        <h2> {currencySymbolMap[currency]}{data.price} </h2>
+                        <div className='item-price-amount'>
+                            <h2> {currencySymbolMap[currency]}{data.price} </h2>
+                        </div>
+                        <div className='item-shipping'>
+                            <p> + {currencySymbolMap[currency]}{Math.round(data.shippingPrice * 100) / 100} shipping</p>
+                        </div>
                     </div>
                     <RightArrow />
                 </div>

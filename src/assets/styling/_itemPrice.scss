@@ -111,7 +111,7 @@
             .item-source-text {
                 height: 56px;
                 padding: 2px 15px;
-
+                
                 h2 {
                     font-size: 21px;
                     font-weight: 500;
@@ -130,7 +130,7 @@
 
         .item-price-link {
             display: flex;
-            height: 36px;
+            height: 56px;
 
             // Styling for price link
             .item-amount {
@@ -151,6 +151,13 @@
                 path {
                     stroke-width: 2px;
                 }
+            }
+
+            .item-shipping {
+                line-height: 20px;
+                font-size: 16px;
+                font-weight: 300;
+                color: #777F93;
             }
         }
     }

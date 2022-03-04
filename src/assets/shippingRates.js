@@ -99,7 +99,7 @@ export default function getRates() {
         }
     
     const flightClubRates = {
-        "site": "flightClub",
+        "site": "flightclub",
         "US": {"cost": 13.50, "currency": "USD"},
         "CA":  {"cost": 30.00, "currency": "USD"},
         "OTHER": {"cost": 40.00, "currency": "USD"},
