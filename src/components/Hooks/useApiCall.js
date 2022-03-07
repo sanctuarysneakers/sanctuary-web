@@ -7,7 +7,6 @@ import { browseCall, updateItemInfo, updateItemPrices, updateItemListings,
 import createRequestObject from './createRequest'
 import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPrice, 
     klektLowestPrice, grailedListings, ebayListings, depopListings } from './scrapers'
-import getRates from '../../assets/shippingRates'
 
 export default function useAPICall(callType, params) {
     
@@ -114,34 +113,16 @@ export default function useAPICall(callType, params) {
         }
     }
 
-    async function getShippingPrices(country) {
-        let rates = getRates()
-        let shippingPrices = {}
-        for (var i = 0; i < rates.length; i++) {
-            let table = rates[i]
-            let obj = (country in table) ? table[country] : (table['OTHER'])
-            if (obj === null) {
-                shippingPrices['stockX'] = null
-                continue
-            }
-            let currencyRate
-            if (obj['currency'] !== currency)
-                currencyRate = await currencyConversionRate(obj['currency'], currency)
-            else
-                currencyRate = 1
-            let shippingCost = obj['cost'] * currencyRate
-            shippingPrices[rates[i]['site']] = shippingCost 
-        }
-        return shippingPrices
-    }
-
     async function getItemPrices(item, size, gender) {
         let currencyRate;
         if (currency !== "USD")
             currencyRate = await currencyConversionRate("USD", currency)
         else currencyRate = 1
         let klektCurrencyRate = await currencyConversionRate("EUR", currency)
-        let shippingPrices = await getShippingPrices(location['country_code'])
+
+        let shippingRequest = createRequestObject('shippingprices', {country: location['country_code']})
+        const shippingPrices = await fetch(shippingRequest.url, shippingRequest.headers)
+
         let results = []
         results.push(...await stockxLowestPrice(item, currencyRate))
         results.push(...await ebayLowestPrice(item, size, location['country_code'], location['postal_code'], currencyRate))
@@ -149,9 +130,16 @@ export default function useAPICall(callType, params) {
         results.push(...await flightclubLowestPrice(item, size, gender, currencyRate))
         results.push(...await klektLowestPrice(item, size, klektCurrencyRate))
 
+        let shippingCurrencyRate
         for (var i = 0; i < results.length; i++) {
             if (results[i]['source'] in shippingPrices) {
-                results[i]['shippingPrice'] = shippingPrices[results[i]['source']]
+                let shippingPriceObj = shippingPrices[results[i]['source']]
+                if (shippingPriceObj['currency'] !== currency)
+                    shippingCurrencyRate = await currencyConversionRate(shippingPriceObj['currency'], currency)
+                else
+                    shippingCurrencyRate = 1
+                
+                results[i]['shippingPrice'] = shippingPrices[results[i]['source']]['cost'] * shippingCurrencyRate
             }
         }
         

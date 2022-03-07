@@ -143,6 +143,15 @@ export default function createRequestObject(type, filter) {
 					body: JSON.stringify({"params":`query=&query=${filter.search}&distinct=true&facetFilters=(product_category%3Ashoes)&page=0&hitsPerPage=10&clickAnalytics=true`})
 				}
 			}
+		case 'shippingPrices':
+			return {
+				url: 'https://hdwj2rvqkb.us-west-2.awsapprunner.com/shippingprices?' + new URLSearchParams({
+					'country': filter.country
+				}),
+				headers: {
+					method: 'GET'
+				}
+			}
 
 		
 
