@@ -23,6 +23,7 @@ import ContactUs from './components/Contact/contactUs'
 import LocationModal from './components/Modals/locationModal'
 import useLocationDetection from './hooks/useLocationDetection'
 import CategoryFilterModal from './components/Modals/categoryFilterModal'
+import Portfolio from './components/Pages/portfolio'
 
 import SignInOptions from './components/Accounts/signInOptions'
 import SignInEmail from './components/Accounts/signInEmail'
@@ -74,7 +75,7 @@ export default function App() {
     })
 
     useEffect(() => {
-        window.analytics.page(); 
+        window.analytics.page()
     }, [urlLocation.pathname])
 
 
@@ -87,35 +88,35 @@ export default function App() {
             <React.Fragment>
                 <Navbar />
                 <Switch>
-                <Route exact path="/" component={Home} />
-                <Route path="/home" component={Home} />
-                <Route path="/browse/:query?" component={Browse} />
-                <Route path="/item/:sku/:gender" component={Item} />
+                    <Route exact path="/" component={Home} />
+                    <Route path="/home" component={Home} />
+                    <Route path="/browse/:query?" component={Browse} />
+                    <Route path="/item/:sku/:gender" component={Item} />
 
-                {/* redirect user to home page if already signed in  */}
-                <ProtectedRoute path="/sign-in" component={SignInOptions} isEnabled={!firebase.auth().currentUser} />
-                <ProtectedRoute path="/sign-in-email" component={SignInEmail} isEnabled={!firebase.auth().currentUser} />
-                <ProtectedRoute path="/create-account" component={CreateAccountOptions} isEnabled={!firebase.auth().currentUser} />
-                <ProtectedRoute path="/create-account-email" component={CreateAccountEmail} isEnabled={!firebase.auth().currentUser} />
+                    {/* redirect user to home page if already signed in  */}
+                    <ProtectedRoute path="/sign-in" component={SignInOptions} isEnabled={!firebase.auth().currentUser} />
+                    <ProtectedRoute path="/sign-in-email" component={SignInEmail} isEnabled={!firebase.auth().currentUser} />
+                    <ProtectedRoute path="/create-account" component={CreateAccountOptions} isEnabled={!firebase.auth().currentUser} />
+                    <ProtectedRoute path="/create-account-email" component={CreateAccountEmail} isEnabled={!firebase.auth().currentUser} />
+                    <ProtectedRoute path="/profile" component={Profile} isEnabled={firebase.auth().currentUser} />
+                    <ProtectedRoute path="/profile-edit-name" component={EditProfileName} isEnabled={firebase.auth().currentUser} />
+                    <ProtectedRoute path="/profile-edit-email" component={EditProfileEmail} isEnabled={firebase.auth().currentUser} />
+                    <ProtectedRoute path="/profile-edit-password" component={EditProfilePassword} isEnabled={firebase.auth().currentUser} />
+                
+                    <Route path="/portfolio" component={Portfolio} />
 
-                {/* redirect user to home page if not signed in  */}
-                <ProtectedRoute path="/profile" component={Profile} isEnabled={firebase.auth().currentUser} />
-                <ProtectedRoute path="/profile-edit-name" component={EditProfileName} isEnabled={firebase.auth().currentUser} />
-                <ProtectedRoute path="/profile-edit-email" component={EditProfileEmail} isEnabled={firebase.auth().currentUser} />
-                <ProtectedRoute path="/profile-edit-password" component={EditProfilePassword} isEnabled={firebase.auth().currentUser} />
-            
-                <Route path="/privacy-policy" component={PrivacyPolicy} />
-                <Route path="/terms-of-use" component={TermsOfUse} />
-                <Route path="/contact-us" component={ContactUs} />
-                <Route path="/how-it-works" component={HowItWorks} />
-                <Route path="/newsroom" component={Newsroom} />
-                <Route path="/newsroom-sanctuary-our-story" component={SanctuaryStory} />
-                <Route path="/newsroom-buy-your-pair" component={BuyYourPair} />
-                <Route path="/newsroom-how-adidas-and-carbon-3d-are-revolutionizing-sneaker-production" component={AdidasCarbon3D} />
-                <Route path="/newsroom-our-top-drops-of-2020" component={TopDrops2020} />
-                <Route path="/newsroom-demystifying-the-sneaker-market" component={SneakerMarket} />
-                <Route path="/item-not-supported" component={ItemNotSupported} />
-                <Route component={PageNotFound} />
+                    <Route path="/privacy-policy" component={PrivacyPolicy} />
+                    <Route path="/terms-of-use" component={TermsOfUse} />
+                    <Route path="/contact-us" component={ContactUs} />
+                    <Route path="/how-it-works" component={HowItWorks} />
+                    <Route path="/newsroom" component={Newsroom} />
+                    <Route path="/newsroom-sanctuary-our-story" component={SanctuaryStory} />
+                    <Route path="/newsroom-buy-your-pair" component={BuyYourPair} />
+                    <Route path="/newsroom-how-adidas-and-carbon-3d-are-revolutionizing-sneaker-production" component={AdidasCarbon3D} />
+                    <Route path="/newsroom-our-top-drops-of-2020" component={TopDrops2020} />
+                    <Route path="/newsroom-demystifying-the-sneaker-market" component={SneakerMarket} />
+                    <Route path="/item-not-supported" component={ItemNotSupported} />
+                    <Route component={PageNotFound} />
                 </Switch>
 
                 { locationPopup && 
