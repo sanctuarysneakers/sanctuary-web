@@ -16,6 +16,7 @@ import { websiteLogoMapGrey, currencySymbolMap }  from '../../assets/constants'
 
 export default function Item() {
 
+    const user = useSelector(state => state.user)
     const currency = useSelector(state => state.currency)
     const { sku, gender } = useParams()
     const size = useSelector(state => state.item.size)
@@ -46,7 +47,20 @@ export default function Item() {
         window.analytics.track(`item_buy_new_clicked`, {sku: sku, gender: gender, model: itemInfo.modelName});
     }
 
-    /* eslint-disable jsx-a11y/anchor-is-valid */
+    async function addToPortfolio() {
+        fetch("https://hdwj2rvqkb.us-west-2.awsapprunner.com/accounts/portfolio/add", {
+            method: "POST",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify({
+                user_id: user.uid,
+                sku: itemInfo.skuId,
+                size: size,
+                add_date: new Date().toISOString().slice(0, 10),
+                price: itemPrices[0].price
+            })
+        })
+    }
+
     return (
         <div className='item'>
             <Helmet>
@@ -61,6 +75,11 @@ export default function Item() {
 
                     <div className='item-sneaker-info'>
                         <div className='item-sneaker-text'>
+
+                            {user && 
+                                <button onClick={() => addToPortfolio()}>
+                                    Add to Portfolio
+                                </button>}
 
                             {pricesLoading && <ItemLoader version={'source'} />}
                             {!pricesLoading && <div className='item-sneaker-source'>
@@ -82,8 +101,7 @@ export default function Item() {
 
                             {pricesLoading && <ItemLoader version={'info'} />}
                             {!pricesLoading && <div className='item-sneaker-price-details'>
-                                {itemPrices.length ? 
-                                
+                                {itemPrices.length ?                   
                                 <Link to={{ pathname: itemPrices[0].url }} className="hidden-link" target="_blank" rel="noopener noreferrer" onClick={clickHandler} onContextMenu={clickHandler}> 
                                     <div className='item-sneaker-price'>
                                         <h2>
