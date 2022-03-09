@@ -120,8 +120,12 @@ export default function useAPICall(callType, params) {
         else currencyRate = 1
         let klektCurrencyRate = await currencyConversionRate("EUR", currency)
 
-        let shippingRequest = createRequestObject('shippingprices', {country: location['country_code']})
-        const shippingPrices = await fetch(shippingRequest.url, shippingRequest.headers)
+        let shippingRequest = createRequestObject('shippingPrices', {country: location['country_code']})
+        const shippingResponse = await fetch(shippingRequest.url, shippingRequest.headers)
+
+        if (!shippingResponse.ok) throw new Error()
+
+        const shippingPrices = await shippingResponse.json()
 
         let results = []
         results.push(...await stockxLowestPrice(item, currencyRate))
