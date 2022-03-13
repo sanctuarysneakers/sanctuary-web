@@ -53,6 +53,9 @@
             height: 36px;
 
             .item-listing-amount {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
                 padding: 2px 15px;
 
                 h2 {
@@ -60,6 +63,15 @@
                     font-weight: 400;
                     color: black;
                     line-height: 32px;
+                }
+
+                .listing-shipping {
+                    p {
+                        font-size: 14px;
+                        font-weight: 300;
+                        color: #777F93;
+                        line-height: 24px;
+                    }
                 }
             }
 

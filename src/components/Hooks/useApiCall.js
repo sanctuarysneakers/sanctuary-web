@@ -129,7 +129,7 @@ export default function useAPICall(callType, params) {
 
         let results = []
         results.push(...await stockxLowestPrice(item, currencyRate))
-        results.push(...await ebayLowestPrice(item, size, location['country_code'], location['postal_code'], currencyRate))
+        results.push(...await ebayLowestPrice(item, size, location['country_code'], location['postal_code'], currencyRate, currency))
         results.push(...await goatLowestPrice(item, size, currencyRate))
         results.push(...await flightclubLowestPrice(item, size, gender, currencyRate))
         results.push(...await klektLowestPrice(item, size, klektCurrencyRate))
@@ -159,9 +159,9 @@ export default function useAPICall(callType, params) {
         else currencyRate = 1
         
         let results = []
-        results.push(...await ebayListings(item, size, location['country_code'], currencyRate))
-        results.push(...await depopListings(item, size, gender, currencyRate))
-        results.push(...await grailedListings(item, size, currencyRate))
+        results.push(...await ebayListings(item, size, location['country_code'], currencyRate, currency, location['postal_code']))
+        results.push(...await depopListings(item, size, gender, currencyRate, location['country_code']))
+        results.push(...await grailedListings(item, size, currencyRate, location['country_code']))
 
         results.sort((a, b) => a.price - b.price)
         return results

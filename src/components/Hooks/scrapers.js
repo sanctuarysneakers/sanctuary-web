@@ -13,12 +13,15 @@ export async function stockxLowestPrice(item, currencyRate) {
 }
 
 
-export async function ebayLowestPrice(item, size, country, postalCode, currencyRate) {
+export async function ebayLowestPrice(item, size, country, postalCode, currencyRate, currency) {
 	if (!item.hasPrice) return []
 
 	let search = item.modelName.replace('(W)', '').concat(' ', item.skuId)
-
-	const request = createRequestObject('ebay', {search: search, size: size, shipTo: country, postalCode: postalCode})
+	let request
+	if (postalCode !== '')
+		request = createRequestObject('ebay', {search: search, size: size, shipTo: country, postalCode: postalCode})
+	else 
+		request = createRequestObject('ebay', {search: search, size: size, shipTo: country})
 	try {
 		const response = await fetch(request.url, request.headers)
 		if (!response.ok) throw new Error()
@@ -34,11 +37,18 @@ export async function ebayLowestPrice(item, size, country, postalCode, currencyR
         url.searchParams.set('toolid', '10001')
         url.searchParams.set('mkevt', '1')
 
-		return [{
+		let finalData = {
 			source: 'ebay',
 			price: Math.round(itemData[0]['price'] * currencyRate),
 			url: url
-		}]
+		}
+		if ('shippingInfo' in itemData[0]) {
+			if (currency !== itemData[0]['shippingInfo'][0]['shippingServiceCost']['@currencyId']) 
+				finalData['shippingPrice'] = Math.round(itemData[0]['shippingInfo'][0]['shippingServiceCost'][0]['__value__'] * currencyRate)
+			else 
+				finalData['shippingPrice'] = Math.round(itemData[0]['shippingInfo'][0]['shippingServiceCost'][0]['__value__'])
+		}
+		return [finalData]
 	} catch (e) {
 		return []
 	}
@@ -117,12 +127,12 @@ export async function flightclubLowestPrice(item, size, gender, currencyRate) {
 
 /********** Listings **********/
 
-export async function ebayListings(item, size, location, currencyRate) {
+export async function ebayListings(item, size, location, currencyRate, currency, postalCode) {
 	if (!item.hasPrice) return []
 
 	let search = item.modelName.replace('(W)', '').concat(' ', item.skuId)
 	
-	const request = createRequestObject('ebayListings', {search: search, size: size, shipTo: location})
+	const request = createRequestObject('ebayListings', {search: search, size: size, shipTo: location, postalCode: postalCode})
 	try {
 		const response = await fetch(request.url, request.headers)
 		if (!response.ok) throw new Error()
@@ -138,7 +148,6 @@ export async function ebayListings(item, size, location, currencyRate) {
 			url.searchParams.set('customid', '')
 			url.searchParams.set('toolid', '10001')
 			url.searchParams.set('mkevt', '1')
-
 			results.push({
 				id: item['id'],
 				source: 'ebay',
@@ -147,6 +156,13 @@ export async function ebayListings(item, size, location, currencyRate) {
 				url: url,
 				condition:  item['condition']
 			})
+
+			if ('shippingInfo' in item) {
+				if (currency !== item['shippingInfo']['@currencyId'])
+					results[results.length - 1]['shippingPrice'] = Math.round(item['shippingInfo']['__value__'] * currencyRate)
+				else {
+					results[results.length - 1]['shippingPrice'] = Math.round(item['shippingInfo']['__value__'])}
+			}
 		}
 		return results
 	} catch (e) {
@@ -155,11 +171,11 @@ export async function ebayListings(item, size, location, currencyRate) {
 }
 
 
-export async function depopListings(item, size, gender, currencyRate) {
+export async function depopListings(item, size, gender, currencyRate, location) {
 	if (!item.hasPrice) return []
 
 	let search = item.modelName.replace('(W)', '')
-	const request = createRequestObject('depopListings', {search: search, size: size, gender: gender})
+	const request = createRequestObject('depopListings', {search: search, size: size, gender: gender, shipTo: location})
 	try {
 		const response = await fetch(request.url, request.headers)
 		if (!response.ok) throw new Error()
@@ -174,6 +190,11 @@ export async function depopListings(item, size, gender, currencyRate) {
 				image: item['image'],
 				url: new URL(`https://${item['url']}`)
 			})
+			if (location !== 'US')
+				results[results.length - 1]['shippingPrice'] = Math.round(item['internationalShippingCost'] * currencyRate)
+			else
+				results[results.length - 1]['shippingPrice'] = Math.round(item['nationalShipping'] * currencyRate)
+
 		}
 		return results
 	} catch (e) {
@@ -181,13 +202,13 @@ export async function depopListings(item, size, gender, currencyRate) {
 	}
 }
 
-
-export async function grailedListings(item, size, currencyRate) {
+export async function grailedListings(item, size, currencyRate, country) {
 	if (!item.hasPrice) return []
 	
 	let maxItems = 7
 	let search = item.modelName.replace('(W)', '')
 	const request = createRequestObject('grailedListings', {search: search, size: size})
+
 	try {
 		const response = await fetch(request.url, request.headers)
 		if (!response.ok) throw new Error()
@@ -197,13 +218,20 @@ export async function grailedListings(item, size, currencyRate) {
 		let results = []
 		for (const item of itemData) {
 			if (results.length >= maxItems) break
-			results.push({
+			let itemResult = {
 				id: item['id'],
 				source: 'grailed',
 				price: Math.round((item['price']) * currencyRate),
 				image: item['cover_photo']['url'],
-				url: new URL(`https://grailed.com/listings/${item['id'].toString()}`)
-			})
+				url: new URL(`https://grailed.com/listings/${item['id'].toString()}`)		
+			}
+			if (country in item['shipping'])
+				if (item['shipping'][country]['enabled'])
+					itemResult['shippingPrice'] = Math.round(item['shipping'][country]['amount'] * currencyRate)
+			else
+				if (item['shipping']['other']['enabled'])
+					itemResult['shippingPrice'] = Math.round(item['shipping'][country]['amount'] * currencyRate)
+			results.push(itemResult)
 		}
 		return results
 	} catch (e) {

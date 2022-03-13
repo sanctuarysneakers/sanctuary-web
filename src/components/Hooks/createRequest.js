@@ -38,14 +38,17 @@ export default function createRequestObject(type, filter) {
 				}
 			}
 		case 'ebay':
+			let lowestPriceParams = {
+				'source': 'ebay',
+				'search': filter.search,
+				'size': filter.size,
+				'ship_to': filter.shipTo,
+			}
+			if (filter.postalCode)
+				lowestPriceParams['postal_code'] = filter.postalCode
+			
 			return {
-				url: 'https://hdwj2rvqkb.us-west-2.awsapprunner.com/lowestprice?' + new URLSearchParams({
-					'source': 'ebay',
-					'search': filter.search,
-					'size': filter.size,
-					'ship_to': filter.shipTo,
-					'postal_code': filter.postalCode
-				}),
+				url: 'https://hdwj2rvqkb.us-west-2.awsapprunner.com/lowestprice?' + new URLSearchParams(lowestPriceParams),
 				headers: {
 					method: 'GET'
 				}
@@ -90,13 +93,16 @@ export default function createRequestObject(type, filter) {
 				}
 			}
 		case 'ebayListings':
+			let listingsParams = {
+				'source': 'ebay',
+				'search': filter.search,
+				'size': filter.size,
+				'ship_to': filter.shipTo
+			}
+			if (filter.postalCode)
+				listingsParams['postal_code'] = filter.postalCode
 			return {
-				url: 'https://hdwj2rvqkb.us-west-2.awsapprunner.com/itemlistings?' + new URLSearchParams({
-					'source': 'ebay',
-					'search': filter.search,
-					'size': filter.size,
-					'ship_to': filter.shipTo
-				}),
+				url: 'https://hdwj2rvqkb.us-west-2.awsapprunner.com/itemlistings?' + new URLSearchParams(listingsParams),
 				headers: {
 					method: 'GET'
 				}
@@ -107,7 +113,8 @@ export default function createRequestObject(type, filter) {
 					'source': 'depop',
 					'search': filter.search,
 					'size': filter.size,
-					'gender': filter.gender
+					'gender': filter.gender,
+					'ship_to': filter.shipTo
 				}),
 				headers: {
 					method: 'GET'
