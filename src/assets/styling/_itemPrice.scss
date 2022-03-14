@@ -1,4 +1,6 @@
 .item-price {
+    cursor: pointer;
+
     a {
         display: flex;
         justify-content: space-between;
@@ -111,7 +113,7 @@
             .item-source-text {
                 height: 56px;
                 padding: 2px 15px;
-
+                
                 h2 {
                     font-size: 21px;
                     font-weight: 500;
@@ -130,10 +132,13 @@
 
         .item-price-link {
             display: flex;
-            height: 36px;
+            height: 56px;
 
             // Styling for price link
             .item-amount {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
                 padding: 2px 15px;
 
                 h2 {
@@ -141,6 +146,15 @@
                     font-weight: 400;
                     color: black;
                     line-height: 32px;
+                }
+
+                .item-shipping {
+                    p {
+                        font-size: 14px;
+                        font-weight: 300;
+                        color: #777F93;
+                        line-height: 24px;
+                    }
                 }
             }
 
@@ -260,6 +274,13 @@
                     h2 {
                         font-size: 16.5px;
                         line-height: 24px;
+                    }
+
+                    .item-shipping {
+                        p {
+                            font-size: 12px;
+                            line-height: 20px;
+                        }
                     }
                 }
         

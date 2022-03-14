@@ -8,7 +8,6 @@ import createRequestObject from './createRequest'
 import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPrice, 
     klektLowestPrice, grailedListings, ebayListings, depopListings } from './scrapers'
 
-
 export default function useAPICall(callType, params) {
     
     const history = useHistory()
@@ -121,12 +120,32 @@ export default function useAPICall(callType, params) {
         else currencyRate = 1
         let klektCurrencyRate = await currencyConversionRate("EUR", currency)
 
+        let shippingRequest = createRequestObject('shippingPrices', {country: location['country_code']})
+        const shippingResponse = await fetch(shippingRequest.url, shippingRequest.headers)
+
+        if (!shippingResponse.ok) throw new Error()
+
+        const shippingPrices = await shippingResponse.json()
+
         let results = []
         results.push(...await stockxLowestPrice(item, currencyRate))
-        results.push(...await ebayLowestPrice(item, size, location['country_code'], currencyRate))
+        results.push(...await ebayLowestPrice(item, size, location['country_code'], location['postal_code'], currencyRate, currency))
         results.push(...await goatLowestPrice(item, size, currencyRate))
         results.push(...await flightclubLowestPrice(item, size, gender, currencyRate))
         results.push(...await klektLowestPrice(item, size, klektCurrencyRate))
+
+        let shippingCurrencyRate
+        for (var i = 0; i < results.length; i++) {
+            if (results[i]['source'] in shippingPrices) {
+                let shippingPriceObj = shippingPrices[results[i]['source']]
+                if (shippingPriceObj['currency'] !== currency)
+                    shippingCurrencyRate = await currencyConversionRate(shippingPriceObj['currency'], currency)
+                else
+                    shippingCurrencyRate = 1
+                
+                results[i]['shippingPrice'] = shippingPrices[results[i]['source']]['cost'] * shippingCurrencyRate
+            }
+        }
         
         results = results.filter(r => r.price !== 0)
         results.sort((a, b) => a.price - b.price)
@@ -140,9 +159,9 @@ export default function useAPICall(callType, params) {
         else currencyRate = 1
         
         let results = []
-        results.push(...await ebayListings(item, size, location['country_code'], currencyRate))
-        results.push(...await depopListings(item, size, gender, currencyRate))
-        results.push(...await grailedListings(item, size, currencyRate))
+        results.push(...await ebayListings(item, size, location['country_code'], currencyRate, currency, location['postal_code']))
+        results.push(...await depopListings(item, size, gender, currencyRate, location['country_code']))
+        results.push(...await grailedListings(item, size, currencyRate, location['country_code']))
 
         results.sort((a, b) => a.price - b.price)
         return results
