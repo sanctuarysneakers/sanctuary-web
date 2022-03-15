@@ -11,7 +11,7 @@ export default function ItemPrice({ data, index, length }) {
         window.analytics.track(`item_lowest_prices_click_${data.source}`, {url: data.url, price: data.price});
         window.open(url, '_blank')
     }
-
+    console.log("shipping price: ", data.shippingPrice)
     return (
         <div className={(index === length - 1) ? 'item-price last' : 'item-price'}>
 
@@ -33,10 +33,10 @@ export default function ItemPrice({ data, index, length }) {
                             <h2> {currencySymbolMap[currency]}{data.price} </h2>
                         </div>
                         <div className='item-shipping'>
-                            { (data.shippingPrice === 0) && 
+                            {('shippingPrice' in data) && (data.shippingPrice === 0) && 
                             <p> FREE shipping</p>
                             }
-                            { !isNaN(data.shippingPrice) && data.shippingPrice !== 0 && 
+                            {('shippingPrice' in data) && !isNaN(data.shippingPrice) && data.shippingPrice !== 0 && 
                             <p> +{currencySymbolMap[currency]}{Math.round(data.shippingPrice * 100) / 100} shipping</p>
                             }
                         </div>
