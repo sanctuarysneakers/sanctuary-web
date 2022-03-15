@@ -11,7 +11,7 @@ export default function ItemPrice({ data, index, length }) {
         window.analytics.track(`item_lowest_prices_click_${data.source}`, {url: data.url, price: data.price});
         window.open(url, '_blank')
     }
-    console.log("shipping price: ", data.shippingPrice)
+    
     return (
         <div className={(index === length - 1) ? 'item-price last' : 'item-price'}>
 
