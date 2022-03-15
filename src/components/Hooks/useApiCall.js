@@ -69,12 +69,18 @@ export default function useAPICall(callType, params) {
         dispatch(updateItemInfo(itemInfo))
         
         if (itemInfo) {
-            const itemPrices = await getItemPrices(itemInfo, size, gender)
-            dispatch(updateItemPrices(itemPrices))
-            dispatch(setItemPricesLoading(false))
+
+            let res = await Promise.all(
+                [
+                    getItemPrices(itemInfo, size, gender), 
+                    getItemListings(itemInfo, size, gender)
+                ]
+            ) 
     
-            const itemListings = await getItemListings(itemInfo, size, gender)
-            dispatch(updateItemListings(itemListings))
+            dispatch(updateItemPrices(res[0]))
+            dispatch(setItemPricesLoading(false)) 
+
+            dispatch(updateItemListings(res[1]))
             dispatch(setItemListingsLoading(false))
         }
     }
@@ -127,13 +133,18 @@ export default function useAPICall(callType, params) {
 
         const shippingPrices = await shippingResponse.json()
 
-        let results = []
-        results.push(...await stockxLowestPrice(item, currencyRate))
-        results.push(...await ebayLowestPrice(item, size, location['country_code'], location['postal_code'], currencyRate, currency))
-        results.push(...await goatLowestPrice(item, size, currencyRate))
-        results.push(...await flightclubLowestPrice(item, size, gender, currencyRate))
-        results.push(...await klektLowestPrice(item, size, klektCurrencyRate))
-
+        //execute all price requests simultaneously
+        let res = await Promise.all(
+            [
+                stockxLowestPrice(item, currencyRate), 
+                ebayLowestPrice(item, size, location['country_code'], location['postal_code'], currencyRate, currency),
+                flightclubLowestPrice(item, size, gender, currencyRate),
+                goatLowestPrice(item, size, currencyRate),
+                klektLowestPrice(item, size, klektCurrencyRate)
+            ]
+        )
+        let results = res.flat(); 
+            
         let shippingCurrencyRate
         for (var i = 0; i < results.length; i++) {
             if (results[i]['source'] in shippingPrices) {
@@ -158,12 +169,16 @@ export default function useAPICall(callType, params) {
             currencyRate = await currencyConversionRate("USD", currency)
         else currencyRate = 1
         
-        let results = []
-        results.push(...await ebayListings(item, size, location['country_code'], currencyRate, currency, location['postal_code']))
-        results.push(...await depopListings(item, size, gender, currencyRate, location['country_code']))
-        results.push(...await grailedListings(item, size, currencyRate, location['country_code']))
+        //execute all listing requests simultaneously
+        const res = await Promise.all(
+            [
+                ebayListings(item, size, location['country_code'], currencyRate, currency, location['postal_code']), 
+                depopListings(item, size, gender, currencyRate, location['country_code']),
+                grailedListings(item, size, currencyRate, location['country_code'])
+            ]
+        )
 
-        results.sort((a, b) => a.price - b.price)
+        const results = res.flat().sort((a, b) => a.price - b.price); 
         return results
     }
 
