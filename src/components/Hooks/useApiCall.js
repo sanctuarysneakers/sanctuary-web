@@ -163,8 +163,6 @@ export default function useAPICall(callType, params) {
         results = results.filter(r => r.price !== 0)
         results.sort((a, b) => a.price - b.price)
 
-        console.log(JSON.stringify(results))
-
         return results
     }
 
