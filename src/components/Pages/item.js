@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet';
-import { useParams } from 'react-router'
+import { useParams, useLocation } from 'react-router'
 import { useSelector } from 'react-redux'
 import SizeFilter from '../sizeFilter'
 import SizeModal from '../sizeModal'
@@ -16,10 +16,25 @@ import { websiteLogoMapGrey, currencySymbolMap }  from '../../assets/constants'
 export default function Item() {
 
     const currency = useSelector(state => state.currency)
-
     const { sku, gender } = useParams()
     const size = useSelector(state => state.size)
-    useAPICall('getitem', { sku: sku, size: size, gender: gender })
+
+    const location = useLocation() 
+
+    //check if coming from (browse/carousel) or (direct link/autosuggest selection)
+    let passedData = null; 
+    if(typeof location !== 'undefined' && location.hasOwnProperty("data")) { 
+        passedData = {
+            hasPrice: true,
+            skuId: location.data.sku.replaceAll('-', ' '),
+            modelName: location.data.model,
+            price: location.data.price,
+            image: location.data.image,
+            url: location.data.urlKey 
+        }
+    } 
+    
+    useAPICall('getitem', { sku: sku, size: size, gender: gender, fromBrowse: passedData})
 
     const itemInfo = useSelector(state => state.itemInfo)
     const itemPrices = useSelector(state => state.itemPrices)

@@ -64,10 +64,17 @@ export default function useAPICall(callType, params) {
         }
     }
 
-    async function getItem(sku, size, gender) {
-        const itemInfo = await getItemInfo(sku, size, gender)
-        dispatch(updateItemInfo(itemInfo))
+    async function getItem(sku, size, gender, fromBrowse = null) {
 
+        let itemInfo 
+        if(fromBrowse != null) {
+            itemInfo = fromBrowse
+        } else {
+            itemInfo = await getItemInfo(sku, size, gender)
+        }
+
+        dispatch(updateItemInfo(itemInfo))
+        
         let currencyConversions = await Promise.all([
             currencyConversionRate("USD", currency), 
             currencyConversionRate("EUR", currency)
@@ -182,7 +189,7 @@ export default function useAPICall(callType, params) {
 
     useEffect(() => {
         if (callType === 'getitem')
-            getItem(params.sku, params.size, params.gender)
+            getItem(params.sku, params.size, params.gender, params.fromBrowse)
         else
             browse(callType, params.query)
     }, [currency, size])
