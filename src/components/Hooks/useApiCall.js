@@ -112,21 +112,9 @@ export default function useAPICall(callType, params) {
                 image: itemData[0]['image'],
                 url: itemData[0]['url']
             }
-        } catch (e) {
-            try {
-                const request = createRequestObject('stockxInfo', {search: sku, gender: gender})
-                const response = await fetch(request.url, request.headers)
-    
-                let itemData = await response.json()
-                return {
-                    hasPrice: false,
-                    modelName: itemData[0]['model'],
-                    image: itemData[0]['image'],
-                }
-            } catch (e) {
-                history.replace('/item-not-supported')
-                return null
-            }
+        } catch (e) { 
+            history.replace('/item-not-supported')
+            return null
         }
     }
 
