@@ -76,8 +76,8 @@ export default function useAPICall(callType, params) {
         if (itemInfo) {
             let res = await Promise.all(
                 [
-                    getItemPrices(itemInfo, size, gender, currencyConversions[0]), 
-                    getItemListings(itemInfo, size, gender, currencyConversions[0], currencyConversions[1])
+                    getItemPrices(itemInfo, size, gender, currencyConversions[0], currencyConversions[1]), 
+                    getItemListings(itemInfo, size, gender, currencyConversions[0])
                 ]
             ) 
     
@@ -125,15 +125,10 @@ export default function useAPICall(callType, params) {
 
     async function getItemPrices(item, size, gender, usdRate, eurRate) {
         let shippingRequest = createRequestObject('shippingPrices', {country: location['country_code']})
-        const shippingResponse = await fetch(shippingRequest.url, shippingRequest.headers)
 
-        if (!shippingResponse.ok) throw new Error()
-
-        const shippingPrices = await shippingResponse.json()
-
-        //execute all price requests simultaneously
         let res = await Promise.all(
             [
+                fetch(shippingRequest.url, shippingRequest.headers),
                 stockxLowestPrice(item, usdRate), 
                 ebayLowestPrice(item, size, location['country_code'], location['postal_code'], usdRate, currency),
                 flightclubLowestPrice(item, size, gender, usdRate),
@@ -141,23 +136,35 @@ export default function useAPICall(callType, params) {
                 klektLowestPrice(item, size, eurRate)
             ]
         )
-        let results = res.flat(); 
-            
-        let shippingCurrencyRate
-        for (var i = 0; i < results.length; i++) {
-            if (results[i]['source'] in shippingPrices) {
-                let shippingPriceObj = shippingPrices[results[i]['source']]
-                if (shippingPriceObj['currency'] !== currency)
-                    shippingCurrencyRate = await currencyConversionRate(shippingPriceObj['currency'], currency)
-                else
-                    shippingCurrencyRate = 1
-                
-                results[i]['shippingPrice'] = shippingPrices[results[i]['source']]['cost'] * shippingCurrencyRate
+        let combinedRes = res.flat(); 
+        let shippingResponse = combinedRes[0]
+        let results = combinedRes.splice(1)
+
+        if(shippingResponse && shippingResponse.ok) {
+            const shippingPrices = await shippingResponse.json()
+
+            let convertedShippingCurrencies = await Promise.all(
+                Object.values(shippingPrices).map(shippingObj => currencyConversionRate(shippingObj['currency'], currency))  
+            ) 
+
+            for (var i = 0; i < Object.keys(shippingPrices).length; i ++) {
+                let key = Object.keys(shippingPrices)[i]
+                shippingPrices[key] = shippingPrices[key]["cost"] * convertedShippingCurrencies[i] 
+            }
+
+            for (var i = 0; i < results.length; i++) {
+                if (results[i]['source'] in shippingPrices) {    
+                    results[i]['shippingPrice'] = shippingPrices[results[i]['source']] 
+                }
             }
         }
-        
+
+        //filter results and return         
         results = results.filter(r => r.price !== 0)
         results.sort((a, b) => a.price - b.price)
+
+        console.log(JSON.stringify(results))
+
         return results
     }
 
