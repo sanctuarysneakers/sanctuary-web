@@ -30,6 +30,14 @@ export default function useAPICall(callType, params) {
         return results
     }
 
+    function currencyConversionPromise(from, to) {
+        if(from != to) {
+            return currencyConversionRate(from, to) 
+        } else {
+            return Promise.resolve(1)
+        }
+    }
+
     function SafePromiseAll(promises, def = null) {
         return Promise.all(
           promises.map(p => p.catch(error => def))
@@ -82,8 +90,8 @@ export default function useAPICall(callType, params) {
         dispatch(updateItemInfo(itemInfo))
         
         let currencyConversions = await Promise.all([
-            currencyConversionRate("USD", currency), 
-            currencyConversionRate("EUR", currency)
+            currencyConversionPromise("USD", currency),
+            currencyConversionPromise("EUR", currency)
         ])
         
         if (itemInfo) {
@@ -148,7 +156,7 @@ export default function useAPICall(callType, params) {
 
 
             let convertedShippingCurrencies = await SafePromiseAll(
-                Object.values(shippingPrices).map(shippingObj => currencyConversionRate(shippingObj['currency'], currency))  
+                Object.values(shippingPrices).map(shippingObj => currencyConversionPromise(shippingObj['currency'], currency)) 
             ) 
 
             for (var i = 0; i < Object.keys(shippingPrices).length; i ++) {
