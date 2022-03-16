@@ -31,18 +31,17 @@ export default function useAPICall(callType, params) {
     }
 
     function currencyConversionPromise(from, to) {
-        if(from != to) {
+        if (from != to)
             return currencyConversionRate(from, to) 
-        } else {
+        else
             return Promise.resolve(1)
-        }
     }
 
     function SafePromiseAll(promises, def = null) {
         return Promise.all(
-          promises.map(p => p.catch(error => def))
+            promises.map(p => p.catch(error => def))
         )
-      }
+    }
 
     async function browse(type, query) {
         const price_limit = {
@@ -78,15 +77,8 @@ export default function useAPICall(callType, params) {
         }
     }
 
-    async function getItem(sku, size, gender, fromBrowse = null) {
-
-        let itemInfo 
-        if(fromBrowse != null) {
-            itemInfo = fromBrowse
-        } else {
-            itemInfo = await getItemInfo(sku, size, gender)
-        }
-
+    async function getItem(sku, size, gender, fromBrowse=null) {
+        let itemInfo = fromBrowse ? fromBrowse : await getItemInfo(sku, size, gender)
         dispatch(updateItemInfo(itemInfo))
         
         let currencyConversions = await Promise.all([
@@ -134,7 +126,9 @@ export default function useAPICall(callType, params) {
     }
 
     async function getItemPrices(item, size, gender, usdRate, eurRate) {
-        let shippingRequest = createRequestObject('shippingPrices', {country: location['country_code']})
+        let shippingRequest = createRequestObject('shippingPrices', 
+            {country: location['country_code']}
+        )
 
         const res = await SafePromiseAll(
             [
@@ -147,13 +141,12 @@ export default function useAPICall(callType, params) {
             ]
         ) 
 
-        let combinedRes = res.flat(); 
+        let combinedRes = res.flat()
         let shippingResponse = combinedRes[0]
         let results = combinedRes.splice(1)
 
-        if(shippingResponse && shippingResponse.ok) {
+        if (shippingResponse && shippingResponse.ok) {
             const shippingPrices = await shippingResponse.json()
-
 
             let convertedShippingCurrencies = await SafePromiseAll(
                 Object.values(shippingPrices).map(shippingObj => currencyConversionPromise(shippingObj['currency'], currency)) 
@@ -161,7 +154,7 @@ export default function useAPICall(callType, params) {
 
             for (var i = 0; i < Object.keys(shippingPrices).length; i ++) {
                 let key = Object.keys(shippingPrices)[i]
-                if(shippingPrices[key] != null && convertedShippingCurrencies[i] != null) {
+                if (shippingPrices[key] != null && convertedShippingCurrencies[i] != null) {
                     shippingPrices[key] = shippingPrices[key]["cost"] * convertedShippingCurrencies[i] 
                 }  
             }

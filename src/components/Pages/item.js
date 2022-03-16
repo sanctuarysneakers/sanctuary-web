@@ -25,8 +25,8 @@ export default function Item() {
     const location = useLocation() 
 
     //check if coming from (browse/carousel) or (direct link/autosuggest selection)
-    let passedData = null; 
-    if(typeof location !== 'undefined' && location.hasOwnProperty("data")) { 
+    let passedData = null
+    if (location && location.hasOwnProperty("data")) { 
         passedData = {
             hasPrice: true,
             skuId: location.data.sku.replaceAll('-', ' '),

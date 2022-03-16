@@ -26,17 +26,6 @@ export default function createRequestObject(type, filter) {
 					method: 'GET'
 				}
 			}
-		case 'stockxInfo':
-			return {
-				url: 'https://hdwj2rvqkb.us-west-2.awsapprunner.com/lowestprice?' + new URLSearchParams({
-					"source": "stockx",
-					"search": filter.search,
-					"gender": filter.gender
-				}),
-				headers: {
-					method: 'GET'
-				}
-			}
 		case 'ebay':
 			let lowestPriceParams = {
 				'source': 'ebay',
@@ -168,7 +157,6 @@ export default function createRequestObject(type, filter) {
 			}
 
 		
-
 		default: 
 			return {
 				url: 'https://hdwj2rvqkb.us-west-2.awsapprunner.com/browse',
