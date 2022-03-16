@@ -1,9 +1,12 @@
 import React from "react";
+import { useHistory } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateSize } from '../redux/actions'
 import { currencySymbolMap } from '../assets/constants'
 
 export default function CarouselCard({ data, index, type, length }) {
+
+    let history = useHistory(); 
 
     const dispatch = useDispatch()
     const currency = useSelector(state => state.currency)
@@ -14,10 +17,15 @@ export default function CarouselCard({ data, index, type, length }) {
 			dispatch(updateSize(7))
 		else if (size > 12 && data['gender'] === 'women')
 			dispatch(updateSize(12))
-
+        
         let itemId = data['sku'] ? data['sku'].split('/')[0] : data['urlKey']
         window.analytics.track(`home_carousel_item_clicked`, {id: itemId, gender: data['gender']});
-        document.location.href = `/item/${itemId}/${data['gender']}`
+
+        history.push({
+            pathname: `/item/${itemId}/${data['gender']}`, 
+            data: data
+        })
+        window.scrollTo(0, 0)
     }
 
     let position;

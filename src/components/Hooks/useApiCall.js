@@ -30,6 +30,19 @@ export default function useAPICall(callType, params) {
         return results
     }
 
+    function currencyConversionPromise(from, to) {
+        if (from != to)
+            return currencyConversionRate(from, to) 
+        else
+            return Promise.resolve(1)
+    }
+
+    function SafePromiseAll(promises, def = null) {
+        return Promise.all(
+            promises.map(p => p.catch(error => def))
+        )
+    }
+
     async function browse(type, query) {
         const price_limit = {
             'browse': 99999,
@@ -64,17 +77,28 @@ export default function useAPICall(callType, params) {
         }
     }
 
-    async function getItem(sku, size, gender) {
-        const itemInfo = await getItemInfo(sku, size, gender)
+    async function getItem(sku, size, gender, fromBrowse=null) {
+        let itemInfo = fromBrowse ? fromBrowse : await getItemInfo(sku, size, gender)
         dispatch(updateItemInfo(itemInfo))
         
+        let currencyConversions = await Promise.all([
+            currencyConversionPromise("USD", currency),
+            currencyConversionPromise("EUR", currency)
+        ])
+        
         if (itemInfo) {
-            const itemPrices = await getItemPrices(itemInfo, size, gender)
-            dispatch(updateItemPrices(itemPrices))
-            dispatch(setItemPricesLoading(false))
+            let res = await SafePromiseAll(
+                [
+                    getItemPrices(itemInfo, size, gender, currencyConversions[0], currencyConversions[1]), 
+                    getItemListings(itemInfo, size, gender, currencyConversions[0])
+                ], 
+                []
+            ) 
     
-            const itemListings = await getItemListings(itemInfo, size, gender)
-            dispatch(updateItemListings(itemListings))
+            dispatch(updateItemPrices(res[0]))
+            dispatch(setItemPricesLoading(false)) 
+
+            dispatch(updateItemListings(res[1]))
             dispatch(setItemListingsLoading(false))
         }
     }
@@ -95,81 +119,77 @@ export default function useAPICall(callType, params) {
                 image: itemData[0]['image'],
                 url: itemData[0]['url']
             }
-        } catch (e) {
-            try {
-                const request = createRequestObject('stockxInfo', {search: sku, gender: gender})
-                const response = await fetch(request.url, request.headers)
-    
-                let itemData = await response.json()
-                return {
-                    hasPrice: false,
-                    modelName: itemData[0]['model'],
-                    image: itemData[0]['image'],
-                }
-            } catch (e) {
-                history.replace('/item-not-supported')
-                return null
-            }
+        } catch (e) { 
+            history.replace('/item-not-supported')
+            return null
         }
     }
 
-    async function getItemPrices(item, size, gender) {
-        let currencyRate;
-        if (currency !== "USD")
-            currencyRate = await currencyConversionRate("USD", currency)
-        else currencyRate = 1
-        let klektCurrencyRate = await currencyConversionRate("EUR", currency)
+    async function getItemPrices(item, size, gender, usdRate, eurRate) {
+        let shippingRequest = createRequestObject('shippingPrices', 
+            {country: location['country_code']}
+        )
 
-        let shippingRequest = createRequestObject('shippingPrices', {country: location['country_code']})
-        const shippingResponse = await fetch(shippingRequest.url, shippingRequest.headers)
+        const res = await SafePromiseAll(
+            [
+                fetch(shippingRequest.url, shippingRequest.headers),
+                stockxLowestPrice(item, usdRate), 
+                ebayLowestPrice(item, size, location['country_code'], location['postal_code'], usdRate, currency),
+                flightclubLowestPrice(item, size, gender, usdRate),
+                goatLowestPrice(item, size, usdRate),
+                klektLowestPrice(item, size, eurRate)
+            ]
+        ) 
 
-        if (!shippingResponse.ok) throw new Error()
+        let combinedRes = res.flat()
+        let shippingResponse = combinedRes[0]
+        let results = combinedRes.splice(1)
 
-        const shippingPrices = await shippingResponse.json()
+        if (shippingResponse && shippingResponse.ok) {
+            const shippingPrices = await shippingResponse.json()
 
-        let results = []
-        results.push(...await stockxLowestPrice(item, currencyRate))
-        results.push(...await ebayLowestPrice(item, size, location['country_code'], location['postal_code'], currencyRate, currency))
-        results.push(...await goatLowestPrice(item, size, currencyRate))
-        results.push(...await flightclubLowestPrice(item, size, gender, currencyRate))
-        results.push(...await klektLowestPrice(item, size, klektCurrencyRate))
+            let convertedShippingCurrencies = await SafePromiseAll(
+                Object.values(shippingPrices).map(shippingObj => currencyConversionPromise(shippingObj['currency'], currency)) 
+            ) 
 
-        let shippingCurrencyRate
-        for (var i = 0; i < results.length; i++) {
-            if (results[i]['source'] in shippingPrices) {
-                let shippingPriceObj = shippingPrices[results[i]['source']]
-                if (shippingPriceObj['currency'] !== currency)
-                    shippingCurrencyRate = await currencyConversionRate(shippingPriceObj['currency'], currency)
-                else
-                    shippingCurrencyRate = 1
-                
-                results[i]['shippingPrice'] = shippingPrices[results[i]['source']]['cost'] * shippingCurrencyRate
+            for (var i = 0; i < Object.keys(shippingPrices).length; i ++) {
+                let key = Object.keys(shippingPrices)[i]
+                if (shippingPrices[key] != null && convertedShippingCurrencies[i] != null) {
+                    shippingPrices[key] = shippingPrices[key]["cost"] * convertedShippingCurrencies[i] 
+                }  
+            }
+
+            for (var i = 0; i < results.length; i++) {
+                if (results[i]['source'] in shippingPrices) {    
+                    results[i]['shippingPrice'] = shippingPrices[results[i]['source']] 
+                }
             }
         }
-        
+
+        //filter results and return         
         results = results.filter(r => r.price !== 0)
         results.sort((a, b) => a.price - b.price)
+
         return results
     }
 
-    async function getItemListings(item, size, gender) {
-        let currencyRate;
-        if (currency !== "USD")
-            currencyRate = await currencyConversionRate("USD", currency)
-        else currencyRate = 1
-        
-        let results = []
-        results.push(...await ebayListings(item, size, location['country_code'], currencyRate, currency, location['postal_code']))
-        results.push(...await depopListings(item, size, gender, currencyRate, location['country_code']))
-        results.push(...await grailedListings(item, size, currencyRate, location['country_code'].toLowerCase()))
+    async function getItemListings(item, size, gender, usdRate) {        
+        //execute all listing requests simultaneously
+        const res = await SafePromiseAll(
+            [
+                ebayListings(item, size, location['country_code'], usdRate, currency, location['postal_code']), 
+                depopListings(item, size, gender, usdRate, location['country_code']),
+                grailedListings(item, size, usdRate, location['country_code'].toLowerCase())
+            ]
+        ) 
 
-        results.sort((a, b) => a.price - b.price)
+        const results = res.flat().sort((a, b) => a.price - b.price)
         return results
     }
 
     useEffect(() => {
         if (callType === 'getitem')
-            getItem(params.sku, params.size, params.gender)
+            getItem(params.sku, params.size, params.gender, params.fromBrowse)
         else
             browse(callType, params.query)
     }, [currency, size])
