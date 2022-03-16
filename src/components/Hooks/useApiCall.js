@@ -186,11 +186,11 @@ export default function useAPICall(callType, params) {
             [
                 ebayListings(item, size, location['country_code'], usdRate, currency, location['postal_code']), 
                 depopListings(item, size, gender, usdRate, location['country_code']),
-                grailedListings(item, size, usdRate, location['country_code'])
+                grailedListings(item, size, usdRate, location['country_code'].toLowerCase())
             ]
         ) 
 
-        const results = res.flat().sort((a, b) => a.price - b.price); 
+        const results = res.flat().sort((a, b) => a.price - b.price)
         return results
     }
 

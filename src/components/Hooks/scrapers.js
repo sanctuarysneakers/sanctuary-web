@@ -225,12 +225,14 @@ export async function grailedListings(item, size, currencyRate, country) {
 				image: item['cover_photo']['url'],
 				url: new URL(`https://grailed.com/listings/${item['id'].toString()}`)		
 			}
-			if (country in item['shipping'])
+			if (country in item['shipping']) {
 				if (item['shipping'][country]['enabled'])
 					itemResult['shippingPrice'] = Math.round(item['shipping'][country]['amount'] * currencyRate)
-			else
+			}
+			else {
 				if (item['shipping']['other']['enabled'])
-					itemResult['shippingPrice'] = Math.round(item['shipping'][country]['amount'] * currencyRate)
+					itemResult['shippingPrice'] = Math.round(item['shipping']['other']['amount'] * currencyRate)
+			}
 			results.push(itemResult)
 		}
 		return results
