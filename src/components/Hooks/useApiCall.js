@@ -128,7 +128,7 @@ export default function useAPICall(callType, params) {
     async function getItemPrices(item, size, gender, usdRate, eurRate) {
         let shippingRequest = createRequestObject('shippingPrices', {country: location['country_code']})
 
-        const res = SafePromiseAll(
+        const res = await SafePromiseAll(
             [
                 fetch(shippingRequest.url, shippingRequest.headers),
                 stockxLowestPrice(item, usdRate), 
@@ -147,7 +147,7 @@ export default function useAPICall(callType, params) {
             const shippingPrices = await shippingResponse.json()
 
 
-            let convertedShippingCurrencies = SafePromiseAll(
+            let convertedShippingCurrencies = await SafePromiseAll(
                 Object.values(shippingPrices).map(shippingObj => currencyConversionRate(shippingObj['currency'], currency))  
             ) 
 
@@ -174,7 +174,7 @@ export default function useAPICall(callType, params) {
 
     async function getItemListings(item, size, gender, usdRate) {        
         //execute all listing requests simultaneously
-        const res = SafePromiseAll(
+        const res = await SafePromiseAll(
             [
                 ebayListings(item, size, location['country_code'], usdRate, currency, location['postal_code']), 
                 depopListings(item, size, gender, usdRate, location['country_code']),
