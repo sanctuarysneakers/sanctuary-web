@@ -161,7 +161,7 @@ export default function useAPICall(callType, params) {
         let results = []
         results.push(...await ebayListings(item, size, location['country_code'], currencyRate, currency, location['postal_code']))
         results.push(...await depopListings(item, size, gender, currencyRate, location['country_code']))
-        results.push(...await grailedListings(item, size, currencyRate, location['country_code']))
+        results.push(...await grailedListings(item, size, currencyRate, location['country_code'].toLowerCase()))
 
         results.sort((a, b) => a.price - b.price)
         return results
