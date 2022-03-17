@@ -40,6 +40,7 @@ export default function Item() {
     useEffect(() => {
         dispatch(setItemPricesLoading(true))
         dispatch(setItemListingsLoading(true))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location])
 
     useAPICall('getitem', { sku: sku, size: size, gender: gender, fromBrowse: passedData})
@@ -64,7 +65,7 @@ export default function Item() {
         window.analytics.track(`item_buy_new_clicked`, {sku: sku, gender: gender, model: itemInfo.modelName});
         window.open(url, '_blank')
     }
-
+    /* eslint-disable jsx-a11y/anchor-is-valid */
     return (
         <div className='item'>
             <Helmet>

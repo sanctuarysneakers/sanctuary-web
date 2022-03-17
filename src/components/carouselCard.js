@@ -39,7 +39,7 @@ export default function CarouselCard({ data, index, type, length }) {
         <div className={position} onClick={clickHandler}>
             {(type === 'trending') && <div className='carousel-card-trending'>
                 <div className='carousel-card-trending-sneaker'>
-                    <img src={data.imageThumbnail} />
+                    <img src={data.imageThumbnail} alt='Sneaker thumbnail'/>
                 </div>
 
                 <div className='carousel-card-trending-text'>
@@ -58,7 +58,7 @@ export default function CarouselCard({ data, index, type, length }) {
             {(type === 'under200' || type === 'under300') && <div className='carousel-card-deals'>
                 <div className='carousel-card-content'>
                     <div className='carousel-card-image'>
-                        <img src={data.imageThumbnail} />
+                        <img src={data.imageThumbnail} alt='Sneaker thumbnail'/>
                     </div>
 
                     <div className='carousel-card-text'>

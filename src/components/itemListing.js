@@ -22,7 +22,7 @@ export default function ItemListing({ data, index, length }) {
         window.analytics.track(`item_more_listings_click_${data.source}`, {url: data.url, price: data.price});
         window.open(url, '_blank')
     }
-
+    /* eslint-disable jsx-a11y/anchor-is-valid */
     return (
         <div className={(index === length - 1) ? 'item-listing last' : 'item-listing'}>
 

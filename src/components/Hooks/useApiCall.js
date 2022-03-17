@@ -31,7 +31,7 @@ export default function useAPICall(callType, params) {
     }
 
     function currencyConversionPromise(from, to) {
-        if (from != to)
+        if (from !== to)
             return currencyConversionRate(from, to) 
         else
             return Promise.resolve(1)
@@ -159,9 +159,9 @@ export default function useAPICall(callType, params) {
                 }  
             }
 
-            for (var i = 0; i < results.length; i++) {
-                if (results[i]['source'] in shippingPrices) {    
-                    results[i]['shippingPrice'] = shippingPrices[results[i]['source']] 
+            for (var j = 0; j < results.length; j++) {
+                if (results[j]['source'] in shippingPrices) {    
+                    results[j]['shippingPrice'] = shippingPrices[results[j]['source']] 
                 }
             }
         }
@@ -192,6 +192,7 @@ export default function useAPICall(callType, params) {
             getItem(params.sku, params.size, params.gender, params.fromBrowse)
         else
             browse(callType, params.query)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currency, size])
 
 }

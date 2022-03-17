@@ -25,7 +25,7 @@ export default function HomeApp() {
 
         window.open(url, '_blank')
     } 
-
+    /* eslint-disable jsx-a11y/anchor-is-valid */
     return (
         <div className='home-app'>
             <div className='home-app-content'>
@@ -45,7 +45,7 @@ export default function HomeApp() {
                     </FadeIn>
                 </div>
 
-                <img src={phones} />
+                <img src={phones} alt='Phone'/>
             </div>
         </div>
     )

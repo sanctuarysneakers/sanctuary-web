@@ -11,10 +11,9 @@ export default function ItemPrice({ data, index, length }) {
         window.analytics.track(`item_lowest_prices_click_${data.source}`, {url: data.url, price: data.price});
         window.open(url, '_blank')
     }
-    
+    /* eslint-disable jsx-a11y/anchor-is-valid */
     return (
         <div className={(index === length - 1) ? 'item-price last' : 'item-price'}>
-
             <a onClick={() => clickHandler(data.url)}>
                 <div className='item-price-source'>
                     <div className={`item-source-logo ${data.source}`}>
