@@ -78,28 +78,36 @@ export default function useAPICall(callType, params) {
     }
 
     async function getItem(sku, size, gender, fromBrowse=null) {
-        let itemInfo = fromBrowse ? fromBrowse : await getItemInfo(sku, size, gender)
-        dispatch(updateItemInfo(itemInfo))
+        let shippingRequest = createRequestObject('shippingPrices', {country: location['country_code']})
         
-        let currencyConversions = await Promise.all([
+        let prepRes = await SafePromiseAll([
+            fromBrowse == null ? getItemInfo(sku, size, gender): Promise.resolve(fromBrowse),
             currencyConversionPromise("USD", currency),
-            currencyConversionPromise("EUR", currency)
+            currencyConversionPromise("EUR", currency), 
+            fetch(shippingRequest.url, shippingRequest.headers) 
         ])
-        
+
+        let itemInfo, usdRate, eurRate, shippingResponse;
+        itemInfo = prepRes[0]
+        usdRate = prepRes[1]
+        eurRate = prepRes[2]
+        shippingResponse = prepRes[3]
+
         if (itemInfo) {
-            let res = await SafePromiseAll(
+            dispatch(updateItemInfo(itemInfo))
+            await SafePromiseAll(
                 [
-                    getItemPrices(itemInfo, size, gender, currencyConversions[0], currencyConversions[1]), 
-                    getItemListings(itemInfo, size, gender, currencyConversions[0])
+                    getItemPrices(itemInfo, size, gender, usdRate, eurRate, shippingResponse).then((prices) => {
+                        dispatch(updateItemPrices(prices))
+                        dispatch(setItemPricesLoading(false)) 
+                    }), 
+                    getItemListings(itemInfo, size, gender, usdRate).then((listings) => {
+                        dispatch(updateItemListings(listings))
+                        dispatch(setItemListingsLoading(false))
+                    })
                 ], 
                 []
             ) 
-    
-            dispatch(updateItemPrices(res[0]))
-            dispatch(setItemPricesLoading(false)) 
-
-            dispatch(updateItemListings(res[1]))
-            dispatch(setItemListingsLoading(false))
         }
     }
 
@@ -125,14 +133,15 @@ export default function useAPICall(callType, params) {
         }
     }
 
-    async function getItemPrices(item, size, gender, usdRate, eurRate) {
-        let shippingRequest = createRequestObject('shippingPrices', 
-            {country: location['country_code']}
-        )
-
+    async function getItemPrices(item, size, gender, usdRate, eurRate, shippingResponse) {
+        let shippingPrices = {} 
+        if(shippingResponse && shippingResponse.ok) {
+            shippingPrices = await shippingResponse.json()
+        }
+      
         const res = await SafePromiseAll(
             [
-                fetch(shippingRequest.url, shippingRequest.headers),
+                SafePromiseAll(Object.values(shippingPrices).map(shippingObj => currencyConversionPromise(shippingObj['currency'], currency))),  
                 stockxLowestPrice(item, usdRate), 
                 ebayLowestPrice(item, size, location['country_code'], location['postal_code'], usdRate, currency),
                 flightclubLowestPrice(item, size, gender, usdRate),
@@ -140,18 +149,11 @@ export default function useAPICall(callType, params) {
                 klektLowestPrice(item, size, eurRate)
             ]
         ) 
+        
+        let convertedShippingCurrencies = res[0]
+        let results = res.splice(1).flat() 
 
-        let combinedRes = res.flat()
-        let shippingResponse = combinedRes[0]
-        let results = combinedRes.splice(1)
-
-        if (shippingResponse && shippingResponse.ok) {
-            const shippingPrices = await shippingResponse.json()
-
-            let convertedShippingCurrencies = await SafePromiseAll(
-                Object.values(shippingPrices).map(shippingObj => currencyConversionPromise(shippingObj['currency'], currency)) 
-            ) 
-
+        if (shippingPrices != {} && convertedShippingCurrencies && Object.keys(shippingPrices).length == convertedShippingCurrencies.length) {
             for (var i = 0; i < Object.keys(shippingPrices).length; i ++) {
                 let key = Object.keys(shippingPrices)[i]
                 if (shippingPrices[key] != null && convertedShippingCurrencies[i] != null) {
