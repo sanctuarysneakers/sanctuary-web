@@ -1,9 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Helmet } from 'react-helmet';
 import { useParams, useLocation } from 'react-router'
 import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
-import { setItemPricesLoading, setItemListingsLoading } from '../../redux/actions'
 import SizeFilter from '../sizeFilter'
 import SizeModal from '../sizeModal'
 import useAPICall from '../Hooks/useApiCall'
@@ -21,28 +19,10 @@ export default function Item() {
     const { sku, gender } = useParams()
     const size = useSelector(state => state.size)
 
-    const dispatch = useDispatch()
     const location = useLocation() 
 
     //check if coming from (browse/carousel) or (direct link/autosuggest selection)
-    let passedData = null
-    if (location && location.hasOwnProperty("data")) { 
-        passedData = {
-            hasPrice: true,
-            skuId: location.data.sku.replaceAll('-', ' '),
-            modelName: location.data.model,
-            price: location.data.price,
-            image: location.data.image,
-            url: location.data.urlKey 
-        }
-    } 
-
-    useEffect(() => {
-        dispatch(setItemPricesLoading(true))
-        dispatch(setItemListingsLoading(true))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [location])
-
+    let passedData = location.itemInfo ? location.itemInfo : null
     useAPICall('getitem', { sku: sku, size: size, gender: gender, fromBrowse: passedData})
 
     const itemInfo = useSelector(state => state.itemInfo)

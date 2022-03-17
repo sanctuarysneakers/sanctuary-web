@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateSize } from '../redux/actions'
+import { updateItemInfo, updateSize, setItemPricesLoading, setItemListingsLoading } from '../redux/actions'
 import { currencySymbolMap } from '../assets/constants'
 
 export default function CarouselCard({ data, index, type, length }) {
@@ -21,9 +21,22 @@ export default function CarouselCard({ data, index, type, length }) {
         let itemId = data['sku'] ? data['sku'].split('/')[0] : data['urlKey']
         window.analytics.track(`home_carousel_item_clicked`, {id: itemId, gender: data['gender']});
 
+        let itemInfo = {
+            hasPrice: true,
+            skuId: data.sku.replaceAll('-', ' '),
+            modelName: data.model,
+            price: data.price,
+            image: data.image,
+            url: data.urlKey 
+        }
+
+        dispatch(updateItemInfo(itemInfo))
+        dispatch(setItemPricesLoading(true))
+        dispatch(setItemListingsLoading(true))
+
         history.push({
             pathname: `/item/${itemId}/${data['gender']}`, 
-            data: data
+            itemInfo: itemInfo
         })
         window.scrollTo(0, 0)
     }
