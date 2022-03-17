@@ -36,7 +36,7 @@ export default function CarouselCard({ data, index, type, length }) {
 
         history.push({
             pathname: `/item/${itemId}/${data['gender']}`, 
-            data: itemInfo
+            itemInfo: itemInfo
         })
         window.scrollTo(0, 0)
     }
