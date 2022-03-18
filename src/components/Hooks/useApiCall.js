@@ -150,7 +150,7 @@ export default function useAPICall(callType, params) {
         let convertedShippingCurrencies = res[0]
         let results = res.splice(1).flat() 
 
-        if (shippingPrices != {} && convertedShippingCurrencies && Object.keys(shippingPrices).length == convertedShippingCurrencies.length) {
+        if (shippingPrices !== {} && convertedShippingCurrencies && Object.keys(shippingPrices).length === convertedShippingCurrencies.length) {
             for (var i = 0; i < Object.keys(shippingPrices).length; i ++) {
                 let key = Object.keys(shippingPrices)[i]
                 if (shippingPrices[key] != null && convertedShippingCurrencies[i] != null) {

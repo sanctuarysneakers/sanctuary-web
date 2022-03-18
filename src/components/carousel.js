@@ -11,7 +11,7 @@ export default function Carousel({ type }) {
     const data = {
         'trending': trending,
         'under200': under200,
-        'under300': null
+        'under300': under300
     }
 
     const carouselCards = data[type] == null ? [] : (data[type].map((item, index) =>
