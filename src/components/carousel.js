@@ -11,12 +11,12 @@ export default function Carousel({ type }) {
     const data = {
         'trending': trending,
         'under200': under200,
-        'under300': under300
+        'under300': null
     }
 
-    const carouselCards = data[type].map((item, index) =>
+    const carouselCards = data[type] == null ? [] : (data[type].map((item, index) =>
         <CarouselCard key={index} data={item} index={index} type={type} length={data.length} />
-    )
+    ))
 
     return (
         <div className='carousel'>
