@@ -42,13 +42,13 @@ export default function HowItWorksSites() {
 
                 <div ref={ref2} className="how-it-works-sites-images">
                     <FadeIn visible={renderSites} delay={300} transitionDuration={1000}>
-                        <img className="how-it-works-site" src={StockX} />
-                        <img className="how-it-works-site goat" src={GOAT} />
-                        <img className="how-it-works-site" src={FlightClub} />
-                        <img className="how-it-works-site" src={Grailed} />
-                        <img className="how-it-works-site ebay" src={eBay} />
-                        <img className="how-it-works-site" src={Depop} />
-                        <img className="how-it-works-site" src={KLEKT} />
+                        <img className="how-it-works-site" src={StockX} alt='StockX Logo'/>
+                        <img className="how-it-works-site goat" src={GOAT} alt='GOAT Logo'/>
+                        <img className="how-it-works-site" src={FlightClub} alt='Flightclub Logo'/>
+                        <img className="how-it-works-site" src={Grailed} alt='Grailed Logo'/>
+                        <img className="how-it-works-site ebay" src={eBay} alt='eBay Logo'/>
+                        <img className="how-it-works-site" src={Depop} alt='Depop Logo'/>
+                        <img className="how-it-works-site" src={KLEKT} alt='KLEKT'/>
                     </FadeIn>
                 </div>
             </div>

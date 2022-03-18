@@ -48,7 +48,7 @@ export default function SearchBox() {
     }
 
     const handleLetterInput = async (val) => {     
-        if(val && val != "") {
+        if(val && val !== "") {
             //make api call and update options
             const request = createRequestObject('autocomplete', {search: val})
             const response = await fetch(request.url, request.headers)
@@ -62,12 +62,12 @@ export default function SearchBox() {
     }
 
     const handleChange = async (reason, val, event) => {
-        if(reason == "createOption") {
+        if(reason === "createOption") {
             setInput(val)
             redirectForSearch(val); 
-        } else if (reason == "selectOption") {
+        } else if (reason === "selectOption") {
             redirectForSelection(val)
-        }  else if (reason == "clear" || reason == "blur") {
+        }  else if (reason === "clear" || reason === "blur") {
             setInput('')
             setOptions([]);
         }

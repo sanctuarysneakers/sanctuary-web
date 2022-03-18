@@ -22,6 +22,7 @@ export default function useLocationDetection() {
 	useEffect(() => {
 		if (location === null)
 			getLocation()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 }

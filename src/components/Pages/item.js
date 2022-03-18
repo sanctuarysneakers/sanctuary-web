@@ -2,7 +2,6 @@ import React from 'react'
 import { Helmet } from 'react-helmet';
 import { useParams, useLocation } from 'react-router'
 import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
 import SizeFilter from '../sizeFilter'
 import SizeModal from '../sizeModal'
 import useAPICall from '../Hooks/useApiCall'
@@ -46,7 +45,7 @@ export default function Item() {
         window.analytics.track(`item_buy_new_clicked`, {sku: sku, gender: gender, model: itemInfo.modelName});
         window.open(url, '_blank')
     }
-
+    /* eslint-disable jsx-a11y/anchor-is-valid */
     return (
         <div className='item'>
             <Helmet>
