@@ -94,17 +94,14 @@ export default function useAPICall(callType, params) {
         shippingResponse = prepRes[3]
 
         if (itemInfo) {
-            dispatch(updateItemInfo(itemInfo))
+            if(fromBrowse == null) {
+                dispatch(updateItemInfo(itemInfo))
+            } 
+           
             await SafePromiseAll(
                 [
-                    getItemPrices(itemInfo, size, gender, usdRate, eurRate, shippingResponse).then((prices) => {
-                        dispatch(updateItemPrices(prices))
-                        dispatch(setItemPricesLoading(false)) 
-                    }), 
-                    getItemListings(itemInfo, size, gender, usdRate).then((listings) => {
-                        dispatch(updateItemListings(listings))
-                        dispatch(setItemListingsLoading(false))
-                    })
+                    getItemPrices(itemInfo, size, gender, usdRate, eurRate, shippingResponse),
+                    getItemListings(itemInfo, size, gender, usdRate)
                 ], 
                 []
             ) 
@@ -172,6 +169,9 @@ export default function useAPICall(callType, params) {
         results = results.filter(r => r.price !== 0)
         results.sort((a, b) => a.price - b.price)
 
+        dispatch(updateItemPrices(results))
+        dispatch(setItemPricesLoading(false))
+
         return results
     }
 
@@ -186,6 +186,8 @@ export default function useAPICall(callType, params) {
         ) 
 
         const results = res.flat().sort((a, b) => a.price - b.price)
+        dispatch(updateItemListings(results))
+        dispatch(setItemListingsLoading(false))
         return results
     }
 
