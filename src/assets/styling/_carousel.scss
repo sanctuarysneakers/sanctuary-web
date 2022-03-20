@@ -18,14 +18,14 @@
     background-image: url("../images/scrollbar-track.png");
     background-repeat: repeat-x;
     background-size: contain;
-    margin-left: calc((100vw - 1000px) / 2);
+    margin-left: 8vw;
 }
 
 .carousel-content::-webkit-scrollbar-track-piece:end {
     background-image: url("../images/scrollbar-track.png");
     background-repeat: repeat-x;
     background-size: contain;
-    margin-right: calc((100vw - 1000px) / 2); 
+    margin-right: 8vw; 
 }
 
 @media (min-width: 900px) and (max-width: 1199px) {

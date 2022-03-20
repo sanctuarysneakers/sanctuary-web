@@ -7,10 +7,10 @@
     cursor: pointer;
 }
 .carousel-card.start {
-    margin-left: calc((100vw - 1000px) / 2);
+    margin-left: 8vw;
 }
 .carousel-card.end {
-    margin-right: calc((100vw - 1000px) / 2);
+    margin-right: 8vw;
 }
 
 .carousel-card-trending {
@@ -20,7 +20,6 @@
     border: 1px solid #E5E9F1;
     border-radius: 18px;
     box-shadow: 4px 4px 20px 5px rgba(0,0,0,0.02);
-    // box-shadow: 5px 5px 20px 5px rgba(0,0,0,0.03);
 
     .carousel-card-trending-sneaker {
         display: flex;
@@ -148,12 +147,6 @@
     .carousel-card {
         border-radius: 12px;
     }
-    .carousel-card.start {
-        margin-left: calc((100vw - 800px) / 2);
-    }
-    .carousel-card.end {
-        margin-right: calc((100vw - 800px) / 2);
-    }
 
     .carousel-card-trending {
         width: 800px;
@@ -208,12 +201,6 @@
         border-radius: 12px;
         margin-left: 10px;
         margin-top: 15px;
-    }
-    .carousel-card.start {
-        margin-left: calc((100vw - 550px) / 2);
-    }
-    .carousel-card.end {
-        margin-right: calc((100vw - 550px) / 2);
     }
 
     .carousel-card-trending {
@@ -312,12 +299,7 @@
         margin-left: 10px;
         margin-top: 15px;
     }
-    .carousel-card.start {
-        margin-left: calc((100vw - 335px) / 2);
-    }
-    .carousel-card.end {
-        margin-right: calc((100vw - 335px) / 2);
-    }
+
     .carousel-card-trending {
         flex-direction: column;
         width: 335px;
