@@ -30,7 +30,7 @@ export default function HomeTrending() {
 
     useEffect(() => {
         async function updateHeaderValues() {
-            const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/currencyrate?from_curr=USD&to_curr=${currency}`
+            const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/currencyrate2?from_curr=USD&to_curr=${currency}`
             const response = await fetch(url)
             const conversionRate = await response.json()
 

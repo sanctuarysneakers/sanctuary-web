@@ -18,7 +18,7 @@ export default function useAPICall(callType, params) {
     const currency = useSelector(state => state.currency)
 
     async function currencyConversionRate(from, to) {
-        const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/currencyrate?from_curr=${from}&to_curr=${to}`
+        const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/currencyrate2?from_curr=${from}&to_curr=${to}`
         const response = await fetch(url)
         return await response.json()
     }
