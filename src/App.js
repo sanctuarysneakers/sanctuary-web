@@ -102,8 +102,7 @@ export default function App() {
                     <ProtectedRoute path="/profile-edit-name" component={EditProfileName} isEnabled={firebase.auth().currentUser} />
                     <ProtectedRoute path="/profile-edit-email" component={EditProfileEmail} isEnabled={firebase.auth().currentUser} />
                     <ProtectedRoute path="/profile-edit-password" component={EditProfilePassword} isEnabled={firebase.auth().currentUser} />
-                
-                    <Route path="/portfolio" component={Portfolio} />
+                    <ProtectedRoute path="/portfolio" component={Portfolio} isEnabled={firebase.auth().currentUser}/>
 
                     <Route path="/privacy-policy" component={PrivacyPolicy} />
                     <Route path="/terms-of-use" component={TermsOfUse} />

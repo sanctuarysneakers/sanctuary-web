@@ -61,6 +61,18 @@ export default function Item() {
         })
     }
 
+    async function deletePortfolioClickHandler() {
+        fetch("https://hdwj2rvqkb.us-west-2.awsapprunner.com/accounts/portfolio/delete", {
+            method: "DELETE",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify({
+                user_id: user.uid,
+                sku: itemInfo.skuId,
+                size: size,
+            })
+        })
+    }
+
     return (
         <div className='item'>
             <Helmet>
