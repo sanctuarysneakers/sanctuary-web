@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { showLocationPopup, updateLocation } from '../../redux/actions'
+import { updateLocation, updateCurrency, /*showLocationPopup*/ } from '../../redux/actions'
 
 export default function useLocationDetection() {
 
@@ -15,8 +15,10 @@ export default function useLocationDetection() {
 		dispatch(updateLocation(data))
 
 		// show popup to suggest currency change depending on location
-		if (data['country_code'] !== 'US' && currencies.includes(data['currency_code']))
-			dispatch(showLocationPopup(data['currency_code']))
+		if (data['country_code'] !== 'US' && currencies.includes(data['currency_code'])) {
+			//dispatch(showLocationPopup(data['currency_code']))
+			dispatch(updateCurrency(data['currency_code']))
+		}
 	}
 
 	useEffect(() => {

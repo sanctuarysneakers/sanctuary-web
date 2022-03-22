@@ -39,18 +39,20 @@ export default function ItemListing({ data, index, length }) {
 
                 <div className='item-listing-link'>
                     <div className='item-listing-amount'>
+
                         <h2>
                             {currencySymbolMap[currency]}{data.price}
                         </h2>
-                        <div className='listing-shipping'>
-                            { (data.shippingPrice === 0) && 
+
+                        { data.shippingPrice !== null && <div className='listing-shipping'>
+                            { data.shippingPrice === 0 && 
                             <p> FREE shipping</p>
                             }
-                            { !isNaN(data.shippingPrice) && data.shippingPrice !== 0 && 
-                            <p> +{currencySymbolMap[currency]}{Math.round(data.shippingPrice * 100) / 100} shipping</p>
+                            { data.shippingPrice !== 0 && 
+                            <p> +{currencySymbolMap[currency]}{Math.round(data.shippingPrice)} shipping</p>
                             }
-                        </div>
-
+                        </div> }
+                        
                     </div>
                     <RightArrow />
                 </div>

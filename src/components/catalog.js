@@ -17,7 +17,7 @@ export default function Catalog({ search_query }) {
     useAPICall('browse', {query: search_query})
 
     async function currencyConversionRate(from, to) {
-        const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/currencyrate?from_curr=${from}&to_curr=${to}`
+        const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/currencyrate2?from_curr=${from}&to_curr=${to}`
         const response = await fetch(url)
         return await response.json()
     }
