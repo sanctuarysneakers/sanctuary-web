@@ -8,8 +8,7 @@ export async function stockxLowestPrice(item, currencyRate) {
 	return [{
 		source: 'stockx',
 		price: Math.round(item.price * currencyRate),
-		url: `https://${item.url}`
-		//url: new URL(`https://stockx.pvxt.net/c/2588966/1023711/9060?&u=${item.url}`)
+		url: new URL(item.url)
 	}]
 }
 

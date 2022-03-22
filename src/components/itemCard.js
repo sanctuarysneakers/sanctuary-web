@@ -28,7 +28,7 @@ export default function ItemCard({ data }) {
             modelName: data.model,
             price: data.price,
             image: data.image,
-            url: data.urlKey 
+            url: data.url
         }
 
         dispatch(updateItemInfo(itemInfo))
