@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+import useAPICall from '../Hooks/useApiCall'
+import PortfolioCard from '../portfolioCard'
+import { Helmet } from 'react-helmet';
+
 
 export default function Portfolio() {
 
@@ -18,19 +22,29 @@ export default function Portfolio() {
 		getData()
 	}, [])
 
-	console.log(data)
+	console.log("user: ", user)
 
+	useAPICall('getportfolio', { uid: user.uid, data: data })
 	return (
-		<div>{data.map((d) => {
-			return (
-				<div>
-					<h4>Item SKU: {d.sku}</h4>
-					<p>{d.add_date}</p>
-					<p>Size: {d.size}</p>
-					<p>Price: ${d.price}</p>
-					<br/>
+		<div className='portfolio'>
+			<Helmet>
+                <title>Sanctuary: Portfolio</title>
+            </Helmet>
+
+			<div className='portfolio-title'>
+				<div className='portfolio-title-content'>
+					<div className='portfolio-title-content-text'>
+                        <h2> Portfolio </h2>
+                    </div>
 				</div>
-			)
-		})}</div>
+			</div>
+
+			<div className='portfolio-catalog'>
+				{data.length !== 0 && data.map((item) => (
+					<PortfolioCard key={item.id} data={item} />
+				))}
+			</div>
+
+		</div>
 	)
 }
