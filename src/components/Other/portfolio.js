@@ -21,9 +21,7 @@ export default function Portfolio() {
 	useEffect(() => {
 		getData()
 	}, [])
-
-	console.log("user: ", user)
-
+	
 	useAPICall('getportfolio', { uid: user.uid, data: data })
 	return (
 		<div className='portfolio'>

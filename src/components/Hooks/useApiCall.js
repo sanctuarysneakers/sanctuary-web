@@ -149,14 +149,13 @@ export default function useAPICall(callType, params) {
     }
 
     async function getPortfolio(uid, data) {
-        return "Portfolio sample"
     }
 
     useEffect(() => {
         if (callType === 'getitem')
             getItem(params.sku, params.size, params.gender)
         else if (callType === 'getportfolio')
-            getPortfolio(params.uid)
+            getPortfolio(params.uid, params.data)
         else
             browse(callType, params.query)
     }, [currency, size])

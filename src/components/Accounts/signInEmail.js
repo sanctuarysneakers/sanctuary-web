@@ -8,14 +8,12 @@ import sanctuary from "../../assets/images/logos/sanctuary-bird-black.png"
 import Footer from '../Other/footer'
 
 export default function SignInEmail() {
-    // TODO: Change these initial values to empty strings LOL
     const dispatch = useDispatch()
     const history = useHistory()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
 
-    // Hide the search bar
     dispatch(hideHomeSearch())
 
     const signInEmailPassword = () => {
