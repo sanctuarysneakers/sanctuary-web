@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { browseCall, updateItemInfo, updateItemPrices, updateItemListings,
     setItemPricesLoading, setItemListingsLoading, trendingCall, 
-    under200Call, under300Call } from '../../redux/actions'
+    under200Call, under300Call, updatePortfolioData } from '../../redux/actions'
 import createRequestObject from './createRequest'
 import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPrice, 
     klektLowestPrice, grailedListings, ebayListings, depopListings } from './scrapers'
@@ -14,6 +14,7 @@ export default function useAPICall(callType, params) {
     const history = useHistory()
     const dispatch = useDispatch()
     
+    const user = useSelector(state => state.user)
     const location = useSelector(state => state.location)
     const size = useSelector(state => state.size)
     const currency = useSelector(state => state.currency)
@@ -70,13 +71,17 @@ export default function useAPICall(callType, params) {
         dispatch(updateItemInfo(itemInfo))
         
         if (itemInfo) {
-            const itemPrices = await getItemPrices(itemInfo, size, gender)
-            dispatch(updateItemPrices(itemPrices))
-            dispatch(setItemPricesLoading(false))
-    
-            const itemListings = await getItemListings(itemInfo, size, gender)
-            dispatch(updateItemListings(itemListings))
-            dispatch(setItemListingsLoading(false))
+            if(fromBrowse == null) {
+                dispatch(updateItemInfo(itemInfo))
+            } 
+           
+            await SafePromiseAll(
+                [
+                    getItemPrices(itemInfo, size, gender, usdRate, eurRate, shippingResponse, 'standard'),
+                    getItemListings(itemInfo, size, gender, usdRate)
+                ], 
+                []
+            ) 
         }
     }
 
@@ -96,16 +101,42 @@ export default function useAPICall(callType, params) {
                 image: itemData[0]['image'],
                 url: itemData[0]['url']
             }
-        } catch (e) {
-            try {
-                const request = createRequestObject('stockxInfo', {search: sku, gender: gender})
-                const response = await fetch(request.url, request.headers)
-    
-                let itemData = await response.json()
-                return {
-                    hasPrice: false,
-                    modelName: itemData[0]['model'],
-                    image: itemData[0]['image'],
+        } catch (e) { 
+            history.replace('/item-not-supported')
+            return null
+        }
+    }
+
+    async function getItemPrices(item, size, gender, usdRate, eurRate, shippingResponse, type) {
+        let shippingPrices = {} 
+        if(shippingResponse && shippingResponse.ok && type === 'standard') {
+            shippingPrices = await shippingResponse.json()
+        }
+        const res = await SafePromiseAll(
+            [
+                SafePromiseAll(Object.values(shippingPrices).map(shippingObj => currencyConversionPromise(shippingObj['currency'], currency))),  
+                stockxLowestPrice(item, usdRate), 
+                ebayLowestPrice(item, size, location['country_code'], location['postal_code'], usdRate, currency),
+                flightclubLowestPrice(item, size, gender, usdRate),
+                goatLowestPrice(item, size, usdRate),
+                klektLowestPrice(item, size, eurRate)
+            ]
+        ) 
+
+        let convertedShippingCurrencies = res[0]
+        let results = res.splice(1).flat() 
+
+        if (shippingPrices !== {} && convertedShippingCurrencies && Object.keys(shippingPrices).length === convertedShippingCurrencies.length) {
+            for (var i = 0; i < Object.keys(shippingPrices).length; i ++) {
+                let key = Object.keys(shippingPrices)[i]
+                if (shippingPrices[key] != null && convertedShippingCurrencies[i] != null) {
+                    shippingPrices[key] = shippingPrices[key]["cost"] * convertedShippingCurrencies[i] 
+                }  
+            }
+
+            for (var j = 0; j < results.length; j++) {
+                if (results[j]['source'] in shippingPrices) {    
+                    results[j]['shippingPrice'] = shippingPrices[results[j]['source']] 
                 }
             } catch (e) {
                 history.replace('/item-not-supported')
@@ -130,32 +161,70 @@ export default function useAPICall(callType, params) {
         
         results = results.filter(r => r.price !== 0)
         results.sort((a, b) => a.price - b.price)
+        if (type === 'standard') {
+            dispatch(updateItemPrices(results))
+            dispatch(setItemPricesLoading(false))  
+        }
         return results
     }
 
-    async function getItemListings(item, size, gender) {
-        let currencyRate;
-        if (currency !== "USD")
-            currencyRate = await currencyConversionRate("USD", currency)
-        else currencyRate = 1
-        
-        let results = []
-        results.push(...await ebayListings(item, size, location['country_code'], currencyRate))
-        results.push(...await depopListings(item, size, gender, currencyRate))
-        results.push(...await grailedListings(item, size, currencyRate))
+    async function getItemListings(item, size, gender, usdRate) {       
+        //execute all listing requests simultaneously
+        const res = await SafePromiseAll(
+            [
+                ebayListings(item, size, location['country_code'], usdRate, currency, location['postal_code']), 
+                depopListings(item, size, gender, usdRate, location['country_code']),
+                grailedListings(item, size, usdRate, location['country_code'].toLowerCase())
+            ]
+        ) 
 
-        results.sort((a, b) => a.price - b.price)
+        const results = res.flat().sort((a, b) => a.price - b.price)
+        dispatch(updateItemListings(results))
+        dispatch(setItemListingsLoading(false))
         return results
     }
+    async function getPortfolioData() {
+        const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/accounts/portfolio/get?user_id=${user.uid}`
+        const response = await fetch(url)
+        const data = await response.json()
+        return data
+    }
+    async function getPortfolio() {
+        let shippingRequest = createRequestObject('shippingPrices', {country: location['country_code']})
 
-    async function getPortfolio(uid, data) {
+        const prepRes = await SafePromiseAll([
+            currencyConversionPromise("USD", currency),
+            currencyConversionPromise("EUR", currency),    
+            fetch(shippingRequest.url, shippingRequest.headers),
+            getPortfolioData() 
+        ])
+
+        let usdRate, eurRate, shippingResponse, portfolioData
+        usdRate = prepRes[0]
+        eurRate = prepRes[1]
+        shippingResponse = prepRes[2]
+        portfolioData = prepRes[3]
+
+        let shippingPrices
+        if(shippingResponse && shippingResponse.ok) {
+            shippingPrices = await shippingResponse.json()
+        }
+
+        for (var i = 0; i < portfolioData.length; i++) {
+            let itemInfo = await SafePromiseAll([getItemInfo(portfolioData[i]['sku'].replace(/ /g,"-"), portfolioData[i]['size'], 'men')])
+            let itemPrices = await SafePromiseAll([getItemPrices(itemInfo[0], portfolioData[i]['size'], 'men', usdRate, eurRate, shippingPrices, 'portfolio')])
+            portfolioData[i]['itemInfo'] = itemInfo
+            portfolioData[i]['currPrices'] = itemPrices
+        }
+        dispatch(updatePortfolioData(portfolioData))
+
     }
 
     useEffect(() => {
         if (callType === 'getitem')
             getItem(params.sku, params.size, params.gender)
         else if (callType === 'getportfolio')
-            getPortfolio(params.uid, params.data)
+            getPortfolio()
         else
             browse(callType, params.query)
     }, [currency, size])

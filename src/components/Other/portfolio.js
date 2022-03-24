@@ -8,6 +8,7 @@ import { Helmet } from 'react-helmet';
 export default function Portfolio() {
 
 	const user = useSelector(state => state.user)
+	const portfolioData = useSelector(state => state.portfolioData)
 
 	let [data, setData] = useState([])
 
@@ -21,7 +22,7 @@ export default function Portfolio() {
 	useEffect(() => {
 		getData()
 	}, [])
-	
+	console.log("portfolio data: ", portfolioData)
 	useAPICall('getportfolio', { uid: user.uid, data: data })
 	return (
 		<div className='portfolio'>
@@ -38,8 +39,8 @@ export default function Portfolio() {
 			</div>
 
 			<div className='portfolio-catalog'>
-				{data.length !== 0 && data.map((item) => (
-					<PortfolioCard key={item.id} data={item} />
+				{portfolioData.length !== 0 && portfolioData.map((item) => (
+					<PortfolioCard key={portfolioData.record_id} data={item} />
 				))}
 			</div>
 
