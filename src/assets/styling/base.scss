@@ -59,9 +59,10 @@
 @import "./howItWorksCards";
 @import "./howItWorksContact";
 @import "./contactForm";
+@import "./browseFilterDropdown";
 
 @import "swiper/swiper";
-@import 'swiper/components/navigation/navigation';
+@import "swiper/components/navigation/navigation";
 
 body {
     font-family: 'Poppins', sans-serif;

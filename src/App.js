@@ -89,7 +89,7 @@ export default function App() {
                 <Switch>
                 <Route exact path="/" component={Home} />
                 <Route path="/home" component={Home} />
-                <Route path="/browse/:query?" component={Browse} />
+                <Route path="/browse/:searchTerm?" component={Browse} />
                 <Route path="/item/:sku/:gender" component={Item} />
 
                 {/* redirect user to home page if already signed in  */}

@@ -64,34 +64,45 @@ export const setItemListingsLoading = isLoading => {
     }
 }
 
-// Filter Actions
+// Browse Sort Actions
 
-export const updateSizeFilter = size => {
+export const updateBrowseBrand = brand => {
     return {
-        type: 'UPDATE_SIZE_FILTER',
-        payload: size
+        type: 'UPDATE_BROWSE_BRAND',
+        payload: brand
     }
 }
 
-export const updatePriceLowFilter = price_low => {
+export const updateBrowseSort = sortType => {
     return {
-        type: 'UPDATE_PRICE_LOW_FILTER',
-        payload: price_low
+        type: 'UPDATE_BROWSE_SORT',
+        payload: sortType
     }
 }
 
-export const updatePriceHighFilter = price_high => {
+// Browse Filter Actions
+
+export const updateBrowseReleaseYears = releaseYears => {
     return {
-        type: 'UPDATE_PRICE_HIGH_FILTER',
-        payload: price_high
+        type: 'UPDATE_BROWSE_RELEASE_YEARS',
+        payload: releaseYears
     }
 }
 
-export const clearFilter = () => {
+export const updateBrowseSizeTypes = sizeTypes => {
     return {
-        type: 'CLEAR_FILTER'
+        type: 'UPDATE_BROWSE_SIZE_TYPES',
+        payload: sizeTypes
     }
 }
+
+export const updateBrowsePriceRanges = priceRanges => {
+    return {
+        type: 'UPDATE_BROWSE_PRICE_RANGES',
+        payload: priceRanges
+    }
+}
+
 
 // Currency change
 

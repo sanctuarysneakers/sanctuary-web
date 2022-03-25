@@ -17,6 +17,13 @@ export default function useAPICall(callType, params) {
     const size = useSelector(state => state.size)
     const currency = useSelector(state => state.currency)
 
+    //browse filters
+    const sort = useSelector(state => state.browseFilters.sort)
+    const brand = useSelector(state => state.browseFilters.brand)
+    const priceRanges = useSelector(state => state.browseFilters.priceRanges)
+    const sizeTypes = useSelector(state => state.browseFilters.sizeTypes)
+    const releaseYears = useSelector(state => state.browseFilters.releaseYears)
+
     async function currencyConversionRate(from, to) {
         const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/currencyrate2?from_curr=${from}&to_curr=${to}`
         const response = await fetch(url)
@@ -36,7 +43,7 @@ export default function useAPICall(callType, params) {
         )
     }
 
-    async function browse(type, query) {
+    async function browse(type, searchTerm) {
         const price_limit = {
             'browse': null,
             'trending': null,
@@ -50,17 +57,30 @@ export default function useAPICall(callType, params) {
             'under300': under300Call
         }
 
-        let filters = {
+        let params = {
             currency, 
-            search: query,
-            maxPrice: price_limit[type]
+            search: searchTerm,
         }
 
-        if(type == 'trending') {
-            filters.sort = "most-active"
-        }
+        let request; 
+        if(type == 'browse') {
 
-        const request = createRequestObject('browse', filters)
+            let params = {
+                currency, 
+                search: searchTerm,
+                maxPrice: price_limit[type], 
+                brand,
+                priceRanges,
+                gender: sizeTypes, 
+                releaseYears
+            }
+
+            request = createRequestObject('browse', {...params, ...filters, ...JSON.parse(sort)})
+        } else if(type == 'trending') {
+            request = createRequestObject('browse', {...params, sort: "most-active"}) 
+        } else {
+            request = createRequestObject('browse', params)
+        }
 
         try {
             const response = await fetch(request.url, request.headers)
@@ -195,6 +215,6 @@ export default function useAPICall(callType, params) {
         else
             browse(callType, params.query)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currency, size])
+    }, [currency, size, sort, brand, priceRanges, sizeTypes, releaseYears])
 
 }

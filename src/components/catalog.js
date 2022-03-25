@@ -5,7 +5,7 @@ import useAPICall from './Hooks/useApiCall'
 import createRequestObject from './Hooks/createRequest'
 import ItemCard from './itemCard'
 
-export default function Catalog({ search_query }) {
+export default function Catalog({ searchTerm }) {
 
     const browseData = useSelector(state => state.browseData)
     const currency = useSelector(state => state.currency)
@@ -14,7 +14,7 @@ export default function Catalog({ search_query }) {
     let [page, updatePage] = useState(1)
     let [hasMore, setHasMore] = useState(true)
 
-    useAPICall('browse', {query: search_query})
+    useAPICall('browse', { searchTerm })
 
     async function currencyConversionRate(from, to) {
         const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/currencyrate2?from_curr=${from}&to_curr=${to}`
@@ -30,7 +30,7 @@ export default function Catalog({ search_query }) {
     }
 
     async function fetchMore() {
-        const request = createRequestObject('browse', {search: search_query, page: page+1})
+        const request = createRequestObject('browse', {search: searchTerm, page: page+1})
         const response = await fetch(request.url, request.headers)
         let results = await response.json()
         results = await convertCurrency(results)
