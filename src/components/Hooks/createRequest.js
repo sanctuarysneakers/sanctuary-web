@@ -11,7 +11,8 @@ export default function createRequestObject(type, filter) {
 					"page": filter.page ? filter.page : 1,
 					"gender": filter.gender ? filter.gender : '',
 					"min_price": filter.min_price ? filter.min_price : 0,
-					"max_price": filter.max_price ? filter.max_price : 99999
+					"max_price": filter.max_price ? filter.max_price : 99999, 
+					"sort": filter.sort
 				}),
 				headers: {
 					method: 'GET'

@@ -10,6 +10,10 @@
             padding: 0px 20px;
             margin: auto;
 
+            span {
+                display: flex !important;
+            } 
+
             .browse-results-text {
                 padding: 89px 0px;
                 
@@ -93,6 +97,14 @@
                 align-items: flex-start;
                 max-width: 335px;
                 padding-bottom: 20px;
+
+                span {
+                    display: inline !important; 
+
+                    div { 
+                        margin-bottom: 10px;
+                    }
+                }
 
                 .browse-results-text {
                     padding: 59px 0px;

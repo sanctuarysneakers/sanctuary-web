@@ -17,6 +17,13 @@ export default function useAPICall(callType, params) {
     const size = useSelector(state => state.size)
     const currency = useSelector(state => state.currency)
 
+    //browse filters
+    const sort = useSelector(state => state.browseFilters.sort)
+    const brand = useSelector(state => state.browseFilters.brand)
+    const priceRanges = useSelector(state => state.browseFilters.priceRanges)
+    const sizeTypes = useSelector(state => state.browseFilters.sizeTypes)
+    const releaseYears = useSelector(state => state.browseFilters.releaseYears)
+
     async function currencyConversionRate(from, to) {
         const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/currencyrate2?from_curr=${from}&to_curr=${to}`
         const response = await fetch(url)
@@ -43,7 +50,7 @@ export default function useAPICall(callType, params) {
         )
     }
 
-    async function browse(type, query) {
+    async function browse(type, searchTerm) {
         const price_limit = {
             'browse': 99999,
             'trending': 99999,
@@ -58,9 +65,17 @@ export default function useAPICall(callType, params) {
         }
 
         const request = createRequestObject('browse', {
-            search: query,
-            max_price: price_limit[type]
+            search: searchTerm,
+            max_price: price_limit[type], 
+            sort,
         })
+
+        console.log("sort is: " + sort)
+        console.log("brand is: " + brand)
+        console.log("priceRanges is: " + priceRanges)
+        console.log("sizeTypes is: " + sizeTypes)
+        console.log("releaseYears is: " + releaseYears)
+    
 
         try {
             const response = await fetch(request.url, request.headers)
@@ -197,6 +212,6 @@ export default function useAPICall(callType, params) {
         else
             browse(callType, params.query)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currency, size])
+    }, [currency, size, sort, brand, priceRanges, sizeTypes, releaseYears])
 
 }

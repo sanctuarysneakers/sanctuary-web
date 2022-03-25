@@ -16,6 +16,7 @@
     "react": "^16.13.1",
     "react-div-100vh": "^0.5.0",
     "react-dom": "^16.13.1",
+    "react-dropdown": "^1.9.2",
     "react-fade-in": "^2.0.1",
     "react-google-recaptcha": "^2.1.0",
     "react-helmet": "^6.1.0",
