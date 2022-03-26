@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import {ReactComponent as RightArrow} from '../assets/images/RightArrow.svg'
+import { ReactComponent as RightArrow } from '../assets/images/RightArrow.svg'
+import { ReactComponent as Shipping } from '../assets/images/shipping-icon.svg'
 import { websiteTextMap, currencySymbolMap } from '../assets/constants'
 
 export default function ItemListing({ data, index, length }) {
@@ -10,16 +11,16 @@ export default function ItemListing({ data, index, length }) {
     let condition
     if (data.source === 'ebay') {
         try {
-            condition = data.condition[0].conditionDisplayName[0]    
-        } catch(e) {
+            condition = data.condition[0].conditionDisplayName[0]
+        } catch (e) {
             condition = 'Used'
         }
     } else {
-          condition = 'Used'
+        condition = 'Used'
     }
 
     const clickHandler = (url) => {
-        window.analytics.track(`item_more_listings_click_${data.source}`, {url: data.url, price: data.price});
+        window.analytics.track(`item_more_listings_click_${data.source}`, { url: data.url, price: data.price });
         window.open(url, '_blank')
     }
     /* eslint-disable jsx-a11y/anchor-is-valid */
@@ -44,15 +45,21 @@ export default function ItemListing({ data, index, length }) {
                             {currencySymbolMap[currency]}{data.price}
                         </h2>
 
-                        { data.shippingPrice !== null && <div className='listing-shipping'>
-                            { data.shippingPrice === 0 && 
-                            <p> FREE shipping</p>
+                        {data.shippingPrice !== null && <div className='listing-shipping'>
+                            {data.shippingPrice === 0 &&
+                                <div className='listing-shipping-text'>
+                                    <Shipping />
+                                    <p>Free</p>
+                                </div>
                             }
-                            { data.shippingPrice !== 0 && 
-                            <p> +{currencySymbolMap[currency]}{Math.round(data.shippingPrice)} shipping</p>
+                            {data.shippingPrice !== 0 &&
+                                <div className='listing-shipping-text'>
+                                    <Shipping />
+                                    <p>{currencySymbolMap[currency]}{Math.round(data.shippingPrice)}</p>
+                                </div>
                             }
-                        </div> }
-                        
+                        </div>}
+
                     </div>
                     <RightArrow />
                 </div>
