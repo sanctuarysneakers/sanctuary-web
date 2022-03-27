@@ -1,4 +1,3 @@
-
 export default function createRequestObject(type, filter) {
 
 	const api = 'https://hdwj2rvqkb.us-west-2.awsapprunner.com'
@@ -6,7 +5,11 @@ export default function createRequestObject(type, filter) {
 	switch (type) {
 		case 'browse':
 			return {
+<<<<<<< HEAD
 				url: `${api}/browse`,
+=======
+				url: `${api}/browse3?`,
+>>>>>>> 35549177 (remove categoryfilter)
 				headers:  {
 					method: "POST",
 					headers: {
@@ -142,6 +145,7 @@ export default function createRequestObject(type, filter) {
 		
 		default: 
 			return {
+<<<<<<< HEAD
 				url: `${api}/browse`,
 				headers:  {
 					method: "POST",
@@ -149,6 +153,11 @@ export default function createRequestObject(type, filter) {
 						'Content-Type': 'application/json'
 					},
 					body: {}, 
+=======
+				url: `${api}/browse3`,
+				headers: {
+					method: 'POST'
+>>>>>>> 35549177 (remove categoryfilter)
 				}
 			}
 	}

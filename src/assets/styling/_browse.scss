@@ -1,20 +1,26 @@
 .browse {
-    .browse-results {
-        background: #F7F9FC;
+    background: #F7F9FC;
+    
+    padding-left: 10%; 
+    padding-right: 5%; 
 
-        .browse-results-content {
+    .browse-header {
+        // padding-right: 15%; 
+
+        .browse-header-content {
             display: flex;
+            max-width: 1000px; 
+            margin: auto;
+        
             align-items: center;
             justify-content: space-between;
-            max-width: 1000px;
             padding: 0px 20px;
-            margin: auto;
-
-            span {
+        
+            .browse-filters {
                 display: flex !important;
             } 
-
-            .browse-results-text {
+    
+            .browse-header-text {
                 padding: 89px 0px;
                 
                 h2 {
@@ -26,17 +32,27 @@
             }
         }
     }
+   
 
-    .browse-catalog {
-        background: #F7F9FC;
-        padding-bottom: 166px;
+    .browse-body {
+        display: flex; 
+        margin: auto;
+
+        .browse-filters {
+            width: 15%; 
+        }
+
+        .browse-catalog {
+            max-width: 1000px; 
+            padding-bottom: 8em; 
+        }
     }
 }
 
 @media (min-width: 820px) and (max-width: 1099px) {
     .browse {
-        .browse-results {
-            .browse-results-content {
+        .browse-header {
+            .browse-header-content {
                 max-width: 747px;
             }
         }
@@ -45,13 +61,13 @@
 
 @media (min-width: 700px) and (max-width: 819px) {
     .browse {
-        .browse-results {
-            .browse-results-content {
+        .brose-header {
+            .browse-header-content {
                 max-width: 622px;
                 
-                .browse-results-text {
+                .browse-header-text {
                     padding: 59px 0px;
-
+    
                     h2 {
                         font-size: 28px;
                         line-height: 42px;
@@ -59,20 +75,16 @@
                 }
             }
         }
-
-        .browse-catalog {
-            padding-bottom: 100px;
-        }
     }
 }
 
 @media (min-width: 548px) and (max-width: 699px) {
     .browse {
-        .browse-results {
-            .browse-results-content {
+        .browse-header {
+            .browse-header-content {
                 max-width: 508px;
-
-                .browse-results-text {
+    
+                .browse-header-text {
                     padding: 59px 0px;
                     
                     h2 {
@@ -82,43 +94,37 @@
                 }
             }
         }
-
-        .browse-catalog {
-            padding-bottom: 100px;
-        }
     }
 }
 
 @media screen and (max-width: 547px) {
     .browse {
-        .browse-results {
-            .browse-results-content {
-                flex-direction: column;
-                align-items: flex-start;
-                max-width: 335px;
-                padding-bottom: 20px;
-
-                span {
-                    display: inline !important; 
-
-                    div { 
-                        margin-bottom: 10px;
+        .browse-header {
+            .browse-header-content {
+                .browse-header-content {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    max-width: 335px;
+                    padding-bottom: 20px;
+    
+                    span {
+                        display: inline !important; 
+    
+                        div { 
+                            margin-bottom: 10px;
+                        }
                     }
-                }
-
-                .browse-results-text {
-                    padding: 59px 0px;
-
-                    h2 {
-                        font-size: 28px;
-                        line-height: 42px;
+    
+                    .browse-header-text {
+                        padding: 59px 0px;
+    
+                        h2 {
+                            font-size: 28px;
+                            line-height: 42px;
+                        }
                     }
                 }
             }
-        }
-
-        .browse-catalog {
-            padding-bottom: 100px;
         }
     }
 }

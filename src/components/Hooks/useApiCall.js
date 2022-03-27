@@ -213,7 +213,7 @@ export default function useAPICall(callType, params) {
         if (callType === 'getitem')
             getItem(params.sku, params.size, params.gender, params.fromBrowse)
         else
-            browse(callType, params.query)
+            browse(callType, params.searchTerm)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currency, size, sort, brand, priceRanges, sizeTypes, releaseYears])
 

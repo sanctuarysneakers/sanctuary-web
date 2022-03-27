@@ -44,19 +44,19 @@ export default function Footer({ colour }) {
                             <div className='footer-link-text'>
                                 <h2> Trending </h2>
 
-                                <Link onClick={() => { document.location.href = '/browse/Nike%20Dunk%20Low' }}>
+                                <Link onClick={() => { document.location.href = '/browse/Nike%20Dunk%20Low' }} to='/browse/Nike%20Dunk%20Low'>
                                     Nike Dunk Low
                                 </Link>
 
-                                <Link onClick={() => { document.location.href = '/browse/Air%20Jordan%201' }}>
+                                <Link onClick={() => { document.location.href = '/browse/Air%20Jordan%201' }} to='/browse/Air%20Jordan%201'>
                                     Air Jordan 1
                                 </Link>
 
-                                <Link onClick={() => { document.location.href = '/browse/Adidas%20Yeezy%20Boost%20350' }}>
+                                <Link onClick={() => { document.location.href = '/browse/Adidas%20Yeezy%20Boost%20350' }} to='/browse/Adidas%20Yeezy%20Boost%20350'>
                                     Yeezy Boost 350
                                 </Link>
 
-                                <Link onClick={() => { document.location.href = '/browse/Aime%20Leon%20Dore' }}>
+                                <Link onClick={() => { document.location.href = '/browse/Aime%20Leon%20Dore' }} to='/browse/Aime%20Leon%20Dore'>
                                     Aime Leon Dore
                                 </Link>
                             </div>
@@ -64,15 +64,15 @@ export default function Footer({ colour }) {
                             <div className='footer-link-text second'>
                                 <h2> Discover </h2>
 
-                                <Link onClick={() => document.location.href = '/browse'}>
+                                <Link onClick={() => document.location.href = '/browse'} to='/browse'>
                                     Browse
                                 </Link>
 
-                                <Link onClick={() => document.location.href = '/newsroom'}>
+                                <Link onClick={() => document.location.href = '/newsroom'} to='/newsroom'>
                                     Newsroom
                                 </Link>
 
-                                <Link onClick={() => document.location.href = '/how-it-works'}>
+                                <Link onClick={() => document.location.href = '/how-it-works'} to='/how-it-works'>
                                     How it Works
                                 </Link>
                             </div>
@@ -82,11 +82,11 @@ export default function Footer({ colour }) {
                             <div className='footer-link-text'>
                                 <h2> Account </h2>
 
-                                <Link onClick={() => document.location.href = '/create-account'}>
+                                <Link onClick={() => document.location.href = '/create-account'} to='/create-account'>
                                     Create Account
                                 </Link>
 
-                                <Link onClick={() => document.location.href = '/sign-in'}>
+                                <Link onClick={() => document.location.href = '/sign-in'} to='/sign-in'>
                                     Sign In
                                 </Link>
                             </div>
@@ -94,15 +94,15 @@ export default function Footer({ colour }) {
                             <div className='footer-link-text last'>
                                 <h2> Support </h2>
 
-                                <Link onClick={() => document.location.href = '/privacy-policy'}>
+                                <Link onClick={() => document.location.href = '/privacy-policy'} to='/privacy-policy'>
                                     Privacy Policy
                                 </Link>
 
-                                <Link onClick={() => document.location.href = '/terms-of-use'}>
+                                <Link onClick={() => document.location.href = '/terms-of-use'} to='/terms-of-use'>
                                     Terms of Use
                                 </Link>
 
-                                <Link onClick={() => document.location.href = '/contact-us'}>
+                                <Link onClick={() => document.location.href = '/contact-us'} to='/contact-us'>
                                     Contact Us
                                 </Link>
                             </div>
