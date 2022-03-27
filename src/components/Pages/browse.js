@@ -25,49 +25,36 @@ export default function Browse() {
             <Helmet>
                 <title>Sanctuary: Browse</title>
             </Helmet>
-            <div className='browse-results'>
-                <div className='browse-results-content'>
+            
+            <div className="browse-header"> 
+                <div className='browse-header-content'>
 
-                    {!searchTerm && <div className='browse-results-text'> 
+                    {!searchTerm && <div className='browse-header-text'> 
                         <h2> Browse </h2>
                     </div>}
-                    {searchTerm && <div className='browse-results-text'>
+                    {searchTerm && <div className='browse-header-text'>
                         <h2> Search results for </h2>
                         <h2> '{searchTerm}' </h2>
                     </div>}
-                    
-                    <span>
-                        <div id="brand"> 
-                            <BrowseFilterDropdown options={brandOptions} placeholder="Brand" updateAction={updateBrowseBrand}/>
-                        </div> 
 
-                        <div id="sort" > 
-                            <BrowseFilterDropdown options={sortOptions} placeholder="Sort By" updateAction={updateBrowseSort}/>
-                        </div> 
-
-
-                        {/* move these below to somewhere else */}
-
-                        <div id="release"> 
-                            <BrowseFilterMultiCheckbox options={releaseYearOptions} title="Release Year" updateAction={updateBrowseReleaseYears}/> 
-                        </div>  
-
-                        <div id="gender"> 
-                            <BrowseFilterMultiCheckbox options={sizeTypeOptions} title="Size Type" updateAction={updateBrowseSizeTypes}/> 
-                        </div>  
-
-                        <div id="price"> 
-                            <BrowseFilterMultiCheckbox options={priceOptions} title="Price Ranges" updateAction={updateBrowsePriceRanges}/> 
-                        </div>  
-                        
-                    </span>
+                    <div className="browse-filters">
+                        <BrowseFilterDropdown options={brandOptions} placeholder="Brand" updateAction={updateBrowseBrand}/>
+                        <BrowseFilterDropdown options={sortOptions} placeholder="Sort By" updateAction={updateBrowseSort}/>
+                    </div>
                 </div>
             </div>
+     
+            <div className="browse-body" >
+                <div className="browse-filters">
+                    <BrowseFilterMultiCheckbox options={sizeTypeOptions} title="Size Type" updateAction={updateBrowseSizeTypes} showMoreOption={false}/> 
+                    <BrowseFilterMultiCheckbox options={priceOptions} title="Price Ranges" updateAction={updateBrowsePriceRanges} showMoreOption={false}/> 
+                    <BrowseFilterMultiCheckbox options={releaseYearOptions} title="Release Year" updateAction={updateBrowseReleaseYears} showMoreOption={true}/>             
+                </div> 
 
-            <div className='browse-catalog'>
-                <Catalog searchTerm={searchTerm} />
+                <div className="browse-catalog">
+                    <Catalog searchTerm={searchTerm} />
+                </div>
             </div>
-
             <Footer colour={'blue'} />
         </div>
     )

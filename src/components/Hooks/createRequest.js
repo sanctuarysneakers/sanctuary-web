@@ -1,4 +1,3 @@
-
 export default function createRequestObject(type, filter) {
 
 	const api = 'https://hdwj2rvqkb.us-west-2.awsapprunner.com'
@@ -6,16 +5,13 @@ export default function createRequestObject(type, filter) {
 	switch (type) {
 		case 'browse':
 			return {
-				url: `${api}/browse2?` + new URLSearchParams({
-					"search": filter.search ? filter.search : '',
-					"page": filter.page ? filter.page : 1,
-					"gender": filter.gender ? filter.gender : '',
-					"min_price": filter.min_price ? filter.min_price : 0,
-					"max_price": filter.max_price ? filter.max_price : 99999, 
-					"sort": filter.sort
-				}),
-				headers: {
-					method: 'GET'
+				url: `${api}/browse3?`,
+				headers:  {
+					method: "POST",
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(filter), 
 				}
 			}
 		case 'stockx':
@@ -145,9 +141,9 @@ export default function createRequestObject(type, filter) {
 		
 		default: 
 			return {
-				url: `${api}/browse2`,
+				url: `${api}/browse3`,
 				headers: {
-					method: 'GET'
+					method: 'POST'
 				}
 			}
 	}

@@ -68,6 +68,10 @@ export default function useAPICall(callType, params) {
             search: searchTerm,
             max_price: price_limit[type], 
             sort,
+            brand,
+            priceRanges,
+            gender: sizeTypes, 
+            releaseYears
         })
 
         console.log("sort is: " + sort)
@@ -210,7 +214,7 @@ export default function useAPICall(callType, params) {
         if (callType === 'getitem')
             getItem(params.sku, params.size, params.gender, params.fromBrowse)
         else
-            browse(callType, params.query)
+            browse(callType, params.searchTerm)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currency, size, sort, brand, priceRanges, sizeTypes, releaseYears])
 

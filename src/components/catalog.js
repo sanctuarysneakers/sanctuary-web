@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import InfiniteScroll from 'react-infinite-scroll-component'
 import { useSelector } from 'react-redux'
+import InfiniteScroll from 'react-infinite-scroll-component'
 import useAPICall from './Hooks/useApiCall'
 import createRequestObject from './Hooks/createRequest'
 import ItemCard from './itemCard'
@@ -9,6 +9,13 @@ export default function Catalog({ searchTerm }) {
 
     const browseData = useSelector(state => state.browseData)
     const currency = useSelector(state => state.currency)
+
+    //filters 
+    const sort = useSelector(state => state.browseFilters.sort)
+    const brand = useSelector(state => state.browseFilters.brand)
+    const priceRanges = useSelector(state => state.browseFilters.priceRanges)
+    const sizeTypes = useSelector(state => state.browseFilters.sizeTypes)
+    const releaseYears = useSelector(state => state.browseFilters.releaseYears)
     
     let [items, updateItems] = useState(browseData)
     let [page, updatePage] = useState(1)
@@ -30,7 +37,7 @@ export default function Catalog({ searchTerm }) {
     }
 
     async function fetchMore() {
-        const request = createRequestObject('browse', {search: searchTerm, page: page+1})
+        const request = createRequestObject('browse', {search: searchTerm, page: page+1, sort, brand, priceRanges, sizeTypes, releaseYears})
         const response = await fetch(request.url, request.headers)
         let results = await response.json()
         results = await convertCurrency(results)
