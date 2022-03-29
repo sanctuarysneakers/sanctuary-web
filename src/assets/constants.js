@@ -92,7 +92,7 @@ export const websiteLogoMapGrey = {
     'ebay': eBayGrey
 }
 
-// browse filter options 
+// browse - single-select filter options 
 
 export const brandOptions = [
     {value: null, label: 'All'},
@@ -103,11 +103,19 @@ export const brandOptions = [
     {value: 'retro-jordans', label: 'Jordan'},
     {value: 'new-balance', label: 'New Balance'},
     {value: 'nike', label: 'Nike'},
+    {value: 'off-white', label: 'Off-White'}, 
     {value: 'puma', label: 'Puma'},
     {value: 'reebok', label: 'Reebok'},
     {value: 'saucony', label: 'Saucony'},
     {value: 'vans', label: 'Vans'},
     {value: 'yeezy', label: 'Yeezy'}
+]
+
+export const sizeTypeOptions = [
+    {value: null, label: 'All'},
+    {value: 'men', label: 'Men'},
+    {value: 'women', label: 'Women'}, 
+    {value: 'child', label: 'Child'}
 ]
 
 export const sortOptions = [
@@ -118,7 +126,8 @@ export const sortOptions = [
     {value: 'average_deadstock_price', label: 'Price (high to low)'}
 ]
 
-// year: 
+// browse - multi-select filter options 
+
 export const releaseYearOptions = [
     {value: '2022', label: '2022'},
     {value: '2021', label: '2021'},
@@ -146,7 +155,6 @@ export const releaseYearOptions = [
     {value: 'lt-2000', label: '<2000'}
 ]
 
-//market.lowestAsk: lte-100 
 export const priceOptions = [
     {value: 'lte-100', label: 'Under $100'},
     {value: 'range(100|200)', label: '$100-$200'},
@@ -155,10 +163,4 @@ export const priceOptions = [
     {value: 'range(400|500)', label: '$400-$500'},
     {value: 'range(500|600)', label: '$500-$600'},
     {value: 'gte-600', label: '$600+'}
-]
-
-//gender: men, women 
-export const sizeTypeOptions = [
-    {value: 'men', label: 'Men'},
-    {value: 'women', label: 'Women'}
 ]

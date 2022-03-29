@@ -43,7 +43,8 @@ export default function BrowseFilterMultiCheckbox({ options, title, updateAction
 
     const onCheckboxChange = (event) =>  {
         let newSelected
-        if(event.target.checked) {
+
+        if (event.target.checked) {
             newSelected = [...selected, event.target.value]
         }  else { 
             newSelected = selected.filter(e => e !== event.target.value)

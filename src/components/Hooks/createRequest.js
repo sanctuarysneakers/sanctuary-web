@@ -6,10 +6,14 @@ export default function createRequestObject(type, filter) {
 		case 'browse':
 			return {
 <<<<<<< HEAD
+<<<<<<< HEAD
 				url: `${api}/browse`,
 =======
 				url: `${api}/browse3?`,
 >>>>>>> 35549177 (remove categoryfilter)
+=======
+				url: `${api}/browse3`,
+>>>>>>> 8b41e538 (misc)
 				headers:  {
 					method: "POST",
 					headers: {
