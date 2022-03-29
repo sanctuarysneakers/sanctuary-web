@@ -5,7 +5,7 @@ export default function createRequestObject(type, filter) {
 	switch (type) {
 		case 'browse':
 			return {
-				url: `${api}/browse3?`,
+				url: `${api}/browse3`,
 				headers:  {
 					method: "POST",
 					headers: {

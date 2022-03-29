@@ -38,6 +38,7 @@ export default function Browse() {
                     </div>}
 
                     <div className="browse-filters">
+                        <BrowseFilterDropdown options={sizeTypeOptions} placeholder="Size Type" updateAction={updateBrowseSizeTypes}/> 
                         <BrowseFilterDropdown options={brandOptions} placeholder="Brand" updateAction={updateBrowseBrand}/>
                         <BrowseFilterDropdown options={sortOptions} placeholder="Sort By" updateAction={updateBrowseSort}/>
                     </div>
@@ -46,7 +47,6 @@ export default function Browse() {
      
             <div className="browse-body" >
                 <div className="browse-filters">
-                    <BrowseFilterMultiCheckbox options={sizeTypeOptions} title="Size Type" updateAction={updateBrowseSizeTypes} showMoreOption={false}/> 
                     <BrowseFilterMultiCheckbox options={priceOptions} title="Price Ranges" updateAction={updateBrowsePriceRanges} showMoreOption={false}/> 
                     <BrowseFilterMultiCheckbox options={releaseYearOptions} title="Release Year" updateAction={updateBrowseReleaseYears} showMoreOption={true}/>             
                 </div> 

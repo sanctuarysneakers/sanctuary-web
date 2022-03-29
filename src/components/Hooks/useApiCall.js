@@ -52,8 +52,8 @@ export default function useAPICall(callType, params) {
 
     async function browse(type, searchTerm) {
         const price_limit = {
-            'browse': 99999,
-            'trending': 99999,
+            'browse': null,
+            'trending': null,
             'under200': 200,
             'under300': 300
         }
@@ -80,7 +80,6 @@ export default function useAPICall(callType, params) {
         console.log("sizeTypes is: " + sizeTypes)
         console.log("releaseYears is: " + releaseYears)
     
-
         try {
             const response = await fetch(request.url, request.headers)
             if (!response.ok) throw new Error()
@@ -89,7 +88,6 @@ export default function useAPICall(callType, params) {
             if (!results.length) throw new Error()
 
             results = await convertCurrency(results, currency)
-
             dispatch(dispatch_map[type](results))
         } catch (e) {
             dispatch(dispatch_map[type](false))
