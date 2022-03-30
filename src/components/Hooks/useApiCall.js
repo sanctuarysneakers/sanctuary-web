@@ -64,15 +64,16 @@ export default function useAPICall(callType, params) {
             'under300': under300Call
         }
 
-        const request = createRequestObject('browse', {
+        let filters = {
             search: searchTerm,
             max_price: price_limit[type], 
-            sort,
             brand,
             priceRanges,
             gender: sizeTypes, 
             releaseYears
-        })
+        }
+
+        const request = createRequestObject('browse', {...filters, ...JSON.parse(sort)})
 
         console.log("sort is: " + sort)
         console.log("brand is: " + brand)
