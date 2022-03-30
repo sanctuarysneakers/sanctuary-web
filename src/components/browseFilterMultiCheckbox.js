@@ -90,6 +90,7 @@ export default function BrowseFilterMultiCheckbox({ options, title, updateAction
                     value={value}
                 />
             }
+            key={value}
             label={label}
         />) 
     ) 

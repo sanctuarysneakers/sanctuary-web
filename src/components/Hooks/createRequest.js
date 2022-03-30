@@ -7,6 +7,7 @@ export default function createRequestObject(type, filter) {
 			return {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				url: `${api}/browse`,
 =======
 				url: `${api}/browse3?`,
@@ -14,6 +15,9 @@ export default function createRequestObject(type, filter) {
 =======
 				url: `${api}/browse3`,
 >>>>>>> 8b41e538 (misc)
+=======
+				url: `${api}/browse`,
+>>>>>>> b9fdaa8f (misc)
 				headers:  {
 					method: "POST",
 					headers: {
@@ -150,6 +154,7 @@ export default function createRequestObject(type, filter) {
 		default: 
 			return {
 <<<<<<< HEAD
+<<<<<<< HEAD
 				url: `${api}/browse`,
 				headers:  {
 					method: "POST",
@@ -159,6 +164,9 @@ export default function createRequestObject(type, filter) {
 					body: {}, 
 =======
 				url: `${api}/browse3`,
+=======
+				url: `${api}/browse`,
+>>>>>>> b9fdaa8f (misc)
 				headers: {
 					method: 'POST'
 >>>>>>> 35549177 (remove categoryfilter)

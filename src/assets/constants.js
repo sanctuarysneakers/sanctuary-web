@@ -120,10 +120,10 @@ export const sizeTypeOptions = [
 
 export const sortOptions = [
     {value: null, label: 'Featured'},
-    {value: 'release_date', label: 'Newest Releases'},
-    {value: 'most-active', label: 'Most Popular'},
-    {value: 'lowest_ask', label: 'Price (low to high)'},
-    {value: 'average_deadstock_price', label: 'Price (high to low)'}
+    {value: '{"sort": "release_date"}', label: 'Newest Releases'},
+    {value: '{"sort": "most-active"}', label: 'Most Popular'},
+    {value: '{"sort": "lowest_ask", "order": "ASC"}', label: 'Price (low to high)'},
+    {value: '{"sort": "average_deadstock_price", "order": "DESC"}', label: 'Price (high to low)'}
 ]
 
 // browse - multi-select filter options 
