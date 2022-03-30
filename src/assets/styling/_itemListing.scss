@@ -66,11 +66,23 @@
                 }
 
                 .listing-shipping {
-                    p {
-                        font-size: 14px;
-                        font-weight: 300;
-                        color: #777F93;
-                        line-height: 24px;
+                    .listing-shipping-text {
+                        display: flex;
+                        align-items: center;
+                
+                        p {
+                            font-size: 14px;
+                            font-weight: 300;
+                            color: #777F93;
+                            line-height: 24px;
+                        }
+
+                        svg {
+                            height: 12px;
+                            width: auto;
+                            padding: 0px;
+                            margin-right: 5px;
+                        }
                     }
                 }
             }
@@ -132,6 +144,20 @@
                     h2 {
                         font-size: 16.5px;
                         line-height: 24px;
+                    }
+
+                    .listing-shipping {
+                        .listing-shipping-text {
+                            p {
+                                font-size: 12px;
+                                line-height: 20px;
+                            }
+    
+                            svg {
+                                height: 10px;
+                                margin-right: 5px;
+                            }
+                        }
                     }
                 }
         

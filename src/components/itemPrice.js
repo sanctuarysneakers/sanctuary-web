@@ -1,14 +1,15 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import {ReactComponent as RightArrow} from '../assets/images/RightArrow.svg'
-import { websiteLogoMapRegular, websiteTextMap, currencySymbolMap}  from '../assets/constants'
+import { ReactComponent as RightArrow } from '../assets/images/RightArrow.svg'
+import { ReactComponent as Shipping } from '../assets/images/shipping-icon.svg'
+import { websiteLogoMapRegular, websiteTextMap, currencySymbolMap } from '../assets/constants'
 
 export default function ItemPrice({ data, index, length }) {
 
     const currency = useSelector(state => state.currency)
 
     const clickHandler = (url) => {
-        window.analytics.track(`item_lowest_prices_click_${data.source}`, {url: data.url, price: data.price});
+        window.analytics.track(`item_lowest_prices_click_${data.source}`, { url: data.url, price: data.price });
         window.open(url, '_blank')
     }
     /* eslint-disable jsx-a11y/anchor-is-valid */
@@ -33,15 +34,21 @@ export default function ItemPrice({ data, index, length }) {
                             <h2> {currencySymbolMap[currency]}{data.price} </h2>
                         </div>
 
-                        { data.shippingPrice !== null && <div className='item-shipping'>
-                            { data.shippingPrice === 0 && 
-                            <p> FREE shipping</p>
+                        {data.shippingPrice !== null && <div className='item-shipping'>
+                            {data.shippingPrice === 0 &&
+                                <div className='item-shipping-text'>
+                                    <Shipping />
+                                    <p>Free</p>
+                                </div>
                             }
-                            { data.shippingPrice !== 0 && 
-                            <p> +{currencySymbolMap[currency]}{Math.round(data.shippingPrice)} shipping</p>
+                            {data.shippingPrice !== 0 &&
+                                <div className='item-shipping-text'>
+                                    <Shipping />
+                                    <p>{currencySymbolMap[currency]}{Math.round(data.shippingPrice)}</p>
+                                </div>
                             }
-                        </div> }
-                        
+                        </div>}
+
                     </div>
                     <RightArrow />
                 </div>
