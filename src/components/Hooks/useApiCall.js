@@ -45,8 +45,8 @@ export default function useAPICall(callType, params) {
 
     async function browse(type, query) {
         const price_limit = {
-            'browse': 99999,
-            'trending': 99999,
+            'browse': null,
+            'trending': null,
             'under200': 200,
             'under300': 300
         }
@@ -59,7 +59,7 @@ export default function useAPICall(callType, params) {
 
         const request = createRequestObject('browse', {
             search: query,
-            max_price: price_limit[type]
+            maxPrice: price_limit[type]
         })
 
         try {
