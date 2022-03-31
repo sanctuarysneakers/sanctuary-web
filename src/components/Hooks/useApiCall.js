@@ -62,7 +62,7 @@ export default function useAPICall(callType, params) {
             maxPrice: price_limit[type]
         }
 
-        if(type == trending) {
+        if(type == 'trending') {
             filters.sort = "most-active"
         }
 
