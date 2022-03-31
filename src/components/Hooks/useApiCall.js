@@ -57,10 +57,16 @@ export default function useAPICall(callType, params) {
             'under300': under300Call
         }
 
-        const request = createRequestObject('browse', {
+        let filters = {
             search: query,
             maxPrice: price_limit[type]
-        })
+        }
+
+        if(type == trending) {
+            filters.sort = "most-active"
+        }
+
+        const request = createRequestObject('browse', filters)
 
         try {
             const response = await fetch(request.url, request.headers)
