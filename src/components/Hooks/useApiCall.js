@@ -82,6 +82,12 @@ export default function useAPICall(callType, params) {
             request = createRequestObject('browse', params)
         }
 
+        console.log("sort is: " + sort)
+        console.log("brand is: " + brand)
+        console.log("priceRanges is: " + priceRanges)
+        console.log("sizeTypes is: " + sizeTypes)
+        console.log("releaseYears is: " + releaseYears)
+    
         try {
             const response = await fetch(request.url, request.headers)
             if (!response.ok) throw new Error()
