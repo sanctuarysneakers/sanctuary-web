@@ -10,41 +10,41 @@ import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
 
 
-export default function BrowseFilterMultiCheckbox({ options, title, updateAction, showMoreOption }) {
+export default function BrowseFilterMultiCheckbox({ options, title, updateAction, showMoreOption = false }) {
 
     const dispatch = useDispatch()
 
     const [selected, setSelected] = useState([]);  
-    //const [checkboxes, setCheckboxes] = useState([])
-    //const [showMore, setShowMore] = useState(true)
+    const [showMore, setShowMore] = useState(showMoreOption)
+    const [checkboxes, setCheckboxes] = useState([])
 
-    // const optionsToCheckboxes = (givenOptions) => {
+    const optionsToCheckboxes = (givenOptions) => {
 
-    //     let checkboxes = givenOptions.map(({value, label}) => (
-    //         <FormControlLabel
-    //             className="checkboxLabel"
-    //             control={
-    //                 <Checkbox 
-    //                     onChange={onCheckboxChange} 
-    //                     sx={{
-    //                         color: "#EC3E26",
-    //                         '&.Mui-checked': {
-    //                           color: "#EC3E26",
-    //                     }}}  
-    //                     value={value}
-    //                 />
-    //             }
-    //             label={label}
-    //         />) 
-    //     ) 
+        let checkboxes = givenOptions.map(({value, label}) => (
+            <FormControlLabel
+                className="checkboxLabel"
+                control={
+                    <Checkbox 
+                        onChange={onCheckboxChange} 
+                        sx={{
+                            color: "#EC3E26",
+                            '&.Mui-checked': {
+                              color: "#EC3E26",
+                        }}}  
+                        value={value}
+                    />
+                }
+                label={label}
+            />) 
+        ) 
 
-    //     setCheckboxes(checkboxes)
-    // }
+        setCheckboxes(checkboxes)
+    }
 
     const onCheckboxChange = (event) =>  {
         let newSelected
 
-        if (event.target.checked) {
+        if (event.target.checked && !selected.includes(event.target.value)) {
             newSelected = [...selected, event.target.value]
         }  else { 
             newSelected = selected.filter(e => e !== event.target.value)
@@ -54,73 +54,52 @@ export default function BrowseFilterMultiCheckbox({ options, title, updateAction
         dispatch(updateAction(newSelected)) 
     }
 
-    // const onShowMoreClick = () => { 
-    //     if(showMore) {
-    //         //want to hide some
-    //         optionsToCheckboxes(options.slice(0, 5))
-    //         setShowMore(true)
-    //     } else {
-    //         //want to show all
-    //         optionsToCheckboxes(options)
-    //         setShowMore(false)
-    //     }
-    // }
+    const onShowMoreClick = () => { 
+        if(showMore) {
+            setShowMore(false)
+        } else {
+            setShowMore(true)
+        }
+    }
 
-    // useEffect(() => {
-    //     if(showMoreOption) {
-    //         //want to hide some
-    //         optionsToCheckboxes(options.slice(0, 5))
-    //     } else {
-    //         //want to show all
-    //         optionsToCheckboxes(options)
-    //     }
-    // })
-
-    let checkboxes = options.map(({value, label}) => (
-        <FormControlLabel
-            className="checkboxLabel"
-            control={
-                <Checkbox 
-                    onChange={onCheckboxChange} 
-                    sx={{
-                        color: "#EC3E26",
-                        '&.Mui-checked': {
-                          color: "#EC3E26",
-                    }}}  
-                    value={value}
-                />
-            }
-            key={value}
-            label={label}
-        />) 
-    ) 
+    useEffect(() => {
+        if(showMore) {
+            //want to hide some
+            optionsToCheckboxes(options.slice(0, 5))
+        } else {
+            //want to show all
+            optionsToCheckboxes(options)
+        }
+    }, [showMore])
 
 
     return (
         <Box sx={{ fontFamily: "Poppins, sans-serif" }}>
-            <FormControl 
-                sx={{ 
-                    marginTop: 0,
-                    marginBottom: 4
-                }}
-            >    
-                <FormLabel                    
-                    sx={{
-                        color: "black",
-                        fontWeight: 550, 
-                        marginBottom: 1, 
-                        '&.Mui-focused': {
+            {checkboxes && 
+                <FormControl 
+                    sx={{ 
+                        marginTop: 0,
+                        marginBottom: 4
+                    }}
+                >    
+                    <FormLabel                    
+                        sx={{
                             color: "black",
-                      }}}  
-                > 
-                    { title } 
-                </FormLabel>
-                <FormGroup>
-                    {checkboxes}
-                </FormGroup>
-            </FormControl>
+                            fontWeight: 550, 
+                            marginBottom: 1, 
+                            '&.Mui-focused': {
+                                color: "black",
+                        }}}  
+                    > 
+                        { title } 
+                    </FormLabel>
+                    <FormGroup>
+                        {checkboxes}
+                    </FormGroup>
+                </FormControl>
+            }  
 
-            {/* {showMoreOption && 
+            {showMoreOption && 
                 <FormHelperText       
                     onClick={onShowMoreClick}             
                     sx={{
@@ -134,7 +113,7 @@ export default function BrowseFilterMultiCheckbox({ options, title, updateAction
                 > 
                     { showMore ? "Show More" : "Show Less" } 
                 </FormHelperText> 
-            }  */}
+            } 
         </Box> 
     )
 }
