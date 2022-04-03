@@ -70,6 +70,7 @@ export default function BrowseFilterMultiCheckbox({ options, title, updateAction
             //want to show all
             optionsToCheckboxes(options)
         }
+    // eslint-disable-next-line
     }, [showMore])
 
 

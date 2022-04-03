@@ -5,23 +5,7 @@ export default function createRequestObject(type, filter) {
 	switch (type) {
 		case 'browse':
 			return {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 				url: `${api}/browse`,
-=======
-				url: `${api}/browse3?`,
->>>>>>> 35549177 (remove categoryfilter)
-=======
-				url: `${api}/browse3`,
->>>>>>> 8b41e538 (misc)
-=======
-				url: `${api}/browse`,
->>>>>>> b9fdaa8f (misc)
-=======
-				url: `${api}/browse`,
->>>>>>> 54a184711a97fec34e73f0cceb64509558990dbb
 				headers:  {
 					method: "POST",
 					headers: {
@@ -157,9 +141,6 @@ export default function createRequestObject(type, filter) {
 		
 		default: 
 			return {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 				url: `${api}/browse`,
 				headers:  {
 					method: "POST",
@@ -167,19 +148,6 @@ export default function createRequestObject(type, filter) {
 						'Content-Type': 'application/json'
 					},
 					body: {}, 
-=======
-				url: `${api}/browse3`,
-=======
-				url: `${api}/browse`,
->>>>>>> b9fdaa8f (misc)
-				headers: {
-					method: 'POST'
->>>>>>> 35549177 (remove categoryfilter)
-=======
-				url: `${api}/browse`,
-				headers: {
-					method: 'POST'
->>>>>>> 54a184711a97fec34e73f0cceb64509558990dbb
 				}
 			}
 	}

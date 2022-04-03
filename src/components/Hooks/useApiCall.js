@@ -60,15 +60,18 @@ export default function useAPICall(callType, params) {
         let params = {
             currency, 
             search: searchTerm,
+            maxPrice: price_limit[type]
         }
 
         let request; 
-        if(type == 'browse') {
-
-            let params = {
-                currency, 
-                search: searchTerm,
-                maxPrice: price_limit[type], 
+        if(type === 'trending') {
+            request = createRequestObject('browse', {...params, sort: "most-active"}) 
+        } else if (type === 'under200') {
+            request = createRequestObject('browse', params)
+        } else if (type === 'under300') {
+            request = createRequestObject('browse', {...params, priceRanges: ["range(200|300)"]})
+        } else {
+            let filters = {
                 brand,
                 priceRanges,
                 gender: sizeTypes, 
@@ -76,10 +79,6 @@ export default function useAPICall(callType, params) {
             }
 
             request = createRequestObject('browse', {...params, ...filters, ...JSON.parse(sort)})
-        } else if(type == 'trending') {
-            request = createRequestObject('browse', {...params, sort: "most-active"}) 
-        } else {
-            request = createRequestObject('browse', params)
         }
     
         try {
