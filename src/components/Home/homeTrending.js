@@ -1,11 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import useAPICall from '../Hooks/useApiCall'
-import VisibleOnScreen from '../Hooks/visibleOnScreen'
+import useAPICall from '../../hooks/useApiCall'
+import VisibleOnScreen from '../../hooks/visibleOnScreen'
 import FadeIn from 'react-fade-in'
 import TextLoop from 'react-text-loop'
-import BrandCard from '../brandCard'
-import Carousel from '../carousel'
+import BrandCard from './brandCard'
+import Carousel from './Carousels/carousel'
 import { currencySymbolMap }  from '../../assets/constants'
 
 export default function HomeTrending() {

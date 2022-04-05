@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { hideHomeSearch } from '../../redux/actions'
 import sanctuary from "../../assets/images/logos/sanctuary-bird-black.png"
-import Footer from '../footer'
+import Footer from '../Other/footer'
 
 export default function CreateAccountEmail() {
     const [name, setName] = useState('')

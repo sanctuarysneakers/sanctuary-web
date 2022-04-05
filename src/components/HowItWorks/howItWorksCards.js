@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react"
 import FadeIn from 'react-fade-in'
-import VisibleOnScreen from "../Hooks/visibleOnScreen"
+import VisibleOnScreen from "../../hooks/visibleOnScreen"
 import { ReactComponent as Shoe } from '../../assets/images/nike-dunk.svg'
 import { ReactComponent as Buttons } from '../../assets/images/item-buttons.svg'
 import { ReactComponent as Prices } from '../../assets/images/market-prices.svg'

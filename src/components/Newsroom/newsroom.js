@@ -1,7 +1,7 @@
 import React from 'react'
 import { Helmet } from 'react-helmet';
 import FadeIn from 'react-fade-in'
-import Footer from '../footer'
+import Footer from '../Other/footer'
 import ArticleCard from './articleCard'
 import { ArticleData } from './articleData'
 import {ReactComponent as SanctuaryIconBlack} from '../../assets/images/sanctuaryIconBlack.svg'

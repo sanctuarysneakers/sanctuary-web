@@ -1,6 +1,6 @@
 import React from 'react'
 import FadeIn from 'react-fade-in'
-import SearchBox from '../searchBox'
+import SearchBox from '../Search/searchBox'
 import {ReactComponent as Shoe} from '../../assets/images/LandingShoe.svg'
 import {ReactComponent as Boxes} from '../../assets/images/LandingBoxes.svg'
 

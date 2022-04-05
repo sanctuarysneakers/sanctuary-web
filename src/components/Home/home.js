@@ -8,7 +8,7 @@ import HomeSplash from './homeSplash'
 import HomeTrending from './homeTrending'
 import HomeNewsroom from './homeNewsroom'
 import HomeApp from './homeApp'
-import Footer from '../footer'
+import Footer from '../Other/footer'
 
 export default function Home() {
 

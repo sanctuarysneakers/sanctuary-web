@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import facebook from "../../assets/images/logos/facebook.png"
 import google from "../../assets/images/logos/google.svg"
 import mail from "../../assets/images/logos/mail.svg"
-import Footer from '../footer'
+import Footer from '../Other/footer'
 
 export default function CreateAccountOptions() {
 

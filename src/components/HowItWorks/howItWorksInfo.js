@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react"
 import FadeIn from 'react-fade-in'
-import VisibleOnScreen from "../Hooks/visibleOnScreen"
+import VisibleOnScreen from "../../hooks/visibleOnScreen"
 
 export default function HowItWorksInfo() {
 

@@ -6,23 +6,23 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setUser } from './redux/actions'
 
 import ProtectedRoute from './components/Routes/protectedRoute'
-import Navbar from "./components/navbar"
+import Navbar from "./components/Other/navbar"
 import Home from "./components/Home/home"
-import Browse from "./components/Pages/browse"
-import Item from "./components/Pages/item"
-import AboutModal from "./components/Pages/aboutModal"
-import HamburgerModal from './components/hamburgerModal'
-import DeleteModal from "./components/deleteModal"
-import SearchModal from './components/searchModal'
-import CurrencyModal from './components/currencyModal'
-import PageNotFound from './components/Pages/pageNotFound'
-import ItemNotSupported from './components/Pages/itemNotSupported'
-import PrivacyPolicy from './components/Pages/privacyPolicy'
-import TermsOfUse from './components/Pages/termsOfUse'
-import ContactUs from './components/Pages/contactUs'
-import LocationPopup from './components/locationPopup'
-import useLocationDetection from './components/Hooks/useLocationDetection'
-import CategoryFilterModal from './components/categoryFilterModal'
+import Browse from "./components/Browse/browse"
+import Item from "./components/Item/item"
+import AboutModal from "./components/Modals/aboutModal"
+import HamburgerModal from './components/Modals/hamburgerModal'
+import DeleteModal from "./components/Modals/deleteModal"
+import SearchModal from './components/Modals/searchModal'
+import CurrencyModal from './components/Modals/currencyModal'
+import PageNotFound from './components/Other/pageNotFound'
+import ItemNotSupported from './components/Other/itemNotSupported'
+import PrivacyPolicy from './components/Other/privacyPolicy'
+import TermsOfUse from './components/Other/termsOfUse'
+import ContactUs from './components/Contact/contactUs'
+import LocationModal from './components/Modals/locationModal'
+import useLocationDetection from './hooks/useLocationDetection'
+import CategoryFilterModal from './components/Modals/categoryFilterModal'
 
 import SignInOptions from './components/Accounts/signInOptions'
 import SignInEmail from './components/Accounts/signInEmail'
@@ -43,7 +43,7 @@ import SneakerMarket from './components/Newsroom/Articles/sneakerMarket'
 import BuyYourPair from "./components/Newsroom/Articles/buyYourPair"
 
 import firebase from './services/firebase'
-import Loader from './components/loader'
+import Loader from './components/Other/loader'
 
 
 export default function App() {
@@ -120,7 +120,7 @@ export default function App() {
 
                 { locationPopup && 
                     <RemoveScroll>
-                        <LocationPopup />
+                        <LocationModal />
                     </RemoveScroll>
                 }
                 { categoryFilterModalVisible &&

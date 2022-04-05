@@ -5,7 +5,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { showDeleteModal, hideHomeSearch } from '../../redux/actions'
 import { FaChevronRight } from 'react-icons/fa'
 import ProfileIcon from '../../assets/images/icons/profileIcon'
-import Footer from '../footer'
+import Footer from '../Other/footer'
 
 export default function Profile() {
 
