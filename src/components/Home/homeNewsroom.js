@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import { ArticleData } from '../Newsroom/articleData'
 import FadeIn from 'react-fade-in'
 import Slider from 'react-slick'
-import VisibleOnScreen from '../Hooks/visibleOnScreen'
+import VisibleOnScreen from '../../hooks/visibleOnScreen'
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react"
 import FadeIn from 'react-fade-in'
-import VisibleOnScreen from "../Hooks/visibleOnScreen"
+import VisibleOnScreen from "../../hooks/visibleOnScreen"
 import picture2 from '../../assets/images/aboutDrawing2.png'
 
 export default function HowItWorksSplash() {

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
 import { hideHomeSearch } from '../../redux/actions'
-import Footer from '../footer'
+import Footer from '../Other/footer'
 
 export default function EditProfileEmail() {
 

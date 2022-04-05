@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import FadeIn from 'react-fade-in'
-import VisibleOnScreen from '../Hooks/visibleOnScreen'
+import VisibleOnScreen from '../../hooks/visibleOnScreen'
 import phones from '../../assets/images/app-devices.png'
 
 export default function HomeApp() {
