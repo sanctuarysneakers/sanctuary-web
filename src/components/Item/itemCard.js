@@ -11,7 +11,7 @@ export default function ItemCard({ data }) {
 
     const dispatch = useDispatch()
     const currency = useSelector(state => state.currency)
-    const size = useSelector(state => state.size)
+    const size = useSelector(state => state.item.size)
 
     const clickHandler = () => {
         if (size < 7 && data['gender'] === 'men')

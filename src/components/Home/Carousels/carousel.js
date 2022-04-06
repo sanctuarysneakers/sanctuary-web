@@ -4,9 +4,9 @@ import CarouselCard from "./carouselCard"
 
 export default function Carousel({ type }) {
 
-    const trending = useSelector(state => state.trending)
-    const under200 = useSelector(state => state.under200)
-    const under300 = useSelector(state => state.under300)
+    const trending = useSelector(state => state.browse.trending)
+    const under200 = useSelector(state => state.browse.under200)
+    const under300 = useSelector(state => state.browse.under300)
     
     const data = {
         'trending': trending,

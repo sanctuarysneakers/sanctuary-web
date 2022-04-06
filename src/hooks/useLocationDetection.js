@@ -16,7 +16,6 @@ export default function useLocationDetection() {
 
 		// show popup to suggest currency change depending on location
 		if (data['country_code'] !== 'US' && currencies.includes(data['currency_code'])) {
-			//dispatch(showLocationPopup(data['currency_code']))
 			dispatch(updateCurrency(data['currency_code']))
 		}
 	}

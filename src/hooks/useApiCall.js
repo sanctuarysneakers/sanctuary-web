@@ -14,7 +14,7 @@ export default function useAPICall(callType, params) {
     const dispatch = useDispatch()
     
     const location = useSelector(state => state.location)
-    const size = useSelector(state => state.size)
+    const size = useSelector(state => state.item.size)
     const currency = useSelector(state => state.currency)
 
     async function currencyConversionRate(from, to) {

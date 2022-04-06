@@ -53,12 +53,12 @@ export default function App() {
     
     useLocationDetection()
     
-    const locationPopup = useSelector(state => state.locationPopup)
-    const currencyModalVisible = useSelector(state => state.currencyModalVisible)
-    const searchModalVisible = useSelector(state => state.searchModalVisible)
-    const aboutModalVisible = useSelector(state => state.aboutModalVisible)
-    const deleteModalVisible = useSelector(state => state.deleteModalVisible)
-    const categoryFilterModalVisible = useSelector(state => state.categoryFilterModalVisible)
+    const locationPopup = useSelector(state => state.modals.locationPopupVisible)
+    const currencyModalVisible = useSelector(state => state.modals.currencyModalVisible)
+    const searchModalVisible = useSelector(state => state.modals.searchModalVisible)
+    const aboutModalVisible = useSelector(state => state.modals.aboutModalVisible)
+    const deleteModalVisible = useSelector(state => state.modals.deleteModalVisible)
+    const categoryFilterModalVisible = useSelector(state => state.modals.categoryFilterModalVisible)
     const [loader, setLoader] = useState(true)
     
     useEffect(() => {

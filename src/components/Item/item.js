@@ -17,7 +17,7 @@ export default function Item() {
 
     const currency = useSelector(state => state.currency)
     const { sku, gender } = useParams()
-    const size = useSelector(state => state.size)
+    const size = useSelector(state => state.item.size)
 
     const location = useLocation() 
 
@@ -25,12 +25,12 @@ export default function Item() {
     let passedData = location.itemInfo ? location.itemInfo : null
     useAPICall('getitem', { sku: sku, size: size, gender: gender, fromBrowse: passedData})
 
-    const itemInfo = useSelector(state => state.itemInfo)
-    const itemPrices = useSelector(state => state.itemPrices)
-    const itemListings = useSelector(state => state.itemListings)
-    const pricesLoading = useSelector(state => state.loadingItemPrices)
-    const listingsLoading = useSelector(state => state.loadingItemListings)
-    const sizeModalVisible = useSelector(state => state.sizeModalVisible)
+    const itemInfo = useSelector(state => state.item.itemInfo)
+    const itemPrices = useSelector(state => state.item.itemPrices)
+    const itemListings = useSelector(state => state.item.itemListings)
+    const pricesLoading = useSelector(state => state.item.loadingItemPrices)
+    const listingsLoading = useSelector(state => state.item.loadingItemListings)
+    const sizeModalVisible = useSelector(state => state.modals.sizeModalVisible)
 
     const priceComponents = itemPrices.map((item, index) =>
         <ItemPrice key={item.source} data={item} index={index}

@@ -9,7 +9,7 @@ export default function HamburgerModal() {
     const ref = useRef()
     const dispatch = useDispatch()
     const user = useSelector(state => state.user)
-    const menuVisible = useSelector(state => state.hamburgerModalVisible)
+    const menuVisible = useSelector(state => state.modals.hamburgerModalVisible)
 
     useEffect(() => {
         const handleClickOut = (e) => {

@@ -8,7 +8,7 @@ import { currencyFlagMap } from '../../assets/constants'
 
 export default function LocationPopup() {
 
-	const currency = useSelector(state => state.locationPopup)
+	const currency = useSelector(state => state.modals.locationPopupVisible)
 	const wrapperRef = useRef(null)
     const dispatch = useDispatch()
     useOutsideAlerter(wrapperRef)
