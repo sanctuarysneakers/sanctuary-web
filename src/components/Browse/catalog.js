@@ -7,7 +7,7 @@ import ItemCard from '../Item/itemCard'
 
 export default function Catalog({ search_query }) {
 
-    const browseData = useSelector(state => state.browseData)
+    const browseData = useSelector(state => state.browse.browseData)
     const currency = useSelector(state => state.currency)
     
     let [items, updateItems] = useState(browseData)

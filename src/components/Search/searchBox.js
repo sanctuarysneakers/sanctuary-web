@@ -28,7 +28,7 @@ export default function SearchBox() {
     const [options, setOptions] = useState([])
 
     const dispatch = useDispatch()
-    const size = useSelector(state => state.size)
+    const size = useSelector(state => state.item.size)
 
     const redirectForSearch = (val) => {
         document.location.href = `/browse/${val}`

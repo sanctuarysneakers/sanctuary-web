@@ -10,7 +10,7 @@ export default function CarouselCard({ data, index, type, length }) {
 
     const dispatch = useDispatch()
     const currency = useSelector(state => state.currency)
-    const size = useSelector(state => state.size)
+    const size = useSelector(state => state.item.size)
 
     const clickHandler = () => {
         if (size < 7 && data['gender'] === 'men')
