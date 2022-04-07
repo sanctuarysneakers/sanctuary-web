@@ -1,6 +1,7 @@
 import React from 'react'
 import { Helmet } from 'react-helmet';
 import { useParams, useLocation } from 'react-router'
+import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import SizeFilter from './sizeFilter'
 import SizeModal from '../Modals/sizeModal'
@@ -41,10 +42,10 @@ export default function Item() {
             length={itemListings.length} />
     )
 
-    const clickHandler = (url) => {
+    const clickHandler = () => {
         window.analytics.track(`item_buy_new_clicked`, {sku: sku, gender: gender, model: itemInfo.modelName});
-        window.open(url, '_blank')
     }
+
     /* eslint-disable jsx-a11y/anchor-is-valid */
     return (
         <div className='item'>
@@ -82,13 +83,14 @@ export default function Item() {
                             {pricesLoading && <ItemLoader version={'info'} />}
                             {!pricesLoading && <div className='item-sneaker-price-details'>
                                 {itemPrices.length ? 
-                                <a target='_blank' onClick={() => clickHandler(itemPrices[0].url)}>
+                                
+                                <Link to={{ pathname: itemPrices[0].url }} className="hidden-link" target="_blank" rel="noopener noreferrer" onClick={clickHandler} onContextMenu={clickHandler}> 
                                     <div className='item-sneaker-price'>
                                         <h2>
                                             Buy New {currencySymbolMap[currency]}{itemPrices[0].price}
                                         </h2>
                                     </div>
-                                </a>
+                                </Link>
                                 : 
                                 <a>
                                     <div className='item-sneaker-price none'>
