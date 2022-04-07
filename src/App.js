@@ -23,7 +23,7 @@ import ContactUs from './components/Contact/contactUs'
 import LocationModal from './components/Modals/locationModal'
 import useLocationDetection from './hooks/useLocationDetection'
 import CategoryFilterModal from './components/Modals/categoryFilterModal'
-import Portfolio from './components/Pages/portfolio'
+import Portfolio from './components/Portfolio/portfolio'
 
 import SignInOptions from './components/Accounts/signInOptions'
 import SignInEmail from './components/Accounts/signInEmail'

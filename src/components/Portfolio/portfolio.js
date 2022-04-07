@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import useAPICall from '../Hooks/useApiCall'
-import PortfolioCard from '../portfolioCard'
+import useAPICall from '../../hooks/useApiCall'
+import PortfolioCard from './portfolioCard'
 import { Helmet } from 'react-helmet';
 
 

@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { browseCall, updateItemInfo, updateItemPrices, updateItemListings,
     setItemPricesLoading, setItemListingsLoading, trendingCall, 
-    under200Call, under300Call } from '../redux/actions'
+    under200Call, under300Call, updatePortfolioData } from '../redux/actions'
 import createRequestObject from './createRequest'
 import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPrice, 
     klektLowestPrice, grailedListings, ebayListings, depopListings } from './scrapers'
@@ -189,11 +189,47 @@ export default function useAPICall(callType, params) {
         return results
     }
 
+    async function getPortfolioData() {
+        const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/accounts/portfolio/get?user_id=${user.uid}`
+        const response = await fetch(url)
+        const data = await response.json()
+        return data
+    }
+    async function getPortfolio() {
+        let shippingRequest = createRequestObject('shippingPrices', {country: location['country_code']})
+        const prepRes = await SafePromiseAll([
+            currencyConversionPromise("USD", currency),
+            currencyConversionPromise("EUR", currency),    
+            fetch(shippingRequest.url, shippingRequest.headers),
+            getPortfolioData() 
+        ])
+        let usdRate, eurRate, shippingResponse, portfolioData
+        usdRate = prepRes[0]
+        eurRate = prepRes[1]
+        shippingResponse = prepRes[2]
+        portfolioData = prepRes[3]
+        let shippingPrices
+        if(shippingResponse && shippingResponse.ok) {
+            shippingPrices = await shippingResponse.json()
+        }
+        for (var i = 0; i < portfolioData.length; i++) {
+            let itemInfo = await SafePromiseAll([getItemInfo(portfolioData[i]['sku'].replace(/ /g,"-"), portfolioData[i]['size'], 'men')])
+            let itemPrices = await SafePromiseAll([getItemPrices(itemInfo[0], portfolioData[i]['size'], 'men', usdRate, eurRate, shippingPrices, 'portfolio')])
+            portfolioData[i]['itemInfo'] = itemInfo
+            portfolioData[i]['currPrices'] = itemPrices
+        }
+        dispatch(updatePortfolioData(portfolioData))
+    }
+
     useEffect(() => {
         if (callType === 'getitem')
             getItem(params.sku, params.size, params.gender, params.fromBrowse)
-        else
+        else if (callType == 'getportfolio') {
+            getPortfolio() 
+        } else {
             browse(callType, params.query)
+        }
+           
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currency, size])
 
