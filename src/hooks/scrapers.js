@@ -61,7 +61,7 @@ export async function klektLowestPrice(item, size, currencyRate) {
 		return [{
 			source: 'klekt',
 			price: Math.round(itemData[0]['price'] * currencyRate),
-			url: new URL(`https://${itemData[0]['url']}`)
+			url: new URL(itemData[0]['url'])
 		}]
 	} catch (e) {
 		return []
