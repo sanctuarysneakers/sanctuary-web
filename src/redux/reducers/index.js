@@ -10,7 +10,7 @@ import locationReducer from './locationReducer'
 import browseReducer from './browse/browseReducer'
 import itemReducer from './item/itemReducer'
 import modalReducer from './modals/modalReducer'
-
+import portfolioReducer from './portfolio/portfolioReducer'
 
 const globalReducer = combineReducers({
 
@@ -22,6 +22,7 @@ const globalReducer = combineReducers({
     item: itemReducer, 
     modals: modalReducer,
     browse: browseReducer, 
+    portfolio: portfolioReducer
 })
 
 export default globalReducer

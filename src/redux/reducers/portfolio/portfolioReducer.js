@@ -1,5 +1,5 @@
 
-const portfolioDataReducer = (state=[], action) => {
+const portfolio = (state=[], action) => {
     switch(action.type) {
         case 'UPDATE_PORTFOLIO_DATA':
             return action.payload
@@ -8,4 +8,4 @@ const portfolioDataReducer = (state=[], action) => {
     }
 }
 
-export default portfolioDataReducer
+export default portfolio

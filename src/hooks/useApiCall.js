@@ -13,6 +13,7 @@ export default function useAPICall(callType, params) {
     const history = useHistory()
     const dispatch = useDispatch()
     
+    const user = useSelector(state => state.user)
     const location = useSelector(state => state.location)
     const size = useSelector(state => state.item.size)
     const currency = useSelector(state => state.currency)
@@ -224,7 +225,7 @@ export default function useAPICall(callType, params) {
     useEffect(() => {
         if (callType === 'getitem')
             getItem(params.sku, params.size, params.gender, params.fromBrowse)
-        else if (callType == 'getportfolio') {
+        else if (callType === 'getportfolio') {
             getPortfolio() 
         } else {
             browse(callType, params.query)
