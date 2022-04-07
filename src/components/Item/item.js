@@ -49,7 +49,7 @@ export default function Item() {
     return (
         <div className='item'>
             <Helmet>
-                <title>{`Sanctuary: ${itemInfo.modelName}`}</title>
+                {itemInfo.modelName && <title>{`Sanctuary: ${itemInfo.modelName}`}</title>}
             </Helmet>
             <div className='item-sneaker'>
                 <div className='item-sneaker-content'>
