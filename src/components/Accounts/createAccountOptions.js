@@ -21,6 +21,7 @@ export default function CreateAccountOptions() {
     const googleAuthentication = () => {
         firebase.auth().signInWithRedirect(provider).then(
             history.push("/"),
+            
             window.scrollTo(0, 0)
         )
     }

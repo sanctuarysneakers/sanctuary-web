@@ -1,15 +1,30 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import useAPICall from '../../hooks/useApiCall'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { updatePortfolioData } from '../../redux/actions'
+import { getPortfolio } from '../../api/api' 
+
 import PortfolioCard from './portfolioCard'
 import { Helmet } from 'react-helmet';
 
 
 export default function Portfolio() {
 
-	const portfolioData = useSelector(state => state.portfolio)
+    const dispatch = useDispatch()
 
-	useAPICall('getportfolio', {})
+	const portfolio = useSelector(state => state.portfolio)
+	const user = useSelector(state => state.user)
+
+	const location = useSelector(state => state.location)
+    const currency = useSelector(state => state.currency)
+
+	useEffect(() => {
+		async function getPortfolioData() {
+			let data = await getPortfolio(user.uid, location, currency)
+			dispatch(updatePortfolioData(data))
+		}
+		
+		getPortfolioData() 
+    }, [])
 
 	return (
 		<div className='portfolio'>
@@ -26,8 +41,8 @@ export default function Portfolio() {
 			</div>
 
 			<div className='portfolio-catalog'>
-				{portfolioData && portfolioData.length !== 0 && portfolioData.map((item) => (
-					<PortfolioCard key={portfolioData.record_id} data={item} />
+				{portfolio && portfolio.length !== 0 && portfolio.map((item) => (
+					<PortfolioCard key={item.record_id} data={item} />
 				))}
 			</div>
 
