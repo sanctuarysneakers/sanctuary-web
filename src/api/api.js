@@ -37,9 +37,23 @@ export async function getPortfolio(userID, location, currency) {
             portfolioData[i]['currPrices'] = itemPrices
         }
     }  
-    
+
     return portfolioData
 }
+
+export async function removeFromPortfolio() {
+    try {
+        fetch("https://hdwj2rvqkb.us-west-2.awsapprunner.com/accounts/portfolio/delete", {
+            method: "DELETE",
+            headers: { "Content-type": "application/json" },
+            body: data
+        })
+    } catch(error) {
+        console.log(error)
+        throw("Could not remove from portfolio")
+    }
+   
+} 
 
 
 export async function getItemInfo(sku, size, gender) {
@@ -115,3 +129,4 @@ export async function getItemListings(item, size, gender, usdRate, location, cur
     const results = res.flat().sort((a, b) => a.price - b.price)
     return results
 }
+
