@@ -41,7 +41,7 @@ export async function getPortfolio(userID, location, currency) {
     return portfolioData
 }
 
-export async function removeFromPortfolio() {
+export async function removeFromPortfolio(data) {
     try {
         fetch("https://hdwj2rvqkb.us-west-2.awsapprunner.com/accounts/portfolio/delete", {
             method: "DELETE",
