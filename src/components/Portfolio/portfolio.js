@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { updatePortfolioData } from '../../redux/actions'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { getPortfolio } from '../../api/api' 
 
 import PortfolioCard from './portfolioCard'
@@ -9,18 +8,29 @@ import { Helmet } from 'react-helmet';
 
 export default function Portfolio() {
 
-    const dispatch = useDispatch()
-
-	const portfolio = useSelector(state => state.portfolio)
+	const portfolioData = useSelector(state => state.portfolio)
+	const [portfolio, setPortfolio] = useState(portfolioData) 
 	const user = useSelector(state => state.user)
 
 	const location = useSelector(state => state.location)
     const currency = useSelector(state => state.currency)
 
+
+	const onRemove = (data) => {
+		fetch("https://hdwj2rvqkb.us-west-2.awsapprunner.com/accounts/portfolio/delete", {
+				method: "DELETE",
+				headers: { "Content-type": "application/json" },
+				body: data
+			})
+
+		const newPortfolio = portfolio.filter((item) => item.record_id !== data.record_id);
+    	setPortfolio(newPortfolio);	
+    }
+
 	useEffect(() => {
 		async function getPortfolioData() {
 			let data = await getPortfolio(user.uid, location, currency)
-			dispatch(updatePortfolioData(data))
+			setPortfolio(data)
 		}
 		
 		getPortfolioData() 
@@ -42,7 +52,7 @@ export default function Portfolio() {
 
 			<div className='portfolio-catalog'>
 				{portfolio && portfolio.length !== 0 && portfolio.map((item) => (
-					<PortfolioCard key={item.record_id} data={item} />
+					<PortfolioCard key={item.record_id} data={item} onRemove={onRemove} />
 				))}
 			</div>
 
