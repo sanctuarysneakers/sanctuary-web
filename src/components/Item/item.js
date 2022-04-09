@@ -11,8 +11,9 @@ import ItemListing from './itemListing'
 import ItemLoader from './itemLoader'
 import ItemNoResults from './itemNoResults'
 import Footer from '../Other/footer'
-
 import { websiteLogoMapGrey, currencySymbolMap }  from '../../assets/constants'
+
+import { addToPortfolio } from '../../api/api'
 
 export default function Item() {
 
@@ -47,19 +48,22 @@ export default function Item() {
         window.analytics.track(`item_buy_new_clicked`, {sku: sku, gender: gender, model: itemInfo.modelName});
     }
 
-    async function addToPortfolio() {
-        fetch("https://hdwj2rvqkb.us-west-2.awsapprunner.com/accounts/portfolio/add", {
-            method: "POST",
-            headers: { "Content-type": "application/json" },
-            body: JSON.stringify({
-                user_id: user.uid,
-                sku: itemInfo.skuId,
-                size: size,
-                add_date: new Date().toISOString().slice(0, 10),
-                price: itemPrices[0].price
-            })
-        })
-    }
+    const onAddToPortfolio = () => {
+        let portfolioItem = {
+            user_id: user.uid,
+            sku: itemInfo.skuId,
+            size: size,
+            add_date: new Date().toISOString().slice(0, 10),
+            price: itemPrices[0].price
+        }
+
+        try {
+            addToPortfolio(portfolioItem)
+        } catch(error) {
+            alert(error)
+        }
+       
+    } 
 
     return (
         <div className='item'>
@@ -77,7 +81,7 @@ export default function Item() {
                         <div className='item-sneaker-text'>
 
                             {user && 
-                                <button onClick={() => addToPortfolio()}>
+                                <button onClick={() => onAddToPortfolio()}>
                                     Add to Portfolio
                                 </button>}
 

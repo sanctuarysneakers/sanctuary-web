@@ -41,12 +41,25 @@ export async function getPortfolio(userID, location, currency) {
     return portfolioData
 }
 
+export async function addToPortfolio(data) {
+    try {
+        fetch("https://hdwj2rvqkb.us-west-2.awsapprunner.com/accounts/portfolio/add", {
+            method: "POST",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify(data)
+        })
+    } catch (error) {
+        console.log(error)
+        throw("Could not add shoe to portfolio")
+    }
+}
+
 export async function removeFromPortfolio(data) {
     try {
-        fetch("https://hdwj2rvqkb.us-west-2.awsapprunner.com/accounts/portfolio/delete", {
+        fetch("https://hdwj2rvqkb.us-west-2.awsapprunner.com/accounts/portfolio", {
             method: "DELETE",
             headers: { "Content-type": "application/json" },
-            body: data
+            body: JSON.stringify(data) 
         })
     } catch(error) {
         console.log(error)
@@ -87,7 +100,7 @@ export async function getItemPrices(item, size, gender, usdRate, eurRate, shippi
             ebayLowestPrice(item, size, location['country_code'], location['postal_code'], usdRate, currency),
             flightclubLowestPrice(item, size, gender, usdRate),
             goatLowestPrice(item, size, usdRate),
-            klektLowestPrice(item, size, eurRate)
+            // klektLowestPrice(item, size, eurRate)
         ]
     ) 
     
