@@ -24,6 +24,7 @@ export async function ebayLowestPrice(item, size, country, postalCode, currencyR
 		if (!response.ok) return []
 
 		let itemData = await response.json()
+		itemData.sort((a, b) => a.price - b.price)
 
 		// TODO: move shipping currency conversion logic to backend
 		let shipping = null
@@ -116,13 +117,11 @@ export async function flightclubLowestPrice(item, size, gender, currencyRate) {
 }
 
 
-/********** Listings **********/
-
 export async function ebayListings(item, size, country, currencyRate, currency, postalCode) {
 	if (!item.hasPrice) return []
 
 	let search = item.modelName.replace('(W)', '').concat(' ', item.skuId)
-	const request = createRequestObject('ebayListings', {search: search, size: size, shipTo: country, postalCode: postalCode})
+	const request = createRequestObject('ebay', {search: search, size: size, shipTo: country, postalCode: postalCode})
 	
 	try {
 		const response = await fetch(request.url, request.headers)

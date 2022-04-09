@@ -55,10 +55,8 @@ export default function useAPICall(callType, params) {
             search: query,
             maxPrice: price_limit[type]
         }
-
-        if(type === 'trending') {
+        if (type === 'trending')
             filters.sort = "most-active"
-        }
 
         const request = createRequestObject('browse', filters)
 
@@ -130,9 +128,8 @@ export default function useAPICall(callType, params) {
 
     async function getItemPrices(item, size, gender, usdRate, eurRate, shippingResponse) {
         let shippingPrices = {} 
-        if(shippingResponse && shippingResponse.ok) {
+        if (shippingResponse && shippingResponse.ok)
             shippingPrices = await shippingResponse.json()
-        }
       
         const res = await SafePromiseAll(
             [
@@ -149,21 +146,19 @@ export default function useAPICall(callType, params) {
         let results = res.splice(1).flat() 
 
         if (shippingPrices !== {} && convertedShippingCurrencies && Object.keys(shippingPrices).length === convertedShippingCurrencies.length) {
-            for (var i = 0; i < Object.keys(shippingPrices).length; i ++) {
+            for (var i=0; i < Object.keys(shippingPrices).length; i++) {
                 let key = Object.keys(shippingPrices)[i]
-                if (shippingPrices[key] != null && convertedShippingCurrencies[i] != null) {
+                if (shippingPrices[key] && convertedShippingCurrencies[i])
                     shippingPrices[key] = shippingPrices[key]["cost"] * convertedShippingCurrencies[i] 
-                }  
             }
 
-            for (var j = 0; j < results.length; j++) {
-                if (results[j]['source'] in shippingPrices) {    
-                    results[j]['shippingPrice'] = shippingPrices[results[j]['source']] 
-                }
+            for (var j=0; j < results.length; j++) {
+                if (results[j]['source'] in shippingPrices)
+                    results[j]['shippingPrice'] = shippingPrices[results[j]['source']]
             }
         }
 
-        //filter results and return         
+        // filter and sort results  
         results = results.filter(r => r.price !== 0)
         results.sort((a, b) => a.price - b.price)
 
@@ -183,7 +178,7 @@ export default function useAPICall(callType, params) {
             ]
         ) 
 
-        const results = res.flat().sort((a, b) => a.price - b.price)
+        let results = res.flat().sort((a, b) => a.price - b.price)
         dispatch(updateItemListings(results))
         dispatch(setItemListingsLoading(false))
         return results

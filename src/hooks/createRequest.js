@@ -73,19 +73,6 @@ export default function createRequestObject(type, filter) {
 					method: 'GET'
 				}
 			}
-		case 'ebayListings':
-			return {
-				url: `${api}/itemprices?` + new URLSearchParams({
-					'source': 'ebay',
-					'search': filter.search,
-					'size': filter.size,
-					'ship_to': filter.shipTo,
-					'postal_code': filter.postalCode ? filter.postalCode : null
-				}),
-				headers: {
-					method: 'GET'
-				}
-			}
 		case 'depopListings':
 			return {
 				url: `${api}/itemprices?` + new URLSearchParams({
