@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { ReactComponent as RightArrow } from '../../assets/images/RightArrow.svg'
 import { ReactComponent as Shipping } from '../../assets/images/shipping-icon.svg'
 import { websiteTextMap, currencySymbolMap } from '../../assets/constants'
@@ -19,15 +20,13 @@ export default function ItemListing({ data, index, length }) {
         condition = 'Used'
     }
 
-    const clickHandler = (url) => {
+    const clickHandler = () => {
         window.analytics.track(`item_more_listings_click_${data.source}`, { url: data.url, price: data.price });
-        window.open(url, '_blank')
     }
     /* eslint-disable jsx-a11y/anchor-is-valid */
     return (
         <div className={(index === length - 1) ? 'item-listing last' : 'item-listing'}>
-
-            <a onClick={() => clickHandler(data.url)}>
+            <Link to={{ pathname: data.url }} className="hidden-link" target="_blank" rel="noopener noreferrer" onClick={clickHandler} onContextMenu={clickHandler}> 
                 <div className='item-listing-source'>
                     <div className='item-listing-image'>
                         <img src={data.image} alt='the sneaker' />
@@ -63,8 +62,7 @@ export default function ItemListing({ data, index, length }) {
                     </div>
                     <RightArrow />
                 </div>
-            </a>
-
+            </Link>
         </div>
     )
 }
