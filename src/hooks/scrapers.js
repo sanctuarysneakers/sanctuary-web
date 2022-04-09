@@ -174,7 +174,7 @@ export async function depopListings(item, size, gender, currencyRate, country) {
 				source: 'depop',
 				price: Math.round(item['price'] * currencyRate),
 				image: item['image'],
-				url: new URL(`https://${item['url']}`),
+				url: new URL(item['url']),
 				shippingPrice: Math.round(item['shipping'] * currencyRate)
 			})
 		}
