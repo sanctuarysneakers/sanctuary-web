@@ -30,7 +30,11 @@ export default function Catalog({ search_query }) {
     }
 
     async function fetchMore() {
-        const request = createRequestObject('browse', {search: search_query, page: page+1})
+        const request = createRequestObject('browse', {
+            search: search_query,
+            page: page+1
+        })
+        
         const response = await fetch(request.url, request.headers)
         let results = await response.json()
         results = await convertCurrency(results)

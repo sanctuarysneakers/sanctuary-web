@@ -23,6 +23,7 @@ export default function useAPICall(callType, params) {
         return await response.json()
     }
 
+    // why do we need this?
     function currencyConversionPromise(from, to) {
         if (from !== to)
             return currencyConversionRate(from, to) 
@@ -51,9 +52,10 @@ export default function useAPICall(callType, params) {
         }
 
         let filters = {
-            currency, 
             search: query,
-            maxPrice: price_limit[type]
+            currency: currency,
+            maxPrice: price_limit[type],
+            ship_to: location['country_code']
         }
         if (type === 'trending')
             filters.sort = "most-active"
@@ -74,29 +76,24 @@ export default function useAPICall(callType, params) {
     }
 
     async function getItem(sku, size, gender, fromBrowse=null) {
-        let shippingRequest = createRequestObject('shippingPrices', {country: location['country_code']})
-        
         let prepRes = await SafePromiseAll([
-            fromBrowse == null ? getItemInfo(sku, size, gender): Promise.resolve(fromBrowse),
+            fromBrowse ? Promise.resolve(fromBrowse) : getItemInfo(sku, size, gender),
             currencyConversionPromise("USD", currency),
             currencyConversionPromise("EUR", currency), 
-            fetch(shippingRequest.url, shippingRequest.headers) 
         ])
 
-        let itemInfo, usdRate, eurRate, shippingResponse;
+        let itemInfo, usdRate, eurRate;
         itemInfo = prepRes[0]
         usdRate = prepRes[1]
         eurRate = prepRes[2]
-        shippingResponse = prepRes[3]
 
         if (itemInfo) {
-            if(fromBrowse == null) {
+            if (!fromBrowse)
                 dispatch(updateItemInfo(itemInfo))
-            } 
            
             await SafePromiseAll(
                 [
-                    getItemPrices(itemInfo, size, gender, usdRate, eurRate, shippingResponse),
+                    getItemPrices(itemInfo, size, gender, usdRate, eurRate),
                     getItemListings(itemInfo, size, gender, usdRate)
                 ], 
                 []
@@ -106,19 +103,28 @@ export default function useAPICall(callType, params) {
 
     async function getItemInfo(sku, size, gender) {
         try {
-            const request = createRequestObject('stockx', {search: sku, size: size, gender: gender})
+            const request = createRequestObject('stockx', {
+                search: sku,
+                size: size,
+                gender: gender,
+                ship_to: location['country_code']
+            })
+
             const response = await fetch(request.url, request.headers)
             if (!response.ok) throw new Error()
 
             let itemData = await response.json()
-            if (!itemData[0]['sku'].includes(sku)) throw new Error()
+            if (!itemData[0]['sku'].includes(sku))
+                throw new Error()
+            
             return {
                 hasPrice: true,
                 skuId: sku.replaceAll('-', ' '),
                 modelName: itemData[0]['model'],
                 price: itemData[0]['price'],
                 image: itemData[0]['image'],
-                url: itemData[0]['url']
+                url: itemData[0]['url'],
+                shipping: itemData[0]['shipping']
             }
         } catch (e) { 
             history.replace('/item-not-supported')
@@ -126,39 +132,28 @@ export default function useAPICall(callType, params) {
         }
     }
 
-    async function getItemPrices(item, size, gender, usdRate, eurRate, shippingResponse) {
-        let shippingPrices = {} 
-        if (shippingResponse && shippingResponse.ok)
-            shippingPrices = await shippingResponse.json()
+    async function getItemPrices(item, size, gender, usdRate, eurRate) {
+        let filter = {
+            size: size,
+            gender: gender,
+            country: location['country_code'],
+            postalCode: location['postal_code'],
+            currency: currency,
+            usdRate: usdRate,
+            eurRate: eurRate // for klekt
+        }
       
         const res = await SafePromiseAll(
             [
-                SafePromiseAll(Object.values(shippingPrices).map(shippingObj => currencyConversionPromise(shippingObj['currency'], currency))),  
-                stockxLowestPrice(item, usdRate), 
-                ebayLowestPrice(item, size, location['country_code'], location['postal_code'], usdRate, currency),
-                flightclubLowestPrice(item, size, gender, usdRate),
-                goatLowestPrice(item, size, usdRate),
-                klektLowestPrice(item, size, eurRate)
+                stockxLowestPrice(item, filter), 
+                ebayLowestPrice(item, filter),
+                flightclubLowestPrice(item, filter),
+                goatLowestPrice(item, filter),
+                klektLowestPrice(item, filter)
             ]
-        ) 
+        )
         
-        let convertedShippingCurrencies = res[0]
-        let results = res.splice(1).flat() 
-
-        if (shippingPrices !== {} && convertedShippingCurrencies && Object.keys(shippingPrices).length === convertedShippingCurrencies.length) {
-            for (var i=0; i < Object.keys(shippingPrices).length; i++) {
-                let key = Object.keys(shippingPrices)[i]
-                if (shippingPrices[key] && convertedShippingCurrencies[i])
-                    shippingPrices[key] = shippingPrices[key]["cost"] * convertedShippingCurrencies[i] 
-            }
-
-            for (var j=0; j < results.length; j++) {
-                if (results[j]['source'] in shippingPrices)
-                    results[j]['shippingPrice'] = shippingPrices[results[j]['source']]
-            }
-        }
-
-        // filter and sort results  
+        let results = res.flat()
         results = results.filter(r => r.price !== 0)
         results.sort((a, b) => a.price - b.price)
 
@@ -168,13 +163,21 @@ export default function useAPICall(callType, params) {
         return results
     }
 
-    async function getItemListings(item, size, gender, usdRate) {        
-        //execute all listing requests simultaneously
+    async function getItemListings(item, size, gender, usdRate) {
+        let filter = {
+            size: size,
+            gender: gender,
+            country: location['country_code'],
+            postalCode: location['postal_code'],
+            currency: currency,
+            usdRate: usdRate
+        }
+
         const res = await SafePromiseAll(
             [
-                ebayListings(item, size, location['country_code'], usdRate, currency, location['postal_code']), 
-                depopListings(item, size, gender, usdRate, location['country_code']),
-                grailedListings(item, size, usdRate, location['country_code'].toLowerCase())
+                ebayListings(item, filter), 
+                depopListings(item, filter),
+                grailedListings(item, filter)
             ]
         ) 
 
