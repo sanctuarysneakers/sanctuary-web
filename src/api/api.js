@@ -11,6 +11,15 @@ async function getPortfolioData(userID) {
     return data
 }
 
+async function getPortfolioItemRequest(item, usdRate, eurRate, shippingPrices) {
+    let itemInfo = await SafePromiseAll([getItemInfo(item['sku'].replace(/ /g,"-"), item['size'], 'men')])
+    let itemPrices = await SafePromiseAll([getItemPrices(itemInfo[0], item['size'], 'men', usdRate, eurRate, shippingPrices, 'portfolio')])
+    item['itemInfo'] = itemInfo
+    item['currPrices'] = itemPrices
+
+    return item
+} 
+
 export async function getPortfolio(userID, location, currency) {
     let shippingRequest = createRequestObject('shippingPrices', {country: location['country_code']})
     const prepRes = await SafePromiseAll([
@@ -19,26 +28,25 @@ export async function getPortfolio(userID, location, currency) {
         fetch(shippingRequest.url, shippingRequest.headers),
         getPortfolioData(userID) 
     ])
-    let usdRate, eurRate, shippingResponse, portfolioData
-    usdRate = prepRes[0]
-    eurRate = prepRes[1]
-    shippingResponse = prepRes[2]
-    portfolioData = prepRes[3]
+
+    let usdRate = prepRes[0]
+    let eurRate = prepRes[1]
+    let shippingResponse = prepRes[2]
+    let portfolio = prepRes[3]
+
     let shippingPrices
     if(shippingResponse && shippingResponse.ok) {
         shippingPrices = await shippingResponse.json()
     }
 
-    if(Array.isArray(portfolioData)) {
-        for (var i = 0; i < portfolioData.length; i++) {
-            let itemInfo = await SafePromiseAll([getItemInfo(portfolioData[i]['sku'].replace(/ /g,"-"), portfolioData[i]['size'], 'men')])
-            let itemPrices = await SafePromiseAll([getItemPrices(itemInfo[0], portfolioData[i]['size'], 'men', usdRate, eurRate, shippingPrices, 'portfolio')])
-            portfolioData[i]['itemInfo'] = itemInfo
-            portfolioData[i]['currPrices'] = itemPrices
-        }
-    }  
-
-    return portfolioData
+    if(Array.isArray(portfolio)) {
+        let reqs = portfolio.map(item => getPortfolioItemRequest(item, usdRate, eurRate, shippingPrices))     //construct array of requests 
+        let portfolioWithPrices = await SafePromiseAll(reqs)     //execute requests in parallel 
+        
+        return portfolioWithPrices
+    } else {
+        return []
+    }
 }
 
 export async function addToPortfolio(data) {
@@ -50,7 +58,7 @@ export async function addToPortfolio(data) {
         })
     } catch (error) {
         console.log(error)
-        throw("Could not add shoe to portfolio")
+        throw new Error("Could not add shoe to portfolio")
     }
 }
 
@@ -63,7 +71,7 @@ export async function removeFromPortfolio(data) {
         })
     } catch(error) {
         console.log(error)
-        throw("Could not remove from portfolio")
+        throw new Error("Could not remove from portfolio")
     }
    
 } 
@@ -100,7 +108,7 @@ export async function getItemPrices(item, size, gender, usdRate, eurRate, shippi
             ebayLowestPrice(item, size, location['country_code'], location['postal_code'], usdRate, currency),
             flightclubLowestPrice(item, size, gender, usdRate),
             goatLowestPrice(item, size, usdRate),
-            // klektLowestPrice(item, size, eurRate)
+            klektLowestPrice(item, size, eurRate)
         ]
     ) 
     
