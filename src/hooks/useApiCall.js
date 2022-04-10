@@ -5,7 +5,7 @@ import { browseCall, updateItemInfo, trendingCall, under200Call, under300Call, u
 
 import createRequestObject from '../api/createRequest'
 import { getItemInfo, getItemPrices, getItemListings } from '../api/api' 
-import { currencyConversionPromise } from '../helpers/index'
+import { currencyConversionPromise, SafePromiseAll } from '../helpers/index'
 
 export default function useAPICall(callType, params) {
     
@@ -15,26 +15,6 @@ export default function useAPICall(callType, params) {
     const location = useSelector(state => state.location)
     const size = useSelector(state => state.item.size)
     const currency = useSelector(state => state.currency)
-
-    async function currencyConversionRate(from, to) {
-        const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/currencyrate2?from_curr=${from}&to_curr=${to}`
-        const response = await fetch(url)
-        return await response.json()
-    }
-
-    // why do we need this?
-    function currencyConversionPromise(from, to) {
-        if (from !== to)
-            return currencyConversionRate(from, to) 
-        else
-            return Promise.resolve(1)
-    }
-
-    function SafePromiseAll(promises, def = null) {
-        return Promise.all(
-            promises.map(p => p.catch(error => def))
-        )
-    }
 
     async function browse(type, query) {
         const price_limit = {
@@ -75,38 +55,40 @@ export default function useAPICall(callType, params) {
     }
 
     async function getItem(sku, size, gender, fromBrowse=null) {
-        let prepRes = await SafePromiseAll([
-            fromBrowse ? Promise.resolve(fromBrowse) : getItemInfo(sku, size, gender),
-            currencyConversionPromise("USD", currency),
-            currencyConversionPromise("EUR", currency), 
-        ])
-
-        let itemInfo, usdRate, eurRate;
-        itemInfo = prepRes[0]
-        usdRate = prepRes[1]
-        eurRate = prepRes[2]
-
-        if (itemInfo) {
-            if (!fromBrowse)
-                dispatch(updateItemInfo(itemInfo))
-           
-            let itemRes = await SafePromiseAll(
-                [
-                    getItemPrices(itemInfo, size, gender, usdRate, eurRate, location, currency),
-                    getItemListings(itemInfo, size, gender, usdRate, location, currency)
-                ], 
-                []
-            ) 
-
-            dispatch(updateItemPrices(itemRes[0]))
-            dispatch(setItemPricesLoading(false))
-
-            dispatch(updateItemListings(itemRes[1]))
-            dispatch(setItemListingsLoading(false))
-
+        try {
+            let prepRes = await SafePromiseAll([
+                fromBrowse ? Promise.resolve(fromBrowse) : getItemInfo(sku, size, gender),
+                currencyConversionPromise("USD", currency),
+                currencyConversionPromise("EUR", currency), 
+            ])
+    
+            let itemInfo, usdRate, eurRate;
+            itemInfo = prepRes[0]
+            usdRate = prepRes[1]
+            eurRate = prepRes[2]
+    
+            if (itemInfo) {
+                if (!fromBrowse)
+                    dispatch(updateItemInfo(itemInfo))
+               
+                await SafePromiseAll(
+                    [
+                        getItemPrices(itemInfo, size, gender, usdRate, eurRate, location, currency).then(itemRes => {
+                            dispatch(updateItemPrices(itemRes)) 
+                            dispatch(setItemPricesLoading(false))
+                        }) ,
+                        getItemListings(itemInfo, size, gender, usdRate, location, currency).then(listingRes => {
+                            dispatch(updateItemListings(listingRes))
+                            dispatch(setItemListingsLoading(false))
+                        })
+                    ], 
+                    []
+                )     
+            }
+        } catch(error) {
+            history.replace('/item-not-supported')
         }
     }
-
 
     useEffect(() => {
         if (callType === 'getitem')

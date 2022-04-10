@@ -1,6 +1,5 @@
 // collection of helper functions used across multiple components  
 
-
 export function SafePromiseAll(promises, def = null) {
     return Promise.all(
         promises.map(p => p.catch(error => def))

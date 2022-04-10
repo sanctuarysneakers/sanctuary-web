@@ -161,10 +161,7 @@ export async function getItemPrices(item, size, gender, usdRate, eurRate, locati
     let results = res.flat()
     results = results.filter(r => r.price !== 0)
     results.sort((a, b) => a.price - b.price)
-
-    dispatch(updateItemPrices(results))
-    dispatch(setItemPricesLoading(false))
-
+    
     return results
 }
 
