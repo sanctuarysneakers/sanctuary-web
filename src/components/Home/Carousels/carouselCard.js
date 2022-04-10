@@ -32,7 +32,8 @@ export default function CarouselCard({ data, index, type, length }) {
             modelName: data.model,
             price: data.price,
             image: data.image,
-            url: data.url
+            url: data.url,
+            shipping: data.shipping
         }
 
         dispatch(updateItemInfo(itemInfo))

@@ -17,83 +17,49 @@ export default function createRequestObject(type, filter) {
 			}
 		case 'stockx':
 			return {
-				url: `${api}/itemprices?` + new URLSearchParams({
-					"source": "stockx",
-					"search": filter.search,
-					"size": filter.size,
-					"gender": filter.gender
-				}),
+				url: `${api}/itemprices?source=stockx&` + new URLSearchParams(filter),
 				headers: {
 					method: 'GET'
 				}
 			}
 		case 'ebay':
 			return {
-				url: `${api}/itemprices?` + new URLSearchParams({
-					'source': 'ebay',
-					'search': filter.search,
-					'size': filter.size,
-					'ship_to': filter.shipTo,
-					'postal_code': filter.postalCode ? filter.postalCode : null
-				}),
+				url: `${api}/itemprices?source=ebay&` + new URLSearchParams(filter),
 				headers: {
 					method: 'GET'
 				}
 			}
 		case 'klekt':
 			return {
-				url: `${api}/itemprices?` + new URLSearchParams({
-					"source": "klekt",
-					"search": filter.search,
-					"size": filter.size
-				}),
+				url: `${api}/itemprices?source=klekt&` + new URLSearchParams(filter),
 				headers: {
 					method: 'GET'
 				}
 			}
 		case 'goat':
 			return {
-				url: `${api}/itemprices?` + new URLSearchParams({
-					"source": "goat",
-					"search": filter.search,
-					"size": filter.size
-				}),
+				url: `${api}/itemprices?source=goat&` + new URLSearchParams(filter),
 				headers: {
 					method: 'GET'
 				}
 			}
 		case 'flightclub':
 			return {
-				url: `${api}/itemprices?` + new URLSearchParams({
-					"source": "flightclub",
-					"search": filter.search,
-					"size": filter.size
-				}),
+				url: `${api}/itemprices?source=flightclub&` + new URLSearchParams(filter),
 				headers: {
 					method: 'GET'
 				}
 			}
-		case 'depopListings':
+		case 'depop':
 			return {
-				url: `${api}/itemprices?` + new URLSearchParams({
-					'source': 'depop',
-					'search': filter.search,
-					'size': filter.size,
-					'gender': filter.gender,
-					'ship_to': filter.shipTo
-				}),
+				url: `${api}/itemprices?source=depop&` + new URLSearchParams(filter),
 				headers: {
 					method: 'GET'
 				}
 			}
-		case 'grailedListings':
+		case 'grailed':
 			return {
-				url: `${api}/itemprices?` + new URLSearchParams({
-					"source": "grailed",
-					"search": filter.search,
-					"size": filter.size,
-					"ship_to": filter.country
-				}),
+				url: `${api}/itemprices?source=grailed&` + new URLSearchParams(filter),
 				headers: {
 					method: 'GET'
 				}
@@ -114,15 +80,6 @@ export default function createRequestObject(type, filter) {
 						"hitsPerPage": 15, 
 						"page": 0
 					})
-				}
-			}
-		case 'shippingPrices':
-			return {
-				url: `${api}/shippingprices2?` + new URLSearchParams({
-					'country': filter.country
-				}),
-				headers: {
-					method: 'GET'
 				}
 			}
 
