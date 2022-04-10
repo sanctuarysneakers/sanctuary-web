@@ -18,11 +18,11 @@ export default function useAPICall(callType, params) {
     const currency = useSelector(state => state.currency)
 
     //browse filters
-    const sort = useSelector(state => state.browseFilters.sort)
-    const brand = useSelector(state => state.browseFilters.brand)
-    const priceRanges = useSelector(state => state.browseFilters.priceRanges)
-    const sizeTypes = useSelector(state => state.browseFilters.sizeTypes)
-    const releaseYears = useSelector(state => state.browseFilters.releaseYears)
+    const sort = useSelector(state => state.browse.filters.sort)
+    const brand = useSelector(state => state.browse.filters.brand)
+    const priceRanges = useSelector(state => state.browse.filters.priceRanges)
+    const sizeTypes = useSelector(state => state.browse.filters.sizeTypes)
+    const releaseYears = useSelector(state => state.browse.filters.releaseYears)
 
     async function currencyConversionRate(from, to) {
         const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/currencyrate2?from_curr=${from}&to_curr=${to}`
@@ -58,16 +58,30 @@ export default function useAPICall(callType, params) {
             'under300': under300Call
         }
 
-        let filters = {
-            search: query,
-            currency: currency,
+        let params = {
+            currency, 
+            search: searchTerm,
             maxPrice: price_limit[type],
             ship_to: location['country_code']
         }
-        if (type === 'trending')
-            filters.sort = "most-active"
 
-        request = createRequestObject('browse', {...params, ...filters, ...JSON.parse(sort)})    
+        let request; 
+        if(type === 'trending') {
+            request = createRequestObject('browse', {...params, sort: "most-active"}) 
+        } else if (type === 'under200') {
+            request = createRequestObject('browse', params)
+        } else if (type === 'under300') {
+            request = createRequestObject('browse', {...params, priceRanges: ["range(200|300)"]})
+        } else {
+            let filters = {
+                brand,
+                priceRanges,
+                gender: sizeTypes, 
+                releaseYears
+            }
+
+            request = createRequestObject('browse', {...params, ...filters, ...JSON.parse(sort)})
+        }
     
         try {
             const response = await fetch(request.url, request.headers)

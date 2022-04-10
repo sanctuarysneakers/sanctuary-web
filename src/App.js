@@ -8,20 +8,20 @@ import { setUser } from './redux/actions'
 import ProtectedRoute from './components/Routes/protectedRoute'
 import Navbar from "./components/Other/navbar"
 import Home from "./components/Home/home"
-import Browse from "./components/Pages/browse"
-import Item from "./components/Pages/item"
-import AboutModal from "./components/Pages/aboutModal"
-import HamburgerModal from './components/hamburgerModal'
-import DeleteModal from "./components/deleteModal"
-import SearchModal from './components/searchModal'
-import CurrencyModal from './components/currencyModal'
-import PageNotFound from './components/Pages/pageNotFound'
-import ItemNotSupported from './components/Pages/itemNotSupported'
-import PrivacyPolicy from './components/Pages/privacyPolicy'
-import TermsOfUse from './components/Pages/termsOfUse'
-import ContactUs from './components/Pages/contactUs'
-import LocationPopup from './components/locationPopup'
-import useLocationDetection from './components/Hooks/useLocationDetection'
+import Browse from "./components/Browse/browse"
+import Item from "./components/Item/item"
+import AboutModal from "./components/Modals/aboutModal"
+import HamburgerModal from './components/Modals/hamburgerModal'
+import DeleteModal from "./components/Modals/deleteModal"
+import SearchModal from './components/Modals/searchModal'
+import CurrencyModal from './components/Modals/currencyModal'
+import PageNotFound from './components/Other/pageNotFound'
+import ItemNotSupported from './components/Other/itemNotSupported'
+import PrivacyPolicy from './components/Other/privacyPolicy'
+import TermsOfUse from './components/Other/termsOfUse'
+import ContactUs from './components/Contact/contactUs'
+import LocationModal from './components/Modals/locationModal'
+import useLocationDetection from './hooks/useLocationDetection'
 
 import SignInOptions from './components/Accounts/signInOptions'
 import SignInEmail from './components/Accounts/signInEmail'
@@ -45,6 +45,7 @@ import firebase from './services/firebase'
 import Loader from './components/Other/loader'
 
 
+
 export default function App() {
 
     const dispatch = useDispatch()
@@ -57,7 +58,6 @@ export default function App() {
     const searchModalVisible = useSelector(state => state.modals.searchModalVisible)
     const aboutModalVisible = useSelector(state => state.modals.aboutModalVisible)
     const deleteModalVisible = useSelector(state => state.modals.deleteModalVisible)
-    const categoryFilterModalVisible = useSelector(state => state.modals.categoryFilterModalVisible)
     const [loader, setLoader] = useState(true)
     
     useEffect(() => {

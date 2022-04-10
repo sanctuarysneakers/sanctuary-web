@@ -2,10 +2,14 @@ import React from 'react'
 import { Helmet } from 'react-helmet';
 import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router'
-import { showHomeSeach } from '../../redux/actions'
 import Catalog from './catalog'
 import Footer from '../Other/footer'
-import CategoryFilter from './categoryFilter'
+
+import BrowseFilterDropdown from './browseFilterDropdown'
+import BrowseFilterMultiCheckbox from './browseFilterMultiCheckbox'
+
+import { showHomeSeach, updateBrowseSort, updateBrowseBrand, updateBrowseReleaseYears, updateBrowseSizeTypes, updateBrowsePriceRanges } from '../../redux/actions'
+import { brandOptions, sortOptions, releaseYearOptions, priceOptions, sizeTypeOptions } from '../../assets/constants'
 
 export default function Browse() {
 

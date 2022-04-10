@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { useSelector } from 'react-redux'
 import useAPICall from '../../hooks/useApiCall'
 import createRequestObject from '../../hooks/createRequest'
+import InfiniteScroll from 'react-infinite-scroll-component'
 import ItemCard from '../Item/itemCard'
 
 export default function Catalog({ searchTerm }) {
@@ -10,11 +11,11 @@ export default function Catalog({ searchTerm }) {
     const currency = useSelector(state => state.currency)
 
     //filters 
-    const sort = useSelector(state => state.browseFilters.sort)
-    const brand = useSelector(state => state.browseFilters.brand)
-    const priceRanges = useSelector(state => state.browseFilters.priceRanges)
-    const sizeTypes = useSelector(state => state.browseFilters.sizeTypes)
-    const releaseYears = useSelector(state => state.browseFilters.releaseYears)
+    const sort = useSelector(state => state.browse.filters.sort)
+    const brand = useSelector(state => state.browse.filters.brand)
+    const priceRanges = useSelector(state => state.browse.filters.priceRanges)
+    const sizeTypes = useSelector(state => state.browse.filters.sizeTypes)
+    const releaseYears = useSelector(state => state.browse.filters.releaseYears)
     
     let [items, updateItems] = useState(browseData)
     let [page, updatePage] = useState(1)
@@ -36,11 +37,16 @@ export default function Catalog({ searchTerm }) {
     }
 
     async function fetchMore() {
-        const request = createRequestObject('browse', {
-            search: search_query,
-            page: page+1
-        })
-        
+        let filters = {
+            search: searchTerm, 
+            page: page+1, 
+            brand, 
+            priceRanges, 
+            sizeTypes, 
+            releaseYears
+        }
+
+        const request = createRequestObject('browse', {...filters, ...JSON.parse(sort)})
         const response = await fetch(request.url, request.headers)
         let results = await response.json()
         results = await convertCurrency(results)
