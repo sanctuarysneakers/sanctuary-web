@@ -33,7 +33,8 @@ export default function ItemCard({ data }) {
             modelName: data.model,
             price: data.price,
             image: data.image,
-            url: data.url
+            url: data.url,
+            shipping: data.shipping
         }
 
         dispatch(updateItemInfo(itemInfo))

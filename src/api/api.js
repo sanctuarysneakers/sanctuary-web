@@ -91,63 +91,118 @@ export async function getItemInfo(sku, size, gender) {
         modelName: itemData[0]['model'],
         price: itemData[0]['price'],
         image: itemData[0]['image'],
-        url: itemData[0]['url']
+        url: itemData[0]['url'],
+        shipping: itemData[0]['shipping']
     }
 }
 
-export async function getItemPrices(item, size, gender, usdRate, eurRate, shippingResponse, location, currency) {
-    let shippingPrices = {} 
-    if(shippingResponse && shippingResponse.ok) {
-        shippingPrices = await shippingResponse.json()
+// export async function getItemPrices(item, size, gender, usdRate, eurRate, shippingResponse, location, currency) {
+//     let shippingPrices = {} 
+//     if(shippingResponse && shippingResponse.ok) {
+//         shippingPrices = await shippingResponse.json()
+//     }
+  
+//     const res = await SafePromiseAll(
+//         [
+//             SafePromiseAll(Object.values(shippingPrices).map(shippingObj => currencyConversionPromise(shippingObj['currency'], currency))),  
+//             stockxLowestPrice(item, usdRate), 
+//             ebayLowestPrice(item, size, location['country_code'], location['postal_code'], usdRate, currency),
+//             flightclubLowestPrice(item, size, gender, usdRate),
+//             goatLowestPrice(item, size, usdRate),
+//             klektLowestPrice(item, size, eurRate)
+//         ]
+//     ) 
+    
+//     let convertedShippingCurrencies = res[0]
+//     let results = res.splice(1).flat() 
+
+//     if (shippingPrices !== {} && convertedShippingCurrencies && Object.keys(shippingPrices).length === convertedShippingCurrencies.length) {
+//         for (var i = 0; i < Object.keys(shippingPrices).length; i ++) {
+//             let key = Object.keys(shippingPrices)[i]
+//             if (shippingPrices[key] != null && convertedShippingCurrencies[i] != null) {
+//                 shippingPrices[key] = shippingPrices[key]["cost"] * convertedShippingCurrencies[i] 
+//             }  
+//         }
+
+//         for (var j = 0; j < results.length; j++) {
+//             if (results[j]['source'] in shippingPrices) {    
+//                 results[j]['shippingPrice'] = shippingPrices[results[j]['source']] 
+//             }
+//         }
+//     }
+
+//     //filter results and return         
+//     results = results.filter(r => r.price !== 0)
+//     results.sort((a, b) => a.price - b.price)
+//     return results
+// }
+
+export async function getItemPrices(item, size, gender, usdRate, eurRate, location, currency) {
+    let filter = {
+        size: size,
+        gender: gender,
+        country: location['country_code'],
+        postalCode: location['postal_code'],
+        currency: currency,
+        usdRate: usdRate,
+        eurRate: eurRate // for klekt
     }
   
     const res = await SafePromiseAll(
         [
-            SafePromiseAll(Object.values(shippingPrices).map(shippingObj => currencyConversionPromise(shippingObj['currency'], currency))),  
-            stockxLowestPrice(item, usdRate), 
-            ebayLowestPrice(item, size, location['country_code'], location['postal_code'], usdRate, currency),
-            flightclubLowestPrice(item, size, gender, usdRate),
-            goatLowestPrice(item, size, usdRate),
-            klektLowestPrice(item, size, eurRate)
+            stockxLowestPrice(item, filter), 
+            ebayLowestPrice(item, filter),
+            flightclubLowestPrice(item, filter),
+            goatLowestPrice(item, filter),
+            klektLowestPrice(item, filter)
         ]
-    ) 
+    )
     
-    let convertedShippingCurrencies = res[0]
-    let results = res.splice(1).flat() 
-
-    if (shippingPrices !== {} && convertedShippingCurrencies && Object.keys(shippingPrices).length === convertedShippingCurrencies.length) {
-        for (var i = 0; i < Object.keys(shippingPrices).length; i ++) {
-            let key = Object.keys(shippingPrices)[i]
-            if (shippingPrices[key] != null && convertedShippingCurrencies[i] != null) {
-                shippingPrices[key] = shippingPrices[key]["cost"] * convertedShippingCurrencies[i] 
-            }  
-        }
-
-        for (var j = 0; j < results.length; j++) {
-            if (results[j]['source'] in shippingPrices) {    
-                results[j]['shippingPrice'] = shippingPrices[results[j]['source']] 
-            }
-        }
-    }
-
-    //filter results and return         
+    let results = res.flat()
     results = results.filter(r => r.price !== 0)
     results.sort((a, b) => a.price - b.price)
+
+    dispatch(updateItemPrices(results))
+    dispatch(setItemPricesLoading(false))
+
     return results
 }
 
 
-export async function getItemListings(item, size, gender, usdRate, location, currency) {        
-    //execute all listing requests simultaneously
+
+// export async function getItemListings(item, size, gender, usdRate, location, currency) {        
+//     //execute all listing requests simultaneously
+//     const res = await SafePromiseAll(
+//         [
+//             ebayListings(item, size, location['country_code'], usdRate, currency, location['postal_code']), 
+//             depopListings(item, size, gender, usdRate, location['country_code']),
+//             grailedListings(item, size, usdRate, location['country_code'].toLowerCase())
+//         ]
+//     ) 
+
+//     const results = res.flat().sort((a, b) => a.price - b.price)
+//     return results
+// }
+
+export async function getItemListings(item, size, gender, usdRate, location, currency) {
+    let filter = {
+        size: size,
+        gender: gender,
+        country: location['country_code'],
+        postalCode: location['postal_code'],
+        currency: currency,
+        usdRate: usdRate
+    }
+
     const res = await SafePromiseAll(
         [
-            ebayListings(item, size, location['country_code'], usdRate, currency, location['postal_code']), 
-            depopListings(item, size, gender, usdRate, location['country_code']),
-            grailedListings(item, size, usdRate, location['country_code'].toLowerCase())
+            ebayListings(item, filter), 
+            depopListings(item, filter),
+            grailedListings(item, filter)
         ]
     ) 
 
-    const results = res.flat().sort((a, b) => a.price - b.price)
+    let results = res.flat().sort((a, b) => a.price - b.price)
     return results
-}
+} 
 

@@ -16,6 +16,19 @@ export default function useAPICall(callType, params) {
     const size = useSelector(state => state.item.size)
     const currency = useSelector(state => state.currency)
 
+    async function currencyConversionRate(from, to) {
+        const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/currencyrate2?from_curr=${from}&to_curr=${to}`
+        const response = await fetch(url)
+        return await response.json()
+    }
+
+    // why do we need this?
+    function currencyConversionPromise(from, to) {
+        if (from !== to)
+            return currencyConversionRate(from, to) 
+        else
+            return Promise.resolve(1)
+    }
 
     function SafePromiseAll(promises, def = null) {
         return Promise.all(
@@ -38,14 +51,13 @@ export default function useAPICall(callType, params) {
         }
 
         let filters = {
-            currency, 
             search: query,
-            maxPrice: price_limit[type]
+            currency: currency,
+            maxPrice: price_limit[type],
+            ship_to: location['country_code']
         }
-
-        if(type === 'trending') {
+        if (type === 'trending')
             filters.sort = "most-active"
-        }
 
         const request = createRequestObject('browse', filters)
 
@@ -63,45 +75,38 @@ export default function useAPICall(callType, params) {
     }
 
     async function getItem(sku, size, gender, fromBrowse=null) {
-        try {
-            let shippingRequest = createRequestObject('shippingPrices', {country: location['country_code']})
-        
-            let prepRes = await SafePromiseAll([
-                fromBrowse == null ? getItemInfo(sku, size, gender): Promise.resolve(fromBrowse),
-                currencyConversionPromise("USD", currency),
-                currencyConversionPromise("EUR", currency), 
-                fetch(shippingRequest.url, shippingRequest.headers) 
-            ])
-    
-            let itemInfo, usdRate, eurRate, shippingResponse;
-            itemInfo = prepRes[0]
-            usdRate = prepRes[1]
-            eurRate = prepRes[2]
-            shippingResponse = prepRes[3]
-    
-            if (itemInfo) {
-                if(fromBrowse == null) {
-                    dispatch(updateItemInfo(itemInfo))
-                } 
-               
-                let itemRes = await SafePromiseAll(
-                    [
-                        getItemPrices(itemInfo, size, gender, usdRate, eurRate, shippingResponse, location, currency),
-                        getItemListings(itemInfo, size, gender, usdRate, location, currency)
-                    ], 
-                    []
-                ) 
-    
-                dispatch(updateItemPrices(itemRes[0]))
-                dispatch(setItemPricesLoading(false))
-    
-                dispatch(updateItemListings(itemRes[1]))
-                dispatch(setItemListingsLoading(false))
-            }
-        } catch (error) {
-            history.replace('/item-not-supported')
+        let prepRes = await SafePromiseAll([
+            fromBrowse ? Promise.resolve(fromBrowse) : getItemInfo(sku, size, gender),
+            currencyConversionPromise("USD", currency),
+            currencyConversionPromise("EUR", currency), 
+        ])
+
+        let itemInfo, usdRate, eurRate;
+        itemInfo = prepRes[0]
+        usdRate = prepRes[1]
+        eurRate = prepRes[2]
+
+        if (itemInfo) {
+            if (!fromBrowse)
+                dispatch(updateItemInfo(itemInfo))
+           
+            let itemRes = await SafePromiseAll(
+                [
+                    getItemPrices(itemInfo, size, gender, usdRate, eurRate, location, currency),
+                    getItemListings(itemInfo, size, gender, usdRate, location, currency)
+                ], 
+                []
+            ) 
+
+            dispatch(updateItemPrices(itemRes[0]))
+            dispatch(setItemPricesLoading(false))
+
+            dispatch(updateItemListings(itemRes[1]))
+            dispatch(setItemListingsLoading(false))
+
         }
     }
+
 
     useEffect(() => {
         if (callType === 'getitem')
