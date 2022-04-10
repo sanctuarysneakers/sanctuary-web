@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react"
 import FadeIn from 'react-fade-in'
-import VisibleOnScreen from "../Hooks/visibleOnScreen"
+import VisibleOnScreen from "../../hooks/visibleOnScreen"
 import StockX from '../../assets/images/stockx.png'
 import GOAT from '../../assets/images/goat-grey.svg'
 import Grailed from '../../assets/images/grailed-grey.svg'

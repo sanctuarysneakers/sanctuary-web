@@ -1,7 +1,7 @@
 import React from 'react'
 import { Helmet } from 'react-helmet';
 import NextArticles from '../nextArticles'
-import Footer from '../../footer'
+import Footer from '../../Other/footer'
 import ProfilePic from '../../../assets/images/ColeVanHinte.jpg'
 import HeaderPic from '../../../assets/images/sanctuary-3D.gif'
 import pictureOne from '../../../assets/images/Article1-1.jpg'

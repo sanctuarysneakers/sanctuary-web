@@ -6,7 +6,7 @@ import configureStore from './redux/configureStore'
 import { PersistGate } from 'redux-persist/lib/integration/react'
 
 import App from './App'
-import Loader from './components/loader'
+import Loader from './components/Other/loader'
 import './assets/styling/base.scss'
 
 const { store, persistor } = configureStore()

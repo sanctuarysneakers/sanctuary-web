@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setUser } from './redux/actions'
 
 import ProtectedRoute from './components/Routes/protectedRoute'
-import Navbar from "./components/navbar"
+import Navbar from "./components/Other/navbar"
 import Home from "./components/Home/home"
 import Browse from "./components/Pages/browse"
 import Item from "./components/Pages/item"
@@ -42,7 +42,7 @@ import SneakerMarket from './components/Newsroom/Articles/sneakerMarket'
 import BuyYourPair from "./components/Newsroom/Articles/buyYourPair"
 
 import firebase from './services/firebase'
-import Loader from './components/loader'
+import Loader from './components/Other/loader'
 
 
 export default function App() {
@@ -52,11 +52,12 @@ export default function App() {
     
     useLocationDetection()
     
-    const locationPopup = useSelector(state => state.locationPopup)
-    const currencyModalVisible = useSelector(state => state.currencyModalVisible)
-    const searchModalVisible = useSelector(state => state.searchModalVisible)
-    const aboutModalVisible = useSelector(state => state.aboutModalVisible)
-    const deleteModalVisible = useSelector(state => state.deleteModalVisible)
+    const locationPopup = useSelector(state => state.modals.locationPopupVisible)
+    const currencyModalVisible = useSelector(state => state.modals.currencyModalVisible)
+    const searchModalVisible = useSelector(state => state.modals.searchModalVisible)
+    const aboutModalVisible = useSelector(state => state.modals.aboutModalVisible)
+    const deleteModalVisible = useSelector(state => state.modals.deleteModalVisible)
+    const categoryFilterModalVisible = useSelector(state => state.modals.categoryFilterModalVisible)
     const [loader, setLoader] = useState(true)
     
     useEffect(() => {
@@ -118,7 +119,7 @@ export default function App() {
 
                 { locationPopup && 
                     <RemoveScroll>
-                        <LocationPopup />
+                        <LocationModal />
                     </RemoveScroll>
                 }
                 { currencyModalVisible &&
