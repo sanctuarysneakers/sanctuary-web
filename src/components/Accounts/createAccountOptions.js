@@ -21,14 +21,12 @@ export default function CreateAccountOptions() {
     const googleAuthentication = () => {
         firebase.auth().signInWithRedirect(provider).then(
             history.push("/"),
-            window.scrollTo(0, 0)
         )
     }
 
     const facebookAuthentication = () => {
         firebase.auth().signInWithRedirect(facebookProvider).then(
             history.push("/"),
-            window.scrollTo(0, 0)
         )
     }
 

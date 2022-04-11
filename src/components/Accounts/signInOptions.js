@@ -23,14 +23,12 @@ export default function SignInOptions() {
     const googleAuthentication = () => {
         firebase.auth().signInWithRedirect(googleProvider).then(
             history.push("/"),
-            window.scrollTo(0, 0)
         )
     }
 
     const facebookAuthentication = () => {
         firebase.auth().signInWithRedirect(facebookProvider).then(
             history.push("/"),
-            window.scrollTo(0, 0)
         )
     }
 
