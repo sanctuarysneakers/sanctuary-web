@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateItemInfo, updateSize, setItemPricesLoading, setItemListingsLoading  } from '../../redux/actions'
+import { updateSize, setItemPricesLoading, setItemListingsLoading  } from '../../redux/actions'
 import { currencySymbolMap }  from '../../assets/constants'
 
 
@@ -37,8 +37,6 @@ export default function ItemCard({ data }) {
             url: data.url,
             shipping: data.shipping
         }
-
-        dispatch(updateItemInfo(itemInfo))
 
         return itemInfo
     }

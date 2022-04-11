@@ -88,8 +88,7 @@ export default function useAPICall(callType, params) {
         eurRate = prepRes[2]
 
         if (itemInfo) {
-            if (!fromBrowse)
-                dispatch(updateItemInfo(itemInfo))
+            dispatch(updateItemInfo(itemInfo))
            
             await SafePromiseAll(
                 [
