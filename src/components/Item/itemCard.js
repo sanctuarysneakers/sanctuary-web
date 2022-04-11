@@ -48,7 +48,7 @@ export default function ItemCard({ data }) {
             <Link 
                 to={{
                     pathname: generateLink(),
-                    state: getNavData()
+                    itemInfo: getNavData()
                 }}
                 className="hidden-link"
             > 

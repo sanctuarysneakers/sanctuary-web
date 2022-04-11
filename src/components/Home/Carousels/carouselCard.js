@@ -55,7 +55,7 @@ export default function CarouselCard({ data, index, type, length }) {
                 <Link 
                     to={{
                         pathname: generateLink(),
-                        state: getNavData()
+                        itemInfo: getNavData()
                     }}
                     className="hidden-link"
                 > 
