@@ -8,7 +8,7 @@ import { currencySymbolMap }  from '../../assets/constants'
 
 export default function ItemCard({ data }) {
 
-    let history = useHistory(); 
+    let history = useHistory()
 
     const dispatch = useDispatch()
     const currency = useSelector(state => state.currency)
@@ -34,7 +34,7 @@ export default function ItemCard({ data }) {
             price: data.price,
             image: data.image,
             url: data.url,
-            shipping: data.shipping
+            shipping: data.shipping2
         }
 
         dispatch(updateItemInfo(itemInfo))
