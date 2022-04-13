@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { browseCall, updateItemInfo, updateItemPrices, updateItemListings,
@@ -61,25 +61,20 @@ export default function useAPICall(callType, params) {
         }
     }
 
-    async function getItem(sku, size, gender, fromBrowse=null) {
-        let prepRes = await SafePromiseAll([
-            fromBrowse ? Promise.resolve(fromBrowse) : getItemInfo(sku, size, gender)
-        ])
-
-        let itemInfo = prepRes[0]
-
-        if (itemInfo) {
-            if (!fromBrowse)
-                dispatch(updateItemInfo(itemInfo))
-           
-            await SafePromiseAll(
-                [
-                    getItemPrices(itemInfo, size, gender),
-                    getItemListings(itemInfo, size, gender)
-                ], 
-                []
-            ) 
+    async function getItem(params) {
+        let itemInfo = params.fromBrowse
+        if (!itemInfo) {
+            itemInfo = await getItemInfo(params.sku, params.size, params.gender)
+            dispatch(updateItemInfo(itemInfo))
         }
+
+        await SafePromiseAll(
+            [
+                getItemPrices(itemInfo, params.size, params.gender),
+                getItemListings(itemInfo, params.size, params.gender)
+            ], 
+            []
+        )
     }
 
     async function getItemInfo(sku, size, gender) {
@@ -166,12 +161,18 @@ export default function useAPICall(callType, params) {
         return results
     }
 
+    const firstUpdate = useRef(true)
     useEffect(() => {
-        if (callType === 'getitem')
-            getItem(params.sku, params.size, params.gender, params.fromBrowse)
-        else
+        if (callType === 'getitem') {
+            if (!firstUpdate.current)
+                params.fromBrowse = null
+            getItem(params)
+        } else {
             browse(callType, params.query)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        }
+
+        if (firstUpdate.current)
+            firstUpdate.current = false
     }, [currency, size])
 
 }
