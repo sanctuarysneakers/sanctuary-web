@@ -62,11 +62,8 @@ export default function useAPICall(callType, params) {
     }
 
     async function getItem(params) {
-        let itemInfo = params.fromBrowse
-        if (!itemInfo) {
-            itemInfo = await getItemInfo(params.sku, params.size, params.gender)
-            dispatch(updateItemInfo(itemInfo))
-        }
+        let itemInfo = (params.fromBrowse) ? params.fromBrowse: await getItemInfo(params.sku, params.size, params.gender)
+        dispatch(updateItemInfo(itemInfo))
 
         await SafePromiseAll(
             [

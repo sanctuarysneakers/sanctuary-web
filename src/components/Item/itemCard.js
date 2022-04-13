@@ -12,7 +12,6 @@ export default function ItemCard({ data }) {
     const size = useSelector(state => state.item.size)
 
     const generateLink = () => {
-
         dispatch(updateItemInfo({}))
         dispatch(setItemPricesLoading(true))
         dispatch(setItemListingsLoading(true))
