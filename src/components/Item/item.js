@@ -24,7 +24,12 @@ export default function Item() {
 
     //check if coming from (browse/carousel) or (direct link/autosuggest selection)
     let passedData = location.itemInfo ? location.itemInfo : null
-    useAPICall('getitem', { sku: sku, size: size, gender: gender, fromBrowse: passedData})
+    useAPICall('getitem', {
+        sku: sku, 
+        size: size, 
+        gender: gender, 
+        fromBrowse: passedData
+    })
 
     const itemInfo = useSelector(state => state.item.itemInfo)
     const itemPrices = useSelector(state => state.item.itemPrices)

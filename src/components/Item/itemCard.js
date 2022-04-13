@@ -36,7 +36,7 @@ export default function ItemCard({ data }) {
             price: data.price,
             image: data.image,
             url: data.url,
-            shipping: data.shipping
+            shipping: data.shipping2
         }
 
         return itemInfo
