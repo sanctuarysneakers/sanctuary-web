@@ -16,7 +16,6 @@ export default function DeleteModal() {
         user.delete().then(() => {
             dispatch(hideDeleteModal())
             history.push("/")
-            window.scrollTo(0, 0)
         }).catch(e => {
             alert(e)
         })

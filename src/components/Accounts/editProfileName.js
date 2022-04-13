@@ -24,7 +24,6 @@ export default function EditProfileName() {
                 displayName: newName
             }).then(() => {
                 history.push("/profile")
-                window.scrollTo(0, 0)
             }).catch(e => {
                 setErrorMessage(e.message)
             })

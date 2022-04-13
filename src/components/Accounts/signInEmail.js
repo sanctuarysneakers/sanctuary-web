@@ -22,7 +22,6 @@ export default function SignInEmail() {
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(() => {
                 history.push("/")
-                window.scrollTo(0, 0)
             })
             .catch(e => {
                 setErrorMessage(e.message)
