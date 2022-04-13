@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { browseCall, updateItemInfo, updateItemPrices, updateItemListings,
@@ -16,20 +16,6 @@ export default function useAPICall(callType, params) {
     const location = useSelector(state => state.location)
     const size = useSelector(state => state.item.size)
     const currency = useSelector(state => state.currency)
-
-    async function currencyConversionRate(from, to) {
-        const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/currencyrate2?from_curr=${from}&to_curr=${to}`
-        const response = await fetch(url)
-        return await response.json()
-    }
-
-    // why do we need this?
-    function currencyConversionPromise(from, to) {
-        if (from !== to)
-            return currencyConversionRate(from, to) 
-        else
-            return Promise.resolve(1)
-    }
 
     function SafePromiseAll(promises, def = null) {
         return Promise.all(
@@ -75,30 +61,20 @@ export default function useAPICall(callType, params) {
         }
     }
 
-    async function getItem(sku, size, gender, fromBrowse=null) {
-        let prepRes = await SafePromiseAll([
-            fromBrowse ? Promise.resolve(fromBrowse) : getItemInfo(sku, size, gender),
-            currencyConversionPromise("USD", currency),
-            currencyConversionPromise("EUR", currency), 
-        ])
-
-        let itemInfo, usdRate, eurRate;
-        itemInfo = prepRes[0]
-        usdRate = prepRes[1]
-        eurRate = prepRes[2]
-
-        if (itemInfo) {
-            if (!fromBrowse)
-                dispatch(updateItemInfo(itemInfo))
-           
-            await SafePromiseAll(
-                [
-                    getItemPrices(itemInfo, size, gender, usdRate, eurRate),
-                    getItemListings(itemInfo, size, gender, usdRate)
-                ], 
-                []
-            ) 
+    async function getItem(params) {
+        let itemInfo = params.fromBrowse
+        if (!itemInfo) {
+            itemInfo = await getItemInfo(params.sku, params.size, params.gender)
+            dispatch(updateItemInfo(itemInfo))
         }
+
+        await SafePromiseAll(
+            [
+                getItemPrices(itemInfo, params.size, params.gender),
+                getItemListings(itemInfo, params.size, params.gender)
+            ], 
+            []
+        )
     }
 
     async function getItemInfo(sku, size, gender) {
@@ -107,6 +83,7 @@ export default function useAPICall(callType, params) {
                 search: sku,
                 size: size,
                 gender: gender,
+                currency: currency,
                 ship_to: location['country_code']
             })
 
@@ -121,10 +98,10 @@ export default function useAPICall(callType, params) {
                 hasPrice: true,
                 skuId: sku.replaceAll('-', ' '),
                 modelName: itemData[0]['model'],
-                price: itemData[0]['price'],
+                price: itemData[0]['price2'],
                 image: itemData[0]['image'],
                 url: itemData[0]['url'],
-                shipping: itemData[0]['shipping']
+                shipping: itemData[0]['shipping2']
             }
         } catch (e) { 
             history.replace('/item-not-supported')
@@ -132,20 +109,18 @@ export default function useAPICall(callType, params) {
         }
     }
 
-    async function getItemPrices(item, size, gender, usdRate, eurRate) {
+    async function getItemPrices(item, size, gender) {
         let filter = {
             size: size,
             gender: gender,
             country: location['country_code'],
             postalCode: location['postal_code'],
-            currency: currency,
-            usdRate: usdRate,
-            eurRate: eurRate // for klekt
+            currency: currency
         }
       
         const res = await SafePromiseAll(
             [
-                stockxLowestPrice(item, filter), 
+                stockxLowestPrice(item),
                 ebayLowestPrice(item, filter),
                 flightclubLowestPrice(item, filter),
                 goatLowestPrice(item, filter),
@@ -163,14 +138,13 @@ export default function useAPICall(callType, params) {
         return results
     }
 
-    async function getItemListings(item, size, gender, usdRate) {
+    async function getItemListings(item, size, gender) {
         let filter = {
             size: size,
             gender: gender,
             country: location['country_code'],
             postalCode: location['postal_code'],
-            currency: currency,
-            usdRate: usdRate
+            currency: currency
         }
 
         const res = await SafePromiseAll(
@@ -187,12 +161,18 @@ export default function useAPICall(callType, params) {
         return results
     }
 
+    const firstUpdate = useRef(true)
     useEffect(() => {
-        if (callType === 'getitem')
-            getItem(params.sku, params.size, params.gender, params.fromBrowse)
-        else
+        if (callType === 'getitem') {
+            if (!firstUpdate.current)
+                params.fromBrowse = null
+            getItem(params)
+        } else {
             browse(callType, params.query)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        }
+
+        if (firstUpdate.current)
+            firstUpdate.current = false
     }, [currency, size])
 
 }
