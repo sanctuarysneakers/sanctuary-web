@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { browseCall, updateItemInfo, updateItemPrices, updateItemListings,
+import { browseCall, updateItemInfo, updateItemPrices, updateItemListings, setItemInfoLoading, 
     setItemPricesLoading, setItemListingsLoading, trendingCall, 
     under200Call, under300Call } from '../redux/actions'
 import createRequestObject from './createRequest'
