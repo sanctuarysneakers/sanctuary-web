@@ -88,7 +88,7 @@ export default function useAPICall(callType, params) {
             if (!response.ok) throw new Error()
 
             let itemData = await response.json()
-            if (!itemData[0]['sku'].includes(sku))
+            if (!itemData[0]['sku'].includes(sku) && !itemData[0]['urlKey'].includes(sku))
                 throw new Error()
             
             return {
