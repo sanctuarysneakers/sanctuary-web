@@ -15,7 +15,7 @@ export default function CarouselCard({ data, index, type, length }) {
         dispatch(setItemPricesLoading(true))
         dispatch(setItemListingsLoading(true))
 
-        let itemId = data['sku'] ? data['sku'].split('/')[0] : data['urlKey']
+        let itemId = encodeURIComponent(data['sku'])
         window.analytics.track(`home_carousel_item_clicked`, {id: itemId, gender: data['gender']});
 
         return `/item/${itemId}/${data['gender']}` 

@@ -1,9 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateSize, updateItemInfo, setItemInfoLoading, setItemPricesLoading, setItemListingsLoading  } from '../../redux/actions'
+import { updateSize, updateItemInfo, setItemPricesLoading, setItemListingsLoading  } from '../../redux/actions'
 import { currencySymbolMap }  from '../../assets/constants'
-
 
 export default function ItemCard({ data }) {
 
@@ -16,7 +15,7 @@ export default function ItemCard({ data }) {
         dispatch(setItemPricesLoading(true))
         dispatch(setItemListingsLoading(true))
 
-        let itemId = data['sku'] ? data['sku'].split('/')[0] : data['urlKey']
+        let itemId = encodeURIComponent(data['sku'])
         window.analytics.track(`browse_item_clicked`, {id: itemId, gender: data['gender']});
 
         return `/item/${itemId}/${data['gender']}` 
