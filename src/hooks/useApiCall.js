@@ -1,7 +1,7 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { browseCall, updateItemInfo, updateItemPrices, updateItemListings,
+import { browseCall, updateItemInfo, updateItemPrices, updateItemListings, 
     setItemPricesLoading, setItemListingsLoading, trendingCall, 
     under200Call, under300Call } from '../redux/actions'
 import createRequestObject from './createRequest'
@@ -24,19 +24,6 @@ export default function useAPICall(callType, params) {
     const sizeTypes = useSelector(state => state.browse.filters.sizeTypes)
     const releaseYears = useSelector(state => state.browse.filters.releaseYears)
 
-    async function currencyConversionRate(from, to) {
-        const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/currencyrate2?from_curr=${from}&to_curr=${to}`
-        const response = await fetch(url)
-        return await response.json()
-    }
-
-    // why do we need this?
-    function currencyConversionPromise(from, to) {
-        if (from !== to)
-            return currencyConversionRate(from, to) 
-        else
-            return Promise.resolve(1)
-    }
 
     function SafePromiseAll(promises, def = null) {
         return Promise.all(
@@ -96,38 +83,26 @@ export default function useAPICall(callType, params) {
         }
     }
 
-    async function getItem(sku, size, gender, fromBrowse=null) {
-        let prepRes = await SafePromiseAll([
-            fromBrowse ? Promise.resolve(fromBrowse) : getItemInfo(sku, size, gender),
-            currencyConversionPromise("USD", currency),
-            currencyConversionPromise("EUR", currency), 
-        ])
+    async function getItem(params) {
+        let itemInfo = (params.fromBrowse) ? params.fromBrowse: await getItemInfo(params.sku, params.size, params.gender)
+        dispatch(updateItemInfo(itemInfo))
 
-        let itemInfo, usdRate, eurRate;
-        itemInfo = prepRes[0]
-        usdRate = prepRes[1]
-        eurRate = prepRes[2]
-
-        if (itemInfo) {
-            if (!fromBrowse)
-                dispatch(updateItemInfo(itemInfo))
-           
-            await SafePromiseAll(
-                [
-                    getItemPrices(itemInfo, size, gender, usdRate, eurRate),
-                    getItemListings(itemInfo, size, gender, usdRate)
-                ], 
-                []
-            ) 
-        }
+        await SafePromiseAll(
+            [
+                getItemPrices(itemInfo, params.size, params.gender),
+                getItemListings(itemInfo, params.size, params.gender)
+            ], 
+            []
+        )
     }
 
     async function getItemInfo(sku, size, gender) {
         try {
-            const request = createRequestObject('stockx', {
+            const request = createRequestObject('browse', {
                 search: sku,
                 size: size,
                 gender: gender,
+                currency: currency,
                 ship_to: location['country_code']
             })
 
@@ -135,7 +110,7 @@ export default function useAPICall(callType, params) {
             if (!response.ok) throw new Error()
 
             let itemData = await response.json()
-            if (!itemData[0]['sku'].includes(sku))
+            if (!itemData[0]['sku'].includes(sku) && !itemData[0]['urlKey'].includes(sku))
                 throw new Error()
             
             return {
@@ -145,7 +120,7 @@ export default function useAPICall(callType, params) {
                 price: itemData[0]['price'],
                 image: itemData[0]['image'],
                 url: itemData[0]['url'],
-                shipping: itemData[0]['shipping']
+                shipping: itemData[0]['shipping2']
             }
         } catch (e) { 
             history.replace('/item-not-supported')
@@ -153,20 +128,18 @@ export default function useAPICall(callType, params) {
         }
     }
 
-    async function getItemPrices(item, size, gender, usdRate, eurRate) {
+    async function getItemPrices(item, size, gender) {
         let filter = {
             size: size,
             gender: gender,
             country: location['country_code'],
             postalCode: location['postal_code'],
-            currency: currency,
-            usdRate: usdRate,
-            eurRate: eurRate // for klekt
+            currency: currency
         }
       
         const res = await SafePromiseAll(
             [
-                stockxLowestPrice(item, filter), 
+                stockxLowestPrice(item),
                 ebayLowestPrice(item, filter),
                 flightclubLowestPrice(item, filter),
                 goatLowestPrice(item, filter),
@@ -184,14 +157,13 @@ export default function useAPICall(callType, params) {
         return results
     }
 
-    async function getItemListings(item, size, gender, usdRate) {
+    async function getItemListings(item, size, gender) {
         let filter = {
             size: size,
             gender: gender,
             country: location['country_code'],
             postalCode: location['postal_code'],
-            currency: currency,
-            usdRate: usdRate
+            currency: currency
         }
 
         const res = await SafePromiseAll(
@@ -208,11 +180,18 @@ export default function useAPICall(callType, params) {
         return results
     }
 
+    const firstUpdate = useRef(true)
     useEffect(() => {
-        if (callType === 'getitem')
-            getItem(params.sku, params.size, params.gender, params.fromBrowse)
-        else
-            browse(callType, params.searchTerm)
+        if (callType === 'getitem') {
+            if (!firstUpdate.current)
+                params.fromBrowse = null
+            getItem(params)
+        } else {
+            browse(callType, params.query)
+        }
+
+        if (firstUpdate.current)
+            firstUpdate.current = false
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currency, size, sort, brand, priceRanges, sizeTypes, releaseYears])
 

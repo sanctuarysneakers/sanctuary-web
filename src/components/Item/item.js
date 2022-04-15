@@ -24,7 +24,12 @@ export default function Item() {
 
     //check if coming from (browse/carousel) or (direct link/autosuggest selection)
     let passedData = location.itemInfo ? location.itemInfo : null
-    useAPICall('getitem', { sku: sku, size: size, gender: gender, fromBrowse: passedData})
+    useAPICall('getitem', {
+        sku: decodeURIComponent(sku), 
+        size: size, 
+        gender: gender, 
+        fromBrowse: passedData
+    })
 
     const itemInfo = useSelector(state => state.item.itemInfo)
     const itemPrices = useSelector(state => state.item.itemPrices)
@@ -43,7 +48,7 @@ export default function Item() {
     )
 
     const clickHandler = () => {
-        window.analytics.track(`item_buy_new_clicked`, {sku: sku, gender: gender, model: itemInfo.modelName});
+        window.analytics.track(`item_buy_new_clicked`, {sku: decodeURIComponent(sku), gender: gender, model: itemInfo.modelName});
     }
 
     /* eslint-disable jsx-a11y/anchor-is-valid */

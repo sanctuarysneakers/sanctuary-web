@@ -23,19 +23,6 @@ export default function Catalog({ searchTerm }) {
 
     useAPICall('browse', { searchTerm })
 
-    async function currencyConversionRate(from, to) {
-        const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/currencyrate2?from_curr=${from}&to_curr=${to}`
-        const response = await fetch(url)
-        return await response.json()
-    }
-    
-    async function convertCurrency(results) {
-        const rate = await currencyConversionRate("USD", currency)
-        for (let i = 0; i < results.length; i++)
-            results[i]["price"] = !isNaN(rate) ? Math.round(results[i]["price"] * rate) : "---"
-        return results
-    }
-
     async function fetchMore() {
         let filters = {
             search: searchTerm, 
@@ -49,7 +36,6 @@ export default function Catalog({ searchTerm }) {
         const request = createRequestObject('browse', {...filters, ...JSON.parse(sort)})
         const response = await fetch(request.url, request.headers)
         let results = await response.json()
-        results = await convertCurrency(results)
         
         updateItems(items.concat(results))
         updatePage(page + 1)

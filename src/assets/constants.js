@@ -164,3 +164,18 @@ export const priceOptions = [
     {value: 'range(500|600)', label: '$500-$600'},
     {value: 'gte-600', label: '$600+'}
 ]
+
+//shipping
+
+export const dealsUnderHeaders = {
+    'AUD': [300, 400],
+    'CAD': [300, 400],
+    'CHF': [200, 300],
+    'CNY': [1300, 2000],
+    'EUR': [200, 300],
+    'GBP': [200, 300],
+    'HKD': [1600, 2400],
+    'JPY': [26000, 38000],
+    'KRW': [250000, 370000],
+    'USD': [200, 300],
+}
