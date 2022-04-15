@@ -45,7 +45,7 @@ export default function ItemPrice({ data, index, length }) {
                             {data.shippingPrice !== 0 &&
                                 <div className='item-shipping-text'>
                                     <Shipping />
-                                    <p>{currencySymbolMap[currency]}{Math.round(data.shippingPrice)}</p>
+                                    <p>+{currencySymbolMap[currency]}{Math.round(data.shippingPrice)}</p>
                                 </div>
                             }
                         </div>}
