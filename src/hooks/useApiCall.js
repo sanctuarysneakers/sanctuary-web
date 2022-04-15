@@ -76,7 +76,7 @@ export default function useAPICall(callType, params) {
 
     async function getItemInfo(sku, size, gender) {
         try {
-            const request = createRequestObject('stockx', {
+            const request = createRequestObject('browse', {
                 search: sku,
                 size: size,
                 gender: gender,
@@ -88,14 +88,14 @@ export default function useAPICall(callType, params) {
             if (!response.ok) throw new Error()
 
             let itemData = await response.json()
-            if (!itemData[0]['sku'].includes(sku))
+            if (!itemData[0]['sku'].includes(sku) && !itemData[0]['urlKey'].includes(sku))
                 throw new Error()
             
             return {
                 hasPrice: true,
                 skuId: sku.replaceAll('-', ' '),
                 modelName: itemData[0]['model'],
-                price: itemData[0]['price2'],
+                price: itemData[0]['price'],
                 image: itemData[0]['image'],
                 url: itemData[0]['url'],
                 shipping: itemData[0]['shipping2']
