@@ -23,7 +23,6 @@ export default function EditProfilePassword() {
         else {
             user.updatePassword(newPassword).then(() => {
                 history.push("/profile")
-                window.scrollTo(0, 0)
             }).catch(e => {
                 setErrorMessage(e.message)
             })

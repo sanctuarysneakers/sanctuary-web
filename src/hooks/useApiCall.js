@@ -5,7 +5,12 @@ import { browseCall, updateItemInfo, trendingCall, under200Call, under300Call, u
 
 import createRequestObject from '../api/createRequest'
 import { getItemInfo, getItemPrices, getItemListings } from '../api/api' 
-import { currencyConversionPromise, SafePromiseAll } from '../helpers/index'
+import { SafePromiseAll } from '../helpers/index'
+
+// import { browseCall, updateItemInfo, updateItemPrices, updateItemListings, 
+//     setItemPricesLoading, setItemListingsLoading, trendingCall, 
+//     under200Call, under300Call } from '../redux/actions'
+
 
 export default function useAPICall(callType, params) {
     
@@ -54,47 +59,40 @@ export default function useAPICall(callType, params) {
         }
     }
 
-    async function getItem(sku, size, gender, fromBrowse=null) {
+    async function getItem(params) {
         try {
-            let prepRes = await SafePromiseAll([
-                fromBrowse ? Promise.resolve(fromBrowse) : getItemInfo(sku, size, gender),
-                currencyConversionPromise("USD", currency),
-                currencyConversionPromise("EUR", currency), 
-            ])
+            let itemInfo = (params.fromBrowse) ? params.fromBrowse: await getItemInfo(params.sku, params.size, params.gender, location, currency)
+            dispatch(updateItemInfo(itemInfo))
     
-            let itemInfo, usdRate, eurRate;
-            itemInfo = prepRes[0]
-            usdRate = prepRes[1]
-            eurRate = prepRes[2]
-    
-            if (itemInfo) {
-                if (!fromBrowse)
-                    dispatch(updateItemInfo(itemInfo))
-               
-                await SafePromiseAll(
-                    [
-                        getItemPrices(itemInfo, size, gender, usdRate, eurRate, location, currency).then(itemRes => {
-                            dispatch(updateItemPrices(itemRes)) 
-                            dispatch(setItemPricesLoading(false))
-                        }) ,
-                        getItemListings(itemInfo, size, gender, usdRate, location, currency).then(listingRes => {
-                            dispatch(updateItemListings(listingRes))
-                            dispatch(setItemListingsLoading(false))
-                        })
-                    ], 
-                    []
-                )     
-            }
-        } catch(error) {
+            await SafePromiseAll(
+                [
+                    getItemPrices(itemInfo, size, gender, usdRate, eurRate, location, currency).then(itemRes => {
+                        dispatch(updateItemPrices(itemRes)) 
+                        dispatch(setItemPricesLoading(false))
+                    }) ,
+                    getItemListings(itemInfo, size, gender, usdRate, location, currency).then(listingRes => {
+                        dispatch(updateItemListings(listingRes))
+                        dispatch(setItemListingsLoading(false))
+                    })
+                ], 
+                []
+            )     
+        } catch (err) { 
             history.replace('/item-not-supported')
+            return null
         }
     }
 
     useEffect(() => {
-        if (callType === 'getitem')
-            getItem(params.sku, params.size, params.gender, params.fromBrowse)
-        else 
+        if (callType === 'getitem') {
+            if (!firstUpdate.current)
+                params.fromBrowse = null
+            getItem(params)
+        } else {
             browse(callType, params.query)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        }
+
+        if (firstUpdate.current)
+            firstUpdate.current = false
     }, [currency, size])
 }

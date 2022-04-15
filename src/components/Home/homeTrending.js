@@ -6,7 +6,7 @@ import FadeIn from 'react-fade-in'
 import TextLoop from 'react-text-loop'
 import BrandCard from './brandCard'
 import Carousel from './Carousels/carousel'
-import { currencySymbolMap }  from '../../assets/constants'
+import { currencySymbolMap, dealsUnderHeaders }  from '../../assets/constants'
 
 export default function HomeTrending() {
 
@@ -29,19 +29,10 @@ export default function HomeTrending() {
     )
 
     useEffect(() => {
-        async function updateHeaderValues() {
-            const url = `https://hdwj2rvqkb.us-west-2.awsapprunner.com/currencyrate2?from_curr=USD&to_curr=${currency}`
-            const response = await fetch(url)
-            const conversionRate = await response.json()
-
-            let val200 = Math.ceil((200 * conversionRate)/100)*100 > 10000 ? Math.ceil((200 * conversionRate)/1000)*1000 : Math.ceil((200 * conversionRate)/100)*100
-            let val300 = Math.ceil((300 * conversionRate)/100)*100 > 10000 ? Math.ceil((300 * conversionRate)/1000)*1000 : Math.ceil((300 * conversionRate)/100)*100
-        
-            setUnder200(`${currencySymbolMap[currency]}${val200}`) 
-            setUnder300(`${currencySymbolMap[currency]}${val300}`)
-        }
-       
-        updateHeaderValues() 
+        let val200 = dealsUnderHeaders[currency][0]
+        let val300 = dealsUnderHeaders[currency][1]
+        setUnder200(`${currencySymbolMap[currency]}${val200}`)
+        setUnder300(`${currencySymbolMap[currency]}${val300}`)
     }, [currency])
 
     useEffect(() => {

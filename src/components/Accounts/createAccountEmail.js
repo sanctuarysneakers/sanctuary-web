@@ -32,7 +32,6 @@ export default function CreateAccountEmail() {
                 .then(r => {
                     r.user.updateProfile({ displayName: name })
                     history.push("/")
-                    window.scrollTo(0, 0)
                 })
                 .catch(e => {
                     setErrorMessage(e.message)
