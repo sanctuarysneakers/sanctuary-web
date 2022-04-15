@@ -15,7 +15,7 @@ export default function ItemCard({ data }) {
         dispatch(setItemPricesLoading(true))
         dispatch(setItemListingsLoading(true))
 
-        let itemId = encodeURIComponent(data['sku'])
+        let itemId = data['sku'] ? encodeURIComponent(data['sku']) : data['urlKey'] 
         window.analytics.track(`browse_item_clicked`, {id: itemId, gender: data['gender']});
 
         return `/item/${itemId}/${data['gender']}` 
