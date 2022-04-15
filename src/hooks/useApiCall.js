@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { browseCall, updateItemInfo, trendingCall, under200Call, under300Call, updateItemPrices, setItemPricesLoading, updateItemListings, setItemListingsLoading } from '../redux/actions'
@@ -6,11 +6,6 @@ import { browseCall, updateItemInfo, trendingCall, under200Call, under300Call, u
 import createRequestObject from '../api/createRequest'
 import { getItemInfo, getItemPrices, getItemListings } from '../api/api' 
 import { SafePromiseAll } from '../helpers/index'
-
-// import { browseCall, updateItemInfo, updateItemPrices, updateItemListings, 
-//     setItemPricesLoading, setItemListingsLoading, trendingCall, 
-//     under200Call, under300Call } from '../redux/actions'
-
 
 export default function useAPICall(callType, params) {
     
@@ -66,11 +61,11 @@ export default function useAPICall(callType, params) {
     
             await SafePromiseAll(
                 [
-                    getItemPrices(itemInfo, size, gender, usdRate, eurRate, location, currency).then(itemRes => {
+                    getItemPrices(itemInfo, size, params.gender, location, currency).then(itemRes => {
                         dispatch(updateItemPrices(itemRes)) 
                         dispatch(setItemPricesLoading(false))
                     }) ,
-                    getItemListings(itemInfo, size, gender, usdRate, location, currency).then(listingRes => {
+                    getItemListings(itemInfo, size, params.gender, location, currency).then(listingRes => {
                         dispatch(updateItemListings(listingRes))
                         dispatch(setItemListingsLoading(false))
                     })
@@ -83,6 +78,7 @@ export default function useAPICall(callType, params) {
         }
     }
 
+    const firstUpdate = useRef(true)
     useEffect(() => {
         if (callType === 'getitem') {
             if (!firstUpdate.current)

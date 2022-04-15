@@ -77,35 +77,33 @@ export async function removeFromPortfolio(data) {
 } 
 
 
-async function getItemInfo(sku, size, gender, location, currency) {
-    try {
-        const request = createRequestObject('browse', {
-            search: sku,
-            size: size,
-            gender: gender,
-            currency: currency,
-            ship_to: location['country_code']
-        })
+export async function getItemInfo(sku, size, gender, location, currency) {
 
-        const response = await fetch(request.url, request.headers)
-        if (!response.ok) throw new Error()
+    const request = createRequestObject('browse', {
+        search: sku,
+        size: size,
+        gender: gender,
+        currency: currency,
+        ship_to: location['country_code']
+    })
 
-        let itemData = await response.json()
-        if (!itemData[0]['sku'].includes(sku) && !itemData[0]['urlKey'].includes(sku))
-            throw new Error()
-        
-        return {
-            hasPrice: true,
-            skuId: sku.replaceAll('-', ' '),
-            modelName: itemData[0]['model'],
-            price: itemData[0]['price'],
-            image: itemData[0]['image'],
-            url: itemData[0]['url'],
-            shipping: itemData[0]['shipping2']
-        }
-    } catch(error) {
-        history.replace('/item-not-supported')
+    const response = await fetch(request.url, request.headers)
+    if (!response.ok) throw new Error()
+
+    let itemData = await response.json()
+    if (!itemData[0]['sku'].includes(sku) && !itemData[0]['urlKey'].includes(sku))
+        throw new Error()
+    
+    return {
+        hasPrice: true,
+        skuId: sku.replaceAll('-', ' '),
+        modelName: itemData[0]['model'],
+        price: itemData[0]['price'],
+        image: itemData[0]['image'],
+        url: itemData[0]['url'],
+        shipping: itemData[0]['shipping2']
     }
+
 }
 
 export async function getItemPrices(item, size, gender, location, currency) {
@@ -131,9 +129,6 @@ export async function getItemPrices(item, size, gender, location, currency) {
     results = results.filter(r => r.price !== 0)
     results.sort((a, b) => a.price - b.price)
 
-    dispatch(updateItemPrices(results))
-    dispatch(setItemPricesLoading(false))
-
     return results
 }
 
@@ -155,8 +150,6 @@ export async function getItemListings(item, size, gender, location, currency) {
     ) 
 
     let results = res.flat().sort((a, b) => a.price - b.price)
-    dispatch(updateItemListings(results))
-    dispatch(setItemListingsLoading(false))
     return results
 }
 
