@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import { useDispatch } from 'react-redux'
 
 import Box from '@mui/material/Box';
@@ -14,18 +14,64 @@ export default function BrowseFilterMultiCheckbox({ options, title, updateAction
 
     const dispatch = useDispatch()
 
-    const [selected, setSelected] = useState([]);  
+    const selectedRef = useRef([]);  
     const [showMore, setShowMore] = useState(showMoreOption)
     const [checkboxes, setCheckboxes] = useState([])
 
-    const optionsToCheckboxes = (givenOptions) => {
+    const onCheckboxChange = (event) =>  {
+        let newSelected
 
-        let checkboxes = givenOptions.map(({value, label}) => (
+        if (event.target.checked && !selectedRef.current.includes(event.target.value)) {
+            newSelected = [...selectedRef.current, event.target.value]
+        }  else { 
+            newSelected = selectedRef.current.filter(e => e !== event.target.value)
+        }
+
+        selectedRef.current = newSelected
+        dispatch(updateAction(selectedRef.current)) 
+    }
+
+    const onShowMoreClick = () => { 
+        if(showMore) {
+            setShowMore(false)
+        } else {
+            setShowMore(true)
+        }
+    }
+
+    useEffect(() => {
+        let displayedOptions
+        if(showMore) {
+            //want to hide some
+            displayedOptions = options.slice(0, 5)
+        } else {
+            //want to show all
+            displayedOptions = options 
+        }
+
+        let temp = selectedRef.current 
+        selectedRef.current.forEach(selectedVal => {
+            let currentlyVisible = false
+
+            displayedOptions.forEach(option => {
+                if(option.value === selectedVal) {
+                    currentlyVisible = true
+                }
+            }) 
+
+            if(!currentlyVisible) { 
+                temp = temp.filter(e => e !== selectedVal)
+            }
+        })
+
+        selectedRef.current = temp
+
+        let checkboxes = displayedOptions.map(({value, label}) => (
             <FormControlLabel
                 className="checkboxLabel"
                 control={
                     <Checkbox 
-                        onChange={onCheckboxChange} 
+                        onChange={(event) => onCheckboxChange(event)} 
                         sx={{
                             color: "#EC3E26",
                             '&.Mui-checked': {
@@ -39,40 +85,8 @@ export default function BrowseFilterMultiCheckbox({ options, title, updateAction
         ) 
 
         setCheckboxes(checkboxes)
-    }
-
-    const onCheckboxChange = (event) =>  {
-        let newSelected
-
-        if (event.target.checked && !selected.includes(event.target.value)) {
-            newSelected = [...selected, event.target.value]
-        }  else { 
-            newSelected = selected.filter(e => e !== event.target.value)
-        }
-
-        setSelected(newSelected)
-        dispatch(updateAction(newSelected)) 
-    }
-
-    const onShowMoreClick = () => { 
-        if(showMore) {
-            setShowMore(false)
-        } else {
-            setShowMore(true)
-        }
-    }
-
-    useEffect(() => {
-        if(showMore) {
-            //want to hide some
-            optionsToCheckboxes(options.slice(0, 5))
-        } else {
-            //want to show all
-            optionsToCheckboxes(options)
-        }
     // eslint-disable-next-line
     }, [showMore])
-
 
     return (
         <Box sx={{ fontFamily: "Poppins, sans-serif" }}>
