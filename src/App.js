@@ -21,7 +21,7 @@ import PrivacyPolicy from './components/Other/privacyPolicy'
 import TermsOfUse from './components/Other/termsOfUse'
 import ContactUs from './components/Contact/contactUs'
 import LocationModal from './components/Modals/locationModal'
-import useLocationDetection from './hooks/useLocationDetection'
+import { useLocationDetection }  from './hooks/useLocationDetection'
 import CategoryFilterModal from './components/Modals/categoryFilterModal'
 
 import SignInOptions from './components/Accounts/signInOptions'

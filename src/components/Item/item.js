@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux'
 import SizeFilter from './sizeFilter'
 import SizeModal from '../Modals/sizeModal'
 import useAPICall from '../../hooks/useApiCall'
-import useLocationDetection from '../../hooks/useLocationDetection'
 import ItemPrice from './itemPrice'
 import ItemListing from './itemListing'
 import ItemLoader from './itemLoader'
@@ -20,9 +19,6 @@ export default function Item() {
     const currency = useSelector(state => state.currency)
     const { sku, gender } = useParams()
     const size = useSelector(state => state.item.size)
-
-    // //if coming directly from url, this will load user's location into redux
-    // useLocationDetection()
 
     //check if coming from (browse/carousel) or (direct link/autosuggest selection)
     const navLocation = useLocation() 

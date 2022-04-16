@@ -7,13 +7,14 @@ import { browseCall, updateItemInfo, updateItemPrices, updateItemListings,
 import createRequestObject from './createRequest'
 import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPrice, 
     klektLowestPrice, grailedListings, ebayListings, depopListings } from './scrapers'
+import { getLocation }  from '../hooks/useLocationDetection'
 
 export default function useAPICall(callType, params) {
     
     const history = useHistory()
     const dispatch = useDispatch()
     
-    const location = useSelector(state => state.location)
+    let location = useSelector(state => state.location)
     const size = useSelector(state => state.item.size)
     const currency = useSelector(state => state.currency)
 
@@ -62,6 +63,10 @@ export default function useAPICall(callType, params) {
     }
 
     async function getItem(params) {
+        if(location === null) {
+            location = await getLocation() 
+        }
+
         let itemInfo = (params.fromBrowse) ? params.fromBrowse: await getItemInfo(params.sku, params.size, params.gender)
         dispatch(updateItemInfo(itemInfo))
 
@@ -88,6 +93,7 @@ export default function useAPICall(callType, params) {
             if (!response.ok) throw new Error()
 
             let itemData = await response.json()
+
             if (!itemData[0]['sku'].includes(sku) && !itemData[0]['urlKey'].includes(sku))
                 throw new Error()
             
