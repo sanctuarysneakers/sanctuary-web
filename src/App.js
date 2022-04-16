@@ -72,9 +72,9 @@ export default function App() {
         })
     })
 
-    useEffect(() => {
-        window.analytics.page(); 
-    }, [urlLocation.pathname])
+    // useEffect(() => {
+    //     window.analytics.page(); 
+    // }, [urlLocation.pathname])
 
 
     if (loader) {

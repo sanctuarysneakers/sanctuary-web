@@ -47,9 +47,9 @@ export default function Item() {
             length={itemListings.length} />
     )
 
-    const clickHandler = () => {
-        window.analytics.track(`item_buy_new_clicked`, {sku: decodeURIComponent(sku), gender: gender, model: itemInfo.modelName});
-    }
+    // const clickHandler = () => {
+    //     window.analytics.track(`item_buy_new_clicked`, {sku: decodeURIComponent(sku), gender: gender, model: itemInfo.modelName});
+    // }
 
     /* eslint-disable jsx-a11y/anchor-is-valid */
     return (
@@ -89,7 +89,7 @@ export default function Item() {
                             {!pricesLoading && <div className='item-sneaker-price-details'>
                                 {itemPrices.length ? 
                                 
-                                <Link to={{ pathname: itemPrices[0].url }} className="hidden-link" target="_blank" rel="noopener noreferrer" onClick={clickHandler} onContextMenu={clickHandler}> 
+                                <Link to={{ pathname: itemPrices[0].url }} className="hidden-link" target="_blank" rel="noopener noreferrer"> 
                                     <div className='item-sneaker-price'>
                                         <h2>
                                             Buy New {currencySymbolMap[currency]}{itemPrices[0].price}

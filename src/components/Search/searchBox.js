@@ -43,7 +43,7 @@ export default function SearchBox() {
         let itemId = encodeURIComponent(selectedItem['sku'])
         let gender = selectedItem['single_gender']
 
-        window.analytics.track(`home_carousel_item_clicked`, {id: itemId, gender: gender});
+        // window.analytics.track(`home_carousel_item_clicked`, {id: itemId, gender: gender});
         document.location.href = `/item/${itemId}/${gender}`
     }
 
