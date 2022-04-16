@@ -40,7 +40,7 @@ export default function SearchBox() {
 		else if (size > 12 && selectedItem['single_gender'] === 'women')
 			dispatch(updateSize(12))
 
-        let itemId = encodeURIComponent(selectedItem['sku'])
+        let itemId = encodeURIComponent(selectedItem['sku'].replace(/\s/g, '-'))
         let gender = selectedItem['single_gender']
 
         window.analytics.track(`home_carousel_item_clicked`, {id: itemId, gender: gender});

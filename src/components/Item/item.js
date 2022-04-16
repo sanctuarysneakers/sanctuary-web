@@ -21,8 +21,8 @@ export default function Item() {
     const { sku, gender } = useParams()
     const size = useSelector(state => state.item.size)
 
-    //if coming directly from url, this will load user's location into redux
-    useLocationDetection()
+    // //if coming directly from url, this will load user's location into redux
+    // useLocationDetection()
 
     //check if coming from (browse/carousel) or (direct link/autosuggest selection)
     const navLocation = useLocation() 
