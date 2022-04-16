@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import SizeFilter from './sizeFilter'
 import SizeModal from '../Modals/sizeModal'
 import useAPICall from '../../hooks/useApiCall'
+import useLocationDetection from '../../hooks/useLocationDetection'
 import ItemPrice from './itemPrice'
 import ItemListing from './itemListing'
 import ItemLoader from './itemLoader'
@@ -20,10 +21,12 @@ export default function Item() {
     const { sku, gender } = useParams()
     const size = useSelector(state => state.item.size)
 
-    const location = useLocation() 
+    //if coming directly from url, this will load user's location into redux
+    useLocationDetection()
 
     //check if coming from (browse/carousel) or (direct link/autosuggest selection)
-    let passedData = location.itemInfo ? location.itemInfo : null
+    const navLocation = useLocation() 
+    let passedData = navLocation.itemInfo ? navLocation.itemInfo : null
     useAPICall('getitem', {
         sku: decodeURIComponent(sku), 
         size: size, 

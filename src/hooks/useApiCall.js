@@ -101,6 +101,7 @@ export default function useAPICall(callType, params) {
                 shipping: itemData[0]['shipping2']
             }
         } catch (e) { 
+            console.log(e)
             history.replace('/item-not-supported')
             return null
         }
