@@ -42,6 +42,7 @@ export default function useAPICall(callType, params) {
             search: query,
             currency: currency,
             maxPrice: price_limit[type],
+            size: size, 
             ship_to: location['country_code']
         }
         if (type === 'trending')
