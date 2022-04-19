@@ -95,9 +95,6 @@ export default function useAPICall(callType, params) {
 
             let itemData = await response.json()
 
-            console.log(itemData)
-
-            // temp. commented out 2nd check since itemData does not contain urlKey
             if (!itemData[0]['sku'].includes(sku) && !itemData[0]['urlKey'].includes(sku))
                 throw new Error()
             
