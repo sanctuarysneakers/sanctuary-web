@@ -1,15 +1,32 @@
 import createRequestObject from './createRequest'
 
 
-export async function stockxLowestPrice(item) {
+export async function stockxLowestPrice(item, filter) {
 	if (!item.hasPrice) return []
 
-	return [{
-		source: 'stockx',
-		price: Math.round(item.price),
-		url: new URL(item.url),
-		shippingPrice: Math.round(item.shipping)
-	}]
+	let search = item.skuId !== '' ? item.skuId : item.modelName.replace('(W)', '')
+	const request = createRequestObject('stockx', {
+		search: search, 
+		size: filter.gender === 'women' ? filter.size-1.5 : filter.size,
+		currency: filter.currency,
+		ship_to: filter.country
+	})
+
+	try {
+		const response = await fetch(request.url, request.headers)
+		if (!response.ok) return []
+
+		let itemData = await response.json()
+		
+		return [{
+			source: 'stockx',
+			price: Math.round(itemData[0]['price2']),
+			url: new URL(itemData[0]['url']),
+			shippingPrice: Math.round(itemData[0]['shipping2'])
+		}]
+	} catch (e) {
+		return []
+	}
 }
 
 
