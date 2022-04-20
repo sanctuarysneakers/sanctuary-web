@@ -11,6 +11,7 @@ import ItemListing from './itemListing'
 import ItemLoader from './itemLoader'
 import ItemNoResults from './itemNoResults'
 import Footer from '../Other/footer'
+import Socials from './socials'
 
 import { websiteLogoMapGrey, currencySymbolMap }  from '../../assets/constants'
 
@@ -110,6 +111,10 @@ export default function Item() {
                             </div>}
                         </div>
                     </div>
+
+                    {!pricesLoading && <div> 
+                        <Socials itemName={itemInfo.modelName} price={`${currencySymbolMap[currency]}${itemPrices[0].price}`} url={window.location.href} image={itemInfo.iamge}/> 
+                    </div>} 
                 </div>
             </div>
 

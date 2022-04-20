@@ -30,6 +30,7 @@
     "react-scripts": "3.4.1",
     "react-scroll": "^1.8.1",
     "react-select": "^4.1.0",
+    "react-share": "^4.4.0",
     "react-slick": "^0.28.1",
     "react-text-loop": "^2.3.0",
     "redux": "^4.0.5",
