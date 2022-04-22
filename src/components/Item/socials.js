@@ -2,9 +2,6 @@
 /* eslint-disable import/no-unresolved, import/extensions, import/no-extraneous-dependencies */
 import React from 'react';
 import {
-  FacebookShareCount,
-  PinterestShareCount,
-  RedditShareCount,
   FacebookShareButton,
   FacebookMessengerShareButton,
   FacebookMessengerIcon,
@@ -36,12 +33,6 @@ export default function Socials ({itemName, price, url, image}) {
           >
             <FacebookIcon size={32} round />
           </FacebookShareButton>
-
-          <div>
-            <FacebookShareCount url={url} className="Demo__some-network__share-count">
-              {count => count}
-            </FacebookShareCount>
-          </div>
         </div>
 
         <div className="Demo__some-network">
@@ -62,8 +53,6 @@ export default function Socials ({itemName, price, url, image}) {
           >
             <TwitterIcon size={32} round />
           </TwitterShareButton>
-
-          <div className="Demo__some-network__share-count">&nbsp;</div>
         </div>
 
         <div className="Demo__some-network">
@@ -75,8 +64,6 @@ export default function Socials ({itemName, price, url, image}) {
           >
             <WhatsappIcon size={32} round />
           </WhatsappShareButton>
-
-          <div className="Demo__some-network__share-count">&nbsp;</div>
         </div>
 
         <div className="Demo__some-network">
@@ -93,10 +80,6 @@ export default function Socials ({itemName, price, url, image}) {
           >
             <PinterestIcon size={32} round />
           </PinterestShareButton>
-
-          <div>
-            <PinterestShareCount url={url} className="Demo__some-network__share-count" />
-          </div>
         </div>
 
         <div className="Demo__some-network">
@@ -109,10 +92,6 @@ export default function Socials ({itemName, price, url, image}) {
           >
             <RedditIcon size={32} round />
           </RedditShareButton>
-
-          <div>
-            <RedditShareCount url={url} className="Demo__some-network__share-count" />
-          </div>
         </div>
 
         <div className="Demo__some-network">
