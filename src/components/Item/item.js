@@ -5,13 +5,14 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import SizeFilter from './sizeFilter'
 import SizeModal from '../Modals/sizeModal'
+import SocialsButton from './socialsButton'
+import SocialsModal from '../Modals/socialsModal'
 import useAPICall from '../../hooks/useApiCall'
 import ItemPrice from './itemPrice'
 import ItemListing from './itemListing'
 import ItemLoader from './itemLoader'
 import ItemNoResults from './itemNoResults'
 import Footer from '../Other/footer'
-import Socials from './socials'
 
 import { websiteLogoMapGrey, currencySymbolMap }  from '../../assets/constants'
 
@@ -37,6 +38,7 @@ export default function Item() {
     const pricesLoading = useSelector(state => state.item.loadingItemPrices)
     const listingsLoading = useSelector(state => state.item.loadingItemListings)
     const sizeModalVisible = useSelector(state => state.modals.sizeModalVisible)
+    const socialsModalVisible = useSelector(state => state.modals.socialsModalVisible)
 
     const priceComponents = itemPrices.map((item, index) =>
         <ItemPrice key={item.source} data={item} index={index}
@@ -108,13 +110,16 @@ export default function Item() {
                                 <SizeFilter gender={gender} />
                                 {sizeModalVisible && <SizeModal gender={gender} />}
 
+                                <SocialsButton/>
+                                {socialsModalVisible && <SocialsModal itemName={itemInfo.modelName} price={`${currencySymbolMap[currency]}${itemPrices[0].price}`} url={window.location.href} image={itemInfo.iamge}/> }
+
                             </div>}
                         </div>
                     </div>
 
-                    {!pricesLoading && <div> 
+                    {/* {!pricesLoading && <div> 
                         <Socials itemName={itemInfo.modelName} price={`${currencySymbolMap[currency]}${itemPrices[0].price}`} url={window.location.href} image={itemInfo.iamge}/> 
-                    </div>} 
+                    </div>}  */}
                 </div>
             </div>
 
