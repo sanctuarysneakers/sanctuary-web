@@ -86,7 +86,11 @@ export default function SocialsModal ({itemName, price, url, image}) {
                         </div>
 
                         <div>
-                            <LinkedinShareButton url={url}>
+                            <LinkedinShareButton 
+                                url={url}
+                                summary={title}
+                                source="Sanctuary"
+                            >
                             <LinkedinIcon size={56} round />
                             </LinkedinShareButton>
                         </div>
