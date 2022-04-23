@@ -84,7 +84,7 @@ export default function Item() {
                             </div>}
 
                             <div className='item-sneaker-model'>
-                                <h1> {itemInfo.modelName} <SocialsButton/> </h1>
+                                <h1> {itemInfo.modelName} {itemInfo.modelName && <SocialsButton/>}</h1>
                             </div>
 
                             {pricesLoading && <ItemLoader version={'info'} />}
