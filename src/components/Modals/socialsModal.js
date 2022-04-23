@@ -60,7 +60,7 @@ export default function SocialsModal ({itemName, price, url, image}) {
                         <div>
                             <FacebookMessengerShareButton
                             url={url}
-                            appId="521270401588372"
+                            appId="780257722844724"
                             >
                             <FacebookMessengerIcon size={56} round />
                             </FacebookMessengerShareButton>
