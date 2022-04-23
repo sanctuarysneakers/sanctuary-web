@@ -34,27 +34,27 @@ export default function SocialsModal ({itemName, price, url, image}) {
 
     return (
 
-        <div className='size-modal'>
-            <div className='size-modal-content' ref={wrapperRef}>
-                <div className='size-modal-padding'>
-                    <div className='size-modal-close'>
+        <div className='socials-modal'>
+            <div className='socials-modal-content' ref={wrapperRef}>
+                <div className='socials-modal-padding'>
+                    <div className='socials-modal-close'>
 						<button onClick={() => dispatch(hideSocialsModal())}>
 							<Close />
 						</button>
 					</div>
 
-                    <div className='size-modal-text'>
-                        <h1> Share this shoe</h1>
+                    <div className='socials-modal-text'>
+                        <h1> Share This Shoe</h1>
                     </div>
 
-                    <div className='size-modal-buttons'>
+                    <div className='socials-modal-buttons'>
                         <div className="Demo__some-network">
                             <FacebookShareButton
                             url={url}
                             quote={title}
                             className="Demo__some-network__share-button"
                             >
-                            <FacebookIcon size={32} round />
+                            <FacebookIcon size={56} round />
                             </FacebookShareButton>
                         </div>
 
@@ -64,7 +64,7 @@ export default function SocialsModal ({itemName, price, url, image}) {
                             appId="521270401588372"
                             className="Demo__some-network__share-button"
                             >
-                            <FacebookMessengerIcon size={32} round />
+                            <FacebookMessengerIcon size={56} round />
                             </FacebookMessengerShareButton>
                         </div>
 
@@ -74,7 +74,7 @@ export default function SocialsModal ({itemName, price, url, image}) {
                             title={title}
                             className="Demo__some-network__share-button"
                             >
-                            <TwitterIcon size={32} round />
+                            <TwitterIcon size={56} round />
                             </TwitterShareButton>
                         </div>
 
@@ -85,13 +85,13 @@ export default function SocialsModal ({itemName, price, url, image}) {
                             separator=":: "
                             className="Demo__some-network__share-button"
                             >
-                            <WhatsappIcon size={32} round />
+                            <WhatsappIcon size={56} round />
                             </WhatsappShareButton>
                         </div>
 
                         <div className="Demo__some-network">
                             <LinkedinShareButton url={url} className="Demo__some-network__share-button">
-                            <LinkedinIcon size={32} round />
+                            <LinkedinIcon size={56} round />
                             </LinkedinShareButton>
                         </div>
 
@@ -101,7 +101,7 @@ export default function SocialsModal ({itemName, price, url, image}) {
                             media={image}
                             className="Demo__some-network__share-button"
                             >
-                            <PinterestIcon size={32} round />
+                            <PinterestIcon size={56} round />
                             </PinterestShareButton>
                         </div>
 
@@ -113,7 +113,7 @@ export default function SocialsModal ({itemName, price, url, image}) {
                             windowHeight={460}
                             className="Demo__some-network__share-button"
                             >
-                            <RedditIcon size={32} round />
+                            <RedditIcon size={56} round />
                             </RedditShareButton>
                         </div>
 
@@ -124,7 +124,7 @@ export default function SocialsModal ({itemName, price, url, image}) {
                             body="body"
                             className="Demo__some-network__share-button"
                             >
-                            <EmailIcon size={32} round />
+                            <EmailIcon size={56} round />
                             </EmailShareButton>
                         </div>
                     </div>

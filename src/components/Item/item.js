@@ -84,7 +84,7 @@ export default function Item() {
                             </div>}
 
                             <div className='item-sneaker-model'>
-                                <h1> {itemInfo.modelName} </h1>
+                                <h1> {itemInfo.modelName} <SocialsButton/> </h1>
                             </div>
 
                             {pricesLoading && <ItemLoader version={'info'} />}
@@ -110,7 +110,6 @@ export default function Item() {
                                 <SizeFilter gender={gender} />
                                 {sizeModalVisible && <SizeModal gender={gender} />}
 
-                                <SocialsButton/>
                                 {socialsModalVisible && <SocialsModal itemName={itemInfo.modelName} price={`${currencySymbolMap[currency]}${itemPrices[0].price}`} url={window.location.href} image={itemInfo.iamge}/> }
 
                             </div>}
