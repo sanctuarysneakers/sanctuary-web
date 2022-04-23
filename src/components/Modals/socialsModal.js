@@ -48,81 +48,74 @@ export default function SocialsModal ({itemName, price, url, image}) {
                     </div>
 
                     <div className='socials-modal-buttons'>
-                        <div className="Demo__some-network">
+                        <div>
                             <FacebookShareButton
                             url={url}
                             quote={title}
-                            className="Demo__some-network__share-button"
                             >
                             <FacebookIcon size={56} round />
                             </FacebookShareButton>
                         </div>
 
-                        <div className="Demo__some-network">
+                        <div>
                             <FacebookMessengerShareButton
                             url={url}
                             appId="521270401588372"
-                            className="Demo__some-network__share-button"
                             >
                             <FacebookMessengerIcon size={56} round />
                             </FacebookMessengerShareButton>
                         </div>
 
-                        <div className="Demo__some-network">
+                        <div>
                             <TwitterShareButton
                             url={url}
                             title={title}
-                            className="Demo__some-network__share-button"
                             >
                             <TwitterIcon size={56} round />
                             </TwitterShareButton>
                         </div>
 
-                        <div className="Demo__some-network">
+                        <div>
                             <WhatsappShareButton
                             url={url}
                             title={title}
                             separator=":: "
-                            className="Demo__some-network__share-button"
                             >
                             <WhatsappIcon size={56} round />
                             </WhatsappShareButton>
                         </div>
 
-                        <div className="Demo__some-network">
-                            <LinkedinShareButton url={url} className="Demo__some-network__share-button">
+                        <div>
+                            <LinkedinShareButton url={url}>
                             <LinkedinIcon size={56} round />
                             </LinkedinShareButton>
                         </div>
 
-                        <div className="Demo__some-network">
+                        <div>
                             <PinterestShareButton
                             url={url}
                             media={image}
-                            className="Demo__some-network__share-button"
                             >
                             <PinterestIcon size={56} round />
                             </PinterestShareButton>
                         </div>
 
-                        <div className="Demo__some-network">
+                        <div>
                             <RedditShareButton
                             url={url}
                             title={title}
                             windowWidth={660}
                             windowHeight={460}
-                            className="Demo__some-network__share-button"
                             >
                             <RedditIcon size={56} round />
                             </RedditShareButton>
                         </div>
 
-                        <div className="Demo__some-network">
+                        <div>
                             <EmailShareButton
                             url={url}
                             subject={title}
                             body="body"
-                            className="Demo__some-network__share-button"
                             >
                             <EmailIcon size={56} round />
                             </EmailShareButton>
