@@ -1,5 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet';
+import { HelmetProvider } from 'react-helmet-async'
 import { useParams, useLocation } from 'react-router'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
@@ -56,9 +57,14 @@ export default function Item() {
     /* eslint-disable jsx-a11y/anchor-is-valid */
     return (
         <div className='item'>
-            <Helmet>
-                {itemInfo.modelName && <title>{`Sanctuary: ${itemInfo.modelName}`}</title>}
-            </Helmet>
+            <HelmetProvider>
+                <Helmet>
+                    {itemInfo.modelName && <title>{`Sanctuary: ${itemInfo.modelName}`}</title>}
+                    <meta property="og:title" content={itemInfo.modelName} />
+                    <meta property="og:image" content={itemInfo.image} />
+                </Helmet>
+            </HelmetProvider>
+            
             <div className='item-sneaker'>
                 <div className='item-sneaker-content'>
 
@@ -115,10 +121,6 @@ export default function Item() {
                             </div>}
                         </div>
                     </div>
-
-                    {/* {!pricesLoading && <div> 
-                        <Socials itemName={itemInfo.modelName} price={`${currencySymbolMap[currency]}${itemPrices[0].price}`} url={window.location.href} image={itemInfo.iamge}/> 
-                    </div>}  */}
                 </div>
             </div>
 
