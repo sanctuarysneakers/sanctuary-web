@@ -65,6 +65,24 @@
                 color: #afafaf;
             }
         }
+
+        .forgot-password {
+            max-width: 380px;
+            margin: 0px auto;
+            padding-top: 10px;
+
+            .forgot-password-text {
+                font-family: 'Poppins', sans-serif;
+                font-size: 14px;
+                font-weight: 400;
+                color: #3478F6;
+                text-decoration: none;
+            }
+
+            .forgot-password-text:hover {
+                text-decoration: underline;
+            }
+        }
     }
 
     .email-form-bottom {

@@ -26,7 +26,7 @@ export default function SignInEmail() {
             .catch(e => {
                 setErrorMessage(e.message)
             }
-            );
+            )
     }
 
     return (
@@ -63,6 +63,11 @@ export default function SignInEmail() {
                         />
                     </div>
 
+                    <div className='forgot-password'>
+                        <Link className='forgot-password-text' to="/sign-in-forgot-password">
+                            Forgot Password?
+                        </Link>
+                    </div>
                 </div>
 
                 <div className='email-form-bottom'>

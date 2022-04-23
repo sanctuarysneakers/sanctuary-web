@@ -32,6 +32,7 @@ import Profile from './components/Accounts/profile'
 import EditProfileName from './components/Accounts/editProfileName'
 import EditProfileEmail from './components/Accounts/editProfileEmail'
 import EditProfilePassword from './components/Accounts/editProfilePassword'
+import ForgotPassword from './components/Accounts/forgotPassword'
 
 import HowItWorks from './components/HowItWorks/howItWorks'
 
@@ -97,6 +98,7 @@ export default function App() {
                 <ProtectedRoute path="/sign-in-email" component={SignInEmail} isEnabled={!firebase.auth().currentUser} />
                 <ProtectedRoute path="/create-account" component={CreateAccountOptions} isEnabled={!firebase.auth().currentUser} />
                 <ProtectedRoute path="/create-account-email" component={CreateAccountEmail} isEnabled={!firebase.auth().currentUser} />
+                <ProtectedRoute path="/sign-in-forgot-password" component={ForgotPassword} isEnabled={!firebase.auth().currentUser} />
 
                 {/* redirect user to home page if not signed in  */}
                 <ProtectedRoute path="/profile" component={Profile} isEnabled={firebase.auth().currentUser} />
