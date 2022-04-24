@@ -28,23 +28,18 @@ export default function SearchBox() {
     const [options, setOptions] = useState([])
 
     const dispatch = useDispatch()
-    const size = useSelector(state => state.item.size)
+    const size = useSelector(state => state.size)
 
     const redirectForSearch = (val) => {
         document.location.href = `/browse/${val}`
     }
 
     const redirectForSelection = (selectedItem) => {
-		if (size < 7 && selectedItem['single_gender'] === 'men')
-			dispatch(updateSize(7))
-		else if (size > 12 && selectedItem['single_gender'] === 'women')
-			dispatch(updateSize(12))
-
-        let itemId = encodeURIComponent(selectedItem['sku'].replace(/\s/g, '-'))
+        let itemKey = encodeURIComponent(selectedItem['sku'].replaceAll(' ', '-'))
         let gender = selectedItem['single_gender']
 
-        window.analytics.track(`home_carousel_item_clicked`, {id: itemId, gender: gender});
-        document.location.href = `/item/${itemId}/${gender}`
+        window.analytics.track(`home_carousel_item_clicked`, {id: itemKey, gender: gender});
+        document.location.href = `/item/${itemKey}/${gender}`
     }
 
     const handleLetterInput = async (val) => {     

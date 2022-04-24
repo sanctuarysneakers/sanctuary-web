@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 
-//individual reducer 
+//individual reducers
+import sizeReducer from './sizeReducer'
 import currencyReducer from './currencyReducer'
 import recordSplashHeightReducer from './recordSplashHeightReducer'
 import userReducer from './userReducer'
@@ -13,8 +14,8 @@ import modalReducer from './modals/modalReducer'
 
 
 const globalReducer = combineReducers({
-
-    currency : currencyReducer,
+    size: sizeReducer,
+    currency: currencyReducer,
     location: locationReducer,
     splashHeight: recordSplashHeightReducer,
     user: userReducer,     
