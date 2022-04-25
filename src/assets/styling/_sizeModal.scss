@@ -12,10 +12,10 @@
     animation: fade-in-out 0.3s;
 
     .size-modal-content {
-        width: 550px;
+        width: 500px;
         height: 500px;
         background: white;
-        border-radius: 23px;
+        border-radius: 20px;
     }
 
     .size-modal-padding {
@@ -44,7 +44,7 @@
         .size-modal-text {
             width: 400px;
             margin: auto;
-            padding-top: 20px;
+            padding-top: 5px;
 
             h1 {
                 font-size: 29.5px;
@@ -89,13 +89,13 @@
     .size-modal {
         .size-modal-content {
             width: 335px;
-            height: 500px;
-            border-radius: 22px;
+            height: 475px;
+            border-radius: 20px;
 
             .size-modal-padding {
                 .size-modal-text {
                     width: 280px;
-                    padding-top: 35px;
+                    padding-top: 0px;
 
                     h1 {
                         font-size: 26px;
