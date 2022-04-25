@@ -90,13 +90,20 @@ export default function useAPICall(callType, params) {
             if (!response.ok) throw new Error()
 
             let itemData = await response.json()
-
-            if (!itemData[0]['sku'].includes(itemKey) && 
-                !itemData[0]['urlKey'].includes(itemKey))
+            
+            // handles case where sku contains multiple skus separated by '/'
+            let skus = itemData[0]['sku'].split('/')
+            let containsSku = false
+            for (var i=0; i < skus.length; i++) {
+                skus[i] = skus[i].replaceAll('-', ' ')
+                if (skus[i].includes(itemKey))
+                    containsSku = true
+            }
+            if (!containsSku && !itemData[0]['urlKey'].includes(itemKey))
                 throw new Error()
             
             return {
-                sku: itemData[0]['sku'].replaceAll('-', ' '),
+                sku: skus.length == 1 ? skus[0] : "",
                 modelName: itemData[0]['model'],
                 image: itemData[0]['image'],
                 url: itemData[0]['url']
