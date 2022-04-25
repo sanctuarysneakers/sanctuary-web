@@ -1,42 +1,32 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateSize, updateItemInfo, setItemPricesLoading, setItemListingsLoading  } from '../../redux/actions'
+import { updateItemInfo, setItemPricesLoading, setItemListingsLoading  } from '../../redux/actions'
 import { currencySymbolMap }  from '../../assets/constants'
 
 export default function ItemCard({ data }) {
 
     const dispatch = useDispatch()
     const currency = useSelector(state => state.currency)
-    const size = useSelector(state => state.item.size)
 
     const generateLink = () => {
         dispatch(updateItemInfo({}))
         dispatch(setItemPricesLoading(true))
         dispatch(setItemListingsLoading(true))
 
-        let itemId = data['sku'] ? encodeURIComponent(data['sku']) : data['urlKey'] 
-        window.analytics.track(`browse_item_clicked`, {id: itemId, gender: data['gender']});
+        let itemKey = data.sku ? encodeURIComponent(data.sku) : data.urlKey
+        window.analytics.track(`browse_item_clicked`, {id: itemKey, gender: data.gender})
 
-        return `/item/${itemId}/${data['gender']}` 
+        return `/item/${itemKey}/${data.gender}` 
     }
 
     const getNavData = () => {
-        if (size < 7 && data['gender'] === 'men')
-			dispatch(updateSize(7))
-		else if (size > 12 && data['gender'] === 'women')
-			dispatch(updateSize(12))
-        
         let itemInfo = {
-            hasPrice: true,
-            skuId: data.sku.replaceAll('-', ' '),
+            sku: data.sku.replaceAll('-', ' '),
             modelName: data.model,
-            price: data.price,
             image: data.image,
             url: data.url,
-            shipping: data.shipping2
         }
-
         return itemInfo
     }
 

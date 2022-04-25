@@ -1,50 +1,30 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { updateSize } from '../../redux/actions'
-import Autocomplete from '@mui/material/Autocomplete';
-import Box from '@mui/material/Box';
-import Popper from '@mui/material/Popper';
-import { styled } from "@mui/material/styles";
-import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete'
+import Box from '@mui/material/Box'
+import Popper from '@mui/material/Popper'
+import { styled } from "@mui/material/styles"
+import TextField from '@mui/material/TextField'
 import createRequestObject from '../../hooks/createRequest'
 import { ReactComponent as Search } from '../../assets/images/Search.svg'
 import { ReactComponent as Clear } from '../../assets/images/Clear.svg'
-
-const StyledAutocomplete = styled(Autocomplete)({
-    "& .MuiAutocomplete-inputRoot": {
-      color: "black",
-      fontSize: 16,
-      fontWeight: 400,
-      fontFamily: 'Poppins',
-      "& .MuiOutlinedInput-notchedOutline": {
-        border: "none" 
-      }
-    },
-});
 
 export default function SearchBox() {
 
     const [input, setInput] = useState('')
     const [options, setOptions] = useState([])
 
-    const dispatch = useDispatch()
-    const size = useSelector(state => state.item.size)
-
+    // when user doesn't select an autosuggest option
     const redirectForSearch = (val) => {
         document.location.href = `/browse/${val}`
     }
 
+    // when user selects an autosuggest option
     const redirectForSelection = (selectedItem) => {
-		if (size < 7 && selectedItem['single_gender'] === 'men')
-			dispatch(updateSize(7))
-		else if (size > 12 && selectedItem['single_gender'] === 'women')
-			dispatch(updateSize(12))
-
-        let itemId = encodeURIComponent(selectedItem['sku'].replace(/\s/g, '-'))
+        let itemKey = encodeURIComponent(selectedItem['sku'])
         let gender = selectedItem['single_gender']
 
-        window.analytics.track(`home_carousel_item_clicked`, {id: itemId, gender: gender});
-        document.location.href = `/item/${itemId}/${gender}`
+        window.analytics.track(`home_carousel_item_clicked`, {id: itemKey, gender: gender});
+        document.location.href = `/item/${itemKey}/${gender}`
     }
 
     const handleLetterInput = async (val) => {     
@@ -139,3 +119,15 @@ export default function SearchBox() {
         </div>
     )
 }
+
+const StyledAutocomplete = styled(Autocomplete)({
+    "& .MuiAutocomplete-inputRoot": {
+      color: "black",
+      fontSize: 16,
+      fontWeight: 400,
+      fontFamily: 'Poppins',
+      "& .MuiOutlinedInput-notchedOutline": {
+        border: "none" 
+      }
+    },
+});

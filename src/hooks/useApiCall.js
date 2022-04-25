@@ -15,7 +15,7 @@ export default function useAPICall(callType, params) {
     const dispatch = useDispatch()
     
     let location = useSelector(state => state.location)
-    const size = useSelector(state => state.item.size)
+    const size = useSelector(state => state.size)
     const currency = useSelector(state => state.currency)
 
     function SafePromiseAll(promises, def = null) {
@@ -64,11 +64,10 @@ export default function useAPICall(callType, params) {
     }
 
     async function getItem(params) {
-        if(location === null) {
+        if (location === null)
             location = await getLocation() 
-        }
 
-        let itemInfo = (params.fromBrowse) ? params.fromBrowse: await getItemInfo(params.sku, params.size, params.gender)
+        let itemInfo = params.fromBrowse ? params.fromBrowse : await getItemInfo(params.itemKey, params.gender)
         dispatch(updateItemInfo(itemInfo))
 
         await SafePromiseAll(
@@ -80,33 +79,34 @@ export default function useAPICall(callType, params) {
         )
     }
 
-    async function getItemInfo(sku, size, gender) {
+    async function getItemInfo(itemKey, gender) {
         try {
-            const request = createRequestObject('stockx', {
-                search: sku,
-                size: size,
-                gender: gender,
-                currency: currency,
-                ship_to: location['country_code']
+            const request = createRequestObject('browse', {
+                search: itemKey,
+                gender: gender
             })
 
             const response = await fetch(request.url, request.headers)
             if (!response.ok) throw new Error()
 
             let itemData = await response.json()
-
-            // temp. commented out 2nd check since itemData does not contain urlKey
-            if (!itemData[0]['sku'].includes(sku) /*&& !itemData[0]['urlKey'].includes(sku)*/ )
+            
+            // handles case where sku contains multiple skus separated by '/'
+            let skus = itemData[0]['sku'].split('/')
+            let containsSku = false
+            for (var i=0; i < skus.length; i++) {
+                skus[i] = skus[i].replaceAll('-', ' ')
+                if (skus[i].includes(itemKey))
+                    containsSku = true
+            }
+            if (!containsSku && !itemData[0]['urlKey'].includes(itemKey))
                 throw new Error()
             
             return {
-                hasPrice: true,
-                skuId: sku.replaceAll('-', ' '),
+                sku: skus.length == 1 ? skus[0] : "",
                 modelName: itemData[0]['model'],
-                price: itemData[0]['price2'],
                 image: itemData[0]['image'],
-                url: itemData[0]['url'],
-                shipping: itemData[0]['shipping2']
+                url: itemData[0]['url']
             }
         } catch (e) { 
             console.log(e)
@@ -126,7 +126,7 @@ export default function useAPICall(callType, params) {
       
         const res = await SafePromiseAll(
             [
-                stockxLowestPrice(item),
+                stockxLowestPrice(item, filter),
                 ebayLowestPrice(item, filter),
                 flightclubLowestPrice(item, filter),
                 goatLowestPrice(item, filter),
@@ -167,18 +167,12 @@ export default function useAPICall(callType, params) {
         return results
     }
 
-    const firstUpdate = useRef(true)
     useEffect(() => {
         if (callType === 'getitem') {
-            if (!firstUpdate.current)
-                params.fromBrowse = null
             getItem(params)
         } else {
             browse(callType, params.query)
         }
-
-        if (firstUpdate.current)
-            firstUpdate.current = false
     }, [currency, size])
 
 }
