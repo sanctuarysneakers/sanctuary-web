@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { browseCall, updateItemInfo, updateItemPrices, updateItemListings, 
@@ -103,7 +103,7 @@ export default function useAPICall(callType, params) {
                 throw new Error()
             
             return {
-                sku: skus.length == 1 ? skus[0] : "",
+                sku: skus.length === 1 ? skus[0] : "",
                 modelName: itemData[0]['model'],
                 image: itemData[0]['image'],
                 url: itemData[0]['url']
@@ -172,6 +172,7 @@ export default function useAPICall(callType, params) {
         } else {
             browse(callType, params.query)
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currency, size])
 
 }

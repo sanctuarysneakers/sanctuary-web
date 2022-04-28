@@ -28,7 +28,7 @@ export default function Catalog({ search_query }) {
         const response = await fetch(request.url, request.headers)
         let results = await response.json()
 
-        if (results != null) {
+        if (results !== null) {
             updateItems(items.concat(results))
             updatePage(page + 1)
 
