@@ -22,7 +22,7 @@ export default function Item() {
     const navLocation = useLocation()
     let passedData = navLocation.itemInfo ? navLocation.itemInfo : null
     useAPICall('getitem', {
-        itemKey: decodeURIComponent(itemKey), 
+        itemKey: decodeURIComponent(itemKey.replaceAll('-', ' ')), 
         size: size, 
         gender: gender, 
         fromBrowse: passedData

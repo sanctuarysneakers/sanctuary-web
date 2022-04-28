@@ -109,7 +109,6 @@ export default function useAPICall(callType, params) {
                 url: itemData[0]['url']
             }
         } catch (e) { 
-            console.log(e)
             history.replace('/item-not-supported')
             return null
         }
