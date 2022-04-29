@@ -31,8 +31,15 @@
         }
     }
 
+    .email-form-success {
+        font-size: 14px;
+        font-weight: 300;
+        color: black;
+        max-width: 380px;
+        margin: 0px auto;
+    }
+
     .email-form-error {
-        // text-align: center;
         font-size: 14px;
         font-weight: 300;
         color: red;

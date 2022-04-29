@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
 import firebase from '../../services/firebase.js'
 import Footer from '../Other/footer'
 import sanctuary from "../../assets/images/logos/sanctuary-bird-black.png"
 
 export default function SignInEmail() {
     
-    const history = useHistory()
     const [email, setEmail] = useState('')
+    const [successMessage, setSuccessMessage] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
 
     const resetPassword = () => {
@@ -16,7 +15,8 @@ export default function SignInEmail() {
         } else {
             firebase.auth().sendPasswordResetEmail(email)
                 .then(() => {
-                    history.push("/sign-in-email")
+                    setSuccessMessage('Thank You! We\'ve sent you an email with further instructions to reset your password.')
+                    setEmail('')
                 })
                 .catch((error) => {
                     setErrorMessage(error)
@@ -33,6 +33,10 @@ export default function SignInEmail() {
                     <p> Enter your email address </p>
                     <p> to reset your password. </p>
                 </div>
+
+                {successMessage && <p className='email-form-success'>
+                    {successMessage}
+                </p>}
 
                 {errorMessage && <p className='email-form-error'>
                     {errorMessage}
