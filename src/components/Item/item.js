@@ -14,20 +14,18 @@ import ItemListing from './itemListing'
 import ItemLoader from './itemLoader'
 import ItemNoResults from './itemNoResults'
 import Footer from '../Other/footer'
-
 import { websiteLogoMapGrey, currencySymbolMap }  from '../../assets/constants'
 
 export default function Item() {
 
+    const { itemKey, gender } = useParams()
     const currency = useSelector(state => state.currency)
-    const { sku, gender } = useParams()
-    const size = useSelector(state => state.item.size)
+    const size = useSelector(state => state.size)
 
-    //check if coming from (browse/carousel) or (direct link/autosuggest selection)
-    const navLocation = useLocation() 
+    const navLocation = useLocation()
     let passedData = navLocation.itemInfo ? navLocation.itemInfo : null
     useAPICall('getitem', {
-        sku: decodeURIComponent(sku), 
+        itemKey: decodeURIComponent(itemKey.replaceAll('-', ' ')), 
         size: size, 
         gender: gender, 
         fromBrowse: passedData
@@ -51,7 +49,7 @@ export default function Item() {
     )
 
     const clickHandler = () => {
-        window.analytics.track(`item_buy_new_clicked`, {sku: decodeURIComponent(sku), gender: gender, model: itemInfo.modelName});
+        window.analytics.track(`item_buy_new_clicked`, {sku: decodeURIComponent(itemKey), gender: gender, model: itemInfo.modelName});
     }
 
     /* eslint-disable jsx-a11y/anchor-is-valid */
@@ -84,9 +82,7 @@ export default function Item() {
                                     />
                                 </div> 
                                 : 
-                                <div className='item-sneaker-source-none'>
-                                    <p> --- </p>
-                                </div>} 
+                                <div className='item-sneaker-source-none'></div>}
                             </div>}
 
                             <div className='item-sneaker-model'>
@@ -108,7 +104,7 @@ export default function Item() {
                                 <a>
                                     <div className='item-sneaker-price none'>
                                         <h2>
-                                            Buy New - No Results
+                                            No Results
                                         </h2>
                                     </div>
                                 </a>}

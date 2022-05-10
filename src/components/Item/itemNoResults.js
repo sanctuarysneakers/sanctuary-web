@@ -5,7 +5,7 @@ export default function ItemNoResults({ version }) {
     return (
         <div className='item-no-results'>
             <div className='item-no-results-content'>
-                {(version === 'prices') ? <p> New - No Results </p> : <p> Used - No Results </p>}
+                {(version === 'prices') ? <p> No Results </p> : <p> No Results </p>}
             </div>
         </div>
     )
