@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { browseCall, updateItemInfo, updateItemPrices, updateItemListings, 
@@ -7,14 +7,15 @@ import { browseCall, updateItemInfo, updateItemPrices, updateItemListings,
 import createRequestObject from './createRequest'
 import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPrice, 
     klektLowestPrice, grailedListings, ebayListings, depopListings } from './scrapers'
+import { getLocation }  from '../hooks/useLocationDetection'
 
 export default function useAPICall(callType, params) {
     
     const history = useHistory()
     const dispatch = useDispatch()
     
-    const location = useSelector(state => state.location)
-    const size = useSelector(state => state.item.size)
+    let location = useSelector(state => state.location)
+    const size = useSelector(state => state.size)
     const currency = useSelector(state => state.currency)
 
     //browse filters
@@ -49,6 +50,7 @@ export default function useAPICall(callType, params) {
             currency, 
             search: searchTerm,
             maxPrice: price_limit[type],
+            size: size, 
             ship_to: location['country_code']
         }
 
@@ -84,7 +86,10 @@ export default function useAPICall(callType, params) {
     }
 
     async function getItem(params) {
-        let itemInfo = (params.fromBrowse) ? params.fromBrowse: await getItemInfo(params.sku, params.size, params.gender)
+        if (location === null)
+            location = await getLocation() 
+
+        let itemInfo = params.fromBrowse ? params.fromBrowse : await getItemInfo(params.itemKey, params.gender)
         dispatch(updateItemInfo(itemInfo))
 
         await SafePromiseAll(
@@ -96,31 +101,34 @@ export default function useAPICall(callType, params) {
         )
     }
 
-    async function getItemInfo(sku, size, gender) {
+    async function getItemInfo(itemKey, gender) {
         try {
             const request = createRequestObject('browse', {
-                search: sku,
-                size: size,
-                gender: gender,
-                currency: currency,
-                ship_to: location['country_code']
+                search: itemKey,
+                gender: gender
             })
 
             const response = await fetch(request.url, request.headers)
             if (!response.ok) throw new Error()
 
             let itemData = await response.json()
-            if (!itemData[0]['sku'].includes(sku) && !itemData[0]['urlKey'].includes(sku))
+            
+            // handles case where sku contains multiple skus separated by '/'
+            let skus = itemData[0]['sku'].split('/')
+            let containsSku = false
+            for (var i=0; i < skus.length; i++) {
+                skus[i] = skus[i].replaceAll('-', ' ')
+                if (skus[i].includes(itemKey))
+                    containsSku = true
+            }
+            if (!containsSku && !itemData[0]['urlKey'].includes(itemKey))
                 throw new Error()
             
             return {
-                hasPrice: true,
-                skuId: sku.replaceAll('-', ' '),
+                sku: skus.length === 1 ? skus[0] : "",
                 modelName: itemData[0]['model'],
-                price: itemData[0]['price'],
                 image: itemData[0]['image'],
-                url: itemData[0]['url'],
-                shipping: itemData[0]['shipping2']
+                url: itemData[0]['url']
             }
         } catch (e) { 
             history.replace('/item-not-supported')
@@ -139,7 +147,7 @@ export default function useAPICall(callType, params) {
       
         const res = await SafePromiseAll(
             [
-                stockxLowestPrice(item),
+                stockxLowestPrice(item, filter),
                 ebayLowestPrice(item, filter),
                 flightclubLowestPrice(item, filter),
                 goatLowestPrice(item, filter),
@@ -180,11 +188,8 @@ export default function useAPICall(callType, params) {
         return results
     }
 
-    const firstUpdate = useRef(true)
     useEffect(() => {
         if (callType === 'getitem') {
-            if (!firstUpdate.current)
-                params.fromBrowse = null
             getItem(params)
         } else {
             browse(callType, params.query)

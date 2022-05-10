@@ -31,8 +31,15 @@
         }
     }
 
+    .email-form-success {
+        font-size: 14px;
+        font-weight: 300;
+        color: black;
+        max-width: 380px;
+        margin: 0px auto;
+    }
+
     .email-form-error {
-        // text-align: center;
         font-size: 14px;
         font-weight: 300;
         color: red;
@@ -63,6 +70,24 @@
 
             ::placeholder {
                 color: #afafaf;
+            }
+        }
+
+        .forgot-password {
+            max-width: 380px;
+            margin: 0px auto;
+            padding-top: 10px;
+
+            .forgot-password-text {
+                font-family: 'Poppins', sans-serif;
+                font-size: 14px;
+                font-weight: 400;
+                color: #3478F6;
+                text-decoration: none;
+            }
+
+            .forgot-password-text:hover {
+                text-decoration: underline;
             }
         }
     }

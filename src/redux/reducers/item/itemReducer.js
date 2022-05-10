@@ -45,17 +45,7 @@ const loadingItemPricesReducer = (state=true, action) => {
     }
 }
 
-const sizeReducer = (state=10, action) => {
-    switch(action.type) {
-        case 'UPDATE_SIZE':
-            return action.payload
-        default:
-            return state
-    }
-}
-
 const item = combineReducers({
-    size: sizeReducer, 
     itemInfo: itemInfoReducer,
     itemPrices: itemPricesReducer,
     itemListings: itemListingsReducer,

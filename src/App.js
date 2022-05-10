@@ -31,6 +31,7 @@ import Profile from './components/Accounts/profile'
 import EditProfileName from './components/Accounts/editProfileName'
 import EditProfileEmail from './components/Accounts/editProfileEmail'
 import EditProfilePassword from './components/Accounts/editProfilePassword'
+import ForgotPassword from './components/Accounts/forgotPassword'
 
 import HowItWorks from './components/HowItWorks/howItWorks'
 
@@ -88,14 +89,15 @@ export default function App() {
                 <Switch>
                 <Route exact path="/" component={Home} />
                 <Route path="/home" component={Home} />
-                <Route path="/browse/:searchTerm?" component={Browse} />
-                <Route path="/item/:sku/:gender" component={Item} />
+                <Route path="/browse/:query?" component={Browse} />
+                <Route path="/item/:itemKey/:gender" component={Item} />
 
                 {/* redirect user to home page if already signed in  */}
                 <ProtectedRoute path="/sign-in" component={SignInOptions} isEnabled={!firebase.auth().currentUser} />
                 <ProtectedRoute path="/sign-in-email" component={SignInEmail} isEnabled={!firebase.auth().currentUser} />
                 <ProtectedRoute path="/create-account" component={CreateAccountOptions} isEnabled={!firebase.auth().currentUser} />
                 <ProtectedRoute path="/create-account-email" component={CreateAccountEmail} isEnabled={!firebase.auth().currentUser} />
+                <ProtectedRoute path="/sign-in-forgot-password" component={ForgotPassword} isEnabled={!firebase.auth().currentUser} />
 
                 {/* redirect user to home page if not signed in  */}
                 <ProtectedRoute path="/profile" component={Profile} isEnabled={firebase.auth().currentUser} />
