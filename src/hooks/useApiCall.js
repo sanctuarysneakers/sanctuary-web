@@ -194,9 +194,6 @@ export default function useAPICall(callType, params) {
         } else {
             browse(callType, params.query)
         }
-
-        if (firstUpdate.current)
-            firstUpdate.current = false
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currency, size, sort, brand, priceRanges, sizeTypes, releaseYears])
 
