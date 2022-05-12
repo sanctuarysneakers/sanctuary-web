@@ -215,6 +215,18 @@ export const hideCurrencyModal = () => {
     }
 }
 
+export const showSocialsModal = () => {
+    return {
+        type: 'SHOW_SOCIALS_MODAL'
+    }
+}
+
+export const hideSocialsModal = () => {
+    return {
+        type: 'HIDE_SOCIALS_MODAL'
+    }
+}
+
 // Search Bar visible/disable per page
 
 export const showHomeSeach = () => {
