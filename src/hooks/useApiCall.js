@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { browseCall, updateItemInfo, updateItemPrices, updateItemListings, 
-    setItemPricesLoading, setItemListingsLoading, trendingCall, 
+    updateRelatedItems, setRelatedItemsLoading, setItemPricesLoading, setItemListingsLoading, trendingCall, 
     under200Call, under300Call } from '../redux/actions'
 import createRequestObject from './createRequest'
 import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPrice, 
@@ -73,7 +73,8 @@ export default function useAPICall(callType, params) {
         await SafePromiseAll(
             [
                 getItemPrices(itemInfo, params.size, params.gender),
-                getItemListings(itemInfo, params.size, params.gender)
+                getItemListings(itemInfo, params.size, params.gender), 
+                getRelatedItems(itemInfo)
             ], 
             []
         )
@@ -106,7 +107,8 @@ export default function useAPICall(callType, params) {
                 sku: skus.length === 1 ? skus[0] : "",
                 modelName: itemData[0]['model'],
                 image: itemData[0]['image'],
-                url: itemData[0]['url']
+                url: itemData[0]['url'], 
+                urlKey: itemData[0]['urlKey']
             }
         } catch (e) { 
             history.replace('/item-not-supported')
@@ -164,6 +166,26 @@ export default function useAPICall(callType, params) {
         dispatch(updateItemListings(results))
         dispatch(setItemListingsLoading(false))
         return results
+    }
+
+    async function getRelatedItems(item) {
+        let search = item.urlKey
+        const request = createRequestObject('related', { search, currency })
+
+        try {
+            const response = await fetch(request.url, request.headers)
+            if (!response.ok) throw new Error()
+
+            let results = await response.json()
+            
+            if (!results.length) throw new Error()
+
+            dispatch(updateRelatedItems(results))
+        } catch (e) {
+            dispatch(updateRelatedItems([]))
+        }
+
+        setRelatedItemsLoading(false) 
     }
 
     useEffect(() => {

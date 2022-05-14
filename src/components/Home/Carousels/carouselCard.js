@@ -22,10 +22,11 @@ export default function CarouselCard({ data, index, type, length }) {
 
     const getNavData = () => {
         let itemInfo = {
-            sku: data.sku.replaceAll('-', ' '),
+            sku: data.sku ? data.sku.replaceAll('-', ' ') : null,
             modelName: data.model,
             image: data.image,
             url: data.url,
+            urlKey: data.urlKey
         }
         return itemInfo
     }

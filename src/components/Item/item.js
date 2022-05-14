@@ -16,10 +16,13 @@ import Footer from '../Other/footer'
 import { showSocialsModal } from '../../redux/actions'
 import { ReactComponent as Share } from '../../assets/images/share.svg'
 import { websiteLogoMapGrey, currencySymbolMap }  from '../../assets/constants'
+import ItemCard from './itemCard'
+import DynamicList from '../Other/dynamicList'
 
 export default function Item() {
 
     const dispatch = useDispatch()
+
     const { itemKey, gender } = useParams()
     const currency = useSelector(state => state.currency)
     const size = useSelector(state => state.size)
@@ -36,8 +39,10 @@ export default function Item() {
     const itemInfo = useSelector(state => state.item.itemInfo)
     const itemPrices = useSelector(state => state.item.itemPrices)
     const itemListings = useSelector(state => state.item.itemListings)
+    const relatedItems = useSelector(state => state.item.relatedItems)
     const pricesLoading = useSelector(state => state.item.loadingItemPrices)
     const listingsLoading = useSelector(state => state.item.loadingItemListings)
+    const relatedLoading = useSelector(state => state.item.relatedItemsLoading)
     const sizeModalVisible = useSelector(state => state.modals.sizeModalVisible)
     const socialsModalVisible = useSelector(state => state.modals.socialsModalVisible)
 
@@ -145,9 +150,16 @@ export default function Item() {
                         <div className='item-more-listings-rows'>
                             {listingsLoading && <ItemLoader version={'listings'} />}
                             {!listingsLoading && <div className='item-more-listings-rows-content'>
-                                {itemListings.length ? listingComponents : <ItemNoResults version={'listings'} />}
+                                {itemListings.length ? <DynamicList items={listingComponents} initialLength={5}/> : <ItemNoResults version={'listings'} />}
                             </div>}
                         </div>
+                    </div>
+
+                    <div className='item-more-listings'> 
+                        <h6> Users Also Searched For </h6>
+                            {!relatedLoading && relatedItems.length !== 0 && 
+                                <div> {relatedItems.map((item) => item.model)}</div>
+                            }
                     </div>
                 </div>
             </div>

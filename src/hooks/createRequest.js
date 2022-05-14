@@ -2,6 +2,7 @@
 export default function createRequestObject(type, filter) {
 
 	const api = 'https://hdwj2rvqkb.us-west-2.awsapprunner.com'
+	const autosuggestAPI = 'https://2fwotdvm2o-dsn.algolia.net'
 
 	switch (type) {
 		case 'browse':
@@ -66,7 +67,7 @@ export default function createRequestObject(type, filter) {
 			}
 		case 'autocomplete': 
 			return {
-				url: 'https://2fwotdvm2o-dsn.algolia.net/1/indexes/product_variants_v2_trending_purchase/query?' + new URLSearchParams({
+				url: `${autosuggestAPI}/1/indexes/product_variants_v2_trending_purchase/query?` + new URLSearchParams({
 					"x-algolia-agent": "Algolia for vanilla JavaScript 3.25.1",
 					"x-algolia-application-id": "2FWOTDVM2O", "x-algolia-api-key": "ac96de6fef0e02bb95d433d8d5c7038a"
 				}),
@@ -82,8 +83,13 @@ export default function createRequestObject(type, filter) {
 					})
 				}
 			}
-
-		
+		case 'related': 
+			return {
+				url: `${api}/relateditems?` + new URLSearchParams(filter),
+				headers: {
+					method: 'GET'
+				}
+			}
 		default: 
 			return {
 				url: `${api}/browse`,
