@@ -90,30 +90,47 @@ export default function useAPICall(callType, params) {
             const response = await fetch(request.url, request.headers)
             if (!response.ok) throw new Error()
 
-            let itemData = await response.json()
+            let results = await response.json()
             
-            // handles case where sku contains multiple skus separated by '/'
-            let skus = itemData[0]['sku'].split('/')
-            let containsSku = false
-            for (var i=0; i < skus.length; i++) {
-                skus[i] = skus[i].replaceAll('-', ' ')
-                if (skus[i].includes(itemKey))
-                    containsSku = true
-            }
-            if (!containsSku && !itemData[0]['urlKey'].includes(itemKey))
-                throw new Error()
-            
+            let itemInfo = extractItemInfo(results, itemKey)
+ 
+            if(!itemInfo) 
+                throw Error() 
+    
             return {
-                sku: skus.length === 1 ? skus[0] : "",
-                modelName: itemData[0]['model'],
-                image: itemData[0]['image'],
-                url: itemData[0]['url'], 
-                urlKey: itemData[0]['urlKey']
+                sku: itemInfo['sku'],
+                modelName: itemInfo['model'],
+                image: itemInfo['image'],
+                url: itemInfo['url'], 
+                urlKey: itemInfo['urlKey']
             }
         } catch (e) { 
+            console.log(e)
             history.replace('/item-not-supported')
             return null
         }
+    }
+
+    function extractItemInfo(results, itemKey) {
+        for (let x = 0; x < results.length; x++) {
+
+            let resultItem = results[x]
+            if (resultItem['sku'].replaceAll('-', ' ') === itemKey || resultItem['sku'] === itemKey || resultItem['sku'].includes(itemKey) || resultItem['urlKey'] === itemKey) {
+                return resultItem
+            } 
+
+            // handles case where sku contains multiple skus separated by '/'
+            let skus = resultItem['sku'].split('/') 
+
+            //when searching by urlkey, the correct item info might not be the first result so need to loop through all
+            for (var i=0; i < skus.length; i++) {
+                skus[i] = skus[i].replaceAll('-', ' ')
+                if (skus[i].includes(itemKey))
+                    return resultItem
+            }
+        }
+        
+        return null 
     }
 
     async function getItemPrices(item, size, gender) {

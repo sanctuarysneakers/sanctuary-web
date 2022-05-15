@@ -16,8 +16,8 @@ import Footer from '../Other/footer'
 import { showSocialsModal } from '../../redux/actions'
 import { ReactComponent as Share } from '../../assets/images/share.svg'
 import { websiteLogoMapGrey, currencySymbolMap }  from '../../assets/constants'
-import ItemCard from './itemCard'
 import DynamicList from '../Other/dynamicList'
+import RecommendedCard from './recommendedCard';
 
 export default function Item() {
 
@@ -30,7 +30,7 @@ export default function Item() {
     const navLocation = useLocation()
     let passedData = navLocation.itemInfo ? navLocation.itemInfo : null
     useAPICall('getitem', {
-        itemKey: decodeURIComponent(itemKey.replaceAll('-', ' ')), 
+        itemKey: itemKey.toLowerCase() === itemKey ? itemKey: decodeURIComponent(itemKey.replaceAll('-', ' ')), //differentiates between urlkey and sku
         size: size, 
         gender: gender, 
         fromBrowse: passedData
@@ -156,9 +156,9 @@ export default function Item() {
                     </div>
 
                     <div className='item-more-listings'> 
-                        <h6> Users Also Searched For </h6>
+                        <h6> Related Models</h6>
                             {!relatedLoading && relatedItems.length !== 0 && 
-                                <div> {relatedItems.map((item) => item.model)}</div>
+                                <div> {relatedItems.map((item) => <RecommendedCard data={item} />)}</div>
                             }
                     </div>
                 </div>
