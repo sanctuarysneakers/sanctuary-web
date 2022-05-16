@@ -22,7 +22,7 @@
     "react-remove-scroll": "^2.5.3",
     "react-responsive": "^8.2.0",
     "react-router-dom": "^5.3.1",
-    "react-scripts": "^5.0.1",
+    "react-scripts": "3.4.1",
     "react-share": "^4.4.0",
     "react-slick": "^0.29.0",
     "react-text-loop-next": "^0.0.3",
