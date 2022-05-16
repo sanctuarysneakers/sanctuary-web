@@ -6,7 +6,7 @@ import globalReducer from './reducers'
 const persistConfig = {
     key: 'root',
     storage: storage,
-    whitelist: ['currency', 'location', 'size', 'user']
+    whitelist: ['currency', 'location', 'size', 'user', 'redirect']
 }
 
 const persistedReducer = persistReducer(persistConfig, globalReducer)

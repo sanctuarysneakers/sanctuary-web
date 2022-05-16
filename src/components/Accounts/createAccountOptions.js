@@ -1,8 +1,8 @@
 import React from 'react'
 import firebase from '../../services/firebase.js'
-import { hideHomeSearch } from '../../redux/actions'
-import { Link, useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { hideHomeSearch, setRedirectUrl } from '../../redux/actions'
+import { Link, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import facebook from "../../assets/images/logos/facebook.png"
 import google from "../../assets/images/logos/google.svg"
 import mail from "../../assets/images/logos/mail.svg"
@@ -10,25 +10,18 @@ import Footer from '../Other/footer'
 
 export default function CreateAccountOptions() {
 
-    const provider = new firebase.auth.GoogleAuthProvider()
-    const facebookProvider = new firebase.auth.FacebookAuthProvider()
     const dispatch = useDispatch()
-    const history = useHistory()
 
-    // Hide the search bar
     dispatch(hideHomeSearch())
 
-    const googleAuthentication = () => {
-        firebase.auth().signInWithRedirect(provider).then(
-            history.push("/"),
-        )
-    }
+    let { redirect } = useParams()
+    if (redirect) dispatch(setRedirectUrl(decodeURIComponent(redirect)))
 
-    const facebookAuthentication = () => {
-        firebase.auth().signInWithRedirect(facebookProvider).then(
-            history.push("/"),
-        )
-    }
+    const googProvider = new firebase.auth.GoogleAuthProvider()
+    const fbProvider = new firebase.auth.FacebookAuthProvider()
+
+    const googleAuth = () => firebase.auth().signInWithRedirect(googProvider)
+    const facebookAuth = () => firebase.auth().signInWithRedirect(fbProvider)
 
     return (
         <div className='sign-in-options'>
@@ -41,12 +34,12 @@ export default function CreateAccountOptions() {
 
             <div className='account-buttons'>
 
-                <button className='facebook-button' onClick={facebookAuthentication}>
+                <button className='facebook-button' onClick={facebookAuth}>
                     <img src={facebook} alt='facebook' />
                     <p> Continue with Facebook </p>
                 </button>
 
-                <button className='google-button' onClick={googleAuthentication}>
+                <button className='google-button' onClick={googleAuth}>
                     <img src={google} alt='google' />
                     <p> Continue with Google </p>
                 </button>

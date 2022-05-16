@@ -294,3 +294,12 @@ export const updateSize = size => {
         payload: size
     }
 }
+
+// Redirect action (mobile auth)
+
+export const setRedirectUrl = url => {
+    return {
+        type: 'SET_REDIRECT_URL',
+        payload: url
+    }
+}

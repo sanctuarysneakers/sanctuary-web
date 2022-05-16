@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 import { useLocation } from 'react-router'
 import { RemoveScroll } from 'react-remove-scroll'
 import { useSelector, useDispatch } from 'react-redux'
-import { setUser } from './redux/actions'
+import { setUser, setRedirectUrl } from './redux/actions'
 
 import ProtectedRoute from './components/Routes/protectedRoute'
 import Navbar from "./components/Other/navbar"
@@ -50,7 +50,7 @@ import Loader from './components/Other/loader'
 export default function App() {
 
     const dispatch = useDispatch()
-    const urlLocation = useLocation() 
+    const urlLocation = useLocation()
     
     useLocationDetection()
     
@@ -60,19 +60,26 @@ export default function App() {
     const aboutModalVisible = useSelector(state => state.modals.aboutModalVisible)
     const deleteModalVisible = useSelector(state => state.modals.deleteModalVisible)
     const categoryFilterModalVisible = useSelector(state => state.modals.categoryFilterModalVisible)
+    const redirect = useSelector(state => state.redirect)
     const [loader, setLoader] = useState(true)
     
     useEffect(() => {
-        firebase.auth().onAuthStateChanged(user => {
+        firebase.auth().onAuthStateChanged(async (user) => {
             if (user) {
                 dispatch(setUser(user))
                 setLoader(false)
+
+                if (redirect) {
+                    const jwt = await user.getIdToken()
+                    window.location.href = `${redirect}id_token=${jwt}`
+                    dispatch(setRedirectUrl(null))
+                }
             } else {
                 dispatch(setUser(null))
                 setLoader(false)
             }
         })
-    })
+    }, [])
 
     useEffect(() => {
         window.analytics.page(); 
@@ -94,10 +101,10 @@ export default function App() {
                 <Route path="/item/:itemKey/:gender" component={Item} />
 
                 {/* redirect user to home page if already signed in  */}
-                <ProtectedRoute path="/sign-in" component={SignInOptions} isEnabled={!firebase.auth().currentUser} />
-                <ProtectedRoute path="/sign-in-email" component={SignInEmail} isEnabled={!firebase.auth().currentUser} />
-                <ProtectedRoute path="/create-account" component={CreateAccountOptions} isEnabled={!firebase.auth().currentUser} />
-                <ProtectedRoute path="/create-account-email" component={CreateAccountEmail} isEnabled={!firebase.auth().currentUser} />
+                <ProtectedRoute path="/sign-in/:redirect?" component={SignInOptions} isEnabled={!firebase.auth().currentUser} />
+                <ProtectedRoute path="/sign-in-email/:redirect?" component={SignInEmail} isEnabled={!firebase.auth().currentUser} />
+                <ProtectedRoute path="/create-account/:redirect?" component={CreateAccountOptions} isEnabled={!firebase.auth().currentUser} />
+                <ProtectedRoute path="/create-account-email/:redirect?" component={CreateAccountEmail} isEnabled={!firebase.auth().currentUser} />
                 <ProtectedRoute path="/sign-in-forgot-password" component={ForgotPassword} isEnabled={!firebase.auth().currentUser} />
 
                 {/* redirect user to home page if not signed in  */}

@@ -6,6 +6,7 @@ import currencyReducer from './currencyReducer'
 import recordSplashHeightReducer from './recordSplashHeightReducer'
 import userReducer from './userReducer'
 import locationReducer from './locationReducer'
+import redirectReducer from './redirectReducer'
 
 //grouped reducers
 import browseReducer from './browse/browseReducer'
@@ -18,7 +19,8 @@ const globalReducer = combineReducers({
     currency: currencyReducer,
     location: locationReducer,
     splashHeight: recordSplashHeightReducer,
-    user: userReducer,     
+    user: userReducer,  
+    redirect: redirectReducer,
     
     item: itemReducer, 
     modals: modalReducer,
