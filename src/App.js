@@ -64,13 +64,14 @@ export default function App() {
     const [loader, setLoader] = useState(true)
     
     useEffect(() => {
-        firebase.auth().onAuthStateChanged(user => {
+        firebase.auth().onAuthStateChanged(async (user) => {
             if (user) {
                 dispatch(setUser(user))
                 setLoader(false)
 
                 if (redirect) {
-                    window.location.href = `${redirect}auth=test` // ADD AUTH TOKEN TO URL
+                    const jwt = await user.getIdToken()
+                    window.location.href = `${redirect}id_token=${jwt}`
                     dispatch(setRedirectUrl(null))
                 }
             } else {
