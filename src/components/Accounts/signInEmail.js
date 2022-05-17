@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import firebase from '../../services/firebase.js'
-import { useHistory, useParams } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import { Link } from 'react-router-dom'
 import { setRedirectUrl, hideHomeSearch } from '../../redux/actions'
 import sanctuary from "../../assets/images/logos/sanctuary-bird-black.png"
@@ -12,9 +12,7 @@ export default function SignInEmail() {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    let { redirect } = useParams()
-    if (redirect && redirect !== 'undefined')
-        dispatch(setRedirectUrl(decodeURIComponent(redirect)))
+    const redirect = useSelector(state => state.redirect)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -22,7 +20,13 @@ export default function SignInEmail() {
 
     const signInEmailPassword = () => {
         firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(() => {
+            .then(async (r) => {
+                if (redirect) {
+                    let redirectCopy = redirect
+                    dispatch(setRedirectUrl(null))
+                    const jwt = await r.user.getIdToken()
+                    window.location.href = `${redirectCopy}id_token=${jwt}`
+                }
                 history.push("/")
             }).catch(e => {
                 setErrorMessage(e.message)

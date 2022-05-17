@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import firebase from '../../services/firebase.js'
-import { useHistory, useParams } from "react-router-dom"
-import { useDispatch } from 'react-redux'
+import { useHistory } from "react-router-dom"
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { setRedirectUrl, hideHomeSearch } from '../../redux/actions'
 import sanctuary from "../../assets/images/logos/sanctuary-bird-black.png"
@@ -12,9 +12,7 @@ export default function CreateAccountEmail() {
     const history = useHistory()
     const dispatch = useDispatch()
 
-    let { redirect } = useParams()
-    if (redirect && redirect !== 'undefined')
-        dispatch(setRedirectUrl(decodeURIComponent(redirect)))
+    const redirect = useSelector(state => state.redirect)
     
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -29,11 +27,16 @@ export default function CreateAccountEmail() {
             setErrorMessage('Please enter your name.')
         } else {
             firebase.auth().createUserWithEmailAndPassword(email, password)
-                .then(r => {
+                .then(async (r) => {
                     r.user.updateProfile({ displayName: name })
+                    if (redirect) {
+                        let redirectCopy = redirect
+                        dispatch(setRedirectUrl(null))
+                        const jwt = await r.user.getIdToken()
+                        window.location.href = `${redirectCopy}id_token=${jwt}`
+                    }
                     history.push("/")
-                })
-                .catch(e => {
+                }).catch(e => {
                     setErrorMessage(e.message)
                 })
         }
