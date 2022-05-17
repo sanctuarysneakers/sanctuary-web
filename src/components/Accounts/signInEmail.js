@@ -1,33 +1,35 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import firebase from '../../services/firebase.js'
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom"
 import { Link } from 'react-router-dom'
-import { hideHomeSearch } from '../../redux/actions'
+import { setRedirectUrl, hideHomeSearch } from '../../redux/actions'
 import sanctuary from "../../assets/images/logos/sanctuary-bird-black.png"
 import Footer from '../Other/footer'
 
 export default function SignInEmail() {
-    // TODO: Change these initial values to empty strings LOL
+
     const dispatch = useDispatch()
     const history = useHistory()
+
+    let { redirect } = useParams()
+    if (redirect && redirect !== 'undefined')
+        dispatch(setRedirectUrl(decodeURIComponent(redirect)))
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
-
-    // Hide the search bar
-    dispatch(hideHomeSearch())
 
     const signInEmailPassword = () => {
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(() => {
                 history.push("/")
-            })
-            .catch(e => {
+            }).catch(e => {
                 setErrorMessage(e.message)
-            }
-            )
+            })
     }
+
+    dispatch(hideHomeSearch())
 
     return (
         <div className='email-form'>

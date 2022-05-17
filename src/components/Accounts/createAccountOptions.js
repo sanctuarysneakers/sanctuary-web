@@ -1,8 +1,8 @@
 import React from 'react'
 import firebase from '../../services/firebase.js'
-import { hideHomeSearch, setRedirectUrl } from '../../redux/actions'
-import { Link, useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { setRedirectUrl, hideHomeSearch } from '../../redux/actions'
+import { Link, useHistory, useParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import facebook from "../../assets/images/logos/facebook.png"
 import google from "../../assets/images/logos/google.svg"
 import mail from "../../assets/images/logos/mail.svg"
@@ -10,18 +10,27 @@ import Footer from '../Other/footer'
 
 export default function CreateAccountOptions() {
 
+    const history = useHistory()
     const dispatch = useDispatch()
 
-    dispatch(hideHomeSearch())
-
     let { redirect } = useParams()
-    if (redirect) dispatch(setRedirectUrl(decodeURIComponent(redirect)))
+    if (redirect && redirect !== 'undefined')
+        dispatch(setRedirectUrl(decodeURIComponent(redirect)))
 
     const googProvider = new firebase.auth.GoogleAuthProvider()
     const fbProvider = new firebase.auth.FacebookAuthProvider()
 
-    const googleAuth = () => firebase.auth().signInWithRedirect(googProvider)
-    const facebookAuth = () => firebase.auth().signInWithRedirect(fbProvider)
+    const googleAuth = () => {
+        firebase.auth().signInWithRedirect(googProvider)
+            .then(history.push('/'))
+    }
+
+    const facebookAuth = () => {
+        firebase.auth().signInWithRedirect(fbProvider)
+            .then(history.push('/'))
+    }
+
+    dispatch(hideHomeSearch())
 
     return (
         <div className='sign-in-options'>

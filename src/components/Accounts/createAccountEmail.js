@@ -1,33 +1,33 @@
 import React, { useState } from 'react'
 import firebase from '../../services/firebase.js'
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom"
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { hideHomeSearch } from '../../redux/actions'
+import { setRedirectUrl, hideHomeSearch } from '../../redux/actions'
 import sanctuary from "../../assets/images/logos/sanctuary-bird-black.png"
 import Footer from '../Other/footer'
 
 export default function CreateAccountEmail() {
+
+    const history = useHistory()
+    const dispatch = useDispatch()
+
+    let { redirect } = useParams()
+    if (redirect && redirect !== 'undefined')
+        dispatch(setRedirectUrl(decodeURIComponent(redirect)))
+    
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
 
-    const history = useHistory()
-    const dispatch = useDispatch()
-
-    // Hide the search bar
-    dispatch(hideHomeSearch())
-
     const createAccountEmailPassword = () => {
         if (password !== confirmPassword) {
             setErrorMessage('Passwords do not match.')
-        }
-        else if (name === '') {
+        } else if (name === '') {
             setErrorMessage('Please enter your name.')
-        }
-        else {
+        } else {
             firebase.auth().createUserWithEmailAndPassword(email, password)
                 .then(r => {
                     r.user.updateProfile({ displayName: name })
@@ -38,6 +38,8 @@ export default function CreateAccountEmail() {
                 })
         }
     }
+
+    dispatch(hideHomeSearch())
 
     return (
         <div className='email-form'>
