@@ -100,15 +100,13 @@ export default function App() {
                 <Route path="/browse/:query?" component={Browse} />
                 <Route path="/item/:itemKey/:gender" component={Item} />
 
-                {/* redirect user to home page if already signed in  */}
                 <ProtectedRoute path="/sign-in/:redirect?" component={SignInOptions} isEnabled={!firebase.auth().currentUser} />
                 <ProtectedRoute path="/sign-in-email/:redirect?" component={SignInEmail} isEnabled={!firebase.auth().currentUser} />
                 <ProtectedRoute path="/create-account/:redirect?" component={CreateAccountOptions} isEnabled={!firebase.auth().currentUser} />
                 <ProtectedRoute path="/create-account-email/:redirect?" component={CreateAccountEmail} isEnabled={!firebase.auth().currentUser} />
                 <ProtectedRoute path="/sign-in-forgot-password" component={ForgotPassword} isEnabled={!firebase.auth().currentUser} />
 
-                {/* redirect user to home page if not signed in  */}
-                <ProtectedRoute path="/profile" component={Profile} isEnabled={firebase.auth().currentUser} />
+                <ProtectedRoute path="/profile/:redirect?" component={Profile} isEnabled={firebase.auth().currentUser} />
                 <ProtectedRoute path="/profile-edit-name" component={EditProfileName} isEnabled={firebase.auth().currentUser} />
                 <ProtectedRoute path="/profile-edit-email" component={EditProfileEmail} isEnabled={firebase.auth().currentUser} />
                 <ProtectedRoute path="/profile-edit-password" component={EditProfilePassword} isEnabled={firebase.auth().currentUser} />

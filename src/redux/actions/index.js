@@ -111,12 +111,6 @@ export const setUser = user => {
     }
 }
 
-export const clearUser = () => {
-    return {
-        type: 'CLEAR_USER'
-    }
-}
-
 // Modal Actions
 
 export const showFilter = () => {
