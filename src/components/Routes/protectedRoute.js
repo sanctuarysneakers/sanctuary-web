@@ -21,6 +21,6 @@ export default function ProtectedRoute({isEnabled, ...props}) {
         props.path.replace('profile/', 'sign-in/')
         return <Route {...props} />
     } else {
-        <Redirect to="/" />
+        return <Redirect to="/" />
     }
 }
