@@ -6,20 +6,25 @@ export default function ProtectedRoute({isEnabled, ...props}) {
         return <Route {...props} />
 
     if (props.path.includes('sign-in/')) {
-        props.path.replace('sign-in/', 'profile/')
-        return <Route {...props} />
+        return <Route path="/sign-in/:redirect?"
+            render={props => <Redirect to={`/profile/${props.match.params.redirect}`} />}
+        />
     } else if (props.path.includes('sign-in-email/')) {
-        props.path.replace('sign-in-email/', 'profile/')
-        return <Route {...props} />
+        return <Route path="/sign-in-email/:redirect?"
+            render={props => <Redirect to={`/profile/${props.match.params.redirect}`} />}
+        />
     } else if (props.path.includes('create-account/')) {
-        props.path.replace('create-account/', 'profile/')
-        return <Route {...props} />
+        return <Route path="/create-account/:redirect?"
+            render={props => <Redirect to={`/profile/${props.match.params.redirect}`} />}
+        />
     } else if (props.path.includes('create-account-email/')) {
-        props.path.replace('create-account-email/', 'profile/')
-        return <Route {...props} />
+        return <Route path="/create-account-email/:redirect?"
+            render={props => <Redirect to={`/profile/${props.match.params.redirect}`} />}
+        />
     } else if (props.path.includes('profile/')) {
-        props.path.replace('profile/', 'sign-in/')
-        return <Route {...props} />
+        return <Route path="/profile/:redirect?"
+            render={props => <Redirect to={`/sign-in/${props.match.params.redirect}`} />}
+        />
     } else {
         return <Redirect to="/" />
     }
