@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 import { useLocation } from 'react-router'
 import { RemoveScroll } from 'react-remove-scroll'
 import { useSelector, useDispatch } from 'react-redux'
-import { setUser } from './redux/actions'
+import { setUser, setRedirectUrl } from './redux/actions'
 
 import ProtectedRoute from './components/Routes/protectedRoute'
 import Navbar from "./components/Other/navbar"
@@ -29,6 +29,7 @@ import SignInEmail from './components/Accounts/signInEmail'
 import CreateAccountOptions from './components/Accounts/createAccountOptions'
 import CreateAccountEmail from './components/Accounts/createAccountEmail'
 import Profile from './components/Accounts/profile'
+import SignOut from './components/Accounts/signOut'
 import EditProfileName from './components/Accounts/editProfileName'
 import EditProfileEmail from './components/Accounts/editProfileEmail'
 import EditProfilePassword from './components/Accounts/editProfilePassword'
@@ -50,7 +51,7 @@ import Loader from './components/Other/loader'
 export default function App() {
 
     const dispatch = useDispatch()
-    const urlLocation = useLocation() 
+    const urlLocation = useLocation()
     
     useLocationDetection()
     
@@ -60,19 +61,27 @@ export default function App() {
     const aboutModalVisible = useSelector(state => state.modals.aboutModalVisible)
     const deleteModalVisible = useSelector(state => state.modals.deleteModalVisible)
     const categoryFilterModalVisible = useSelector(state => state.modals.categoryFilterModalVisible)
+    const redirect = useSelector(state => state.redirect)
     const [loader, setLoader] = useState(true)
     
     useEffect(() => {
-        firebase.auth().onAuthStateChanged(user => {
+        firebase.auth().onAuthStateChanged(async (user) => {
             if (user) {
                 dispatch(setUser(user))
                 setLoader(false)
+
+                if (redirect) {
+                    let redirectCopy = redirect
+                    dispatch(setRedirectUrl(null))
+                    const jwt = await user.getIdToken()
+                    window.location.href = `${redirectCopy}id_token=${jwt}`
+                }
             } else {
                 dispatch(setUser(null))
                 setLoader(false)
             }
         })
-    })
+    }, [])
 
     useEffect(() => {
         window.analytics.page(); 
@@ -93,18 +102,17 @@ export default function App() {
                 <Route path="/browse/:query?" component={Browse} />
                 <Route path="/item/:itemKey/:gender" component={Item} />
 
-                {/* redirect user to home page if already signed in  */}
-                <ProtectedRoute path="/sign-in" component={SignInOptions} isEnabled={!firebase.auth().currentUser} />
+                <ProtectedRoute path="/sign-in/:redirect?" component={SignInOptions} isEnabled={!firebase.auth().currentUser} />
                 <ProtectedRoute path="/sign-in-email" component={SignInEmail} isEnabled={!firebase.auth().currentUser} />
-                <ProtectedRoute path="/create-account" component={CreateAccountOptions} isEnabled={!firebase.auth().currentUser} />
+                <ProtectedRoute path="/create-account/:redirect?" component={CreateAccountOptions} isEnabled={!firebase.auth().currentUser} />
                 <ProtectedRoute path="/create-account-email" component={CreateAccountEmail} isEnabled={!firebase.auth().currentUser} />
                 <ProtectedRoute path="/sign-in-forgot-password" component={ForgotPassword} isEnabled={!firebase.auth().currentUser} />
 
-                {/* redirect user to home page if not signed in  */}
-                <ProtectedRoute path="/profile" component={Profile} isEnabled={firebase.auth().currentUser} />
+                <ProtectedRoute path="/profile/:redirect?" component={Profile} isEnabled={firebase.auth().currentUser} />
                 <ProtectedRoute path="/profile-edit-name" component={EditProfileName} isEnabled={firebase.auth().currentUser} />
                 <ProtectedRoute path="/profile-edit-email" component={EditProfileEmail} isEnabled={firebase.auth().currentUser} />
                 <ProtectedRoute path="/profile-edit-password" component={EditProfilePassword} isEnabled={firebase.auth().currentUser} />
+                <ProtectedRoute path="/sign-out/:redirect?" component={SignOut} isEnabled={firebase.auth().currentUser} />
             
                 <Route path="/privacy-policy" component={PrivacyPolicy} />
                 <Route path="/terms-of-use" component={TermsOfUse} />

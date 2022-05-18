@@ -14,12 +14,12 @@ export default function HomeAccount() {
                 <div className='home-account-buttons'>
                     <div className='home-account-create'>
                         <p>
-                            Create account
+                            Sign Up
                         </p>
                     </div>
                     <div className='home-account-sign-in'>
                         <p>
-                            Sign in
+                            Log in
                         </p>
                     </div>
                 </div>
