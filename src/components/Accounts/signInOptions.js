@@ -4,7 +4,8 @@ import { setRedirectUrl, hideHomeSearch } from '../../redux/actions'
 import { Link, useHistory, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useMediaQuery } from 'react-responsive'
-import facebook from "../../assets/images/logos/facebook.png"
+import apple from "../../assets/images/logos/apple-black.png"
+import facebook from "../../assets/images/logos/facebook-blue.png"
 import google from "../../assets/images/logos/google.svg"
 import mail from "../../assets/images/logos/mail.svg"
 import Footer from '../Other/footer'
@@ -20,6 +21,7 @@ export default function SignInOptions() {
     
     const googProvider = new firebase.auth.GoogleAuthProvider()
     const fbProvider = new firebase.auth.FacebookAuthProvider()
+    const appleProvider = new firebase.auth.OAuthProvider('apple.com')
     
     const googleAuth = () => {
         firebase.auth().signInWithRedirect(googProvider)
@@ -28,6 +30,11 @@ export default function SignInOptions() {
 
     const facebookAuth = () => {
         firebase.auth().signInWithRedirect(fbProvider)
+            .then(history.push('/'))
+    }
+
+    const appleAuth = () => {
+        firebase.auth().signInWithRedirect(appleProvider)
             .then(history.push('/'))
     }
     
@@ -53,12 +60,17 @@ export default function SignInOptions() {
 
                 <button className='facebook-button' onClick={facebookAuth}>
                     <img src={facebook} alt='facebook' />
-                    <p> Sign in with Facebook </p>
+                    <p> Continue with Facebook </p>
                 </button>
 
                 <button className='google-button' onClick={googleAuth}>
                     <img src={google} alt='google' />
-                    <p> Sign in with Google </p>
+                    <p> Continue with Google </p>
+                </button>
+
+                <button className='apple-button' onClick={appleAuth}>
+                    <img src={apple} alt='apple' />
+                    <p> Continue with Apple </p>
                 </button>
 
                 <div className='divider'>
@@ -69,12 +81,12 @@ export default function SignInOptions() {
 
                 <Link className='email-button' to="/sign-in-email">
                     <img src={mail} alt='mail' />
-                    <p> Sign in with Email </p>
+                    <p> Log in with Email </p>
                 </Link>
 
                 <div className='switch-form'>
                     <p> Don't have an account? </p>
-                    <Link to="/create-account"> Create account. </Link>
+                    <Link to="/create-account"> Sign Up. </Link>
                 </div>
 
                 <div className='account-terms-policy'>

@@ -99,9 +99,9 @@ export default function Profile() {
                             <p> Sign Out </p>
                         </div>
 
-                        <div className='profile-delete' onClick={() => dispatch(showDeleteModal())}>
+                        {/* <div className='profile-delete' onClick={() => dispatch(showDeleteModal())}>
                             <p> Delete Account </p>
-                        </div>
+                        </div> */}
 
                     </div>
                 </div>

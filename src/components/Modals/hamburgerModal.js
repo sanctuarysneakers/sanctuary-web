@@ -38,11 +38,11 @@ export default function HamburgerModal() {
                         {/* Styling when user is signed out */}
                         {!user && <div className='hamburger-modal-account-out'>
                             <button className='create-account' onClick={() => document.location.href = '/create-account'}>
-                                Create Account
+                                Sign Up
                             </button>
 
                             <button className='sign-in' onClick={() => document.location.href = '/sign-in'}>
-                                Sign In
+                                Log In
                             </button>
                         </div>}
 

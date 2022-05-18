@@ -39,8 +39,8 @@ export default function SignInEmail() {
         <div className='email-form'>
             <div className='email-form-content'>
                 <div className='email-form-header'>
-                    <img src={sanctuary} alt='Sanctuary' />
-                    <h2> Sign in </h2>
+                    {/* <img src={sanctuary} alt='Sanctuary' /> */}
+                    <h2> Log in </h2>
                     <p> Welcome back, </p>
                     <p> your perfect pair of shoes awaits you. </p>
                 </div>
@@ -78,6 +78,15 @@ export default function SignInEmail() {
 
                 <div className='email-form-bottom'>
 
+                    <button onClick={signInEmailPassword}>
+                        Log in
+                    </button>
+
+                    <div className='switch-form'>
+                        <p> Don't have an account? </p>
+                        <Link to="/create-account-email"> Sign Up. </Link>
+                    </div>
+
                     <div className='account-terms-policy'>
                         <p> By signing in, you agree to Sanctuary's </p>
                         <div className='terms-policy-text'>
@@ -93,15 +102,6 @@ export default function SignInEmail() {
                                 </Link>
 
                         </div>
-                    </div>
-
-                    <button onClick={signInEmailPassword}>
-                        Sign in
-                    </button>
-
-                    <div className='switch-form'>
-                        <p> Don't have an account? </p>
-                        <Link to="/create-account-email"> Create account. </Link>
                     </div>
 
                 </div>

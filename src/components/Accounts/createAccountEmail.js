@@ -48,8 +48,8 @@ export default function CreateAccountEmail() {
         <div className='email-form'>
             <div className='email-form-content'>
                 <div className='email-form-header'>
-                    <img src={sanctuary} alt='Sanctuary' />
-                    <h2> Create account </h2>
+                    {/* <img src={sanctuary} alt='Sanctuary' /> */}
+                    <h2> Sign Up </h2>
                     <p> Create your Sanctuary profile for a brand new </p>
                     <p> experience, personalized just for you. </p>
                 </div>
@@ -99,6 +99,15 @@ export default function CreateAccountEmail() {
 
                 <div className='email-form-bottom'>
 
+                    <button onClick={createAccountEmailPassword}>
+                        Sign Up
+                    </button>
+
+                    <div className='switch-form'>
+                        <p> Already have an account? </p>
+                        <Link to="/sign-in-email"> Log in. </Link>
+                    </div>
+
                     <div className='account-terms-policy'>
                         <p> By creating an account, you agree to Sanctuary's </p>
                         <div className='terms-policy-text'>
@@ -114,15 +123,6 @@ export default function CreateAccountEmail() {
                                 </Link>
 
                         </div>
-                    </div>
-
-                    <button onClick={createAccountEmailPassword}>
-                        Create account
-                    </button>
-
-                    <div className='switch-form'>
-                        <p> Already have an account? </p>
-                        <Link to="/sign-in-email"> Sign in. </Link>
                     </div>
 
                 </div>
