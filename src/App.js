@@ -70,9 +70,10 @@ export default function App() {
                 setLoader(false)
 
                 if (redirect) {
-                    const jwt = await user.getIdToken()
-                    window.location.href = `${redirect}id_token=${jwt}`
+                    let redirectCopy = redirect
                     dispatch(setRedirectUrl(null))
+                    const jwt = await user.getIdToken()
+                    window.location.href = `${redirectCopy}id_token=${jwt}`
                 }
             } else {
                 dispatch(setUser(null))
@@ -101,9 +102,9 @@ export default function App() {
                 <Route path="/item/:itemKey/:gender" component={Item} />
 
                 <ProtectedRoute path="/sign-in/:redirect?" component={SignInOptions} isEnabled={!firebase.auth().currentUser} />
-                <ProtectedRoute path="/sign-in-email/:redirect?" component={SignInEmail} isEnabled={!firebase.auth().currentUser} />
+                <ProtectedRoute path="/sign-in-email" component={SignInEmail} isEnabled={!firebase.auth().currentUser} />
                 <ProtectedRoute path="/create-account/:redirect?" component={CreateAccountOptions} isEnabled={!firebase.auth().currentUser} />
-                <ProtectedRoute path="/create-account-email/:redirect?" component={CreateAccountEmail} isEnabled={!firebase.auth().currentUser} />
+                <ProtectedRoute path="/create-account-email" component={CreateAccountEmail} isEnabled={!firebase.auth().currentUser} />
                 <ProtectedRoute path="/sign-in-forgot-password" component={ForgotPassword} isEnabled={!firebase.auth().currentUser} />
 
                 <ProtectedRoute path="/profile/:redirect?" component={Profile} isEnabled={firebase.auth().currentUser} />

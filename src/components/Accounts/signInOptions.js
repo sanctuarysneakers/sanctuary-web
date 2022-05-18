@@ -1,7 +1,7 @@
 import React from 'react'
 import firebase from '../../services/firebase.js'
-import { hideHomeSearch } from '../../redux/actions'
-import { Link, useHistory } from 'react-router-dom'
+import { setRedirectUrl, hideHomeSearch } from '../../redux/actions'
+import { Link, useHistory, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useMediaQuery } from 'react-responsive'
 import facebook from "../../assets/images/logos/facebook.png"
@@ -11,26 +11,29 @@ import Footer from '../Other/footer'
 
 export default function SignInOptions() {
 
-    const dispatch = useDispatch()
     const history = useHistory()
-    const googleProvider = new firebase.auth.GoogleAuthProvider()
-    const facebookProvider = new firebase.auth.FacebookAuthProvider()
+    const dispatch = useDispatch()
+
+    let { redirect } = useParams()
+    if (redirect && redirect !== 'undefined')
+        dispatch(setRedirectUrl(decodeURIComponent(redirect)))
+    
+    const googProvider = new firebase.auth.GoogleAuthProvider()
+    const fbProvider = new firebase.auth.FacebookAuthProvider()
+    
+    const googleAuth = () => {
+        firebase.auth().signInWithRedirect(googProvider)
+            .then(history.push('/'))
+    }
+
+    const facebookAuth = () => {
+        firebase.auth().signInWithRedirect(fbProvider)
+            .then(history.push('/'))
+    }
+    
     const isDesktop = useMediaQuery({ query: '(min-width: 930px)' })
 
-    // Hide the search bar
     dispatch(hideHomeSearch())
-
-    const googleAuthentication = () => {
-        firebase.auth().signInWithRedirect(googleProvider).then(
-            history.push("/"),
-        )
-    }
-
-    const facebookAuthentication = () => {
-        firebase.auth().signInWithRedirect(facebookProvider).then(
-            history.push("/"),
-        )
-    }
 
     return (
         <div className='sign-in-options'>
@@ -48,12 +51,12 @@ export default function SignInOptions() {
 
             <div className='account-buttons'>
 
-                <button className='facebook-button' onClick={facebookAuthentication}>
+                <button className='facebook-button' onClick={facebookAuth}>
                     <img src={facebook} alt='facebook' />
                     <p> Sign in with Facebook </p>
                 </button>
 
-                <button className='google-button' onClick={googleAuthentication}>
+                <button className='google-button' onClick={googleAuth}>
                     <img src={google} alt='google' />
                     <p> Sign in with Google </p>
                 </button>
