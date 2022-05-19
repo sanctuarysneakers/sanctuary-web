@@ -1,5 +1,6 @@
 .item-listing {
     cursor: pointer;
+    margin-left: 20px;
 
     a {
         display: flex;
@@ -107,6 +108,8 @@
 
 @media screen and (max-width: 767px) {
     .item-listing {
+        margin-left: 15px;
+
         a {
             padding-top: 15px;
             padding-bottom: 15px;
