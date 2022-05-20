@@ -98,7 +98,7 @@ export default function App() {
                 <Switch>
                 <Route exact path="/" component={Home} />
                 <Route path="/home" component={Home} />
-                <Route path="/browse/:query?" component={Browse} />
+                <Route path="/browse/:searchTerm?" component={Browse} />
                 <Route path="/item/:itemKey/:gender" component={Item} />
 
                 <ProtectedRoute path="/sign-in/:redirect?" component={SignInOptions} isEnabled={!firebase.auth().currentUser} />

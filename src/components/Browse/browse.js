@@ -18,8 +18,6 @@ export default function Browse() {
     let {searchTerm} = useParams()
     if (!searchTerm) searchTerm = ''
 
-    console.log('search term is: ' + searchTerm)
-
     dispatch(showHomeSeach())
 
     return (

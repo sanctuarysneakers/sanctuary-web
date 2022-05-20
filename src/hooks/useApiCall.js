@@ -48,7 +48,6 @@ export default function useAPICall(callType, params) {
 
         let params = {
             currency, 
-            search: searchTerm,
             maxPrice: price_limit[type],
             size: size, 
             ship_to: location['country_code']
@@ -63,6 +62,7 @@ export default function useAPICall(callType, params) {
             request = createRequestObject('browse', {...params, priceRanges: ["range(200|300)"]})
         } else {
             let filters = {
+                search: searchTerm,
                 brand,
                 priceRanges,
                 gender: sizeTypes, 
@@ -192,7 +192,7 @@ export default function useAPICall(callType, params) {
         if (callType === 'getitem') {
             getItem(params)
         } else {
-            browse(callType, params.query)
+            browse(callType, params.searchTerm)
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currency, size, sort, brand, priceRanges, sizeTypes, releaseYears])
