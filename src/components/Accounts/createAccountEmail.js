@@ -1,50 +1,55 @@
 import React, { useState } from 'react'
 import firebase from '../../services/firebase.js'
-import { useHistory } from "react-router-dom";
-import { useDispatch } from 'react-redux'
+import { useHistory } from "react-router-dom"
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { hideHomeSearch } from '../../redux/actions'
+import { setRedirectUrl, hideHomeSearch } from '../../redux/actions'
 import sanctuary from "../../assets/images/logos/sanctuary-bird-black.png"
 import Footer from '../Other/footer'
 
 export default function CreateAccountEmail() {
+
+    const history = useHistory()
+    const dispatch = useDispatch()
+
+    const redirect = useSelector(state => state.redirect)
+    
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
 
-    const history = useHistory()
-    const dispatch = useDispatch()
-
-    // Hide the search bar
-    dispatch(hideHomeSearch())
-
     const createAccountEmailPassword = () => {
         if (password !== confirmPassword) {
             setErrorMessage('Passwords do not match.')
-        }
-        else if (name === '') {
+        } else if (name === '') {
             setErrorMessage('Please enter your name.')
-        }
-        else {
+        } else {
             firebase.auth().createUserWithEmailAndPassword(email, password)
-                .then(r => {
+                .then(async (r) => {
                     r.user.updateProfile({ displayName: name })
+                    if (redirect) {
+                        let redirectCopy = redirect
+                        dispatch(setRedirectUrl(null))
+                        const jwt = await r.user.getIdToken()
+                        window.location.href = `${redirectCopy}id_token=${jwt}`
+                    }
                     history.push("/")
-                })
-                .catch(e => {
+                }).catch(e => {
                     setErrorMessage(e.message)
                 })
         }
     }
 
+    dispatch(hideHomeSearch())
+
     return (
         <div className='email-form'>
             <div className='email-form-content'>
                 <div className='email-form-header'>
-                    <img src={sanctuary} alt='Sanctuary' />
-                    <h2> Create account </h2>
+                    {/* <img src={sanctuary} alt='Sanctuary' /> */}
+                    <h2> Sign Up </h2>
                     <p> Create your Sanctuary profile for a brand new </p>
                     <p> experience, personalized just for you. </p>
                 </div>
@@ -94,6 +99,15 @@ export default function CreateAccountEmail() {
 
                 <div className='email-form-bottom'>
 
+                    <button onClick={createAccountEmailPassword}>
+                        Sign Up
+                    </button>
+
+                    <div className='switch-form'>
+                        <p> Already have an account? </p>
+                        <Link to="/sign-in-email"> Log in. </Link>
+                    </div>
+
                     <div className='account-terms-policy'>
                         <p> By creating an account, you agree to Sanctuary's </p>
                         <div className='terms-policy-text'>
@@ -109,15 +123,6 @@ export default function CreateAccountEmail() {
                                 </Link>
 
                         </div>
-                    </div>
-
-                    <button onClick={createAccountEmailPassword}>
-                        Create account
-                    </button>
-
-                    <div className='switch-form'>
-                        <p> Already have an account? </p>
-                        <Link to="/sign-in-email"> Sign in. </Link>
                     </div>
 
                 </div>

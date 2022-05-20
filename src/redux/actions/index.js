@@ -122,12 +122,6 @@ export const setUser = user => {
     }
 }
 
-export const clearUser = () => {
-    return {
-        type: 'CLEAR_USER'
-    }
-}
-
 // Modal Actions
 
 export const showFilter = () => {
@@ -226,6 +220,18 @@ export const hideCurrencyModal = () => {
     }
 }
 
+export const showSocialsModal = () => {
+    return {
+        type: 'SHOW_SOCIALS_MODAL'
+    }
+}
+
+export const hideSocialsModal = () => {
+    return {
+        type: 'HIDE_SOCIALS_MODAL'
+    }
+}
+
 // Search Bar visible/disable per page
 
 export const showHomeSeach = () => {
@@ -291,5 +297,14 @@ export const updateSize = size => {
     return {
         type: 'UPDATE_SIZE',
         payload: size
+    }
+}
+
+// Redirect action (mobile auth)
+
+export const setRedirectUrl = url => {
+    return {
+        type: 'SET_REDIRECT_URL',
+        payload: url
     }
 }
