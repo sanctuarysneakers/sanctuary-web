@@ -10,7 +10,8 @@ export default function CarouselCard({ data, index, type, length }) {
     const currency = useSelector(state => state.currency)
 
     const generateLink = () => {
-        dispatch(updateItemInfo({}))
+        // FIX THIS!!!!!
+        // dispatch(updateItemInfo({}))
         dispatch(setItemPricesLoading(true))
         dispatch(setItemListingsLoading(true))
 
@@ -68,7 +69,7 @@ export default function CarouselCard({ data, index, type, length }) {
                 </Link>
             }
 
-            {(type === 'under200' || type === 'under300') && 
+            {(type === 'under200' || type === 'under300' || type === 'recommended') && 
                 <Link 
                     to={{
                         pathname: generateLink(),

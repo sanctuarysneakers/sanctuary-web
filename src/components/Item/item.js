@@ -18,6 +18,7 @@ import { ReactComponent as Share } from '../../assets/images/share.svg'
 import { websiteLogoMapGrey, currencySymbolMap } from '../../assets/constants'
 import DynamicList from '../Other/dynamicList'
 import RecommendedCard from './recommendedCard'
+import Carousel from '../Home/Carousels/carousel'
 
 export default function Item() {
 
@@ -58,6 +59,8 @@ export default function Item() {
     const clickHandler = () => {
         window.analytics.track(`item_buy_new_clicked`, { sku: decodeURIComponent(itemKey), gender: gender, model: itemInfo.modelName });
     }
+
+    console.log(relatedItems)
 
     /* eslint-disable jsx-a11y/anchor-is-valid */
     return (
@@ -147,14 +150,6 @@ export default function Item() {
                     <div className='item-more-listings'>
                         <h6> More Listings </h6>
 
-                        {/* <div className='item-more-listings-rows'>
-                            {listingsLoading && <ItemLoader version={'listings'} />}
-
-                            {!listingsLoading && <div className='item-more-listings-rows-content'>
-                                {itemListings.length ? <DynamicList name={'item-more-listings-rows-content'} items={listingComponents} initialLength={5}/> : <ItemNoResults version={'listings'} />}
-                            </div>}
-                        </div> */}
-
                         {listingsLoading ?
                             <div className='item-more-listings-rows'>
                                 <ItemLoader version={'listings'} />
@@ -162,21 +157,26 @@ export default function Item() {
                             :
                             <div>
                                 {itemListings.length ?
-                                    <DynamicList 
+                                    <DynamicList
                                         name={'item-more-listings-rows'}
-                                        items={listingComponents} 
+                                        items={listingComponents}
                                         initialLength={5} />
-                                    : 
+                                    :
                                     <ItemNoResults version={'listings'} />
                                 }
                             </div>
                         }
                     </div>
 
-                    <div className='item-more-listings'>
-                        <h6> Related Models</h6>
-                        {!relatedLoading && relatedItems.length !== 0 &&
+                    <div className='item-recommended'>
+                        <h6> Recommended For You </h6>
+
+                        {/* {!relatedLoading && relatedItems.length !== 0 &&
                             <div> {relatedItems.map((item) => <RecommendedCard data={item} />)}</div>
+                        } */}
+
+                        {!relatedLoading && relatedItems.length !== 0 &&
+                            <Carousel type={'recommended'} />
                         }
                     </div>
                 </div>
