@@ -50,9 +50,9 @@ export default function Item() {
             length={itemListings.length} />
     )
 
-    // const clickHandler = () => {
-    //     window.analytics.track(`item_buy_new_clicked`, {sku: decodeURIComponent(sku), gender: gender, model: itemInfo.modelName});
-    // }
+    const clickHandler = () => {
+        window.analytics.track(`item_buy_new_clicked`, {sku: decodeURIComponent(itemKey), gender: gender, model: itemInfo.modelName});
+    }
 
     /* eslint-disable jsx-a11y/anchor-is-valid */
     return (
