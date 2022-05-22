@@ -87,6 +87,8 @@ export default function useAPICall(callType, params) {
                 gender: gender
             })
 
+            console.log('itemkey is: ' + itemKey)
+
             const response = await fetch(request.url, request.headers)
             if (!response.ok) throw new Error()
 

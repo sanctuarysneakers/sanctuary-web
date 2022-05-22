@@ -15,10 +15,8 @@ export default function ItemCard({ data }) {
         dispatch(setItemListingsLoading(true))
 
         let itemKey = data.sku ? encodeURIComponent(data.sku) : data.urlKey
-        let gender = data.gender !== null ? data.gender: 'men' //default to men gender  
         //window.analytics.track(`browse_item_clicked`, {id: itemKey, gender: data.gender})
-
-        return `/item/${itemKey}/${gender}` 
+        return data.gender !== null ? `/item/${itemKey}/${data.gender}` : `/item/${itemKey}` 
     }
 
     const getNavData = () => {

@@ -17,16 +17,14 @@ export default function CarouselCard({ data, index, type, length }) {
         }
 
         let itemKey = data.sku ? encodeURIComponent(data.sku) : data.urlKey 
-        let gender = data.gender !== null ? data.gender: 'men' //default to men gender  
-
         //window.analytics.track(`carousel_item_clicked`, {id: itemKey, gender: gender})
-        return `/item/${itemKey}/${gender}` 
+        return data.gender == null ? `/item/${itemKey}` : `/item/${itemKey}/${data.gender}`
     }
 
     const recommendedClick = (e) => {
         if (e.nativeEvent.button === 0) {
             let itemKey = data.sku ? encodeURIComponent(data.sku) : data.urlKey 
-            document.location.href = `/item/${itemKey}/men`
+            document.location.href = `/item/${itemKey}`
         }
     }
 
