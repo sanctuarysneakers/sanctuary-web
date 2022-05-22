@@ -17,7 +17,6 @@ import { showSocialsModal } from '../../redux/actions'
 import { ReactComponent as Share } from '../../assets/images/share.svg'
 import { websiteLogoMapGrey, currencySymbolMap } from '../../assets/constants'
 import DynamicList from '../Other/dynamicList'
-import RecommendedCard from './recommendedCard'
 import Carousel from '../Home/Carousels/carousel'
 
 export default function Item() {
@@ -168,11 +167,6 @@ export default function Item() {
 
                     <div className='item-recommended'>
                         <h6> Recommended For You </h6>
-
-                        {/* {!relatedLoading && relatedItems.length !== 0 &&
-                            <div> {relatedItems.map((item) => <RecommendedCard data={item} />)}</div>
-                        } */}
-
                         {!relatedLoading && relatedItems.length !== 0 &&
                             <Carousel type={'recommended'} />
                         }
