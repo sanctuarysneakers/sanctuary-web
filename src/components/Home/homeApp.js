@@ -17,11 +17,11 @@ export default function HomeApp() {
 
     const clickHandler = (ios, url) => {
 
-        if(ios) {
-            window.analytics.track(`home_app_ios_button_clicked`, {});
-        } else {
-            window.analytics.track(`home_app_android_button_clicked`, {});
-        }
+        // if(ios) {
+        //     window.analytics.track(`home_app_ios_button_clicked`, {});
+        // } else {
+        //     window.analytics.track(`home_app_android_button_clicked`, {});
+        // }
 
         window.open(url, '_blank')
     } 

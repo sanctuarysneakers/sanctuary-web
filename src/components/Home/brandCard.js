@@ -12,7 +12,7 @@ export default function BrandCard({ brand, index, length }) {
     }
 
     const handleClick = () => {
-        window.analytics.track(`home_page_brand_clicked_${brand}`, { brand });
+        //window.analytics.track(`home_page_brand_clicked_${brand}`, { brand });
         document.location.href = `./browse/${brand}`
     }
 
