@@ -56,6 +56,7 @@ export default function useAPICall(callType, params) {
             
             let results = await response.json()
             if (!results.length) throw new Error()
+            results = results.filter(item => !item["model"].includes("(GS)") && !item["model"].includes("(TD)") && !item["model"].includes("(PS)"))
 
             dispatch(dispatch_map[type](results))
         } catch (e) {
@@ -87,13 +88,10 @@ export default function useAPICall(callType, params) {
                 gender: gender
             })
 
-            console.log('itemkey is: ' + itemKey)
-
             const response = await fetch(request.url, request.headers)
             if (!response.ok) throw new Error()
 
             let results = await response.json()
-            
             let itemInfo = extractItemInfo(results, itemKey)
  
             if(!itemInfo) 
@@ -143,7 +141,7 @@ export default function useAPICall(callType, params) {
             postalCode: location['postal_code'],
             currency: currency
         }
-      
+
         const res = await SafePromiseAll(
             [
                 stockxLowestPrice(item, filter),
@@ -196,8 +194,8 @@ export default function useAPICall(callType, params) {
             if (!response.ok) throw new Error()
 
             let results = await response.json()
-            
             if (!results.length) throw new Error()
+            results = results.filter(item => !item["model"].includes("(GS)") && !item["model"].includes("(TD)") && !item["model"].includes("(PS)"))
 
             dispatch(updateRelatedItems(results))
         } catch (e) {
