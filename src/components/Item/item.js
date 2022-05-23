@@ -1,5 +1,5 @@
 import React from 'react'
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet'
 import { HelmetProvider } from 'react-helmet-async'
 import { useParams, useLocation } from 'react-router'
 import { Link } from 'react-router-dom'
@@ -16,11 +16,14 @@ import ItemNoResults from './itemNoResults'
 import Footer from '../Other/footer'
 import { showSocialsModal } from '../../redux/actions'
 import { ReactComponent as Share } from '../../assets/images/share.svg'
-import { websiteLogoMapGrey, currencySymbolMap }  from '../../assets/constants'
+import { websiteLogoMapGrey, currencySymbolMap } from '../../assets/constants'
+import DynamicList from '../Other/dynamicList'
+import Carousel from '../Home/Carousels/carousel'
 
 export default function Item() {
 
     const dispatch = useDispatch()
+
     const { itemKey, gender } = useParams()
 
     const user = useSelector(state => state.user)
@@ -30,17 +33,19 @@ export default function Item() {
     const navLocation = useLocation()
     let passedData = navLocation.itemInfo ? navLocation.itemInfo : null
     useAPICall('getitem', {
-        itemKey: decodeURIComponent(itemKey.replaceAll('-', ' ')), 
-        size: size, 
-        gender: gender, 
+        itemKey: itemKey.toLowerCase() === itemKey ? itemKey : decodeURIComponent(itemKey.replaceAll('-', ' ')), //differentiates between urlkey and sku
+        size: size,
+        gender: gender,
         fromBrowse: passedData
     })
 
     const itemInfo = useSelector(state => state.item.itemInfo)
     const itemPrices = useSelector(state => state.item.itemPrices)
     const itemListings = useSelector(state => state.item.itemListings)
+    const relatedItems = useSelector(state => state.item.relatedItems)
     const pricesLoading = useSelector(state => state.item.loadingItemPrices)
     const listingsLoading = useSelector(state => state.item.loadingItemListings)
+    const relatedLoading = useSelector(state => state.item.relatedItemsLoading)
     const sizeModalVisible = useSelector(state => state.modals.sizeModalVisible)
     const socialsModalVisible = useSelector(state => state.modals.socialsModalVisible)
 
@@ -65,9 +70,9 @@ export default function Item() {
         addToPortfolio(portfolioItem)
     } 
 
-    const clickHandler = () => {
-        window.analytics.track(`item_buy_new_clicked`, {sku: decodeURIComponent(itemKey), gender: gender, model: itemInfo.modelName});
-    }
+    // const clickHandler = () => {
+    //     window.analytics.track(`item_buy_new_clicked`, {sku: decodeURIComponent(itemKey), gender: gender, model: itemInfo.modelName});
+    // }
 
     /* eslint-disable jsx-a11y/anchor-is-valid */
     return (
@@ -79,7 +84,7 @@ export default function Item() {
                     <meta property="og:image" content={itemInfo.image} />
                 </Helmet>
             </HelmetProvider>
-            
+
             <div className='item-sneaker'>
                 <div className='item-sneaker-wrapper'>
                     <div className='item-sneaker-actions'>
@@ -87,7 +92,7 @@ export default function Item() {
                             <Share />
                         </div>
                     </div>
-                
+
                     <div className='item-sneaker-content'>
                         <div className='item-sneaker-image'>
                             <img src={itemInfo.image} alt='sneaker' />
@@ -102,14 +107,14 @@ export default function Item() {
 
                                 {pricesLoading && <ItemLoader version={'source'} />}
                                 {!pricesLoading && <div className='item-sneaker-source'>
-                                    {itemPrices.length ? 
-                                    <div className={`item-sneaker-site ${itemPrices[0].source}`}>
-                                        <img 
-                                            src={websiteLogoMapGrey[itemPrices[0].source]} alt='website logo' 
-                                        />
-                                    </div> 
-                                    : 
-                                    <div className='item-sneaker-source-none'></div>}
+                                    {itemPrices.length ?
+                                        <div className={`item-sneaker-site ${itemPrices[0].source}`}>
+                                            <img
+                                                src={websiteLogoMapGrey[itemPrices[0].source]} alt='website logo'
+                                            />
+                                        </div>
+                                        :
+                                        <div className='item-sneaker-source-none'></div>}
                                 </div>}
 
                                 <div className='item-sneaker-model'>
@@ -118,27 +123,27 @@ export default function Item() {
 
                                 {pricesLoading && <ItemLoader version={'info'} />}
                                 {!pricesLoading && <div className='item-sneaker-price-details'>
-                                    {itemPrices.length ? 
-                                    
-                                    <Link to={{ pathname: itemPrices[0].url }} className="hidden-link" target="_blank" rel="noopener noreferrer" onClick={clickHandler} onContextMenu={clickHandler}> 
-                                        <div className='item-sneaker-price'>
-                                            <h2>
-                                                Buy New {currencySymbolMap[currency]}{itemPrices[0].price}
-                                            </h2>
-                                        </div>
-                                    </Link>
-                                    : 
-                                    <a>
-                                        <div className='item-sneaker-price none'>
-                                            <h2>
-                                                No Results
-                                            </h2>
-                                        </div>
-                                    </a>}
+                                    {itemPrices.length ?
+
+                                        <Link to={{ pathname: itemPrices[0].url }} className="hidden-link" target="_blank" rel="noopener noreferrer">
+                                            <div className='item-sneaker-price'>
+                                                <h2>
+                                                    Buy New {currencySymbolMap[currency]}{itemPrices[0].price}
+                                                </h2>
+                                            </div>
+                                        </Link>
+                                        :
+                                        <a>
+                                            <div className='item-sneaker-price none'>
+                                                <h2>
+                                                    No Results
+                                                </h2>
+                                            </div>
+                                        </a>}
 
                                     <SizeFilter gender={gender} />
                                     {sizeModalVisible && <SizeModal gender={gender} />}
-                                    {socialsModalVisible && <SocialsModal itemName={itemInfo.modelName} price={`${currencySymbolMap[currency]}${itemPrices[0].price}`} url={window.location.href} image={itemInfo.iamge}/> }
+                                    {socialsModalVisible && <SocialsModal itemName={itemInfo.modelName} price={`${currencySymbolMap[currency]}${itemPrices[0].price}`} url={window.location.href} image={itemInfo.iamge} />}
                                 </div>}
                             </div>
                         </div>
@@ -162,12 +167,29 @@ export default function Item() {
                     <div className='item-more-listings'>
                         <h6> More Listings </h6>
 
-                        <div className='item-more-listings-rows'>
-                            {listingsLoading && <ItemLoader version={'listings'} />}
-                            {!listingsLoading && <div className='item-more-listings-rows-content'>
-                                {itemListings.length ? listingComponents : <ItemNoResults version={'listings'} />}
-                            </div>}
-                        </div>
+                        {listingsLoading ?
+                            <div className='item-more-listings-rows'>
+                                <ItemLoader version={'listings'} />
+                            </div>
+                            :
+                            <div>
+                                {itemListings.length ?
+                                    <DynamicList
+                                        name={'item-more-listings-rows'}
+                                        items={listingComponents}
+                                        initialLength={5} />
+                                    :
+                                    <ItemNoResults version={'listings'} />
+                                }
+                            </div>
+                        }
+                    </div>
+
+                    <div className='item-recommended'>
+                        <h6> Recommended For You </h6>
+                        {!relatedLoading && relatedItems.length !== 0 &&
+                            <Carousel type={'recommended'} />
+                        }
                     </div>
                 </div>
             </div>

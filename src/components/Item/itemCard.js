@@ -15,17 +15,17 @@ export default function ItemCard({ data }) {
         dispatch(setItemListingsLoading(true))
 
         let itemKey = data.sku ? encodeURIComponent(data.sku) : data.urlKey
-        window.analytics.track(`browse_item_clicked`, {id: itemKey, gender: data.gender})
-
-        return `/item/${itemKey}/${data.gender}` 
+        //window.analytics.track(`browse_item_clicked`, {id: itemKey, gender: data.gender})
+        return data.gender !== null ? `/item/${itemKey}/${data.gender}` : `/item/${itemKey}` 
     }
 
     const getNavData = () => {
         let itemInfo = {
-            sku: data.sku.replaceAll('-', ' '),
+            sku: data.sku ? data.sku.replaceAll('-', ' ') : null,
             modelName: data.model,
             image: data.image,
             url: data.url,
+            urlKey: data.urlKey
         }
         return itemInfo
     }

@@ -144,11 +144,15 @@
         padding-bottom: 166px;
 
         .item-price-listings-content {
-            max-width: 1000px;
-            margin: auto;
-            padding: 0px 20px;
+            // max-width: 1000px;
+            // margin: auto;
+            // padding: 0px 20px;
 
             .item-lowest-prices {
+                max-width: 1000px;
+                margin: auto;
+                padding: 0px 20px;
+
                 h6 {
                     font-size: 28px;
                     font-weight: 600;
@@ -169,6 +173,9 @@
             }
 
             .item-more-listings {
+                max-width: 1000px;
+                margin: auto;
+                padding: 0px 20px;
                 padding-top: 100px;
 
                 h6 {
@@ -179,6 +186,7 @@
                 }
 
                 .item-more-listings-rows {
+                    width: 100%;
                     min-width: 280px;
                     background: white;
                     border-radius: 10px;
@@ -187,6 +195,18 @@
 
                 .item-more-listings-rows-content {
                     padding-left: 20px;
+                }
+            }
+
+            .item-recommended {
+                padding-top: 100px;
+
+                h6 {
+                    font-size: 28px;
+                    font-weight: 600;
+                    color: black;
+                    letter-spacing: -0.28px;
+                    margin-left: 8vw;
                 }
             }
         }

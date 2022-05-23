@@ -50,6 +50,13 @@ export const updateItemListings = itemListings => {
     }
 }
 
+export const updateRelatedItems = relatedItems => {
+    return {
+        type: 'UPDATE_RELATED_ITEMS',
+        payload: relatedItems
+    }
+}
+
 export const setItemPricesLoading = isLoading => {
     return {
         type: 'LOADING_ITEM_PRICES',
@@ -60,6 +67,13 @@ export const setItemPricesLoading = isLoading => {
 export const setItemListingsLoading = isLoading => {
     return {
         type: 'LOADING_ITEM_LISTINGS',
+        payload: isLoading
+    }
+}
+
+export const setRelatedItemsLoading = isLoading => {
+    return {
+        type: 'LOADING_RELATED_ITEMS',
         payload: isLoading
     }
 }

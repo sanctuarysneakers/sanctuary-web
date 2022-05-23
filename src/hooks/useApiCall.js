@@ -3,11 +3,11 @@ import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { browseCall, updateItemInfo, updateItemPrices, updateItemListings, 
     setItemPricesLoading, setItemListingsLoading, trendingCall, 
-    under200Call, under300Call } from '../redux/actions'
+    under200Call, under300Call, updateRelatedItems, setRelatedItemsLoading } from '../redux/actions'
 import createRequestObject from '../api/createRequest'
-import { getItemInfo, getItemPrices, getItemListings } from '../api/aggregator'
+import { getItemInfo, getItemPrices, getItemListings, getRelatedItems } from '../api/aggregator'
 import { SafePromiseAll } from '../api/helpers'
-import { getLocation }  from '../hooks/useLocationDetection'
+import { getLocation }  from '../hooks/useLocationDetection' 
 
 export default function useAPICall(callType, params) {
     
@@ -50,6 +50,10 @@ export default function useAPICall(callType, params) {
             
             let results = await response.json()
             if (!results.length) throw new Error()
+            results = results.filter(item => 
+                !item["model"].includes("(GS)") 
+                && !item["model"].includes("(TD)") 
+                && !item["model"].includes("(PS)"))
 
             dispatch(dispatch_map[type](results))
         } catch (e) {
@@ -68,13 +72,16 @@ export default function useAPICall(callType, params) {
 
         let results = await SafePromiseAll([
             getItemPrices(itemInfo, size, params.gender, currency, location),
-            getItemListings(itemInfo, size, params.gender, currency, location)
+            getItemListings(itemInfo, size, params.gender, currency, location),
+            getRelatedItems(itemInfo, currency)
         ], [])
 
         dispatch(updateItemPrices(results[0]))
         dispatch(updateItemListings(results[1]))
+        dispatch(updateRelatedItems(results[2]))
 	    dispatch(setItemPricesLoading(false))
 	    dispatch(setItemListingsLoading(false))
+        dispatch(setRelatedItemsLoading(false))
     }
 
     useEffect(() => {

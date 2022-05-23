@@ -20,13 +20,13 @@ export default function ItemListing({ data, index, length }) {
         condition = 'Used'
     }
 
-    const clickHandler = () => {
-        window.analytics.track(`item_more_listings_click_${data.source}`, { url: data.url, price: data.price });
-    }
+    // const clickHandler = () => {
+    //     window.analytics.track(`item_more_listings_click_${data.source}`, { url: data.url, price: data.price });
+    // }
     /* eslint-disable jsx-a11y/anchor-is-valid */
     return (
         <div className={(index === length - 1) ? 'item-listing last' : 'item-listing'}>
-            <Link to={{ pathname: data.url }} className="hidden-link" target="_blank" rel="noopener noreferrer" onClick={clickHandler} onContextMenu={clickHandler}> 
+            <Link to={{ pathname: data.url }} className="hidden-link" target="_blank" rel="noopener noreferrer"> 
                 <div className='item-listing-source'>
                     <div className='item-listing-image'>
                         <img src={data.image} alt='the sneaker' />
