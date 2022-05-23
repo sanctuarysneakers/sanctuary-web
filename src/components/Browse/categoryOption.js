@@ -7,7 +7,7 @@ export default function CategoryOption({ category }) {
     const dispatch = useDispatch()
 
     const clickHandler = () => {
-        window.analytics.track(`browse_category_option_clicked`, {category: category});
+        //window.analytics.track(`browse_category_option_clicked`, {category: category});
         document.location.href = '/browse/' + category; 
         dispatch(hideCategoryFilterModal());
     }

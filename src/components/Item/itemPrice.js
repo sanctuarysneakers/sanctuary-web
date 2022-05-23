@@ -9,14 +9,14 @@ export default function ItemPrice({ data, index, length }) {
 
     const currency = useSelector(state => state.currency)
 
-    const clickHandler = () => {
-        window.analytics.track(`item_lowest_prices_click_${data.source}`, { url: data.url, price: data.price });
-    }
+    // const clickHandler = () => {
+    //     window.analytics.track(`item_lowest_prices_click_${data.source}`, { url: data.url, price: data.price });
+    // }
     
     /* eslint-disable jsx-a11y/anchor-is-valid */
     return (
         <div className={(index === length - 1) ? 'item-price last' : 'item-price'}>
-            <Link to={{ pathname: data.url }} className="hidden-link" target="_blank" rel="noopener noreferrer" onClick={clickHandler} onContextMenu={clickHandler}> 
+            <Link to={{ pathname: data.url }} className="hidden-link" target="_blank" rel="noopener noreferrer"> 
                 <div className='item-price-source'>
                     <div className={`item-source-logo ${data.source}`}>
                         <img src={websiteLogoMapRegular[data.source]} alt='website logo' />
