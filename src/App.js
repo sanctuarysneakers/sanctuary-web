@@ -10,6 +10,7 @@ import Navbar from "./components/Other/navbar"
 import Home from "./components/Home/home"
 import Browse from "./components/Browse/browse"
 import Item from "./components/Item/item"
+import Portfolio from './components/Portfolio/portfolio'
 import AboutModal from "./components/Modals/aboutModal"
 import HamburgerModal from './components/Modals/hamburgerModal'
 import DeleteModal from "./components/Modals/deleteModal"
@@ -36,7 +37,6 @@ import EditProfilePassword from './components/Accounts/editProfilePassword'
 import ForgotPassword from './components/Accounts/forgotPassword'
 
 import HowItWorks from './components/HowItWorks/howItWorks'
-
 import Newsroom from './components/Newsroom/newsroom'
 import SanctuaryStory from './components/Newsroom/Articles/sanctuaryStory'
 import AdidasCarbon3D from './components/Newsroom/Articles/adidasCarbon3D'
@@ -113,7 +113,9 @@ export default function App() {
                 <ProtectedRoute path="/profile-edit-email" component={EditProfileEmail} isEnabled={firebase.auth().currentUser} />
                 <ProtectedRoute path="/profile-edit-password" component={EditProfilePassword} isEnabled={firebase.auth().currentUser} />
                 <ProtectedRoute path="/sign-out/:redirect?" component={SignOut} isEnabled={firebase.auth().currentUser} />
-            
+
+                <ProtectedRoute path="/portfolio" component={Portfolio} isEnabled={firebase.auth().currentUser}/>
+
                 <Route path="/privacy-policy" component={PrivacyPolicy} />
                 <Route path="/terms-of-use" component={TermsOfUse} />
                 <Route path="/contact-us" component={ContactUs} />

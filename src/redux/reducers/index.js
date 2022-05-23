@@ -5,6 +5,7 @@ import sizeReducer from './sizeReducer'
 import currencyReducer from './currencyReducer'
 import recordSplashHeightReducer from './recordSplashHeightReducer'
 import userReducer from './userReducer'
+import portfolioReducer from './portfolioReducer'
 import locationReducer from './locationReducer'
 import redirectReducer from './redirectReducer'
 
@@ -19,7 +20,8 @@ const globalReducer = combineReducers({
     currency: currencyReducer,
     location: locationReducer,
     splashHeight: recordSplashHeightReducer,
-    user: userReducer,  
+    user: userReducer,
+    portfolio: portfolioReducer,
     redirect: redirectReducer,
     
     item: itemReducer, 

@@ -4,7 +4,7 @@ import Box from '@mui/material/Box'
 import Popper from '@mui/material/Popper'
 import { styled } from "@mui/material/styles"
 import TextField from '@mui/material/TextField'
-import createRequestObject from '../../hooks/createRequest'
+import createRequestObject from '../../api/createRequest'
 import { ReactComponent as Search } from '../../assets/images/Search.svg'
 import { ReactComponent as Clear } from '../../assets/images/Clear.svg'
 

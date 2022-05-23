@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useSelector } from 'react-redux'
 import useAPICall from '../../hooks/useApiCall'
-import createRequestObject from '../../hooks/createRequest'
+import createRequestObject from '../../api/createRequest'
 import ItemCard from '../Item/itemCard'
 
 export default function Catalog({ search_query }) {

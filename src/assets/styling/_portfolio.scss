@@ -1,0 +1,36 @@
+.portfolio {
+    background: #F7F9FC;
+    .portfolio-title {
+        background: #F7F9FC;
+
+        .portfolio-title-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1000px;
+            padding: 0px 20px;
+            margin: auto;
+
+            .portfolio-title-content-text {
+                padding: 89px 0px;
+
+                h2 {
+                    font-size: 36px;
+                    font-weight: 600;
+                    color: black;
+                    line-height: 48px;
+                }
+            }
+        }
+    }
+
+    .portfolio-catalog {
+        background: #F7F9FC;
+        padding-bottom: 166px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        max-width: 1000px;
+        margin: auto;
+    }
+}

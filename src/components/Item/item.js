@@ -8,6 +8,7 @@ import SizeFilter from './sizeFilter'
 import SizeModal from '../Modals/sizeModal'
 import SocialsModal from '../Modals/socialsModal'
 import useAPICall from '../../hooks/useApiCall'
+import { addToPortfolio } from '../../api/portfolio'
 import ItemPrice from './itemPrice'
 import ItemListing from './itemListing'
 import ItemLoader from './itemLoader'
@@ -21,6 +22,8 @@ export default function Item() {
 
     const dispatch = useDispatch()
     const { itemKey, gender } = useParams()
+
+    const user = useSelector(state => state.user)
     const currency = useSelector(state => state.currency)
     const size = useSelector(state => state.size)
 
@@ -49,6 +52,18 @@ export default function Item() {
         <ItemListing key={item.id} data={item} index={index}
             length={itemListings.length} />
     )
+
+    const onAddToPortfolio = () => {
+        let portfolioItem = {
+            user_id: user.uid,
+            sku: itemInfo.sku,
+            item_data: JSON.stringify(itemInfo),
+            size: size,
+            price: itemPrices[0].price,
+            currency: currency
+        }
+        addToPortfolio(portfolioItem)
+    } 
 
     const clickHandler = () => {
         window.analytics.track(`item_buy_new_clicked`, {sku: decodeURIComponent(itemKey), gender: gender, model: itemInfo.modelName});
@@ -80,6 +95,11 @@ export default function Item() {
 
                         <div className='item-sneaker-info'>
                             <div className='item-sneaker-text'>
+                                {user && 
+                                <button onClick={() => onAddToPortfolio()}>
+                                    Add to Portfolio
+                                </button>}
+
                                 {pricesLoading && <ItemLoader version={'source'} />}
                                 {!pricesLoading && <div className='item-sneaker-source'>
                                     {itemPrices.length ? 

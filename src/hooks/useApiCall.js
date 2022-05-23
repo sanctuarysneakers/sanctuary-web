@@ -4,9 +4,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { browseCall, updateItemInfo, updateItemPrices, updateItemListings, 
     setItemPricesLoading, setItemListingsLoading, trendingCall, 
     under200Call, under300Call } from '../redux/actions'
-import createRequestObject from './createRequest'
-import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPrice, 
-    klektLowestPrice, grailedListings, ebayListings, depopListings } from './scrapers'
+import createRequestObject from '../api/createRequest'
+import { getItemInfo, getItemPrices, getItemListings } from '../api/aggregator'
+import { SafePromiseAll } from '../api/helpers'
 import { getLocation }  from '../hooks/useLocationDetection'
 
 export default function useAPICall(callType, params) {
@@ -14,15 +14,9 @@ export default function useAPICall(callType, params) {
     const history = useHistory()
     const dispatch = useDispatch()
     
-    let location = useSelector(state => state.location)
+    const location = useSelector(state => state.location)
     const size = useSelector(state => state.size)
     const currency = useSelector(state => state.currency)
-
-    function SafePromiseAll(promises, def = null) {
-        return Promise.all(
-            promises.map(p => p.catch(error => def))
-        )
-    }
 
     async function browse(type, query) {
         const price_limit = {
@@ -64,106 +58,23 @@ export default function useAPICall(callType, params) {
     }
 
     async function getItem(params) {
-        if (location === null)
+        if (!location)
             location = await getLocation() 
 
         let itemInfo = params.fromBrowse ? params.fromBrowse : await getItemInfo(params.itemKey, params.gender)
+        if (!itemInfo)
+            history.replace('/item-not-supported')
         dispatch(updateItemInfo(itemInfo))
 
-        await SafePromiseAll(
-            [
-                getItemPrices(itemInfo, params.size, params.gender),
-                getItemListings(itemInfo, params.size, params.gender)
-            ], 
-            []
-        )
-    }
+        let results = await SafePromiseAll([
+            getItemPrices(itemInfo, size, params.gender, currency, location),
+            getItemListings(itemInfo, size, params.gender, currency, location)
+        ], [])
 
-    async function getItemInfo(itemKey, gender) {
-        try {
-            const request = createRequestObject('browse', {
-                search: itemKey,
-                gender: gender
-            })
-
-            const response = await fetch(request.url, request.headers)
-            if (!response.ok) throw new Error()
-
-            let itemData = await response.json()
-            
-            // handles case where sku contains multiple skus separated by '/'
-            let skus = itemData[0]['sku'].split('/')
-            let containsSku = false
-            for (var i=0; i < skus.length; i++) {
-                skus[i] = skus[i].replaceAll('-', ' ')
-                if (skus[i].includes(itemKey))
-                    containsSku = true
-            }
-            if (!containsSku && !itemData[0]['urlKey'].includes(itemKey))
-                throw new Error()
-            
-            return {
-                sku: skus.length === 1 ? skus[0] : "",
-                modelName: itemData[0]['model'],
-                image: itemData[0]['image'],
-                url: itemData[0]['url']
-            }
-        } catch (e) { 
-            history.replace('/item-not-supported')
-            return null
-        }
-    }
-
-    async function getItemPrices(item, size, gender) {
-        let filter = {
-            size: size,
-            gender: gender,
-            country: location['country_code'],
-            postalCode: location['postal_code'],
-            currency: currency
-        }
-      
-        const res = await SafePromiseAll(
-            [
-                stockxLowestPrice(item, filter),
-                ebayLowestPrice(item, filter),
-                flightclubLowestPrice(item, filter),
-                goatLowestPrice(item, filter),
-                klektLowestPrice(item, filter)
-            ]
-        )
-        
-        let results = res.flat()
-        results = results.filter(r => r.price !== 0)
-        results.sort((a, b) => a.price - b.price)
-
-        dispatch(updateItemPrices(results))
-        dispatch(setItemPricesLoading(false))
-
-        return results
-    }
-
-    async function getItemListings(item, size, gender) {
-        let filter = {
-            size: size,
-            gender: gender,
-            country: location['country_code'],
-            postalCode: location['postal_code'],
-            currency: currency
-        }
-
-        const res = await SafePromiseAll(
-            [
-                ebayListings(item, filter), 
-                depopListings(item, filter),
-                grailedListings(item, filter)
-            ]
-        ) 
-
-        let results = res.flat().sort((a, b) => a.price - b.price)
-        dispatch(updateItemListings(results))
-        dispatch(setItemListingsLoading(false))
-        return results
+        dispatch(updateItemPrices(results[0]))
+        dispatch(updateItemListings(results[1]))
+	    dispatch(setItemPricesLoading(false))
+	    dispatch(setItemListingsLoading(false))
     }
 
     useEffect(() => {

@@ -43,6 +43,10 @@ export default function Navbar() {
                             Browse
                         </Link>
 
+                        <Link onClick={() => document.location.href = '/portfolio'}>
+                            Portfolio
+                        </Link>
+
                         <Link onClick={() => document.location.href = '/newsroom'}>
                             Newsroom
                         </Link>

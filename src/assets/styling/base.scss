@@ -53,6 +53,8 @@
 @import "./homeApp";
 @import "./carousel";
 @import "./carouselCard";
+@import "./portfolio";
+@import "./portfolioCard";
 @import "./howItWorksSplash";
 @import "./howItWorksInfo";
 @import "./howItWorksSites";
@@ -60,9 +62,8 @@
 @import "./howItWorksContact";
 @import "./contactForm";
 @import "./socialsModal";
-
 @import "swiper/swiper";
-@import 'swiper/components/navigation/navigation';
+@import "swiper/components/navigation/navigation";
 
 body {
     font-family: 'Poppins', sans-serif;
