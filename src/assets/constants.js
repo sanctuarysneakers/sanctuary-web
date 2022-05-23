@@ -115,7 +115,7 @@ export const sizeTypeOptions = [
     {value: null, label: 'All'},
     {value: 'men', label: 'Men'},
     {value: 'women', label: 'Women'}, 
-    {value: 'child', label: 'Child'}
+    // {value: 'child', label: 'Child'}
 ]
 
 export const sortOptions = [
