@@ -1,11 +1,11 @@
 
-const userReducer = (state=null, action) => {
+const sizeReducer = (state=10, action) => {
     switch(action.type) {
-        case 'SET_USER':
+        case 'UPDATE_SIZE':
             return action.payload
         default:
             return state
     }
 }
 
-export default userReducer
+export default sizeReducer

@@ -27,6 +27,15 @@ const itemPricesReducer = (state=[], action) => {
     }
 }
 
+const relatedItemsReducer = (state=[], action) => {
+    switch(action.type) {
+        case 'UPDATE_RELATED_ITEMS':
+            return action.payload
+        default:
+            return state
+    }
+} 
+
 const loadingItemListingsReducer = (state=true, action) => {
     switch(action.type) {
         case 'LOADING_ITEM_LISTINGS':
@@ -45,9 +54,9 @@ const loadingItemPricesReducer = (state=true, action) => {
     }
 }
 
-const sizeReducer = (state=10, action) => {
+const loadingRelatedItemsReducer = (state=true, action) => {
     switch(action.type) {
-        case 'UPDATE_SIZE':
+        case 'LOADING_RELATED_ITEMS':
             return action.payload
         default:
             return state
@@ -55,12 +64,13 @@ const sizeReducer = (state=10, action) => {
 }
 
 const item = combineReducers({
-    size: sizeReducer, 
     itemInfo: itemInfoReducer,
     itemPrices: itemPricesReducer,
     itemListings: itemListingsReducer,
+    relatedItems: relatedItemsReducer,
     loadingItemPrices: loadingItemPricesReducer,
     loadingItemListings: loadingItemListingsReducer,
+    loadingRelatedItems: loadingRelatedItemsReducer
 })
 
 export default item

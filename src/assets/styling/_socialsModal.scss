@@ -1,4 +1,4 @@
-.size-modal {
+.socials-modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -11,17 +11,17 @@
     background: rgba(0, 0, 0, 0.6);
     animation: fade-in-out 0.3s;
 
-    .size-modal-content {
-        width: 500px;
-        height: 500px;
+    .socials-modal-content {
+        width: 600px;
+        height: 350px;
         background: white;
-        border-radius: 20px;
+        border-radius: 23px;
     }
 
-    .size-modal-padding {
+    .socials-modal-padding {
         padding: 20px;
 
-        .size-modal-close {
+        .socials-modal-close {
             display: flex;
             justify-content: flex-end;
 
@@ -41,10 +41,10 @@
             }
         }
 
-        .size-modal-text {
+        .socials-modal-text {
             width: 400px;
             margin: auto;
-            padding-top: 5px;
+            padding-top: 10px;
 
             h1 {
                 font-size: 29.5px;
@@ -60,25 +60,14 @@
                 line-height: 24px;
                 padding-top: 7px;
             }
-
-            .gender-button {
-                background-color: white;
-                font-family: 'Poppins', sans-serif;
-                font-size: 16px;
-                font-weight: 400;
-                color: #919BB1;
-                line-height: 24px;
-                padding-top: 7px;
-                cursor: pointer;
-            }
         }
 
-        .size-modal-buttons {
+        .socials-modal-buttons {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 5px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
             width: 400px;
-            padding-top: 18px;
+            padding-top: 30px;
             margin: auto;
         }
     }
@@ -86,32 +75,28 @@
 
 // Mobile responsiveness
 @media screen and (max-width: 767px) {
-    .size-modal {
-        .size-modal-content {
+    .socials-modal {
+        .socials-modal-content {
             width: 335px;
-            height: 475px;
-            border-radius: 20px;
+            height: 450px;
+            border-radius: 22px;
 
-            .size-modal-padding {
-                .size-modal-text {
+            .socials-modal-padding {
+                .socials-modal-text {
                     width: 280px;
-                    padding-top: 0px;
+                    padding-top: 10px;
 
                     h1 {
                         font-size: 26px;
                         line-height: 39px
                     }
-
-                    .gender-button {
-                        background-color: white;
-                        font-family: 'Poppins', sans-serif;
-                        font-size: 16px;
-                    }
                 }
 
-                .size-modal-buttons {
-                    width: 280px;
-                    padding-top: 17px;
+                .socials-modal-buttons {
+                    width: 200px;
+                    padding-top: 30px;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 10px;
                 }
             }
         }

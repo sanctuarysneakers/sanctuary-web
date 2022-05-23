@@ -9,6 +9,7 @@ export default function Catalog({ search_query }) {
 
     const browseData = useSelector(state => state.browse.browseData)
     const currency = useSelector(state => state.currency)
+    let location = useSelector(state => state.location)
     
     let [items, updateItems] = useState(browseData)
     let [page, updatePage] = useState(1)
@@ -20,15 +21,20 @@ export default function Catalog({ search_query }) {
         const request = createRequestObject('browse', {
             search: search_query,
             currency: currency,
-            page: page+1
+            page: page+1, 
+            ship_to: location['country_code']
         })
         
         const response = await fetch(request.url, request.headers)
         let results = await response.json()
-        
-        updateItems(items.concat(results))
-        updatePage(page + 1)
-        if (results.length < 40) setHasMore(false)
+        results = results.filter(item => !item["model"].includes("(GS)") && !item["model"].includes("(TD)") && !item["model"].includes("(PS)"))
+
+        if (results !== null) {
+            updateItems(items.concat(results))
+            updatePage(page + 1)
+
+            if (results.length < 40) setHasMore(false)
+        }
     }
 
     useEffect(() => {

@@ -83,11 +83,11 @@ export default function Footer({ colour }) {
                                 <h2> Account </h2>
 
                                 <Link onClick={() => document.location.href = '/create-account'}>
-                                    Create Account
+                                    Sign Up
                                 </Link>
 
                                 <Link onClick={() => document.location.href = '/sign-in'}>
-                                    Sign In
+                                    Log In
                                 </Link>
                             </div>
 

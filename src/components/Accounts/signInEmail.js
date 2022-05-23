@@ -1,38 +1,45 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import firebase from '../../services/firebase.js'
-import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom"
 import { Link } from 'react-router-dom'
-import { hideHomeSearch } from '../../redux/actions'
+import { setRedirectUrl, hideHomeSearch } from '../../redux/actions'
 import sanctuary from "../../assets/images/logos/sanctuary-bird-black.png"
 import Footer from '../Other/footer'
 
 export default function SignInEmail() {
     const dispatch = useDispatch()
     const history = useHistory()
+
+    const redirect = useSelector(state => state.redirect)
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
 
-    dispatch(hideHomeSearch())
-
     const signInEmailPassword = () => {
         firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(() => {
+            .then(async (r) => {
+                if (redirect) {
+                    let redirectCopy = redirect
+                    dispatch(setRedirectUrl(null))
+                    const jwt = await r.user.getIdToken()
+                    window.location.href = `${redirectCopy}id_token=${jwt}`
+                }
                 history.push("/")
-            })
-            .catch(e => {
+            }).catch(e => {
                 setErrorMessage(e.message)
-            }
-            );
+            })
     }
+
+    dispatch(hideHomeSearch())
 
     return (
         <div className='email-form'>
             <div className='email-form-content'>
                 <div className='email-form-header'>
-                    <img src={sanctuary} alt='Sanctuary' />
-                    <h2> Sign in </h2>
+                    {/* <img src={sanctuary} alt='Sanctuary' /> */}
+                    <h2> Log in </h2>
                     <p> Welcome back, </p>
                     <p> your perfect pair of shoes awaits you. </p>
                 </div>
@@ -61,9 +68,23 @@ export default function SignInEmail() {
                         />
                     </div>
 
+                    <div className='forgot-password'>
+                        <Link className='forgot-password-text' to="/sign-in-forgot-password">
+                            Forgot Password?
+                        </Link>
+                    </div>
                 </div>
 
                 <div className='email-form-bottom'>
+
+                    <button onClick={signInEmailPassword}>
+                        Log in
+                    </button>
+
+                    <div className='switch-form'>
+                        <p> Don't have an account? </p>
+                        <Link to="/create-account-email"> Sign Up. </Link>
+                    </div>
 
                     <div className='account-terms-policy'>
                         <p> By signing in, you agree to Sanctuary's </p>
@@ -80,15 +101,6 @@ export default function SignInEmail() {
                                 </Link>
 
                         </div>
-                    </div>
-
-                    <button onClick={signInEmailPassword}>
-                        Sign in
-                    </button>
-
-                    <div className='switch-form'>
-                        <p> Don't have an account? </p>
-                        <Link to="/create-account-email"> Create account. </Link>
                     </div>
 
                 </div>

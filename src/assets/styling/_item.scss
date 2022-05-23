@@ -2,105 +2,135 @@
     .item-sneaker {
         background: white;
 
-        .item-sneaker-content {
-            display: flex;
-            justify-content: space-between;
+        .item-sneaker-wrapper {
             max-width: 1000px;
             margin: auto;
             padding: 0px 20px;
 
-            .item-sneaker-image {
-                img {
-                    display: block;
-                    width: auto;
-                    height: 350px;
-                    padding: 100px 0px;
+            .item-sneaker-actions {
+                display: flex;
+                justify-content: flex-end;
+                margin-top: 30px;
+
+                .item-sneaker-share {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 100%;
+                    background-color: #F3F3F4;
+                    cursor: pointer;
+
+                    svg {
+                        width: 18px;
+                        height: auto;
+                    }
                 }
-                
-                img:not([src]) {
-                    visibility: hidden;
+
+                .item-sneaker-share:hover {
+                    background-color: #E6E6E7;
                 }
             }
-
-            .item-sneaker-info {
+        
+            .item-sneaker-content {
                 display: flex;
-                align-items: center;
+                justify-content: space-between;
 
-                .item-sneaker-text {
-                    width: 335px;
-
-                    .item-sneaker-site {
-                        height: 21px;
-                        padding-bottom: 15px;
-                        text-align: center;
+                .item-sneaker-image {
+                    img {
+                        display: block;
+                        width: auto;
+                        height: 350px;
+                        padding: 65px 0px;
                     }
+                    
+                    img:not([src]) {
+                        visibility: hidden;
+                    }
+                }
 
-                    // Styling for StockX logo
-                    .item-sneaker-site.stockx {
-                        img {
-                            width: 60px;
-                            height: auto;
+                .item-sneaker-info {
+                    display: flex;
+                    align-items: flex-end;
+
+                    .item-sneaker-text {
+                        width: 335px;
+                        margin-bottom: 100px;
+
+                        .item-sneaker-site {
+                            height: 21px;
+                            padding-bottom: 15px;
+                            text-align: center;
                         }
-                    }
 
-                    .item-sneaker-model {
-                        text-align: center;
-                        padding-bottom: 30px;
-
-                        h1 {
-                            font-size: 32px;
-                            font-weight: 600;
-                            color: black;
-                            line-height: 44px;
-                            letter-spacing: -0.41px;
-                        }
-                    }
-
-                    .item-sneaker-price-details {
-                        a {
-                            text-decoration: none;
-                            cursor: pointer;
-
-                            .item-sneaker-price {
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                max-width: 360px;
-                                min-width: 280px;
-                                height: 45px;
-                                background: #EC3E26;
-                                border-radius: 10px;
-                                margin-bottom: 10px;
-
-                                h2 {
-                                    font-size: 16.5px;
-                                    font-weight: 500;
-                                    color: white;
-                                }
+                        // Styling for StockX logo
+                        .item-sneaker-site.stockx {
+                            img {
+                                width: 60px;
+                                height: auto;
                             }
                         }
 
-                        .item-sneaker-price:hover {
-                            background: #D93822;
+                        .item-sneaker-model {
+                            text-align: center;
+                            padding-bottom: 30px;
+
+                            h1 {
+                                font-size: 32px;
+                                font-weight: 600;
+                                color: black;
+                                line-height: 44px;
+                                letter-spacing: -0.41px;
+                            }
                         }
 
-                        .item-sneaker-price.none:hover {
-                            background: #EC3E26;
-                        }
-                    }
-                    
-                    .item-sneaker-source-none {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        width: 100%;
-                        height: 15px;
-                        margin-top: 6px;
-                        margin-bottom: 15px;
+                        .item-sneaker-price-details {
+                            a {
+                                text-decoration: none;
+                                cursor: pointer;
 
-                        p {
-                            font-size: 20px;
-                            color: #919BB1;
+                                .item-sneaker-price {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    max-width: 360px;
+                                    min-width: 280px;
+                                    height: 45px;
+                                    background: #EC3E26;
+                                    border-radius: 10px;
+                                    margin-bottom: 10px;
+
+                                    h2 {
+                                        font-size: 16.5px;
+                                        font-weight: 500;
+                                        color: white;
+                                    }
+                                }
+                            }
+
+                            .item-sneaker-price:hover {
+                                background: #D93822;
+                            }
+
+                            .item-sneaker-price.none:hover {
+                                background: #EC3E26;
+                            }
+                        }
+                        
+                        .item-sneaker-source-none {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 100%;
+                            height: 15px;
+                            margin-top: 6px;
+                            margin-bottom: 15px;
+
+                            p {
+                                font-size: 20px;
+                                color: #919BB1;
+                            }
                         }
                     }
                 }
@@ -114,11 +144,15 @@
         padding-bottom: 166px;
 
         .item-price-listings-content {
-            max-width: 1000px;
-            margin: auto;
-            padding: 0px 20px;
+            // max-width: 1000px;
+            // margin: auto;
+            // padding: 0px 20px;
 
             .item-lowest-prices {
+                max-width: 1000px;
+                margin: auto;
+                padding: 0px 20px;
+
                 h6 {
                     font-size: 28px;
                     font-weight: 600;
@@ -139,6 +173,9 @@
             }
 
             .item-more-listings {
+                max-width: 1000px;
+                margin: auto;
+                padding: 0px 20px;
                 padding-top: 100px;
 
                 h6 {
@@ -149,6 +186,7 @@
                 }
 
                 .item-more-listings-rows {
+                    width: 100%;
                     min-width: 280px;
                     background: white;
                     border-radius: 10px;
@@ -159,6 +197,18 @@
                     padding-left: 20px;
                 }
             }
+
+            .item-recommended {
+                padding-top: 100px;
+
+                h6 {
+                    font-size: 28px;
+                    font-weight: 600;
+                    color: black;
+                    letter-spacing: -0.28px;
+                    margin-left: 8vw;
+                }
+            }
         }
     }
 }
@@ -167,25 +217,29 @@
 @media (min-width: 870px) and (max-width: 1099px) {
     .item {
         .item-sneaker {
-            .item-sneaker-content {
+            .item-sneaker-wrapper {
                 max-width: 854px;
 
-                .item-sneaker-image {
-                    img {
-                        height: 280px;
-                        padding: 135px 0px;
+                .item-sneaker-content {
+                    max-width: 854px;
+
+                    .item-sneaker-image {
+                        img {
+                            height: 280px;
+                            padding: 100px 0px;
+                        }
                     }
-                }
 
-                .item-sneaker-info {
-                    .item-sneaker-text {
-                        .item-sneaker-model {
-                            padding-bottom: 25px;
+                    .item-sneaker-info {
+                        .item-sneaker-text {
+                            .item-sneaker-model {
+                                padding-bottom: 25px;
 
-                            h1 {
-                                font-size: 28px;
-                                line-height: 40px;
-                                letter-spacing: -0.28px;
+                                h1 {
+                                    font-size: 28px;
+                                    line-height: 40px;
+                                    letter-spacing: -0.28px;
+                                }
                             }
                         }
                     }
@@ -198,39 +252,45 @@
 @media (min-width: 768px) and (max-width: 869px) {
     .item {
         .item-sneaker {
-            .item-sneaker-content {
-                flex-direction: column;
-
-                .item-sneaker-image {
-                    img {
-                        height: 375px;
-                        margin: auto;
-                        padding: 70px 0px;
-                    }
+            .item-sneaker-wrapper {
+                .item-sneaker-actions {
+                    margin-top: 15px;
                 }
 
-                .item-sneaker-info {
-                    .item-sneaker-text {
-                        width: 100%;
-                        padding-bottom: 100px;
+                .item-sneaker-content {
+                    flex-direction: column;
 
-                        .item-sneaker-model {
-                            padding-bottom: 30px;
-                            max-width: 360px;
-                            margin: 0px auto;
-
-                            h1 {
-                                font-size: 32px;
-                                line-height: 44px;
-                            }
+                    .item-sneaker-image {
+                        img {
+                            height: 375px;
+                            margin: auto;
+                            padding: 70px 0px;
                         }
+                    }
 
-                        .item-sneaker-price-details {
-                            a {
-                                .item-sneaker-price {
-                                    max-width: 360px;
-                                    margin-left: auto;
-                                    margin-right: auto;
+                    .item-sneaker-info {
+                        .item-sneaker-text {
+                            width: 100%;
+                            margin-bottom: 100px;
+
+                            .item-sneaker-model {
+                                padding-bottom: 30px;
+                                max-width: 360px;
+                                margin: 0px auto;
+
+                                h1 {
+                                    font-size: 32px;
+                                    line-height: 44px;
+                                }
+                            }
+
+                            .item-sneaker-price-details {
+                                a {
+                                    .item-sneaker-price {
+                                        max-width: 360px;
+                                        margin-left: auto;
+                                        margin-right: auto;
+                                    }
                                 }
                             }
                         }
@@ -285,44 +345,50 @@
 @media (min-width: 660px) and (max-width: 767px) {
     .item {
         .item-sneaker {
-            .item-sneaker-content {
-                flex-direction: column;
-
-                .item-sneaker-image {
-                    img {
-                        height: 375px;
-                        margin: auto;
-                        padding: 70px 0px;
-                    }
+            .item-sneaker-wrapper {
+                .item-sneaker-actions {
+                    margin-top: 15px;
                 }
+            
+                .item-sneaker-content {
+                    flex-direction: column;
 
-                .item-sneaker-info {
-                    .item-sneaker-text {
-                        width: 100%;
-                        padding-bottom: 100px;
-
-                        .item-sneaker-model {
-                            padding-bottom: 30px;
-                            max-width: 360px;
-                            margin: 0px auto;
-
-                            h1 {
-                                font-size: 32px;
-                                line-height: 44px;
-                            }
+                    .item-sneaker-image {
+                        img {
+                            height: 375px;
+                            margin: auto;
+                            padding: 70px 0px;
                         }
+                    }
 
-                        .item-sneaker-price-details {
-                            a {
-                                .item-sneaker-price {
-                                    max-width: 360px;
-                                    margin-left: auto;
-                                    margin-right: auto;
+                    .item-sneaker-info {
+                        .item-sneaker-text {
+                            width: 100%;
+                            margin-bottom: 100px;
+
+                            .item-sneaker-model {
+                                padding-bottom: 30px;
+                                max-width: 360px;
+                                margin: 0px auto;
+
+                                h1 {
+                                    font-size: 32px;
+                                    line-height: 44px;
                                 }
                             }
 
-                            .item-sneaker-price:hover {
-                                background: #EC3E26;
+                            .item-sneaker-price-details {
+                                a {
+                                    .item-sneaker-price {
+                                        max-width: 360px;
+                                        margin-left: auto;
+                                        margin-right: auto;
+                                    }
+                                }
+
+                                .item-sneaker-price:hover {
+                                    background: #EC3E26;
+                                }
                             }
                         }
                     }
@@ -376,44 +442,50 @@
 @media (min-width: 500px) and (max-width: 659px) {
     .item {
         .item-sneaker {
-            .item-sneaker-content {
-                flex-direction: column;
-
-                .item-sneaker-image {
-                    img {
-                        height: 280px;
-                        margin: auto;
-                        padding: 80px 0px;
-                    }
+            .item-sneaker-wrapper {
+                .item-sneaker-actions {
+                    margin-top: 15px;
                 }
 
-                .item-sneaker-info {
-                    .item-sneaker-text {
-                        width: 100%;
-                        padding-bottom: 100px;
+                .item-sneaker-content {
+                    flex-direction: column;
 
-                        .item-sneaker-model {
-                            padding-bottom: 24px;
-                            max-width: 360px;
-                            margin: 0px auto;
-
-                            h1 {
-                                font-size: 28px;
-                                line-height: 40px;
-                            }
+                    .item-sneaker-image {
+                        img {
+                            height: 280px;
+                            margin: auto;
+                            padding: 80px 0px;
                         }
+                    }
 
-                        .item-sneaker-price-details {
-                            a {
-                                .item-sneaker-price {
-                                    max-width: 360px;
-                                    margin-left: auto;
-                                    margin-right: auto;
+                    .item-sneaker-info {
+                        .item-sneaker-text {
+                            width: 100%;
+                            margin-bottom: 100px;
+
+                            .item-sneaker-model {
+                                padding-bottom: 24px;
+                                max-width: 360px;
+                                margin: 0px auto;
+
+                                h1 {
+                                    font-size: 28px;
+                                    line-height: 40px;
                                 }
                             }
 
-                            .item-sneaker-price:hover {
-                                background: #EC3E26;
+                            .item-sneaker-price-details {
+                                a {
+                                    .item-sneaker-price {
+                                        max-width: 360px;
+                                        margin-left: auto;
+                                        margin-right: auto;
+                                    }
+                                }
+
+                                .item-sneaker-price:hover {
+                                    background: #EC3E26;
+                                }
                             }
                         }
                     }
@@ -467,45 +539,61 @@
 @media screen and (max-width: 499px) {
     .item {
         .item-sneaker {
-            .item-sneaker-content {
-                flex-direction: column;
-
-                .item-sneaker-image {
-                    img {
-                        height: 200px;
-                        margin: auto;
-                        padding-top: 70px;
-                        padding-bottom: 33px;
+            .item-sneaker-wrapper {
+                .item-sneaker-actions {
+                    margin-top: 10px;
+    
+                    .item-sneaker-share {
+                        width: 28px;
+                        height: 28px;
+    
+                        svg {
+                            width: 12px;
+                            height: auto;
+                        }
                     }
                 }
 
-                .item-sneaker-info {
-                    .item-sneaker-text {
-                        width: 100%;
-                        padding-bottom: 69px;
+                .item-sneaker-content {
+                    flex-direction: column;
 
-                        .item-sneaker-model {
-                            padding-bottom: 24px;
-                            max-width: 360px;
-                            margin: 0px auto;
-
-                            h1 {
-                                font-size: 24px;
-                                line-height: 34px;
-                            }
+                    .item-sneaker-image {
+                        img {
+                            height: 200px;
+                            margin: auto;
+                            padding-top: 70px;
+                            padding-bottom: 33px;
                         }
+                    }
 
-                        .item-sneaker-price-details {
-                            a {
-                                .item-sneaker-price {
-                                    max-width: 360px;
-                                    margin-left: auto;
-                                    margin-right: auto;
+                    .item-sneaker-info {
+                        .item-sneaker-text {
+                            width: 100%;
+                            margin-bottom: 69px;
+
+                            .item-sneaker-model {
+                                padding-bottom: 24px;
+                                max-width: 360px;
+                                margin: 0px auto;
+
+                                h1 {
+                                    font-size: 24px;
+                                    line-height: 34px;
                                 }
                             }
 
-                            .item-sneaker-price:hover {
-                                background: #EC3E26;
+                            .item-sneaker-price-details {
+                                a {
+                                    .item-sneaker-price {
+                                        max-width: 360px;
+                                        margin-left: auto;
+                                        margin-right: auto;
+                                    }
+                                }
+
+                                .item-sneaker-price:hover {
+                                    background: #EC3E26;
+                                }
                             }
                         }
                     }
