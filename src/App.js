@@ -99,7 +99,7 @@ export default function App() {
                 <Route exact path="/" component={Home} />
                 <Route path="/home" component={Home} />
                 <Route path="/browse/:searchTerm?" component={Browse} />
-                <Route path="/item/:itemKey/:gender" component={Item} />
+                <Route path="/item/:itemKey/:gender?" component={Item} />
 
                 <ProtectedRoute path="/sign-in/:redirect?" component={SignInOptions} isEnabled={!firebase.auth().currentUser} />
                 <ProtectedRoute path="/sign-in-email" component={SignInEmail} isEnabled={!firebase.auth().currentUser} />

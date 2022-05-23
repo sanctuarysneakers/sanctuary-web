@@ -50,6 +50,13 @@ export const updateItemListings = itemListings => {
     }
 }
 
+export const updateRelatedItems = relatedItems => {
+    return {
+        type: 'UPDATE_RELATED_ITEMS',
+        payload: relatedItems
+    }
+}
+
 export const setItemPricesLoading = isLoading => {
     return {
         type: 'LOADING_ITEM_PRICES',
@@ -64,7 +71,14 @@ export const setItemListingsLoading = isLoading => {
     }
 }
 
-// Browse Sort Actions
+export const setRelatedItemsLoading = isLoading => {
+    return {
+        type: 'LOADING_RELATED_ITEMS',
+        payload: isLoading
+    }
+}
+
+// Filter Actions
 
 export const updateBrowseBrand = brand => {
     return {

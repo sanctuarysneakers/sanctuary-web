@@ -43,7 +43,7 @@ export default function HomeNewsroom() {
     }, [isVisible, firstFlip])
 
     const clickHandler = (path) => {
-        // window.analytics.track(`home_newsroom_clicked`, {article: path});
+        //window.analytics.track(`home_newsroom_clicked`, {article: path});
         document.location.href = path
     } 
 

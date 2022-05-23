@@ -10,22 +10,31 @@ export default function CarouselCard({ data, index, type, length }) {
     const currency = useSelector(state => state.currency)
 
     const generateLink = () => {
-        dispatch(updateItemInfo({}))
-        dispatch(setItemPricesLoading(true))
-        dispatch(setItemListingsLoading(true))
+        if (type !== "recommended") {
+            dispatch(updateItemInfo({}))
+            dispatch(setItemPricesLoading(true))
+            dispatch(setItemListingsLoading(true))
+        }
 
         let itemKey = data.sku ? encodeURIComponent(data.sku) : data.urlKey 
-        // window.analytics.track(`home_carousel_item_clicked`, {id: itemKey, gender: data.gender})
+        //window.analytics.track(`carousel_item_clicked`, {id: itemKey, gender: gender})
+        return data.gender == null ? `/item/${itemKey}` : `/item/${itemKey}/${data.gender}`
+    }
 
-        return `/item/${itemKey}/${data.gender}` 
+    const recommendedClick = (e) => {
+        if (e.nativeEvent.button === 0) {
+            let itemKey = data.sku ? encodeURIComponent(data.sku) : data.urlKey 
+            document.location.href = `/item/${itemKey}`
+        }
     }
 
     const getNavData = () => {
         let itemInfo = {
-            sku: data.sku.replaceAll('-', ' '),
+            sku: data.sku ? data.sku.replaceAll('-', ' ') : null,
             modelName: data.model,
             image: data.image,
             url: data.url,
+            urlKey: data.urlKey
         }
         return itemInfo
     }
@@ -43,7 +52,7 @@ export default function CarouselCard({ data, index, type, length }) {
                 <Link 
                     to={{
                         pathname: generateLink(),
-                        itemInfo: getNavData()
+                        itemInfo: getNavData() 
                     }}
                     className="hidden-link"
                 > 
@@ -71,8 +80,36 @@ export default function CarouselCard({ data, index, type, length }) {
                 <Link 
                     to={{
                         pathname: generateLink(),
-                        state: getNavData()
+                        itemInfo: getNavData()
                     }}
+                    className="hidden-link"
+                >  
+                    <div className='carousel-card-deals'>
+                        <div className='carousel-card-content'>
+                            <div className='carousel-card-image'>
+                                <img src={data.imageThumbnail} alt='Sneaker thumbnail'/>
+                            </div>
+
+                            <div className='carousel-card-text'>
+                                <h2>{data.model}</h2>
+                            </div>
+
+                            <div className='carousel-card-price'>
+                                <p>Estimated</p>
+                                <h4>{currencySymbolMap[currency]}{data.price.toLocaleString('en')}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </Link>
+            }
+
+            {type === 'recommended' && 
+                <Link 
+                    to={{
+                        pathname: generateLink(),
+                        itemInfo: null
+                    }}
+                    onClick={(event) => recommendedClick(event)}
                     className="hidden-link"
                 >  
                     <div className='carousel-card-deals'>

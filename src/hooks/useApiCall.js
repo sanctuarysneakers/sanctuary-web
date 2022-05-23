@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { browseCall, updateItemInfo, updateItemPrices, updateItemListings, 
-    setItemPricesLoading, setItemListingsLoading, trendingCall, 
+    updateRelatedItems, setRelatedItemsLoading, setItemPricesLoading, setItemListingsLoading, trendingCall, 
     under200Call, under300Call } from '../redux/actions'
 import createRequestObject from './createRequest'
 import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPrice, 
@@ -78,6 +78,7 @@ export default function useAPICall(callType, params) {
             
             let results = await response.json()
             if (!results.length) throw new Error()
+            results = results.filter(item => !item["model"].includes("(GS)") && !item["model"].includes("(TD)") && !item["model"].includes("(PS)"))
 
             dispatch(dispatch_map[type](results))
         } catch (e) {
@@ -95,7 +96,8 @@ export default function useAPICall(callType, params) {
         await SafePromiseAll(
             [
                 getItemPrices(itemInfo, params.size, params.gender),
-                getItemListings(itemInfo, params.size, params.gender)
+                getItemListings(itemInfo, params.size, params.gender), 
+                getRelatedItems(itemInfo)
             ], 
             []
         )
@@ -111,29 +113,46 @@ export default function useAPICall(callType, params) {
             const response = await fetch(request.url, request.headers)
             if (!response.ok) throw new Error()
 
-            let itemData = await response.json()
-            
-            // handles case where sku contains multiple skus separated by '/'
-            let skus = itemData[0]['sku'].split('/')
-            let containsSku = false
-            for (var i=0; i < skus.length; i++) {
-                skus[i] = skus[i].replaceAll('-', ' ')
-                if (skus[i].includes(itemKey))
-                    containsSku = true
-            }
-            if (!containsSku && !itemData[0]['urlKey'].includes(itemKey))
-                throw new Error()
-            
+            let results = await response.json()
+            let itemInfo = extractItemInfo(results, itemKey)
+ 
+            if(!itemInfo) 
+                throw Error() 
+    
             return {
-                sku: skus.length === 1 ? skus[0] : "",
-                modelName: itemData[0]['model'],
-                image: itemData[0]['image'],
-                url: itemData[0]['url']
+                sku: itemInfo['sku'],
+                modelName: itemInfo['model'],
+                image: itemInfo['image'],
+                url: itemInfo['url'], 
+                urlKey: itemInfo['urlKey']
             }
         } catch (e) { 
+            console.log(e)
             history.replace('/item-not-supported')
             return null
         }
+    }
+
+    function extractItemInfo(results, itemKey) {
+        for (let x = 0; x < results.length; x++) {
+
+            let resultItem = results[x]
+            if (resultItem['sku'].replaceAll('-', ' ') === itemKey || resultItem['sku'] === itemKey || resultItem['sku'].includes(itemKey) || resultItem['urlKey'] === itemKey) {
+                return resultItem
+            } 
+
+            // handles case where sku contains multiple skus separated by '/'
+            let skus = resultItem['sku'].split('/') 
+
+            //when searching by urlkey, the correct item info might not be the first result so need to loop through all
+            for (var i=0; i < skus.length; i++) {
+                skus[i] = skus[i].replaceAll('-', ' ')
+                if (skus[i].includes(itemKey))
+                    return resultItem
+            }
+        }
+        
+        return null 
     }
 
     async function getItemPrices(item, size, gender) {
@@ -144,7 +163,7 @@ export default function useAPICall(callType, params) {
             postalCode: location['postal_code'],
             currency: currency
         }
-      
+
         const res = await SafePromiseAll(
             [
                 stockxLowestPrice(item, filter),
@@ -186,6 +205,26 @@ export default function useAPICall(callType, params) {
         dispatch(updateItemListings(results))
         dispatch(setItemListingsLoading(false))
         return results
+    }
+
+    async function getRelatedItems(item) {
+        let search = item.urlKey
+        const request = createRequestObject('related', { search, currency })
+
+        try {
+            const response = await fetch(request.url, request.headers)
+            if (!response.ok) throw new Error()
+
+            let results = await response.json()
+            if (!results.length) throw new Error()
+            results = results.filter(item => !item["model"].includes("(GS)") && !item["model"].includes("(TD)") && !item["model"].includes("(PS)"))
+
+            dispatch(updateRelatedItems(results))
+        } catch (e) {
+            dispatch(updateRelatedItems([]))
+        }
+
+        setRelatedItemsLoading(false) 
     }
 
     useEffect(() => {
