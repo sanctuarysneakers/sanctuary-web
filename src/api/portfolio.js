@@ -1,8 +1,8 @@
 import { SafePromiseAll } from "./helpers"
 import { getItemPrices } from "./aggregator"
 
-//const api = 'https://hdwj2rvqkb.us-west-2.awsapprunner.com'
-const api = 'http://localhost:8000'
+const api = 'https://hdwj2rvqkb.us-west-2.awsapprunner.com'
+//const api = 'http://localhost:8000'
 
 export async function getPortfolio(userID, currency, location) {
 	const url = `${api}/portfolio?user_id=${userID}&currency=${currency}`
