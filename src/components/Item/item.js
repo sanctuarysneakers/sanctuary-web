@@ -58,16 +58,16 @@ export default function Item() {
             length={itemListings.length} />
     )
 
-    const onAddToPortfolio = () => {
-        let portfolioItem = {
+    const addToPortfolioHandler = () => {
+        addToPortfolio({
             user_id: user.uid,
             sku: itemInfo.sku,
             item_data: JSON.stringify(itemInfo),
             size: size,
+            gender: gender,
             price: itemPrices[0].price,
             currency: currency
-        }
-        addToPortfolio(portfolioItem)
+        })
     } 
 
     // const clickHandler = () => {
@@ -101,7 +101,7 @@ export default function Item() {
                         <div className='item-sneaker-info'>
                             <div className='item-sneaker-text'>
                                 {user && 
-                                <button onClick={() => onAddToPortfolio()}>
+                                <button onClick={() => addToPortfolioHandler()}>
                                     Add to Portfolio
                                 </button>}
 

@@ -14,7 +14,7 @@ export default function useAPICall(callType, params) {
     const history = useHistory()
     const dispatch = useDispatch()
     
-    const location = useSelector(state => state.location)
+    let location = useSelector(state => state.location)
     const size = useSelector(state => state.size)
     const currency = useSelector(state => state.currency)
 

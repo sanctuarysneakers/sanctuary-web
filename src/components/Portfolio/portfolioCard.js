@@ -1,25 +1,42 @@
 import React from 'react'
 
-export default function PortfolioCard({data, onRemove}) {
+export default function PortfolioCard({item, remove}) {
+
+	// model data
+	const modelName = item.data.modelName
+	const sku = item.data.sku
+	const urlKey = item.data.urlKey
+	const url = item.data.url
+	const image = item.data.image
+
+	// record data
+	const addDate = item.add_date
+	const size = item.size
+	const price = Math.round(item.price)
+	const currentPrice = Math.round(item.currentPrice)
+	const priceChange = currentPrice - price
+	const priceChangePrefix = priceChange >= 0 ? "+" : "-"
+	const percentChange = (priceChange / price * 100).toFixed(2)
+	const percentChangePrefix = percentChange >= 0 ? "+" : ""
 
     return (
         <div className='portfolio-card'>
             <div className='portfolio-card-content'>
                 <div className='portfolio-card-sneaker'>
-                    <img src={data.itemInfo[0].image} loading='lazy' alt={data.itemInfo[0].modelName} />
+                    <img src={image} loading='lazy' alt={modelName} />
                 </div>
 
-                <h4>{data.itemInfo[0].modelName}</h4>
+                <h4>{modelName}</h4>
 
-                <p>Added on: {data.add_date}</p>
-                <p>Size: {data.size}</p>
-                <p>Original price: ${data.price}</p>
-                <p>Current price: ${data.currPrices[0][0].price}</p>
-                <p> Price change: ${data.currPrices[0][0].price - data.price} </p>
-                <p> Percent change: {Math.round(((data.currPrices[0][0].price - data.price)/data.price) * 100)}%</p>
+                <p>Added on: {addDate}</p>
+                <p>Size: {size}</p>
+                <p>Original price: ${price}</p>
+                <p>Current price: ${currentPrice}</p>
+                <p>Price change: {priceChangePrefix}${Math.abs(priceChange)}</p>
+                <p>Percent change: {percentChangePrefix}{percentChange}%</p>
 
-                <button onClick={() => onRemove(data)}> 
-                    Remove From Portfolio
+                <button onClick={() => remove(item.record_id)}>
+                    Remove
                 </button>
             </div>
         </div>

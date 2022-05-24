@@ -1,33 +1,29 @@
 import { SafePromiseAll } from "./helpers"
 import { getItemPrices } from "./aggregator"
 
-
 //const api = 'https://hdwj2rvqkb.us-west-2.awsapprunner.com'
 const api = 'http://localhost:8000'
 
-export async function getPortfolio(userID, currency) {
+export async function getPortfolio(userID, currency, location) {
 	const url = `${api}/portfolio?user_id=${userID}&currency=${currency}`
 	const response = await fetch(url)
-	const portfolio = await response.json()
+
+	let portfolio = await response.json()
+	portfolio.forEach(item => item.data = JSON.parse(item.data))
+
+	// add current price for each item
+	const reqs = portfolio.map(item => itemWithCurrentPrice(
+		item, item.size, item.gender, currency, location))
+	portfolio = await SafePromiseAll(reqs)
+
 	return portfolio
-
-	// if (Array.isArray(portfolio)) {
-	// 	let reqs = portfolio.map(item => getPortfolioItemRequest(item))
-	// 	let portfolioWithPrices = await SafePromiseAll(reqs)
-
-	// 	return portfolioWithPrices
-	// } else {
-	// 	return []
-	// }
 }
 
-// async function getPortfolioItemRequest(item) {
-// 	let itemInfo = await getItemInfo(item['sku'].replace(/ /g,"-"), item['size'], 'men')
-// 	let itemPrices = await getItemPrices(itemInfo[0], item['size'], 'men', 'portfolio')
-// 	item['itemInfo'] = itemInfo
-// 	item['currPrices'] = itemPrices
-// 	return item
-// }
+async function itemWithCurrentPrice(item, size, gender, currency, location) {
+	const prices = await getItemPrices(item.data, size, gender, currency, location)
+	item.currentPrice = prices[0].price
+	return item
+}
 
 export async function addToPortfolio(data) {
 	fetch(`${api}/portfolio`, {
@@ -37,10 +33,8 @@ export async function addToPortfolio(data) {
 	})
 }
 
-export async function removeFromPortfolio(data) {
-	fetch(`${api}/portfolio`, {
-		method: "DELETE",
-		headers: { "Content-type": "application/json" },
-		body: JSON.stringify(data) 
+export async function removeFromPortfolio(recordID) {
+	fetch(`${api}/portfolio?record_id=${recordID}`, {
+		method: "DELETE"
 	})
 }
