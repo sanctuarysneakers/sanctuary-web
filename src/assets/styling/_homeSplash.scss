@@ -32,6 +32,35 @@
                 padding-bottom: 35px;
             }
 
+            .home-app-badges {
+                padding-top: 24px;
+                display: flex;
+                align-items: center;
+
+                .home-app-ios {
+                    overflow: hidden; 
+                    border-radius: 7px;
+                    width: 134.62px; 
+                    height: 45px;
+
+                    img {
+                        border-radius: 7px; 
+                        width: 134.62px; 
+                        height: 45px;
+                    }
+                }
+
+                .home-app-android {
+                    width: 172.48px; 
+                    height: 66.75px;
+
+                    img {
+                        width: 172.48px; 
+                        height: 66.75px;
+                    }
+                }
+            }
+
             .search-box {
                 width: 479px;
                 height: 44px;
@@ -155,6 +184,35 @@
                     padding-bottom: 25px;
                 }
 
+                .home-app-badges {
+                    padding-top: 24px;
+                    display: flex;
+                    align-items: center;
+    
+                    .home-app-ios {
+                        overflow: hidden; 
+                        border-radius: 7px;
+                        width: 134.62px; 
+                        height: 45px;
+    
+                        img {
+                            border-radius: 7px; 
+                            width: 134.62px; 
+                            height: 45px;
+                        }
+                    }
+    
+                    .home-app-android {
+                        width: 172.48px; 
+                        height: 66.75px;
+    
+                        img {
+                            width: 172.48px; 
+                            height: 66.75px;
+                        }
+                    }
+                }
+
                 .search-box {
                     width: 394px;
                     height: 40px;
@@ -243,6 +301,33 @@
                     padding-bottom: 25px;
                 }
 
+                .home-app-badges {
+                    padding-top: 20px;
+                    padding-bottom: 40px;
+    
+                    .home-app-ios {
+                        border-radius: 7px;
+                        width: 116.67px; 
+                        height: 39px;
+    
+                        img {
+                            border-radius: 7px; 
+                            width: 116.67px; 
+                            height: 39px;
+                        }
+                    }
+    
+                    .home-app-android {
+                        width: 149.87px; 
+                        height: 57px;
+    
+                        img {
+                            width: 149.87px; 
+                            height: 57px;
+                        }
+                    }
+                }
+
                 .search-box {
                     width: 394px;
                     height: 40px;
@@ -311,6 +396,33 @@
                     width: 320px;
                     padding-top: 32px;
                     padding-bottom: 32px;
+                }
+
+                .home-app-badges {
+                    padding-top: 20px;
+                    padding-bottom: 40px;
+    
+                    .home-app-ios {
+                        border-radius: 7px;
+                        width: 116.67px; 
+                        height: 39px;
+    
+                        img {
+                            border-radius: 7px; 
+                            width: 116.67px; 
+                            height: 39px;
+                        }
+                    }
+    
+                    .home-app-android {
+                        width: 149.87px; 
+                        height: 57px;
+    
+                        img {
+                            width: 149.87px; 
+                            height: 57px;
+                        }
+                    }
                 }
 
                 .search-box {
@@ -399,6 +511,33 @@
                     width: 280px;
                     padding-top: 25px;
                     padding-bottom: 25px;
+                }
+
+                .home-app-badges {
+                    padding-top: 20px;
+                    padding-bottom: 40px;
+    
+                    .home-app-ios {
+                        border-radius: 7px;
+                        width: 116.67px; 
+                        height: 39px;
+    
+                        img {
+                            border-radius: 7px; 
+                            width: 116.67px; 
+                            height: 39px;
+                        }
+                    }
+    
+                    .home-app-android {
+                        width: 149.87px; 
+                        height: 57px;
+    
+                        img {
+                            width: 149.87px; 
+                            height: 57px;
+                        }
+                    }
                 }
 
                 .search-box {
