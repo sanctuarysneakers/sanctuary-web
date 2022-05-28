@@ -28,12 +28,12 @@ import SignInOptions from './components/Accounts/signInOptions'
 import SignInEmail from './components/Accounts/signInEmail'
 import CreateAccountOptions from './components/Accounts/createAccountOptions'
 import CreateAccountEmail from './components/Accounts/createAccountEmail'
-import Profile from './components/Accounts/Profile/profile'
-import SignOut from './components/Accounts/Profile/signOut'
-import EditProfileName from './components/Accounts/Profile/editProfileName'
-import EditProfileEmail from './components/Accounts/Profile/editProfileEmail'
-import EditProfilePassword from './components/Accounts/Profile/editProfilePassword'
-import ForgotPassword from './components/Accounts/Profile/forgotPassword'
+import Profile from './components/Accounts/profile'
+import SignOut from './components/Accounts/signOut'
+import EditProfileName from './components/Accounts/editProfileName'
+import EditProfileEmail from './components/Accounts/editProfileEmail'
+import EditProfilePassword from './components/Accounts/editProfilePassword'
+import ForgotPassword from './components/Accounts/forgotPassword'
 
 import HowItWorks from './components/HowItWorks/howItWorks'
 
@@ -62,7 +62,7 @@ export default function App() {
     const deleteModalVisible = useSelector(state => state.modals.deleteModalVisible)
     const categoryFilterModalVisible = useSelector(state => state.modals.categoryFilterModalVisible)
     const redirect = useSelector(state => state.redirect)
-    const [loader, setLoader] = useState(true)
+    const [loader, setLoader] = useState(false)
     
     // useEffect(() => {
     //     firebase.auth().onAuthStateChanged(async (user) => {

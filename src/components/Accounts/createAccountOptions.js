@@ -1,6 +1,6 @@
 import React from 'react'
 import firebase from '../../services/firebase.js'
-import { setRedirectUrl, hideHomeSearch } from '../../redux/actions'
+import { setUser, setRedirectUrl, hideHomeSearch } from '../../redux/actions'
 import { Link, useHistory, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import apple from "../../assets/images/logos/apple-black.png"
@@ -28,7 +28,6 @@ export default function CreateAccountOptions() {
         console.log(user)
         if (user) {
             dispatch(setUser(user))
-            setLoader(false)
 
             if (redirect) {
                 const jwt = await user.getIdToken()
@@ -36,7 +35,6 @@ export default function CreateAccountOptions() {
             }
         } else {
             dispatch(setUser(null))
-            setLoader(false)
         }
     }
 
