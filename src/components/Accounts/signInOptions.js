@@ -39,20 +39,20 @@ export default function SignInOptions() {
     }
     
     const googleAuth = () => {
-        firebase.auth()
-            .signInWithRedirect(googProvider)
+        firebase.auth().signInWithRedirect(googProvider)
+        firebase.auth().getRedirectResult()
             .then(async (r) => await handleAuthResult(r))
     }
 
     const facebookAuth = () => {
-        firebase.auth()
-            .signInWithRedirect(fbProvider)
+        firebase.auth().signInWithRedirect(fbProvider)
+        firebase.auth().getRedirectResult()
             .then(async (r) => await handleAuthResult(r))
     }
 
     const appleAuth = () => {
-        firebase.auth()
-            .signInWithRedirect(appleProvider)
+        firebase.auth().signInWithRedirect(appleProvider)
+        firebase.auth().getRedirectResult()
             .then(async (r) => await handleAuthResult(r))
     }
     
