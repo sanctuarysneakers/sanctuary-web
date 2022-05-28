@@ -17,24 +17,45 @@ export default function CreateAccountOptions() {
     let { redirect } = useParams()
     if (redirect && redirect !== 'undefined')
         dispatch(setRedirectUrl(decodeURIComponent(redirect)))
+    else redirect = null
 
     const googProvider = new firebase.auth.GoogleAuthProvider()
     const fbProvider = new firebase.auth.FacebookAuthProvider()
     const appleProvider = new firebase.auth.OAuthProvider('apple.com')
 
+    async function handleAuthResult(result) {
+        let user = result.user
+        console.log(user)
+        if (user) {
+            dispatch(setUser(user))
+            setLoader(false)
+
+            if (redirect) {
+                const jwt = await user.getIdToken()
+                window.location.href = `${redirect}id_token=${jwt}`
+            }
+        } else {
+            dispatch(setUser(null))
+            setLoader(false)
+        }
+    }
+
     const googleAuth = () => {
-        firebase.auth().signInWithRedirect(googProvider)
-            .then(history.push('/'))
+        firebase.auth()
+            .signInWithRedirect(googProvider)
+            .then(result => handleAuthResult(result))
     }
 
     const facebookAuth = () => {
-        firebase.auth().signInWithRedirect(fbProvider)
-            .then(history.push('/'))
+        firebase.auth()
+            .signInWithRedirect(fbProvider)
+            .then(result => handleAuthResult(result))
     }
 
     const appleAuth = () => {
-        firebase.auth().signInWithRedirect(appleProvider)
-            .then(history.push('/'))
+        firebase.auth()
+            .signInWithRedirect(appleProvider)
+            .then(result => handleAuthResult(result))
     }
 
     dispatch(hideHomeSearch())

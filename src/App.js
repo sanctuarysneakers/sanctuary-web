@@ -28,12 +28,12 @@ import SignInOptions from './components/Accounts/signInOptions'
 import SignInEmail from './components/Accounts/signInEmail'
 import CreateAccountOptions from './components/Accounts/createAccountOptions'
 import CreateAccountEmail from './components/Accounts/createAccountEmail'
-import Profile from './components/Accounts/profile'
-import SignOut from './components/Accounts/signOut'
-import EditProfileName from './components/Accounts/editProfileName'
-import EditProfileEmail from './components/Accounts/editProfileEmail'
-import EditProfilePassword from './components/Accounts/editProfilePassword'
-import ForgotPassword from './components/Accounts/forgotPassword'
+import Profile from './components/Accounts/Profile/profile'
+import SignOut from './components/Accounts/Profile/signOut'
+import EditProfileName from './components/Accounts/Profile/editProfileName'
+import EditProfileEmail from './components/Accounts/Profile/editProfileEmail'
+import EditProfilePassword from './components/Accounts/Profile/editProfilePassword'
+import ForgotPassword from './components/Accounts/Profile/forgotPassword'
 
 import HowItWorks from './components/HowItWorks/howItWorks'
 
@@ -64,24 +64,24 @@ export default function App() {
     const redirect = useSelector(state => state.redirect)
     const [loader, setLoader] = useState(true)
     
-    useEffect(() => {
-        firebase.auth().onAuthStateChanged(async (user) => {
-            if (user) {
-                dispatch(setUser(user))
-                setLoader(false)
+    // useEffect(() => {
+    //     firebase.auth().onAuthStateChanged(async (user) => {
+    //         if (user) {
+    //             dispatch(setUser(user))
+    //             setLoader(false)
 
-                if (redirect) {
-                    let redirectCopy = redirect
-                    dispatch(setRedirectUrl(null))
-                    const jwt = await user.getIdToken()
-                    window.location.href = `${redirectCopy}id_token=${jwt}`
-                }
-            } else {
-                dispatch(setUser(null))
-                setLoader(false)
-            }
-        })
-    }, [])
+    //             if (redirect) {
+    //                 let redirectCopy = redirect
+    //                 dispatch(setRedirectUrl(null))
+    //                 const jwt = await user.getIdToken()
+    //                 window.location.href = `${redirectCopy}id_token=${jwt}`
+    //             }
+    //         } else {
+    //             dispatch(setUser(null))
+    //             setLoader(false)
+    //         }
+    //     })
+    // }, [])
 
     useEffect(() => {
         window.analytics.page(); 
