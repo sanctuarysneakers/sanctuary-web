@@ -41,19 +41,19 @@ export default function SignInOptions() {
     const googleAuth = () => {
         firebase.auth()
             .signInWithRedirect(googProvider)
-            .then(result => handleAuthResult(result))
+            .then(async (r) => await handleAuthResult(r))
     }
 
     const facebookAuth = () => {
         firebase.auth()
             .signInWithRedirect(fbProvider)
-            .then(result => handleAuthResult(result))
+            .then(async (r) => await handleAuthResult(r))
     }
 
     const appleAuth = () => {
         firebase.auth()
             .signInWithRedirect(appleProvider)
-            .then(result => handleAuthResult(result))
+            .then(async (r) => await handleAuthResult(r))
     }
     
     const isDesktop = useMediaQuery({ query: '(min-width: 930px)' })
