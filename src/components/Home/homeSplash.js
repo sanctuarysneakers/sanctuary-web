@@ -6,7 +6,7 @@ import {ReactComponent as Boxes} from '../../assets/images/LandingBoxes.svg'
 
 export default function HomeSplash() {
 
-    const clickHandler = (url) => {
+    const clickHandler = (ios, url) => {
         window.open(url, '_blank')
     } 
 
@@ -23,7 +23,6 @@ export default function HomeSplash() {
                             Sanctuary compares prices from leading 
                             sneaker websites to find you the best deals. 
                         </p>
-                        <SearchBox/>
 
                         <div className='home-app-badges'>
                             <a className='home-app-ios' onClick={() => clickHandler(true, "https://apps.apple.com/us/app/sanctuary-sneaker-market-data/id1584720546?itsct=apps_box_badge&amp;itscg=30200")} >

@@ -33,7 +33,6 @@
             }
 
             .home-app-badges {
-                padding-top: 24px;
                 display: flex;
                 align-items: center;
 
@@ -42,6 +41,7 @@
                     border-radius: 7px;
                     width: 134.62px; 
                     height: 45px;
+                    cursor: pointer;
 
                     img {
                         border-radius: 7px; 
@@ -53,6 +53,7 @@
                 .home-app-android {
                     width: 172.48px; 
                     height: 66.75px;
+                    cursor: pointer;
 
                     img {
                         width: 172.48px; 
@@ -185,7 +186,6 @@
                 }
 
                 .home-app-badges {
-                    padding-top: 24px;
                     display: flex;
                     align-items: center;
     
@@ -302,7 +302,6 @@
                 }
 
                 .home-app-badges {
-                    padding-top: 20px;
                     padding-bottom: 40px;
     
                     .home-app-ios {
@@ -399,7 +398,6 @@
                 }
 
                 .home-app-badges {
-                    padding-top: 20px;
                     padding-bottom: 40px;
     
                     .home-app-ios {
@@ -514,7 +512,6 @@
                 }
 
                 .home-app-badges {
-                    padding-top: 20px;
                     padding-bottom: 40px;
     
                     .home-app-ios {
