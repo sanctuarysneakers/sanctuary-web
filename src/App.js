@@ -62,26 +62,26 @@ export default function App() {
     const deleteModalVisible = useSelector(state => state.modals.deleteModalVisible)
     const categoryFilterModalVisible = useSelector(state => state.modals.categoryFilterModalVisible)
     const redirect = useSelector(state => state.redirect)
-    const [loader, setLoader] = useState(false)
+    const [loader, setLoader] = useState(true)
     
-    // useEffect(() => {
-    //     firebase.auth().onAuthStateChanged(async (user) => {
-    //         if (user) {
-    //             dispatch(setUser(user))
-    //             setLoader(false)
+    useEffect(() => {
+        firebase.auth().onAuthStateChanged(async (user) => {
+            if (user) {
+                dispatch(setUser(user))
+                setLoader(false)
 
-    //             if (redirect) {
-    //                 let redirectCopy = redirect
-    //                 dispatch(setRedirectUrl(null))
-    //                 const jwt = await user.getIdToken()
-    //                 window.location.href = `${redirectCopy}id_token=${jwt}`
-    //             }
-    //         } else {
-    //             dispatch(setUser(null))
-    //             setLoader(false)
-    //         }
-    //     })
-    // }, [])
+                if (redirect) {
+                    let redirectCopy = redirect
+                    dispatch(setRedirectUrl(null))
+                    const jwt = await user.getIdToken()
+                    window.location.href = `${redirectCopy}id_token=${jwt}`
+                }
+            } else {
+                dispatch(setUser(null))
+                setLoader(false)
+            }
+        })
+    }, [])
 
     useEffect(() => {
         window.analytics.page(); 

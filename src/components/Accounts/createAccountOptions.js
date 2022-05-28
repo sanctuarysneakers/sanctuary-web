@@ -1,6 +1,6 @@
 import React from 'react'
 import firebase from '../../services/firebase.js'
-import { setUser, setRedirectUrl, hideHomeSearch } from '../../redux/actions'
+import { setRedirectUrl, hideHomeSearch } from '../../redux/actions'
 import { Link, useHistory, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import apple from "../../assets/images/logos/apple-black.png"
@@ -17,43 +17,24 @@ export default function CreateAccountOptions() {
     let { redirect } = useParams()
     if (redirect && redirect !== 'undefined')
         dispatch(setRedirectUrl(decodeURIComponent(redirect)))
-    else redirect = null
 
     const googProvider = new firebase.auth.GoogleAuthProvider()
     const fbProvider = new firebase.auth.FacebookAuthProvider()
     const appleProvider = new firebase.auth.OAuthProvider('apple.com')
 
-    async function handleAuthResult(result) {
-        let user = result.user
-        console.log(user)
-        if (user) {
-            dispatch(setUser(user))
-
-            if (redirect) {
-                const jwt = await user.getIdToken()
-                window.location.href = `${redirect}id_token=${jwt}`
-            }
-        } else {
-            dispatch(setUser(null))
-        }
-    }
-
     const googleAuth = () => {
         firebase.auth().signInWithRedirect(googProvider)
-        firebase.auth().getRedirectResult()
-            .then(async (r) => await handleAuthResult(r))
+            .then(history.push('/'))
     }
 
     const facebookAuth = () => {
         firebase.auth().signInWithRedirect(fbProvider)
-        firebase.auth().getRedirectResult()
-            .then(async (r) => await handleAuthResult(r))
+            .then(history.push('/'))
     }
 
     const appleAuth = () => {
         firebase.auth().signInWithRedirect(appleProvider)
-        firebase.auth().getRedirectResult()
-            .then(async (r) => await handleAuthResult(r))
+            .then(history.push('/'))
     }
 
     dispatch(hideHomeSearch())
