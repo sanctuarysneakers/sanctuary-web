@@ -10,6 +10,7 @@ export default function PortfolioCard({item, remove}) {
 	const image = item.data.image
 
 	// record data
+	const recordID = item.record_id
 	const addDate = item.add_date
 	const size = item.size
 	const price = Math.round(item.price)
@@ -35,7 +36,7 @@ export default function PortfolioCard({item, remove}) {
                 <p>Price change: {priceChangePrefix}${Math.abs(priceChange)}</p>
                 <p>Percent change: {percentChangePrefix}{percentChange}%</p>
 
-                <button onClick={() => remove(item.record_id)}>
+                <button onClick={() => remove(recordID)}>
                     Remove
                 </button>
             </div>
