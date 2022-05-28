@@ -123,7 +123,7 @@ export default function Item() {
 
                                     <SizeFilter gender={gender} />
                                     {sizeModalVisible && <SizeModal gender={gender} />}
-                                    {socialsModalVisible && <SocialsModal itemName={itemInfo.modelName} price={`${currencySymbolMap[currency]}${itemPrices[0].price}`} url={window.location.href} image={itemInfo.iamge} />}
+                                    {socialsModalVisible && <SocialsModal itemName={itemInfo.modelName} price={`${currencySymbolMap[currency]}${itemPrices[0].price}`} url={window.location.href} image={itemInfo.image} />}
                                 </div>}
                             </div>
                         </div>
