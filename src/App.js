@@ -74,7 +74,7 @@ export default function App() {
                     let redirectCopy = redirect
                     dispatch(setRedirectUrl(null))
                     const jwt = await user.getIdToken()
-                    window.location.href = `${redirectCopy}id_token=${jwt}`
+                    window.location.href = `${redirectCopy}id_token=${jwt}&refresh_token=${user.refreshToken}`
                 }
             } else {
                 dispatch(setUser(null))

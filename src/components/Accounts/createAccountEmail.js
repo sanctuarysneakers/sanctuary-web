@@ -33,7 +33,7 @@ export default function CreateAccountEmail() {
                         let redirectCopy = redirect
                         dispatch(setRedirectUrl(null))
                         const jwt = await r.user.getIdToken()
-                        window.location.href = `${redirectCopy}id_token=${jwt}`
+                        window.location.href = `${redirectCopy}id_token=${jwt}&refresh_token=${r.user.refreshToken}`
                     }
                     history.push("/")
                 }).catch(e => {
