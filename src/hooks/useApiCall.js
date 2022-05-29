@@ -112,6 +112,7 @@ export default function useAPICall(callType, params) {
     }
 
     function extractItemInfo(results, itemKey) {
+        let itemKeyNoSpaces = itemKey.replaceAll(' ', '')
         for (let x = 0; x < results.length; x++) {
 
             let resultItem = results[x]
@@ -125,7 +126,7 @@ export default function useAPICall(callType, params) {
             //when searching by urlkey, the correct item info might not be the first result so need to loop through all
             for (var i=0; i < skus.length; i++) {
                 skus[i] = skus[i].replaceAll('-', ' ')
-                if (skus[i].includes(itemKey))
+                if (skus[i].includes(itemKey) || skus[i].includes(itemKeyNoSpaces))
                     return resultItem
             }
         }
