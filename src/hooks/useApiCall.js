@@ -45,8 +45,6 @@ export default function useAPICall(callType, params) {
             size: size, 
             ship_to: location['country_code']
         }
-        if (type === 'trending')
-            filters.sort = "most-active"
 
         const request = createRequestObject('browse', filters)
 
