@@ -166,7 +166,7 @@ export default function Item() {
                     </div>
 
                     <div className='item-recommended'>
-                        <h6> Recommended For You </h6>
+                        <h6> You might also like </h6>
                         {!relatedLoading && relatedItems.length !== 0 &&
                             <Carousel type={'recommended'} />
                         }
