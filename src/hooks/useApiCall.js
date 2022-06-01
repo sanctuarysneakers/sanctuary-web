@@ -18,13 +18,6 @@ export default function useAPICall(callType, params) {
     const size = useSelector(state => state.size)
     const currency = useSelector(state => state.currency)
 
-    //browse filters
-    const sort = useSelector(state => state.browse.filters.sort)
-    const brand = useSelector(state => state.browse.filters.brand)
-    const priceRanges = useSelector(state => state.browse.filters.priceRanges)
-    const sizeTypes = useSelector(state => state.browse.filters.sizeTypes)
-    const releaseYears = useSelector(state => state.browse.filters.releaseYears)
-
 
     function SafePromiseAll(promises, def = null) {
         return Promise.all(
@@ -60,16 +53,13 @@ export default function useAPICall(callType, params) {
             request = createRequestObject('browse', params)
         } else if (type === 'under300') {
             request = createRequestObject('browse', {...params, priceRanges: ["range(200|300)"]})
+            console.log('under 300 request: ' + JSON.stringify(request))
         } else {
             let filters = {
-                search: searchTerm,
-                brand,
-                priceRanges,
-                gender: sizeTypes, 
-                releaseYears
+                search: searchTerm
             }
 
-            request = createRequestObject('browse', {...params, ...filters, ...JSON.parse(sort)})
+            request = createRequestObject('browse', {...params, ...filters})
         }
     
         try {
@@ -79,6 +69,13 @@ export default function useAPICall(callType, params) {
             let results = await response.json()
             if (!results.length) throw new Error()
             results = results.filter(item => !item["model"].includes("(GS)") && !item["model"].includes("(TD)") && !item["model"].includes("(PS)"))
+
+            if(type === 'trending') {
+                results = results
+                    .map(value => ({ value, sort: Math.random() }))
+                    .sort((a, b) => a.sort - b.sort)
+                    .map(({ value }) => value)
+            }
 
             dispatch(dispatch_map[type](results))
         } catch (e) {
@@ -234,6 +231,6 @@ export default function useAPICall(callType, params) {
             browse(callType, params.searchTerm)
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currency, size, sort, brand, priceRanges, sizeTypes, releaseYears])
+    }, [currency, size])
 
 }
