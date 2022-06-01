@@ -34,7 +34,6 @@ export default function Navbar() {
                     <Link 
                         className='sanctuary-logo'
                         onClick={() => document.location.href = '/'}
-                        to="/"
                     >
                         <SanctuaryLogo />
                     </Link>
@@ -50,25 +49,24 @@ export default function Navbar() {
 
                         <Link 
                             onClick={() => document.location.href = '/newsroom'}
-                            to="/newsroom"
                         >
                             Newsroom
                         </Link>
 
-                        {!user && <Link onClick={() => document.location.href = '/sign-in'}  to="/sign-in">
+                        {!user && <Link onClick={() => document.location.href = '/sign-in'}>
                             Sign In
                         </Link>}
 
                         {!user && <Link className='create-account'
                             onClick={() => document.location.href = '/create-account'}
-                            to="/create-account">
+                           >
                             Create Account
                         </Link>}
 
                         {user && 
                             <Link className='navbar-profile'
                                 onClick={() => {document.location.href = '/profile'}}
-                                to="/profile">
+                                >
 
                                 <div className='navbar-profile-content'>
                                     {user.photoURL !== null &&
@@ -92,7 +90,7 @@ export default function Navbar() {
 
                     <Link className='sanctuary-logo'
                         onClick={() => document.location.href = '/'}
-                        to="/profile">
+                        >
                         <SanctuaryLogo />
                     </Link>
 
