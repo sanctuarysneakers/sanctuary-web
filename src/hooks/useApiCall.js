@@ -53,7 +53,6 @@ export default function useAPICall(callType, params) {
             request = createRequestObject('browse', params)
         } else if (type === 'under300') {
             request = createRequestObject('browse', {...params, priceRanges: ["range(200|300)"]})
-            console.log('under 300 request: ' + JSON.stringify(request))
         } else {
             let filters = {
                 search: searchTerm

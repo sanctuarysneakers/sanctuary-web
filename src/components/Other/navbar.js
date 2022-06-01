@@ -44,7 +44,6 @@ export default function Navbar() {
 
                         <Link 
                             onClick={() => document.location.href = '/browse'}
-                            to="/browse"
                         >
                             Browse
                         </Link>

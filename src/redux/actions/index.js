@@ -117,6 +117,12 @@ export const updateBrowsePriceRanges = priceRanges => {
     }
 }
 
+export const clearFilter = () => {
+    return {
+        type: 'CLEAR_FILTER'
+    }
+}
+
 
 // Currency change
 

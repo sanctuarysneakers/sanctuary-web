@@ -21,6 +21,7 @@ import PrivacyPolicy from './components/Other/privacyPolicy'
 import TermsOfUse from './components/Other/termsOfUse'
 import ContactUs from './components/Contact/contactUs'
 import LocationModal from './components/Modals/locationModal'
+import CategoryFilterModal from './components/Modals/categoryFilterModal'
 import { useLocationDetection } from './hooks/useLocationDetection'
 
 import SignInOptions from './components/Accounts/signInOptions'
@@ -59,6 +60,7 @@ export default function App() {
     const currencyModalVisible = useSelector(state => state.modals.currencyModalVisible)
     const searchModalVisible = useSelector(state => state.modals.searchModalVisible)
     const aboutModalVisible = useSelector(state => state.modals.aboutModalVisible)
+    const categoryFilterModalVisible = useSelector(state => state.modals.categoryFilterModalVisible)
     const deleteModalVisible = useSelector(state => state.modals.deleteModalVisible)
     const redirect = useSelector(state => state.redirect)
     const [loader, setLoader] = useState(true)
@@ -132,6 +134,11 @@ export default function App() {
                         <LocationModal />
                     </RemoveScroll>
                 }
+                { categoryFilterModalVisible &&
+                    <RemoveScroll>
+                        <CategoryFilterModal />
+                    </RemoveScroll>
+                } 
                 { currencyModalVisible &&
                     <RemoveScroll>
                         <CurrencyModal />

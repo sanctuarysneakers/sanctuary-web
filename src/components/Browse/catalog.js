@@ -10,11 +10,6 @@ export default function Catalog({ searchTerm }) {
     const browseData = useSelector(state => state.browse.browseData)
     const currency = useSelector(state => state.currency)
 
-    const sort = useSelector(state => state.browse.filters.sort)
-    const brand = useSelector(state => state.browse.filters.brand)
-    const priceRanges = useSelector(state => state.browse.filters.priceRanges)
-    const sizeTypes = useSelector(state => state.browse.filters.sizeTypes)
-    const releaseYears = useSelector(state => state.browse.filters.releaseYears)
     let location = useSelector(state => state.location)
     
     let [items, updateItems] = useState(browseData)
@@ -24,18 +19,13 @@ export default function Catalog({ searchTerm }) {
     useAPICall('browse', { searchTerm })
 
     async function fetchMore() {
-        let filters = {
-            search: searchTerm, 
-            currency: currency, 
-            ship_to: location['country_code'], 
+        const request = createRequestObject('browse', {
+            search: searchTerm,
+            currency: currency,
             page: page+1, 
-            brand, 
-            priceRanges, 
-            sizeTypes, 
-            releaseYears
-        }
-
-        const request = createRequestObject('browse', {...filters, ...JSON.parse(sort)})
+            ship_to: location['country_code']
+        })
+        
         const response = await fetch(request.url, request.headers)
         let results = await response.json()
         results = results.filter(item => !item["model"].includes("(GS)") && !item["model"].includes("(TD)") && !item["model"].includes("(PS)"))
