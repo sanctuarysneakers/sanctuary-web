@@ -60,7 +60,7 @@ export default function Navbar() {
                         {!user && <Link className='create-account'
                             onClick={() => document.location.href = '/create-account'}
                            >
-                            Create Account
+                            Sign Up
                         </Link>}
 
                         {user && 
