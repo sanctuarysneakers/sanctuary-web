@@ -31,19 +31,25 @@ export default function Navbar() {
             <div className='navbar-content'>
                 {isDesktop && <div className='desktop-content'>
 
-                    <Link className='sanctuary-logo'
-                        onClick={() => document.location.href = '/'}>
+                    <Link 
+                        className='sanctuary-logo'
+                        onClick={() => document.location.href = '/'}
+                    >
                         <SanctuaryLogo />
                     </Link>
 
                     <div className='navbar-links'>
                         <Search onClick={() => dispatch(showSearchModal())} />
 
-                        <Link onClick={() => document.location.href = '/browse'}>
+                        <Link 
+                            onClick={() => document.location.href = '/browse'}
+                        >
                             Browse
                         </Link>
 
-                        <Link onClick={() => document.location.href = '/newsroom'}>
+                        <Link 
+                            onClick={() => document.location.href = '/newsroom'}
+                        >
                             Newsroom
                         </Link>
 
@@ -52,13 +58,15 @@ export default function Navbar() {
                         </Link>}
 
                         {!user && <Link className='create-account'
-                            onClick={() => document.location.href = '/create-account'}>
+                            onClick={() => document.location.href = '/create-account'}
+                           >
                             Sign Up
                         </Link>}
 
                         {user && 
                             <Link className='navbar-profile'
-                                onClick={() => {document.location.href = '/profile'}}>
+                                onClick={() => {document.location.href = '/profile'}}
+                                >
 
                                 <div className='navbar-profile-content'>
                                     {user.photoURL !== null &&
@@ -81,7 +89,8 @@ export default function Navbar() {
                     </div>
 
                     <Link className='sanctuary-logo'
-                        onClick={() => document.location.href = '/'}>
+                        onClick={() => document.location.href = '/'}
+                        >
                         <SanctuaryLogo />
                     </Link>
 

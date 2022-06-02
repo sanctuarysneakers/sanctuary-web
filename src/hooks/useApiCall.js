@@ -18,13 +18,14 @@ export default function useAPICall(callType, params) {
     const size = useSelector(state => state.size)
     const currency = useSelector(state => state.currency)
 
+
     function SafePromiseAll(promises, def = null) {
         return Promise.all(
             promises.map(p => p.catch(error => def))
         )
     }
 
-    async function browse(type, query) {
+    async function browse(type, searchTerm) {
         const price_limit = {
             'browse': null,
             'trending': null,
@@ -38,16 +39,28 @@ export default function useAPICall(callType, params) {
             'under300': under300Call
         }
 
-        let filters = {
-            search: query,
-            currency: currency,
+        let params = {
+            currency, 
             maxPrice: price_limit[type],
             size: size, 
             ship_to: location['country_code']
         }
 
-        const request = createRequestObject('browse', filters)
+        let request; 
+        if(type === 'trending') {
+            request = createRequestObject('browse', {...params, sort: "most-active"}) 
+        } else if (type === 'under200') {
+            request = createRequestObject('browse', params)
+        } else if (type === 'under300') {
+            request = createRequestObject('browse', {...params, priceRanges: ["range(200|300)"]})
+        } else {
+            let filters = {
+                search: searchTerm
+            }
 
+            request = createRequestObject('browse', {...params, ...filters})
+        }
+    
         try {
             const response = await fetch(request.url, request.headers)
             if (!response.ok) throw new Error()
@@ -55,6 +68,13 @@ export default function useAPICall(callType, params) {
             let results = await response.json()
             if (!results.length) throw new Error()
             results = results.filter(item => !item["model"].includes("(GS)") && !item["model"].includes("(TD)") && !item["model"].includes("(PS)"))
+
+            if(type === 'trending') {
+                results = results
+                    .map(value => ({ value, sort: Math.random() }))
+                    .sort((a, b) => a.sort - b.sort)
+                    .map(({ value }) => value)
+            }
 
             dispatch(dispatch_map[type](results))
         } catch (e) {
@@ -208,7 +228,7 @@ export default function useAPICall(callType, params) {
         if (callType === 'getitem') {
             getItem(params)
         } else {
-            browse(callType, params.query)
+            browse(callType, params.searchTerm)
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currency, size])

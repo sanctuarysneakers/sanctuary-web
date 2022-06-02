@@ -13,7 +13,6 @@ import browseReducer from './browse/browseReducer'
 import itemReducer from './item/itemReducer'
 import modalReducer from './modals/modalReducer'
 
-
 const globalReducer = combineReducers({
     size: sizeReducer,
     currency: currencyReducer,

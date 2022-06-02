@@ -42,8 +42,8 @@
 @import "./itemNoResults";
 @import "./hamburgerModal";
 @import "./categoryFilterModal";
-@import "./categoryOption";
 @import "./categoryFilter";
+@import "./categoryOption";
 @import "./articleCard";
 @import "./nextArticles";
 @import "./brandCard";
@@ -59,11 +59,12 @@
 @import "./howItWorksCards";
 @import "./howItWorksContact";
 @import "./contactForm";
+@import "./browseFilterDropdown";
 @import "./socialsModal";
 @import "./dynamicList";
 
 @import "swiper/swiper";
-@import 'swiper/components/navigation/navigation';
+@import "swiper/components/navigation/navigation";
 
 body {
     font-family: 'Poppins', sans-serif;
