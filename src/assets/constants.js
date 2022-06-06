@@ -122,8 +122,8 @@ export const sortOptions = [
     {value: null, label: 'Featured'},
     {value: '{"sort": "release_date"}', label: 'Newest Releases'},
     {value: '{"sort": "most-active"}', label: 'Most Popular'},
-    {value: '{"sort": "lowest_ask", "order": "ASC"}', label: 'Price (low to high)'},
-    {value: '{"sort": "average_deadstock_price", "order": "DESC"}', label: 'Price (high to low)'}
+    {value: '{"sort": "lowest_ask", "order": "ASC"}', label: 'Price: Low to High'},
+    {value: '{"sort": "average_deadstock_price", "order": "DESC"}', label: 'Price: High to Low'}
 ]
 
 // browse - multi-select filter options 

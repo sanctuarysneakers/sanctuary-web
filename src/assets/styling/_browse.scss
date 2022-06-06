@@ -1,11 +1,7 @@
 .browse {
     background: #F7F9FC;
-    
-    padding-left: 10%; 
-    padding-right: 5%; 
 
     .browse-header {
-        // padding-right: 15%; 
 
         .browse-header-content {
             display: flex;
@@ -32,19 +28,35 @@
             }
         }
     }
+
+    .browse-sort-by {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1000px;
+        margin: 0px auto;
+        margin-bottom: 20px;
+
+        h4 {
+            font-size: 22px;
+            font-weight: 600;
+            color: black;
+        }
+    }
    
 
     .browse-body {
-        display: flex; 
-        margin: auto;
+        display: flex;
+        max-width: 1000px;
+        margin: 0px auto;
 
         .browse-filters {
-            width: 15%; 
+            width: 241px;
+            margin-right: 12px;
         }
 
         .browse-catalog {
-            max-width: 1000px; 
-            padding-bottom: 8em; 
+            margin-bottom: 100px;
         }
     }
 }

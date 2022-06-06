@@ -28,7 +28,8 @@ export default function BrowseFilterMultiCheckbox({ options, title, updateAction
         }
 
         selectedRef.current = newSelected
-        dispatch(updateAction(selectedRef.current)) 
+        console.log(selectedRef.current)
+        // dispatch(updateAction(selectedRef.current)) 
     }
 
     const onShowMoreClick = () => { 
@@ -71,11 +72,12 @@ export default function BrowseFilterMultiCheckbox({ options, title, updateAction
                 className="checkboxLabel"
                 control={
                     <Checkbox 
+                        className='checkbox'
                         onChange={(event) => onCheckboxChange(event)} 
                         sx={{
-                            color: "#EC3E26",
+                            color: "#DDE1E9",
                             '&.Mui-checked': {
-                              color: "#EC3E26",
+                              color: "black",
                         }}}  
                         value={value}
                     />
@@ -100,8 +102,9 @@ export default function BrowseFilterMultiCheckbox({ options, title, updateAction
                     <FormLabel                    
                         sx={{
                             color: "black",
-                            fontWeight: 550, 
-                            marginBottom: 1, 
+                            fontWeight: 500,
+                            fontSize: 18,
+                            marginBottom: 2, 
                             '&.Mui-focused': {
                                 color: "black",
                         }}}  
@@ -120,8 +123,8 @@ export default function BrowseFilterMultiCheckbox({ options, title, updateAction
                     sx={{
                         
                         color: "black",
-                        fontWeight: 550, 
-                        marginBottom: 1, 
+                        fontWeight: 500, 
+                        marginBottom: 2, 
                         '&.Mui-focused': {
                             color: "black",
                         }}} 
