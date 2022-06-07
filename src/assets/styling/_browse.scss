@@ -68,12 +68,20 @@
                 max-width: 747px;
             }
         }
+
+        .browse-sort-by {
+            max-width: 747px;
+        }
+
+        .browse-body {
+            max-width: 747px;
+        }
     }
 }
 
 @media (min-width: 700px) and (max-width: 819px) {
     .browse {
-        .brose-header {
+        .browse-header {
             .browse-header-content {
                 max-width: 622px;
                 

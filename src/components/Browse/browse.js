@@ -1,5 +1,5 @@
-import React from 'react'
-import { Helmet } from 'react-helmet';
+import React, { useState } from 'react'
+import { Helmet } from 'react-helmet'
 import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router'
 import Catalog from './catalog'
@@ -13,6 +13,8 @@ import { brandOptions, sortOptions, releaseYearOptions, priceOptions, sizeTypeOp
 
 export default function Browse() {
 
+    const [isMobile, setIsMobile] = useState(false)
+
     const dispatch = useDispatch()
 
     let {searchTerm} = useParams()
@@ -20,6 +22,14 @@ export default function Browse() {
 
     dispatch(showHomeSeach())
 
+    window.addEventListener("resize", function() {
+        if (window.matchMedia("(max-width: 820px)").matches) {
+            setIsMobile(true)
+        } else {
+            setIsMobile(false)
+        }
+    })
+    
     return (
         <div className='browse'>
             <Helmet>
@@ -49,12 +59,12 @@ export default function Browse() {
             </div>
      
             <div className="browse-body" >
-                <div className="browse-filters">
-                    <BrowseFilterMultiCheckbox options={brandOptions} title='Brand' updateAction={updateBrowseBrand} showMoreOption={false} />
+                {!isMobile && <div className="browse-filters">
+                    <BrowseFilterMultiCheckbox options={brandOptions} title='Brand' updateAction={updateBrowseBrand} showMoreOption={true} />
                     <BrowseFilterMultiCheckbox options={sizeTypeOptions} title='Size Type' updateAction={updateBrowseSizeTypes} showMoreOption={false} />
                     <BrowseFilterMultiCheckbox options={priceOptions} title="Price Ranges" updateAction={updateBrowsePriceRanges} showMoreOption={false}/> 
                     <BrowseFilterMultiCheckbox options={releaseYearOptions} title="Release Year" updateAction={updateBrowseReleaseYears} showMoreOption={true}/>             
-                </div> 
+                </div>}
 
                 <div className="browse-catalog">
                     <Catalog searchTerm={searchTerm} />
