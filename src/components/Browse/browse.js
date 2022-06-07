@@ -22,6 +22,12 @@ export default function Browse() {
     if (!searchTerm) searchTerm = ''
 
     dispatch(showHomeSeach())
+
+    const handleFilter = () => {
+        if (!isDesktop) {
+            dispatch(showFilterModal())
+        }
+    }
     
     return (
         <div className='browse'>
@@ -43,7 +49,7 @@ export default function Browse() {
             </div>
 
             <div className='browse-sort-by'>
-                <h4 className='browse-filter-title' onClick={() => dispatch(showFilterModal())}>
+                <h4 className='browse-filter-title' onClick={handleFilter}>
                     Filter
                 </h4>
                 {/* <BrowseFilterDropdown options={sizeTypeOptions} placeholder="Size Type" updateAction={updateBrowseSizeTypes}/>  */}
