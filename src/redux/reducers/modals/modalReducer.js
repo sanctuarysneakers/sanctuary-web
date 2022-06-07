@@ -99,6 +99,17 @@ const socialsModalReducer = (state = false, action) => {
     }
 }
 
+const filterModalVisibleReducer = (state = false, action) => {
+    switch(action.type) {
+        case 'SHOW_FILTER_MODAL':
+            return true
+        case 'HIDE_FILTER_MODAL':
+            return false
+        default:
+            return state
+    }
+}
+
 const modals = combineReducers({
     categoryFilterModalVisible: categoryFilterModalReducer, 
     sizeModalVisible: sizeModalReducer, 
@@ -108,7 +119,8 @@ const modals = combineReducers({
     currencyModalVisible: currencyModalReducer, 
     deleteModalVisible: deleteModalVisibleReducer, 
     hamburgerModalVisible: hamburgerModalVisibleReducer, 
-    socialsModalVisible: socialsModalReducer 
+    socialsModalVisible: socialsModalReducer,
+    filterModalVisible: filterModalVisibleReducer
 })
 
 export default modals

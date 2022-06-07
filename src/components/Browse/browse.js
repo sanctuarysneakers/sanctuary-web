@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router'
 import Catalog from './catalog'
 import Footer from '../Other/footer'
+import { useMediaQuery } from 'react-responsive'
+import { showFilterModal } from '../../redux/actions'
 
 import BrowseFilterDropdown from './browseFilterDropdown'
 import BrowseFilterMultiCheckbox from './browseFilterMultiCheckbox'
@@ -13,22 +15,13 @@ import { brandOptions, sortOptions, releaseYearOptions, priceOptions, sizeTypeOp
 
 export default function Browse() {
 
-    const [isMobile, setIsMobile] = useState(false)
-
     const dispatch = useDispatch()
+    const isDesktop = useMediaQuery({ query: '(min-width: 820px)' })
 
     let {searchTerm} = useParams()
     if (!searchTerm) searchTerm = ''
 
     dispatch(showHomeSeach())
-
-    window.addEventListener("resize", function() {
-        if (window.matchMedia("(max-width: 820px)").matches) {
-            setIsMobile(true)
-        } else {
-            setIsMobile(false)
-        }
-    })
     
     return (
         <div className='browse'>
@@ -50,8 +43,8 @@ export default function Browse() {
             </div>
 
             <div className='browse-sort-by'>
-                <h4 className='browse-filter-title'>
-                    Filters
+                <h4 className='browse-filter-title' onClick={() => dispatch(showFilterModal())}>
+                    Filter
                 </h4>
                 {/* <BrowseFilterDropdown options={sizeTypeOptions} placeholder="Size Type" updateAction={updateBrowseSizeTypes}/>  */}
                 {/* <BrowseFilterDropdown options={brandOptions} placeholder="Brand" updateAction={updateBrowseBrand}/> */}
@@ -59,7 +52,7 @@ export default function Browse() {
             </div>
      
             <div className="browse-body" >
-                {!isMobile && <div className="browse-filters">
+                {isDesktop && <div className="browse-filters">
                     <BrowseFilterMultiCheckbox options={brandOptions} title='Brand' updateAction={updateBrowseBrand} showMoreOption={true} />
                     <BrowseFilterMultiCheckbox options={sizeTypeOptions} title='Size Type' updateAction={updateBrowseSizeTypes} showMoreOption={false} />
                     <BrowseFilterMultiCheckbox options={priceOptions} title="Price Ranges" updateAction={updateBrowsePriceRanges} showMoreOption={false}/> 

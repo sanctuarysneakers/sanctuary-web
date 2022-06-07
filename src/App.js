@@ -21,6 +21,7 @@ import PrivacyPolicy from './components/Other/privacyPolicy'
 import TermsOfUse from './components/Other/termsOfUse'
 import ContactUs from './components/Contact/contactUs'
 import LocationModal from './components/Modals/locationModal'
+import FilterModal from './components/Browse/filterModal'
 import { useLocationDetection } from './hooks/useLocationDetection'
 
 import SignInOptions from './components/Accounts/signInOptions'
@@ -60,6 +61,7 @@ export default function App() {
     const searchModalVisible = useSelector(state => state.modals.searchModalVisible)
     const aboutModalVisible = useSelector(state => state.modals.aboutModalVisible)
     const deleteModalVisible = useSelector(state => state.modals.deleteModalVisible)
+    const filterModalVisible = useSelector(state => state.modals.filterModalVisible)
     const redirect = useSelector(state => state.redirect)
     const [loader, setLoader] = useState(true)
     
@@ -150,6 +152,11 @@ export default function App() {
                 { searchModalVisible &&
                     <RemoveScroll>
                         <SearchModal />
+                    </RemoveScroll>
+                }
+                { filterModalVisible &&
+                    <RemoveScroll>
+                        <FilterModal />
                     </RemoveScroll>
                 }
                 <HamburgerModal />

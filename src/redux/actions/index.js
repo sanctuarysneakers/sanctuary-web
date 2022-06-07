@@ -246,6 +246,18 @@ export const hideSocialsModal = () => {
     }
 }
 
+export const showFilterModal = () => {
+    return {
+        type: 'SHOW_FILTER_MODAL'
+    }
+}
+
+export const hideFilterModal = () => {
+    return {
+        type: 'HIDE_FILTER_MODAL'
+    }
+}
+
 // Search Bar visible/disable per page
 
 export const showHomeSeach = () => {

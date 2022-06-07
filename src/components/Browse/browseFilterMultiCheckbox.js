@@ -95,8 +95,8 @@ export default function BrowseFilterMultiCheckbox({ options, title, updateAction
             {checkboxes && 
                 <FormControl 
                     sx={{ 
-                        marginTop: 0,
-                        marginBottom: 4
+                        marginTop: 3,
+                        marginBottom: 0
                     }}
                 >    
                     <FormLabel                    
@@ -122,7 +122,7 @@ export default function BrowseFilterMultiCheckbox({ options, title, updateAction
                     onClick={onShowMoreClick}             
                     sx={{
                         
-                        color: "black",
+                        color: "#777F93",
                         fontWeight: 500, 
                         marginBottom: 2, 
                         '&.Mui-focused': {

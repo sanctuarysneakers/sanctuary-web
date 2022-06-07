@@ -95,6 +95,28 @@
                 }
             }
         }
+
+        .browse-sort-by {
+            flex-direction: column;
+            max-width: 622px;
+
+            h4 {
+                font-size: 18px;
+                font-weight: 500;
+                color: #777f93;
+                width: 100%;
+                height: 44px;
+                background-color: #e5e9f1;
+                border-radius: 10px;
+                text-align: center;
+                line-height: 44px;
+                margin-bottom: 10px;
+            }
+        }
+
+        .browse-body {
+            max-width: 622px;
+        }
     }
 }
 
@@ -113,6 +135,28 @@
                     }
                 }
             }
+        }
+
+        .browse-sort-by {
+            flex-direction: column;
+            max-width: 508px;
+
+            h4 {
+                font-size: 18px;
+                font-weight: 500;
+                color: #777f93;
+                width: 100%;
+                height: 44px;
+                background-color: #e5e9f1;
+                border-radius: 10px;
+                text-align: center;
+                line-height: 44px;
+                margin-bottom: 10px;
+            }
+        }
+
+        .browse-body {
+            max-width: 508px;
         }
     }
 }
@@ -145,6 +189,28 @@
                     }
                 }
             }
+        }
+
+        .browse-sort-by {
+            flex-direction: column;
+            max-width: 335px;
+
+            h4 {
+                font-size: 17px;
+                font-weight: 500;
+                color: #777f93;
+                width: 100%;
+                height: 44px;
+                background-color: #e5e9f1;
+                border-radius: 10px;
+                text-align: center;
+                line-height: 44px;
+                margin-bottom: 10px;
+            }
+        }
+
+        .browse-body {
+            max-width: 335px;
         }
     }
 }
