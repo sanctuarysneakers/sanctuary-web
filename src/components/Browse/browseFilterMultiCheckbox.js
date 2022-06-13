@@ -27,11 +27,14 @@ export default function BrowseFilterMultiCheckbox({ options, title, updateAction
                 newSelected = selectedRef.current.filter(e => e !== event.target.value)
             }
         } else {
-            newSelected = event.target.value 
+            if(event.target.checked) {
+                newSelected = event.target.value 
+            } else {
+                newSelected = null
+            }
         }
       
         selectedRef.current = newSelected
-        console.log(selectedRef.current)
         dispatch(updateAction(selectedRef.current)) 
     }
 
