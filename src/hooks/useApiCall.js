@@ -80,6 +80,13 @@ export default function useAPICall(callType, params) {
             if (!results.length) throw new Error()
             results = results.filter(item => !item["model"].includes("(GS)") && !item["model"].includes("(TD)") && !item["model"].includes("(PS)"))
 
+            if(type === 'trending') {
+                results = results
+                    .map(value => ({ value, sort: Math.random() }))
+                    .sort((a, b) => a.sort - b.sort)
+                    .map(({ value }) => value)
+            }
+
             dispatch(dispatch_map[type](results))
         } catch (e) {
             dispatch(dispatch_map[type](false))
@@ -134,6 +141,7 @@ export default function useAPICall(callType, params) {
     }
 
     function extractItemInfo(results, itemKey) {
+        let itemKeyNoSpaces = itemKey.replaceAll(' ', '')
         for (let x = 0; x < results.length; x++) {
 
             let resultItem = results[x]
@@ -147,7 +155,7 @@ export default function useAPICall(callType, params) {
             //when searching by urlkey, the correct item info might not be the first result so need to loop through all
             for (var i=0; i < skus.length; i++) {
                 skus[i] = skus[i].replaceAll('-', ' ')
-                if (skus[i].includes(itemKey))
+                if (skus[i].includes(itemKey) || skus[i].includes(itemKeyNoSpaces))
                     return resultItem
             }
         }

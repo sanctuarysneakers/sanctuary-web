@@ -21,7 +21,11 @@ import PrivacyPolicy from './components/Other/privacyPolicy'
 import TermsOfUse from './components/Other/termsOfUse'
 import ContactUs from './components/Contact/contactUs'
 import LocationModal from './components/Modals/locationModal'
+<<<<<<< HEAD
 import FilterModal from './components/Browse/filterModal'
+=======
+import CategoryFilterModal from './components/Modals/categoryFilterModal'
+>>>>>>> master
 import { useLocationDetection } from './hooks/useLocationDetection'
 
 import SignInOptions from './components/Accounts/signInOptions'
@@ -60,8 +64,13 @@ export default function App() {
     const currencyModalVisible = useSelector(state => state.modals.currencyModalVisible)
     const searchModalVisible = useSelector(state => state.modals.searchModalVisible)
     const aboutModalVisible = useSelector(state => state.modals.aboutModalVisible)
+<<<<<<< HEAD
     const deleteModalVisible = useSelector(state => state.modals.deleteModalVisible)
     const filterModalVisible = useSelector(state => state.modals.filterModalVisible)
+=======
+    const categoryFilterModalVisible = useSelector(state => state.modals.categoryFilterModalVisible)
+    const deleteModalVisible = useSelector(state => state.modals.deleteModalVisible)
+>>>>>>> master
     const redirect = useSelector(state => state.redirect)
     const [loader, setLoader] = useState(true)
     
@@ -75,7 +84,7 @@ export default function App() {
                     let redirectCopy = redirect
                     dispatch(setRedirectUrl(null))
                     const jwt = await user.getIdToken()
-                    window.location.href = `${redirectCopy}id_token=${jwt}`
+                    window.location.href = `${redirectCopy}id_token=${jwt}&refresh_token=${user.refreshToken}`
                 }
             } else {
                 dispatch(setUser(null))

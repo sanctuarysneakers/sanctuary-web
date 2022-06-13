@@ -123,7 +123,7 @@ export default function Item() {
 
                                     <SizeFilter gender={gender} />
                                     {sizeModalVisible && <SizeModal gender={gender} />}
-                                    {socialsModalVisible && <SocialsModal itemName={itemInfo.modelName} price={`${currencySymbolMap[currency]}${itemPrices[0].price}`} url={window.location.href} image={itemInfo.iamge} />}
+                                    {socialsModalVisible && <SocialsModal itemName={itemInfo.modelName} price={`${currencySymbolMap[currency]}${itemPrices[0].price}`} url={window.location.href} image={itemInfo.image} />}
                                 </div>}
                             </div>
                         </div>
@@ -166,7 +166,7 @@ export default function Item() {
                     </div>
 
                     <div className='item-recommended'>
-                        <h6> Recommended For You </h6>
+                        <h6> You might also like </h6>
                         {!relatedLoading && relatedItems.length !== 0 &&
                             <Carousel type={'recommended'} />
                         }
