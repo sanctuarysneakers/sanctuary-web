@@ -59,9 +59,9 @@ export default function Browse() {
      
             <div className="browse-body" >
                 {isDesktop && <div className="browse-filters">
-                    <BrowseFilterMultiCheckbox options={brandOptions} title='Brand' updateAction={updateBrowseBrand} showMoreOption={true} />
-                    <BrowseFilterMultiCheckbox options={sizeTypeOptions} title='Size Type' updateAction={updateBrowseSizeTypes} showMoreOption={false} />
-                    <BrowseFilterMultiCheckbox options={priceOptions} title="Price Ranges" updateAction={updateBrowsePriceRanges} showMoreOption={false}/> 
+                    <BrowseFilterMultiCheckbox options={brandOptions} title='Brand' updateAction={updateBrowseBrand} showMoreOption={true} allowMulti={false} />
+                    <BrowseFilterMultiCheckbox options={sizeTypeOptions} title='Size Type' updateAction={updateBrowseSizeTypes} allowMulti={false}/>
+                    <BrowseFilterMultiCheckbox options={priceOptions} title="Price Ranges" updateAction={updateBrowsePriceRanges}  /> 
                     <BrowseFilterMultiCheckbox options={releaseYearOptions} title="Release Year" updateAction={updateBrowseReleaseYears} showMoreOption={true}/>             
                 </div>}
 
