@@ -95,6 +95,7 @@ export const websiteLogoMapGrey = {
 // browse - single-select filter options 
 
 export const brandOptions = [
+    {value: null, label: 'All'}, 
     {value: 'adidas', label: 'Adidas'},
     {value: 'asics', label: 'Asics'},
     {value: 'balenciaga', label: 'Balenciaga'},
@@ -111,6 +112,7 @@ export const brandOptions = [
 ]
 
 export const sizeTypeOptions = [
+    {value: null, label: 'All'},
     {value: 'men', label: 'Men'},
     {value: 'women', label: 'Women'}, 
     // {value: 'child', label: 'Child'}

@@ -52,15 +52,13 @@ export default function Browse() {
                 <h4 className='browse-filter-title' onClick={handleFilter}>
                     Filter
                 </h4>
-                {/* <BrowseFilterDropdown options={sizeTypeOptions} placeholder="Size Type" updateAction={updateBrowseSizeTypes}/>  */}
-                {/* <BrowseFilterDropdown options={brandOptions} placeholder="Brand" updateAction={updateBrowseBrand}/> */}
                 <BrowseFilterDropdown options={sortOptions} placeholder="Sort By" updateAction={updateBrowseSort}/>
             </div>
      
             <div className="browse-body" >
                 {isDesktop && <div className="browse-filters">
-                    <BrowseFilterMultiCheckbox options={brandOptions} title='Brand' updateAction={updateBrowseBrand} showMoreOption={true} allowMulti={false} />
-                    <BrowseFilterMultiCheckbox options={sizeTypeOptions} title='Size Type' updateAction={updateBrowseSizeTypes} allowMulti={false}/>
+                    <BrowseFilterDropdown options={sizeTypeOptions} placeholder="Size Type" updateAction={updateBrowseSizeTypes}/>  
+                    <BrowseFilterDropdown options={brandOptions} placeholder="Brand" updateAction={updateBrowseBrand}/>
                     <BrowseFilterMultiCheckbox options={priceOptions} title="Price Ranges" updateAction={updateBrowsePriceRanges}  /> 
                     <BrowseFilterMultiCheckbox options={releaseYearOptions} title="Release Year" updateAction={updateBrowseReleaseYears} showMoreOption={true}/>             
                 </div>}

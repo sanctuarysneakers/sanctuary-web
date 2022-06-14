@@ -10,32 +10,26 @@ import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
 
 
-export default function BrowseFilterMultiCheckbox({ options, title, updateAction, showMoreOption = false, allowMulti = true }) {
+export default function BrowseFilterMultiCheckbox({ options, title, updateAction, showMoreOption = false }) {
 
     const dispatch = useDispatch()
 
     const selectedRef = useRef([]);  
     const [showMore, setShowMore] = useState(showMoreOption)
+    const [checkboxes, setCheckboxes] = useState([])
 
     const onCheckboxChange = (event) =>  {
         let newSelected
 
-        if(allowMulti) {
-            if (event.target.checked && !selectedRef.current.includes(event.target.value)) {
-                newSelected = [...selectedRef.current, event.target.value]
-            }  else { 
-                newSelected = selectedRef.current.filter(e => e !== event.target.value)
-            }
-        } else {
-            if(event.target.checked) {
-                newSelected = event.target.value 
-            } else {
-                newSelected = null
-            }
+        if (event.target.checked && !selectedRef.current.includes(event.target.value)) {
+            newSelected = [...selectedRef.current, event.target.value]
+        }  else { 
+            newSelected = selectedRef.current.filter(e => e !== event.target.value)
         }
-      
+
         selectedRef.current = newSelected
-        dispatch(updateAction(selectedRef.current)) 
+        console.log(selectedRef.current)
+        // dispatch(updateAction(selectedRef.current)) 
     }
 
     const onShowMoreClick = () => { 
@@ -45,80 +39,83 @@ export default function BrowseFilterMultiCheckbox({ options, title, updateAction
             setShowMore(true)
         }
     }
-    
-    // const isChecked = (value) => {
-    //     console.log('value is: ' + value)
-    //     console.log('selectedref is: ' + selectedRef)
-    //     return allowMulti ? selectedRef.current.includes(value) : value == selectedRef.current
-    // }
+
+    useEffect(() => {
+        let displayedOptions
+        if(showMore) {
+            //want to hide some
+            displayedOptions = options.slice(0, 5)
+        } else {
+            //want to show all
+            displayedOptions = options 
+        }
+
+        let temp = selectedRef.current 
+        selectedRef.current.forEach(selectedVal => {
+            let currentlyVisible = false
+
+            displayedOptions.forEach(option => {
+                if(option.value === selectedVal) {
+                    currentlyVisible = true
+                }
+            }) 
+
+            if(!currentlyVisible) { 
+                temp = temp.filter(e => e !== selectedVal)
+            }
+        })
+
+        selectedRef.current = temp
+
+        let checkboxes = displayedOptions.map(({value, label}) => (
+            <FormControlLabel
+                className="checkboxLabel"
+                control={
+                    <Checkbox 
+                        className='checkbox'
+                        onChange={(event) => onCheckboxChange(event)} 
+                        sx={{
+                            color: "#DDE1E9",
+                            '&.Mui-checked': {
+                              color: "black",
+                        }}}  
+                        value={value}
+                    />
+                }
+                label={label}
+            />) 
+        ) 
+
+        setCheckboxes(checkboxes)
+    // eslint-disable-next-line
+    }, [showMore])
 
     return (
         <Box sx={{ fontFamily: "Poppins, sans-serif" }}>
-       
-            <FormControl 
-                sx={{ 
-                    marginTop: 3,
-                    marginBottom: 0
-                }}
-            >    
-                <FormLabel                    
-                    sx={{
-                        color: "black",
-                        fontWeight: 500,
-                        fontSize: 18,
-                        marginBottom: 2, 
-                        '&.Mui-focused': {
+            {checkboxes && 
+                <FormControl 
+                    sx={{ 
+                        marginTop: 3,
+                        marginBottom: 0
+                    }}
+                >    
+                    <FormLabel                    
+                        sx={{
                             color: "black",
-                    }}}  
-                > 
-                    { title } 
-                </FormLabel>
-                <FormGroup>
-                    {showMore && 
-                        options.slice(0, 5).map(({value, label}, idx) => (
-                            <FormControlLabel
-                                className="checkboxLabel"
-                                control={
-                                    <Checkbox 
-                                        className='checkbox'
-                                        // checked={isChecked(value)}
-                                        onChange={(event) => onCheckboxChange(event)} 
-                                        sx={{
-                                            color: "#DDE1E9",
-                                            '&.Mui-checked': {
-                                            color: "black",
-                                        }}}  
-                                        value={value}
-                                    />
-                                }
-                                label={label}
-                            />) 
-                        ) 
-                    }
-                    {!showMore && 
-                        options.map(({value, label}, idx) => (
-                            <FormControlLabel
-                                className="checkboxLabel"
-                                control={
-                                    <Checkbox 
-                                        className='checkbox'
-                                        // checked={isChecked(value)}
-                                        onChange={(event) => onCheckboxChange(event)} 
-                                        sx={{
-                                            color: "#DDE1E9",
-                                            '&.Mui-checked': {
-                                            color: "black",
-                                        }}}  
-                                        value={value}
-                                    />
-                                }
-                                label={label}
-                            />) 
-                        ) 
-                    }
-                </FormGroup>
-            </FormControl>
-            
+                            fontWeight: 500,
+                            fontSize: 18,
+                            marginBottom: 2, 
+                            '&.Mui-focused': {
+                                color: "black",
+                        }}}  
+                    > 
+                        { title } 
+                    </FormLabel>
+                    <FormGroup>
+                        {checkboxes}
+                    </FormGroup>
+                </FormControl>
+            }  
 
             {showMoreOption && 
                 <FormHelperText       
@@ -138,4 +135,3 @@ export default function BrowseFilterMultiCheckbox({ options, title, updateAction
         </Box> 
     )
 }
-
