@@ -102,6 +102,7 @@ export default function BrowseFilterMultiCheckbox({ options, title, updateAction
                     <FormLabel                    
                         sx={{
                             color: "black",
+                            fontFamily: "Poppins, sans-serif",
                             fontWeight: 500,
                             fontSize: 18,
                             marginBottom: 2, 
@@ -123,6 +124,7 @@ export default function BrowseFilterMultiCheckbox({ options, title, updateAction
                     sx={{
                         
                         color: "#777F93",
+                        fontFamily: "Poppins, sans-serif",
                         fontWeight: 500, 
                         marginBottom: 2, 
                         '&.Mui-focused': {
