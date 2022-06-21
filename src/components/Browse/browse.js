@@ -18,7 +18,7 @@ export default function Browse() {
     const dispatch = useDispatch()
     const isDesktop = useMediaQuery({ query: '(min-width: 820px)' })
 
-    let {searchTerm} = useParams()
+    let { searchTerm } = useParams()
     if (!searchTerm) searchTerm = ''
 
     dispatch(showHomeSeach())
@@ -28,17 +28,17 @@ export default function Browse() {
             dispatch(showFilterModal())
         }
     }
-    
+
     return (
         <div className='browse'>
             <Helmet>
                 <title>Sanctuary: Browse</title>
             </Helmet>
-            
-            <div className="browse-header"> 
+
+            <div className="browse-header">
                 <div className='browse-header-content'>
 
-                    {!searchTerm && <div className='browse-header-text'> 
+                    {!searchTerm && <div className='browse-header-text'>
                         <h2> Browse </h2>
                     </div>}
                     {searchTerm && <div className='browse-header-text'>
@@ -52,15 +52,17 @@ export default function Browse() {
                 <h4 className='browse-filter-title' onClick={handleFilter}>
                     Filter
                 </h4>
-                <BrowseFilterDropdown options={sortOptions} placeholder="Sort By" updateAction={updateBrowseSort}/>
+                <div className='browse-filter-dropdowns'>
+                    <BrowseFilterDropdown options={sizeTypeOptions} placeholder="Size Type" updateAction={updateBrowseSizeTypes} />
+                    <BrowseFilterDropdown options={brandOptions} placeholder="Brand" updateAction={updateBrowseBrand} />
+                    <BrowseFilterDropdown options={sortOptions} placeholder="Sort By" updateAction={updateBrowseSort} />
+                </div>
             </div>
-     
+
             <div className="browse-body" >
                 {isDesktop && <div className="browse-filters">
-                    <BrowseFilterDropdown options={sizeTypeOptions} placeholder="Size Type" updateAction={updateBrowseSizeTypes}/>  
-                    <BrowseFilterDropdown options={brandOptions} placeholder="Brand" updateAction={updateBrowseBrand}/>
-                    <BrowseFilterMultiCheckbox options={priceOptions} title="Price Ranges" updateAction={updateBrowsePriceRanges}  /> 
-                    <BrowseFilterMultiCheckbox options={releaseYearOptions} title="Release Year" updateAction={updateBrowseReleaseYears} showMoreOption={true}/>             
+                    <BrowseFilterMultiCheckbox options={priceOptions} title="Price Ranges" updateAction={updateBrowsePriceRanges} />
+                    <BrowseFilterMultiCheckbox options={releaseYearOptions} title="Release Year" updateAction={updateBrowseReleaseYears} showMoreOption={true} />
                 </div>}
 
                 <div className="browse-catalog">

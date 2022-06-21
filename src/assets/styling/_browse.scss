@@ -42,6 +42,10 @@
             font-weight: 600;
             color: black;
         }
+
+        .browse-filter-dropdowns {
+            display: flex;
+        }
     }
    
 
@@ -112,6 +116,11 @@
                 line-height: 44px;
                 margin-bottom: 10px;
             }
+
+            .browse-filter-dropdowns {
+                justify-content: space-between;
+                width: 100%;
+            }
         }
 
         .browse-body {
@@ -153,6 +162,11 @@
                 line-height: 44px;
                 margin-bottom: 10px;
             }
+
+            .browse-filter-dropdowns {
+                justify-content: space-between;
+                width: 100%;
+            }
         }
 
         .browse-body {
@@ -165,6 +179,8 @@
     .browse {
         .browse-header {
             .browse-header-content {
+                max-width: 335px;
+
                 .browse-header-content {
                     flex-direction: column;
                     align-items: flex-start;
@@ -206,6 +222,11 @@
                 text-align: center;
                 line-height: 44px;
                 margin-bottom: 10px;
+            }
+
+            .browse-filter-dropdowns {
+                justify-content: space-between;
+                width: 100%;
             }
         }
 

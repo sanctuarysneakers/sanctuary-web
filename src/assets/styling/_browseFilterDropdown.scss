@@ -44,11 +44,10 @@
 
 @media (min-width: 700px) and (max-width: 819px) {
     .filter-dropdown {
-        min-width: 335px;
+        width: calc(100% / 3.2);
         margin-left: 0px;
         background-color: #E5E9F1;
         height: 44px;
-        width: 100%;
 
         svg {
             padding-top: 2px;
@@ -61,17 +60,16 @@
         color: #777F93;
         font-weight: 500;
         padding: 0px;
-        width: calc(100vw - 40px);
+        width: calc(622px / 3.2);
     }
 }
 
 @media (min-width: 548px) and (max-width: 699px) {
     .filter-dropdown {
-        min-width: 335px;
+        width: calc(100% / 3.2);
         margin-left: 0px;
         background-color: #E5E9F1;
         height: 44px;
-        width: 100%;
 
         svg {
             padding-top: 2px;
@@ -84,13 +82,13 @@
         color: #777F93;
         font-weight: 500;
         padding: 0px;
-        width: calc(100vw - 40px);
+        width: calc(508px / 3.2);
     }
 }
 
 @media screen and (max-width: 547px) {
     .filter-dropdown {
-        min-width: 335px;
+        width: calc(100% / 3.2);
         margin-left: 0px;
         background-color: #E5E9F1;
         height: 44px;
@@ -102,6 +100,6 @@
         color: #777F93;
         font-weight: 500;
         padding: 0px;
-        width: calc(100vw - 40px);
+        width: calc(335px / 3.2);
     }
 }
