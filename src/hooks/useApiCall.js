@@ -77,10 +77,10 @@ export default function useAPICall(callType, params) {
             if (!response.ok) throw new Error()
             
             let results = await response.json()
-            if (!results.length) throw new Error()
+            if (results == null || !results.length) throw new Error()
             results = results.filter(item => !item["model"].includes("(GS)") && !item["model"].includes("(TD)") && !item["model"].includes("(PS)"))
 
-            if(type === 'trending') {
+            if(results != null && type === 'trending') {
                 results = results
                     .map(value => ({ value, sort: Math.random() }))
                     .sort((a, b) => a.sort - b.sort)

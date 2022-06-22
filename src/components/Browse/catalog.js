@@ -38,11 +38,14 @@ export default function Catalog({ searchTerm }) {
         const request = createRequestObject('browse', {...filters, ...JSON.parse(sort)})
         const response = await fetch(request.url, request.headers)
         let results = await response.json()
-        results = results.filter(item => !item["model"].includes("(GS)") && !item["model"].includes("(TD)") && !item["model"].includes("(PS)"))
 
         if (results !== null) {
-            updateItems(items.concat(results))
-            updatePage(page + 1)
+            results = results.filter(item => !item["model"].includes("(GS)") && !item["model"].includes("(TD)") && !item["model"].includes("(PS)"))
+
+            if (results.length > 0) {
+                updateItems(items.concat(results))
+                updatePage(page + 1)
+            }
 
             if (results.length < 40) setHasMore(false)
         }

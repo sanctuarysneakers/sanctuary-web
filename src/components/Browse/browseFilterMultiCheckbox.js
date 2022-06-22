@@ -28,8 +28,7 @@ export default function BrowseFilterMultiCheckbox({ options, title, updateAction
         }
 
         selectedRef.current = newSelected
-        console.log(selectedRef.current)
-        // dispatch(updateAction(selectedRef.current)) 
+        dispatch(updateAction(selectedRef.current)) 
     }
 
     const onShowMoreClick = () => { 
@@ -66,6 +65,7 @@ export default function BrowseFilterMultiCheckbox({ options, title, updateAction
         })
 
         selectedRef.current = temp
+        dispatch(updateAction(selectedRef.current)) 
 
         let checkboxes = displayedOptions.map(({value, label}) => (
             <FormControlLabel
