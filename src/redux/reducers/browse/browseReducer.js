@@ -91,13 +91,21 @@ const browseFilters = combineReducers({
     releaseYears: releaseYearReducer
 })
 
+//used to reset all filters at once
+const browseFiltersReducerWrapper = (state, action) => { 
+    if (action.type === 'RESET_FILTERS') {
+      state = undefined
+    }
+    return browseFilters(state, action)
+}
+
 
 const browse = combineReducers({
     browseData: browseDataReducer, 
     trending: trendingReducer,   
     under200: under200Reducer,
     under300: under300Reducer,
-    filters: browseFilters, 
+    filters: browseFiltersReducerWrapper, 
 })
 
 export default browse 

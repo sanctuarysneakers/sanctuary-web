@@ -117,6 +117,12 @@ export const updateBrowsePriceRanges = priceRanges => {
     }
 }
 
+export const resetBrowseFilters = () => {
+    return {
+        type: 'RESET_FILTERS'
+    }
+}
+
 
 // Currency change
 

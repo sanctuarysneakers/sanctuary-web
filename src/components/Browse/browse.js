@@ -1,11 +1,11 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import Catalog from './catalog'
 import Footer from '../Other/footer'
 import { useMediaQuery } from 'react-responsive'
-import { showFilterModal } from '../../redux/actions'
+import { showFilterModal, resetBrowseFilters } from '../../redux/actions'
 
 import BrowseFilterDropdown from './browseFilterDropdown'
 import BrowseFilterMultiCheckbox from './browseFilterMultiCheckbox'
@@ -18,6 +18,8 @@ export default function Browse() {
     const dispatch = useDispatch()
     const isDesktop = useMediaQuery({ query: '(min-width: 820px)' })
 
+    let browseFilters = useSelector(state => state.browse.filters)
+
     let { searchTerm } = useParams()
     if (!searchTerm) searchTerm = ''
 
@@ -28,6 +30,15 @@ export default function Browse() {
             dispatch(showFilterModal())
         }
     }
+
+    const hasFilters = () => {
+        console.log(Object.values(browseFilters))
+        return Object.values(browseFilters).some(x => x != null && x.length > 0) 
+    }
+
+    const onClearFilters = () => {
+        dispatch(resetBrowseFilters()) 
+    } 
 
     return (
         <div className='browse'>
@@ -53,6 +64,11 @@ export default function Browse() {
                     Filter
                 </h4>
                 <div className='browse-filter-dropdowns'>
+                        {hasFilters() && 
+                            <button onClick={onClearFilters}>
+							    Clear Filters
+						    </button>
+                        }
                     <BrowseFilterDropdown options={sizeTypeOptions} placeholder="Size Type" updateAction={updateBrowseSizeTypes} />
                     <BrowseFilterDropdown options={brandOptions} placeholder="Brand" updateAction={updateBrowseBrand} />
                     <BrowseFilterDropdown options={sortOptions} placeholder="Sort By" updateAction={updateBrowseSort} />
