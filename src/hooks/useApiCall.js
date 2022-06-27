@@ -89,7 +89,7 @@ export default function useAPICall(callType, params) {
 
             dispatch(dispatch_map[type](results))
         } catch (e) {
-            dispatch(dispatch_map[type](false))
+            dispatch(dispatch_map[type]([]))
         }
     }
 
