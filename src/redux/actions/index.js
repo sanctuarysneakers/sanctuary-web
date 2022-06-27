@@ -204,18 +204,6 @@ export const hideSearchModal = () => {
     }
 }
 
-export const showCategoryFilterModal = () => {
-    return {
-        type: 'SHOW_CATEGORY_FILTER_MODAL'
-    }
-}
-
-export const hideCategoryFilterModal = () => {
-    return {
-        type: 'HIDE_CATEGORY_FILTER_MODAL'
-    }
-}
-
 export const showSizeModal = () => {
     return {
         type: 'SHOW_SIZE_MODAL'

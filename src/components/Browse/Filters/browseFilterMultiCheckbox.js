@@ -10,11 +10,12 @@ import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
 
 
-export default function BrowseFilterMultiCheckbox({ options, title, updateAction, showMoreOption = false }) {
+export default function BrowseFilterMultiCheckbox({ options, title, updateAction, initialData = [], showMoreOption = false }) {
 
     const dispatch = useDispatch()
 
-    const selectedRef = useRef([]);  
+    const selectedRef = useRef(initialData);  
+    // const checkBoxRefs = 
     const [showMore, setShowMore] = useState(showMoreOption)
     const [checkboxes, setCheckboxes] = useState([])
 
@@ -39,7 +40,7 @@ export default function BrowseFilterMultiCheckbox({ options, title, updateAction
         }
     }
 
-    useEffect(() => {
+    const setCheckboxItems = () => {
         let displayedOptions
         if(showMore) {
             //want to hide some
@@ -48,24 +49,6 @@ export default function BrowseFilterMultiCheckbox({ options, title, updateAction
             //want to show all
             displayedOptions = options 
         }
-
-        let temp = selectedRef.current 
-        selectedRef.current.forEach(selectedVal => {
-            let currentlyVisible = false
-
-            displayedOptions.forEach(option => {
-                if(option.value === selectedVal) {
-                    currentlyVisible = true
-                }
-            }) 
-
-            if(!currentlyVisible) { 
-                temp = temp.filter(e => e !== selectedVal)
-            }
-        })
-
-        selectedRef.current = temp
-        dispatch(updateAction(selectedRef.current)) 
 
         let checkboxes = displayedOptions.map(({value, label}) => (
             <FormControlLabel
@@ -85,8 +68,11 @@ export default function BrowseFilterMultiCheckbox({ options, title, updateAction
                 label={label}
             />) 
         ) 
-
         setCheckboxes(checkboxes)
+    }
+
+    useEffect(() => {
+        setCheckboxItems() 
     // eslint-disable-next-line
     }, [showMore])
 

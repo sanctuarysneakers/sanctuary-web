@@ -7,11 +7,13 @@ import Footer from '../Other/footer'
 import { useMediaQuery } from 'react-responsive'
 import { showFilterModal, resetBrowseFilters } from '../../redux/actions'
 
-import BrowseFilterDropdown from './browseFilterDropdown'
-import BrowseFilterMultiCheckbox from './browseFilterMultiCheckbox'
+import BrowseFilterDropdown from './Filters/browseFilterDropdown'
+import BrowseFilterMultiCheckbox from './Filters/browseFilterMultiCheckbox'
 
 import { showHomeSeach, updateBrowseSort, updateBrowseBrand, updateBrowseReleaseYears, updateBrowseSizeTypes, updateBrowsePriceRanges } from '../../redux/actions'
 import { brandOptions, sortOptions, releaseYearOptions, priceOptions, sizeTypeOptions } from '../../assets/constants'
+
+import BrowseFilterWrapper from './Filters/browseFilterWrapper'
 
 export default function Browse() {
 
@@ -77,8 +79,9 @@ export default function Browse() {
 
             <div className="browse-body" >
                 {isDesktop && <div className="browse-filters">
-                    <BrowseFilterMultiCheckbox options={priceOptions} title="Price Ranges" updateAction={updateBrowsePriceRanges} />
-                    <BrowseFilterMultiCheckbox options={releaseYearOptions} title="Release Year" updateAction={updateBrowseReleaseYears} showMoreOption={true} />
+                    <BrowseFilterWrapper/> 
+                    {/* <BrowseFilterMultiCheckbox options={priceOptions} title="Price Ranges" updateAction={updateBrowsePriceRanges} />
+                    <BrowseFilterMultiCheckbox options={releaseYearOptions} title="Release Year" updateAction={updateBrowseReleaseYears} showMoreOption={true} /> */}
                 </div>}
 
                 <div className="browse-catalog">

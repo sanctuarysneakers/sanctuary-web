@@ -1,10 +1,8 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { hideFilterModal } from '../../redux/actions'
-import BrowseFilterMultiCheckbox from './browseFilterMultiCheckbox'
-import { updateBrowseBrand, updateBrowseReleaseYears, updateBrowseSizeTypes, updateBrowsePriceRanges } from '../../redux/actions'
-import { brandOptions, releaseYearOptions, priceOptions, sizeTypeOptions } from '../../assets/constants'
-import { ReactComponent as Close } from '../../assets/images/close.svg'
+import { hideFilterModal } from '../../../redux/actions'
+import { ReactComponent as Close } from '../../../assets/images/close.svg'
+import BrowseFilterWrapper from './browseFilterWrapper'
 
 export default function FilterModal() {
 
@@ -27,8 +25,7 @@ export default function FilterModal() {
                     </div>
 
                     <div className='filter-checkboxes'>
-                        <BrowseFilterMultiCheckbox options={priceOptions} title="Price Ranges" updateAction={updateBrowsePriceRanges} showMoreOption={false}/> 
-                        <BrowseFilterMultiCheckbox options={releaseYearOptions} title="Release Year" updateAction={updateBrowseReleaseYears} showMoreOption={true}/>  
+                        <BrowseFilterWrapper/> 
                     </div>
                 </div>
             </div>

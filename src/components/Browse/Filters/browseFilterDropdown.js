@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
-import {ReactComponent as DownArrow} from '../../assets/images/arrowDown.svg'
+import {ReactComponent as DownArrow} from '../../../assets/images/arrowDown.svg'
 
 export default function BrowseFilterDropdown({ options, placeholder, updateAction }) {
 
@@ -12,8 +12,6 @@ export default function BrowseFilterDropdown({ options, placeholder, updateActio
 
     const onChange = (selection) =>  {
         setSelection(selection)
-
-        
         dispatch(updateAction(selection.value))
     }
     
