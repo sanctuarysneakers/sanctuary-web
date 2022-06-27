@@ -16,7 +16,7 @@ export default function Carousel({ type }) {
         'recommended': relatedItems
     }
 
-    const carouselCards = data[type] === null ? [] : (data[type].map((item, index) =>
+    const carouselCards = (data[type] === null || data[type] === []) ? [] : (data[type].map((item, index) =>
         <CarouselCard key={index} data={item} index={index} type={type} length={data[type].length} />
     ))
 
