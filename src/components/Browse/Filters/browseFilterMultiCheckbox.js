@@ -15,7 +15,7 @@ export default function BrowseFilterMultiCheckbox({ options, title, updateAction
     const dispatch = useDispatch()
 
     const selectedRef = useRef(initialData);  
-    // const checkBoxRefs = 
+    const [checkedState, setCheckedState] = useState(new Array(options.length).fill(false));
     const [showMore, setShowMore] = useState(showMoreOption)
     const [checkboxes, setCheckboxes] = useState([])
 
