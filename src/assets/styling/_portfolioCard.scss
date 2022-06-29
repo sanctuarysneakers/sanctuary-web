@@ -1,32 +1,116 @@
 .portfolio-card {
-    background: white;
-    border-radius: 12px;
-    margin-left: 20px;
-    text-align: center;
     cursor: pointer;
+    margin-left: 15px;
+    border-bottom: 1px solid #EEF1F6;
 
     .portfolio-card-content {
         display: flex;
-        flex-direction: column;
         align-items: center;
-        margin: 20px;
+        justify-content: space-between;
+        padding-right: 15px;
+        text-decoration: none;
 
-        .portfolio-card-sneaker {
-            margin-bottom: 20px;
+        .portfolio-card-info {
+            display: flex;
+            margin: 18px 0px;
 
-            img {
-                display: block;
-                width: 175px;
+            .portfolio-card-sneaker {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 70px;
+                height: 70px;
+                border-radius: 7px;
+                border: 1px solid #EEF1F6;
+
+                img {
+                    width: 55px;
+                    height: auto;
+                }
+            }
+
+            .portfolio-card-model {
+                margin-left: 12px;
+
+                h2 {
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: black;
+                    width: 100px;
+                    
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                }
             }
         }
 
-        button {
-            margin-top: 15px;
-            padding: 2px 8px;
-            background-color: black;
-            color: white;
-            border-radius: 12px;
+        .portfolio-card-price {
+            display: flex;
+
+            .portfolio-card-price-data {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                height: 79px;
+                margin-right: 12px;
+
+                h2 {
+                    font-size: 18px;
+                    font-weight: 400;
+                    color: black;
+                }
+
+                h4 {
+                    font-size: 14px;
+                    font-weight: 400;
+                }
+            }
+
+            svg {
+                margin-top: 5px;
+            }
         }
     }
-
 }
+
+
+
+
+
+
+
+
+// .portfolio-card {
+//     background: white;
+//     border-radius: 12px;
+//     margin-left: 20px;
+//     text-align: center;
+//     cursor: pointer;
+
+//     .portfolio-card-content {
+//         display: flex;
+//         flex-direction: column;
+//         align-items: center;
+//         margin: 20px;
+
+//         .portfolio-card-sneaker {
+//             margin-bottom: 20px;
+
+//             img {
+//                 display: block;
+//                 width: 175px;
+//             }
+//         }
+
+//         button {
+//             margin-top: 15px;
+//             padding: 2px 8px;
+//             background-color: black;
+//             color: white;
+//             border-radius: 12px;
+//         }
+//     }
+
+// }
