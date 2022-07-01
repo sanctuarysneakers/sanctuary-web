@@ -16,7 +16,7 @@ export default function FeaturedCollections() {
                             <h2 className='home-trending-sneakers-header'>
                             {collection.title}
                             </h2>
-                            <Carousel data={collection.data} type={collection.title == 'Most Popular' ? "trending" : "featuredCollection"} /> 
+                            <Carousel data={collection.data} type={"featuredCollection"} /> 
                         </div> 
                     }
                 </div> 
