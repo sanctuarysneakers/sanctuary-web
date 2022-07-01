@@ -75,8 +75,7 @@ export default function CarouselCard({ data, index, type, length }) {
                     </div>
                 </Link>
             }
-
-            {(type === 'under200' || type === 'under300') && 
+            {(type === 'featuredCollection') && 
                 <Link 
                     to={{
                         pathname: generateLink(),
@@ -102,7 +101,6 @@ export default function CarouselCard({ data, index, type, length }) {
                     </div>
                 </Link>
             }
-
             {type === 'recommended' && 
                 <Link 
                     to={{

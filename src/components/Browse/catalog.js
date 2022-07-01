@@ -28,8 +28,7 @@ export default function Catalog({ searchTerm }) {
         
         const response = await fetch(request.url, request.headers)
         let results = await response.json()
-        results = results.filter(item => !item["model"].includes("(GS)") && !item["model"].includes("(TD)") && !item["model"].includes("(PS)"))
-
+       
         if (results !== null) {
             updateItems(items.concat(results))
             updatePage(page + 1)

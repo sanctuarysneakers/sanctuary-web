@@ -1,39 +1,24 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import useAPICall from '../../hooks/useApiCall'
 import VisibleOnScreen from '../../hooks/visibleOnScreen'
 import FadeIn from 'react-fade-in'
 import { TextLoop } from 'react-text-loop-next'
 import BrandCard from './brandCard'
-import Carousel from './Carousels/carousel'
-import { currencySymbolMap, dealsUnderHeaders }  from '../../assets/constants'
+import FeaturedCollections from './featuredCollections'
 
 export default function HomeTrending() {
+
+    useAPICall('featuredcollections', null)
 
     const ref = useRef()
     const isVisible = VisibleOnScreen(ref)
     const [render, setRender] = useState(false)
     const [firstFlip, setFirstFlip] = useState(false)
-    const [under200, setUnder200] = useState("$200")
-    const [under300, setUnder300] = useState("$300")
-
-    const currency = useSelector(state => state.currency)
-
-    useAPICall('trending', {query: ''})
-    useAPICall('under200', {query: ''})
-    useAPICall('under300', {query: ''})
 
     const brands = ['Nike', 'Air Jordan', 'Adidas', 'Yeezy', 'New Balance', 'Converse']
     const brandCards = brands.map((item, index) => 
         <BrandCard key={item} brand={item} index={index} length={brands.length} />
     )
-
-    useEffect(() => {
-        let val200 = dealsUnderHeaders[currency][0]
-        let val300 = dealsUnderHeaders[currency][1]
-        setUnder200(`${currencySymbolMap[currency]}${val200}`)
-        setUnder300(`${currencySymbolMap[currency]}${val300}`)
-    }, [currency])
 
     useEffect(() => {
         if (isVisible && !firstFlip) {
@@ -69,20 +54,9 @@ export default function HomeTrending() {
                     </FadeIn>
                 </div>
 
-                <div className='home-trending-sneakers'>
-                    <Carousel type={'trending'} />
-
-                    <h2 className='home-trending-sneakers-header'>
-                        Deals Under {under200}
-                    </h2>
-                    <Carousel type={'under200'} />
-
-                    <h2 className='home-trending-sneakers-header'>
-                        Deals Under {under300}
-                    </h2>
-                    <Carousel type={'under300'} />
-                </div>
-
+                <div className="home-trending-sneakers"> 
+                    <FeaturedCollections/> 
+                </div> 
             </div>
         </div>
     )

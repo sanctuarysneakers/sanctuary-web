@@ -8,24 +8,10 @@ export const browseCall = data => {
     }
 }
 
-export const trendingCall = data => {
+export const updateFeaturedCollections = collections => {
     return {
-        type: 'TRENDING_CALL',
-        payload: data
-    }
-}
-
-export const under200Call = data => {
-    return {
-        type: 'UNDER_200_CALL',
-        payload: data
-    }
-}
-
-export const under300Call = data => {
-    return {
-        type: 'UNDER_300_CALL',
-        payload: data
+        type: 'UPDATE_FEATURED_COLLECTIONS',
+        payload: collections
     }
 }
 
@@ -328,3 +314,4 @@ export const setRedirectUrl = url => {
         payload: url
     }
 }
+

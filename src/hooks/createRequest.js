@@ -16,6 +16,17 @@ export default function createRequestObject(type, filter) {
 					body: JSON.stringify(filter), 
 				}
 			}
+		case 'browse_collection':
+			return {
+				url: `${api}/browse_collection`,
+				headers:  {
+					method: "POST",
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(filter), 
+				}
+			}
 		case 'stockx':
 			return {
 				url: `${api}/itemprices?source=stockx&` + new URLSearchParams(filter),

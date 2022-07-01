@@ -2,11 +2,11 @@ import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { browseCall, updateItemInfo, updateItemPrices, updateItemListings, 
-    updateRelatedItems, setRelatedItemsLoading, setItemPricesLoading, setItemListingsLoading, trendingCall, 
-    under200Call, under300Call } from '../redux/actions'
+    updateRelatedItems, setRelatedItemsLoading, setItemPricesLoading, setItemListingsLoading, 
+    updateFeaturedCollections } from '../redux/actions'
 import createRequestObject from './createRequest'
 import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPrice, 
-    klektLowestPrice, grailedListings, ebayListings, depopListings } from './scrapers'
+    klektLowestPrice, grailedListings, ebayListings, depopListings, collectionItems } from './scrapers'
 import { getLocation }  from '../hooks/useLocationDetection'
 
 export default function useAPICall(callType, params) {
@@ -18,7 +18,6 @@ export default function useAPICall(callType, params) {
     const size = useSelector(state => state.size)
     const currency = useSelector(state => state.currency)
 
-
     function SafePromiseAll(promises, def = null) {
         return Promise.all(
             promises.map(p => p.catch(error => def))
@@ -26,59 +25,28 @@ export default function useAPICall(callType, params) {
     }
 
     async function browse(type, searchTerm) {
-        const price_limit = {
-            'browse': null,
-            'trending': null,
-            'under200': 200,
-            'under300': 300
-        }
-        const dispatch_map = {
-            'browse': browseCall,
-            'trending': trendingCall,
-            'under200': under200Call,
-            'under300': under300Call
-        }
-
         let params = {
             currency, 
-            maxPrice: price_limit[type],
             size: size, 
             ship_to: location['country_code']
         }
 
-        let request; 
-        if(type === 'trending') {
-            request = createRequestObject('browse', {...params, sort: "most-active"}) 
-        } else if (type === 'under200') {
-            request = createRequestObject('browse', params)
-        } else if (type === 'under300') {
-            request = createRequestObject('browse', {...params, priceRanges: ["range(200|300)"]})
-        } else {
-            let filters = {
-                search: searchTerm
-            }
-
-            request = createRequestObject('browse', {...params, ...filters})
+        let filters = {
+            search: searchTerm
         }
-    
+
+        let request = createRequestObject('browse', {...params, ...filters})
+        
         try {
             const response = await fetch(request.url, request.headers)
             if (!response.ok) throw new Error()
             
             let results = await response.json()
             if (!results.length) throw new Error()
-            results = results.filter(item => !item["model"].includes("(GS)") && !item["model"].includes("(TD)") && !item["model"].includes("(PS)"))
 
-            if(type === 'trending') {
-                results = results
-                    .map(value => ({ value, sort: Math.random() }))
-                    .sort((a, b) => a.sort - b.sort)
-                    .map(({ value }) => value)
-            }
-
-            dispatch(dispatch_map[type](results))
+            dispatch(browseCall(results))
         } catch (e) {
-            dispatch(dispatch_map[type]([]))
+            dispatch(browseCall([]))
         }
     }
 
@@ -220,13 +188,45 @@ export default function useAPICall(callType, params) {
         } catch (e) {
             dispatch(updateRelatedItems([]))
         }
-
         setRelatedItemsLoading(false) 
+    }
+
+    async function getFeaturedCollections() {
+        let params = {
+            currency, 
+            ship_to: location['country_code']
+        }
+
+        let featuredCollectionRequests = [
+            {
+                title: 'Most Popular', 
+                promise: collectionItems({...params, collection_id: "most-wanted-new"}) 
+            }, 
+            {
+                title: 'Fresh Drops', 
+                promise: collectionItems({...params, collection_id: "just-dropped"})
+            }, 
+            {
+                title: "Ladies", 
+                promise: collectionItems({...params, collection_id: "women-s-sneakers"})
+            }
+        ]
+
+        const res = await SafePromiseAll(featuredCollectionRequests.map(req => req.promise))
+
+        const featuredCollections = featuredCollectionRequests.map((req, index) => {
+            return {...req, "data": res[index]}
+          });
+
+        //update featured requests
+        dispatch(updateFeaturedCollections(featuredCollections))
     }
 
     useEffect(() => {
         if (callType === 'getitem') {
             getItem(params)
+        } else if (callType == 'featuredcollections') {
+            getFeaturedCollections()
         } else {
             browse(callType, params.searchTerm)
         }
