@@ -24,7 +24,7 @@ export default function useAPICall(callType, params) {
         )
     }
 
-    async function browse(type, searchTerm) {
+    async function browse(searchTerm) {
         let params = {
             currency, 
             size: size, 
@@ -228,7 +228,7 @@ export default function useAPICall(callType, params) {
         } else if (callType == 'featuredcollections') {
             getFeaturedCollections()
         } else {
-            browse(callType, params.searchTerm)
+            browse(params.searchTerm)
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currency, size])
