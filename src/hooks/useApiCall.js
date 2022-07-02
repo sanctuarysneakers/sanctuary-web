@@ -61,7 +61,7 @@ export default function useAPICall(callType, params) {
             [
                 getItemPrices(itemInfo, params.size, params.gender),
                 getItemListings(itemInfo, params.size, params.gender), 
-                getRelatedItems(itemInfo)
+                // getRelatedItems(itemInfo)
             ], 
             []
         )
@@ -173,8 +173,12 @@ export default function useAPICall(callType, params) {
     }
 
     async function getRelatedItems(item) {
-        let search = item.urlKey
-        const request = createRequestObject('related', { search, currency })
+        let params = {
+            currency, 
+            ship_to: location['country_code']
+        }
+
+        const request = createRequestObject('related', {...params, id: item.id})
 
         try {
             const response = await fetch(request.url, request.headers)
@@ -182,8 +186,7 @@ export default function useAPICall(callType, params) {
 
             let results = await response.json()
             if (!results.length) throw new Error()
-            results = results.filter(item => !item["model"].includes("(GS)") && !item["model"].includes("(TD)") && !item["model"].includes("(PS)"))
-
+    
             dispatch(updateRelatedItems(results))
         } catch (e) {
             dispatch(updateRelatedItems([]))

@@ -40,6 +40,7 @@ export default function Item() {
     const itemPrices = useSelector(state => state.item.itemPrices)
     const itemListings = useSelector(state => state.item.itemListings)
     const relatedItems = useSelector(state => state.item.relatedItems)
+
     const pricesLoading = useSelector(state => state.item.loadingItemPrices)
     const listingsLoading = useSelector(state => state.item.loadingItemListings)
     const relatedLoading = useSelector(state => state.item.relatedItemsLoading)
@@ -165,10 +166,10 @@ export default function Item() {
                         }
                     </div>
 
-                    {/* <div className='item-recommended'>
+                    {/* <div className='item-related'>
                         <h6> You might also like </h6>
                         {!relatedLoading && relatedItems.length !== 0 &&
-                            <Carousel type={'recommended'} />
+                            <Carousel type={'related'} data={relatedItems} />
                         }
                     </div> */}
                 </div>
