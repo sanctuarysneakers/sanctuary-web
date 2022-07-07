@@ -27,7 +27,7 @@ export default function useAPICall(callType, params) {
     async function browse(searchTerm) {
         let params = {
             currency, 
-            size: size, 
+            size,
             ship_to: location['country_code']
         }
 
@@ -197,6 +197,7 @@ export default function useAPICall(callType, params) {
     async function getFeaturedCollections() {
         let params = {
             currency, 
+            size, 
             ship_to: location['country_code']
         }
 

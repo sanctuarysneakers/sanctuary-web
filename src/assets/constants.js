@@ -94,6 +94,15 @@ export const websiteLogoMapGrey = {
 
 // browse - single-select filter options 
 
+export const popularBrandOptions = [
+    {value: 'nike', label: 'Nike'},
+    {value: 'yeezy', label: 'Yeezy'}, 
+    {value: 'air jordan', label: 'Air Jordan'},
+    {value: 'off white', label: 'Off-White'}, 
+    {value: 'adidas', label: 'Adidas'},
+    {value: 'converse', label: 'Converse'}
+]
+
 export const brandOptions = [
     {value: null, label: 'All'}, 
     {value: 'adidas', label: 'Adidas'},

@@ -96,7 +96,7 @@ export default function createRequestObject(type, filter) {
 			}
 		case 'related': 
 			return {
-				url: `${api}/relateditems?` + new URLSearchParams(filter),
+				url: `${api}/itemrelated?` + new URLSearchParams(filter),
 				headers: {
 					method: 'GET'
 				}

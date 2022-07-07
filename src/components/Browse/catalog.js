@@ -9,6 +9,7 @@ export default function Catalog({ searchTerm }) {
 
     const browseData = useSelector(state => state.browse.browseData)
     const currency = useSelector(state => state.currency)
+    const size = useSelector(state => state.size)
 
     let location = useSelector(state => state.location)
     
@@ -20,8 +21,9 @@ export default function Catalog({ searchTerm }) {
 
     async function fetchMore() {
         const request = createRequestObject('browse', {
+            currency, 
+            size, 
             search: searchTerm,
-            currency: currency,
             page: page+1, 
             ship_to: location['country_code']
         })
