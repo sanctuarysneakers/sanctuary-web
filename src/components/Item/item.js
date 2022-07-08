@@ -30,7 +30,7 @@ export default function Item() {
     const navLocation = useLocation()
     let passedData = navLocation.itemInfo ? navLocation.itemInfo : null
     useAPICall('getitem', {
-        itemKey: itemKey.toLowerCase() === itemKey ? itemKey : decodeURIComponent(itemKey.replaceAll('-', ' ')), //differentiates between urlkey and sku
+        itemKey: decodeURIComponent(itemKey), //differentiates between urlkey and sku
         size: size,
         gender: gender,
         fromBrowse: passedData

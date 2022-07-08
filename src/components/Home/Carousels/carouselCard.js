@@ -30,7 +30,7 @@ export default function CarouselCard({ data, index, type, length }) {
 
     const getNavData = () => {
         let itemInfo = {
-            sku: data.sku ? data.sku.replaceAll('-', ' ') : null,
+            sku: data.sku,
             modelName: data.model,
             image: data.image,
             url: data.url,
