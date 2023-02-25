@@ -61,7 +61,7 @@ export default function useAPICall(callType, params) {
             [
                 getItemPrices(itemInfo, params.size, params.gender),
                 getItemListings(itemInfo, params.size, params.gender), 
-                // getRelatedItems(itemInfo)
+                getRelatedItems(itemInfo)
             ], 
             []
         )
@@ -173,12 +173,15 @@ export default function useAPICall(callType, params) {
     }
 
     async function getRelatedItems(item) {
+        console.log(item)
         let params = {
-            currency, 
+            search: item.modelName,
+            size: size,
+            currency: currency, 
             ship_to: location['country_code']
         }
 
-        const request = createRequestObject('related', {...params, id: item.id})
+        const request = createRequestObject('related', params)
 
         try {
             const response = await fetch(request.url, request.headers)
