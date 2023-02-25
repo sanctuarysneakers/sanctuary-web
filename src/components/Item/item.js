@@ -56,10 +56,6 @@ export default function Item() {
             length={itemListings.length} />
     )
 
-    // const clickHandler = () => {
-    //     window.analytics.track(`item_buy_new_clicked`, { sku: decodeURIComponent(itemKey), gender: gender, model: itemInfo.modelName });
-    // }
-
     /* eslint-disable jsx-a11y/anchor-is-valid */
     return (
         <div className='item'>
@@ -166,12 +162,12 @@ export default function Item() {
                         }
                     </div>
 
-                    {/* <div className='item-related'>
+                    <div className='item-related'>
                         <h6> You might also like </h6>
                         {!relatedLoading && relatedItems.length !== 0 &&
                             <Carousel type={'related'} data={relatedItems} />
                         }
-                    </div> */}
+                    </div>
                 </div>
             </div>
 

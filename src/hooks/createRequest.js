@@ -2,6 +2,7 @@
 export default function createRequestObject(type, filter) {
 
 	const api = 'https://hdwj2rvqkb.us-west-2.awsapprunner.com'
+	// const api = 'http://127.0.0.1:8086'
 	const autosuggestAPI = 'https://2fwotdvm2o-dsn.algolia.net'
 
 	switch (type) {
@@ -96,9 +97,13 @@ export default function createRequestObject(type, filter) {
 			}
 		case 'related': 
 			return {
-				url: `${api}/itemrelated?` + new URLSearchParams(filter),
+				url: `${api}/relateditems`,
 				headers: {
-					method: 'GET'
+					method: "POST",
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(filter),
 				}
 			}
 		default: 
