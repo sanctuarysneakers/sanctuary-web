@@ -15,12 +15,14 @@ import GrailedIcon from './images/grailedIcon.jpg'
 import FlightClub from './images/flightClub.svg'
 import DepopIcon from './images/depopIcon.svg'
 import KLEKT from './images/klekt.svg'
+import FootLockerIcon from './images/footlocker.svg'
 import eBay from './images/ebay.svg'
 
 import StockXGrey from './images/stockx.png'
 import GOATGrey from './images/goat-grey.svg'
 import GrailedGrey from './images/grailed-grey.svg'
-import flightClubGrey from './images/flightClub-grey.svg'
+import FlightClubGrey from './images/flightClub-grey.svg'
+import FootlockerGrey from './images/footlocker-grey.svg'
 import DepopGrey from './images/depop-grey.svg'
 import KLEKTGrey from './images/klekt-grey.svg'
 import eBayGrey from './images/ebay-grey.svg'
@@ -69,7 +71,8 @@ export const websiteTextMap = {
     'flightclub' : 'Flight Club',
     'depop' : 'Depop',
     'klekt' : 'KLEKT',
-    'ebay' : 'eBay'
+    'ebay' : 'eBay',
+    'footlocker': 'Foot Locker'
 }
 
 export const websiteLogoMapRegular = {
@@ -79,17 +82,19 @@ export const websiteLogoMapRegular = {
     'flightclub' : FlightClub,
     'depop' : DepopIcon,
     'klekt' : KLEKT,
-    'ebay' : eBay
+    'ebay' : eBay,
+    'footlocker': FootLockerIcon
 }
 
 export const websiteLogoMapGrey = {
     'stockx': StockXGrey,
     'goat': GOATGrey,
     'grailed': GrailedGrey,
-    'flightclub': flightClubGrey,
+    'flightclub': FlightClubGrey,
     'depop': DepopGrey,
     'klekt': KLEKTGrey,
-    'ebay': eBayGrey
+    'ebay': eBayGrey,
+    'footlocker': FootlockerGrey
 }
 
 // browse - single-select filter options 

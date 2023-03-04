@@ -9,11 +9,8 @@ export default function ItemPrice({ data, index, length }) {
 
     const currency = useSelector(state => state.currency)
 
-    // const clickHandler = () => {
-    //     window.analytics.track(`item_lowest_prices_click_${data.source}`, { url: data.url, price: data.price });
-    // }
-    
     /* eslint-disable jsx-a11y/anchor-is-valid */
+    console.log(data.source)
     return (
         <div className={(index === length - 1) ? 'item-price last' : 'item-price'}>
             <Link to={{ pathname: data.url }} className="hidden-link" target="_blank" rel="noopener noreferrer"> 
@@ -35,17 +32,17 @@ export default function ItemPrice({ data, index, length }) {
                             <h2> {currencySymbolMap[currency]}{data.price} </h2>
                         </div>
 
-                        {data.shippingPrice !== null && <div className='item-shipping'>
-                            {data.shippingPrice === 0 &&
+                        {data.shipping !== null && <div className='item-shipping'>
+                            {data.shipping === 0 && data.shipping !== null && 
                                 <div className='item-shipping-text'>
                                     <Shipping />
                                     <p>Free</p>
                                 </div>
                             }
-                            {data.shippingPrice !== 0 &&
+                            {data.shipping !== 0 && data.shipping !== null && 
                                 <div className='item-shipping-text'>
                                     <Shipping />
-                                    <p>+{currencySymbolMap[currency]}{Math.round(data.shippingPrice)}</p>
+                                    <p>+{currencySymbolMap[currency]}{data.shipping}</p>
                                 </div>
                             }
                         </div>}
