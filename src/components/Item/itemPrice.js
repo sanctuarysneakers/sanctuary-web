@@ -10,7 +10,7 @@ export default function ItemPrice({ data, index, length }) {
     const currency = useSelector(state => state.currency)
 
     /* eslint-disable jsx-a11y/anchor-is-valid */
-    console.log(data.source)
+
     return (
         <div className={(index === length - 1) ? 'item-price last' : 'item-price'}>
             <Link to={{ pathname: data.url }} className="hidden-link" target="_blank" rel="noopener noreferrer"> 
