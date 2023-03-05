@@ -15,7 +15,7 @@ import GrailedIcon from './images/grailedIcon.jpg'
 import FlightClub from './images/flightClub.svg'
 import DepopIcon from './images/depopIcon.svg'
 import KLEKT from './images/klekt.svg'
-import FootLockerIcon from './images/footlocker.svg'
+import FootLockerIcon from './images/footlockerIcon.svg'
 import eBay from './images/ebay.svg'
 
 import StockXGrey from './images/stockx.png'
