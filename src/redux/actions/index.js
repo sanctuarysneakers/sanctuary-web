@@ -85,6 +85,13 @@ export const updatePortfolioData = portfolioData => {
     }
 }
 
+export const setPortfolioLoading = isLoading => {
+    return {
+        type: 'LOADING_PORTFOLIO',
+        payload: isLoading
+    }
+}
+
 // Filter Actions
 
 export const updateSizeFilter = size => {

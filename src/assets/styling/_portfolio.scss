@@ -3,53 +3,63 @@
 
     .portfolio-dashboard {
         width: 100%;
-        height: 550px;
-        background-color: #232426;
+        height: 600px;
+        background-color: #191919;
 
         .portfolio-analytics {
+            height: 100%;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            // align-items: center;
+            justify-content: space-between;
 
-            p {
-                font-size: 14;
-                font-weight: 500;
-                color: #9B9A9E;
-                margin-top: 50px;
+            .portfolio-stats {
+                text-align: center;
+
+                p {
+                    font-size: 15;
+                    font-weight: 500;
+                    color: #CED2D4;
+                    margin-top: 50px;
+                    line-height: 23px;
+                }
+    
+                h1 {
+                    font-size: 45px;
+                    font-weight: 600;
+                    color: white;
+                    line-height: 68px;
+                }
+    
+                h4 {
+                    font-size: 15;
+                    font-weight: 500;
+                    line-height: 23px;
+                }
             }
 
-            h1 {
-                font-size: 52px;
-                font-weight: 600;
-                color: white;
-            }
-
-            h4 {
-                font-size: 16;
-                font-weight: 500;
+            img {
+                width: 100%;
             }
 
             .portfolio-buttons {
-                display: flex;
-                margin-top: 250px;
-
-                .portfolio-add, .portfolio-edit {
-                    font-family: 'Poppins', sans-serif;
-                    font-size: 16.5;
-                    font-weight: 600;
-                    color: white;
-                    width: 153px;
-                    height: 46px;
-                    border-radius: 10px;
-                    margin: 0px 10px;
-                }
+                margin-bottom: 50px;
+                padding: 0px 20px;
 
                 .portfolio-add {
-                    background-color: #EC3E26;
-                }
-
-                .portfolio-edit {
-                    background-color: #37373A;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Poppins', sans-serif;
+                    font-size: 17;
+                    font-weight: 500;
+                    color: white;
+                    max-width: 361px;
+                    min-width: 280px;
+                    margin: auto;
+                    height: 50px;
+                    border-radius: 10px;
+                    background-color: #383838;
                 }
             }
         }
@@ -59,6 +69,11 @@
         padding-top: 50px;
         padding-bottom: 100px;
         margin: 0px 24px;
+
+        .portfolio-assets-content {
+            max-width: 1000px;
+            margin: auto;
+        }
 
         h3 {
             font-size: 21px;
@@ -75,59 +90,29 @@
     }
 }
 
-
-
-
-
-
-
-
-// .portfolio-dashboard {
-//     width: 100%;
-//     height: 550px;
-//     background-color: '#232426';
-// }
-
-// .portfolio {
-
-//     .portfolio-dashboard {
-//         width: 100%;
-//         height: 550px;
-//         background-color: '#232426';
-//     }
-
-
-//     .portfolio-title {
-//         background: #F7F9FC;
-
-//         .portfolio-title-content {
-//             display: flex;
-//             align-items: center;
-//             justify-content: space-between;
-//             max-width: 1000px;
-//             padding: 0px 20px;
-//             margin: auto;
-
-//             .portfolio-title-content-text {
-//                 padding: 89px 0px;
-
-//                 h2 {
-//                     font-size: 36px;
-//                     font-weight: 600;
-//                     color: black;
-//                     line-height: 48px;
-//                 }
-//             }
-//         }
-//     }
-
-//     .portfolio-catalog {
-//         background: #F7F9FC;
-//         padding-bottom: 166px;
-//         display: grid;
-//         grid-template-columns: repeat(3, 1fr);
-//         gap: 12px;
-//         max-width: 1000px;
-//         margin: auto;
-//     }
-// }
+// Mobile responsiveness
+@media screen and (max-width: 475px) {
+    .portfolio {
+        .portfolio-dashboard {
+            height: 540px;
+    
+            .portfolio-analytics {    
+                .portfolio-stats {
+                    p {
+                        margin-top: 30px;
+                    }
+                }
+    
+                .portfolio-buttons {
+                    margin-bottom: 30px;
+                }
+            }
+        }
+    
+        .portfolio-assets {
+            padding-top: 30px;
+            padding-bottom: 50px;
+            margin: 0px 20px;
+        }
+    }
+}

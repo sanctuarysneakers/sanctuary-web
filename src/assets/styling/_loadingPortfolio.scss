@@ -1,0 +1,55 @@
+.portfolio-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .portfolio-loader-price {
+        width: 240px;
+        height: 36px;
+        margin: 16px 0px;
+        border-radius: 4px;
+        background-color: #383838;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .portfolio-loader-change {
+        width: 116px;
+        height: 12px;
+        margin: 5.5px 0px;
+        border-radius: 4px;
+        background-color: #383838;
+        position: relative;
+        overflow: hidden;
+    }
+}
+
+// Loading Animation
+@keyframes load {
+    from {
+        left: -240px;
+    }
+    to   {
+        left: 100%;
+    }
+}
+
+.portfolio-loader-price::before, .portfolio-loader-change::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(56,56,56,1) 0%, rgba(89,89,89,1) 50%, rgba(56,56,56,1) 100%);
+    animation: load 1.2s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+}
+
+.portfolio-loader-price::before {
+    left: -240px;
+    width: 240px;
+}
+
+.portfolio-loader-change::before {
+    left: -116px;
+    width: 116px;
+}

@@ -4,6 +4,12 @@ import { useLocation } from 'react-router'
 import { updatePortfolioData } from '../../redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { removeFromPortfolio } from '../../api/portfolio'
+import { currencySymbolMap } from '../../assets/constants'
+import GraphDown from '../../assets/images/downwards-light-desktop.svg'
+import GraphUp from '../../assets/images/upwards-light-desktop.svg'
+import GraphStraight from '../../assets/images/straight-light-desktop.svg'
+import Footer from '../Other/footer'
+import { updateItemInfo, setItemPricesLoading, setItemListingsLoading } from '../../redux/actions'
 
 export default function PortfolioItem() {
 
@@ -12,6 +18,7 @@ export default function PortfolioItem() {
     const history = useHistory()
 
     const portfolio = useSelector(state => state.portfolio)
+    const currency = useSelector(state => state.currency)
 
     const item = location.itemInfo
     const modelName = item.data.modelName
@@ -20,11 +27,33 @@ export default function PortfolioItem() {
     const price = Math.round(item.price)
     const currentPrice = Math.round(item.currentPrice)
     const priceChange = currentPrice - price
-    const percentChange = (priceChange / price * 100).toFixed(0)
-    const colour = (priceChange < 0) ? 'red' : 'green'
-    const priceChangePrefix = priceChange >= 0 ? "+" : "-"
+    const percentChange = (priceChange / price * 100).toFixed(2)
+    const colour = priceChange == 0 ? 'grey' : (priceChange > 0 ? 'green' : 'red')
+    const graph = priceChange == 0 ? GraphStraight : (priceChange > 0 ? GraphUp : GraphDown)
 
     // TODO: add code to link to item page for this sneaker
+    const generateLink = () => {
+        dispatch(updateItemInfo({}))
+        dispatch(setItemPricesLoading(true))
+        dispatch(setItemListingsLoading(true))
+        
+        let itemKey = item.data.sku ? encodeURIComponent(item.data.sku) : item.data.urlKey 
+        //window.analytics.track(`carousel_item_clicked`, {id: itemKey, gender: gender})
+        return item.gender == null ? `/item/${itemKey}` : `/item/${itemKey}/${item.gender}`
+    }
+
+    const getNavData = () => {
+        let itemInfo = {
+            sku: item.sku ? item.sku.replaceAll('-', ' ') : null,
+            modelName: item.data.modelName,
+            image: item.data.image,
+            url: item.data.url,
+            urlKey: item.data.urlKey
+        }
+        return itemInfo
+    }
+
+    console.log(item)
 
     const removeItemHandler = (recordID) => {
 		removeFromPortfolio(recordID)  // removes from database
@@ -38,56 +67,138 @@ export default function PortfolioItem() {
     return (
         <div className='portfolio-item'>
             <div className='portfolio-item-info'>
-                <h1>
-                    ${currentPrice}.00
-                </h1>
+                <div className='portfolio-item-stats'>
+                    <div className='portfolio-item-img-model'>
+                        <div className='portfolio-item-img'>
+                            <img className='portfolio' src={image} alt='sneaker' />
+                        </div>
 
-                <p> Date Added: {item.add_date} </p>
+                        <h1>{modelName}</h1>
+                    </div>
 
-                <p> Size: {item.size} </p>
+                    <h1 className='portfolio-item-price'>
+                        {currencySymbolMap[currency]}{currentPrice}.00
+                    </h1>
 
-                <img src={image} alt='sneaker' />
+                    <p style={{ color: colour }}>
+                        {currencySymbolMap[currency]}{(priceChange)}.00 ({percentChange}%)
+                    </p>
+                </div>
 
-                <h2> {modelName} </h2>
+                <div className='graph'>
+                    <img src={graph} alt='graph' />
+                </div>
+
+                
+                <Link className='portfolio-item-button' to={{ pathname: generateLink(), itemInfo: getNavData() }}>
+                    View Listing
+                </Link>
+                
             </div>
 
             <div className='portfolio-item-performance'>
                 <div className='portfolio-item-performance-content'>
-                    <h4>Performance</h4>
+                    <h4>Market Stats</h4>
 
-                    <div className='portfolio-item-analytic'>
-                        <p>Price When Added</p>
+                    <div className='portfolio-item-performance-stats'>
+                        <div className='portfolio-item-performance-info'>
+                            <div className='portfolio-item-performance-info-content'>
+                                <div className='portfolio-item-performance-info-text'>
+                                    <h2>
+                                        Sneaker Size
+                                    </h2>
 
-                        <h6>${price}</h6>
+                                    <p>
+                                        Mens
+                                    </p>
+                                </div>
+
+                                <p className='portfolio-item-performance-value'>
+                                    {item.size}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className='portfolio-item-performance-info'>
+                            <div className='portfolio-item-performance-info-content'>
+                                <div className='portfolio-item-performance-info-text'>
+                                    <h2>
+                                        Market Order
+                                    </h2>
+
+                                    <p>
+                                        {item.add_date}
+                                    </p>
+                                </div>
+
+                                <p className='portfolio-item-performance-value'>
+                                    {currencySymbolMap[currency]}{item.price}.00
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className='portfolio-item-performance-info'>
+                            <div className='portfolio-item-performance-info-content'>
+                                <div className='portfolio-item-performance-info-text'>
+                                    <h2>
+                                        Price Change
+                                    </h2>
+
+                                    <p>
+                                        All Time
+                                    </p>
+                                </div>
+
+                                <p className='portfolio-item-performance-value'>
+                                    {currencySymbolMap[currency]}{priceChange}.00
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className='portfolio-item-performance-info'>
+                            <div className='portfolio-item-performance-info-content'>
+                                <div className='portfolio-item-performance-info-text'>
+                                    <h2>
+                                        Percent Change
+                                    </h2>
+
+                                    <p>
+                                        All Time
+                                    </p>
+                                </div>
+
+                                <p className='portfolio-item-performance-value'>
+                                    {percentChange}%
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className='portfolio-item-performance-info'>
+                            <div className='portfolio-item-performance-info-content last'>
+                                <div className='portfolio-item-performance-info-text'>
+                                    <h2>
+                                        Total Return
+                                    </h2>
+
+                                    <p>
+                                        All Time
+                                    </p>
+                                </div>
+
+                                <p className='portfolio-item-performance-value'>
+                                    {currencySymbolMap[currency]}{(priceChange)}.00 ({percentChange}%)
+                                </p>
+                            </div>
+                        </div>
                     </div>
 
-                    <div className='portfolio-item-analytic'>
-                        <p>Price Change</p>
-
-                        <h6 style={{ color: colour }}>
-                            {priceChangePrefix}${Math.abs(priceChange)}
-                        </h6>
-                    </div>
-
-                    <div className='portfolio-item-analytic'>
-                        <p>Percent Change</p>
-
-                        <h6 style={{ color: colour }}>
-                            {priceChangePrefix}{Math.abs(percentChange)}%
-                        </h6>
-                    </div>
-
-                    <div className='portfolio-item-actions'>
-                        <Link>
-                            View Sneaker
-                        </Link>
-
-                        <button onClick={() => removeItemHandler(recordID)}>
-                            Remove from Portfolio
-                        </button>
-                    </div>
+                    <button className='portfolio-item-remove' onClick={() => removeItemHandler(recordID)}>
+                        Remove from portfolio
+                    </button>
                 </div>
             </div>
+
+            <Footer colour={'blue'} />
         </div>
     )
 }

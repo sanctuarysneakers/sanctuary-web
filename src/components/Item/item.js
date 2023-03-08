@@ -16,6 +16,7 @@ import ItemNoResults from './itemNoResults'
 import Footer from '../Other/footer'
 import { showSocialsModal } from '../../redux/actions'
 import { ReactComponent as Share } from '../../assets/images/share.svg'
+import { ReactComponent as Add } from '../../assets/images/add-icon.svg'
 import { websiteLogoMapGrey, currencySymbolMap } from '../../assets/constants'
 import DynamicList from '../Other/dynamicList'
 import Carousel from '../Home/Carousels/carousel'
@@ -88,6 +89,10 @@ export default function Item() {
             <div className='item-sneaker'>
                 <div className='item-sneaker-wrapper'>
                     <div className='item-sneaker-actions'>
+                        {user && <button className='item-portflio' onClick={() => addToPortfolioHandler()}>
+                            <Add />
+                        </button>}
+
                         <div className='item-sneaker-share' onClick={() => dispatch(showSocialsModal())}>
                             <Share />
                         </div>
@@ -100,11 +105,6 @@ export default function Item() {
 
                         <div className='item-sneaker-info'>
                             <div className='item-sneaker-text'>
-                                {user && 
-                                <button onClick={() => addToPortfolioHandler()}>
-                                    Add to Portfolio
-                                </button>}
-
                                 {pricesLoading && <ItemLoader version={'source'} />}
                                 {!pricesLoading && <div className='item-sneaker-source'>
                                     {itemPrices.length ?

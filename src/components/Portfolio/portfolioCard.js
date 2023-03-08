@@ -9,8 +9,10 @@ export default function PortfolioCard({ item, remove }) {
     const price = Math.round(item.price)
     const currentPrice = Math.round(item.currentPrice)
     const priceChange = currentPrice - price
-    const percentChange = (priceChange / price * 100).toFixed(0)
-    const colour = (priceChange < 0) ? 'red' : 'green'
+    const percentChange = (priceChange / price * 100).toFixed(2)
+    const colour = priceChange == 0 ? 'grey' : (priceChange > 0 ? 'green' : 'red')
+
+    console.log(item)
 
     return (
         <div className='portfolio-card'>
@@ -27,6 +29,14 @@ export default function PortfolioCard({ item, remove }) {
                         <h2>
                             {modelName}
                         </h2>
+
+                        <p>
+                            Size {item.size}
+                        </p>
+
+                        <p>
+                            New
+                        </p>
                     </div>
                 </div>
 
@@ -37,7 +47,7 @@ export default function PortfolioCard({ item, remove }) {
                         </h2>
 
                         <h4 style={{ color: colour }}>
-                            ${Math.abs(priceChange)} ({Math.abs(percentChange)}%)
+                            {percentChange}%
                         </h4>
                     </div>
 

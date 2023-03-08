@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useDispatch, useSelector } from 'react-redux'
-import { updatePortfolioData } from '../../redux/actions'
+import { updatePortfolioData, setPortfolioLoading } from '../../redux/actions'
 import { getPortfolio, removeFromPortfolio } from '../../api/portfolio'
 import PortfolioCard from './portfolioCard'
 import Footer from '../Other/footer'
+import GraphDown from '../../assets/images/downwards-dark-desktop.svg'
+import GraphUp from '../../assets/images/upwards-dark-desktop.svg'
+import GraphStraight from '../../assets/images/straight-dark-desktop.svg'
+import LoadingAssets from './loadingAssets'
+import LoadingPortfolio from './loadingPortfolio'
 
 export default function Portfolio() {
 
@@ -14,11 +19,13 @@ export default function Portfolio() {
 	const [priceChange, setPriceChange] = useState(0)
 	const [percentChange, setPercentChange] = useState(0)
 	const [colour, setColour] = useState('black')
+	const [graph, setGraph] = useState(GraphStraight)
 
-	const portfolio = useSelector(state => state.portfolio)
 	const user = useSelector(state => state.user)
 	const currency = useSelector(state => state.currency)
 	const location = useSelector(state => state.location)
+	const portfolio = useSelector(state => state.portfolio.portfolioData)
+	const loadingPortfolio = useSelector(state => state.portfolio.loadingPortfolio)
 
 	const removeItemHandler = (recordID) => {
 		removeFromPortfolio(recordID)  // removes from database
@@ -42,17 +49,15 @@ export default function Portfolio() {
 		setPriceChange(priceChange)
 		setPercentChange((priceChange / initialPrice * 100).toFixed(2))
 
-		if (priceChange < 0) {
-			setColour('#EC3E26')
-		} else {
-			setColour('#34A853')
-		}
+		priceChange == 0 ? setColour('#8A8A8D') : (priceChange > 0 ? setColour('#34A853') : setColour('#EC3E26'))
+		priceChange == 0 ? setGraph(GraphStraight) : (priceChange > 0 ? setGraph(GraphUp) : setGraph(GraphDown))
 	}
 
 	useEffect(() => {
 		async function fetchPortfolio() {
 			let data = await getPortfolio(user.uid, currency, location)
 			dispatch(updatePortfolioData(data))
+			dispatch(setPortfolioLoading(false))
 		}
 		fetchPortfolio()
 	}, [currency])
@@ -70,37 +75,40 @@ export default function Portfolio() {
 
 			<div className='portfolio-dashboard'>
 				<div className='portfolio-analytics'>
-					<p>
-						Total Balance
-					</p>
+					<div className='portfolio-stats'>
+						<p> Total Balance </p>
+						{!loadingPortfolio && <h1> ${total}.00 </h1>}
+						{!loadingPortfolio && <h4 style={{ color: colour }}>
+							${(priceChange)}.00 ({percentChange}%)
+						</h4>}
+						{loadingPortfolio && <LoadingPortfolio />}
+					</div>
 
-					<h1>
-						${total}.00
-					</h1>
-
-					<h4 style={{ color: colour }}>
-						${Math.abs(priceChange)} ({Math.abs(percentChange)}%)
-					</h4>
+					{!loadingPortfolio && <img src={graph} />}
 
 					<div className='portfolio-buttons'>
-						<button className='portfolio-add'>
-							add
-						</button>
-
-						<button className='portfolio-edit'>
-							Edit
-						</button>
+						<div className='portfolio-add'>
+							Add Sneakers
+						</div>
 					</div>
 				</div>
 			</div>
 
 			<div className='portfolio-assets'>
-				<h3> My Portfolio </h3>
+				<div className='portfolio-assets-content'>
+					<h3> My Portfolio </h3>
 
-				<div className='portfolio-catalog'>
-					{portfolio && portfolio.length !== 0 && portfolio.map((item) => (
-						<PortfolioCard key={item.record_id} item={item} remove={removeItemHandler} />
-					))}
+					<div className='portfolio-catalog'>
+						{!loadingPortfolio && portfolio && portfolio.length !== 0 && portfolio.map((item) => (
+							<PortfolioCard key={item.record_id} item={item} remove={removeItemHandler} />
+						))}
+
+						{loadingPortfolio && <div>
+							<LoadingAssets />
+							<LoadingAssets />
+							<LoadingAssets />
+						</div>}
+					</div>
 				</div>
 			</div>
 
@@ -108,68 +116,3 @@ export default function Portfolio() {
 		</div>
 	)
 }
-
-
-
-
-
-
-
-
-// import React, { useEffect } from 'react'
-// import { Helmet } from 'react-helmet'
-// import { useDispatch, useSelector } from 'react-redux'
-// import { updatePortfolioData } from '../../redux/actions'
-// import { getPortfolio, removeFromPortfolio } from '../../api/portfolio'
-// import PortfolioCard from './portfolioCard'
-
-// export default function Portfolio() {
-
-// 	const dispatch = useDispatch()
-
-// 	const portfolio = useSelector(state => state.portfolio)
-// 	const user = useSelector(state => state.user)
-//     const currency = useSelector(state => state.currency)
-// 	const location = useSelector(state => state.location)
-
-// 	const removeItemHandler = (recordID) => {
-// 		removeFromPortfolio(recordID)  // removes from database
-// 		const newPortfolio = portfolio.filter(item => 
-// 			item.record_id !== recordID)
-//     	dispatch(updatePortfolioData(newPortfolio))
-//     }
-
-// 	useEffect(() => {
-// 		async function fetchPortfolio() {
-// 			let data = await getPortfolio(user.uid, currency, location)
-// 			dispatch(updatePortfolioData(data))
-// 		}
-// 		fetchPortfolio()
-//     }, [currency])
-
-// 	return (
-// 		<div className='portfolio'>
-// 			<Helmet>
-//                 <title>Sanctuary: Portfolio</title>
-//             </Helmet>
-
-// 			<div className='portfolio-dashboard'>
-
-// 			</div>
-
-// 			<div className='portfolio-title'>
-// 				<div className='portfolio-title-content'>
-// 					<div className='portfolio-title-content-text'>
-//                         <h2> Portfolio </h2>
-//                     </div>
-// 				</div>
-// 			</div>
-
-// 			<div className='portfolio-catalog'>
-// 				{portfolio && portfolio.length !== 0 && portfolio.map((item) => (
-// 					<PortfolioCard key={item.record_id} item={item} remove={removeItemHandler} />
-// 				))}
-// 			</div>
-// 		</div>
-// 	)
-// }

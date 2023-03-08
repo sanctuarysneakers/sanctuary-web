@@ -1,0 +1,113 @@
+.loading-assets-sneaker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 999px;
+    background-color: #EEF1F6;
+    position: relative;
+    overflow: hidden;
+}
+
+.loading-assets-model {
+    width: 110px;
+    height: 15px;
+    border-radius: 4px;
+    margin-top: 6px;
+    background-color: #EEF1F6;
+    position: relative;
+    overflow: hidden;
+}
+
+.loading-assets-size {
+    width: 80px;
+    height: 11px;
+    border-radius: 4px;
+    margin-top: 10px;
+    background-color: #EEF1F6;
+    position: relative;
+    overflow: hidden;
+}
+
+.loading-assets-condition {
+    width: 40px;
+    height: 11px;
+    border-radius: 4px;
+    margin-top: 9px;
+    background-color: #EEF1F6;
+    position: relative;
+    overflow: hidden;
+}
+
+.loading-assets-price {
+    width: 60px;
+    height: 12px;
+    border-radius: 4px;
+    margin-top: 6px;
+    background-color: #EEF1F6;
+    position: relative;
+    overflow: hidden;
+}
+
+.loading-assets-change {
+    width: 35px;
+    height: 14px;
+    border-radius: 4px;
+    margin-top: 9px;
+    background-color: #EEF1F6;
+    position: relative;
+    overflow: hidden;
+}
+
+// Loading Animation
+@keyframes load {
+    from {
+        left: -240px;
+    }
+    to   {
+        left: 100%;
+    }
+}
+
+.loading-assets-sneaker::before, .loading-assets-model::before,
+.loading-assets-size::before, .loading-assets-condition::before,
+.loading-assets-price::before, .loading-assets-change::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background: linear-gradient(90deg, hsla(218, 31%, 95%, 1) 0%, hsla(214, 41%, 97%, 1) 50%, hsla(218, 31%, 95%, 1) 100%);
+    animation: load 1.2s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+}
+
+.loading-assets-sneaker::before {
+    left: -50px;
+    width: 50px;
+}
+
+.loading-assets-model::before {
+    left: -110px;
+    width: 110px;
+}
+
+.loading-assets-size::before {
+    left: -80px;
+    width: 80px;
+}
+
+.loading-assets-condition::before {
+    left: -40px;
+    width: 40px;
+}
+
+.loading-assets-price::before {
+    left: -60px;
+    width: 60px;
+}
+
+.loading-assets-change::before {
+    left: -35px;
+    width: 35px;
+}
