@@ -115,7 +115,7 @@ export default function App() {
                 <ProtectedRoute path="/profile-edit-password" component={EditProfilePassword} isEnabled={firebase.auth().currentUser} />
                 <ProtectedRoute path="/sign-out/:redirect?" component={SignOut} isEnabled={firebase.auth().currentUser} />
 
-                <ProtectedRoute path="/portfolio" component={Portfolio} isEnabled={firebase.auth().currentUser} />
+                <Route path="/portfolio" component={Portfolio} />
                 <ProtectedRoute path="/portfolio-item" component={PortfolioItem} isEnabled={firebase.auth().currentUser} />
 
                 <Route path="/privacy-policy" component={PrivacyPolicy} />

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { updatePortfolioData, setPortfolioLoading } from '../../redux/actions'
 import { getPortfolio, removeFromPortfolio } from '../../api/portfolio'
@@ -10,6 +11,7 @@ import GraphUp from '../../assets/images/upwards-dark-desktop.svg'
 import GraphStraight from '../../assets/images/straight-dark-desktop.svg'
 import LoadingAssets from './loadingAssets'
 import LoadingPortfolio from './loadingPortfolio'
+import Splash from '../../assets/images/aboutDrawing2.png'
 
 export default function Portfolio() {
 
@@ -49,8 +51,8 @@ export default function Portfolio() {
 		setPriceChange(priceChange)
 		setPercentChange((priceChange / initialPrice * 100).toFixed(2))
 
-		priceChange == 0 ? setColour('#8A8A8D') : (priceChange > 0 ? setColour('#34A853') : setColour('#EC3E26'))
-		priceChange == 0 ? setGraph(GraphStraight) : (priceChange > 0 ? setGraph(GraphUp) : setGraph(GraphDown))
+		priceChange === 0 ? setColour('#8A8A8D') : (priceChange > 0 ? setColour('#34A853') : setColour('#EC3E26'))
+		priceChange === 0 ? setGraph(GraphStraight) : (priceChange > 0 ? setGraph(GraphUp) : setGraph(GraphDown))
 	}
 
 	useEffect(() => {
@@ -73,7 +75,7 @@ export default function Portfolio() {
 				<title>Sanctuary: Portfolio</title>
 			</Helmet>
 
-			<div className='portfolio-dashboard'>
+			{user && <div className='portfolio-dashboard'>
 				<div className='portfolio-analytics'>
 					<div className='portfolio-stats'>
 						<p> Total Balance </p>
@@ -87,14 +89,16 @@ export default function Portfolio() {
 					{!loadingPortfolio && <img src={graph} />}
 
 					<div className='portfolio-buttons'>
-						<div className='portfolio-add'>
-							Add Sneakers
-						</div>
+						<Link onClick={() => document.location.href = '/browse'}>
+							<div className='portfolio-add'>
+								Add Sneakers
+							</div>
+						</Link>
 					</div>
 				</div>
-			</div>
+			</div>}
 
-			<div className='portfolio-assets'>
+			{user && <div className='portfolio-assets'>
 				<div className='portfolio-assets-content'>
 					<h3> My Portfolio </h3>
 
@@ -110,7 +114,21 @@ export default function Portfolio() {
 						</div>}
 					</div>
 				</div>
-			</div>
+			</div>}
+
+			{!user && <div className='portfolio-welcome'>
+				<div className='portfolio-welcome-content'>
+					<h1>
+						Build your sneaker portfolio.
+					</h1>
+
+					<img src={Splash} />
+
+					<Link onClick={() => document.location.href = '/sign-in'}>
+						Get Started Today
+					</Link>
+				</div>
+			</div>}
 
 			<Footer colour={'blue'} />
 		</div>

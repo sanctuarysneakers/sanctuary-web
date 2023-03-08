@@ -28,8 +28,8 @@ export default function PortfolioItem() {
     const currentPrice = Math.round(item.currentPrice)
     const priceChange = currentPrice - price
     const percentChange = (priceChange / price * 100).toFixed(2)
-    const colour = priceChange == 0 ? 'grey' : (priceChange > 0 ? 'green' : 'red')
-    const graph = priceChange == 0 ? GraphStraight : (priceChange > 0 ? GraphUp : GraphDown)
+    const colour = priceChange === 0 ? 'grey' : (priceChange > 0 ? 'green' : 'red')
+    const graph = priceChange === 0 ? GraphStraight : (priceChange > 0 ? GraphUp : GraphDown)
 
     // TODO: add code to link to item page for this sneaker
     const generateLink = () => {

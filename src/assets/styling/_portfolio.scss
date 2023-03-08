@@ -51,7 +51,7 @@
                     align-items: center;
                     justify-content: center;
                     font-family: 'Poppins', sans-serif;
-                    font-size: 17;
+                    font-size: 17px;
                     font-weight: 500;
                     color: white;
                     max-width: 361px;
@@ -88,6 +88,84 @@
             margin-top: 15px;
         }
     }
+
+    .portfolio-welcome {
+        width: 100%;
+        height: calc(100vh - 70px);
+        background-color: #191919;
+
+        .portfolio-welcome-content {
+            height: calc(100vh - 70px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0px 20px;
+
+            h1 {
+                text-align: center;
+            }
+
+            img {
+                width: 500px;
+                margin-top: 150px;
+            }
+
+            a {
+                width: 600px;
+                height: 50px;
+                background-color: #383838;
+                border-radius: 10px;
+                margin-top: 2px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: 'Poppins', sans-serif;
+                font-size: 17px;
+                font-weight: 500;
+                color: white;
+                text-decoration: none;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+    .portfolio {
+        .portfolio-welcome {
+            height: calc(100vh - 60px);
+    
+            .portfolio-welcome-content {
+                height: calc(100vh - 60px);
+            }
+        }
+    }
+}
+
+@media (min-width: 476px) and (max-width: 639px) {
+    .portfolio {
+        .portfolio-welcome {
+            height: calc(100vh - 60px);
+    
+            .portfolio-welcome-content {
+                height: calc(100vh - 60px);
+
+                h1 {
+                    font-size: 46px;
+                }
+    
+                img {
+                    width: 260px;
+                    margin-top: 200px;
+                }
+    
+                a {
+                    width: 361px;
+                }
+            }
+        }
+    }
 }
 
 // Mobile responsiveness
@@ -113,6 +191,27 @@
             padding-top: 30px;
             padding-bottom: 50px;
             margin: 0px 20px;
+        }
+
+        .portfolio-welcome {
+            height: calc(100vh - 60px);
+    
+            .portfolio-welcome-content {
+                height: calc(100vh - 60px);
+
+                h1 {
+                    font-size: 46px;
+                }
+    
+                img {
+                    width: 260px;
+                    margin-top: 200px;
+                }
+    
+                a {
+                    width: 361px;
+                }
+            }
         }
     }
 }

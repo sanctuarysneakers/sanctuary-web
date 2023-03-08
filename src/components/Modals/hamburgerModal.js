@@ -72,6 +72,13 @@ export default function HamburgerModal() {
                             </div>
                         </div>
 
+                        <div className='hamburger-modal-option' onClick={() => document.location.href = '/portfolio'}>
+                            <div className='hamburger-modal-option-content'>
+                                <p> Portfolio </p>
+                                <RightArrow />
+                            </div>
+                        </div>
+
                         <div className='hamburger-modal-option' onClick={() => document.location.href = '/newsroom'}>
                             <div className='hamburger-modal-option-content'>
                                 <p> Newsroom </p>

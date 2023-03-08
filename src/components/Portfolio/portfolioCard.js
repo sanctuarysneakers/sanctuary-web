@@ -10,7 +10,7 @@ export default function PortfolioCard({ item, remove }) {
     const currentPrice = Math.round(item.currentPrice)
     const priceChange = currentPrice - price
     const percentChange = (priceChange / price * 100).toFixed(2)
-    const colour = priceChange == 0 ? 'grey' : (priceChange > 0 ? 'green' : 'red')
+    const colour = priceChange === 0 ? 'grey' : (priceChange > 0 ? 'green' : 'red')
 
     console.log(item)
 
