@@ -51,11 +51,47 @@ export default function useAPICall(callType, params) {
     }
 
     async function getItem(params) {
-        if (!location)
+        if (location === null)
             location = await getLocation() 
 
         let itemInfo = params.fromBrowse ? params.fromBrowse : await getItemInfo(params.itemKey, params.gender)
-        if (!itemInfo)
+        dispatch(updateItemInfo(itemInfo))
+
+        await SafePromiseAll(
+            [
+                getItemPrices(itemInfo, params.size, params.gender),
+                getItemListings(itemInfo, params.size, params.gender), 
+                getRelatedItems(itemInfo)
+            ], 
+            []
+        )
+    }
+
+    async function getItemInfo(itemKey, gender) {
+        try {
+            const request = createRequestObject('browse', {
+                search: itemKey,
+                gender: gender
+            })
+
+            const response = await fetch(request.url, request.headers)
+            if (!response.ok) throw new Error()
+
+            let results = await response.json()
+            let itemInfo = extractItemInfo(results, itemKey)
+ 
+            if(!itemInfo) 
+                throw Error() 
+    
+            return {
+                sku: itemInfo['sku'],
+                modelName: itemInfo['model'],
+                image: itemInfo['image'],
+                url: itemInfo['url'], 
+                urlKey: itemInfo['urlKey']
+            }
+        } catch (e) { 
+            console.log(e)
             history.replace('/item-not-supported')
             return null
         }
