@@ -4,10 +4,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { browseCall, updateItemInfo, updateItemPrices, updateItemListings, 
     updateRelatedItems, setRelatedItemsLoading, setItemPricesLoading, setItemListingsLoading, 
     updateFeaturedCollections } from '../redux/actions'
-import createRequestObject from './createRequest'
+import createRequestObject from '../api/createRequest'
 import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPrice, 
-    klektLowestPrice, grailedListings, ebayListings, depopListings, collectionItems } from './scrapers'
-import { getLocation }  from '../hooks/useLocationDetection'
+    klektLowestPrice, grailedListings, ebayListings, depopListings, collectionItems } from '../api/dataSources'
+import { getLocation }  from './useLocationDetection'
 
 export default function useAPICall(callType, params) {
     
@@ -173,7 +173,6 @@ export default function useAPICall(callType, params) {
     }
 
     async function getRelatedItems(item) {
-        console.log(item)
         let params = {
             search: item.modelName,
             size: size,
@@ -232,7 +231,7 @@ export default function useAPICall(callType, params) {
     useEffect(() => {
         if (callType === 'getitem') {
             getItem(params)
-        } else if (callType == 'featuredcollections') {
+        } else if (callType === 'featuredcollections') {
             getFeaturedCollections()
         } else {
             browse(params.searchTerm)

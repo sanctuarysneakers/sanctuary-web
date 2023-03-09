@@ -38,8 +38,7 @@ export default function PortfolioItem() {
         dispatch(setItemListingsLoading(true))
         
         let itemKey = item.data.sku ? encodeURIComponent(item.data.sku) : item.data.urlKey 
-        //window.analytics.track(`carousel_item_clicked`, {id: itemKey, gender: gender})
-        return item.gender == null ? `/item/${itemKey}` : `/item/${itemKey}/${item.gender}`
+        return item.gender === null ? `/item/${itemKey}` : `/item/${itemKey}/${item.gender}`
     }
 
     const getNavData = () => {
@@ -53,15 +52,12 @@ export default function PortfolioItem() {
         return itemInfo
     }
 
-    console.log(item)
-
     const removeItemHandler = (recordID) => {
+        history.push("/portfolio")
 		removeFromPortfolio(recordID)  // removes from database
-		const newPortfolio = portfolio.filter(item => 
+		const newPortfolio = portfolio?.portfolioData.filter(item => 
 			item.record_id !== recordID)
     	dispatch(updatePortfolioData(newPortfolio))
-
-        history.push("/portfolio")
     }
 
     return (

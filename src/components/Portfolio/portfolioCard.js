@@ -12,8 +12,6 @@ export default function PortfolioCard({ item, remove }) {
     const percentChange = (priceChange / price * 100).toFixed(2)
     const colour = priceChange === 0 ? 'grey' : (priceChange > 0 ? 'green' : 'red')
 
-    console.log(item)
-
     return (
         <div className='portfolio-card'>
             <Link className='portfolio-card-content' to={{

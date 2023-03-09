@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { useSelector } from 'react-redux'
 import useAPICall from '../../hooks/useApiCall'
-import createRequestObject from '../../hooks/createRequest'
+import createRequestObject from '../../api/createRequest'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import ItemCard from '../Item/itemCard'
 

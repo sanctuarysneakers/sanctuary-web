@@ -49,7 +49,12 @@ export default function Portfolio() {
 
 		setTotal(price)
 		setPriceChange(priceChange)
-		setPercentChange((priceChange / initialPrice * 100).toFixed(2))
+		const newPercentChange = (priceChange / initialPrice * 100).toFixed(2)
+		if (!isNaN(newPercentChange)) {
+			setPercentChange((priceChange / initialPrice * 100).toFixed(2))
+		} else {
+			setPercentChange(0)
+		}
 
 		priceChange === 0 ? setColour('#8A8A8D') : (priceChange > 0 ? setColour('#34A853') : setColour('#EC3E26'))
 		priceChange === 0 ? setGraph(GraphStraight) : (priceChange > 0 ? setGraph(GraphUp) : setGraph(GraphDown))
@@ -66,7 +71,6 @@ export default function Portfolio() {
 
 	useEffect(() => {
 		handleDashboard()
-		console.log(portfolio)
 	}, [portfolio])
 
 	return (
