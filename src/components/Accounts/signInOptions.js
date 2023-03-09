@@ -58,10 +58,10 @@ export default function SignInOptions() {
 
             <div className='account-buttons'>
 
-                <button className='facebook-button' onClick={facebookAuth}>
+                {/* <button className='facebook-button' onClick={facebookAuth}>
                     <img src={facebook} alt='facebook' />
                     <p> Continue with Facebook </p>
-                </button>
+                </button> */}
 
                 <button className='google-button' onClick={googleAuth}>
                     <img src={google} alt='google' />

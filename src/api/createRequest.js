@@ -2,12 +2,24 @@
 export default function createRequestObject(type, filter) {
 
 	const api = 'https://hdwj2rvqkb.us-west-2.awsapprunner.com'
+	// const api = 'http://127.0.0.1:8086'
 	const autosuggestAPI = 'https://2fwotdvm2o-dsn.algolia.net'
 
 	switch (type) {
 		case 'browse':
 			return {
 				url: `${api}/browse`,
+				headers:  {
+					method: "POST",
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(filter), 
+				}
+			}
+		case 'browse_collection':
+			return {
+				url: `${api}/browse_collection`,
 				headers:  {
 					method: "POST",
 					headers: {
@@ -85,9 +97,13 @@ export default function createRequestObject(type, filter) {
 			}
 		case 'related': 
 			return {
-				url: `${api}/relateditems?` + new URLSearchParams(filter),
+				url: `${api}/relateditems`,
 				headers: {
-					method: 'GET'
+					method: "POST",
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(filter),
 				}
 			}
 		default: 

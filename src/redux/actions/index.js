@@ -8,24 +8,10 @@ export const browseCall = data => {
     }
 }
 
-export const trendingCall = data => {
+export const updateFeaturedCollections = collections => {
     return {
-        type: 'TRENDING_CALL',
-        payload: data
-    }
-}
-
-export const under200Call = data => {
-    return {
-        type: 'UNDER_200_CALL',
-        payload: data
-    }
-}
-
-export const under300Call = data => {
-    return {
-        type: 'UNDER_300_CALL',
-        payload: data
+        type: 'UPDATE_FEATURED_COLLECTIONS',
+        payload: collections
     }
 }
 
@@ -94,24 +80,40 @@ export const setPortfolioLoading = isLoading => {
 
 // Filter Actions
 
-export const updateSizeFilter = size => {
+export const updateBrowseBrand = brand => {
     return {
-        type: 'UPDATE_SIZE_FILTER',
-        payload: size
+        type: 'UPDATE_BROWSE_BRAND',
+        payload: brand
     }
 }
 
-export const updatePriceLowFilter = price_low => {
+export const updateBrowseSort = sortType => {
     return {
-        type: 'UPDATE_PRICE_LOW_FILTER',
-        payload: price_low
+        type: 'UPDATE_BROWSE_SORT',
+        payload: sortType
     }
 }
 
-export const updatePriceHighFilter = price_high => {
+// Browse Filter Actions
+
+export const updateBrowseReleaseYears = releaseYears => {
     return {
-        type: 'UPDATE_PRICE_HIGH_FILTER',
-        payload: price_high
+        type: 'UPDATE_BROWSE_RELEASE_YEARS',
+        payload: releaseYears
+    }
+}
+
+export const updateBrowseSizeTypes = sizeTypes => {
+    return {
+        type: 'UPDATE_BROWSE_SIZE_TYPES',
+        payload: sizeTypes
+    }
+}
+
+export const updateBrowsePriceRanges = priceRanges => {
+    return {
+        type: 'UPDATE_BROWSE_PRICE_RANGES',
+        payload: priceRanges
     }
 }
 
@@ -120,6 +122,7 @@ export const clearFilter = () => {
         type: 'CLEAR_FILTER'
     }
 }
+
 
 // Currency change
 
@@ -325,3 +328,4 @@ export const setRedirectUrl = url => {
         payload: url
     }
 }
+

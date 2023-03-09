@@ -23,8 +23,8 @@ import PrivacyPolicy from './components/Other/privacyPolicy'
 import TermsOfUse from './components/Other/termsOfUse'
 import ContactUs from './components/Contact/contactUs'
 import LocationModal from './components/Modals/locationModal'
-import { useLocationDetection }  from './hooks/useLocationDetection'
 import CategoryFilterModal from './components/Modals/categoryFilterModal'
+import { useLocationDetection } from './hooks/useLocationDetection'
 
 import SignInOptions from './components/Accounts/signInOptions'
 import SignInEmail from './components/Accounts/signInEmail'
@@ -49,6 +49,7 @@ import firebase from './services/firebase'
 import Loader from './components/Other/loader'
 
 
+
 export default function App() {
 
     const dispatch = useDispatch()
@@ -60,8 +61,8 @@ export default function App() {
     const currencyModalVisible = useSelector(state => state.modals.currencyModalVisible)
     const searchModalVisible = useSelector(state => state.modals.searchModalVisible)
     const aboutModalVisible = useSelector(state => state.modals.aboutModalVisible)
-    const deleteModalVisible = useSelector(state => state.modals.deleteModalVisible)
     const categoryFilterModalVisible = useSelector(state => state.modals.categoryFilterModalVisible)
+    const deleteModalVisible = useSelector(state => state.modals.deleteModalVisible)
     const redirect = useSelector(state => state.redirect)
     const [loader, setLoader] = useState(true)
     
@@ -75,7 +76,7 @@ export default function App() {
                     let redirectCopy = redirect
                     dispatch(setRedirectUrl(null))
                     const jwt = await user.getIdToken()
-                    window.location.href = `${redirectCopy}id_token=${jwt}`
+                    window.location.href = `${redirectCopy}id_token=${jwt}&refresh_token=${user.refreshToken}`
                 }
             } else {
                 dispatch(setUser(null))
@@ -84,9 +85,9 @@ export default function App() {
         })
     }, [])
 
-    useEffect(() => {
-        window.analytics.page(); 
-    }, [urlLocation.pathname])
+    // useEffect(() => {
+    //     window.analytics.page(); 
+    // }, [urlLocation.pathname])
 
 
     if (loader) {
@@ -100,7 +101,7 @@ export default function App() {
                 <Switch>
                 <Route exact path="/" component={Home} />
                 <Route path="/home" component={Home} />
-                <Route path="/browse/:query?" component={Browse} />
+                <Route path="/browse/:searchTerm?" component={Browse} />
                 <Route path="/item/:itemKey/:gender?" component={Item} />
 
                 <ProtectedRoute path="/sign-in/:redirect?" component={SignInOptions} isEnabled={!firebase.auth().currentUser} />

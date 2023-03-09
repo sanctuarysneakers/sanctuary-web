@@ -10,7 +10,7 @@ export default function CarouselCard({ data, index, type, length }) {
     const currency = useSelector(state => state.currency)
 
     const generateLink = () => {
-        if (type !== "recommended") {
+        if (type !== "related") {
             dispatch(updateItemInfo({}))
             dispatch(setItemPricesLoading(true))
             dispatch(setItemListingsLoading(true))
@@ -21,7 +21,7 @@ export default function CarouselCard({ data, index, type, length }) {
         return data.gender == null ? `/item/${itemKey}` : `/item/${itemKey}/${data.gender}`
     }
 
-    const recommendedClick = (e) => {
+    const relatedClick = (e) => {
         if (e.nativeEvent.button === 0) {
             let itemKey = data.sku ? encodeURIComponent(data.sku) : data.urlKey 
             document.location.href = `/item/${itemKey}`
@@ -30,7 +30,7 @@ export default function CarouselCard({ data, index, type, length }) {
 
     const getNavData = () => {
         let itemInfo = {
-            sku: data.sku ? data.sku.replaceAll('-', ' ') : null,
+            sku: data.sku,
             modelName: data.model,
             image: data.image,
             url: data.url,
@@ -75,8 +75,7 @@ export default function CarouselCard({ data, index, type, length }) {
                     </div>
                 </Link>
             }
-
-            {(type === 'under200' || type === 'under300') && 
+            {(type === 'featuredCollection') && 
                 <Link 
                     to={{
                         pathname: generateLink(),
@@ -102,14 +101,13 @@ export default function CarouselCard({ data, index, type, length }) {
                     </div>
                 </Link>
             }
-
-            {type === 'recommended' && 
+            {type === 'related' && 
                 <Link 
                     to={{
                         pathname: generateLink(),
                         itemInfo: null
                     }}
-                    onClick={(event) => recommendedClick(event)}
+                    onClick={(event) => relatedClick(event)}
                     className="hidden-link"
                 >  
                     <div className='carousel-card-deals'>

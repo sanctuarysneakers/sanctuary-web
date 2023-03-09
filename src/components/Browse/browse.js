@@ -11,8 +11,8 @@ export default function Browse() {
 
     const dispatch = useDispatch()
 
-    let {query} = useParams()
-    if (!query) query = ''
+    let {searchTerm} = useParams()
+    if (!searchTerm) searchTerm = ''
 
     dispatch(showHomeSeach())
 
@@ -24,19 +24,19 @@ export default function Browse() {
             <div className='browse-results'>
                 <div className='browse-results-content'>
 
-                    {!query && <div className='browse-results-text'> 
+                    {!searchTerm && <div className='browse-results-text'> 
                         <h2> Browse </h2>
                     </div>}
-                    {query && <div className='browse-results-text'>
+                    {searchTerm && <div className='browse-results-text'>
                         <h2> Search results for </h2>
-                        <h2> '{query}' </h2>
+                        <h2> '{searchTerm}' </h2>
                     </div>}
                     <CategoryFilter />
                 </div>
             </div>
 
             <div className='browse-catalog'>
-                <Catalog search_query={query} />
+                <Catalog searchTerm={searchTerm} />
             </div>
 
             <Footer colour={'blue'} />

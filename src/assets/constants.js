@@ -92,15 +92,74 @@ export const websiteLogoMapGrey = {
     'ebay': eBayGrey
 }
 
-export const dealsUnderHeaders = {
-    'AUD': [300, 400],
-    'CAD': [300, 400],
-    'CHF': [200, 300],
-    'CNY': [1300, 2000],
-    'EUR': [200, 300],
-    'GBP': [200, 300],
-    'HKD': [1600, 2400],
-    'JPY': [26000, 38000],
-    'KRW': [250000, 370000],
-    'USD': [200, 300],
+// browse - single-select filter options 
+
+export const popularBrandOptions = [
+    {value: 'nike', label: 'Nike'},
+    {value: 'yeezy', label: 'Yeezy'}, 
+    {value: 'air jordan', label: 'Air Jordan'},
+    {value: 'off white', label: 'Off-White'}, 
+    {value: 'adidas', label: 'Adidas'},
+    {value: 'converse', label: 'Converse'}
+]
+
+export const brandOptions = [
+    {value: null, label: 'All'}, 
+    {value: 'adidas', label: 'Adidas'},
+    {value: 'asics', label: 'Asics'},
+    {value: 'balenciaga', label: 'Balenciaga'},
+    {value: 'converse', label: 'Converse'},
+    {value: 'fila', label: 'Fila'},
+    {value: 'gucci', label: 'Gucci'},
+    {value: 'air jordan', label: 'Jordan'},
+    {value: 'new balance', label: 'New Balance'},
+    {value: 'nike', label: 'Nike'},
+    {value: 'off white', label: 'Off-White'}, 
+    {value: 'puma', label: 'Puma'},
+    {value: 'reebok', label: 'Reebok'},
+    {value: 'saucony', label: 'Saucony'},
+    {value: 'supreme', label: 'Supreme'},
+    {value: 'under armour', label: 'Under Armour'}, 
+    {value: 'vans', label: 'Vans'},
+    {value: 'yeezy', label: 'Yeezy'}
+]
+
+export const sizeTypeOptions = [
+    {value: null, label: 'All'},
+    {value: 'men', label: 'Men'},
+    {value: 'women', label: 'Women'}, 
+    {value: 'youth', label: 'Youth'}, 
+    {value: 'infant', label: 'Infant'}
+]
+
+// sort options
+export const sortOptions = [
+    {value: null, label: 'All'},
+    {value: '{"sort": "date_added", "order": "descending"}', label: 'Newest Releases'},
+    {value: '{"sort": "relevance", "order": "descending"}', label: 'Most Popular'},
+    {value: '{"sort": "lowest_price_cents", "order": "ascending"}', label: 'Price: Low to High'},
+    {value: '{"sort": "lowest_price_cents", "order": "descending"}', label: 'Price: High to Low'}
+]
+
+// browse - multi-select filter options 
+function generateReleaseYears() {
+    let currentYear = new Date().getFullYear()
+    let years = [] 
+    for(let i = currentYear; i >= 2000; i--) {
+        years.push({"value": i.toString(), "label": i.toString()})
+    }
+    return years
 }
+
+export const releaseYearOptions = generateReleaseYears() 
+
+//TODO
+export const priceOptions = [
+    {value: 'lte-100', label: 'Under $100'},
+    {value: 'range(100|200)', label: '$100-$200'},
+    {value: 'range(200|300)', label: '$200-$300'},
+    {value: 'range(300|400)', label: '$300-$400'},
+    {value: 'range(400|500)', label: '$400-$500'},
+    {value: 'range(500|600)', label: '$500-$600'},
+    {value: 'gte-600', label: '$600+'}
+]

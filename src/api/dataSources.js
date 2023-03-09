@@ -1,5 +1,6 @@
 import createRequestObject from './createRequest'
 
+//lowest prices
 
 export async function stockxLowestPrice(item, filter) {
 	try {
@@ -138,6 +139,8 @@ export async function flightclubLowestPrice(item, filter) {
 }
 
 
+//listings
+
 export async function ebayListings(item, filter) {
 	try {
 		let search = item.modelName.replace('(W)', '').concat(' ', item.sku)
@@ -237,3 +240,25 @@ export async function grailedListings(item, filter) {
 		return []
 	}
 }
+
+
+export async function collectionItems(params) {
+	let request = createRequestObject('browse_collection', params)
+        
+	try {
+		const response = await fetch(request.url, request.headers)
+	
+		if (!response.ok) throw new Error()
+		
+		let results = await response.json()
+		if (!results.length) throw new Error()
+
+		return results
+	} catch (e) {
+		return []
+	}
+}
+
+
+
+

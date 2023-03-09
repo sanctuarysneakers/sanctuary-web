@@ -16,7 +16,7 @@ export default function Profile() {
 
     const handleRedirect = async (url) => {
         const jwt = await user.getIdToken()
-        window.location.href = `${url}id_token=${jwt}`
+        window.location.href = `${url}id_token=${jwt}&refresh_token=${user.refreshToken}`
     }
 
     let { redirect } = useParams()

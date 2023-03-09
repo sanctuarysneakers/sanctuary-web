@@ -14,7 +14,6 @@ import itemReducer from './item/itemReducer'
 import modalReducer from './modals/modalReducer'
 import portfolioReducer from './portfolio/portfolioReducer'
 
-
 const globalReducer = combineReducers({
     size: sizeReducer,
     currency: currencyReducer,

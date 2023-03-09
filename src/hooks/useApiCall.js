@@ -2,12 +2,12 @@ import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { browseCall, updateItemInfo, updateItemPrices, updateItemListings, 
-    setItemPricesLoading, setItemListingsLoading, trendingCall, 
-    under200Call, under300Call, updateRelatedItems, setRelatedItemsLoading } from '../redux/actions'
-import createRequestObject from '../api/createRequest'
-import { getItemInfo, getItemPrices, getItemListings, getRelatedItems } from '../api/aggregator'
-import { SafePromiseAll } from '../api/helpers'
-import { getLocation }  from '../hooks/useLocationDetection' 
+    updateRelatedItems, setRelatedItemsLoading, setItemPricesLoading, setItemListingsLoading, 
+    updateFeaturedCollections } from '../redux/actions'
+import createRequestObject from './createRequest'
+import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPrice, 
+    klektLowestPrice, grailedListings, ebayListings, depopListings, collectionItems } from './scrapers'
+import { getLocation }  from '../hooks/useLocationDetection'
 
 export default function useAPICall(callType, params) {
     
@@ -18,46 +18,35 @@ export default function useAPICall(callType, params) {
     const size = useSelector(state => state.size)
     const currency = useSelector(state => state.currency)
 
-    async function browse(type, query) {
-        const price_limit = {
-            'browse': null,
-            'trending': null,
-            'under200': 200,
-            'under300': 300
-        }
-        const dispatch_map = {
-            'browse': browseCall,
-            'trending': trendingCall,
-            'under200': under200Call,
-            'under300': under300Call
+    function SafePromiseAll(promises, def = null) {
+        return Promise.all(
+            promises.map(p => p.catch(error => def))
+        )
+    }
+
+    async function browse(searchTerm) {
+        let params = {
+            currency, 
+            size,
+            ship_to: location['country_code']
         }
 
         let filters = {
-            search: query,
-            currency: currency,
-            maxPrice: price_limit[type],
-            size: size, 
-            ship_to: location['country_code']
+            search: searchTerm
         }
-        if (type === 'trending')
-            filters.sort = "most-active"
 
-        const request = createRequestObject('browse', filters)
-
+        let request = createRequestObject('browse', {...params, ...filters})
+        
         try {
             const response = await fetch(request.url, request.headers)
             if (!response.ok) throw new Error()
             
             let results = await response.json()
             if (!results.length) throw new Error()
-            results = results.filter(item => 
-                !item["model"].includes("(GS)") 
-                && !item["model"].includes("(TD)") 
-                && !item["model"].includes("(PS)"))
 
-            dispatch(dispatch_map[type](results))
+            dispatch(browseCall(results))
         } catch (e) {
-            dispatch(dispatch_map[type](false))
+            dispatch(browseCall([]))
         }
     }
 
@@ -68,27 +57,149 @@ export default function useAPICall(callType, params) {
         let itemInfo = params.fromBrowse ? params.fromBrowse : await getItemInfo(params.itemKey, params.gender)
         if (!itemInfo)
             history.replace('/item-not-supported')
-        dispatch(updateItemInfo(itemInfo))
+            return null
+        }
+    }
 
-        let results = await SafePromiseAll([
-            getItemPrices(itemInfo, size, params.gender, currency, location),
-            getItemListings(itemInfo, size, params.gender, currency, location),
-            getRelatedItems(itemInfo, currency)
-        ], [])
+    function extractItemInfo(results, itemKey) {
+        let itemKeyNoSpaces = itemKey.replaceAll(' ', '')
+        for (let x = 0; x < results.length; x++) {
 
-        dispatch(updateItemPrices(results[0]))
-        dispatch(updateItemListings(results[1]))
-        dispatch(updateRelatedItems(results[2]))
-	    dispatch(setItemPricesLoading(false))
-	    dispatch(setItemListingsLoading(false))
-        dispatch(setRelatedItemsLoading(false))
+            let resultItem = results[x]
+            if (resultItem['sku'].replaceAll('-', ' ') === itemKey || resultItem['sku'] === itemKey || resultItem['sku'].includes(itemKey) || resultItem['urlKey'] === itemKey) {
+                return resultItem
+            } 
+
+            // handles case where sku contains multiple skus separated by '/'
+            let skus = resultItem['sku'].split('/') 
+
+            //when searching by urlkey, the correct item info might not be the first result so need to loop through all
+            for (var i=0; i < skus.length; i++) {
+                skus[i] = skus[i].replaceAll('-', ' ')
+                if (skus[i].includes(itemKey) || skus[i].includes(itemKeyNoSpaces))
+                    return resultItem
+            }
+        }
+        
+        return null 
+    }
+
+    async function getItemPrices(item, size, gender) {
+        let filter = {
+            size: size,
+            gender: gender,
+            country: location['country_code'],
+            postalCode: location['postal_code'],
+            currency: currency
+        }
+
+        const res = await SafePromiseAll(
+            [
+                stockxLowestPrice(item, filter),
+                ebayLowestPrice(item, filter),
+                flightclubLowestPrice(item, filter),
+                goatLowestPrice(item, filter),
+                klektLowestPrice(item, filter)
+            ]
+        )
+        
+        let results = res.flat()
+        results = results.filter(r => r.price !== 0)
+        results.sort((a, b) => a.price - b.price)
+
+        dispatch(updateItemPrices(results))
+        dispatch(setItemPricesLoading(false))
+
+        return results
+    }
+
+    async function getItemListings(item, size, gender) {
+        let filter = {
+            size: size,
+            gender: gender,
+            country: location['country_code'],
+            postalCode: location['postal_code'],
+            currency: currency
+        }
+
+        const res = await SafePromiseAll(
+            [
+                ebayListings(item, filter), 
+                depopListings(item, filter),
+                grailedListings(item, filter)
+            ]
+        ) 
+
+        let results = res.flat().sort((a, b) => a.price - b.price)
+        dispatch(updateItemListings(results))
+        dispatch(setItemListingsLoading(false))
+        return results
+    }
+
+    async function getRelatedItems(item) {
+        console.log(item)
+        let params = {
+            search: item.modelName,
+            size: size,
+            currency: currency, 
+            ship_to: location['country_code']
+        }
+
+        const request = createRequestObject('related', params)
+
+        try {
+            const response = await fetch(request.url, request.headers)
+            if (!response.ok) throw new Error()
+
+            let results = await response.json()
+            if (!results.length) throw new Error()
+    
+            dispatch(updateRelatedItems(results))
+        } catch (e) {
+            dispatch(updateRelatedItems([]))
+        }
+        setRelatedItemsLoading(false) 
+    }
+
+    async function getFeaturedCollections() {
+        let params = {
+            currency, 
+            size, 
+            ship_to: location['country_code']
+        }
+
+        let featuredCollectionRequests = [
+            {
+                title: 'Most Popular', 
+                promise: collectionItems({...params, collection_id: "most-wanted-new"}) 
+            }, 
+            {
+                title: 'Fresh Drops', 
+                promise: collectionItems({...params, collection_id: "just-dropped"})
+            }, 
+            {
+                title: "Ladies", 
+                promise: collectionItems({...params, collection_id: "women-s-sneakers"})
+            }
+        ]
+
+        const res = await SafePromiseAll(featuredCollectionRequests.map(req => req.promise))
+
+        const featuredCollections = featuredCollectionRequests.map((req, index) => {
+            return {...req, "data": res[index]}
+          });
+
+        //update featured requests
+        dispatch(updateFeaturedCollections(featuredCollections))
     }
 
     useEffect(() => {
         if (callType === 'getitem') {
             getItem(params)
+        } else if (callType == 'featuredcollections') {
+            getFeaturedCollections()
         } else {
-            browse(callType, params.query)
+            browse(params.searchTerm)
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currency, size])

@@ -34,7 +34,7 @@ export default function Item() {
     const navLocation = useLocation()
     let passedData = navLocation.itemInfo ? navLocation.itemInfo : null
     useAPICall('getitem', {
-        itemKey: itemKey.toLowerCase() === itemKey ? itemKey : decodeURIComponent(itemKey.replaceAll('-', ' ')), //differentiates between urlkey and sku
+        itemKey: decodeURIComponent(itemKey), //differentiates between urlkey and sku
         size: size,
         gender: gender,
         fromBrowse: passedData
@@ -44,6 +44,7 @@ export default function Item() {
     const itemPrices = useSelector(state => state.item.itemPrices)
     const itemListings = useSelector(state => state.item.itemListings)
     const relatedItems = useSelector(state => state.item.relatedItems)
+
     const pricesLoading = useSelector(state => state.item.loadingItemPrices)
     const listingsLoading = useSelector(state => state.item.loadingItemListings)
     const relatedLoading = useSelector(state => state.item.relatedItemsLoading)
@@ -143,7 +144,7 @@ export default function Item() {
 
                                     <SizeFilter gender={gender} />
                                     {sizeModalVisible && <SizeModal gender={gender} />}
-                                    {socialsModalVisible && <SocialsModal itemName={itemInfo.modelName} price={`${currencySymbolMap[currency]}${itemPrices[0].price}`} url={window.location.href} image={itemInfo.iamge} />}
+                                    {socialsModalVisible && <SocialsModal itemName={itemInfo.modelName} price={`${currencySymbolMap[currency]}${itemPrices[0].price}`} url={window.location.href} image={itemInfo.image} />}
                                 </div>}
                             </div>
                         </div>
@@ -185,10 +186,10 @@ export default function Item() {
                         }
                     </div>
 
-                    <div className='item-recommended'>
-                        <h6> Recommended For You </h6>
+                    <div className='item-related'>
+                        <h6> You might also like </h6>
                         {!relatedLoading && relatedItems.length !== 0 &&
-                            <Carousel type={'recommended'} />
+                            <Carousel type={'related'} data={relatedItems} />
                         }
                     </div>
                 </div>
