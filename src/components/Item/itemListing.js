@@ -20,9 +20,6 @@ export default function ItemListing({ data, index, length }) {
         condition = 'Used'
     }
 
-    // const clickHandler = () => {
-    //     window.analytics.track(`item_more_listings_click_${data.source}`, { url: data.url, price: data.price });
-    // }
     /* eslint-disable jsx-a11y/anchor-is-valid */
     return (
         <div className={(index === length - 1) ? 'item-listing last' : 'item-listing'}>
@@ -54,7 +51,7 @@ export default function ItemListing({ data, index, length }) {
                             {data.shippingPrice !== 0 &&
                                 <div className='listing-shipping-text'>
                                     <Shipping />
-                                    <p>+{currencySymbolMap[currency]}{Math.round(data.shippingPrice)}</p>
+                                    <p>+{currencySymbolMap[currency]}{data.shipping}</p>
                                 </div>
                             }
                         </div>}

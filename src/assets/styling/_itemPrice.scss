@@ -110,6 +110,21 @@
                 }
             }
 
+            // Styling for Foot Locker icon
+            .item-source-logo.footlocker {
+                display: flex;
+                justify-content: center;
+                box-sizing: border-box;
+                background: black;
+                border: 1px solid #EEF1F6;
+
+                img {
+                    width: 48px;
+                    height: auto;
+                    padding-top: 1px;
+                }
+            }
+
             .item-source-text {
                 height: 56px;
                 padding: 2px 15px;

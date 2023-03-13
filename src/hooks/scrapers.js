@@ -4,36 +4,53 @@ import createRequestObject from './createRequest'
 
 export async function stockxLowestPrice(item, filter) {
 	try {
-		let search = item.sku !== '' ? item.sku : item.modelName.replace('(W)', '')
+		const modelName = item.modelName.replace('(W)', '')
+		const sku = item.sku.replace(' ', '-')
 		const request = createRequestObject('stockx', {
-			search: search, 
+			model_name: modelName,
+			sku: sku,
+			size: filter.gender === 'women' ? filter.size-1.5 : filter.size,
+			currency: filter.currency,
+			ship_to: filter.country
+		})
+		const response = await fetch(request.url, request.headers)
+		if (!response.ok) return {}
+
+		let itemData = await response.json()
+		return itemData
+	} catch (e) {
+		return {}
+	}
+}
+
+export async function footlockerLowestPrice(item, filter) {
+	try {
+		const modelName = item.modelName.replace('(W)', '')
+		const sku = item.sku.replace(' ', '-')
+		const request = createRequestObject('footlocker', {
+			model_name: modelName,
+			sku: sku,
 			size: filter.gender === 'women' ? filter.size-1.5 : filter.size,
 			currency: filter.currency,
 			ship_to: filter.country
 		})
 
 		const response = await fetch(request.url, request.headers)
-		if (!response.ok) return []
+		if (!response.ok) return {}
 
 		let itemData = await response.json()
 
-		return [{
-			source: 'stockx',
-			price: Math.round(itemData[0]['price2']),
-			url: new URL(itemData[0]['url']),
-			shippingPrice: Math.round(itemData[0]['shipping2'])
-		}]
+		return itemData
 	} catch (e) {
-		return []
+		return {}
 	}
 }
 
-
 export async function ebayLowestPrice(item, filter) {
 	try {
-		let search = item.modelName.replace('(W)', '').concat(' ', item.sku)
+		const modelName = item.modelName.replace('(W)', '').concat(' ', item.sku)
 		let request = createRequestObject('ebay', {
-			search: search, 
+			model_name: modelName, 
 			size: filter.size, 
 			currency: filter.currency,
 			ship_to: filter.country, 
@@ -41,100 +58,71 @@ export async function ebayLowestPrice(item, filter) {
 		})
 
 		const response = await fetch(request.url, request.headers)
-		if (!response.ok) return []
+		if (!response.ok) return {}
 
 		let itemData = await response.json()
-		itemData.sort((a, b) => a.price - b.price)
 
-		return [{
-			source: 'ebay',
-			price: Math.round(itemData[0]['price2']),
-			url: new URL(itemData[0]['url']),
-			shippingPrice: Math.round(itemData[0]['shipping2'])
-		}]
+		return itemData
 	} catch (e) {
-		return []
+		return {}
 	}
 }
 
 
 export async function klektLowestPrice(item, filter) {
 	try {
-		let search = item.sku !== '' ? item.sku : item.modelName.replace('(W)', '')
 		const request = createRequestObject('klekt', {
-			search: search, 
+			sku: item.sku, 
 			size: filter.size,
 			currency: filter.currency,
 			ship_to: filter.country
 		})
 
 		const response = await fetch(request.url, request.headers)
-		if (!response.ok) return []
+		if (!response.ok) return {}
 
 		let itemData = await response.json()
 
-		return [{
-			source: 'klekt',
-			price: Math.round(itemData[0]['price2']),
-			url: new URL(itemData[0]['url']),
-			shippingPrice: Math.round(itemData[0]['shipping2'])
-		}]
+		return itemData
 	} catch (e) {
-		return []
+		return {}
 	}
 }
 
 
 export async function goatLowestPrice(item, filter) {
 	try {
-		let search = item.sku !== '' ? item.sku : item.modelName.replace('(W)', '')
 		const request = createRequestObject('goat', {
-			search: search, 
+			sku: item.sku, 
 			size: filter.size,
 			currency: filter.currency,
 			ship_to: filter.country
 		})
-
-		const response = await fetch(request.url, request.headers)
-		if (!response.ok) return []
-
-		let itemData = await response.json()
 		
-		return [{
-			source: 'goat',
-			price: Math.round(itemData[0]['price2']),
-			url: new URL(itemData[0]['url']),
-			shippingPrice: Math.round(itemData[0]['shipping2'])
-		}]
+		const response = await fetch(request.url, request.headers)
+		if (!response.ok) return {}
+		let itemData = await response.json()
+		return itemData
 	} catch (e) {
-		return []
+		return {}
 	}
 }
 
 
 export async function flightclubLowestPrice(item, filter) {
 	try {
-		let search = item.sku !== '' ? item.sku : item.modelName.replace('(W)', '')
 		const request = createRequestObject('flightclub', {
-			search: search, 
+			sku: item.sku, 
 			size: filter.gender === 'women' ? filter.size-1.5 : filter.size,
 			currency: filter.currency,
 			ship_to: filter.country
 		})
-
 		const response = await fetch(request.url, request.headers)
-		if (!response.ok) return []
-
+		if (!response.ok) return {}
 		let itemData = await response.json()
-		
-		return [{
-			source: 'flightclub',
-			price: Math.round(itemData[0]['price2']),
-			url: new URL(itemData[0]['url']),
-			shippingPrice: Math.round(itemData[0]['shipping2'])
-		}]
+		return itemData
 	} catch (e) {
-		return []
+		return {}
 	}
 }
 
@@ -143,33 +131,21 @@ export async function flightclubLowestPrice(item, filter) {
 
 export async function ebayListings(item, filter) {
 	try {
-		let search = item.modelName.replace('(W)', '').concat(' ', item.sku)
-		const request = createRequestObject('ebay', {
-			search: search, 
+		let modelName = item.modelName.replace('(W)', '')
+		const request = createRequestObject('ebaylistings', {
+			model_name: modelName, 
 			size: filter.size,
 			currency: filter.currency,
 			ship_to: filter.country, 
 			postal_code: filter.postalCode
 		})
-
+		
 		const response = await fetch(request.url, request.headers)
 		if (!response.ok) return []
 
 		let itemData = await response.json()
-		let results = []
-		for (const item of itemData) {
 
-			results.push({
-				id: item['id'],
-				source: 'ebay',
-				price: Math.round(item['price2']),
-				image: item['image'],
-				url: item['url'],
-				condition: item['condition'],
-				shippingPrice: Math.round(item['shipping2'])
-			})
-		}
-		return results
+		return itemData
 	} catch (e) {
 		return []
 	}
@@ -178,9 +154,9 @@ export async function ebayListings(item, filter) {
 
 export async function depopListings(item, filter) {
 	try {
-		let search = item.modelName.replace('(W)', '')
+		const modelName = item.modelName.replace('(W)', '')
 		const request = createRequestObject('depop', {
-			search: search, 
+			model_name: modelName, 
 			size: filter.size, 
 			gender: filter.gender,
 			currency: filter.currency,
@@ -190,19 +166,9 @@ export async function depopListings(item, filter) {
 		const response = await fetch(request.url, request.headers)
 		if (!response.ok) return []
 
-		let itemData = await response.json()
-		let results = []
-		for (const item of itemData) {
-			results.push({
-				id: item['id'],
-				source: 'depop',
-				price: Math.round(item['price2']),
-				image: item['image'],
-				url: new URL(item['url']),
-				shippingPrice: Math.round(item['shipping2'])
-			})
-		}
-		return results
+		const itemData = await response.json()
+
+		return itemData
 	} catch (e) {
 		return []
 	}
@@ -210,9 +176,9 @@ export async function depopListings(item, filter) {
 
 export async function grailedListings(item, filter) {
 	try {
-		let search = item.modelName.replace('(W)', '')
+		const modelName = item.modelName.replace('(W)', '')
 		const request = createRequestObject('grailed', {
-			search: search, 
+			model_name: modelName, 
 			size: filter.size,
 			currency: filter.currency,
 			ship_to: filter.country
@@ -221,21 +187,9 @@ export async function grailedListings(item, filter) {
 		const response = await fetch(request.url, request.headers)
 		if (!response.ok) return []
 		
-		let itemData = await response.json()
+		const itemData = await response.json()
 
-		let results = []
-		for (const item of itemData) {
-			let itemResult = {
-				id: item['id'],
-				source: 'grailed',
-				price: Math.round(item['price2']),
-				image: item['image'],
-				url: new URL(item['url']),
-				shippingPrice: Math.round(item['shipping2'])
-			}
-			results.push(itemResult)
-		}
-		return results
+		return itemData
 	} catch (e) {
 		return []
 	}

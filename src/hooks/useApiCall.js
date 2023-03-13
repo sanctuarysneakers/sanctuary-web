@@ -5,8 +5,9 @@ import { browseCall, updateItemInfo, updateItemPrices, updateItemListings,
     updateRelatedItems, setRelatedItemsLoading, setItemPricesLoading, setItemListingsLoading, 
     updateFeaturedCollections } from '../redux/actions'
 import createRequestObject from './createRequest'
-import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPrice, 
-    klektLowestPrice, grailedListings, ebayListings, depopListings, collectionItems } from './scrapers'
+import { stockxLowestPrice, footlockerLowestPrice, goatLowestPrice, flightclubLowestPrice, 
+    ebayLowestPrice, klektLowestPrice, grailedListings, ebayListings, depopListings,
+    collectionItems } from './scrapers'
 import { getLocation }  from '../hooks/useLocationDetection'
 
 export default function useAPICall(callType, params) {
@@ -121,32 +122,29 @@ export default function useAPICall(callType, params) {
     }
 
     async function getItemPrices(item, size, gender) {
-        let filter = {
+        const filter = {
             size: size,
             gender: gender,
             country: location['country_code'],
             postalCode: location['postal_code'],
             currency: currency
         }
-
-        const res = await SafePromiseAll(
+        let results = await SafePromiseAll(
             [
                 stockxLowestPrice(item, filter),
                 ebayLowestPrice(item, filter),
                 flightclubLowestPrice(item, filter),
                 goatLowestPrice(item, filter),
-                klektLowestPrice(item, filter)
+                klektLowestPrice(item, filter),
+                footlockerLowestPrice(item, filter)
             ]
         )
-        
-        let results = res.flat()
+        results = results.filter(elements => {return elements !== null})
         results = results.filter(r => r.price !== 0)
         results.sort((a, b) => a.price - b.price)
 
         dispatch(updateItemPrices(results))
         dispatch(setItemPricesLoading(false))
-
-        return results
     }
 
     async function getItemListings(item, size, gender) {
@@ -158,24 +156,24 @@ export default function useAPICall(callType, params) {
             currency: currency
         }
 
-        const res = await SafePromiseAll(
+        let results = await SafePromiseAll(
             [
                 ebayListings(item, filter), 
                 depopListings(item, filter),
                 grailedListings(item, filter)
             ]
-        ) 
-
-        let results = res.flat().sort((a, b) => a.price - b.price)
+        )
+        results = results.flat()
+        results = results.filter(elements => {return elements !== null})
+        results = results.filter(r => r.price !== 0)
+        results.sort((a, b) => a.price - b.price)
         dispatch(updateItemListings(results))
         dispatch(setItemListingsLoading(false))
-        return results
     }
 
     async function getRelatedItems(item) {
-        console.log(item)
         let params = {
-            search: item.modelName,
+            search: item.modelName.replace('(W)', ''),
             size: size,
             currency: currency, 
             ship_to: location['country_code']
@@ -186,12 +184,11 @@ export default function useAPICall(callType, params) {
         try {
             const response = await fetch(request.url, request.headers)
             if (!response.ok) throw new Error()
-
             let results = await response.json()
-            if (!results.length) throw new Error()
     
             dispatch(updateRelatedItems(results))
         } catch (e) {
+            console.error(e, e.stack)
             dispatch(updateRelatedItems([]))
         }
         setRelatedItemsLoading(false) 
