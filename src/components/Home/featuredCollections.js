@@ -9,9 +9,9 @@ export default function FeaturedCollections() {
     return (
         <div>
             {featuredCollections && featuredCollections.length > 0 && featuredCollections.map(collection => 
-                <div> 
+                <div key={collection.title}> 
                     {collection.title === "Most Popular" && <Carousel data={collection.data} type={"trending"} /> }
-                    {collection.title != "Most Popular" &&    
+                    {collection.title !== "Most Popular" &&    
                         <div>                   
                             <h2 className='home-trending-sneakers-header'>
                             {collection.title}

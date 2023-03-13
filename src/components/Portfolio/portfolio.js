@@ -36,7 +36,17 @@ export default function Portfolio() {
     	dispatch(updatePortfolioData(newPortfolio))
     }
 
-	const handleDashboard = () => {
+	useEffect(() => {
+		async function fetchPortfolio() {
+			let data = await getPortfolio(user.uid, currency, location)
+			dispatch(updatePortfolioData(data))
+			dispatch(setPortfolioLoading(false))
+		}
+		fetchPortfolio()
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [currency])
+
+	useEffect(() => {
 		let price = 0
 		let priceChange = 0
 		let initialPrice = 0
@@ -58,19 +68,6 @@ export default function Portfolio() {
 
 		priceChange === 0 ? setColour('#8A8A8D') : (priceChange > 0 ? setColour('#34A853') : setColour('#EC3E26'))
 		priceChange === 0 ? setGraph(GraphStraight) : (priceChange > 0 ? setGraph(GraphUp) : setGraph(GraphDown))
-	}
-
-	useEffect(() => {
-		async function fetchPortfolio() {
-			let data = await getPortfolio(user.uid, currency, location)
-			dispatch(updatePortfolioData(data))
-			dispatch(setPortfolioLoading(false))
-		}
-		fetchPortfolio()
-	}, [currency])
-
-	useEffect(() => {
-		handleDashboard()
 	}, [portfolio])
 
 	return (
@@ -90,7 +87,7 @@ export default function Portfolio() {
 						{loadingPortfolio && <LoadingPortfolio />}
 					</div>
 
-					{!loadingPortfolio && <img src={graph} />}
+					{!loadingPortfolio && <img src={graph} alt='Portfolio trendline'/>}
 
 					<div className='portfolio-buttons'>
 						<Link onClick={() => document.location.href = '/browse'}>
@@ -126,7 +123,7 @@ export default function Portfolio() {
 						Build your sneaker portfolio.
 					</h1>
 
-					<img src={Splash} />
+					<img src={Splash} alt='Splash icon'/>
 
 					<Link onClick={() => document.location.href = '/sign-in'}>
 						Get Started Today

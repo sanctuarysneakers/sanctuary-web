@@ -5,7 +5,6 @@ import { Link, useHistory, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useMediaQuery } from 'react-responsive'
 import apple from "../../assets/images/logos/apple-black.png"
-import facebook from "../../assets/images/logos/facebook-blue.png"
 import google from "../../assets/images/logos/google.svg"
 import mail from "../../assets/images/logos/mail.svg"
 import Footer from '../Other/footer'
@@ -20,16 +19,10 @@ export default function SignInOptions() {
         dispatch(setRedirectUrl(decodeURIComponent(redirect)))
     
     const googProvider = new firebase.auth.GoogleAuthProvider()
-    const fbProvider = new firebase.auth.FacebookAuthProvider()
     const appleProvider = new firebase.auth.OAuthProvider('apple.com')
     
     const googleAuth = () => {
         firebase.auth().signInWithRedirect(googProvider)
-            .then(history.push('/'))
-    }
-
-    const facebookAuth = () => {
-        firebase.auth().signInWithRedirect(fbProvider)
             .then(history.push('/'))
     }
 

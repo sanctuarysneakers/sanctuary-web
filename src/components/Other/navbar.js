@@ -31,12 +31,12 @@ export default function Navbar() {
             <div className='navbar-content'>
                 {isDesktop && <div className='desktop-content'>
 
-                    <Link 
+                    <div
                         className='sanctuary-logo'
                         onClick={() => document.location.href = '/'}
                     >
                         <SanctuaryLogo />
-                    </Link>
+                    </div>
 
                     <div className='navbar-links'>
                         <Search onClick={() => dispatch(showSearchModal())} />

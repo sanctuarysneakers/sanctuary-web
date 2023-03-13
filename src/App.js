@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Switch, Route } from 'react-router-dom'
-import { useLocation } from 'react-router'
 import { RemoveScroll } from 'react-remove-scroll'
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser, setRedirectUrl } from './redux/actions'
@@ -52,9 +51,7 @@ import Loader from './components/Other/loader'
 
 export default function App() {
 
-    const dispatch = useDispatch()
-    const urlLocation = useLocation()
-    
+    const dispatch = useDispatch()    
     useLocationDetection()
     
     const locationPopup = useSelector(state => state.modals.locationPopupVisible)
@@ -83,12 +80,7 @@ export default function App() {
                 setLoader(false)
             }
         })
-    }, [])
-
-    // useEffect(() => {
-    //     window.analytics.page(); 
-    // }, [urlLocation.pathname])
-
+    }, [dispatch, redirect])
 
     if (loader) {
         return (
