@@ -1,8 +1,8 @@
 
 export default function createRequestObject(type, filter) {
 
-	// const api = 'https://hdwj2rvqkb.us-west-2.awsapprunner.com'
-	const api = 'http://127.0.0.1:8080'
+	const api = 'https://hdwj2rvqkb.us-west-2.awsapprunner.com'
+	// const api = 'http://127.0.0.1:8080'
 	const autosuggestAPI = 'https://2fwotdvm2o-dsn.algolia.net'
 
 	switch (type) {
@@ -30,49 +30,63 @@ export default function createRequestObject(type, filter) {
 			}
 		case 'stockx':
 			return {
-				url: `${api}/itemprices?source=stockx&` + new URLSearchParams(filter),
+				url: `${api}/lowestprices?source=stockx&` + new URLSearchParams(filter),
+				headers: {
+					method: 'GET'
+				}
+			}
+		case 'footlocker':
+			return {
+				url: `${api}/lowestprices?source=footlocker&` + new URLSearchParams(filter),
 				headers: {
 					method: 'GET'
 				}
 			}
 		case 'ebay':
 			return {
-				url: `${api}/itemprices?source=ebay&` + new URLSearchParams(filter),
+				url: `${api}/lowestprices?source=ebay&` + new URLSearchParams(filter),
 				headers: {
 					method: 'GET'
 				}
 			}
 		case 'klekt':
 			return {
-				url: `${api}/itemprices?source=klekt&` + new URLSearchParams(filter),
+				url: `${api}/lowestprices?source=klekt&` + new URLSearchParams(filter),
 				headers: {
 					method: 'GET'
 				}
 			}
 		case 'goat':
 			return {
-				url: `${api}/itemprices?source=goat&` + new URLSearchParams(filter),
+				url: `${api}/lowestprices?source=goat&` + new URLSearchParams(filter),
 				headers: {
 					method: 'GET'
 				}
 			}
 		case 'flightclub':
 			return {
-				url: `${api}/itemprices?source=flightclub&` + new URLSearchParams(filter),
+				url: `${api}/lowestprices?source=flightclub&` + new URLSearchParams(filter),
+				headers: {
+					method: 'GET'
+				}
+			}
+		case 'ebaylistings':
+			return {
+				url: `${api}/listings?source=ebay&` + new URLSearchParams(filter),
 				headers: {
 					method: 'GET'
 				}
 			}
 		case 'depop':
 			return {
-				url: `${api}/itemprices?source=depop&` + new URLSearchParams(filter),
+				url: `${api}/listings?source=depop&` + new URLSearchParams(filter),
 				headers: {
 					method: 'GET'
 				}
 			}
 		case 'grailed':
 			return {
-				url: `${api}/itemprices?source=grailed&` + new URLSearchParams(filter),
+				url: `${api}/listings?source=grailed&` + new URLSearchParams(filter),
 				headers: {
 					method: 'GET'
 				}

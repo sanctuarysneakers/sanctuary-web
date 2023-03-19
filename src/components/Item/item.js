@@ -55,6 +55,7 @@ export default function Item() {
         <ItemPrice key={item.source} data={item} index={index}
             length={itemPrices.length} />
     )
+
     const listingComponents = itemListings.map((item, index) =>
         <ItemListing key={item.id} data={item} index={index}
             length={itemListings.length} />
