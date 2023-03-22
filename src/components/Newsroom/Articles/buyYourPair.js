@@ -167,7 +167,7 @@ export default function BuyYourPair() {
             
             <NextArticles />
 
-            <Footer colour={'blue'} />
+            <Footer color={'blue'} />
         </div>
     )
 }

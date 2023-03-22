@@ -16,7 +16,7 @@ export default function HowItWorks() {
                 <HowItWorksSites />
                 <HowItWorksCards />
                 <HowItWorksContact />
-                <Footer colour={'white'} />
+                <Footer color={'white'} />
             </div>
         </div>
     )

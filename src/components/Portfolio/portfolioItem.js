@@ -28,7 +28,7 @@ export default function PortfolioItem() {
     const currentPrice = Math.round(item.currentPrice)
     const priceChange = currentPrice - price
     const percentChange = (priceChange / price * 100).toFixed(2)
-    const colour = priceChange === 0 ? 'grey' : (priceChange > 0 ? 'green' : 'red')
+    const color = priceChange === 0 ? 'grey' : (priceChange > 0 ? 'green' : 'red')
     const graph = priceChange === 0 ? GraphStraight : (priceChange > 0 ? GraphUp : GraphDown)
 
     // TODO: add code to link to item page for this sneaker
@@ -76,7 +76,7 @@ export default function PortfolioItem() {
                         {currencySymbolMap[currency]}{currentPrice}.00
                     </h1>
 
-                    <p style={{ color: colour }}>
+                    <p style={{ color: color }}>
                         {currencySymbolMap[currency]}{(priceChange)}.00 ({percentChange}%)
                     </p>
                 </div>
@@ -194,7 +194,7 @@ export default function PortfolioItem() {
                 </div>
             </div>
 
-            <Footer colour={'blue'} />
+            <Footer color={'blue'} />
         </div>
     )
 }

@@ -26,7 +26,7 @@ export default function PageNotFound() {
                 <SearchBox/>
             </div>
 
-            <Footer colour={'white'} />
+            <Footer color={'white'} />
         </div>
     )
 }

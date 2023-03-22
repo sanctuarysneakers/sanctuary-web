@@ -65,7 +65,7 @@ export default function EditProfileEmail() {
 
             </div>
 
-            <Footer colour={'white'} />
+            <Footer color={'white'} />
         </div>
     )
 }

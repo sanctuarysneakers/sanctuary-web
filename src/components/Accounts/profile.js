@@ -2,7 +2,7 @@ import React from 'react'
 import firebase from '../../services/firebase.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory, useParams } from 'react-router-dom'
-import { /*showDeleteModal,*/ hideHomeSearch } from '../../redux/actions'
+import { hideHomeSearch } from '../../redux/actions'
 import { FaChevronRight } from 'react-icons/fa'
 import ProfileIcon from '../../assets/images/icons/profileIcon'
 import Footer from '../Other/footer'
@@ -108,7 +108,7 @@ export default function Profile() {
 
             </div>}
 
-            <Footer colour={'white'} />
+            <Footer color={'white'} />
         </div>
     )
 }

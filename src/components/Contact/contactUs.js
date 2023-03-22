@@ -10,7 +10,7 @@ export default function ContactUs() {
                 <ContactForm />
             </div>
 
-            <Footer colour={'white'} />
+            <Footer color={'white'} />
         </div>
     )
 }
