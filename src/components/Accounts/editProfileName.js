@@ -70,7 +70,7 @@ export default function EditProfileName() {
 
             </div>
 
-            <Footer colour={'white'} />
+            <Footer color={'white'} />
         </div>
     )
 }

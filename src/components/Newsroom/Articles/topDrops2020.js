@@ -92,7 +92,7 @@ export default function TopDrops2020() {
             
             <NextArticles />
 
-            <Footer colour={'blue'} />
+            <Footer color={'blue'} />
         </div>
     )
 }

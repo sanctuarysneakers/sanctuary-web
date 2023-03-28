@@ -8,10 +8,10 @@ import { ReactComponent as TwitterLogo } from '../../assets/images/twitter.svg'
 import { ReactComponent as TiktokLogo } from '../../assets/images/tiktok.svg'
 
 
-export default function Footer({ colour }) {
+export default function Footer({ color }) {
 
     return (
-        <div className={`footer ${colour}`}>
+        <div className={`footer ${color}`}>
             <div className='footer-content'>
                 <div className='footer-links'>
                     <div className='footer-links-logos'>

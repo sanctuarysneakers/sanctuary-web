@@ -92,7 +92,7 @@ export default function CreateAccountOptions() {
 
             </div>
 
-            <Footer colour={'white'} />
+            <Footer color={'white'} />
         </div>
     )
 }

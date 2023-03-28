@@ -12,14 +12,14 @@ export async function getPortfolio(userID, currency, location) {
 	portfolio.forEach(item => item.data = JSON.parse(item.data))
 
 	// add current price for each item
-	const reqs = portfolio.map(item => itemWithCurrentPrice(
+	const reqs = portfolio.map(item => getItemCurrentPrice(
 		item, item.size, item.gender, currency, location))
 	portfolio = await SafePromiseAll(reqs)
 
 	return portfolio
 }
 
-async function itemWithCurrentPrice(item, size, gender, currency, location) {
+async function getItemCurrentPrice(item, size, gender, currency, location) {
 	const prices = await getItemPrices(item.data, size, gender, currency, location)
 	item.currentPrice = prices[0].price
 	return item

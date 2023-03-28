@@ -123,7 +123,7 @@ export default function SanctuaryStory() {
             
             <NextArticles />
 
-            <Footer colour={'blue'} />
+            <Footer color={'blue'} />
         </div>
     )
 }

@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { updatePortfolioData, setPortfolioLoading } from '../../redux/actions'
-import { getPortfolio, removeFromPortfolio } from '../../api/portfolio'
+import { getPortfolio, removeFromPortfolio } from '../../api/portfolioData'
 import PortfolioCard from './portfolioCard'
 import Footer from '../Other/footer'
 import GraphDown from '../../assets/images/downwards-dark-desktop.svg'
@@ -17,10 +17,10 @@ export default function Portfolio() {
 
 	const dispatch = useDispatch()
 
-	const [total, setTotal] = useState(0)
+	const [totalBalance, setTotalBalance] = useState(0)
 	const [priceChange, setPriceChange] = useState(0)
 	const [percentChange, setPercentChange] = useState(0)
-	const [colour, setColour] = useState('black')
+	const [color, setColor] = useState('black')
 	const [graph, setGraph] = useState(GraphStraight)
 
 	const user = useSelector(state => state.user)
@@ -28,13 +28,6 @@ export default function Portfolio() {
 	const location = useSelector(state => state.location)
 	const portfolio = useSelector(state => state.portfolio.portfolioData)
 	const loadingPortfolio = useSelector(state => state.portfolio.loadingPortfolio)
-
-	const removeItemHandler = (recordID) => {
-		removeFromPortfolio(recordID)  // removes from database
-		const newPortfolio = portfolio.filter(item => 
-			item.record_id !== recordID)
-    	dispatch(updatePortfolioData(newPortfolio))
-    }
 
 	useEffect(() => {
 		async function fetchPortfolio() {
@@ -57,7 +50,7 @@ export default function Portfolio() {
 			priceChange += (portfolio[i].currentPrice - portfolio[i].price)
 		}
 
-		setTotal(price)
+		setTotalBalance(price)
 		setPriceChange(priceChange)
 		const newPercentChange = (priceChange / initialPrice * 100).toFixed(2)
 		if (!isNaN(newPercentChange)) {
@@ -66,7 +59,7 @@ export default function Portfolio() {
 			setPercentChange(0)
 		}
 
-		priceChange === 0 ? setColour('#8A8A8D') : (priceChange > 0 ? setColour('#34A853') : setColour('#EC3E26'))
+		priceChange === 0 ? setColor('#8A8A8D') : (priceChange > 0 ? setColor('#34A853') : setColor('#EC3E26'))
 		priceChange === 0 ? setGraph(GraphStraight) : (priceChange > 0 ? setGraph(GraphUp) : setGraph(GraphDown))
 	}, [portfolio])
 
@@ -80,8 +73,8 @@ export default function Portfolio() {
 				<div className='portfolio-analytics'>
 					<div className='portfolio-stats'>
 						<p> Total Balance </p>
-						{!loadingPortfolio && <h1> ${total}.00 </h1>}
-						{!loadingPortfolio && <h4 style={{ color: colour }}>
+						{!loadingPortfolio && <h1> ${totalBalance}.00 </h1>}
+						{!loadingPortfolio && <h4 style={{ color: color }}>
 							${(priceChange)}.00 ({percentChange}%)
 						</h4>}
 						{loadingPortfolio && <LoadingPortfolio />}
@@ -105,7 +98,7 @@ export default function Portfolio() {
 
 					<div className='portfolio-catalog'>
 						{!loadingPortfolio && portfolio && portfolio.length !== 0 && portfolio.map((item) => (
-							<PortfolioCard key={item.record_id} item={item} remove={removeItemHandler} />
+							<PortfolioCard key={item.record_id} item={item} />
 						))}
 
 						{loadingPortfolio && <div>
@@ -131,7 +124,7 @@ export default function Portfolio() {
 				</div>
 			</div>}
 
-			<Footer colour={'blue'} />
+			<Footer color={'blue'} />
 		</div>
 	)
 }

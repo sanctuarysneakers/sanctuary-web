@@ -34,7 +34,7 @@ export default function Item() {
     const navLocation = useLocation()
     let passedData = navLocation.itemInfo ? navLocation.itemInfo : null
     useAPICall('getitem', {
-        itemKey: decodeURIComponent(itemKey), //differentiates between urlkey and sku
+        itemKey: decodeURIComponent(itemKey), // differentiates between urlkey and sku
         size: size,
         gender: gender,
         fromBrowse: passedData
@@ -61,7 +61,7 @@ export default function Item() {
             length={itemListings.length} />
     )
 
-    const addToPortfolioHandler = () => {
+    const addToPortfolio = () => {
         addToPortfolio({
             user_id: user.uid,
             sku: itemInfo.sku,
@@ -73,11 +73,6 @@ export default function Item() {
         })
     } 
 
-    // const clickHandler = () => {
-    //     window.analytics.track(`item_buy_new_clicked`, {sku: decodeURIComponent(itemKey), gender: gender, model: itemInfo.modelName});
-    // }
-
-    /* eslint-disable jsx-a11y/anchor-is-valid */
     return (
         <div className='item'>
             <HelmetProvider>
@@ -91,7 +86,7 @@ export default function Item() {
             <div className='item-sneaker'>
                 <div className='item-sneaker-wrapper'>
                     <div className='item-sneaker-actions'>
-                        {user && <button className='item-portflio' onClick={() => addToPortfolioHandler()}>
+                        {user && <button className='item-portflio' onClick={() => addToPortfolio()}>
                             <Add />
                         </button>}
 
@@ -196,7 +191,7 @@ export default function Item() {
                 </div>
             </div>
 
-            <Footer colour={'blue'} />
+            <Footer color={'blue'} />
         </div>
     )
 }

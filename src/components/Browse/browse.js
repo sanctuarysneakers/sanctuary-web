@@ -39,7 +39,7 @@ export default function Browse() {
                 <Catalog searchTerm={searchTerm} />
             </div>
 
-            <Footer colour={'blue'} />
+            <Footer color={'blue'} />
         </div>
     )
 

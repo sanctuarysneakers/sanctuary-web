@@ -102,7 +102,7 @@ export default function SneakerMarket() {
 
             <NextArticles />
 
-            <Footer colour={'blue'} />
+            <Footer color={'blue'} />
         </div>
     )
 }

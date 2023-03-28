@@ -127,7 +127,7 @@ export default function CreateAccountEmail() {
                 </div>
             </div>
 
-            <Footer colour={'white'} />
+            <Footer color={'white'} />
 
         </div>
     )
