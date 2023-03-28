@@ -5,7 +5,7 @@ import { browseCall, updateItemInfo, updateItemPrices, updateItemListings,
     updateRelatedItems, setRelatedItemsLoading, setItemPricesLoading, setItemListingsLoading, 
     updateFeaturedCollections } from '../redux/actions'
 import createRequestObject from '../api/createRequest'
-import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, ebayLowestPrice, 
+import { stockxLowestPrice, goatLowestPrice, flightclubLowestPrice, footlockerLowestPrice, ebayLowestPrice, 
     klektLowestPrice, grailedListings, ebayListings, depopListings, collectionItems } from '../api/dataSources'
 import { getLocation }  from './useLocationDetection'
 
