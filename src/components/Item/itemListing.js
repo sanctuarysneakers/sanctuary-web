@@ -1,29 +1,28 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { ReactComponent as RightArrow } from '../../assets/images/RightArrow.svg'
 import { ReactComponent as Shipping } from '../../assets/images/shipping-icon.svg'
 import { websiteTextMap, currencySymbolMap } from '../../assets/constants'
 
-export default function ItemListing({ data, index, length }) {
+export default function ItemListing ({ data, index, length }) {
+  const currency = useSelector(state => state.currency)
 
-    const currency = useSelector(state => state.currency)
-
-    let condition
-    if (data.source === 'ebay') {
-        try {
-            condition = data.condition[0].conditionDisplayName[0]
-        } catch (e) {
-            condition = 'Used'
-        }
-    } else {
-        condition = 'Used'
+  let condition
+  if (data.source === 'ebay') {
+    try {
+      condition = data.condition[0].conditionDisplayName[0]
+    } catch (e) {
+      condition = 'Used'
     }
+  } else {
+    condition = 'Used'
+  }
 
-    /* eslint-disable jsx-a11y/anchor-is-valid */
-    return (
+  return (
         <div className={(index === length - 1) ? 'item-listing last' : 'item-listing'}>
-            <Link to={{ pathname: data.url }} className="hidden-link" target="_blank" rel="noopener noreferrer"> 
+            <Link to={{ pathname: data.url }} className="hidden-link" target="_blank" rel="noopener noreferrer">
                 <div className='item-listing-source'>
                     <div className='item-listing-image'>
                         <img src={data.image} alt='the sneaker' />
@@ -61,5 +60,11 @@ export default function ItemListing({ data, index, length }) {
                 </div>
             </Link>
         </div>
-    )
+  )
+}
+
+ItemListing.propTypes = {
+  data: PropTypes.object,
+  index: PropTypes.number,
+  length: PropTypes.number
 }

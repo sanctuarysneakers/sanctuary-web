@@ -229,7 +229,7 @@ export default function useAPICall(callType, params) {
     useEffect(() => {
         if (callType === 'getitem') {
             getItem(params)
-        } else if (callType == 'featuredcollections') {
+        } else if (callType === 'featuredcollections') {
             getFeaturedCollections()
         } else {
             browse(params.searchTerm)

@@ -1,4 +1,7 @@
+/* eslint-disable no-return-assign */
 import React from 'react'
+import PropTypes from 'prop-types'
+
 import { Link } from 'react-router-dom'
 import CurrencyFilter from '../Currency/currencyFilter'
 import { ReactComponent as SanctuaryFooterLogo } from '../../assets/images/SanctuaryFooterLogo.svg'
@@ -7,11 +10,9 @@ import { ReactComponent as InstagramLogo } from '../../assets/images/instagram.s
 import { ReactComponent as TwitterLogo } from '../../assets/images/twitter.svg'
 import { ReactComponent as TiktokLogo } from '../../assets/images/tiktok.svg'
 
-
-export default function Footer({ colour }) {
-
-    return (
-        <div className={`footer ${colour}`}>
+export default function Footer ({ color }) {
+  return (
+        <div className={`footer ${color}`}>
             <div className='footer-content'>
                 <div className='footer-links'>
                     <div className='footer-links-logos'>
@@ -119,5 +120,9 @@ export default function Footer({ colour }) {
                 </div>
             </div>
         </div>
-    )
+  )
+}
+
+Footer.propTypes = {
+  color: PropTypes.string
 }

@@ -4,14 +4,13 @@ import lastLogo from '../../assets/images/sanctuary-logo-row.png'
 import { useDispatch } from 'react-redux'
 import { hideHomeSearch } from '../../redux/actions'
 
-export default function PrivacyPolicy() {
+export default function PrivacyPolicy () {
+  const dispatch = useDispatch()
 
-    const dispatch = useDispatch()
+  // Hide the search bar
+  dispatch(hideHomeSearch())
 
-    // Hide the search bar
-    dispatch(hideHomeSearch())
-
-    return (
+  return (
         <div className='privacy-policy'>
 
             <Helmet>
@@ -51,10 +50,10 @@ export default function PrivacyPolicy() {
                             </li>
                             <li>
                                 <p><strong>Business</strong>, for the purpose of the CCPA (California Consumer Privacy Act), refers to the
-                                    Company as the legal entity that collects Consumers' personal information and determines the purposes and
-                                    means of the processing of Consumers' personal information, or on behalf of which such information is
+                                    Company as the legal entity that collects Consumers&apos; personal information and determines the purposes and
+                                    means of the processing of Consumers&apos; personal information, or on behalf of which such information is
                                     collected and that alone, or jointly with others, determines the purposes and means of the processing of
-                                    consumers' personal information, that does business in the State of California.</p>
+                                    consumers&apos; personal information, that does business in the State of California.</p>
                             </li>
                             <li>
                                 <p><strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or
@@ -106,7 +105,7 @@ export default function PrivacyPolicy() {
                             <li>
                                 <p><strong>Sale</strong>, for the purpose of the CCPA (California Consumer Privacy Act), means selling, renting,
                                     releasing, disclosing, disseminating, making available, transferring, or otherwise communicating orally, in
-                                    writing, or by electronic or other means, a Consumer's Personal information to another business or a third
+                                    writing, or by electronic or other means, a Consumer&apos;s Personal information to another business or a third
                                     party for monetary or other valuable consideration.</p>
                             </li>
                             <li>
@@ -164,7 +163,7 @@ export default function PrivacyPolicy() {
                         </ul>
                         <h3>Usage Data</h3>
                         <p>Usage Data is collected automatically when using the Service.</p>
-                        <p>Usage Data may include information such as Your Device's Internet Protocol address (e.g. IP address), browser type,
+                        <p>Usage Data may include information such as Your Device&apos;s Internet Protocol address (e.g. IP address), browser type,
                             browser version, the pages of our Service that You visit, the time and date of Your visit, the time spent on those
                             pages, unique device identifiers and other diagnostic data.</p>
                         <p>When You access the Service by or through a mobile device, We may collect certain information automatically,
@@ -242,7 +241,7 @@ export default function PrivacyPolicy() {
                                 contract for the products, items or services You have purchased or of any other contract with Us through the
                                 Service.</p></li>
                             <li><p><strong>To contact You:</strong> To contact You by email, telephone calls, SMS, or other equivalent forms of
-                                electronic communication, such as a mobile application's push notifications regarding updates or informative
+                                electronic communication, such as a mobile application&apos;s push notifications regarding updates or informative
                                 communications related to the functionalities, products or contracted services, including the security updates,
                                 when necessary or reasonable for their implementation.</p></li>
                             <li><p><strong>To provide You</strong> with news, special offers and general information about other goods, services
@@ -280,7 +279,7 @@ export default function PrivacyPolicy() {
                             shorter period of time, except when this data is used to strengthen the security or to improve the functionality of
                             Our Service, or We are legally obligated to retain this data for longer time periods.</p>
                         <h2>Transfer of Your Personal Data</h2>
-                        <p>Your information, including Personal Data, is processed at the Company's operating offices and in any other places
+                        <p>Your information, including Personal Data, is processed at the Company&apos;s operating offices and in any other places
                             where the parties involved in the processing are located. It means that this information may be transferred to — and
                             maintained on — computers located outside of Your state, province, country or other governmental jurisdiction where
                             the data protection laws may differ than those from Your jurisdiction.</p>
@@ -309,7 +308,7 @@ export default function PrivacyPolicy() {
                         <p>The security of Your Personal Data is important to Us, but remember that no method of transmission over the Internet,
                             or method of electronic storage is 100% secure. While We strive to use commercially acceptable means to protect Your
                             Personal Data, We cannot guarantee its absolute security.</p>
-                            
+
                         <div className='big-text'>
                             <h1>Detailed Information on the Processing of Your Personal Data</h1>
                         </div>
@@ -337,7 +336,7 @@ export default function PrivacyPolicy() {
                         <ul>
                             <li>
                                 <p><strong>Google AdSense &amp; DoubleClick Cookie</strong></p>
-                                <p>Google, as a third party vendor, uses cookies to serve ads on our Service. Google's use of the DoubleClick
+                                <p>Google, as a third party vendor, uses cookies to serve ads on our Service. Google&apos;s use of the DoubleClick
                                     cookie enables it and its partners to serve ads to our users based on their visit to our Service or other
                                     websites on the Internet.</p>
                                 <p>You may opt out of the use of the DoubleClick Cookie for interest-based advertising by visiting the Google
@@ -450,7 +449,7 @@ export default function PrivacyPolicy() {
                                 collected and the purposes for which the Personal Data is being used.</p></li>
                             <li><p><strong>The right to access / the right to request.</strong> The CCPA permits You to request and obtain from the
                                 Company information regarding the disclosure of Your Personal Data that has been collected in the past 12 months
-                                by the Company or its subsidiaries to a third-party for the third party's direct marketing purposes.</p></li>
+                                by the Company or its subsidiaries to a third-party for the third party&apos;s direct marketing purposes.</p></li>
                             <li><p><strong>The right to say no to the sale of Personal Data.</strong> You also have the right to ask the Company
                                 not to sell Your Personal Data to third parties. You can submit such a request by visiting our &quot;Do Not Sell
                                 My Personal Information&quot; section or web page.</p></li>
@@ -467,7 +466,7 @@ export default function PrivacyPolicy() {
                             <li><p><strong>The right to delete Personal Data.</strong> You also have the right to request the deletion of Your
                                 Personal Data that have been collected in the past 12 months.</p></li>
                             <li><p><strong>The right not to be discriminated against.</strong> You have the right not to be discriminated against
-                                for exercising any of Your Consumer's rights, including by:
+                                for exercising any of Your Consumer&apos;s rights, including by:
                                 <ul>
                                     <li>Denying goods or services to You</li>
                                     <li>Charging different prices or rates for goods or services, including the use of discounts or other
@@ -520,12 +519,12 @@ export default function PrivacyPolicy() {
                             can set Your preferences in Your web browser to inform websites that You do not want to be tracked. You can enable
                             or disable DNT by visiting the preferences or settings page of Your web browser.</p>
                         <div className='big-text'>
-                            <h1>Your California Privacy Rights (California's Shine the Light law)</h1>
+                            <h1>Your California Privacy Rights (California&apos;s Shine the Light law)</h1>
                         </div>
-                        <p>Under California Civil Code Section 1798 (California's Shine the Light law), California residents with an established
+                        <p>Under California Civil Code Section 1798 (California&apos;s Shine the Light law), California residents with an established
                             business relationship with us can request information once a year about sharing their Personal Data with third
-                            parties for the third parties' direct marketing purposes.</p>
-                        <p>If you'd like to request more information under the California Shine the Light law, and if you are a California
+                            parties for the third parties&apos; direct marketing purposes.</p>
+                        <p>If you&apos;d like to request more information under the California Shine the Light law, and if you are a California
                             resident, You can contact Us using the contact information provided below.</p>
                         <div className='big-text'>
                             <h1>California Privacy Rights for Minor Users (California Business and Professions Code Section 22581)</h1>
@@ -541,7 +540,7 @@ export default function PrivacyPolicy() {
                             <h1>Links to Other Websites</h1>
                         </div>
                         <p>Our Service may contain links to other websites that are not operated by Us. If You click on a third party link, You
-                            will be directed to that third party's site. We strongly advise You to review the Privacy Policy of every site You
+                            will be directed to that third party&apos;s site. We strongly advise You to review the Privacy Policy of every site You
                             visit.</p>
                         <p>We have no control over and assume no responsibility for the content, privacy policies or practices of any third
                             party sites or services.</p>
@@ -567,6 +566,6 @@ export default function PrivacyPolicy() {
                 </div>
             </div>
 
-        </div>  
-    )
+        </div>
+  )
 }

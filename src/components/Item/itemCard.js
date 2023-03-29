@@ -1,44 +1,44 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateItemInfo, setItemPricesLoading, setItemListingsLoading  } from '../../redux/actions'
-import { currencySymbolMap }  from '../../assets/constants'
+import { updateItemInfo, setItemPricesLoading, setItemListingsLoading } from '../../redux/actions'
+import { currencySymbolMap } from '../../assets/constants'
 
-export default function ItemCard({ data }) {
+export default function ItemCard ({ data }) {
+  const dispatch = useDispatch()
+  const currency = useSelector(state => state.currency)
 
-    const dispatch = useDispatch()
-    const currency = useSelector(state => state.currency)
+  const generateLink = () => {
+    dispatch(updateItemInfo({}))
+    dispatch(setItemPricesLoading(true))
+    dispatch(setItemListingsLoading(true))
 
-    const generateLink = () => {
-        dispatch(updateItemInfo({}))
-        dispatch(setItemPricesLoading(true))
-        dispatch(setItemListingsLoading(true))
+    const itemKey = data.sku ? encodeURIComponent(data.sku) : data.urlKey
+    // window.analytics.track(`browse_item_clicked`, {id: itemKey, gender: data.gender})
+    return data.gender !== null ? `/item/${itemKey}/${data.gender}` : `/item/${itemKey}`
+  }
 
-        let itemKey = data.sku ? encodeURIComponent(data.sku) : data.urlKey
-        //window.analytics.track(`browse_item_clicked`, {id: itemKey, gender: data.gender})
-        return data.gender !== null ? `/item/${itemKey}/${data.gender}` : `/item/${itemKey}` 
+  const getNavData = () => {
+    const itemInfo = {
+      sku: data.sku,
+      modelName: data.model,
+      image: data.image,
+      url: data.url,
+      urlKey: data.urlKey
     }
+    return itemInfo
+  }
 
-    const getNavData = () => {
-        let itemInfo = {
-            sku: data.sku,
-            modelName: data.model,
-            image: data.image,
-            url: data.url,
-            urlKey: data.urlKey
-        }
-        return itemInfo
-    }
-
-    return (
+  return (
         <div className='item-card'>
-            <Link 
+            <Link
                 to={{
-                    pathname: generateLink(),
-                    itemInfo: getNavData()
+                  pathname: generateLink(),
+                  itemInfo: getNavData()
                 }}
                 className="hidden-link"
-            > 
+            >
                 <div className='item-card-content'>
                     <div className='item-card-sneaker'>
                         <img src={data.imageThumbnail} loading='lazy' alt={data.model} />
@@ -49,7 +49,7 @@ export default function ItemCard({ data }) {
 
                         <div className='item-card-estimated-price'>
                             <p className='item-card-estimated'>
-                                Estimated 
+                                Estimated
                             </p>
 
                             <p className='item-card-price'>
@@ -58,7 +58,11 @@ export default function ItemCard({ data }) {
                         </div>
                     </div>
                 </div>
-            </Link> 
+            </Link>
         </div>
-    )
+  )
+}
+
+ItemCard.propTypes = {
+  data: PropTypes.object
 }

@@ -1,20 +1,18 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef } from 'react'
 import FadeIn from 'react-fade-in'
-import VisibleOnScreen from "../../hooks/visibleOnScreen"
+import VisibleOnScreen from '../../hooks/visibleOnScreen'
 
-export default function HowItWorksInfo() {
+export default function HowItWorksInfo () {
+  const ref = useRef()
+  const isVisible = VisibleOnScreen(ref)
 
-    const ref = useRef()
-    const isVisible = VisibleOnScreen(ref)
-    
-    const [render, setRender] = useState(false)
+  const [render, setRender] = useState(false)
 
-    useEffect(() => {
-        if (isVisible)
-            setRender(true)
-    }, [isVisible])
+  useEffect(() => {
+    if (isVisible) { setRender(true) }
+  }, [isVisible])
 
-    return (
+  return (
         <div className="how-it-works-info">
             <div className="how-it-works-info-content">
                 <div ref={ref} className="how-it-works-info-text">
@@ -31,5 +29,5 @@ export default function HowItWorksInfo() {
                 </div>
             </div>
         </div>
-    )
+  )
 }

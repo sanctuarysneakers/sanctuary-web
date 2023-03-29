@@ -5,27 +5,26 @@ import useOutsideAlerter from '../../hooks/useOutsideAlerter'
 import CategoryOption from '../Browse/categoryOption'
 import { ReactComponent as Close } from '../../assets/images/close.svg'
 
-export default function CategoryFilterModal() {
+export default function CategoryFilterModal () {
+  const wrapperRef = useRef(null)
+  const dispatch = useDispatch()
+  useOutsideAlerter(wrapperRef)
 
-    const wrapperRef = useRef(null)
-    const dispatch = useDispatch()
-    useOutsideAlerter(wrapperRef)
+  const categories = ['Adidas', 'Air Force 1', 'Air Jordan', 'Air Max', 'Blazer', 'Converse', 'Dunk', 'New Balance', 'Ultra Boost', 'Yeezy', 'Nike']
 
-    const categories = ['Adidas', 'Air Force 1', 'Air Jordan', 'Air Max', 'Blazer', 'Converse', 'Dunk', 'New Balance', 'Ultra Boost', 'Yeezy','Nike']
+  const categoryOptions = categories.map((category) =>
+        <CategoryOption key={category} category={category}/>
+  )
 
-    const categoryOptions = categories.map((category) => 
-        <CategoryOption category={category}/>
-    )
-
-    return (
+  return (
         <div className='category-modal'>
             <div className='category-modal-content' ref={wrapperRef}>
                 <div className='category-modal-padding'>
                     <div className='category-modal-close'>
-						<button onClick={() => dispatch(hideCategoryFilterModal())}>
-							<Close />
-						</button>
-					</div>
+                        <button onClick={() => dispatch(hideCategoryFilterModal())}>
+                            <Close />
+                        </button>
+                        </div>
 
                     <div className='category-modal-text'>
                         <h1> Categories </h1>
@@ -37,5 +36,5 @@ export default function CategoryFilterModal() {
                 </div>
             </div>
         </div>
-    )
+  )
 }

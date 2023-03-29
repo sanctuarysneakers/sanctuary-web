@@ -1,30 +1,30 @@
+/* eslint-disable no-return-assign */
 import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { hideHamburgerModal } from '../../redux/actions'
 import ProfileIcon from '../../assets/images/icons/profileIcon'
-import {ReactComponent as RightArrow} from '../../assets/images/RightArrow.svg'
+import { ReactComponent as RightArrow } from '../../assets/images/RightArrow.svg'
 
-export default function HamburgerModal() {
+export default function HamburgerModal () {
+  const ref = useRef()
+  const dispatch = useDispatch()
+  const user = useSelector(state => state.user)
+  const menuVisible = useSelector(state => state.modals.hamburgerModalVisible)
 
-    const ref = useRef()
-    const dispatch = useDispatch()
-    const user = useSelector(state => state.user)
-    const menuVisible = useSelector(state => state.modals.hamburgerModalVisible)
+  useEffect(() => {
+    const handleClickOut = (e) => {
+      if (menuVisible && ref.current && !ref.current.contains(e.target)) {
+        dispatch(hideHamburgerModal())
+      }
+    }
+    document.addEventListener('mousedown', handleClickOut)
 
-    useEffect(() => {
-        const handleClickOut = (e) => {
-            if (menuVisible && ref.current && !ref.current.contains(e.target)) {
-                dispatch(hideHamburgerModal())
-            }
-        }
-        document.addEventListener("mousedown", handleClickOut)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOut)
+    }
+  })
 
-        return () => {
-            document.removeEventListener("mousedown", handleClickOut)
-        }
-    })
-
-    return (
+  return (
         <div className={menuVisible ? 'hamburger-background active' : 'hamburger-background'}>
             <div className={menuVisible ? 'hamburger-modal active' : 'hamburger-modal'} ref={ref}>
 
@@ -90,5 +90,5 @@ export default function HamburgerModal() {
 
             </div>
         </div>
-    )
+  )
 }

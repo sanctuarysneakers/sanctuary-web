@@ -1,41 +1,39 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import firebase from '../../services/firebase.js'
-import { useHistory } from "react-router-dom"
-import { Link } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
+
 import { setRedirectUrl, hideHomeSearch } from '../../redux/actions'
-import sanctuary from "../../assets/images/logos/sanctuary-bird-black.png"
 import Footer from '../Other/footer'
 
-export default function SignInEmail() {
+export default function SignInEmail () {
+  const dispatch = useDispatch()
+  const history = useHistory()
 
-    const dispatch = useDispatch()
-    const history = useHistory()
+  const redirect = useSelector(state => state.redirect)
 
-    const redirect = useSelector(state => state.redirect)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [errorMessage, setErrorMessage] = useState('')
+  const signInEmailPassword = () => {
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(async (r) => {
+        if (redirect) {
+          const redirectCopy = redirect
+          dispatch(setRedirectUrl(null))
+          const jwt = await r.user.getIdToken()
+          window.location.href = `${redirectCopy}id_token=${jwt}&refresh_token=${r.user.refreshToken}`
+        }
+        history.push('/')
+      }).catch(e => {
+        setErrorMessage(e.message)
+      })
+  }
 
-    const signInEmailPassword = () => {
-        firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(async (r) => {
-                if (redirect) {
-                    let redirectCopy = redirect
-                    dispatch(setRedirectUrl(null))
-                    const jwt = await r.user.getIdToken()
-                    window.location.href = `${redirectCopy}id_token=${jwt}&refresh_token=${r.user.refreshToken}`
-                }
-                history.push("/")
-            }).catch(e => {
-                setErrorMessage(e.message)
-            })
-    }
+  dispatch(hideHomeSearch())
 
-    dispatch(hideHomeSearch())
-
-    return (
+  return (
         <div className='email-form'>
             <div className='email-form-content'>
                 <div className='email-form-header'>
@@ -83,12 +81,12 @@ export default function SignInEmail() {
                     </button>
 
                     <div className='switch-form'>
-                        <p> Don't have an account? </p>
+                        <p> Don&apos;t have an account? </p>
                         <Link to="/create-account-email"> Sign Up. </Link>
                     </div>
 
                     <div className='account-terms-policy'>
-                        <p> By signing in, you agree to Sanctuary's </p>
+                        <p> By signing in, you agree to Sanctuary&apos;s </p>
                         <div className='terms-policy-text'>
 
                             <Link to="/privacy-policy" className='terms-policy-pop-up'>
@@ -110,5 +108,5 @@ export default function SignInEmail() {
             <Footer colour={'white'} />
 
         </div>
-    )
+  )
 }

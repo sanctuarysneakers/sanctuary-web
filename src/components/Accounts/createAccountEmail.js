@@ -1,54 +1,51 @@
 import React, { useState } from 'react'
 import firebase from '../../services/firebase.js'
-import { useHistory } from "react-router-dom"
+import { useHistory, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+
 import { setRedirectUrl, hideHomeSearch } from '../../redux/actions'
-import sanctuary from "../../assets/images/logos/sanctuary-bird-black.png"
 import Footer from '../Other/footer'
 
-export default function CreateAccountEmail() {
+export default function CreateAccountEmail () {
+  const history = useHistory()
+  const dispatch = useDispatch()
 
-    const history = useHistory()
-    const dispatch = useDispatch()
+  const redirect = useSelector(state => state.redirect)
 
-    const redirect = useSelector(state => state.redirect)
-    
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
-    const [errorMessage, setErrorMessage] = useState('')
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
 
-    const createAccountEmailPassword = () => {
-        if (password !== confirmPassword) {
-            setErrorMessage('Passwords do not match.')
-        } else if (name === '') {
-            setErrorMessage('Please enter your name.')
-        } else {
-            firebase.auth().createUserWithEmailAndPassword(email, password)
-                .then(async (r) => {
-                    r.user.updateProfile({ displayName: name })
-                    if (redirect) {
-                        let redirectCopy = redirect
-                        dispatch(setRedirectUrl(null))
-                        const jwt = await r.user.getIdToken()
-                        window.location.href = `${redirectCopy}id_token=${jwt}&refresh_token=${r.user.refreshToken}`
-                    }
-                    history.push("/")
-                }).catch(e => {
-                    setErrorMessage(e.message)
-                })
-        }
+  const createAccountEmailPassword = () => {
+    if (password !== confirmPassword) {
+      setErrorMessage('Passwords do not match.')
+    } else if (name === '') {
+      setErrorMessage('Please enter your name.')
+    } else {
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then(async (r) => {
+          r.user.updateProfile({ displayName: name })
+          if (redirect) {
+            const redirectCopy = redirect
+            dispatch(setRedirectUrl(null))
+            const jwt = await r.user.getIdToken()
+            window.location.href = `${redirectCopy}id_token=${jwt}&refresh_token=${r.user.refreshToken}`
+          }
+          history.push('/')
+        }).catch(e => {
+          setErrorMessage(e.message)
+        })
     }
+  }
 
-    dispatch(hideHomeSearch())
+  dispatch(hideHomeSearch())
 
-    return (
+  return (
         <div className='email-form'>
             <div className='email-form-content'>
                 <div className='email-form-header'>
-                    {/* <img src={sanctuary} alt='Sanctuary' /> */}
                     <h2> Sign Up </h2>
                     <p> Create your Sanctuary profile for a brand new </p>
                     <p> experience, personalized just for you. </p>
@@ -109,7 +106,7 @@ export default function CreateAccountEmail() {
                     </div>
 
                     <div className='account-terms-policy'>
-                        <p> By creating an account, you agree to Sanctuary's </p>
+                        <p> By creating an account, you agree to Sanctuary&apos;s </p>
                         <div className='terms-policy-text'>
 
                             <Link to="/privacy-policy" className='terms-policy-pop-up'>
@@ -131,5 +128,5 @@ export default function CreateAccountEmail() {
             <Footer colour={'white'} />
 
         </div>
-    )
+  )
 }

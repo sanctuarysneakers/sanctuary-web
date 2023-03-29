@@ -1,5 +1,5 @@
 import React from 'react'
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet'
 import NextArticles from '../nextArticles'
 import Footer from '../../Other/footer'
 import ProfilePic from '../../../assets/images/ColeVanHinte.jpg'
@@ -7,9 +7,8 @@ import HeaderPic from '../../../assets/images/demystifying-sneakers.jpg'
 import pictureOne from '../../../assets/images/articledemystifying1.jpg'
 import pictureTwo from '../../../assets/images/articledemystifying2.jpg'
 
-export default function SneakerMarket() {
-
-    return (
+export default function SneakerMarket () {
+  return (
         <div className='newsroom-article'>
             <Helmet>
                 <title>Sanctuary: Newsroom</title>
@@ -104,5 +103,5 @@ export default function SneakerMarket() {
 
             <Footer colour={'blue'} />
         </div>
-    )
+  )
 }

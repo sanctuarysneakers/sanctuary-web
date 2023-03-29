@@ -1,8 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-export default function ItemLoader({ version }) {
-
-    return (
+export default function ItemLoader ({ version }) {
+  return (
         <div className='item-loader'>
 
             {/* Loader for prices/listings rows */}
@@ -54,7 +54,6 @@ export default function ItemLoader({ version }) {
                     </div>
                 </div>
 
-
                 {version === 'listings' && <div className='item-loader-row'>
                     <div className='item-loader-source'>
                         <div className={`item-loader-logo ${version}`} />
@@ -69,7 +68,6 @@ export default function ItemLoader({ version }) {
                         <div className='item-loader-amount' />
                     </div>
                 </div>}
-                
 
                 <div className='item-loader-row last'>
                     <div className='item-loader-source'>
@@ -95,10 +93,14 @@ export default function ItemLoader({ version }) {
             </div>}
 
             {version === 'info' && <div className='item-info-loader-content'>
-                <div className='item-info-loader-price' /> 
+                <div className='item-info-loader-price' />
 
-                <div className='item-info-loader-size' /> 
+                <div className='item-info-loader-size' />
             </div>}
         </div>
-    )
+  )
+}
+
+ItemLoader.propTypes = {
+  version: PropTypes.string
 }

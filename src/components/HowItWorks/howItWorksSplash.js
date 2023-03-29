@@ -1,21 +1,19 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef } from 'react'
 import FadeIn from 'react-fade-in'
-import VisibleOnScreen from "../../hooks/visibleOnScreen"
+import VisibleOnScreen from '../../hooks/visibleOnScreen'
 import picture2 from '../../assets/images/aboutDrawing2.png'
 
-export default function HowItWorksSplash() {
+export default function HowItWorksSplash () {
+  const ref = useRef()
+  const isVisible = VisibleOnScreen(ref)
 
-    const ref = useRef()
-    const isVisible = VisibleOnScreen(ref)
+  const [render, setRender] = useState(false)
 
-    const [render, setRender] = useState(false)
+  useEffect(() => {
+    if (isVisible) { setRender(true) }
+  }, [isVisible])
 
-    useEffect(() => {
-        if (isVisible)
-            setRender(true)
-    }, [isVisible])
-
-    return (
+  return (
         <div className="how-it-works-splash">
             <div className="how-it-works-splash-content">
                 <div ref={ref} className="how-it-works-splash-header">
@@ -30,5 +28,5 @@ export default function HowItWorksSplash() {
                 </div>
             </div>
         </div>
-    )
+  )
 }

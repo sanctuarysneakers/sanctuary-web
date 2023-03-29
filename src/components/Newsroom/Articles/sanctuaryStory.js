@@ -1,5 +1,5 @@
 import React from 'react'
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet'
 import NextArticles from '../nextArticles'
 import Footer from '../../Other/footer'
 import ProfilePic from '../../../assets/images/ColeVanHinte.jpg'
@@ -7,9 +7,8 @@ import HeaderPic from '../../../assets/images/sanctuary-3D.gif'
 import pictureOne from '../../../assets/images/Article1-1.jpg'
 import pictureTwo from '../../../assets/images/Article1-2.jpg'
 
-export default function SanctuaryStory() {
-
-    return (
+export default function SanctuaryStory () {
+  return (
         <div className='newsroom-article'>
             <Helmet>
                 <title>Sanctuary: Newsroom</title>
@@ -97,7 +96,7 @@ export default function SanctuaryStory() {
                     </p>
                     <p>
                         As a team, we launched our first version in September of 2020. This version allowed users to compare prices between
-                        the main sneaker resale websites: <a href="https://stockx.com/">StockX</a>, <a href="https://www.goat.com">GOAT</a>, 
+                        the main sneaker resale websites: <a href="https://stockx.com/">StockX</a>, <a href="https://www.goat.com">GOAT</a>,
                         <a href="https://www.flightclub.com/"> FlightClub</a>, and <a href="https://www.grailed.com/">Grailed</a>. Since our initial launch, we have continuously
                         improved our services through user feedback, research, and market analysis. We have added features such as the ‘compare
                         feature’, which allows the user to compare all the different prices for any specific model of sneaker simply by clicking on
@@ -120,10 +119,10 @@ export default function SanctuaryStory() {
                     </p>
                 </div>
             </div>
-            
+
             <NextArticles />
 
             <Footer colour={'blue'} />
         </div>
-    )
+  )
 }

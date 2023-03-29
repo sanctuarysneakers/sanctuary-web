@@ -4,45 +4,36 @@ import { setRedirectUrl, hideHomeSearch } from '../../redux/actions'
 import { Link, useHistory, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useMediaQuery } from 'react-responsive'
-import apple from "../../assets/images/logos/apple-black.png"
-import facebook from "../../assets/images/logos/facebook-blue.png"
-import google from "../../assets/images/logos/google.svg"
-import mail from "../../assets/images/logos/mail.svg"
+import apple from '../../assets/images/logos/apple-black.png'
+import google from '../../assets/images/logos/google.svg'
+import mail from '../../assets/images/logos/mail.svg'
 import Footer from '../Other/footer'
 
-export default function SignInOptions() {
+export default function SignInOptions () {
+  const history = useHistory()
+  const dispatch = useDispatch()
 
-    const history = useHistory()
-    const dispatch = useDispatch()
+  const { redirect } = useParams()
+  if (redirect && redirect !== 'undefined') { dispatch(setRedirectUrl(decodeURIComponent(redirect))) }
 
-    let { redirect } = useParams()
-    if (redirect && redirect !== 'undefined')
-        dispatch(setRedirectUrl(decodeURIComponent(redirect)))
-    
-    const googProvider = new firebase.auth.GoogleAuthProvider()
-    const fbProvider = new firebase.auth.FacebookAuthProvider()
-    const appleProvider = new firebase.auth.OAuthProvider('apple.com')
-    
-    const googleAuth = () => {
-        firebase.auth().signInWithRedirect(googProvider)
-            .then(history.push('/'))
-    }
+  const googProvider = new firebase.auth.GoogleAuthProvider()
+  const appleProvider = new firebase.auth.OAuthProvider('apple.com')
 
-    const facebookAuth = () => {
-        firebase.auth().signInWithRedirect(fbProvider)
-            .then(history.push('/'))
-    }
+  const googleAuth = () => {
+    firebase.auth().signInWithRedirect(googProvider)
+      .then(history.push('/'))
+  }
 
-    const appleAuth = () => {
-        firebase.auth().signInWithRedirect(appleProvider)
-            .then(history.push('/'))
-    }
-    
-    const isDesktop = useMediaQuery({ query: '(min-width: 930px)' })
+  const appleAuth = () => {
+    firebase.auth().signInWithRedirect(appleProvider)
+      .then(history.push('/'))
+  }
 
-    dispatch(hideHomeSearch())
+  const isDesktop = useMediaQuery({ query: '(min-width: 930px)' })
 
-    return (
+  dispatch(hideHomeSearch())
+
+  return (
         <div className='sign-in-options'>
 
             {!isDesktop && <div className='sign-in-options-header'>
@@ -85,12 +76,12 @@ export default function SignInOptions() {
                 </Link>
 
                 <div className='switch-form'>
-                    <p> Don't have an account? </p>
+                    <p> Don&apos;t have an account? </p>
                     <Link to="/create-account"> Sign Up. </Link>
                 </div>
 
                 <div className='account-terms-policy'>
-                    <p> By signing in, you agree to Sanctuary's </p>
+                    <p> By signing in, you agree to Sanctuary&apos;s </p>
                     <div className='terms-policy-text'>
 
                         <Link to="/privacy-policy" className='terms-policy-pop-up'>
@@ -109,5 +100,5 @@ export default function SignInOptions() {
 
             <Footer colour={'white'} />
         </div>
-    )
+  )
 }

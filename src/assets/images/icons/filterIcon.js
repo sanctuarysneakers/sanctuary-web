@@ -1,7 +1,7 @@
 import React from 'react'
 
-export default function FilterIcon() {
-    return (
+export default function FilterIcon () {
+  return (
         <div className='filterIcon'>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="filter">
@@ -9,5 +9,5 @@ export default function FilterIcon() {
             </g>
             </svg>
         </div>
-    )
+  )
 }

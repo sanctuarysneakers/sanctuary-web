@@ -10,27 +10,26 @@ import HomeNewsroom from './homeNewsroom'
 import HomeApp from './homeApp'
 import Footer from '../Other/footer'
 
-export default function Home() {
+export default function Home () {
+  const dispatch = useDispatch()
 
-    const dispatch = useDispatch()
+  // Properly adjust height for navbar and mobile bar
+  const isDesktop = useMediaQuery({
+    query: '(min-width: 1120px)'
+  })
+  const height = use100vh()
+  const splashHeight = isDesktop ? height - 70 : height - 60
+  dispatch(recordSplashHeight(splashHeight))
 
-    // Properly adjust height for navbar and mobile bar
-    const isDesktop = useMediaQuery({
-        query: '(min-width: 1120px)'
-    })
-    const height = use100vh()
-    const splashHeight = isDesktop ? height - 70 : height - 60
-    dispatch(recordSplashHeight(splashHeight))
-
-    return (
+  return (
         <div>
             <Helmet>
                 <title>Sanctuary: Sneaker Price Comparison and Market Data</title>
                 <meta
                     name="description"
-                    content="Sanctuary Sneakers collects all available sneaker market data in one place so you can 
-                             compare and find the best prices. Sanctuary lets you see real-time prices, new inventory, 
-                             and more information for both new and used sneakers from several trusted online stores so 
+                    content="Sanctuary Sneakers collects all available sneaker market data in one place so you can
+                             compare and find the best prices. Sanctuary lets you see real-time prices, new inventory,
+                             and more information for both new and used sneakers from several trusted online stores so
                              you don't have to! Stay up-to-date with price drop alerts, and release reminders."
                 />
             </Helmet>
@@ -42,8 +41,8 @@ export default function Home() {
             <HomeNewsroom />
 
             <HomeApp />
-            
+
             <Footer colour={'white'} />
         </div>
-    )
+  )
 }

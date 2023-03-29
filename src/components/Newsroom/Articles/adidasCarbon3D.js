@@ -1,5 +1,5 @@
 import React from 'react'
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet'
 import NextArticles from '../nextArticles'
 import Footer from '../../Other/footer'
 import ProfilePic from '../../../assets/images/JonahHarding.jpg'
@@ -7,9 +7,8 @@ import HeaderPic from '../../../assets/images/adidas-3d.jpg'
 import pictureOne from '../../../assets/images/articleEngineering1.jpg'
 import pictureTwo from '../../../assets/images/articleEngineering2.jpg'
 
-export default function AdidasCarbon3D() {
-
-    return (
+export default function AdidasCarbon3D () {
+  return (
         <div className='newsroom-article'>
             <Helmet>
                 <title>Sanctuary: Newsroom</title>
@@ -76,10 +75,10 @@ export default function AdidasCarbon3D() {
                     </p>
                 </div>
             </div>
-            
+
             <NextArticles />
 
             <Footer colour={'blue'} />
         </div>
-    )
+  )
 }

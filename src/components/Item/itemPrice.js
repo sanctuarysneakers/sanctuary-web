@@ -1,19 +1,17 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { ReactComponent as RightArrow } from '../../assets/images/RightArrow.svg'
 import { ReactComponent as Shipping } from '../../assets/images/shipping-icon.svg'
 import { websiteLogoMapRegular, websiteTextMap, currencySymbolMap } from '../../assets/constants'
 
-export default function ItemPrice({ data, index, length }) {
+export default function ItemPrice ({ data, index, length }) {
+  const currency = useSelector(state => state.currency)
 
-    const currency = useSelector(state => state.currency)
-
-    /* eslint-disable jsx-a11y/anchor-is-valid */
-
-    return (
+  return (
         <div className={(index === length - 1) ? 'item-price last' : 'item-price'}>
-            <Link to={{ pathname: data.url }} className="hidden-link" target="_blank" rel="noopener noreferrer"> 
+            <Link to={{ pathname: data.url }} className="hidden-link" target="_blank" rel="noopener noreferrer">
                 <div className='item-price-source'>
                     <div className={`item-source-logo ${data.source}`}>
                         <img src={websiteLogoMapRegular[data.source]} alt='website logo' />
@@ -33,13 +31,13 @@ export default function ItemPrice({ data, index, length }) {
                         </div>
 
                         {data.shipping !== null && <div className='item-shipping'>
-                            {data.shipping === 0 && data.shipping !== null && 
+                            {data.shipping === 0 && data.shipping !== null &&
                                 <div className='item-shipping-text'>
                                     <Shipping />
                                     <p>Free</p>
                                 </div>
                             }
-                            {data.shipping !== 0 && data.shipping !== null && 
+                            {data.shipping !== 0 && data.shipping !== null &&
                                 <div className='item-shipping-text'>
                                     <Shipping />
                                     <p>+{currencySymbolMap[currency]}{data.shipping}</p>
@@ -50,7 +48,13 @@ export default function ItemPrice({ data, index, length }) {
                     </div>
                     <RightArrow />
                 </div>
-            </Link> 
+            </Link>
         </div>
-    )
+  )
+}
+
+ItemPrice.propTypes = {
+  data: PropTypes.object,
+  index: PropTypes.number,
+  length: PropTypes.number
 }

@@ -1,8 +1,7 @@
 import React from 'react'
 
-export default function HomeAccount() {
-
-    return (
+export default function HomeAccount () {
+  return (
         <div className='home-account'>
             <div className='home-account-headline'>
                 <div className='home-account-text'>
@@ -25,5 +24,5 @@ export default function HomeAccount() {
                 </div>
             </div>
         </div>
-    )
+  )
 }

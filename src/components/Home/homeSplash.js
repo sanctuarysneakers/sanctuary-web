@@ -1,16 +1,14 @@
 import React from 'react'
 import FadeIn from 'react-fade-in'
-import SearchBox from '../Search/searchBox'
-import {ReactComponent as Shoe} from '../../assets/images/LandingShoe.svg'
-import {ReactComponent as Boxes} from '../../assets/images/LandingBoxes.svg'
+import { ReactComponent as Shoe } from '../../assets/images/LandingShoe.svg'
+import { ReactComponent as Boxes } from '../../assets/images/LandingBoxes.svg'
 
-export default function HomeSplash() {
+export default function HomeSplash () {
+  const clickHandler = (ios, url) => {
+    window.open(url, '_blank')
+  }
 
-    const clickHandler = (ios, url) => {
-        window.open(url, '_blank')
-    } 
-
-    return (
+  return (
         <div className='home-splash'>
             <div className='home-splash-content'>
                 <div className='home-splash-text'>
@@ -19,13 +17,13 @@ export default function HomeSplash() {
                             <h1> Your favourite sneakers. </h1>
                             <h1> At the best price. </h1>
                         </div>
-                        <p> 
-                            Sanctuary compares prices from leading 
-                            sneaker websites to find you the best deals. 
+                        <p>
+                            Sanctuary compares prices from leading
+                            sneaker websites to find you the best deals.
                         </p>
 
                         <div className='home-app-badges'>
-                            <a className='home-app-ios' onClick={() => clickHandler(true, "https://apps.apple.com/us/app/sanctuary-sneaker-market-data/id1584720546?itsct=apps_box_badge&amp;itscg=30200")} >
+                            <a className='home-app-ios' onClick={() => clickHandler(true, 'https://apps.apple.com/us/app/sanctuary-sneaker-market-data/id1584720546?itsct=apps_box_badge&amp;itscg=30200')} >
                                 <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&amp;releaseDate=1631145600&h=c2d3945e1a59ca8a02f1ccdab253f880" alt="Download on the App Store" />
                             </a>
 
@@ -48,5 +46,5 @@ export default function HomeSplash() {
                 </div>
             </div>
         </div>
-    )
+  )
 }

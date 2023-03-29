@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef } from 'react'
 import FadeIn from 'react-fade-in'
-import VisibleOnScreen from "../../hooks/visibleOnScreen"
+import VisibleOnScreen from '../../hooks/visibleOnScreen'
 import StockX from '../../assets/images/stockx.png'
 import GOAT from '../../assets/images/goat-grey.svg'
 import Grailed from '../../assets/images/grailed-grey.svg'
@@ -9,24 +9,21 @@ import Depop from '../../assets/images/depop-grey.svg'
 import KLEKT from '../../assets/images/klekt-grey.svg'
 import eBay from '../../assets/images/ebay-grey.svg'
 
-export default function HowItWorksSites() {
+export default function HowItWorksSites () {
+  const ref1 = useRef()
+  const ref2 = useRef()
+  const textVisible = VisibleOnScreen(ref1)
+  const sitesVisible = VisibleOnScreen(ref2)
 
-    const ref1 = useRef()
-    const ref2 = useRef()
-    const textVisible = VisibleOnScreen(ref1)
-    const sitesVisible = VisibleOnScreen(ref2)
+  const [renderText, setRenderText] = useState(false)
+  const [renderSites, setRenderSites] = useState(false)
 
-    const [renderText, setRenderText] = useState(false)
-    const [renderSites, setRenderSites] = useState(false)
+  useEffect(() => {
+    if (textVisible) { setRenderText(true) }
+    if (sitesVisible) { setRenderSites(true) }
+  }, [textVisible, sitesVisible])
 
-    useEffect(() => {
-        if (textVisible)
-            setRenderText(true)
-        if (sitesVisible)
-            setRenderSites(true)
-    }, [textVisible, sitesVisible])
-
-    return (
+  return (
         <div className="how-it-works-sites">
             <div className="how-it-works-sites-content">
                 <div ref={ref1} className="how-it-works-sites-text">
@@ -53,5 +50,5 @@ export default function HowItWorksSites() {
                 </div>
             </div>
         </div>
-    )
+  )
 }

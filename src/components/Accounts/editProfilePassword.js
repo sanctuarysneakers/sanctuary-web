@@ -1,35 +1,33 @@
 import React, { useState } from 'react'
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { hideHomeSearch } from '../../redux/actions'
 import Footer from '../Other/footer'
 
-export default function EditProfilePassword() {
+export default function EditProfilePassword () {
+  const history = useHistory()
+  const dispatch = useDispatch()
+  const [newPassword, setNewPassword] = useState('')
+  const [newConfirmPassword, setNewConfirmPassword] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+  const user = useSelector(state => state.user)
 
-    const history = useHistory()
-    const dispatch = useDispatch()
-    const [newPassword, setNewPassword] = useState('')
-    const [newConfirmPassword, setNewConfirmPassword] = useState('')
-    const [errorMessage, setErrorMessage] = useState('')
-    const user = useSelector(state => state.user)
+  // Hide the search bar
+  dispatch(hideHomeSearch())
 
-    // Hide the search bar
-    dispatch(hideHomeSearch())
-
-    const updateName = () => {
-        if (newPassword !== newConfirmPassword) {
-            setErrorMessage('Passwords do not match.')
-        }
-        else {
-            user.updatePassword(newPassword).then(() => {
-                history.push("/profile")
-            }).catch(e => {
-                setErrorMessage(e.message)
-            })
-        }
+  const updateName = () => {
+    if (newPassword !== newConfirmPassword) {
+      setErrorMessage('Passwords do not match.')
+    } else {
+      user.updatePassword(newPassword).then(() => {
+        history.push('/profile')
+      }).catch(e => {
+        setErrorMessage(e.message)
+      })
     }
+  }
 
-    return (
+  return (
         <div className='edit-profile-page'>
             <div className='edit-profile-page-container'>
 
@@ -42,7 +40,7 @@ export default function EditProfilePassword() {
 
                 <div className='edit-profile-page-content'>
 
-                    {errorMessage && 
+                    {errorMessage &&
                         <p className='edit-profile-page-error'>
                             {errorMessage}
                         </p>
@@ -84,5 +82,5 @@ export default function EditProfilePassword() {
 
             <Footer colour={'white'} />
         </div>
-    )
+  )
 }

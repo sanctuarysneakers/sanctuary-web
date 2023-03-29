@@ -1,47 +1,47 @@
 import React, { useRef } from 'react'
+import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { hideSocialsModal } from '../../redux/actions'
 import useOutsideAlerter from '../../hooks/useOutsideAlerter'
 import { ReactComponent as Close } from '../../assets/images/close.svg'
 
 import {
-    FacebookShareButton,
-    FacebookMessengerShareButton,
-    FacebookMessengerIcon,
-    LinkedinShareButton,
-    TwitterShareButton,
-    PinterestShareButton,
-    WhatsappShareButton,
-    RedditShareButton,
-    EmailShareButton,
-    FacebookIcon,
-    TwitterIcon,
-    LinkedinIcon,
-    PinterestIcon,
-    WhatsappIcon,
-    RedditIcon,
-    EmailIcon
-  } from 'react-share';
+  FacebookShareButton,
+  FacebookMessengerShareButton,
+  FacebookMessengerIcon,
+  LinkedinShareButton,
+  TwitterShareButton,
+  PinterestShareButton,
+  WhatsappShareButton,
+  RedditShareButton,
+  EmailShareButton,
+  FacebookIcon,
+  TwitterIcon,
+  LinkedinIcon,
+  PinterestIcon,
+  WhatsappIcon,
+  RedditIcon,
+  EmailIcon
+} from 'react-share'
 
-export default function SocialsModal ({itemName, price, url, image}) {
+export default function SocialsModal ({ itemName, price, url, image }) {
+  const dispatch = useDispatch()
 
-    const dispatch = useDispatch()
+  const wrapperRef = useRef(null)
+  useOutsideAlerter(wrapperRef)
 
-    const wrapperRef = useRef(null)
-    useOutsideAlerter(wrapperRef)
+  const title = `Check out the lowest prices for ${itemName}, available for as low as ${price}! Only on Sanctuary.`
 
-    const title = `Check out the lowest prices for ${itemName}, available for as low as ${price}! Only on Sanctuary.`;
-
-    return (
+  return (
 
         <div className='socials-modal'>
             <div className='socials-modal-content' ref={wrapperRef}>
                 <div className='socials-modal-padding'>
                     <div className='socials-modal-close'>
-						<button onClick={() => dispatch(hideSocialsModal())}>
-							<Close />
-						</button>
-					</div>
+                        <button onClick={() => dispatch(hideSocialsModal())}>
+                            <Close />
+                        </button>
+                    </div>
 
                     <div className='socials-modal-text'>
                         <h1> Share This Shoe</h1>
@@ -86,7 +86,7 @@ export default function SocialsModal ({itemName, price, url, image}) {
                         </div>
 
                         <div>
-                            <LinkedinShareButton 
+                            <LinkedinShareButton
                                 url={url}
                                 summary={title}
                                 source="Sanctuary"
@@ -128,5 +128,12 @@ export default function SocialsModal ({itemName, price, url, image}) {
                 </div>
             </div>
         </div>
-    ) 
+  )
+}
+
+SocialsModal.propTypes = {
+  itemName: PropTypes.string,
+  price: PropTypes.string,
+  url: PropTypes.string,
+  image: PropTypes.string
 }

@@ -1,36 +1,34 @@
 import React, { useState } from 'react'
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { hideHomeSearch } from '../../redux/actions'
 import Footer from '../Other/footer'
 
-export default function EditProfileName() {
+export default function EditProfileName () {
+  const history = useHistory()
+  const dispatch = useDispatch()
+  const [newName, setNewName] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+  const user = useSelector(state => state.user)
 
-    const history = useHistory()
-    const dispatch = useDispatch()
-    const [newName, setNewName] = useState('')
-    const [errorMessage, setErrorMessage] = useState('')
-    const user = useSelector(state => state.user)
+  // Hide the search bar
+  dispatch(hideHomeSearch())
 
-    // Hide the search bar
-    dispatch(hideHomeSearch())
-
-    const updateName = () => {
-        if (newName === '') {
-            setErrorMessage('Please enter a valid name.')
-        }
-        else {
-            user.updateProfile({
-                displayName: newName
-            }).then(() => {
-                history.push("/profile")
-            }).catch(e => {
-                setErrorMessage(e.message)
-            })
-        }
+  const updateName = () => {
+    if (newName === '') {
+      setErrorMessage('Please enter a valid name.')
+    } else {
+      user.updateProfile({
+        displayName: newName
+      }).then(() => {
+        history.push('/profile')
+      }).catch(e => {
+        setErrorMessage(e.message)
+      })
     }
+  }
 
-    return (
+  return (
         <div className='edit-profile-page'>
             <div className='edit-profile-page-container'>
 
@@ -41,7 +39,7 @@ export default function EditProfileName() {
 
                 <div className='edit-profile-page-content'>
 
-                    {errorMessage && 
+                    {errorMessage &&
                         <p className='edit-profile-page-error'>
                             {errorMessage}
                         </p>
@@ -72,5 +70,5 @@ export default function EditProfileName() {
 
             <Footer colour={'white'} />
         </div>
-    )
+  )
 }

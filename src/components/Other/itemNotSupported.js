@@ -5,14 +5,12 @@ import { hideHomeSearch } from '../../redux/actions'
 import SearchBox from '../Search/searchBox'
 import Footer from '../Other/footer'
 
-export default function ItemNotSupported() {
+export default function ItemNotSupported () {
+  const dispatch = useDispatch()
 
-    const dispatch = useDispatch()
+  dispatch(hideHomeSearch())
 
-    // Hide the search bar
-    dispatch(hideHomeSearch())
-
-    return (
+  return (
         <div className="pageNotFoundText">
             <div className='pageNotFoundText-content'>
                 <Helmet>
@@ -22,11 +20,11 @@ export default function ItemNotSupported() {
                         content="Sorry, this item isn't supported yet."
                     />
                 </Helmet>
-                <h1> Sorry, the item you're looking for is not supported yet. </h1>
+                <h1> Sorry, the item you&apos;re looking for is not supported yet. </h1>
                 <SearchBox/>
             </div>
 
             <Footer colour={'white'} />
         </div>
-    )
+  )
 }

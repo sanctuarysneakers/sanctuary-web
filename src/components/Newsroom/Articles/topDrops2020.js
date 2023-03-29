@@ -1,5 +1,5 @@
 import React from 'react'
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet'
 import NextArticles from '../nextArticles'
 import Footer from '../../Other/footer'
 import ProfilePic from '../../../assets/images/ColeVanHinte.jpg'
@@ -8,9 +8,8 @@ import pictureOne from '../../../assets/images/drop2020-1.jpg'
 import pictureTwo from '../../../assets/images/drop2020-2.webp'
 import pictureThree from '../../../assets/images/drop2020-3.webp'
 
-export default function TopDrops2020() {
-
-    return (
+export default function TopDrops2020 () {
+  return (
         <div className='newsroom-article'>
             <Helmet>
                 <title>Sanctuary: Newsroom</title>
@@ -43,7 +42,7 @@ export default function TopDrops2020() {
                     </p>
 
                     <h4>Ben &amp; Jerry’s x Nike SB Dunk Low ‘Chunky Dunky’</h4>
-                    <p>  
+                    <p>
                         Although 2020 saw the release of many anticipated Dunk Low collaborations,
                         Ben &amp; Jerry’s ‘Chunky Dunky’ has to take the crown. Releasing in May of 2020, the ‘Chunky Dunky’
                         took a unique twist on the sneaker world’s pop culture aesthetic. The colourful mashup presents an
@@ -58,7 +57,7 @@ export default function TopDrops2020() {
                 </div>
 
                 <div className='newsroom-article-text'>
-                    <h4>Off-White x Air Jordan 4 'Sail'</h4>
+                    <h4>Off-White x Air Jordan 4 &apos;Sail&apos;</h4>
                     <p>
                         Perhaps unsurprising to some, Virgil Abloh delivered one of the most anticipated drops of 2020:
                         the Off-White X Air Jordan 4. Releasing exclusively in Women’s sizing, the simplistic yet sharp design
@@ -89,10 +88,10 @@ export default function TopDrops2020() {
                     <p> Image via Stadium Goods </p>
                 </div>
             </div>
-            
+
             <NextArticles />
 
             <Footer colour={'blue'} />
         </div>
-    )
+  )
 }

@@ -1,40 +1,35 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef } from 'react'
 import FadeIn from 'react-fade-in'
-import VisibleOnScreen from "../../hooks/visibleOnScreen"
+import VisibleOnScreen from '../../hooks/visibleOnScreen'
 import { ReactComponent as Shoe } from '../../assets/images/nike-dunk.svg'
 import { ReactComponent as Buttons } from '../../assets/images/item-buttons.svg'
 import { ReactComponent as Prices } from '../../assets/images/market-prices.svg'
 import { ReactComponent as Listings } from '../../assets/images/more-listings.svg'
 
-export default function HowItWorksCards() {
+export default function HowItWorksCards () {
+  const ref1 = useRef()
+  const ref2 = useRef()
+  const ref3 = useRef()
+  const ref4 = useRef()
 
-    const ref1 = useRef()
-    const ref2 = useRef()
-    const ref3 = useRef()
-    const ref4 = useRef()
+  const browseVisible = VisibleOnScreen(ref1)
+  const buttonsVisible = VisibleOnScreen(ref2)
+  const pricesVisible = VisibleOnScreen(ref3)
+  const listingsVisible = VisibleOnScreen(ref4)
 
-    const browseVisible = VisibleOnScreen(ref1)
-    const buttonsVisible = VisibleOnScreen(ref2)
-    const pricesVisible = VisibleOnScreen(ref3)
-    const listingsVisible = VisibleOnScreen(ref4)
+  const [renderBrowse, setRenderBrowse] = useState(false)
+  const [renderButtons, setRenderButtons] = useState(false)
+  const [renderPrices, setRenderPrices] = useState(false)
+  const [renderListings, setRenderListings] = useState(false)
 
-    const [renderBrowse, setRenderBrowse] = useState(false)
-    const [renderButtons, setRenderButtons] = useState(false)
-    const [renderPrices, setRenderPrices] = useState(false)
-    const [renderListings, setRenderListings] = useState(false)
+  useEffect(() => {
+    if (browseVisible) { setRenderBrowse(true) }
+    if (buttonsVisible) { setRenderButtons(true) }
+    if (pricesVisible) { setRenderPrices(true) }
+    if (listingsVisible) { setRenderListings(true) }
+  }, [browseVisible, buttonsVisible, pricesVisible, listingsVisible])
 
-    useEffect(() => {
-        if (browseVisible)
-            setRenderBrowse(true)
-        if (buttonsVisible)
-            setRenderButtons(true)
-        if (pricesVisible)
-            setRenderPrices(true)
-        if (listingsVisible)
-            setRenderListings(true)
-    }, [browseVisible, buttonsVisible, pricesVisible, listingsVisible])
-
-    return (
+  return (
         <div className="how-it-works-cards">
             <div className="how-it-works-cards-content">
                 <div className="how-it-works-card">
@@ -94,5 +89,5 @@ export default function HowItWorksCards() {
                 </div>
             </div>
         </div>
-    )
+  )
 }

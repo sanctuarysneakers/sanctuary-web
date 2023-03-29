@@ -1,10 +1,9 @@
-import React from "react"
-import ContactForm from "./contactForm"
-import Footer from "../Other/footer"
+import React from 'react'
+import ContactForm from './contactForm'
+import Footer from '../Other/footer'
 
-export default function ContactUs() {
-
-    return (
+export default function ContactUs () {
+  return (
         <div className="contact-us">
             <div className="contact-us-content">
                 <ContactForm />
@@ -12,5 +11,5 @@ export default function ContactUs() {
 
             <Footer colour={'white'} />
         </div>
-    )
+  )
 }

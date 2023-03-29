@@ -19,46 +19,44 @@ import { websiteLogoMapGrey, currencySymbolMap } from '../../assets/constants'
 import DynamicList from '../Other/dynamicList'
 import Carousel from '../Home/Carousels/carousel'
 
-export default function Item() {
+export default function Item () {
+  const dispatch = useDispatch()
 
-    const dispatch = useDispatch()
+  const { itemKey, gender } = useParams()
+  const currency = useSelector(state => state.currency)
+  const size = useSelector(state => state.size)
 
-    const { itemKey, gender } = useParams()
-    const currency = useSelector(state => state.currency)
-    const size = useSelector(state => state.size)
+  const navLocation = useLocation()
+  const passedData = navLocation.itemInfo ? navLocation.itemInfo : null
+  useAPICall('getitem', {
+    itemKey: decodeURIComponent(itemKey), // differentiates between urlkey and sku
+    size,
+    gender,
+    fromBrowse: passedData
+  })
 
-    const navLocation = useLocation()
-    let passedData = navLocation.itemInfo ? navLocation.itemInfo : null
-    useAPICall('getitem', {
-        itemKey: decodeURIComponent(itemKey), //differentiates between urlkey and sku
-        size: size,
-        gender: gender,
-        fromBrowse: passedData
-    })
+  const itemInfo = useSelector(state => state.item.itemInfo)
+  const itemPrices = useSelector(state => state.item.itemPrices)
+  const itemListings = useSelector(state => state.item.itemListings)
+  const relatedItems = useSelector(state => state.item.relatedItems)
 
-    const itemInfo = useSelector(state => state.item.itemInfo)
-    const itemPrices = useSelector(state => state.item.itemPrices)
-    const itemListings = useSelector(state => state.item.itemListings)
-    const relatedItems = useSelector(state => state.item.relatedItems)
+  const pricesLoading = useSelector(state => state.item.loadingItemPrices)
+  const listingsLoading = useSelector(state => state.item.loadingItemListings)
+  const relatedLoading = useSelector(state => state.item.relatedItemsLoading)
+  const sizeModalVisible = useSelector(state => state.modals.sizeModalVisible)
+  const socialsModalVisible = useSelector(state => state.modals.socialsModalVisible)
 
-    const pricesLoading = useSelector(state => state.item.loadingItemPrices)
-    const listingsLoading = useSelector(state => state.item.loadingItemListings)
-    const relatedLoading = useSelector(state => state.item.relatedItemsLoading)
-    const sizeModalVisible = useSelector(state => state.modals.sizeModalVisible)
-    const socialsModalVisible = useSelector(state => state.modals.socialsModalVisible)
-
-    const priceComponents = itemPrices.map((item, index) =>
+  const priceComponents = itemPrices.map((item, index) =>
         <ItemPrice key={item.source} data={item} index={index}
             length={itemPrices.length} />
-    )
+  )
 
-    const listingComponents = itemListings.map((item, index) =>
+  const listingComponents = itemListings.map((item, index) =>
         <ItemListing key={item.id} data={item} index={index}
             length={itemListings.length} />
-    )
+  )
 
-    /* eslint-disable jsx-a11y/anchor-is-valid */
-    return (
+  return (
         <div className='item'>
             <HelmetProvider>
                 <Helmet>
@@ -85,14 +83,13 @@ export default function Item() {
                             <div className='item-sneaker-text'>
                                 {pricesLoading && <ItemLoader version={'source'} />}
                                 {!pricesLoading && <div className='item-sneaker-source'>
-                                    {itemPrices.length ?
-                                        <div className={`item-sneaker-site ${itemPrices[0].source}`}>
+                                    {itemPrices.length
+                                      ? <div className={`item-sneaker-site ${itemPrices[0].source}`}>
                                             <img
                                                 src={websiteLogoMapGrey[itemPrices[0].source]} alt='website logo'
                                             />
                                         </div>
-                                        :
-                                        <div className='item-sneaker-source-none'></div>}
+                                      : <div className='item-sneaker-source-none'></div>}
                                 </div>}
 
                                 <div className='item-sneaker-model'>
@@ -101,17 +98,16 @@ export default function Item() {
 
                                 {pricesLoading && <ItemLoader version={'info'} />}
                                 {!pricesLoading && <div className='item-sneaker-price-details'>
-                                    {itemPrices.length ?
+                                    {itemPrices.length
 
-                                        <Link to={{ pathname: itemPrices[0].url }} className="hidden-link" target="_blank" rel="noopener noreferrer">
+                                      ? <Link to={{ pathname: itemPrices[0].url }} className="hidden-link" target="_blank" rel="noopener noreferrer">
                                             <div className='item-sneaker-price'>
                                                 <h2>
                                                     Buy New {currencySymbolMap[currency]}{itemPrices[0].price}
                                                 </h2>
                                             </div>
                                         </Link>
-                                        :
-                                        <a>
+                                      : <a>
                                             <div className='item-sneaker-price none'>
                                                 <h2>
                                                     No Results
@@ -145,19 +141,17 @@ export default function Item() {
                     <div className='item-more-listings'>
                         <h6> More Listings </h6>
 
-                        {listingsLoading ?
-                            <div className='item-more-listings-rows'>
+                        {listingsLoading
+                          ? <div className='item-more-listings-rows'>
                                 <ItemLoader version={'listings'} />
                             </div>
-                            :
-                            <div>
-                                {itemListings.length ?
-                                    <DynamicList
+                          : <div>
+                                {itemListings.length
+                                  ? <DynamicList
                                         name={'item-more-listings-rows'}
                                         items={listingComponents}
                                         initialLength={5} />
-                                    :
-                                    <ItemNoResults version={'listings'} />
+                                  : <ItemNoResults version={'listings'} />
                                 }
                             </div>
                         }
@@ -174,5 +168,5 @@ export default function Item() {
 
             <Footer colour={'blue'} />
         </div>
-    )
+  )
 }

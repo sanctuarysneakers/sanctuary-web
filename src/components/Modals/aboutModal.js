@@ -10,14 +10,12 @@ import picture1 from '../../assets/images/aboutDrawing1.png'
 import picture2 from '../../assets/images/aboutDrawing2.png'
 import picture3 from '../../assets/images/aboutDrawing3.png'
 
+export default function AboutModal () {
+  const wrapperRef = useRef(null)
+  const dispatch = useDispatch()
+  useOutsideAlerter(wrapperRef)
 
-export default function AboutModal() {
-
-    const wrapperRef = useRef(null)
-    const dispatch = useDispatch()
-    useOutsideAlerter(wrapperRef)
-
-    return (
+  return (
         <div className="modal-about">
 
             <Helmet>
@@ -46,7 +44,7 @@ export default function AboutModal() {
                     <div className='cardOne-content'>
                         <div className='cardOne-title'>
                             <h1>If you love sneakers,</h1>
-                            <h2>You've come to the right place</h2>
+                            <h2>You&lsquo;ve come to the right place</h2>
                         </div>
                         <img src={picture1} alt="shoes" />
                         <p>
@@ -134,5 +132,5 @@ export default function AboutModal() {
                 </Div100vh>
             </div>
         </div>
-    )
+  )
 }

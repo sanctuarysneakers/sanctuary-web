@@ -1,30 +1,29 @@
 import React, { useState } from 'react'
 import firebase from '../../services/firebase.js'
 import Footer from '../Other/footer'
-import sanctuary from "../../assets/images/logos/sanctuary-bird-black.png"
+import sanctuary from '../../assets/images/logos/sanctuary-bird-black.png'
 
-export default function SignInEmail() {
-    
-    const [email, setEmail] = useState('')
-    const [successMessage, setSuccessMessage] = useState('')
-    const [errorMessage, setErrorMessage] = useState('')
+export default function SignInEmail () {
+  const [email, setEmail] = useState('')
+  const [successMessage, setSuccessMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
 
-    const resetPassword = () => {
-        if (!email) {
-            setErrorMessage('Please enter a valid email address')
-        } else {
-            firebase.auth().sendPasswordResetEmail(email)
-                .then(() => {
-                    setSuccessMessage('Thank You! We\'ve sent you an email with further instructions to reset your password.')
-                    setEmail('')
-                })
-                .catch((error) => {
-                    setErrorMessage(error)
-                })
-        }
+  const resetPassword = () => {
+    if (!email) {
+      setErrorMessage('Please enter a valid email address')
+    } else {
+      firebase.auth().sendPasswordResetEmail(email)
+        .then(() => {
+          setSuccessMessage('Thank You! We\'ve sent you an email with further instructions to reset your password.')
+          setEmail('')
+        })
+        .catch((error) => {
+          setErrorMessage(error)
+        })
     }
+  }
 
-    return (
+  return (
         <div className='email-form'>
             <div className='email-form-content'>
                 <div className='email-form-header'>
@@ -62,5 +61,5 @@ export default function SignInEmail() {
 
             <Footer colour={'white'} />
         </div>
-    )
+  )
 }
