@@ -7,7 +7,7 @@ import Catalog from './catalog'
 import Footer from '../Other/footer'
 import CategoryFilter from './categoryFilter'
 
-export default function Browse() {
+export default function Browse () {
   const dispatch = useDispatch()
 
   let { searchTerm } = useParams()
