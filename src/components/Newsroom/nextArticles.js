@@ -12,15 +12,21 @@ export default function NextArticles () {
   const getArticles = () => {
     let numArticles = 0
     const recommended = []
+
     shuffle(ArticleData)
+
     for (const article in ArticleData) {
-      if (numArticles >= 3) // Edit value to change # of articles to display next
-      { break }
+      // Edit value to change # of articles to display next
+      if (numArticles >= 3) {
+        break
+      }
+
       if (currentPage !== ArticleData[article].path) {
         recommended.push(ArticleData[article])
         numArticles += 1
       }
     }
+
     return recommended
   }
 

@@ -1,8 +1,8 @@
 
 export default function createRequestObject (type, filter) {
-	const api = 'https://rkzmvt26dg.us-west-2.awsapprunner.com'
-	// const api = 'http://127.0.0.1:8080'
-	const autosuggestAPI = 'https://2fwotdvm2o-dsn.algolia.net'
+  const api = 'https://rkzmvt26dg.us-west-2.awsapprunner.com'
+  // const api = 'http://127.0.0.1:8080'
+  const autosuggestAPI = 'https://2fwotdvm2o-dsn.algolia.net'
 
   switch (type) {
     case 'browse':
