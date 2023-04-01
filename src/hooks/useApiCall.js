@@ -24,7 +24,7 @@ export default function useAPICall (callType, params) {
 
   function SafePromiseAll (promises, def = null) {
     return Promise.all(
-      promises.map(p => p.catch(error => def))
+      promises.map(p => p.catch(def))
     )
   }
 

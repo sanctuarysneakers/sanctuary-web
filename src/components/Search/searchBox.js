@@ -34,7 +34,9 @@ export default function SearchBox () {
       const results = await response.json()
 
       if (results.hits) {
-        const newOptions = results.hits.filter(shoe => shoe.grid_picture_url && !shoe.grid_picture_url.includes('missing') && shoe.sku).map(({ name, sku, grid_picture_url, single_gender }) => ({ name, sku, grid_picture_url, single_gender }))
+        const validOptions = results.hits.filter(shoe => shoe.grid_picture_url && !shoe.grid_picture_url.includes('missing') && shoe.sku)
+        // eslint-disable-next-line camelcase
+        const newOptions = validOptions.map(({ name, sku, grid_picture_url, single_gender }) => ({ name, sku, grid_picture_url, single_gender }))
         setOptions(newOptions)
       }
     }
