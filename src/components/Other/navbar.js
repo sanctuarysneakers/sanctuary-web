@@ -27,76 +27,76 @@ export default function Navbar () {
   window.addEventListener('scroll', setDropShadow)
 
   return (
-        <nav className={navbar ? 'navbar active' : 'navbar'}>
-            <div className='navbar-content'>
-                {isDesktop && <div className='desktop-content'>
+    <nav className={navbar ? 'navbar active' : 'navbar'}>
+      <div className='navbar-content'>
+        {isDesktop && <div className='desktop-content'>
 
-                    <Link
-                        className='sanctuary-logo'
-                        onClick={() => document.location.href = '/'}
-                    >
-                        <SanctuaryLogo />
-                    </Link>
+          <Link
+            className='sanctuary-logo'
+            onClick={() => document.location.href = '/'}
+          >
+            <SanctuaryLogo />
+          </Link>
 
-                    <div className='navbar-links'>
-                        <Search onClick={() => dispatch(showSearchModal())} />
+          <div className='navbar-links'>
+            <Search onClick={() => dispatch(showSearchModal())} />
 
-                        <Link
-                            onClick={() => document.location.href = '/browse'}
-                        >
-                            Browse
-                        </Link>
+            <Link
+              onClick={() => document.location.href = '/browse'}
+            >
+              Browse
+            </Link>
 
-                        <Link
-                            onClick={() => document.location.href = '/newsroom'}
-                        >
-                            Newsroom
-                        </Link>
+            <Link
+              onClick={() => document.location.href = '/newsroom'}
+            >
+              Newsroom
+            </Link>
 
-                        {!user && <Link onClick={() => document.location.href = '/sign-in'}>
-                            Log In
-                        </Link>}
+            {!user && <Link onClick={() => document.location.href = '/sign-in'}>
+              Log In
+            </Link>}
 
-                        {!user && <Link className='create-account'
-                            onClick={() => document.location.href = '/create-account'}
-                           >
-                            Sign Up
-                        </Link>}
+            {!user && <Link className='create-account'
+              onClick={() => document.location.href = '/create-account'}
+            >
+              Sign Up
+            </Link>}
 
-                        {user &&
-                            <Link className='navbar-profile'
-                                onClick={() => { document.location.href = '/profile' }}
-                                >
+            {user &&
+            <Link className='navbar-profile'
+              onClick={() => { document.location.href = '/profile' }}
+            >
 
-                                <div className='navbar-profile-content'>
-                                    {user.photoURL !== null &&
-                                        <img className='navbar-profile-picture'
-                                            src={user.photoURL}
-                                            alt="desktop-profile"
-                                        />
-                                    }
+              <div className='navbar-profile-content'>
+                {user.photoURL !== null &&
+                <img className='navbar-profile-picture'
+                  src={user.photoURL}
+                  alt="desktop-profile"
+                />
+                }
 
-                                    {user.photoURL === null && <ProfileIcon />}
-                                </div>
-                            </Link>
-                        }
-                    </div>
-                </div>}
+                {user.photoURL === null && <ProfileIcon />}
+              </div>
+            </Link>
+            }
+          </div>
+        </div>}
 
-                {!isDesktop && <div className='mobile-content'>
-                    <div className='hamburger-icon' onClick={() => dispatch(showHamburgerModal())}>
-                        <Hamburger />
-                    </div>
+        {!isDesktop && <div className='mobile-content'>
+          <div className='hamburger-icon' onClick={() => dispatch(showHamburgerModal())}>
+            <Hamburger />
+          </div>
 
-                    <Link className='sanctuary-logo'
-                        onClick={() => document.location.href = '/'}
-                        >
-                        <SanctuaryLogo />
-                    </Link>
+          <Link className='sanctuary-logo'
+            onClick={() => document.location.href = '/'}
+          >
+            <SanctuaryLogo />
+          </Link>
 
-                    <Search onClick={() => dispatch(showSearchModal())} />
-                </div>}
-            </div>
-        </nav>
+          <Search onClick={() => dispatch(showSearchModal())} />
+        </div>}
+      </div>
+    </nav>
   )
 }

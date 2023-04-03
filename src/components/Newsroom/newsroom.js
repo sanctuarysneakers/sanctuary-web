@@ -13,50 +13,50 @@ export default function Newsroom () {
   }
 
   const articleCards = ArticleData.slice(1).map((article) =>
-        <ArticleCard key={article.path} data={article} />
+    <ArticleCard key={article.path} data={article} />
   )
 
   return (
-        <div className='newsroom'>
-            <Helmet>
-                <title>Sanctuary: Newsroom</title>
-            </Helmet>
-            <div className='newsroom-content'>
-                <div className='newsroom-header'>
-                    <FadeIn delay={200} transitionDuration={1000}>
-                        <div className='newsroom-header-logo'>
-                            <SanctuaryIconBlack />
-                            <h1> Newsroom </h1>
-                        </div>
-
-                        <p>
-                            Your source for the latest Sanctuary news, sneaker
-                            drops, and upcoming raffles.
-                        </p>
-                    </FadeIn>
-                </div>
-
-                <div className='newsroom-latest-articles'>
-                    <h2> Latest Articles </h2>
-
-                    <div className='newsroom-featured-article' onClick={() => document.location.href = `${ArticleData[0].path}`}>
-                        <div className='newsroom-featured-image' style={featuredImage} />
-
-                        <div className='newsroom-featured-gradient'>
-                            <div className='newsroom-featured-text'>
-                                <p> {ArticleData[0].date} </p>
-                                <h4> {ArticleData[0].title} </h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className='newsroom-all-articles'>
-                        {articleCards}
-                    </div>
-                </div>
+    <div className='newsroom'>
+      <Helmet>
+        <title>Sanctuary: Newsroom</title>
+      </Helmet>
+      <div className='newsroom-content'>
+        <div className='newsroom-header'>
+          <FadeIn delay={200} transitionDuration={1000}>
+            <div className='newsroom-header-logo'>
+              <SanctuaryIconBlack />
+              <h1> Newsroom </h1>
             </div>
 
-            <Footer colour={'blue'} />
+            <p>
+              Your source for the latest Sanctuary news, sneaker
+              drops, and upcoming raffles.
+            </p>
+          </FadeIn>
         </div>
+
+        <div className='newsroom-latest-articles'>
+          <h2> Latest Articles </h2>
+
+          <div className='newsroom-featured-article' onClick={() => document.location.href = `${ArticleData[0].path}`}>
+            <div className='newsroom-featured-image' style={featuredImage} />
+
+            <div className='newsroom-featured-gradient'>
+              <div className='newsroom-featured-text'>
+                <p> {ArticleData[0].date} </p>
+                <h4> {ArticleData[0].title} </h4>
+              </div>
+            </div>
+          </div>
+
+          <div className='newsroom-all-articles'>
+            {articleCards}
+          </div>
+        </div>
+      </div>
+
+      <Footer colour={'blue'} />
+    </div>
   )
 }

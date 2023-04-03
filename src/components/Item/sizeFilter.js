@@ -10,10 +10,10 @@ export default function SizeFilter ({ gender }) {
   const genderSymbol = (gender === 'men') ? 'M' : 'W'
 
   return (
-        <div className='size-filter' onClick={() => dispatch(showSizeModal())}>
-            <h4> Size {genderSymbol} {size} </h4>
-            <DownArrow />
-        </div>
+    <div className='size-filter' onClick={() => dispatch(showSizeModal())}>
+      <h4> Size {genderSymbol} {size} </h4>
+      <DownArrow />
+    </div>
   )
 }
 

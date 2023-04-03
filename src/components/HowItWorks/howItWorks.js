@@ -8,15 +8,15 @@ import Footer from '../Other/footer'
 
 export default function HowItWorks () {
   return (
-        <div className="how-it-works">
-            <div className="how-it-works-content">
-                <HowItWorksSplash />
-                <HowItWorksInfo />
-                <HowItWorksSites />
-                <HowItWorksCards />
-                <HowItWorksContact />
-                <Footer colour={'white'} />
-            </div>
-        </div>
+    <div className="how-it-works">
+      <div className="how-it-works-content">
+        <HowItWorksSplash />
+        <HowItWorksInfo />
+        <HowItWorksSites />
+        <HowItWorksCards />
+        <HowItWorksContact />
+        <Footer colour={'white'} />
+      </div>
+    </div>
   )
 }

@@ -11,20 +11,20 @@ export default function ItemNotSupported () {
   dispatch(hideHomeSearch())
 
   return (
-        <div className="pageNotFoundText">
-            <div className='pageNotFoundText-content'>
-                <Helmet>
-                    <title>Sanctuary Sneakers | Item Not Supported</title>
-                    <meta
-                        name="description"
-                        content="Sorry, this item isn't supported yet."
-                    />
-                </Helmet>
-                <h1> Sorry, the item you&apos;re looking for is not supported yet. </h1>
-                <SearchBox/>
-            </div>
+    <div className="pageNotFoundText">
+      <div className='pageNotFoundText-content'>
+        <Helmet>
+          <title>Sanctuary Sneakers | Item Not Supported</title>
+          <meta
+            name="description"
+            content="Sorry, this item isn't supported yet."
+          />
+        </Helmet>
+        <h1> Sorry, the item you&apos;re looking for is not supported yet. </h1>
+        <SearchBox/>
+      </div>
 
-            <Footer colour={'white'} />
-        </div>
+      <Footer colour={'white'} />
+    </div>
   )
 }

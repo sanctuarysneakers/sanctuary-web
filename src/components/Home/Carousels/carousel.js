@@ -7,7 +7,7 @@ export default function Carousel ({ data, type }) {
     ? []
     : (data.map((item, index) =>
       <CarouselCard key={index} data={item} type={type} index={index} length={data.length} />
-      ))
+    ))
 
   return (
     <div className='carousel'>

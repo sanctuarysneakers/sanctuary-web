@@ -34,71 +34,71 @@ export default function SignInOptions () {
   dispatch(hideHomeSearch())
 
   return (
-        <div className='sign-in-options'>
+    <div className='sign-in-options'>
 
-            {!isDesktop && <div className='sign-in-options-header'>
-                <h1> Everything </h1>
-                <h1> sneakers. </h1>
-                <h1> All in one place. </h1>
-            </div>}
+      {!isDesktop && <div className='sign-in-options-header'>
+        <h1> Everything </h1>
+        <h1> sneakers. </h1>
+        <h1> All in one place. </h1>
+      </div>}
 
-            {isDesktop && <div className='sign-in-options-header'>
-                <h1> Everything sneakers. </h1>
-                <h1> All in one place. </h1>
-            </div>}
+      {isDesktop && <div className='sign-in-options-header'>
+        <h1> Everything sneakers. </h1>
+        <h1> All in one place. </h1>
+      </div>}
 
-            <div className='account-buttons'>
+      <div className='account-buttons'>
 
-                {/* <button className='facebook-button' onClick={facebookAuth}>
-                    <img src={facebook} alt='facebook' />
-                    <p> Continue with Facebook </p>
-                </button> */}
+        {/* <button className='facebook-button' onClick={facebookAuth}>
+          <img src={facebook} alt='facebook' />
+          <p> Continue with Facebook </p>
+        </button> */}
 
-                <button className='google-button' onClick={googleAuth}>
-                    <img src={google} alt='google' />
-                    <p> Continue with Google </p>
-                </button>
+        <button className='google-button' onClick={googleAuth}>
+          <img src={google} alt='google' />
+          <p> Continue with Google </p>
+        </button>
 
-                <button className='apple-button' onClick={appleAuth}>
-                    <img src={apple} alt='apple' />
-                    <p> Continue with Apple </p>
-                </button>
+        <button className='apple-button' onClick={appleAuth}>
+          <img src={apple} alt='apple' />
+          <p> Continue with Apple </p>
+        </button>
 
-                <div className='divider'>
-                    <div className='divider-line'></div>
-                    <p> OR </p>
-                    <div className='divider-line'></div>
-                </div>
-
-                <Link className='email-button' to="/sign-in-email">
-                    <img src={mail} alt='mail' />
-                    <p> Log in with Email </p>
-                </Link>
-
-                <div className='switch-form'>
-                    <p> Don&apos;t have an account? </p>
-                    <Link to="/create-account"> Sign Up. </Link>
-                </div>
-
-                <div className='account-terms-policy'>
-                    <p> By signing in, you agree to Sanctuary&apos;s </p>
-                    <div className='terms-policy-text'>
-
-                        <Link to="/privacy-policy" className='terms-policy-pop-up'>
-                            Privacy Policy
-                            </Link>
-
-                        <p> and </p>
-
-                        <Link to="/terms-of-use" className='terms-policy-pop-up'>
-                            Terms of Use.
-                            </Link>
-                    </div>
-                </div>
-
-            </div>
-
-            <Footer colour={'white'} />
+        <div className='divider'>
+          <div className='divider-line'></div>
+          <p> OR </p>
+          <div className='divider-line'></div>
         </div>
+
+        <Link className='email-button' to="/sign-in-email">
+          <img src={mail} alt='mail' />
+          <p> Log in with Email </p>
+        </Link>
+
+        <div className='switch-form'>
+          <p> Don&apos;t have an account? </p>
+          <Link to="/create-account"> Sign Up. </Link>
+        </div>
+
+        <div className='account-terms-policy'>
+          <p> By signing in, you agree to Sanctuary&apos;s </p>
+          <div className='terms-policy-text'>
+
+            <Link to="/privacy-policy" className='terms-policy-pop-up'>
+              Privacy Policy
+            </Link>
+
+            <p> and </p>
+
+            <Link to="/terms-of-use" className='terms-policy-pop-up'>
+              Terms of Use.
+            </Link>
+          </div>
+        </div>
+
+      </div>
+
+      <Footer colour={'white'} />
+    </div>
   )
 }

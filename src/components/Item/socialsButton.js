@@ -7,6 +7,6 @@ export default function SocialsButton () {
   const dispatch = useDispatch()
 
   return (
-        <FaShareSquare onClick={() => dispatch(showSocialsModal())}/>
+    <FaShareSquare onClick={() => dispatch(showSocialsModal())}/>
   )
 }

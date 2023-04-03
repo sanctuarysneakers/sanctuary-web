@@ -15,16 +15,16 @@ export default function CurrencyOption ({ option, currency }) {
   }
 
   return (
-        <div className={(option === currency) ? 'currency-option current' : 'currency-option'}>
+    <div className={(option === currency) ? 'currency-option current' : 'currency-option'}>
 
-            <div className='currency-option-content' onClick={handleCurrencyChange}>
-                <div className={(option === currency) ? 'currency-option-text current' : 'currency-option-text'}>
-                    <img src={currencyFlagMap[option]} alt='flag' />
-                    <p> {currencySymbolMapWithAbbrev[option]} </p>
-                </div>
-            </div>
-
+      <div className='currency-option-content' onClick={handleCurrencyChange}>
+        <div className={(option === currency) ? 'currency-option-text current' : 'currency-option-text'}>
+          <img src={currencyFlagMap[option]} alt='flag' />
+          <p> {currencySymbolMapWithAbbrev[option]} </p>
         </div>
+      </div>
+
+    </div>
   )
 }
 

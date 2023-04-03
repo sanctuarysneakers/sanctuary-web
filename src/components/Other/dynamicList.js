@@ -18,17 +18,17 @@ export default function DynamicList ({ name, items, initialLength }) {
     }, [showMore])
 
   return (
-        <div className='dynamic-list'>
-            <div className={name}>
-                {displayItems}
-            </div>
+    <div className='dynamic-list'>
+      <div className={name}>
+        {displayItems}
+      </div>
 
-            {useShowMore &&
-                <button className='dynamic-list-button' onClick={() => setShowMore(!showMore)}>
-                    {showMore ? 'See All' : 'See Less'}
-                </button>
-            }
-        </div>
+      {useShowMore &&
+      <button className='dynamic-list-button' onClick={() => setShowMore(!showMore)}>
+        {showMore ? 'See All' : 'See Less'}
+      </button>
+      }
+    </div>
   )
 }
 

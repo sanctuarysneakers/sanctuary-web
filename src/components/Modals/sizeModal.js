@@ -17,28 +17,28 @@ export default function SizeModal ({ gender }) {
 
   const sneakerSizes = [4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 14, 15]
   const sizeOptions = sneakerSizes.map((number) =>
-        <SizeOption key={number} option={number} size={size} gender={gender} />)
+    <SizeOption key={number} option={number} size={size} gender={gender} />)
 
   return (
-        <div className='size-modal'>
-            <div className='size-modal-content' ref={wrapperRef}>
-                <div className='size-modal-padding'>
-                    <div className='size-modal-close'>
-                        <button onClick={() => dispatch(hideSizeModal())}>
-                            <Close />
-                        </button>
-                    </div>
-d
-                    <div className='size-modal-text'>
-                        <h1> Select your size </h1>
-                    </div>
+    <div className='size-modal'>
+      <div className='size-modal-content' ref={wrapperRef}>
+        <div className='size-modal-padding'>
+          <div className='size-modal-close'>
+            <button onClick={() => dispatch(hideSizeModal())}>
+              <Close />
+            </button>
+          </div>
+          d
+          <div className='size-modal-text'>
+            <h1> Select your size </h1>
+          </div>
 
-                    <div className='size-modal-buttons'>
-                        {sizeOptions}
-                    </div>
-                </div>
-            </div>
+          <div className='size-modal-buttons'>
+            {sizeOptions}
+          </div>
         </div>
+      </div>
+    </div>
   )
 }
 

@@ -29,46 +29,46 @@ export default function EditProfileName () {
   }
 
   return (
-        <div className='edit-profile-page'>
-            <div className='edit-profile-page-container'>
+    <div className='edit-profile-page'>
+      <div className='edit-profile-page-container'>
 
-                <div className='edit-profile-page-title'>
-                    <h1> Name </h1>
-                    <p> Update your Sanctuary account display name. </p>
-                </div>
+        <div className='edit-profile-page-title'>
+          <h1> Name </h1>
+          <p> Update your Sanctuary account display name. </p>
+        </div>
 
-                <div className='edit-profile-page-content'>
+        <div className='edit-profile-page-content'>
 
-                    {errorMessage &&
-                        <p className='edit-profile-page-error'>
-                            {errorMessage}
-                        </p>
-                    }
+          {errorMessage &&
+          <p className='edit-profile-page-error'>
+            {errorMessage}
+          </p>
+          }
 
-                    <div className='edit-profile-page-input'>
+          <div className='edit-profile-page-input'>
 
-                        <div className='edit-input'>
-                            <input
-                                className="inputBox"
-                                placeholder="New Name"
-                                value={newName}
-                                onChange={event => setNewName(event.target.value)}
-                            />
-                        </div>
-
-                    </div>
-
-                    <div className='edit-profile-page-buttons'>
-                        <div className='save-edit' onClick={updateName}>
-                            <p> Save </p>
-                        </div>
-                    </div>
-
-                </div>
-
+            <div className='edit-input'>
+              <input
+                className="inputBox"
+                placeholder="New Name"
+                value={newName}
+                onChange={event => setNewName(event.target.value)}
+              />
             </div>
 
-            <Footer colour={'white'} />
+          </div>
+
+          <div className='edit-profile-page-buttons'>
+            <div className='save-edit' onClick={updateName}>
+              <p> Save </p>
+            </div>
+          </div>
+
         </div>
+
+      </div>
+
+      <Footer colour={'white'} />
+    </div>
   )
 }

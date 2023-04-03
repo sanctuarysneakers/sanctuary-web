@@ -16,15 +16,15 @@ export default function SizeOption ({ option, size, gender }) {
   }
 
   return (
-        <div className={(option === size) ? 'size-option current' : 'size-option'}>
+    <div className={(option === size) ? 'size-option current' : 'size-option'}>
 
-            <div className='size-option-content' onClick={handleSizeChange}>
-                <p className={(option === size) ? 'size-option-text current' : 'size-option-text'}>
-                    US {genderSymbol} {option}
-                </p>
-            </div>
+      <div className='size-option-content' onClick={handleSizeChange}>
+        <p className={(option === size) ? 'size-option-text current' : 'size-option-text'}>
+          US {genderSymbol} {option}
+        </p>
+      </div>
 
-        </div>
+    </div>
   )
 }
 

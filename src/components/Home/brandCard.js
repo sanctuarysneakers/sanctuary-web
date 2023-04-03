@@ -17,11 +17,11 @@ export default function BrandCard ({ brand, index, length }) {
   }
 
   return (
-        <div className={position} onClick={handleClick}>
-            <div className='brand-card-content'>
-                <p>{brand}</p>
-            </div>
-        </div>
+    <div className={position} onClick={handleClick}>
+      <div className='brand-card-content'>
+        <p>{brand}</p>
+      </div>
+    </div>
   )
 }
 

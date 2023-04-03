@@ -42,88 +42,88 @@ export default function CarouselCard ({ data, index, type, length }) {
   if (index === 0) { position = 'carousel-card start' } else if (index === length - 1) { position = 'carousel-card end' } else position = 'carousel-card'
 
   return (
-        <div className={position}>
-            {(type === 'trending') &&
-                <Link
-                    to={{
-                      pathname: generateLink(),
-                      itemInfo: getNavData()
-                    }}
-                    className="hidden-link"
-                >
-                    <div className='carousel-card-trending'>
-                        <div className='carousel-card-trending-sneaker'>
-                            <img src={data.imageThumbnail} alt='Sneaker thumbnail'/>
-                        </div>
+    <div className={position}>
+      {(type === 'trending') &&
+      <Link
+        to={{
+          pathname: generateLink(),
+          itemInfo: getNavData()
+        }}
+        className="hidden-link"
+      >
+        <div className='carousel-card-trending'>
+          <div className='carousel-card-trending-sneaker'>
+            <img src={data.imageThumbnail} alt='Sneaker thumbnail'/>
+          </div>
 
-                        <div className='carousel-card-trending-text'>
-                            <div className='carousel-card-trending-model'>
-                                <p>TRENDING</p>
-                                <h2>{data.model}</h2>
-                            </div>
+          <div className='carousel-card-trending-text'>
+            <div className='carousel-card-trending-model'>
+              <p>TRENDING</p>
+              <h2>{data.model}</h2>
+            </div>
 
-                            <div className='carousel-card-trending-price'>
-                                <p>Estimated</p>
-                                <h4>{currencySymbolMap[currency]}{data.price.toLocaleString('en')}</h4>
-                            </div>
-                        </div>
-                    </div>
-                </Link>
-            }
-            {(type === 'featuredCollection') &&
-                <Link
-                    to={{
-                      pathname: generateLink(),
-                      itemInfo: getNavData()
-                    }}
-                    className="hidden-link"
-                >
-                    <div className='carousel-card-deals'>
-                        <div className='carousel-card-content'>
-                            <div className='carousel-card-image'>
-                                <img src={data.imageThumbnail} alt='Sneaker thumbnail'/>
-                            </div>
-
-                            <div className='carousel-card-text'>
-                                <h2>{data.model}</h2>
-                            </div>
-
-                            <div className='carousel-card-price'>
-                                <p>Estimated</p>
-                                <h4>{currencySymbolMap[currency]}{data.price.toLocaleString('en')}</h4>
-                            </div>
-                        </div>
-                    </div>
-                </Link>
-            }
-            {type === 'related' &&
-                <Link
-                    to={{
-                      pathname: generateLink(),
-                      itemInfo: null
-                    }}
-                    onClick={(event) => relatedClick(event)}
-                    className="hidden-link"
-                >
-                    <div className='carousel-card-deals'>
-                        <div className='carousel-card-content'>
-                            <div className='carousel-card-image'>
-                                <img src={data.imageThumbnail} alt='Sneaker thumbnail'/>
-                            </div>
-
-                            <div className='carousel-card-text'>
-                                <h2>{data.model}</h2>
-                            </div>
-
-                            <div className='carousel-card-price'>
-                                <p>Estimated</p>
-                                <h4>{currencySymbolMap[currency]}{data.price.toLocaleString('en')}</h4>
-                            </div>
-                        </div>
-                    </div>
-                </Link>
-            }
+            <div className='carousel-card-trending-price'>
+              <p>Estimated</p>
+              <h4>{currencySymbolMap[currency]}{data.price.toLocaleString('en')}</h4>
+            </div>
+          </div>
         </div>
+      </Link>
+      }
+      {(type === 'featuredCollection') &&
+      <Link
+        to={{
+          pathname: generateLink(),
+          itemInfo: getNavData()
+        }}
+        className="hidden-link"
+      >
+        <div className='carousel-card-deals'>
+          <div className='carousel-card-content'>
+            <div className='carousel-card-image'>
+              <img src={data.imageThumbnail} alt='Sneaker thumbnail'/>
+            </div>
+
+            <div className='carousel-card-text'>
+              <h2>{data.model}</h2>
+            </div>
+
+            <div className='carousel-card-price'>
+              <p>Estimated</p>
+              <h4>{currencySymbolMap[currency]}{data.price.toLocaleString('en')}</h4>
+            </div>
+          </div>
+        </div>
+      </Link>
+      }
+      {type === 'related' &&
+      <Link
+        to={{
+          pathname: generateLink(),
+          itemInfo: null
+        }}
+        onClick={(event) => relatedClick(event)}
+        className="hidden-link"
+      >
+        <div className='carousel-card-deals'>
+          <div className='carousel-card-content'>
+            <div className='carousel-card-image'>
+              <img src={data.imageThumbnail} alt='Sneaker thumbnail'/>
+            </div>
+
+            <div className='carousel-card-text'>
+              <h2>{data.model}</h2>
+            </div>
+
+            <div className='carousel-card-price'>
+              <p>Estimated</p>
+              <h4>{currencySymbolMap[currency]}{data.price.toLocaleString('en')}</h4>
+            </div>
+          </div>
+        </div>
+      </Link>
+      }
+    </div>
   )
 }
 

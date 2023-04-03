@@ -45,16 +45,16 @@ export default function Catalog ({ searchTerm }) {
   }, [browseData])
 
   return (
-        <InfiniteScroll
-            dataLength={items.length}
-            next={fetchMore}
-            hasMore={hasMore}
-            className='catalog'
-        >
-            {items.length !== 0 && items.map((item) => (
-                <ItemCard key={item.id} data={item} />
-            ))}
-        </InfiniteScroll>
+    <InfiniteScroll
+      dataLength={items.length}
+      next={fetchMore}
+      hasMore={hasMore}
+      className='catalog'
+    >
+      {items.length !== 0 && items.map((item) => (
+        <ItemCard key={item.id} data={item} />
+      ))}
+    </InfiniteScroll>
   )
 }
 

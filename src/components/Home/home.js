@@ -22,27 +22,27 @@ export default function Home () {
   dispatch(recordSplashHeight(splashHeight))
 
   return (
-        <div>
-            <Helmet>
-                <title>Sanctuary: Sneaker Price Comparison and Market Data</title>
-                <meta
-                    name="description"
-                    content="Sanctuary Sneakers collects all available sneaker market data in one place so you can
+    <div>
+      <Helmet>
+        <title>Sanctuary: Sneaker Price Comparison and Market Data</title>
+        <meta
+          name="description"
+          content="Sanctuary Sneakers collects all available sneaker market data in one place so you can
                              compare and find the best prices. Sanctuary lets you see real-time prices, new inventory,
                              and more information for both new and used sneakers from several trusted online stores so
                              you don't have to! Stay up-to-date with price drop alerts, and release reminders."
-                />
-            </Helmet>
+        />
+      </Helmet>
 
-            <HomeSplash />
+      <HomeSplash />
 
-            <HomeTrending />
+      <HomeTrending />
 
-            <HomeNewsroom />
+      <HomeNewsroom />
 
-            <HomeApp />
+      <HomeApp />
 
-            <Footer colour={'white'} />
-        </div>
+      <Footer colour={'white'} />
+    </div>
   )
 }

@@ -31,66 +31,66 @@ export default function CreateAccountOptions () {
   dispatch(hideHomeSearch())
 
   return (
-        <div className='sign-in-options'>
+    <div className='sign-in-options'>
 
-            <div className='sign-in-options-header'>
-                <h1> Welcome to the </h1>
-                <h1> future of shopping. </h1>
-            </div>
+      <div className='sign-in-options-header'>
+        <h1> Welcome to the </h1>
+        <h1> future of shopping. </h1>
+      </div>
 
-            <div className='account-buttons'>
+      <div className='account-buttons'>
 
-                {/* <button className='facebook-button' onClick={facebookAuth}>
-                    <img src={facebook} alt='facebook' />
-                    <p> Continue with Facebook </p>
-                </button> */}
+        {/* <button className='facebook-button' onClick={facebookAuth}>
+          <img src={facebook} alt='facebook' />
+          <p> Continue with Facebook </p>
+        </button> */}
 
-                <button className='google-button' onClick={googleAuth}>
-                    <img src={google} alt='google' />
-                    <p> Continue with Google </p>
-                </button>
+        <button className='google-button' onClick={googleAuth}>
+          <img src={google} alt='google' />
+          <p> Continue with Google </p>
+        </button>
 
-                <button className='apple-button' onClick={appleAuth}>
-                    <img src={apple} alt='apple' />
-                    <p> Continue with Apple </p>
-                </button>
+        <button className='apple-button' onClick={appleAuth}>
+          <img src={apple} alt='apple' />
+          <p> Continue with Apple </p>
+        </button>
 
-                <div className='divider'>
-                    <div className='divider-line'></div>
-                    <p> OR </p>
-                    <div className='divider-line'></div>
-                </div>
-
-                <Link className='email-button' to="/create-account-email">
-                    <img src={mail} alt='mail' />
-                    <p> Sign up with Email </p>
-                </Link>
-
-                <div className='switch-form'>
-                    <p> Already have an account? </p>
-                    <Link to="/sign-in"> Log in. </Link>
-                </div>
-
-                <div className='account-terms-policy'>
-                    <p> By creating an account, you agree to Sanctuary&apos;s </p>
-                    <div className='terms-policy-text'>
-
-                        <Link to="/privacy-policy" className='terms-policy-pop-up'>
-                            Privacy Policy
-                            </Link>
-
-                        <p> and </p>
-
-                        <Link to="/terms-of-use" className='terms-policy-pop-up'>
-                            Terms of Use.
-                            </Link>
-
-                    </div>
-                </div>
-
-            </div>
-
-            <Footer colour={'white'} />
+        <div className='divider'>
+          <div className='divider-line'></div>
+          <p> OR </p>
+          <div className='divider-line'></div>
         </div>
+
+        <Link className='email-button' to="/create-account-email">
+          <img src={mail} alt='mail' />
+          <p> Sign up with Email </p>
+        </Link>
+
+        <div className='switch-form'>
+          <p> Already have an account? </p>
+          <Link to="/sign-in"> Log in. </Link>
+        </div>
+
+        <div className='account-terms-policy'>
+          <p> By creating an account, you agree to Sanctuary&apos;s </p>
+          <div className='terms-policy-text'>
+
+            <Link to="/privacy-policy" className='terms-policy-pop-up'>
+              Privacy Policy
+            </Link>
+
+            <p> and </p>
+
+            <Link to="/terms-of-use" className='terms-policy-pop-up'>
+              Terms of Use.
+            </Link>
+
+          </div>
+        </div>
+
+      </div>
+
+      <Footer colour={'white'} />
+    </div>
   )
 }

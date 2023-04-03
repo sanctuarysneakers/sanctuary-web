@@ -30,64 +30,64 @@ export default function HowItWorksCards () {
   }, [browseVisible, buttonsVisible, pricesVisible, listingsVisible])
 
   return (
-        <div className="how-it-works-cards">
-            <div className="how-it-works-cards-content">
-                <div className="how-it-works-card">
-                    <div className="how-it-works-card-content">
-                        <div ref={ref1} className="how-it-works-card-text browse">
-                            <FadeIn visible={renderBrowse} delay={250} transitionDuration={1000}>
-                                <h1>Browse the latest drops.</h1>
-                            </FadeIn>
-                        </div>
-
-                        <div className="how-it-works-card-shoe">
-                            <Shoe />
-                        </div>
-                    </div>
-                </div>
-
-                <div className="how-it-works-card">
-                    <div className="how-it-works-card-content">
-                        <div ref={ref2} className="how-it-works-card-text buy">
-                            <FadeIn visible={renderButtons} delay={350} transitionDuration={1200}>
-                                <h1>Instantly see the best price.</h1>
-                            </FadeIn>
-                        </div>
-
-                        <div className="how-it-works-card-buttons">
-                            <Buttons />
-                        </div>
-                    </div>
-                </div>
-
-                <div className="how-it-works-card">
-                    <div className="how-it-works-card-content">
-                        <div ref={ref3} className="how-it-works-card-text price">
-                            <FadeIn visible={renderPrices} delay={350} transitionDuration={1200}>
-                                <h1>Compare all market prices.</h1>
-                            </FadeIn>
-                        </div>
-
-                        <div className="how-it-works-card-prices">
-                            <Prices />
-                        </div>
-                    </div>
-                </div>
-
-                <div className="how-it-works-card last">
-                    <div className="how-it-works-card-content">
-                        <div ref={ref4} className="how-it-works-card-text listings">
-                            <FadeIn visible={renderListings} delay={350} transitionDuration={1200}>
-                                <h1>Check pre-owned prices.</h1>
-                            </FadeIn>
-                        </div>
-
-                        <div className="how-it-works-card-listings">
-                            <Listings />
-                        </div>
-                    </div>
-                </div>
+    <div className="how-it-works-cards">
+      <div className="how-it-works-cards-content">
+        <div className="how-it-works-card">
+          <div className="how-it-works-card-content">
+            <div ref={ref1} className="how-it-works-card-text browse">
+              <FadeIn visible={renderBrowse} delay={250} transitionDuration={1000}>
+                <h1>Browse the latest drops.</h1>
+              </FadeIn>
             </div>
+
+            <div className="how-it-works-card-shoe">
+              <Shoe />
+            </div>
+          </div>
         </div>
+
+        <div className="how-it-works-card">
+          <div className="how-it-works-card-content">
+            <div ref={ref2} className="how-it-works-card-text buy">
+              <FadeIn visible={renderButtons} delay={350} transitionDuration={1200}>
+                <h1>Instantly see the best price.</h1>
+              </FadeIn>
+            </div>
+
+            <div className="how-it-works-card-buttons">
+              <Buttons />
+            </div>
+          </div>
+        </div>
+
+        <div className="how-it-works-card">
+          <div className="how-it-works-card-content">
+            <div ref={ref3} className="how-it-works-card-text price">
+              <FadeIn visible={renderPrices} delay={350} transitionDuration={1200}>
+                <h1>Compare all market prices.</h1>
+              </FadeIn>
+            </div>
+
+            <div className="how-it-works-card-prices">
+              <Prices />
+            </div>
+          </div>
+        </div>
+
+        <div className="how-it-works-card last">
+          <div className="how-it-works-card-content">
+            <div ref={ref4} className="how-it-works-card-text listings">
+              <FadeIn visible={renderListings} delay={350} transitionDuration={1200}>
+                <h1>Check pre-owned prices.</h1>
+              </FadeIn>
+            </div>
+
+            <div className="how-it-works-card-listings">
+              <Listings />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }

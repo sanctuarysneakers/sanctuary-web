@@ -13,29 +13,29 @@ export default function CurrencyModal () {
   useOutsideAlerter(wrapperRef)
 
   const currencyOptions = supportedCurrencies.map((country) =>
-        <CurrencyOption key={country} option={country} currency={currency} />
+    <CurrencyOption key={country} option={country} currency={currency} />
   )
 
   return (
-        <div className='currency-modal'>
-            <div className='currency-modal-content' ref={wrapperRef}>
-                <div className='currency-modal-padding'>
-                    <div className='currency-modal-close'>
-                        <button onClick={() => dispatch(hideCurrencyModal())}>
-                            <Close />
-                        </button>
-                    </div>
+    <div className='currency-modal'>
+      <div className='currency-modal-content' ref={wrapperRef}>
+        <div className='currency-modal-padding'>
+          <div className='currency-modal-close'>
+            <button onClick={() => dispatch(hideCurrencyModal())}>
+              <Close />
+            </button>
+          </div>
 
-                    <div className='currency-modal-text'>
-                        <h1> Change currency </h1>
-                        <p> Select </p>
-                    </div>
+          <div className='currency-modal-text'>
+            <h1> Change currency </h1>
+            <p> Select </p>
+          </div>
 
-                    <div className='currency-modal-buttons'>
-                        {currencyOptions}
-                    </div>
-                </div>
-            </div>
+          <div className='currency-modal-buttons'>
+            {currencyOptions}
+          </div>
         </div>
+      </div>
+    </div>
   )
 }

@@ -13,15 +13,15 @@ export default function SearchModal () {
   useOutsideAlerter(wrapperRef)
 
   return (
-        <div className='search-modal'>
-            <div className='search-modal-content' ref={wrapperRef}>
-                <div className='search-modal-navbar'>
-                    <SearchBox/>
-                    {!isDesktop && <p onClick={() => dispatch(hideSearchModal())}>
-                        Cancel
-                    </p>}
-                </div>
-            </div>
+    <div className='search-modal'>
+      <div className='search-modal-content' ref={wrapperRef}>
+        <div className='search-modal-navbar'>
+          <SearchBox/>
+          {!isDesktop && <p onClick={() => dispatch(hideSearchModal())}>
+            Cancel
+          </p>}
         </div>
+      </div>
+    </div>
   )
 }

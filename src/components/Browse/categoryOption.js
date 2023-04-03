@@ -12,15 +12,15 @@ export default function CategoryOption ({ category }) {
   }
 
   return (
-        <div className='category-option'>
+    <div className='category-option'>
 
-            <div className='category-option-content' onClick={clickHandler}>
-                <p className='category-option-text'>
-                    {category}
-                </p>
-            </div>
+      <div className='category-option-content' onClick={clickHandler}>
+        <p className='category-option-text'>
+          {category}
+        </p>
+      </div>
 
-        </div>
+    </div>
   )
 }
 

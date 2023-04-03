@@ -69,55 +69,55 @@ export default function ContactForm () {
   }, [isVisible])
 
   return (
-        <div className="contact-form">
-            <div className="contact-form-content">
-                <div ref={animationRef} className="contact-form-text">
-                    <FadeIn visible={render} delay={350} transitionDuration={1200}>
-                        <h1>We love feedback!</h1>
-                        <p>
-                            Is there something you think we could do better? Please
-                            feel free to contact us and we&apos;ll get back to you shortly!
-                        </p>
-                    </FadeIn>
-                </div>
-
-                <div className="contact-form-boxes">
-                    <p className="contact-form-box-title">Your Name <span>* {nameError}</span></p>
-                    <input
-                        className='contact-form-input'
-                        placeholder='Full Name'
-                        value={name}
-                        onChange={event => setName(event.target.value)}
-                    />
-
-                    <p className="contact-form-box-title">Your Email <span>* {emailError}</span></p>
-                    <input
-                        className='contact-form-input'
-                        placeholder='Email Address'
-                        value={email}
-                        onChange={event => setEmail(event.target.value)}
-                    />
-
-                    <p className="contact-form-box-title">Message <span>* {messageError}</span></p>
-                    <textarea
-                        className='contact-form-input message'
-                        placeholder='Type a message...'
-                        value={message}
-                        onChange={event => setMessage(event.target.value)}
-                    />
-
-                    <ReCAPTCHA
-                        className='contact-form-captcha'
-                        ref={recaptchaRef}
-                        sitekey={process.env.REACT_APP_EMAILJS_CAPTCHA_SITE_KEY}
-                        onChange={() => setCaptcha(true)}
-                    />
-
-                    <button className={`contact-form-submit ${pressed}`} onClick={handleSendEmail}>
-                        {pressed ? <Spinner /> : status ? <p>{status}</p> : <p>Submit</p>}
-                    </button>
-                </div>
-            </div>
+    <div className="contact-form">
+      <div className="contact-form-content">
+        <div ref={animationRef} className="contact-form-text">
+          <FadeIn visible={render} delay={350} transitionDuration={1200}>
+            <h1>We love feedback!</h1>
+            <p>
+              Is there something you think we could do better? Please
+              feel free to contact us and we&apos;ll get back to you shortly!
+            </p>
+          </FadeIn>
         </div>
+
+        <div className="contact-form-boxes">
+          <p className="contact-form-box-title">Your Name <span>* {nameError}</span></p>
+          <input
+            className='contact-form-input'
+            placeholder='Full Name'
+            value={name}
+            onChange={event => setName(event.target.value)}
+          />
+
+          <p className="contact-form-box-title">Your Email <span>* {emailError}</span></p>
+          <input
+            className='contact-form-input'
+            placeholder='Email Address'
+            value={email}
+            onChange={event => setEmail(event.target.value)}
+          />
+
+          <p className="contact-form-box-title">Message <span>* {messageError}</span></p>
+          <textarea
+            className='contact-form-input message'
+            placeholder='Type a message...'
+            value={message}
+            onChange={event => setMessage(event.target.value)}
+          />
+
+          <ReCAPTCHA
+            className='contact-form-captcha'
+            ref={recaptchaRef}
+            sitekey={process.env.REACT_APP_EMAILJS_CAPTCHA_SITE_KEY}
+            onChange={() => setCaptcha(true)}
+          />
+
+          <button className={`contact-form-submit ${pressed}`} onClick={handleSendEmail}>
+            {pressed ? <Spinner /> : status ? <p>{status}</p> : <p>Submit</p>}
+          </button>
+        </div>
+      </div>
+    </div>
   )
 }

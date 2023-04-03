@@ -12,20 +12,20 @@ export default function PageNotFound () {
   dispatch(hideHomeSearch())
 
   return (
-        <div className="pageNotFoundText">
-            <div className='pageNotFoundText-content'>
-                <Helmet>
-                    <title>Sanctuary Sneakers | Page Not Found</title>
-                    <meta
-                        name="description"
-                        content="Sorry, we can't find the page you're looking for."
-                    />
-                </Helmet>
-                <h1>Sorry, we can&apos;t find the page you&apos;re looking for. </h1>
-                <SearchBox/>
-            </div>
+    <div className="pageNotFoundText">
+      <div className='pageNotFoundText-content'>
+        <Helmet>
+          <title>Sanctuary Sneakers | Page Not Found</title>
+          <meta
+            name="description"
+            content="Sorry, we can't find the page you're looking for."
+          />
+        </Helmet>
+        <h1>Sorry, we can&apos;t find the page you&apos;re looking for. </h1>
+        <SearchBox/>
+      </div>
 
-            <Footer colour={'white'} />
-        </div>
+      <Footer colour={'white'} />
+    </div>
   )
 }

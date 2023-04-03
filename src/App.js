@@ -56,35 +56,35 @@ export default function App () {
     <React.Fragment>
       <Navbar />
       <Switch>
-      <Route exact path="/" component={Home} />
-      <Route path="/home" component={Home} />
-      <Route path="/browse/:searchTerm?" component={Browse} />
-      <Route path="/item/:itemKey/:gender?" component={Item} />
+        <Route exact path="/" component={Home} />
+        <Route path="/home" component={Home} />
+        <Route path="/browse/:searchTerm?" component={Browse} />
+        <Route path="/item/:itemKey/:gender?" component={Item} />
 
-      <ProtectedRoute path="/sign-in/:redirect?" component={SignInOptions} isEnabled={false} />
-      <ProtectedRoute path="/sign-in-email" component={SignInEmail} isEnabled={false} />
-      <ProtectedRoute path="/create-account/:redirect?" component={CreateAccountOptions} isEnabled={false} />
-      <ProtectedRoute path="/create-account-email" component={CreateAccountEmail} isEnabled={false} />
-      <ProtectedRoute path="/sign-in-forgot-password" component={ForgotPassword} isEnabled={false} />
+        <ProtectedRoute path="/sign-in/:redirect?" component={SignInOptions} isEnabled={false} />
+        <ProtectedRoute path="/sign-in-email" component={SignInEmail} isEnabled={false} />
+        <ProtectedRoute path="/create-account/:redirect?" component={CreateAccountOptions} isEnabled={false} />
+        <ProtectedRoute path="/create-account-email" component={CreateAccountEmail} isEnabled={false} />
+        <ProtectedRoute path="/sign-in-forgot-password" component={ForgotPassword} isEnabled={false} />
 
-      <ProtectedRoute path="/profile/:redirect?" component={Profile} isEnabled={false} />
-      <ProtectedRoute path="/profile-edit-name" component={EditProfileName} isEnabled={false} />
-      <ProtectedRoute path="/profile-edit-email" component={EditProfileEmail} isEnabled={false} />
-      <ProtectedRoute path="/profile-edit-password" component={EditProfilePassword} isEnabled={false} />
-      <ProtectedRoute path="/sign-out/:redirect?" component={SignOut} isEnabled={false} />
+        <ProtectedRoute path="/profile/:redirect?" component={Profile} isEnabled={false} />
+        <ProtectedRoute path="/profile-edit-name" component={EditProfileName} isEnabled={false} />
+        <ProtectedRoute path="/profile-edit-email" component={EditProfileEmail} isEnabled={false} />
+        <ProtectedRoute path="/profile-edit-password" component={EditProfilePassword} isEnabled={false} />
+        <ProtectedRoute path="/sign-out/:redirect?" component={SignOut} isEnabled={false} />
 
-      <Route path="/privacy-policy" component={PrivacyPolicy} />
-      <Route path="/terms-of-use" component={TermsOfUse} />
-      <Route path="/contact-us" component={ContactUs} />
-      <Route path="/how-it-works" component={HowItWorks} />
-      <Route path="/newsroom" component={Newsroom} />
-      <Route path="/newsroom-sanctuary-our-story" component={SanctuaryStory} />
-      <Route path="/newsroom-buy-your-pair" component={BuyYourPair} />
-      <Route path="/newsroom-how-adidas-and-carbon-3d-are-revolutionizing-sneaker-production" component={AdidasCarbon3D} />
-      <Route path="/newsroom-our-top-drops-of-2020" component={TopDrops2020} />
-      <Route path="/newsroom-demystifying-the-sneaker-market" component={SneakerMarket} />
-      <Route path="/item-not-supported" component={ItemNotSupported} />
-      <Route component={PageNotFound} />
+        <Route path="/privacy-policy" component={PrivacyPolicy} />
+        <Route path="/terms-of-use" component={TermsOfUse} />
+        <Route path="/contact-us" component={ContactUs} />
+        <Route path="/how-it-works" component={HowItWorks} />
+        <Route path="/newsroom" component={Newsroom} />
+        <Route path="/newsroom-sanctuary-our-story" component={SanctuaryStory} />
+        <Route path="/newsroom-buy-your-pair" component={BuyYourPair} />
+        <Route path="/newsroom-how-adidas-and-carbon-3d-are-revolutionizing-sneaker-production" component={AdidasCarbon3D} />
+        <Route path="/newsroom-our-top-drops-of-2020" component={TopDrops2020} />
+        <Route path="/newsroom-demystifying-the-sneaker-market" component={SneakerMarket} />
+        <Route path="/item-not-supported" component={ItemNotSupported} />
+        <Route component={PageNotFound} />
       </Switch>
 
       { locationPopup &&

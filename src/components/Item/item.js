@@ -47,126 +47,123 @@ export default function Item () {
   const socialsModalVisible = useSelector(state => state.modals.socialsModalVisible)
 
   const priceComponents = itemPrices.map((item, index) =>
-        <ItemPrice key={item.source} data={item} index={index}
-            length={itemPrices.length} />
+    <ItemPrice key={item.source} data={item} index={index}
+      length={itemPrices.length} />
   )
 
   const listingComponents = itemListings.map((item, index) =>
-        <ItemListing key={item.id} data={item} index={index}
-            length={itemListings.length} />
+    <ItemListing key={item.id} data={item} index={index}
+      length={itemListings.length} />
   )
 
   return (
-        <div className='item'>
-            <HelmetProvider>
-                <Helmet>
-                    {itemInfo.modelName && <title>{`Sanctuary: ${itemInfo.modelName}`}</title>}
-                    <meta property="og:title" content={itemInfo.modelName} />
-                    <meta property="og:image" content={itemInfo.image} />
-                </Helmet>
-            </HelmetProvider>
+    <div className='item'>
+      <HelmetProvider>
+        <Helmet>
+          {itemInfo.modelName && <title>{`Sanctuary: ${itemInfo.modelName}`}</title>}
+          <meta property="og:title" content={itemInfo.modelName} />
+          <meta property="og:image" content={itemInfo.image} />
+        </Helmet>
+      </HelmetProvider>
 
-            <div className='item-sneaker'>
-                <div className='item-sneaker-wrapper'>
-                    <div className='item-sneaker-actions'>
-                        <div className='item-sneaker-share' onClick={() => dispatch(showSocialsModal())}>
-                            <Share />
-                        </div>
-                    </div>
+      <div className='item-sneaker'>
+        <div className='item-sneaker-wrapper'>
+          <div className='item-sneaker-actions'>
+            <div className='item-sneaker-share' onClick={() => dispatch(showSocialsModal())}>
+              <Share />
+            </div>
+          </div>
 
-                    <div className='item-sneaker-content'>
-                        <div className='item-sneaker-image'>
-                            <img src={itemInfo.image} alt='sneaker' />
-                        </div>
-
-                        <div className='item-sneaker-info'>
-                            <div className='item-sneaker-text'>
-                                {pricesLoading && <ItemLoader version={'source'} />}
-                                {!pricesLoading && <div className='item-sneaker-source'>
-                                    {itemPrices.length
-                                      ? <div className={`item-sneaker-site ${itemPrices[0].source}`}>
-                                            <img
-                                                src={websiteLogoMapGrey[itemPrices[0].source]} alt='website logo'
-                                            />
-                                        </div>
-                                      : <div className='item-sneaker-source-none'></div>}
-                                </div>}
-
-                                <div className='item-sneaker-model'>
-                                    <h1> {itemInfo.modelName} </h1>
-                                </div>
-
-                                {pricesLoading && <ItemLoader version={'info'} />}
-                                {!pricesLoading && <div className='item-sneaker-price-details'>
-                                    {itemPrices.length
-
-                                      ? <Link to={{ pathname: itemPrices[0].url }} className="hidden-link" target="_blank" rel="noopener noreferrer">
-                                            <div className='item-sneaker-price'>
-                                                <h2>
-                                                    Buy New {currencySymbolMap[currency]}{itemPrices[0].price}
-                                                </h2>
-                                            </div>
-                                        </Link>
-                                      : <a>
-                                            <div className='item-sneaker-price none'>
-                                                <h2>
-                                                    No Results
-                                                </h2>
-                                            </div>
-                                        </a>}
-
-                                    <SizeFilter gender={gender} />
-                                    {sizeModalVisible && <SizeModal gender={gender} />}
-                                    {socialsModalVisible && <SocialsModal itemName={itemInfo.modelName} price={`${currencySymbolMap[currency]}${itemPrices[0].price}`} url={window.location.href} image={itemInfo.image} />}
-                                </div>}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          <div className='item-sneaker-content'>
+            <div className='item-sneaker-image'>
+              <img src={itemInfo.image} alt='sneaker' />
             </div>
 
-            <div className='item-price-listings'>
-                <div className='item-price-listings-content'>
-                    <div className='item-lowest-prices'>
-                        <h6> Lowest Prices </h6>
-
-                        <div className='item-lowest-prices-rows'>
-                            {pricesLoading && <ItemLoader version={'prices'} />}
-                            {!pricesLoading && <div className='item-lowest-prices-rows-content'>
-                                {itemPrices.length ? priceComponents : <ItemNoResults version={'prices'} />}
-                            </div>}
-                        </div>
+            <div className='item-sneaker-info'>
+              <div className='item-sneaker-text'>
+                {pricesLoading && <ItemLoader version={'source'} />}
+                {!pricesLoading && <div className='item-sneaker-source'>
+                  {itemPrices.length
+                    ? <div className={`item-sneaker-site ${itemPrices[0].source}`}>
+                      <img
+                        src={websiteLogoMapGrey[itemPrices[0].source]} alt='website logo'
+                      />
                     </div>
+                    : <div className='item-sneaker-source-none'></div>}
+                </div>}
 
-                    <div className='item-more-listings'>
-                        <h6> More Listings </h6>
-
-                        {listingsLoading
-                          ? <div className='item-more-listings-rows'>
-                                <ItemLoader version={'listings'} />
-                            </div>
-                          : <div>
-                                {itemListings.length
-                                  ? <DynamicList
-                                        name={'item-more-listings-rows'}
-                                        items={listingComponents}
-                                        initialLength={5} />
-                                  : <ItemNoResults version={'listings'} />
-                                }
-                            </div>
-                        }
-                    </div>
-
-                    <div className='item-related'>
-                        <h6> You might also like </h6>
-                        {!relatedLoading && relatedItems.length !== 0 &&
-                            <Carousel type={'related'} data={relatedItems} />
-                        }
-                    </div>
+                <div className='item-sneaker-model'>
+                  <h1> {itemInfo.modelName} </h1>
                 </div>
-            </div>
 
-            <Footer colour={'blue'} />
+                {pricesLoading && <ItemLoader version={'info'} />}
+                {!pricesLoading && <div className='item-sneaker-price-details'>
+                  {itemPrices.length
+
+                    ? <Link to={{ pathname: itemPrices[0].url }} className="hidden-link" target="_blank" rel="noopener noreferrer">
+                      <div className='item-sneaker-price'>
+                        <h2>
+                          Buy New {currencySymbolMap[currency]}{itemPrices[0].price}
+                        </h2>
+                      </div>
+                    </Link>
+                    : <a>
+                      <div className='item-sneaker-price none'>
+                        <h2>
+                          No Results
+                        </h2>
+                      </div>
+                    </a>}
+
+                  <SizeFilter gender={gender} />
+                  {sizeModalVisible && <SizeModal gender={gender} />}
+                  {socialsModalVisible && <SocialsModal itemName={itemInfo.modelName} price={`${currencySymbolMap[currency]}${itemPrices[0].price}`} url={window.location.href} image={itemInfo.image} />}
+                </div>}
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+
+      <div className='item-price-listings'>
+        <div className='item-price-listings-content'>
+          <div className='item-lowest-prices'>
+            <h6> Lowest Prices </h6>
+
+            <div className='item-lowest-prices-rows'>
+              {pricesLoading && <ItemLoader version={'prices'} />}
+              {!pricesLoading && <div className='item-lowest-prices-rows-content'>
+                {itemPrices.length ? priceComponents : <ItemNoResults version={'prices'} />}
+              </div>}
+            </div>
+          </div>
+
+          <div className='item-more-listings'>
+            <h6> More Listings </h6>
+
+            {listingsLoading
+              ? <div className='item-more-listings-rows'>
+                <ItemLoader version={'listings'} />
+              </div>
+              : <div>
+                {itemListings.length
+                  ? <DynamicList name={'item-more-listings-rows'} items={listingComponents} initialLength={5} />
+                  : <ItemNoResults version={'listings'} />
+                }
+              </div>
+            }
+          </div>
+
+          <div className='item-related'>
+            <h6> You might also like </h6>
+            {!relatedLoading && relatedItems.length !== 0 &&
+            <Carousel type={'related'} data={relatedItems} />
+            }
+          </div>
+        </div>
+      </div>
+
+      <Footer colour={'blue'} />
+    </div>
   )
 }

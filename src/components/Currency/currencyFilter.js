@@ -8,12 +8,12 @@ export default function CurrencyFilter () {
   const currency = useSelector(state => state.currency)
 
   return (
-        <div className='currency-filter' onClick={() => dispatch(showCurrencyModal())}>
-            <h4> Currency </h4>
+    <div className='currency-filter' onClick={() => dispatch(showCurrencyModal())}>
+      <h4> Currency </h4>
 
-            <div className='currency-filter-flag'>
-                <img src={currencyFlagMap[currency]} alt='flag' />
-            </div>
-        </div>
+      <div className='currency-filter-flag'>
+        <img src={currencyFlagMap[currency]} alt='flag' />
+      </div>
+    </div>
   )
 }

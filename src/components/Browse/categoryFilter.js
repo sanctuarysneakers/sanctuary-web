@@ -7,9 +7,9 @@ export default function CategoryFilter () {
   const dispatch = useDispatch()
 
   return (
-        <div className='category-filter' onClick={() => dispatch(showCategoryFilterModal())}>
-            <h4> Categories </h4>
-            <DownArrow />
-        </div>
+    <div className='category-filter' onClick={() => dispatch(showCategoryFilterModal())}>
+      <h4> Categories </h4>
+      <DownArrow />
+    </div>
   )
 }

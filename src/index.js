@@ -13,13 +13,13 @@ import './assets/styling/base.scss'
 const { store, persistor } = configureStore()
 
 ReactDOM.render(
-    <Provider store={store}>
-        <Router>
-            <PersistGate loading={<Loader />} persistor={persistor}>
-                <ScrollToTop />
-                <App/>
-            </PersistGate>
-        </Router>
-    </Provider>,
-    document.getElementById('root')
+  <Provider store={store}>
+    <Router>
+      <PersistGate loading={<Loader />} persistor={persistor}>
+        <ScrollToTop />
+        <App/>
+      </PersistGate>
+    </Router>
+  </Provider>,
+  document.getElementById('root')
 )

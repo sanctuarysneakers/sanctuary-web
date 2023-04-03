@@ -43,90 +43,90 @@ export default function CreateAccountEmail () {
   dispatch(hideHomeSearch())
 
   return (
-        <div className='email-form'>
-            <div className='email-form-content'>
-                <div className='email-form-header'>
-                    <h2> Sign Up </h2>
-                    <p> Create your Sanctuary profile for a brand new </p>
-                    <p> experience, personalized just for you. </p>
-                </div>
+    <div className='email-form'>
+      <div className='email-form-content'>
+        <div className='email-form-header'>
+          <h2> Sign Up </h2>
+          <p> Create your Sanctuary profile for a brand new </p>
+          <p> experience, personalized just for you. </p>
+        </div>
 
-                {errorMessage && <p className='email-form-error'>
-                    {errorMessage}
-                </p>}
+        {errorMessage && <p className='email-form-error'>
+          {errorMessage}
+        </p>}
 
-                <div className='email-form-input-create-account'>
-                    <div className='name-input'>
-                        <input
-                            className="inputBox"
-                            placeholder="Name"
-                            value={name}
-                            onChange={event => setName(event.target.value)}
-                        />
-                    </div>
-                    <div className='email-input'>
-                        <input
-                            className="inputBox"
-                            placeholder="Email"
-                            value={email}
-                            onChange={event => setEmail(event.target.value)}
-                        />
-                    </div>
+        <div className='email-form-input-create-account'>
+          <div className='name-input'>
+            <input
+              className="inputBox"
+              placeholder="Name"
+              value={name}
+              onChange={event => setName(event.target.value)}
+            />
+          </div>
+          <div className='email-input'>
+            <input
+              className="inputBox"
+              placeholder="Email"
+              value={email}
+              onChange={event => setEmail(event.target.value)}
+            />
+          </div>
 
-                    <div className='password-input'>
-                        <input
-                            className="inputBox"
-                            type="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={event => setPassword(event.target.value)}
-                        />
-                    </div>
+          <div className='password-input'>
+            <input
+              className="inputBox"
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={event => setPassword(event.target.value)}
+            />
+          </div>
 
-                    <div className='confirm-password-input'>
-                        <input
-                            className="inputBox"
-                            type="password"
-                            placeholder="Confirm Password"
-                            value={confirmPassword}
-                            onChange={event => setConfirmPassword(event.target.value)}
-                        />
-                    </div>
-                </div>
+          <div className='confirm-password-input'>
+            <input
+              className="inputBox"
+              type="password"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={event => setConfirmPassword(event.target.value)}
+            />
+          </div>
+        </div>
 
-                <div className='email-form-bottom'>
+        <div className='email-form-bottom'>
 
-                    <button onClick={createAccountEmailPassword}>
-                        Sign Up
-                    </button>
+          <button onClick={createAccountEmailPassword}>
+            Sign Up
+          </button>
 
-                    <div className='switch-form'>
-                        <p> Already have an account? </p>
-                        <Link to="/sign-in-email"> Log in. </Link>
-                    </div>
+          <div className='switch-form'>
+            <p> Already have an account? </p>
+            <Link to="/sign-in-email"> Log in. </Link>
+          </div>
 
-                    <div className='account-terms-policy'>
-                        <p> By creating an account, you agree to Sanctuary&apos;s </p>
-                        <div className='terms-policy-text'>
+          <div className='account-terms-policy'>
+            <p> By creating an account, you agree to Sanctuary&apos;s </p>
+            <div className='terms-policy-text'>
 
-                            <Link to="/privacy-policy" className='terms-policy-pop-up'>
-                                Privacy Policy
-                                </Link>
+              <Link to="/privacy-policy" className='terms-policy-pop-up'>
+                Privacy Policy
+              </Link>
 
-                            <p> and </p>
+              <p> and </p>
 
-                            <Link to="/terms-of-use" className='terms-policy-pop-up'>
-                                Terms of Use.
-                                </Link>
+              <Link to="/terms-of-use" className='terms-policy-pop-up'>
+                Terms of Use.
+              </Link>
 
-                        </div>
-                    </div>
-
-                </div>
             </div>
-
-            <Footer colour={'white'} />
+          </div>
 
         </div>
+      </div>
+
+      <Footer colour={'white'} />
+
+    </div>
   )
 }

@@ -14,19 +14,19 @@ export default function HowItWorksSplash () {
   }, [isVisible])
 
   return (
-        <div className="how-it-works-splash">
-            <div className="how-it-works-splash-content">
-                <div ref={ref} className="how-it-works-splash-header">
-                    <FadeIn visible={render} delay={200} transitionDuration={1500}>
-                        <h1>Everything sneakers.</h1>
-                        <h1>All in one place.</h1>
-                    </FadeIn>
-                </div>
-
-                <div className="how-it-works-splash-image">
-                    <img src={picture2} alt='Jordan 4s' />
-                </div>
-            </div>
+    <div className="how-it-works-splash">
+      <div className="how-it-works-splash-content">
+        <div ref={ref} className="how-it-works-splash-header">
+          <FadeIn visible={render} delay={200} transitionDuration={1500}>
+            <h1>Everything sneakers.</h1>
+            <h1>All in one place.</h1>
+          </FadeIn>
         </div>
+
+        <div className="how-it-works-splash-image">
+          <img src={picture2} alt='Jordan 4s' />
+        </div>
+      </div>
+    </div>
   )
 }

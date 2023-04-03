@@ -31,35 +31,35 @@ export default function ItemCard ({ data }) {
   }
 
   return (
-        <div className='item-card'>
-            <Link
-                to={{
-                  pathname: generateLink(),
-                  itemInfo: getNavData()
-                }}
-                className="hidden-link"
-            >
-                <div className='item-card-content'>
-                    <div className='item-card-sneaker'>
-                        <img src={data.imageThumbnail} loading='lazy' alt={data.model} />
-                    </div>
+    <div className='item-card'>
+      <Link
+        to={{
+          pathname: generateLink(),
+          itemInfo: getNavData()
+        }}
+        className="hidden-link"
+      >
+        <div className='item-card-content'>
+          <div className='item-card-sneaker'>
+            <img src={data.imageThumbnail} loading='lazy' alt={data.model} />
+          </div>
 
-                    <div className='item-card-text'>
-                        <h2> {data.model} </h2>
+          <div className='item-card-text'>
+            <h2> {data.model} </h2>
 
-                        <div className='item-card-estimated-price'>
-                            <p className='item-card-estimated'>
-                                Estimated
-                            </p>
+            <div className='item-card-estimated-price'>
+              <p className='item-card-estimated'>
+                Estimated
+              </p>
 
-                            <p className='item-card-price'>
-                                {currencySymbolMap[currency]}{data.price.toLocaleString('en')}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </Link>
+              <p className='item-card-price'>
+                {currencySymbolMap[currency]}{data.price.toLocaleString('en')}
+              </p>
+            </div>
+          </div>
         </div>
+      </Link>
+    </div>
   )
 }
 

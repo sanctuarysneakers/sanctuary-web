@@ -55,69 +55,69 @@ export default function SearchBox () {
   }
 
   return (
-        <div className='search-box'>
-            <div className='search-box-content'>
-                <div className='search-box-icon'>
-                    <Search />
-                </div>
-
-                <StyledAutocomplete
-                    clearIcon={<Clear/>}
-                    disablePortal={true}
-                    filterOptions={(options) => options}
-                    freeSolo
-                    fullWidth
-                    getOptionLabel={(option) => option.name || ''}
-                    handleHomeEndKeys
-                    onChange={(event, value, reason) => {
-                      handleChange(reason, value, event.currentTarget)
-                    }}
-                    onInputChange={e => handleLetterInput(e.target.value)}
-                    options={options}
-                    PopperComponent={({ style, ...props }) => (
-                        <Popper
-                          {...props}
-                          style={{ ...style, height: 0, zIndex: 1 }} // width is passed in 'style' prop
-                        />
-                    )}
-                    ListboxProps={{ style: { maxHeight: '30vh' } }}
-                    renderInput={(params) =>
-                        <TextField
-                            {...params}
-                            placeholder='Search'
-                            type='text'
-                        />
-                    }
-                    renderOption={(props, option) => (
-                        <Box component="li"
-                            sx={{
-                              '&': {
-                                height: 85
-                              },
-                              '& > img': { mr: 2, flexShrink: 0 },
-                              '& > h4': {
-                                fontSize: 16,
-                                fontWeight: 500,
-                                fontFamily: 'Poppins',
-                                color: 'black',
-                                letterSpacing: -0.28,
-                                margin: 0
-                              }
-                            }}
-                            {...props}
-                        >
-                            <img
-                                width="80"
-                                src={option.grid_picture_url}
-                                alt=""
-                            />
-                            <h4> {option.name} </h4>
-                        </Box>
-                    )}
-                    value={input}
-                />
-            </div>
+    <div className='search-box'>
+      <div className='search-box-content'>
+        <div className='search-box-icon'>
+          <Search />
         </div>
+
+        <StyledAutocomplete
+          clearIcon={<Clear/>}
+          disablePortal={true}
+          filterOptions={(options) => options}
+          freeSolo
+          fullWidth
+          getOptionLabel={(option) => option.name || ''}
+          handleHomeEndKeys
+          onChange={(event, value, reason) => {
+            handleChange(reason, value, event.currentTarget)
+          }}
+          onInputChange={e => handleLetterInput(e.target.value)}
+          options={options}
+          PopperComponent={({ style, ...props }) => (
+            <Popper
+              {...props}
+              style={{ ...style, height: 0, zIndex: 1 }} // width is passed in 'style' prop
+            />
+          )}
+          ListboxProps={{ style: { maxHeight: '30vh' } }}
+          renderInput={(params) =>
+            <TextField
+              {...params}
+              placeholder='Search'
+              type='text'
+            />
+          }
+          renderOption={(props, option) => (
+            <Box component="li"
+              sx={{
+                '&': {
+                  height: 85
+                },
+                '& > img': { mr: 2, flexShrink: 0 },
+                '& > h4': {
+                  fontSize: 16,
+                  fontWeight: 500,
+                  fontFamily: 'Poppins',
+                  color: 'black',
+                  letterSpacing: -0.28,
+                  margin: 0
+                }
+              }}
+              {...props}
+            >
+              <img
+                width="80"
+                src={option.grid_picture_url}
+                alt=""
+              />
+              <h4> {option.name} </h4>
+            </Box>
+          )}
+          value={input}
+        />
+      </div>
+    </div>
   )
 }
 

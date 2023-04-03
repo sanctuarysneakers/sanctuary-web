@@ -31,18 +31,18 @@ export default function NextArticles () {
   }
 
   const articleCards = getArticles().map((article) =>
-        <ArticleCard key={article.path} data={article} />
+    <ArticleCard key={article.path} data={article} />
   )
 
   return (
-        <div className='next-articles'>
-            <div className='next-articles-content'>
-                <h2> Latest Articles </h2>
+    <div className='next-articles'>
+      <div className='next-articles-content'>
+        <h2> Latest Articles </h2>
 
-                <div className='next-articles-cards'>
-                    {articleCards}
-                </div>
-            </div>
+        <div className='next-articles-cards'>
+          {articleCards}
         </div>
+      </div>
+    </div>
   )
 }
