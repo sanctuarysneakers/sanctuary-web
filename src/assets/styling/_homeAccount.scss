@@ -1,58 +1,58 @@
 .home-account {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    height: 750px;
-    background: #FEF2F2;
+  height: 750px;
+  background: #FEF2F2;
 
-    .home-account-headline {
+  .home-account-headline {
 
-        .home-account-text {
-            width: 645px;
-            text-align: center;
-            padding-bottom: 40px;
+    .home-account-text {
+      width: 645px;
+      text-align: center;
+      padding-bottom: 40px;
 
-            h2 {
-                font-size: 60.5px;
-                font-weight: 600;
-                color: #E84C3D;
-                line-height: 64px;
-                letter-spacing: -2px;
-            }
-        }
-
-        .home-account-buttons {
-            display: flex;
-            justify-content: space-between;
-            width: 300px;
-            margin: 0px auto;
-
-            .home-account-create {
-                background: #E84C3D;
-                border-radius: 100px;
-
-                p {
-                    font-size: 18px;
-                    font-weight: 400;
-                    color: #FFFFFF;
-                    letter-spacing: -0.41px;
-
-                    padding: 15px 35px;
-                }
-            }
-
-            .home-account-sign-in {
-
-                p {
-                    font-size: 18px;
-                    font-weight: 400;
-                    color: #E84C3D;
-                    letter-spacing: -0.41px;
-
-                    padding: 15px 0px;
-                }
-            }
-        }
+      h2 {
+        font-size: 60.5px;
+        font-weight: 600;
+        color: #E84C3D;
+        line-height: 64px;
+        letter-spacing: -2px;
+      }
     }
+
+    .home-account-buttons {
+      display: flex;
+      justify-content: space-between;
+      width: 300px;
+      margin: 0px auto;
+
+      .home-account-create {
+        background: #E84C3D;
+        border-radius: 100px;
+
+        p {
+          font-size: 18px;
+          font-weight: 400;
+          color: #FFFFFF;
+          letter-spacing: -0.41px;
+
+          padding: 15px 35px;
+        }
+      }
+
+      .home-account-sign-in {
+
+        p {
+          font-size: 18px;
+          font-weight: 400;
+          color: #E84C3D;
+          letter-spacing: -0.41px;
+
+          padding: 15px 0px;
+        }
+      }
+    }
+  }
 }

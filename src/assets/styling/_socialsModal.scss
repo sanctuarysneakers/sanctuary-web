@@ -1,104 +1,104 @@
 .socials-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.6);
-    animation: fade-in-out 0.3s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  animation: fade-in-out 0.3s;
 
-    .socials-modal-content {
-        width: 600px;
-        height: 350px;
-        background: white;
-        border-radius: 23px;
+  .socials-modal-content {
+    width: 600px;
+    height: 350px;
+    background: white;
+    border-radius: 23px;
+  }
+
+  .socials-modal-padding {
+    padding: 20px;
+
+    .socials-modal-close {
+      display: flex;
+      justify-content: flex-end;
+
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 100px;
+        background: #EEF1F6;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #E5E9F1;
+      }
     }
 
-    .socials-modal-padding {
-        padding: 20px;
+    .socials-modal-text {
+      width: 400px;
+      margin: auto;
+      padding-top: 10px;
 
-        .socials-modal-close {
-            display: flex;
-            justify-content: flex-end;
+      h1 {
+        font-size: 29.5px;
+        font-weight: 600;
+        color: black;
+        line-height: 45px;
+      }
 
-            button {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 28px;
-                height: 28px;
-                border-radius: 100px;
-                background: #EEF1F6;
-                cursor: pointer;
-            }
-
-            button:hover {
-                background: #E5E9F1;
-            }
-        }
-
-        .socials-modal-text {
-            width: 400px;
-            margin: auto;
-            padding-top: 10px;
-
-            h1 {
-                font-size: 29.5px;
-                font-weight: 600;
-                color: black;
-                line-height: 45px;
-            }
-
-            p {
-                font-size: 16px;
-                font-weight: 400;
-                color: #919BB1;
-                line-height: 24px;
-                padding-top: 7px;
-            }
-        }
-
-        .socials-modal-buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            width: 400px;
-            padding-top: 30px;
-            margin: auto;
-        }
+      p {
+        font-size: 16px;
+        font-weight: 400;
+        color: #919BB1;
+        line-height: 24px;
+        padding-top: 7px;
+      }
     }
+
+    .socials-modal-buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      width: 400px;
+      padding-top: 30px;
+      margin: auto;
+    }
+  }
 }
 
 // Mobile responsiveness
 @media screen and (max-width: 767px) {
-    .socials-modal {
-        .socials-modal-content {
-            width: 335px;
-            height: 450px;
-            border-radius: 22px;
+  .socials-modal {
+    .socials-modal-content {
+      width: 335px;
+      height: 450px;
+      border-radius: 22px;
 
-            .socials-modal-padding {
-                .socials-modal-text {
-                    width: 280px;
-                    padding-top: 10px;
+      .socials-modal-padding {
+        .socials-modal-text {
+          width: 280px;
+          padding-top: 10px;
 
-                    h1 {
-                        font-size: 26px;
-                        line-height: 39px
-                    }
-                }
-
-                .socials-modal-buttons {
-                    width: 200px;
-                    padding-top: 30px;
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 10px;
-                }
-            }
+          h1 {
+            font-size: 26px;
+            line-height: 39px
+          }
         }
+
+        .socials-modal-buttons {
+          width: 200px;
+          padding-top: 30px;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 10px;
+        }
+      }
     }
+  }
 }
