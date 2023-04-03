@@ -1,594 +1,594 @@
 .home-splash {
-    width: 100%;
-    height: 700px;
-    background: #F7F9FC;
+  width: 100%;
+  height: 700px;
+  background: #F7F9FC;
 
-    .home-splash-content {
+  .home-splash-content {
+    display: flex;
+    padding-left: calc(210px + ((100vw - 1440px) / 2));
+    
+    .home-splash-text {
+      width: 479px;
+      padding-top: 125px;
+
+      .home-splash-header {
+        h1 {
+          font-size: 58px;
+          font-weight: 600;
+          color: #303A57;
+          line-height: 62px;
+          letter-spacing: -1px;
+        }
+      }
+
+      p {
+        font-size: 20px;
+        font-weight: 400;
+        color: #303A57;
+        line-height: 32px;
+        letter-spacing: -0.6px;
+
+        padding-top: 24px;
+        padding-bottom: 35px;
+      }
+
+      .home-app-badges {
         display: flex;
-        padding-left: calc(210px + ((100vw - 1440px) / 2));
-        
-        .home-splash-text {
-            width: 479px;
-            padding-top: 125px;
+        align-items: center;
 
-            .home-splash-header {
-                h1 {
-                    font-size: 58px;
-                    font-weight: 600;
-                    color: #303A57;
-                    line-height: 62px;
-                    letter-spacing: -1px;
-                }
-            }
+        .home-app-ios {
+          overflow: hidden; 
+          border-radius: 7px;
+          width: 134.62px; 
+          height: 45px;
+          cursor: pointer;
 
-            p {
-                font-size: 20px;
-                font-weight: 400;
-                color: #303A57;
-                line-height: 32px;
-                letter-spacing: -0.6px;
-
-                padding-top: 24px;
-                padding-bottom: 35px;
-            }
-
-            .home-app-badges {
-                display: flex;
-                align-items: center;
-
-                .home-app-ios {
-                    overflow: hidden; 
-                    border-radius: 7px;
-                    width: 134.62px; 
-                    height: 45px;
-                    cursor: pointer;
-
-                    img {
-                        border-radius: 7px; 
-                        width: 134.62px; 
-                        height: 45px;
-                    }
-                }
-
-                .home-app-android {
-                    width: 172.48px; 
-                    height: 66.75px;
-                    cursor: pointer;
-
-                    img {
-                        width: 172.48px; 
-                        height: 66.75px;
-                    }
-                }
-            }
-
-            .search-box {
-                width: 479px;
-                height: 44px;
-                background: #E5E9F1;
-                border-radius: 12px;
-
-                .search-box-content {
-                    display: flex;
-                    align-items: center;
-                    height: 100%;
-
-                    .search-box-icon {
-                        padding-left: 14px;
-                        padding-right: 8px;
-
-                        svg {
-                            display: block;
-                            width: 14px;
-                            height: auto;
-
-                            path {
-                                stroke: #777F93;
-                            }
-
-                            rect {
-                                fill: #777F93;
-                            }
-                        }
-                    }
-
-                    .search-box-input {
-                        font-size: 16px;
-                        font-weight: 400;
-                        font-family: 'Poppins', sans-serif;
-                        color: black;
-                        outline: none;
-                        background: none;
-                        width: calc(479px - 66px);
-                    }
-
-                    ::placeholder {
-                        color: #777F93;
-                    }
-
-                    .search-box-clear {
-                        cursor: pointer;
-
-                        svg {
-                            display: block;
-                            width: 16px;
-                            height: auto;
-                        }
-                    }
-                }
-            }
+          img {
+            border-radius: 7px; 
+            width: 134.62px; 
+            height: 45px;
+          }
         }
 
-        .home-splash-graphic {
-            padding-left: 176px;
-             z-index: 0; 
+        .home-app-android {
+          width: 172.48px; 
+          height: 66.75px;
+          cursor: pointer;
 
-            .jordan-1 {
-                padding-top: 69px;
-                padding-left: 172px;
-                transform: translatey(0px);
-	            animation: float 3s ease-in-out infinite;
-               
-
-                svg {
-                    display: block;
-                    width: 115px;
-                    height: auto;
-                }
-            }
-
-            @keyframes float {
-                0% {
-                    transform: translatey(0px);
-                }
-                50% {
-                    transform: translatey(-20px);
-                }
-                100% {
-                    transform: translatey(0px);
-                }
-            }
-
-            .shoe-boxes {
-                padding-top: 62px;
-
-                svg {
-                    display: block;
-                    width: 400px;
-                    height: auto;
-                }
-            }
+          img {
+            width: 172.48px; 
+            height: 66.75px;
+          }
         }
+      }
+
+      .search-box {
+        width: 479px;
+        height: 44px;
+        background: #E5E9F1;
+        border-radius: 12px;
+
+        .search-box-content {
+          display: flex;
+          align-items: center;
+          height: 100%;
+
+          .search-box-icon {
+            padding-left: 14px;
+            padding-right: 8px;
+
+            svg {
+              display: block;
+              width: 14px;
+              height: auto;
+
+              path {
+                stroke: #777F93;
+              }
+
+              rect {
+                fill: #777F93;
+              }
+            }
+          }
+
+          .search-box-input {
+            font-size: 16px;
+            font-weight: 400;
+            font-family: 'Poppins', sans-serif;
+            color: black;
+            outline: none;
+            background: none;
+            width: calc(479px - 66px);
+          }
+
+          ::placeholder {
+            color: #777F93;
+          }
+
+          .search-box-clear {
+            cursor: pointer;
+
+            svg {
+              display: block;
+              width: 16px;
+              height: auto;
+            }
+          }
+        }
+      }
     }
+
+    .home-splash-graphic {
+      padding-left: 176px;
+       z-index: 0; 
+
+      .jordan-1 {
+        padding-top: 69px;
+        padding-left: 172px;
+        transform: translatey(0px);
+	      animation: float 3s ease-in-out infinite;
+         
+
+        svg {
+          display: block;
+          width: 115px;
+          height: auto;
+        }
+      }
+
+      @keyframes float {
+        0% {
+          transform: translatey(0px);
+        }
+        50% {
+          transform: translatey(-20px);
+        }
+        100% {
+          transform: translatey(0px);
+        }
+      }
+
+      .shoe-boxes {
+        padding-top: 62px;
+
+        svg {
+          display: block;
+          width: 400px;
+          height: auto;
+        }
+      }
+    }
+  }
 }
 
 @media (min-width: 980px) and (max-width: 1199px) {
-    .home-splash {
-        height: 675px;
+  .home-splash {
+    height: 675px;
 
-        .home-splash-content {
-            padding-left: calc(175px + ((100vw - 1199px) / 2));
+    .home-splash-content {
+      padding-left: calc(175px + ((100vw - 1199px) / 2));
 
-            .home-splash-text {
-                width: 394px;
+      .home-splash-text {
+        width: 394px;
 
-                .home-splash-header {
-                    h1 {
-                        font-size: 48px;
-                        line-height: 55px;
-                    }
-                }
-
-                p {
-                    font-size: 19px;
-                    padding-top: 14px;
-                    padding-bottom: 25px;
-                }
-
-                .home-app-badges {
-                    display: flex;
-                    align-items: center;
-    
-                    .home-app-ios {
-                        overflow: hidden; 
-                        border-radius: 7px;
-                        width: 134.62px; 
-                        height: 45px;
-    
-                        img {
-                            border-radius: 7px; 
-                            width: 134.62px; 
-                            height: 45px;
-                        }
-                    }
-    
-                    .home-app-android {
-                        width: 172.48px; 
-                        height: 66.75px;
-    
-                        img {
-                            width: 172.48px; 
-                            height: 66.75px;
-                        }
-                    }
-                }
-
-                .search-box {
-                    width: 394px;
-                    height: 40px;
-                    border-radius: 10px;
-
-                    .search-box-content {
-                        .search-box-input {
-                            width: calc(394px - 66px);
-                        }
-                    }
-                }
-            }
-
-            .home-splash-graphic {
-                padding-left: 146px;
-
-                .jordan-1 {
-                    padding-top: 71px;
-                    padding-left: 149px;
-
-                    svg {
-                        width: 100px;
-                    }
-                }
-
-                .shoe-boxes {
-                    padding-top: 54px;
-
-                    svg {
-                        width: 348px;
-                    }
-                }
-            }
+        .home-splash-header {
+          h1 {
+            font-size: 48px;
+            line-height: 55px;
+          }
         }
+
+        p {
+          font-size: 19px;
+          padding-top: 14px;
+          padding-bottom: 25px;
+        }
+
+        .home-app-badges {
+          display: flex;
+          align-items: center;
+  
+          .home-app-ios {
+            overflow: hidden; 
+            border-radius: 7px;
+            width: 134.62px; 
+            height: 45px;
+  
+            img {
+              border-radius: 7px; 
+              width: 134.62px; 
+              height: 45px;
+            }
+          }
+  
+          .home-app-android {
+            width: 172.48px; 
+            height: 66.75px;
+  
+            img {
+              width: 172.48px; 
+              height: 66.75px;
+            }
+          }
+        }
+
+        .search-box {
+          width: 394px;
+          height: 40px;
+          border-radius: 10px;
+
+          .search-box-content {
+            .search-box-input {
+              width: calc(394px - 66px);
+            }
+          }
+        }
+      }
+
+      .home-splash-graphic {
+        padding-left: 146px;
+
+        .jordan-1 {
+          padding-top: 71px;
+          padding-left: 149px;
+
+          svg {
+            width: 100px;
+          }
+        }
+
+        .shoe-boxes {
+          padding-top: 54px;
+
+          svg {
+            width: 348px;
+          }
+        }
+      }
     }
+  }
 }
 
 @media (min-width: 700px) and (max-width: 979px) {
-    .home-splash {
-        height: auto;
+  .home-splash {
+    height: auto;
 
-        .home-splash-content {
-            flex-direction: column;
-            align-items: center;
-            padding-left: 0px;
+    .home-splash-content {
+      flex-direction: column;
+      align-items: center;
+      padding-left: 0px;
 
-            .home-splash-text {
-                padding-top: 130px;
-            }
+      .home-splash-text {
+        padding-top: 130px;
+      }
 
-            .home-splash-graphic {
-                padding-left: 30px;
-                padding-bottom: 166px;
+      .home-splash-graphic {
+        padding-left: 30px;
+        padding-bottom: 166px;
 
-                .jordan-1 {
-                    padding-top: 110px;
-                }
-            }
+        .jordan-1 {
+          padding-top: 110px;
         }
+      }
     }
+  }
 }
 
 @media (min-width: 500px) and (max-width: 699px) {
-    .home-splash {
-        height: auto;
+  .home-splash {
+    height: auto;
 
-        .home-splash-content {
-            flex-direction: column;
-            align-items: center;
-            padding-left: 0px;
+    .home-splash-content {
+      flex-direction: column;
+      align-items: center;
+      padding-left: 0px;
 
-            .home-splash-text {
-                width: 394px;
-                padding-top: 110px;
+      .home-splash-text {
+        width: 394px;
+        padding-top: 110px;
 
-                .home-splash-header {
-                    h1 {
-                        font-size: 48px;
-                        line-height: 55px;
-                    }
-                }
-
-                p {
-                    font-size: 19px;
-                    padding-top: 14px;
-                    padding-bottom: 25px;
-                }
-
-                .home-app-badges {
-                    padding-bottom: 40px;
-    
-                    .home-app-ios {
-                        border-radius: 7px;
-                        width: 116.67px; 
-                        height: 39px;
-    
-                        img {
-                            border-radius: 7px; 
-                            width: 116.67px; 
-                            height: 39px;
-                        }
-                    }
-    
-                    .home-app-android {
-                        width: 149.87px; 
-                        height: 57px;
-    
-                        img {
-                            width: 149.87px; 
-                            height: 57px;
-                        }
-                    }
-                }
-
-                .search-box {
-                    width: 394px;
-                    height: 40px;
-                    border-radius: 10px;
-
-                    .search-box-content {
-                        .search-box-input {
-                            width: calc(394px - 66px);
-                        }
-                    }
-                }
-            }
-
-            .home-splash-graphic {
-                padding-left: 25px;
-                padding-bottom: 100px;
-
-                .jordan-1 {
-                    padding-top: 90px;
-                    padding-left: 149px;
-
-                    svg {
-                        width: 100px;
-                    }
-                }
-
-                .shoe-boxes {
-                    padding-top: 54px;
-
-                    svg {
-                        width: 348px;
-                    }
-                }
-            }
+        .home-splash-header {
+          h1 {
+            font-size: 48px;
+            line-height: 55px;
+          }
         }
+
+        p {
+          font-size: 19px;
+          padding-top: 14px;
+          padding-bottom: 25px;
+        }
+
+        .home-app-badges {
+          padding-bottom: 40px;
+  
+          .home-app-ios {
+            border-radius: 7px;
+            width: 116.67px; 
+            height: 39px;
+  
+            img {
+              border-radius: 7px; 
+              width: 116.67px; 
+              height: 39px;
+            }
+          }
+  
+          .home-app-android {
+            width: 149.87px; 
+            height: 57px;
+  
+            img {
+              width: 149.87px; 
+              height: 57px;
+            }
+          }
+        }
+
+        .search-box {
+          width: 394px;
+          height: 40px;
+          border-radius: 10px;
+
+          .search-box-content {
+            .search-box-input {
+              width: calc(394px - 66px);
+            }
+          }
+        }
+      }
+
+      .home-splash-graphic {
+        padding-left: 25px;
+        padding-bottom: 100px;
+
+        .jordan-1 {
+          padding-top: 90px;
+          padding-left: 149px;
+
+          svg {
+            width: 100px;
+          }
+        }
+
+        .shoe-boxes {
+          padding-top: 54px;
+
+          svg {
+            width: 348px;
+          }
+        }
+      }
     }
+  }
 }
 
 // iPhone XR / 11 / XS Max / 11 Pro Max / 12 Pro Max
 @media (min-width: 414px) and (max-width: 499px) {
-    .home-splash {
-        height: auto;
+  .home-splash {
+    height: auto;
 
-        .home-splash-content {
-            flex-direction: column;
-            width: 340px;
-            margin: 0px auto;
+    .home-splash-content {
+      flex-direction: column;
+      width: 340px;
+      margin: 0px auto;
 
-            .home-splash-text {
-                width: 100%;
-                padding-top: 65px;
+      .home-splash-text {
+        width: 100%;
+        padding-top: 65px;
 
-                .home-splash-header {
-                    h1 {
-                        font-size: 57px;
-                        line-height: 64px;
-                        letter-spacing: -0.6px;
-                        width: 300px;
-                    }
-                }
-
-                p {
-                    font-size: 21px;
-                    line-height: 30px;
-                    letter-spacing: -0.5px;
-                    width: 320px;
-                    padding-top: 32px;
-                    padding-bottom: 32px;
-                }
-
-                .home-app-badges {
-                    padding-bottom: 40px;
-    
-                    .home-app-ios {
-                        border-radius: 7px;
-                        width: 116.67px; 
-                        height: 39px;
-    
-                        img {
-                            border-radius: 7px; 
-                            width: 116.67px; 
-                            height: 39px;
-                        }
-                    }
-    
-                    .home-app-android {
-                        width: 149.87px; 
-                        height: 57px;
-    
-                        img {
-                            width: 149.87px; 
-                            height: 57px;
-                        }
-                    }
-                }
-
-                .search-box {
-                    width: 340px;
-                    height: 36px;
-                    border-radius: 9px;
-
-                    .search-box-content {
-                        .search-box-icon {
-                            padding: 0px 8px;
-
-                            svg {
-                                width: 15px;
-                            }
-                        }
-
-                        .search-box-input {
-                            width: 272px;
-                        }
-
-                        .search-box-clear {
-                            padding-left: 8px;
-                            padding-right: 12px;
-
-                            svg {
-                                width: 17px;
-                            }
-                        }
-                    }
-                }
-            }
-
-            .home-splash-graphic {
-                padding-left: 0px;
-                padding-bottom: 100px;
-
-                .jordan-1 {
-                    padding-top: 120px;
-                    padding-left: 154px;
-
-                    svg {
-                        width: 80px;
-                    }
-                }
-
-                .shoe-boxes {
-                    padding-top: 47px;
-
-                    svg {
-                        width: 275px;
-                        padding-left: 36px;
-                    }
-                }
-            }
+        .home-splash-header {
+          h1 {
+            font-size: 57px;
+            line-height: 64px;
+            letter-spacing: -0.6px;
+            width: 300px;
+          }
         }
+
+        p {
+          font-size: 21px;
+          line-height: 30px;
+          letter-spacing: -0.5px;
+          width: 320px;
+          padding-top: 32px;
+          padding-bottom: 32px;
+        }
+
+        .home-app-badges {
+          padding-bottom: 40px;
+  
+          .home-app-ios {
+            border-radius: 7px;
+            width: 116.67px; 
+            height: 39px;
+  
+            img {
+              border-radius: 7px; 
+              width: 116.67px; 
+              height: 39px;
+            }
+          }
+  
+          .home-app-android {
+            width: 149.87px; 
+            height: 57px;
+  
+            img {
+              width: 149.87px; 
+              height: 57px;
+            }
+          }
+        }
+
+        .search-box {
+          width: 340px;
+          height: 36px;
+          border-radius: 9px;
+
+          .search-box-content {
+            .search-box-icon {
+              padding: 0px 8px;
+
+              svg {
+                width: 15px;
+              }
+            }
+
+            .search-box-input {
+              width: 272px;
+            }
+
+            .search-box-clear {
+              padding-left: 8px;
+              padding-right: 12px;
+
+              svg {
+                width: 17px;
+              }
+            }
+          }
+        }
+      }
+
+      .home-splash-graphic {
+        padding-left: 0px;
+        padding-bottom: 100px;
+
+        .jordan-1 {
+          padding-top: 120px;
+          padding-left: 154px;
+
+          svg {
+            width: 80px;
+          }
+        }
+
+        .shoe-boxes {
+          padding-top: 47px;
+
+          svg {
+            width: 275px;
+            padding-left: 36px;
+          }
+        }
+      }
     }
+  }
 }
 
 // iPhone X / XS / 11 Pro
 @media screen and (max-width: 413px) {
-    .home-splash {
-        height: auto;
+  .home-splash {
+    height: auto;
 
-        .home-splash-content {
-            flex-direction: column;
-            width: 315px;
-            margin: 0px auto;
+    .home-splash-content {
+      flex-direction: column;
+      width: 315px;
+      margin: 0px auto;
 
-            .home-splash-text {
-                width: 100%;
-                padding-top: 50px;
+      .home-splash-text {
+        width: 100%;
+        padding-top: 50px;
 
-                .home-splash-header {
-                    h1 {
-                        font-size: 50px;
-                        line-height: 56px;
-                        letter-spacing: -0.6px;
-                        width: 262px;
-                    }
-                }
-
-                p {
-                    font-size: 19px;
-                    line-height: 30px;
-                    letter-spacing: -0.5px;
-                    width: 280px;
-                    padding-top: 25px;
-                    padding-bottom: 25px;
-                }
-
-                .home-app-badges {
-                    padding-bottom: 40px;
-    
-                    .home-app-ios {
-                        border-radius: 7px;
-                        width: 116.67px; 
-                        height: 39px;
-    
-                        img {
-                            border-radius: 7px; 
-                            width: 116.67px; 
-                            height: 39px;
-                        }
-                    }
-    
-                    .home-app-android {
-                        width: 149.87px; 
-                        height: 57px;
-    
-                        img {
-                            width: 149.87px; 
-                            height: 57px;
-                        }
-                    }
-                }
-
-                .search-box {
-                    width: 315px;
-                    height: 36px;
-                    border-radius: 9px;
-
-                    .search-box-content {
-                        .search-box-icon {
-                            padding: 0px 8px;
-
-                            svg {
-                                width: 15px;
-                            }
-                        }
-
-                        .search-box-input {
-                            width: 247px;
-                        }
-
-                        .search-box-clear {
-                            padding-left: 8px;
-                            padding-right: 12px;
-
-                            svg {
-                                width: 17px;
-                            }
-                        }
-                    }
-                }
-            }
-
-            .home-splash-graphic {
-                padding-left: 0px;
-                padding-bottom: 100px;
-
-                .jordan-1 {
-                    padding-top: 100px;
-                    padding-left: 147px;
-
-                    svg {
-                        width: 80px;
-                    }
-                }
-
-                .shoe-boxes {
-                    padding-top: 47px;
-
-                    svg {
-                        width: 275px;
-                        padding-left: 32px;
-                    }
-                }
-            }
+        .home-splash-header {
+          h1 {
+            font-size: 50px;
+            line-height: 56px;
+            letter-spacing: -0.6px;
+            width: 262px;
+          }
         }
+
+        p {
+          font-size: 19px;
+          line-height: 30px;
+          letter-spacing: -0.5px;
+          width: 280px;
+          padding-top: 25px;
+          padding-bottom: 25px;
+        }
+
+        .home-app-badges {
+          padding-bottom: 40px;
+  
+          .home-app-ios {
+            border-radius: 7px;
+            width: 116.67px; 
+            height: 39px;
+  
+            img {
+              border-radius: 7px; 
+              width: 116.67px; 
+              height: 39px;
+            }
+          }
+  
+          .home-app-android {
+            width: 149.87px; 
+            height: 57px;
+  
+            img {
+              width: 149.87px; 
+              height: 57px;
+            }
+          }
+        }
+
+        .search-box {
+          width: 315px;
+          height: 36px;
+          border-radius: 9px;
+
+          .search-box-content {
+            .search-box-icon {
+              padding: 0px 8px;
+
+              svg {
+                width: 15px;
+              }
+            }
+
+            .search-box-input {
+              width: 247px;
+            }
+
+            .search-box-clear {
+              padding-left: 8px;
+              padding-right: 12px;
+
+              svg {
+                width: 17px;
+              }
+            }
+          }
+        }
+      }
+
+      .home-splash-graphic {
+        padding-left: 0px;
+        padding-bottom: 100px;
+
+        .jordan-1 {
+          padding-top: 100px;
+          padding-left: 147px;
+
+          svg {
+            width: 80px;
+          }
+        }
+
+        .shoe-boxes {
+          padding-top: 47px;
+
+          svg {
+            width: 275px;
+            padding-left: 32px;
+          }
+        }
+      }
     }
+  }
 }

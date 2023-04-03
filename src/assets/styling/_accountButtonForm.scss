@@ -1,224 +1,224 @@
 .sign-in-options-header {
-    padding-top: 35px;
-    padding-bottom: 30px;
+  padding-top: 35px;
+  padding-bottom: 30px;
 
-    h1 {
-        font-size: 40px;
-        line-height: 50px;
-        color: black;
-        margin: 0px auto;
-        width: 327px;
-        max-width: 500px;
-    }
+  h1 {
+    font-size: 40px;
+    line-height: 50px;
+    color: black;
+    margin: 0px auto;
+    width: 327px;
+    max-width: 500px;
+  }
 }
 
 .account-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 60px;
+  padding-top: 0px;
+
+  .apple-button, .facebook-button, .google-button, .email-button {
+    height: 40px;
+    width: 327px;
+    border-radius: 7px;
+    margin: 7.5px 0px;
+    outline: none;
+    cursor: pointer;
+
+    p {
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      margin-left: 12px;
+      margin-top: 2px;
+    }
+  }
+
+  // .apple-button {
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   background: #000000;
+  //   color: #ffffff;
+
+  //   img {
+  //     height: 18px;
+  //   }
+  // }
+
+  // .facebook-button {
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   background: #1778F2;
+  //   color: white;
+
+  //   img {
+  //     height: 19px;
+  //   } 
+  // }
+
+  // .google-button {
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   background: white;
+  //   color: black;
+  //   border: 1px solid #C7C7C7;
+
+  //   img {
+  //     height: 18px;
+  //   }
+  // }
+
+  .apple-button {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding-bottom: 60px;
-    padding-top: 0px;
+    background: #ffffff;
+    color: #000000;
+    border: 1px solid rgb(168, 168, 168);
+    border-radius: 99em;
 
-    .apple-button, .facebook-button, .google-button, .email-button {
-        height: 40px;
-        width: 327px;
-        border-radius: 7px;
-        margin: 7.5px 0px;
-        outline: none;
-        cursor: pointer;
+    img {
+      height: 18px;
+    }
+  }
 
-        p {
-            font-family: 'Poppins', sans-serif;
-            font-size: 14px;
-            font-weight: 400;
-            margin-left: 12px;
-            margin-top: 2px;
-        }
+  .facebook-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff;
+    color: #000000;
+    border: 1px solid rgb(168, 168, 168);
+    border-radius: 99em;
+
+    img {
+      height: 19px;
+    } 
+  }
+
+  .google-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    color: #000000;
+    border: 1px solid rgb(168, 168, 168);
+    border-radius: 99em;
+
+    img {
+      height: 18px;
+    }
+  }
+
+  .email-button {
+    background: linear-gradient(45deg, #F14F8E, #EF6660);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    border-radius: 99em;
+
+    img {
+      height: 19px;
+      margin-top: 1px;
+    }
+  }
+
+  .divider {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 327px;
+    margin: 7.5px 0px;
+
+    .divider-line {
+      height: 1px;
+      width: 150px;
+      background: #C4C4C4;
     }
 
-    // .apple-button {
-    //     display: flex;
-    //     justify-content: center;
-    //     align-items: center;
-    //     background: #000000;
-    //     color: #ffffff;
-
-    //     img {
-    //         height: 18px;
-    //     }
-    // }
-
-    // .facebook-button {
-    //     display: flex;
-    //     justify-content: center;
-    //     align-items: center;
-    //     background: #1778F2;
-    //     color: white;
-
-    //     img {
-    //         height: 19px;
-    //     } 
-    // }
-
-    // .google-button {
-    //     display: flex;
-    //     justify-content: center;
-    //     align-items: center;
-    //     background: white;
-    //     color: black;
-    //     border: 1px solid #C7C7C7;
-
-    //     img {
-    //         height: 18px;
-    //     }
-    // }
-
-    .apple-button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #ffffff;
-        color: #000000;
-        border: 1px solid rgb(168, 168, 168);
-        border-radius: 99em;
-
-        img {
-            height: 18px;
-        }
+    p {
+      font-size: 11px;
+      font-weight: 500;
+      color: #989898;
     }
-
-    .facebook-button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #ffffff;
-        color: #000000;
-        border: 1px solid rgb(168, 168, 168);
-        border-radius: 99em;
-
-        img {
-            height: 19px;
-        } 
-    }
-
-    .google-button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: white;
-        color: #000000;
-        border: 1px solid rgb(168, 168, 168);
-        border-radius: 99em;
-
-        img {
-            height: 18px;
-        }
-    }
-
-    .email-button {
-        background: linear-gradient(45deg, #F14F8E, #EF6660);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        text-decoration: none;
-        border-radius: 99em;
-
-        img {
-            height: 19px;
-            margin-top: 1px;
-        }
-    }
-
-    .divider {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 327px;
-        margin: 7.5px 0px;
-
-        .divider-line {
-            height: 1px;
-            width: 150px;
-            background: #C4C4C4;
-        }
-
-        p {
-            font-size: 11px;
-            font-weight: 500;
-            color: #989898;
-        }
-    }
+  }
 }
 
 .switch-form {
-    margin-top: 12px;
-    margin-bottom: 18px;
-    display: flex;
+  margin-top: 12px;
+  margin-bottom: 18px;
+  display: flex;
 
-    p {
-        font-size: 14px;
-        font-weight: 300;
-        color: #787a7c;
-    }
+  p {
+    font-size: 14px;
+    font-weight: 300;
+    color: #787a7c;
+  }
 
-    a {
-        font-family: 'Poppins', sans-serif;
-        font-size: 14px;
-        font-weight: 500;
-        text-decoration: none;
-        margin-left: 4px;
-        color: #3478F6;
-    }
+  a {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 4px;
+    color: #3478F6;
+  }
 
-    a:hover {
-        text-decoration: underline;
-    }
+  a:hover {
+    text-decoration: underline;
+  }
 }
 
 .account-terms-policy {
-    margin-top: 5px;
-    text-align: center;
+  margin-top: 5px;
+  text-align: center;
 
-    p {
-        font-size: 12px;
-        font-weight: 300;
-        color: #787a7c;
+  p {
+    font-size: 12px;
+    font-weight: 300;
+    color: #787a7c;
+  }
+
+  .terms-policy-text {
+    display: flex;
+    justify-content: center;
+
+    .terms-policy-pop-up {
+      font-size: 12px;
+      font-weight: 500;
+      color: #3478F6;
+      margin: 0px 4px;
+      cursor: pointer;
+      text-decoration: none;
     }
 
-    .terms-policy-text {
-        display: flex;
-        justify-content: center;
-
-        .terms-policy-pop-up {
-            font-size: 12px;
-            font-weight: 500;
-            color: #3478F6;
-            margin: 0px 4px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .terms-policy-pop-up:hover {
-            text-decoration: underline;
-        }
+    .terms-policy-pop-up:hover {
+      text-decoration: underline;
     }
+  }
 }
 
 @media screen and (min-width: 930px) {
-    .sign-in-options-header {
-        text-align: center;
-        padding: 50px 0px;
+  .sign-in-options-header {
+    text-align: center;
+    padding: 50px 0px;
 
-        h1 {
-            font-size: 60px;
-            line-height: 70px;
-            width: 100%;
-            max-width: 100%;
-        }
+    h1 {
+      font-size: 60px;
+      line-height: 70px;
+      width: 100%;
+      max-width: 100%;
     }
+  }
 
-    .account-buttons {
-        padding-bottom: 150px;
-    }
+  .account-buttons {
+    padding-bottom: 150px;
+  }
 }
