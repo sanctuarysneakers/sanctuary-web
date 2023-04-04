@@ -4,6 +4,7 @@ An application designed for clients to efficiently find the best possible deal f
 
 
 ## Running the React App
+# Step 1
 Have Node.js and npm installed and make sure you are running node version 16.
 On the first time starting the app, run the command `npm install` at the terminal/command line to setup the necessary packages.
 
