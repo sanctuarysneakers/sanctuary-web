@@ -1,208 +1,208 @@
 .search-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 100;
-    background: rgba(0, 0, 0, 0.5);
-    animation: fade-in-out 0.3s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.5);
+  animation: fade-in-out 0.3s;
 
-    .search-modal-content {
+  .search-modal-content {
 
-        .search-modal-navbar {
+    .search-modal-navbar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 70px;
+      background: white;
+
+      .search-box {
+        width: 550px;
+        height: 40px;
+        background: #EEF1F6;
+        border-radius: 11px;
+
+        .search-box-content {
+          display: flex;
+          align-items: center;
+          height: 100%;
+
+          .search-box-icon {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 70px;
-            background: white;
+            padding: 0px 8px;
 
-            .search-box {
-                width: 550px;
-                height: 40px;
-                background: #EEF1F6;
-                border-radius: 11px;
+            svg {
+              width: 14px;
+              height: auto;
 
-                .search-box-content {
-                    display: flex;
-                    align-items: center;
-                    height: 100%;
+              path {
+                stroke: #919BB1;
+              }
 
-                    .search-box-icon {
-                        display: flex;
-                        padding: 0px 8px;
-
-                        svg {
-                            width: 14px;
-                            height: auto;
-
-                            path {
-                                stroke: #919BB1;
-                            }
-
-                            rect {
-                                fill: #919BB1;
-                            }
-                        }
-                    }
-
-                    .search-box-input {
-                        font-size: 16px;
-                        font-weight: 400;
-                        font-family: 'Poppins', sans-serif;
-                        color: black;
-                        outline: none;
-                        background: none;
-                        width: calc(550px - 60px);
-                    }
-
-                    ::placeholder {
-                        color: #919BB1;
-                    }
-
-                    .search-box-clear {
-                        display: flex;
-                        cursor: pointer;
-
-                        svg {
-                            width: 16px;
-                            height: auto;
-                        }
-                    }
-                }
+              rect {
+                fill: #919BB1;
+              }
             }
-        }
+          }
 
-        .search-modal-trending {
-            width: 550px;
-            height: 250px;
-            background: white;
-            border-radius: 11px;
-            margin-top: 20px;
-            margin-left: auto;
-            margin-right: auto;
+          .search-box-input {
+            font-size: 16px;
+            font-weight: 400;
+            font-family: 'Poppins', sans-serif;
+            color: black;
+            outline: none;
+            background: none;
+            width: calc(550px - 60px);
+          }
 
-            .search-modal-trending-content {
-                width: 514px;
-                padding-top: 28px;
-                margin: auto;
+          ::placeholder {
+            color: #919BB1;
+          }
 
-                h2 {
-                    font-size: 12px;
-                    font-weight: 400;
-                    color: #919BB1;
-                    padding-left: 12px;
-                    padding-bottom: 6px;
-                }
+          .search-box-clear {
+            display: flex;
+            cursor: pointer;
 
-                .search-modal-trending-sneaker {
-                    cursor: pointer;
-                    border-radius: 11px;
-                    margin-top: 4px;
-
-                    h3 {
-                        font-size: 14px;
-                        font-weight: 500;
-                        color: black;
-                        letter-spacing: -0.28px;
-                        margin: 0;
-                        padding-left: 12px;
-                        padding-top: 10px;
-                        padding-bottom: 10px;
-                    }
-                }
-
-                .search-modal-trending-sneaker:hover {
-                    background: #EEF1F6;
-                }
+            svg {
+              width: 16px;
+              height: auto;
             }
+          }
         }
+      }
     }
+
+    .search-modal-trending {
+      width: 550px;
+      height: 250px;
+      background: white;
+      border-radius: 11px;
+      margin-top: 20px;
+      margin-left: auto;
+      margin-right: auto;
+
+      .search-modal-trending-content {
+        width: 514px;
+        padding-top: 28px;
+        margin: auto;
+
+        h2 {
+          font-size: 12px;
+          font-weight: 400;
+          color: #919BB1;
+          padding-left: 12px;
+          padding-bottom: 6px;
+        }
+
+        .search-modal-trending-sneaker {
+          cursor: pointer;
+          border-radius: 11px;
+          margin-top: 4px;
+
+          h3 {
+            font-size: 14px;
+            font-weight: 500;
+            color: black;
+            letter-spacing: -0.28px;
+            margin: 0;
+            padding-left: 12px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+          }
+        }
+
+        .search-modal-trending-sneaker:hover {
+          background: #EEF1F6;
+        }
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 767px) {
-    .search-modal {
-        .search-modal-content {
-            .search-modal-navbar {
-                height: 60px;
+  .search-modal {
+    .search-modal-content {
+      .search-modal-navbar {
+        height: 60px;
 
-                .search-box {
-                    width: calc(100vw - 114px);
-                    max-width: 550px;
-                    height: 36px;
-                    border-radius: 9px;
+        .search-box {
+          width: calc(100vw - 114px);
+          max-width: 550px;
+          height: 36px;
+          border-radius: 9px;
 
-                    .search-box-content {
-                        .search-box-icon {
-                            svg {
-                                width: 12px;
-                            }
-                        }
-
-                        .search-box-input {
-                            width: calc(100vw - 170px);
-                        }
-
-                        .search-box-clear {
-                            svg {
-                                width: 14px;
-                            }
-                        }
-                    }
-                }
-
-                p {
-                    font-size: 15.5px;
-                    font-weight: 400;
-                    color: #EC3E26;
-                    letter-spacing: -0.2px;
-                    padding-left: 20px;
-                    cursor: pointer;
-                }
+          .search-box-content {
+            .search-box-icon {
+              svg {
+                width: 12px;
+              }
             }
 
-            .search-modal-trending {
-                width: 100%;
-                height: calc(100vh - 60px);
-                border-radius: 0px;
-                margin: 0px;
-
-                .search-modal-trending-content {
-                    width: calc(100vw - 40px);
-                    max-width: 624px;
-                    border-top: 1px solid #EEF1F6;
-
-                    h2 {
-                        padding-left: 0px;
-                    }
-
-                    .search-modal-trending-sneaker {
-                        border-radius: 9px;
-
-                        h3 {
-                            padding-left: 0px;
-                        }
-                    }
-
-                    .search-modal-trending-sneaker:hover {
-                        background: none;
-
-                        h3 {
-                            color: #EC3E26;
-                        }
-                    }
-                }
+            .search-box-input {
+              width: calc(100vw - 170px);
             }
+
+            .search-box-clear {
+              svg {
+                width: 14px;
+              }
+            }
+          }
         }
+
+        p {
+          font-size: 15.5px;
+          font-weight: 400;
+          color: #EC3E26;
+          letter-spacing: -0.2px;
+          padding-left: 20px;
+          cursor: pointer;
+        }
+      }
+
+      .search-modal-trending {
+        width: 100%;
+        height: calc(100vh - 60px);
+        border-radius: 0px;
+        margin: 0px;
+
+        .search-modal-trending-content {
+          width: calc(100vw - 40px);
+          max-width: 624px;
+          border-top: 1px solid #EEF1F6;
+
+          h2 {
+            padding-left: 0px;
+          }
+
+          .search-modal-trending-sneaker {
+            border-radius: 9px;
+
+            h3 {
+              padding-left: 0px;
+            }
+          }
+
+          .search-modal-trending-sneaker:hover {
+            background: none;
+
+            h3 {
+              color: #EC3E26;
+            }
+          }
+        }
+      }
     }
+  }
 }
 
 @keyframes fade-in-out {
-    from {
-        opacity: 0;
-    }
+  from {
+    opacity: 0;
+  }
 
-    to {
-        opacity: 1;
-    }
+  to {
+    opacity: 1;
+  }
 }

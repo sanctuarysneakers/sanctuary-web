@@ -1,191 +1,191 @@
 .how-it-works-sites {
-    background: #F7F9FC;
+  background: #F7F9FC;
 
-    .how-it-works-sites-content {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        max-width: 1000px;
-        margin: auto;
-        padding: 166px 20px;
+  .how-it-works-sites-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1000px;
+    margin: auto;
+    padding: 166px 20px;
 
-        .how-it-works-sites-text {
-            width: 456px;
+    .how-it-works-sites-text {
+      width: 456px;
 
-            h1 {
-                font-size: 58px;
-                font-weight: 600;
-                color: #292828;
-                line-height: 62px;
-                letter-spacing: -1.5px;
-            }
+      h1 {
+        font-size: 58px;
+        font-weight: 600;
+        color: #292828;
+        line-height: 62px;
+        letter-spacing: -1.5px;
+      }
 
-            p {
-                font-size: 20px;
-                font-weight: 400;
-                color: #292828;
-                line-height: 32px;
-                letter-spacing: -0.41px;
-                margin-top: 40px;
-            }
-        }
-
-        .how-it-works-sites-images {
-            width: 380px;
-            height: 210px;
-
-            div {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-
-                .how-it-works-site {
-                    width: 102px;
-                }
-
-                .how-it-works-site.goat {
-                    margin: 0px 36px;
-                }
-
-                .how-it-works-site.ebay {
-                    margin: 56.5px 36px;
-                }
-            }
-        }
+      p {
+        font-size: 20px;
+        font-weight: 400;
+        color: #292828;
+        line-height: 32px;
+        letter-spacing: -0.41px;
+        margin-top: 40px;
+      }
     }
+
+    .how-it-works-sites-images {
+      width: 380px;
+      height: 210px;
+
+      div {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .how-it-works-site {
+          width: 102px;
+        }
+
+        .how-it-works-site.goat {
+          margin: 0px 36px;
+        }
+
+        .how-it-works-site.ebay {
+          margin: 56.5px 36px;
+        }
+      }
+    }
+  }
 }
 
 @media (min-width: 769px) and (max-width: 1150px) {
-    .how-it-works-sites {
-        .how-it-works-sites-content {
-            flex-direction: column;
-            padding: 166px 20px;
+  .how-it-works-sites {
+    .how-it-works-sites-content {
+      flex-direction: column;
+      padding: 166px 20px;
 
-            .how-it-works-sites-text {
-                width: 650px;
+      .how-it-works-sites-text {
+        width: 650px;
 
-                h1 {
-                    font-size: 55px;
-                    line-height: 60px;
-                    letter-spacing: -0.41px;
-                }
-    
-                p {
-                    font-size: 20px;
-                    line-height: 32px;
-                    margin-top: 30px;
-                }
-            }
-
-            .how-it-works-sites-images {
-                width: 451px;
-                height: 250px;
-                margin-top: 90px;
-    
-                div {
-                    .how-it-works-site {
-                        width: 121px;
-                    }
-    
-                    .how-it-works-site.goat {
-                        margin: 0px 43px;
-                    }
-    
-                    .how-it-works-site.ebay {
-                        margin: 67px 43px;
-                    }
-                }
-            }
+        h1 {
+          font-size: 55px;
+          line-height: 60px;
+          letter-spacing: -0.41px;
         }
+  
+        p {
+          font-size: 20px;
+          line-height: 32px;
+          margin-top: 30px;
+        }
+      }
+
+      .how-it-works-sites-images {
+        width: 451px;
+        height: 250px;
+        margin-top: 90px;
+  
+        div {
+          .how-it-works-site {
+            width: 121px;
+          }
+  
+          .how-it-works-site.goat {
+            margin: 0px 43px;
+          }
+  
+          .how-it-works-site.ebay {
+            margin: 67px 43px;
+          }
+        }
+      }
     }
+  }
 }
 
 @media (min-width: 500px) and (max-width: 768px) {
-    .how-it-works-sites {
-        .how-it-works-sites-content {
-            flex-direction: column;
-            padding: 100px 20px;
+  .how-it-works-sites {
+    .how-it-works-sites-content {
+      flex-direction: column;
+      padding: 100px 20px;
 
-            .how-it-works-sites-text {
-                width: 425px;
+      .how-it-works-sites-text {
+        width: 425px;
 
-                h1 {
-                    font-size: 46px;
-                    line-height: 50px;
-                    letter-spacing: -0.41px;
-                }
-    
-                p {
-                    font-size: 20px;
-                    line-height: 32px;
-                    margin-top: 20px;
-                }
-            }
-
-            .how-it-works-sites-images {
-                width: 375px;
-                height: 210px;
-                margin-top: 90px;
-    
-                div {
-                    .how-it-works-site {
-                        width: 101px;
-                    }
-    
-                    .how-it-works-site.goat {
-                        margin: 0px 36px;
-                    }
-    
-                    .how-it-works-site.ebay {
-                        margin: 56px 36px;
-                    }
-                }
-            }
+        h1 {
+          font-size: 46px;
+          line-height: 50px;
+          letter-spacing: -0.41px;
         }
+  
+        p {
+          font-size: 20px;
+          line-height: 32px;
+          margin-top: 20px;
+        }
+      }
+
+      .how-it-works-sites-images {
+        width: 375px;
+        height: 210px;
+        margin-top: 90px;
+  
+        div {
+          .how-it-works-site {
+            width: 101px;
+          }
+  
+          .how-it-works-site.goat {
+            margin: 0px 36px;
+          }
+  
+          .how-it-works-site.ebay {
+            margin: 56px 36px;
+          }
+        }
+      }
     }
+  }
 }
 
 @media screen and (max-width: 499px) {
-    .how-it-works-sites {
-        .how-it-works-sites-content {
-            flex-direction: column;
-            padding: 100px 20px;
+  .how-it-works-sites {
+    .how-it-works-sites-content {
+      flex-direction: column;
+      padding: 100px 20px;
 
-            .how-it-works-sites-text {
-                width: 305px;
+      .how-it-works-sites-text {
+        width: 305px;
 
-                h1 {
-                    font-size: 40px;
-                    line-height: 44px;
-                    letter-spacing: -0.41px;
-                }
-    
-                p {
-                    font-size: 18px;
-                    line-height: 30px;
-                    margin-top: 20px;
-                }
-            }
-
-            .how-it-works-sites-images {
-                width: 305px;
-                height: 170px;
-                margin-top: 70px;
-    
-                div {
-                    .how-it-works-site {
-                        width: 81px;
-                    }
-    
-                    .how-it-works-site.goat {
-                        margin: 0px 30px;
-                    }
-    
-                    .how-it-works-site.ebay {
-                        margin: 45px 30px;
-                    }
-                }
-            }
+        h1 {
+          font-size: 40px;
+          line-height: 44px;
+          letter-spacing: -0.41px;
         }
+  
+        p {
+          font-size: 18px;
+          line-height: 30px;
+          margin-top: 20px;
+        }
+      }
+
+      .how-it-works-sites-images {
+        width: 305px;
+        height: 170px;
+        margin-top: 70px;
+  
+        div {
+          .how-it-works-site {
+            width: 81px;
+          }
+  
+          .how-it-works-site.goat {
+            margin: 0px 30px;
+          }
+  
+          .how-it-works-site.ebay {
+            margin: 45px 30px;
+          }
+        }
+      }
     }
+  }
 }

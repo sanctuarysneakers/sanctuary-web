@@ -1,30 +1,30 @@
 .dynamic-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 
-    .dynamic-list-button {
-        font-family: 'Poppins', sans-serif;
-        font-size: 21px;
-        font-weight: 400;
-        color: #EC3E26;
-        background: none;
-        cursor: pointer;
-        margin-top: 15px;
-    }
-    .dynamic-list-button:hover {
-        text-decoration: underline;
-    }
+  .dynamic-list-button {
+    font-family: 'Poppins', sans-serif;
+    font-size: 21px;
+    font-weight: 400;
+    color: #EC3E26;
+    background: none;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+  .dynamic-list-button:hover {
+    text-decoration: underline;
+  }
 }
 
 @media screen and (max-width: 767px) {
-    .dynamic-list {
-    
-        .dynamic-list-button {
-            font-size: 16px;
-            color: #EC3E26;
-            margin-top: 10px;
-        }
+  .dynamic-list {
+  
+    .dynamic-list-button {
+      font-size: 16px;
+      color: #EC3E26;
+      margin-top: 10px;
     }
+  }
 }

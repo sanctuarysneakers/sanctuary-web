@@ -1,27 +1,29 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { hideCategoryFilterModal } from '../../redux/actions'
+import PropTypes from 'prop-types'
 
-export default function CategoryOption({ category }) {
+export default function CategoryOption ({ category }) {
+  const dispatch = useDispatch()
 
-    const dispatch = useDispatch()
+  const clickHandler = () => {
+    document.location.href = '/browse/' + category
+    dispatch(hideCategoryFilterModal())
+  }
 
-    const clickHandler = () => {
-        //window.analytics.track(`browse_category_option_clicked`, {category: category});
-        document.location.href = '/browse/' + category; 
-        dispatch(hideCategoryFilterModal());
-    }
+  return (
+    <div className='category-option'>
 
-    return (
-        <div className='category-option'>
+      <div className='category-option-content' onClick={clickHandler}>
+        <p className='category-option-text'>
+          {category}
+        </p>
+      </div>
 
-            <div className='category-option-content' onClick={clickHandler}>
-                <p className='category-option-text'>
-                    {category}
-                </p>
-            </div>
+    </div>
+  )
+}
 
-        </div>
-    )
-
+CategoryOption.propTypes = {
+  category: PropTypes.string
 }

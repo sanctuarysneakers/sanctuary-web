@@ -1,218 +1,208 @@
 import createRequestObject from './createRequest'
 
-//lowest prices
+// lowest prices
 
-export async function stockxLowestPrice(item, filter) {
-	try {
-		const modelName = item.modelName.replace('(W)', '')
-		const sku = item.sku.replace(' ', '-')
-		const request = createRequestObject('stockx', {
-			model_name: modelName,
-			sku: sku,
-			size: filter.gender === 'women' ? filter.size-1.5 : filter.size,
-			currency: filter.currency,
-			ship_to: filter.country
-		})
-		const response = await fetch(request.url, request.headers)
-		if (!response.ok) return {}
+export async function stockxLowestPrice (item, filter) {
+  try {
+    const modelName = item.modelName.replace('(W)', '')
+    const sku = item.sku.replace(' ', '-')
+    const request = createRequestObject('stockx', {
+      model_name: modelName,
+      sku,
+      size: filter.gender === 'women' ? filter.size - 1.5 : filter.size,
+      currency: filter.currency,
+      ship_to: filter.country
+    })
+    const response = await fetch(request.url, request.headers)
+    if (!response.ok) return {}
 
-		let itemData = await response.json()
-		return itemData
-	} catch (e) {
-		return {}
-	}
+    const itemData = await response.json()
+    return itemData
+  } catch (e) {
+    return {}
+  }
 }
 
-export async function footlockerLowestPrice(item, filter) {
-	try {
-		const modelName = item.modelName.replace('(W)', '')
-		const sku = item.sku.replace(' ', '-')
-		const request = createRequestObject('footlocker', {
-			model_name: modelName,
-			sku: sku,
-			size: filter.gender === 'women' ? filter.size-1.5 : filter.size,
-			currency: filter.currency,
-			ship_to: filter.country
-		})
+export async function footlockerLowestPrice (item, filter) {
+  try {
+    const modelName = item.modelName.replace('(W)', '')
+    const sku = item.sku.replace(' ', '-')
+    const request = createRequestObject('footlocker', {
+      model_name: modelName,
+      sku,
+      size: filter.gender === 'women' ? filter.size - 1.5 : filter.size,
+      currency: filter.currency,
+      ship_to: filter.country
+    })
 
-		const response = await fetch(request.url, request.headers)
-		if (!response.ok) return {}
+    const response = await fetch(request.url, request.headers)
+    if (!response.ok) return {}
 
-		let itemData = await response.json()
+    const itemData = await response.json()
 
-		return itemData
-	} catch (e) {
-		return {}
-	}
+    return itemData
+  } catch (e) {
+    return {}
+  }
 }
 
-export async function ebayLowestPrice(item, filter) {
-	try {
-		const modelName = item.modelName.replace('(W)', '').concat(' ', item.sku)
-		let request = createRequestObject('ebay', {
-			model_name: modelName, 
-			size: filter.size, 
-			currency: filter.currency,
-			ship_to: filter.country, 
-			postal_code: filter.postalCode
-		})
+export async function ebayLowestPrice (item, filter) {
+  try {
+    const modelName = item.modelName.replace('(W)', '').concat(' ', item.sku)
+    const request = createRequestObject('ebay', {
+      model_name: modelName,
+      size: filter.size,
+      currency: filter.currency,
+      ship_to: filter.country,
+      postal_code: filter.postalCode
+    })
 
-		const response = await fetch(request.url, request.headers)
-		if (!response.ok) return {}
+    const response = await fetch(request.url, request.headers)
+    if (!response.ok) return {}
 
-		let itemData = await response.json()
+    const itemData = await response.json()
 
-		return itemData
-	} catch (e) {
-		return {}
-	}
+    return itemData
+  } catch (e) {
+    return {}
+  }
 }
 
+export async function klektLowestPrice (item, filter) {
+  try {
+    const request = createRequestObject('klekt', {
+      sku: item.sku,
+      size: filter.size,
+      currency: filter.currency,
+      ship_to: filter.country
+    })
 
-export async function klektLowestPrice(item, filter) {
-	try {
-		const request = createRequestObject('klekt', {
-			sku: item.sku, 
-			size: filter.size,
-			currency: filter.currency,
-			ship_to: filter.country
-		})
+    const response = await fetch(request.url, request.headers)
+    if (!response.ok) return {}
 
-		const response = await fetch(request.url, request.headers)
-		if (!response.ok) return {}
+    const itemData = await response.json()
 
-		let itemData = await response.json()
-
-		return itemData
-	} catch (e) {
-		return {}
-	}
+    return itemData
+  } catch (e) {
+    return {}
+  }
 }
 
+export async function goatLowestPrice (item, filter) {
+  try {
+    const request = createRequestObject('goat', {
+      sku: item.sku,
+      size: filter.size,
+      currency: filter.currency,
+      ship_to: filter.country
+    })
 
-export async function goatLowestPrice(item, filter) {
-	try {
-		const request = createRequestObject('goat', {
-			sku: item.sku, 
-			size: filter.size,
-			currency: filter.currency,
-			ship_to: filter.country
-		})
-		
-		const response = await fetch(request.url, request.headers)
-		if (!response.ok) return {}
-		let itemData = await response.json()
-		return itemData
-	} catch (e) {
-		return {}
-	}
+    const response = await fetch(request.url, request.headers)
+    if (!response.ok) return {}
+    const itemData = await response.json()
+    return itemData
+  } catch (e) {
+    return {}
+  }
 }
 
-
-export async function flightclubLowestPrice(item, filter) {
-	try {
-		const request = createRequestObject('flightclub', {
-			sku: item.sku, 
-			size: filter.gender === 'women' ? filter.size-1.5 : filter.size,
-			currency: filter.currency,
-			ship_to: filter.country
-		})
-		const response = await fetch(request.url, request.headers)
-		if (!response.ok) return {}
-		let itemData = await response.json()
-		return itemData
-	} catch (e) {
-		return {}
-	}
+export async function flightclubLowestPrice (item, filter) {
+  try {
+    const request = createRequestObject('flightclub', {
+      sku: item.sku,
+      size: filter.gender === 'women' ? filter.size - 1.5 : filter.size,
+      currency: filter.currency,
+      ship_to: filter.country
+    })
+    const response = await fetch(request.url, request.headers)
+    if (!response.ok) return {}
+    const itemData = await response.json()
+    return itemData
+  } catch (e) {
+    return {}
+  }
 }
 
+// listings
 
-//listings
+export async function ebayListings (item, filter) {
+  try {
+    const modelName = item.modelName.replace('(W)', '')
+    const request = createRequestObject('ebaylistings', {
+      model_name: modelName,
+      size: filter.size,
+      currency: filter.currency,
+      ship_to: filter.country,
+      postal_code: filter.postalCode
+    })
 
-export async function ebayListings(item, filter) {
-	try {
-		let modelName = item.modelName.replace('(W)', '')
-		const request = createRequestObject('ebaylistings', {
-			model_name: modelName, 
-			size: filter.size,
-			currency: filter.currency,
-			ship_to: filter.country, 
-			postal_code: filter.postalCode
-		})
-		
-		const response = await fetch(request.url, request.headers)
-		if (!response.ok) return []
+    const response = await fetch(request.url, request.headers)
+    if (!response.ok) return []
 
-		let itemData = await response.json()
+    const itemData = await response.json()
 
-		return itemData
-	} catch (e) {
-		return []
-	}
+    return itemData
+  } catch (e) {
+    return []
+  }
 }
 
+export async function depopListings (item, filter) {
+  try {
+    const modelName = item.modelName.replace('(W)', '')
+    const request = createRequestObject('depop', {
+      model_name: modelName,
+      size: filter.size,
+      gender: filter.gender,
+      currency: filter.currency,
+      ship_to: filter.country
+    })
 
-export async function depopListings(item, filter) {
-	try {
-		const modelName = item.modelName.replace('(W)', '')
-		const request = createRequestObject('depop', {
-			model_name: modelName, 
-			size: filter.size, 
-			gender: filter.gender,
-			currency: filter.currency,
-			ship_to: filter.country
-		})
+    const response = await fetch(request.url, request.headers)
+    if (!response.ok) return []
 
-		const response = await fetch(request.url, request.headers)
-		if (!response.ok) return []
+    const itemData = await response.json()
 
-		const itemData = await response.json()
-
-		return itemData
-	} catch (e) {
-		return []
-	}
+    return itemData
+  } catch (e) {
+    return []
+  }
 }
 
-export async function grailedListings(item, filter) {
-	try {
-		const modelName = item.modelName.replace('(W)', '')
-		const request = createRequestObject('grailed', {
-			model_name: modelName, 
-			size: filter.size,
-			currency: filter.currency,
-			ship_to: filter.country
-		})
+export async function grailedListings (item, filter) {
+  try {
+    const modelName = item.modelName.replace('(W)', '')
+    const request = createRequestObject('grailed', {
+      model_name: modelName,
+      size: filter.size,
+      currency: filter.currency,
+      ship_to: filter.country
+    })
 
-		const response = await fetch(request.url, request.headers)
-		if (!response.ok) return []
-		
-		const itemData = await response.json()
+    const response = await fetch(request.url, request.headers)
+    if (!response.ok) return []
 
-		return itemData
-	} catch (e) {
-		return []
-	}
+    const itemData = await response.json()
+
+    return itemData
+  } catch (e) {
+    return []
+  }
 }
 
+export async function collectionItems (params) {
+  const request = createRequestObject('browse_collection', params)
 
-export async function collectionItems(params) {
-	let request = createRequestObject('browse_collection', params)
-        
-	try {
-		const response = await fetch(request.url, request.headers)
-	
-		if (!response.ok) throw new Error()
-		
-		let results = await response.json()
-		if (!results.length) throw new Error()
+  try {
+    const response = await fetch(request.url, request.headers)
 
-		return results
-	} catch (e) {
-		return []
-	}
+    if (!response.ok) throw new Error()
+
+    const results = await response.json()
+    if (!results.length) throw new Error()
+
+    return results
+  } catch (e) {
+    return []
+  }
 }
-
-
-
-

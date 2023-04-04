@@ -1,200 +1,200 @@
 .hamburger-background {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: none;
+  z-index: -1;
+  transition: 500ms;
+
+  .hamburger-modal {
     position: fixed;
-    bottom: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: none;
-    z-index: -1;
+    bottom: -100%;
+    width: 100%;
+    background: #F7F9FC;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
     transition: 500ms;
 
-    .hamburger-modal {
-        position: fixed;
-        left: 0;
-        bottom: -100%;
-        width: 100%;
-        background: #F7F9FC;
-        border-top-left-radius: 16px;
-        border-top-right-radius: 16px;
-        transition: 500ms;
+    .hamburger-modal-content {
+      padding-top: 12px;
+      padding-bottom: 60px;
 
-        .hamburger-modal-content {
-            padding-top: 12px;
-            padding-bottom: 60px;
+      .hamburger-modal-header {
+        border-bottom: solid 1px #E5E9F1;
 
-            .hamburger-modal-header {
-                border-bottom: solid 1px #E5E9F1;
-
-                .hamburger-modal-tab {
-                    width: 35px;
-                    height: 4px;
-                    background: #C7CEDE;
-                    border-radius: 100px;
-                    margin: 0px auto;
-                }
-
-                h2 {
-                    font-size: 23px;
-                    font-weight: bold;
-                    color: black;
-                    line-height: 35px;
-                    padding-top: 9px;
-                    padding: 10px 20px;
-                }
-            }
-
-            .hamburger-modal-account {
-                padding-top: 25px;
-
-                .hamburger-modal-account-out {
-                    display: flex;
-                    justify-content: space-between;
-                    margin: 0px 20px;
-
-                    button {
-                        width: 100%;
-                        height: 60px;
-                        border-radius: 10px;
-                        font-size: 14px;
-                        font-weight: 500;
-                        font-family: 'Poppins', sans-serif;
-                        cursor: pointer;
-                    }
-
-                    .create-account {
-                        background: #EC3E26;
-                        color: white;
-                    }
-
-                    .sign-in {
-                        background: #E5E9F1;
-                        color: #777F93;
-                        margin-left: 8px;
-                    }
-                }
-
-                .hamburger-modal-account-in {
-                    background: white;
-                    border-radius: 10px;
-                    margin: 0px 20px;
-
-                    .hamburger-modal-profile {
-                        padding-left: 15px;
-
-                        .hamburger-modal-profile-content {
-                            padding-top: 18px;
-                            padding-right: 15px;
-                            border-bottom: solid 1px #EEF1F6;
-
-                            img {
-                                display: block;
-                                width: 30px;
-                                height: 30px;
-                                border-radius: 100px;
-                                overflow: hidden;
-                            }
-
-                            h4 {
-                                font-size: 17px;
-                                font-weight: 600;
-                                color: black;
-                                padding-top: 12px;
-                                padding-bottom: 14px;
-                            }
-                        }
-                    }
-
-                    .hamburger-modal-view-profile {
-                        padding-left: 15px;
-                        cursor: pointer;
-
-                        .hamburger-modal-view-profile-content {
-                            display: flex;
-                            align-items: center;
-                            justify-content: space-between;
-                            height: 50px;
-
-                            p {
-                                font-size: 16px;
-                                font-weight: 400;
-                                color: black;
-                            }
-
-                            svg  {
-                                width: 7px;
-                                height: auto;
-                                padding-right: 15px;
-    
-                                path {
-                                    stroke-width: 2;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            .hamburger-modal-links {
-                margin-top: 20px;
-                margin-left: 20px;
-                margin-right: 20px;
-                background: white;
-                border-radius: 10px;
-
-                .hamburger-modal-option {
-                    padding-left: 15px;
-                    cursor: pointer;
-
-                    .hamburger-modal-option-content {
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        height: 50px;
-                        border-bottom: solid 1px #EEF1F6;
-
-                        p {
-                            font-size: 16px;
-                            font-weight: 400;
-                            color: black;
-                        }
-
-                        svg  {
-                            width: 7px;
-                            height: auto;
-                            padding-right: 15px;
-
-                            path {
-                                stroke-width: 2;
-                            }
-                        }
-                    }
-
-                    .hamburger-modal-option-content.last {
-                        border-bottom: none;
-                    }
-                }
-            }
+        .hamburger-modal-tab {
+          width: 35px;
+          height: 4px;
+          background: #C7CEDE;
+          border-radius: 100px;
+          margin: 0px auto;
         }
+
+        h2 {
+          font-size: 23px;
+          font-weight: bold;
+          color: black;
+          line-height: 35px;
+          padding-top: 9px;
+          padding: 10px 20px;
+        }
+      }
+
+      .hamburger-modal-account {
+        padding-top: 25px;
+
+        .hamburger-modal-account-out {
+          display: flex;
+          justify-content: space-between;
+          margin: 0px 20px;
+
+          button {
+            width: 100%;
+            height: 60px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+          }
+
+          .create-account {
+            background: #EC3E26;
+            color: white;
+          }
+
+          .sign-in {
+            background: #E5E9F1;
+            color: #777F93;
+            margin-left: 8px;
+          }
+        }
+
+        .hamburger-modal-account-in {
+          background: white;
+          border-radius: 10px;
+          margin: 0px 20px;
+
+          .hamburger-modal-profile {
+            padding-left: 15px;
+
+            .hamburger-modal-profile-content {
+              padding-top: 18px;
+              padding-right: 15px;
+              border-bottom: solid 1px #EEF1F6;
+
+              img {
+                display: block;
+                width: 30px;
+                height: 30px;
+                border-radius: 100px;
+                overflow: hidden;
+              }
+
+              h4 {
+                font-size: 17px;
+                font-weight: 600;
+                color: black;
+                padding-top: 12px;
+                padding-bottom: 14px;
+              }
+            }
+          }
+
+          .hamburger-modal-view-profile {
+            padding-left: 15px;
+            cursor: pointer;
+
+            .hamburger-modal-view-profile-content {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              height: 50px;
+
+              p {
+                font-size: 16px;
+                font-weight: 400;
+                color: black;
+              }
+
+              svg  {
+                width: 7px;
+                height: auto;
+                padding-right: 15px;
+  
+                path {
+                  stroke-width: 2;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .hamburger-modal-links {
+        margin-top: 20px;
+        margin-left: 20px;
+        margin-right: 20px;
+        background: white;
+        border-radius: 10px;
+
+        .hamburger-modal-option {
+          padding-left: 15px;
+          cursor: pointer;
+
+          .hamburger-modal-option-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 50px;
+            border-bottom: solid 1px #EEF1F6;
+
+            p {
+              font-size: 16px;
+              font-weight: 400;
+              color: black;
+            }
+
+            svg  {
+              width: 7px;
+              height: auto;
+              padding-right: 15px;
+
+              path {
+                stroke-width: 2;
+              }
+            }
+          }
+
+          .hamburger-modal-option-content.last {
+            border-bottom: none;
+          }
+        }
+      }
     }
+  }
 }
 
 .hamburger-background.active {
-    background: rgba(0, 0, 0, 0.6);
-    transition: 500ms;
-    z-index: 100;
+  background: rgba(0, 0, 0, 0.6);
+  transition: 500ms;
+  z-index: 100;
 
-    .hamburger-modal.active {
-        bottom: 0;
-        transition: 350ms;
-    }
+  .hamburger-modal.active {
+    bottom: 0;
+    transition: 350ms;
+  }
 }
 
 @media screen and (min-width: 428px) {
-    .hamburger-background {
-        .hamburger-modal {
-            width: 428px;
-            margin: auto;
-            right: 0px;
-        }
+  .hamburger-background {
+    .hamburger-modal {
+      width: 428px;
+      margin: auto;
+      right: 0px;
     }
+  }
 }
