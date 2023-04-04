@@ -2,13 +2,11 @@
 import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { hideHamburgerModal } from '../../redux/actions'
-import ProfileIcon from '../../assets/images/icons/profileIcon'
 import { ReactComponent as RightArrow } from '../../assets/images/RightArrow.svg'
 
 export default function HamburgerModal () {
   const ref = useRef()
   const dispatch = useDispatch()
-  const user = useSelector(state => state.user)
   const menuVisible = useSelector(state => state.modals.hamburgerModalVisible)
 
   useEffect(() => {
@@ -32,36 +30,6 @@ export default function HamburgerModal () {
           <div className='hamburger-modal-header'>
             <div className='hamburger-modal-tab' />
             <h2> Menu </h2>
-          </div>
-
-          <div className='hamburger-modal-account'>
-            {/* Styling when user is signed out */}
-            {!user && <div className='hamburger-modal-account-out'>
-              <button className='create-account' onClick={() => document.location.href = '/create-account'}>
-                Sign Up
-              </button>
-
-              <button className='sign-in' onClick={() => document.location.href = '/sign-in'}>
-                Log In
-              </button>
-            </div>}
-
-            {/* Styling when user is signed in */}
-            {user && <div className='hamburger-modal-account-in'>
-              <div className='hamburger-modal-profile'>
-                <div className='hamburger-modal-profile-content'>
-                  {user.photoURL ? <img src={user.photoURL} alt='profile' /> : <ProfileIcon />}
-                  <h4> {user.displayName} </h4>
-                </div>
-              </div>
-
-              <div className='hamburger-modal-view-profile' onClick={() => document.location.href = '/profile'}>
-                <div className='hamburger-modal-view-profile-content'>
-                  <p> View Profile </p>
-                  <RightArrow />
-                </div>
-              </div>
-            </div>}
           </div>
 
           <div className='hamburger-modal-links'>
