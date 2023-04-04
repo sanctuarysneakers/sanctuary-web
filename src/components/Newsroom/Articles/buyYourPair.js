@@ -53,7 +53,7 @@ export default function BuyYourPair () {
             hard to go wrong with a pair of Nikes.
           </p>
 
-          <p><em>Our Nike Pick: Air Max 90/1 ‘University Red&apos;</em></p>
+          <p><em>Our Nike Pick: <a href="https://sovrn.co/13cosu1">Air Max 90/1 &apos;University Red&apos; </a></em></p>
         </div>
 
         <div className='newsroom-article-image'>
@@ -71,7 +71,7 @@ export default function BuyYourPair () {
             one of the most influential brands in sneaker history.
           </p>
 
-          <p><em>Our Air Jordan pick: Air Jordan 4 Retro OG ‘Fire Red&apos; 2020</em></p>
+          <p><em>Our Air Jordan pick: <a href="https://sovrn.co/i2qhldf">Air Jordan 4 Retro OG &apos;Fire Red&apos; 2020</a></em></p>
         </div>
 
         <div className='newsroom-article-image'>
@@ -90,7 +90,7 @@ export default function BuyYourPair () {
             The now iconic Sambas, Gazelles, and Stan Smiths are considered staples to many sneakerheads.
           </p>
 
-          <p><em>Our Adidas pick: Yeezy Boost 700 ‘Salt&apos;</em></p>
+          <p><em>Our Adidas pick: <a href="https://sovrn.co/15c19vh">Yeezy Boost 700 &apos;Salt&apos;</a></em></p>
         </div>
         <div className='newsroom-article-image'>
           <img src={yeezy} alt='Yeezy Boost' width='100px'/>
@@ -107,7 +107,7 @@ export default function BuyYourPair () {
             their dad-approved 99X series.
           </p>
 
-          <p>Our New Balance pick: New Balance 550 X Aimé Leon Dore ‘Natural Green&apos;</p>
+          <p>Our New Balance pick:<a href="https://sovrn.co/18yaifw">New Balance 550 X Aimé Leon Dore &apos;Natural Green&apos;</a></p>
         </div>
         <div className='newsroom-article-image'>
           <img src={nb} alt='New Balance' width='100px'/>
@@ -117,13 +117,13 @@ export default function BuyYourPair () {
         <div className='newsroom-article-text'>
           <p>
             <strong>Reebok</strong> <br />
-            After gaining popularity during the fitness craze of the ‘80s, Reebok established themselves as an iconic
+            After gaining popularity during the fitness craze of the &apos;80s, Reebok established themselves as an iconic
             everyday shoe brand. Now a subsidiary of Adidas, Reebok sits at a unique crossroads between leisure and
             performance wear. They&apos;re best known for their Classics line, which has perfected the tennis shoe while
             maintaining their signature retro look.
           </p>
 
-          <p>Our Reebok pick: JJJJound X Reebok Club C 85 ‘White Gum&apos;</p>
+          <p>Our Reebok pick: <a href="https://sovrn.co/1hp8vis">JJJJound X Reebok Club C 85 &apos;White Gum&apos;</a></p>
         </div>
 
         <div className='newsroom-article-image'>
