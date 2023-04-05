@@ -163,7 +163,7 @@ export default function Item () {
         </div>
       </div>
 
-      <Footer colour={'blue'} />
+      <Footer color={'blue'} />
     </div>
   )
 }

@@ -65,7 +65,7 @@ export default function BuyYourPair () {
           <p>
             <strong>Air Jordan</strong> <br />
             From the beginning, Air Jordans have been a statement piece. After being debuted by Michael
-            Jordan in 1984, the shoes were banned from the NBA because their red and black colourway violated
+            Jordan in 1984, the shoes were banned from the NBA because their red and black colorway violated
             uniform dress code—it&apos;s even rumoured that Jordan was fined $5,000 for every game played in the
             controversial sneakers. Nevertheless, Air Jordan built an empire from the infamous shoes, becoming
             one of the most influential brands in sneaker history.
@@ -140,10 +140,10 @@ export default function BuyYourPair () {
             just starting out your collection.</p>
 
           <p>
-            Two important factors in sneaker style are the silhouette and the colourway: the silhouette
-            refers to the shape and design of the shoe, and the colourway refers to the combination of
-            colours on the shoe. A classic silhouette—like the Air Force 1 or Stan Smith—paired with an
-            understated colourway makes for an excellent versatile shoe.
+            Two important factors in sneaker style are the silhouette and the colorway: the silhouette
+            refers to the shape and design of the shoe, and the colorway refers to the combination of
+            colors on the shoe. A classic silhouette—like the Air Force 1 or Stan Smith—paired with an
+            understated colorway makes for an excellent versatile shoe.
           </p>
 
           <h4>3. Buy your pair at the best price.</h4>
@@ -166,7 +166,7 @@ export default function BuyYourPair () {
 
       <NextArticles />
 
-      <Footer colour={'blue'} />
+      <Footer color={'blue'} />
     </div>
   )
 }

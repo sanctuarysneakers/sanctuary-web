@@ -80,7 +80,7 @@ export default function EditProfilePassword () {
 
       </div>
 
-      <Footer colour={'white'} />
+      <Footer color={'white'} />
     </div>
   )
 }

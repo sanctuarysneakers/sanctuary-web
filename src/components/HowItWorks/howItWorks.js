@@ -3,7 +3,7 @@ import HowItWorksSplash from './howItWorksSplash'
 import HowItWorksInfo from './howItWorksInfo'
 import HowItWorksSites from './howItWorksSites'
 import HowItWorksCards from './howItWorksCards'
-import HowItWorksContact from './howItWorksContact'
+// import HowItWorksContact from './howItWorksContact'
 import Footer from '../Other/footer'
 
 export default function HowItWorks () {
@@ -14,8 +14,8 @@ export default function HowItWorks () {
         <HowItWorksInfo />
         <HowItWorksSites />
         <HowItWorksCards />
-        <HowItWorksContact />
-        <Footer colour={'white'} />
+        {/* <HowItWorksContact /> */}
+        <Footer color={'blue'} />
       </div>
     </div>
   )

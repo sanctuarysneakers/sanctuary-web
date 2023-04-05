@@ -105,7 +105,7 @@ export default function SignInEmail () {
         </div>
       </div>
 
-      <Footer colour={'white'} />
+      <Footer color={'white'} />
 
     </div>
   )

@@ -56,7 +56,7 @@ export default function Newsroom () {
         </div>
       </div>
 
-      <Footer colour={'blue'} />
+      <Footer color={'blue'} />
     </div>
   )
 }

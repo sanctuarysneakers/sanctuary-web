@@ -24,7 +24,7 @@ export default function ItemNotSupported () {
         <SearchBox/>
       </div>
 
-      <Footer colour={'white'} />
+      <Footer color={'white'} />
     </div>
   )
 }

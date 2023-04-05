@@ -78,7 +78,7 @@ export default function AdidasCarbon3D () {
 
       <NextArticles />
 
-      <Footer colour={'blue'} />
+      <Footer color={'blue'} />
     </div>
   )
 }

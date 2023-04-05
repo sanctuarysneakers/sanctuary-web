@@ -42,7 +42,7 @@ export default function Home () {
 
       <HomeApp />
 
-      <Footer colour={'white'} />
+      <Footer color={'white'} />
     </div>
   )
 }
