@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom'
 import { RemoveScroll } from 'react-remove-scroll'
 import { useSelector } from 'react-redux'
 
-import ProtectedRoute from './components/Routes/protectedRoute'
 import Navbar from './components/Other/navbar'
 import Home from './components/Home/home'
 import Browse from './components/Browse/browse'
@@ -21,17 +20,6 @@ import ContactUs from './components/Contact/contactUs'
 import LocationModal from './components/Modals/locationModal'
 import CategoryFilterModal from './components/Modals/categoryFilterModal'
 import { useLocationDetection } from './hooks/useLocationDetection'
-
-import SignInOptions from './components/Accounts/signInOptions'
-import SignInEmail from './components/Accounts/signInEmail'
-import CreateAccountOptions from './components/Accounts/createAccountOptions'
-import CreateAccountEmail from './components/Accounts/createAccountEmail'
-import Profile from './components/Accounts/profile'
-import SignOut from './components/Accounts/signOut'
-import EditProfileName from './components/Accounts/editProfileName'
-import EditProfileEmail from './components/Accounts/editProfileEmail'
-import EditProfilePassword from './components/Accounts/editProfilePassword'
-import ForgotPassword from './components/Accounts/forgotPassword'
 
 import HowItWorks from './components/HowItWorks/howItWorks'
 
@@ -60,18 +48,6 @@ export default function App () {
         <Route path="/home" component={Home} />
         <Route path="/browse/:searchTerm?" component={Browse} />
         <Route path="/item/:itemKey/:gender?" component={Item} />
-
-        <ProtectedRoute path="/sign-in/:redirect?" component={SignInOptions} isEnabled={false} />
-        <ProtectedRoute path="/sign-in-email" component={SignInEmail} isEnabled={false} />
-        <ProtectedRoute path="/create-account/:redirect?" component={CreateAccountOptions} isEnabled={false} />
-        <ProtectedRoute path="/create-account-email" component={CreateAccountEmail} isEnabled={false} />
-        <ProtectedRoute path="/sign-in-forgot-password" component={ForgotPassword} isEnabled={false} />
-
-        <ProtectedRoute path="/profile/:redirect?" component={Profile} isEnabled={false} />
-        <ProtectedRoute path="/profile-edit-name" component={EditProfileName} isEnabled={false} />
-        <ProtectedRoute path="/profile-edit-email" component={EditProfileEmail} isEnabled={false} />
-        <ProtectedRoute path="/profile-edit-password" component={EditProfilePassword} isEnabled={false} />
-        <ProtectedRoute path="/sign-out/:redirect?" component={SignOut} isEnabled={false} />
 
         <Route path="/privacy-policy" component={PrivacyPolicy} />
         <Route path="/terms-of-use" component={TermsOfUse} />

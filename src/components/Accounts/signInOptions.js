@@ -98,7 +98,7 @@ export default function SignInOptions () {
 
       </div>
 
-      <Footer colour={'white'} />
+      <Footer color={'white'} />
     </div>
   )
 }

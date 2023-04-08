@@ -106,7 +106,7 @@ export default function Profile () {
 
       </div>}
 
-      <Footer colour={'white'} />
+      <Footer color={'white'} />
     </div>
   )
 }

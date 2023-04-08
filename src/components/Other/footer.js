@@ -80,17 +80,6 @@ export default function Footer ({ color }) {
             </div>
 
             <div className='footer-links-site-right'>
-              <div className='footer-link-text'>
-                <h2> Account </h2>
-
-                <Link onClick={() => document.location.href = '/create-account'} to='/create-account'>
-                  Create Account
-                </Link>
-
-                <Link onClick={() => document.location.href = '/sign-in'} to='/sign-in'>
-                  Sign In
-                </Link>
-              </div>
 
               <div className='footer-link-text last'>
                 <h2> Support </h2>
