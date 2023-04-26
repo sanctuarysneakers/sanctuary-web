@@ -141,11 +141,11 @@ export default function useAPICall (callType, params) {
 
   async function getRelatedItems (itemInfo) {
     const filters = {
-      is_related_items: true,
-      search: itemInfo.silhouette,
       model: itemInfo.model,
+      silhouette: itemInfo.silhouette,
+      currency: currency,
     }
-    const request = createRequestObject('browse', filters)
+    const request = createRequestObject('relateditems', filters)
 
     try {
       const response = await fetch(request.url, request.headers)

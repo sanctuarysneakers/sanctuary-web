@@ -191,7 +191,7 @@ export async function grailedListings (item, filter) {
 }
 
 export async function collectionItems (params) {
-  const request = createRequestObject('browse_collection', params)
+  const request = createRequestObject('browsecollection', params)
 
   try {
     const response = await fetch(request.url, request.headers)

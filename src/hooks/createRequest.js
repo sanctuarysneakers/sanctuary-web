@@ -16,9 +16,9 @@ export default function createRequestObject (type, filter) {
         body: JSON.stringify(filter)
       }
     }
-  case 'browse_collection':
+  case 'browsecollection':
     return {
-      url: `${api}/browse_collection`,
+      url: `${api}/browsecollection`,
       headers: {
         method: 'POST',
         headers: {
@@ -30,6 +30,13 @@ export default function createRequestObject (type, filter) {
   case 'iteminfo':
     return {
       url: `${api}/iteminfo?` + new URLSearchParams(filter),
+      headers: {
+        method: 'GET'
+      }
+    }
+  case 'relateditems':
+    return {
+      url: `${api}/relateditems?` + new URLSearchParams(filter),
       headers: {
         method: 'GET'
       }
