@@ -1,7 +1,7 @@
 
 export default function createRequestObject (type, filter) {
-  const api = 'https://rkzmvt26dg.us-west-2.awsapprunner.com'
-  // const api = 'http://127.0.0.1:8080'
+  // const api = 'https://rkzmvt26dg.us-west-2.awsapprunner.com'
+  const api = 'http://127.0.0.1:8086'
   const autosuggestAPI = 'https://2fwotdvm2o-dsn.algolia.net'
 
   switch (type) {
@@ -25,6 +25,13 @@ export default function createRequestObject (type, filter) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(filter)
+      }
+    }
+  case 'iteminfo':
+    return {
+      url: `${api}/iteminfo?` + new URLSearchParams(filter),
+      headers: {
+        method: 'GET'
       }
     }
   case 'stockx':
@@ -107,17 +114,6 @@ export default function createRequestObject (type, filter) {
           hitsPerPage: 15,
           page: 0
         })
-      }
-    }
-  case 'related':
-    return {
-      url: `${api}/relateditems`,
-      headers: {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(filter)
       }
     }
   default:
