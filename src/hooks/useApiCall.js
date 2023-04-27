@@ -14,6 +14,7 @@ import {
 } from './scrapers'
 import { getLocation } from '../hooks/useLocationDetection'
 
+
 export default function useAPICall (callType, params) {
   const history = useHistory()
   const dispatch = useDispatch()
@@ -21,6 +22,8 @@ export default function useAPICall (callType, params) {
   let location = useSelector(state => state.location)
   const size = useSelector(state => state.size)
   const currency = useSelector(state => state.currency)
+  const browseFilters = useSelector(state => state.browse.filters)
+
 
   function SafePromiseAll (promises, def = null) {
     return Promise.all(
@@ -28,13 +31,15 @@ export default function useAPICall (callType, params) {
     )
   }
 
+
   async function browse (searchTerm) {
     const filters = {
       search: searchTerm,
-      size,
-      currency,
+      size: size,
+      currency: currency,
+      brands: browseFilters.brands,
+      sort: browseFilters.sort,
     }
-
     const request = createRequestObject('browse', filters)
 
     try {
@@ -49,6 +54,7 @@ export default function useAPICall (callType, params) {
       dispatch(browseCall([]))
     }
   }
+
 
   async function getItem (params) {
     if (location === null) { location = await getLocation() }
@@ -65,6 +71,7 @@ export default function useAPICall (callType, params) {
       []
     )
   }
+
 
   async function getItemInfo (itemKey, gender) {
     try {
@@ -86,6 +93,7 @@ export default function useAPICall (callType, params) {
       return null
     }
   }
+
 
   async function getItemPrices (item, size, gender) {
     const filter = {
@@ -114,6 +122,7 @@ export default function useAPICall (callType, params) {
     dispatch(setItemPricesLoading(false))
   }
 
+
   async function getItemListings (item, size, gender) {
     const filter = {
       size,
@@ -138,6 +147,7 @@ export default function useAPICall (callType, params) {
     dispatch(setItemListingsLoading(false))
   }
 
+
   async function getRelatedItems (itemInfo) {
     const filters = {
       model: itemInfo.model,
@@ -159,6 +169,7 @@ export default function useAPICall (callType, params) {
     }
     setRelatedItemsLoading(false)
   }
+
 
   async function getFeaturedCollections () {
     const params = {
@@ -192,13 +203,15 @@ export default function useAPICall (callType, params) {
     dispatch(updateFeaturedCollections(featuredCollections))
   }
 
+
   useEffect(() => {
     if (callType === 'getitem') {
       getItem(params)
     } else if (callType === 'featuredcollections') {
       getFeaturedCollections()
-    } else {
+    } else if (callType === 'browse') {
       browse(params.searchTerm)
     }
-  }, [currency, size])
+  }, [currency, size, browseFilters])
+  
 }
