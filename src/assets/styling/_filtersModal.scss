@@ -1,4 +1,4 @@
-.brands-modal {
+.filters-modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -11,17 +11,17 @@
   background: rgba(0, 0, 0, 0.6);
   animation: fade-in-out 0.3s;
 
-  .brands-modal-content {
+  .filters-modal-content {
     width: 550px;
     height: 500px;
     background: white;
     border-radius: 23px;
   }
 
-  .brands-modal-padding {
+  .filters-modal-padding {
     padding: 20px;
 
-    .brands-modal-close {
+    .filters-modal-close {
       display: flex;
       justify-content: flex-end;
 
@@ -41,7 +41,7 @@
       }
     }
 
-    .brands-modal-text {
+    .filters-modal-text {
       width: 400px;
       margin: auto;
       padding-top: 20px;
@@ -62,7 +62,7 @@
       }
     }
 
-    .brands-modal-buttons {
+    .filters-modal-buttons {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 5px;
@@ -75,14 +75,14 @@
 
 // Mobile responsiveness
 @media screen and (max-width: 767px) {
-  .brands-modal {
-    .brands-modal-content {
+  .filters-modal {
+    .filters-modal-content {
       width: 335px;
       height: 500px;
       border-radius: 22px;
 
-      .brands-modal-padding {
-        .brands-modal-text {
+      .filters-modal-padding {
+        .filters-modal-text {
           width: 280px;
           padding-top: 35px;
 
@@ -92,7 +92,7 @@
           }
         }
 
-        .brands-modal-buttons {
+        .filters-modal-buttons {
           width: 280px;
           padding-top: 17px;
         }

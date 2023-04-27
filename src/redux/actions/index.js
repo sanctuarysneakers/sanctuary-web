@@ -166,15 +166,15 @@ export const hideSearchModal = () => {
   }
 }
 
-export const showBrandsFilterModal = () => {
+export const showFiltersModal = () => {
   return {
-    type: 'SHOW_BRANDS_FILTER_MODAL'
+    type: 'SHOW_FILTERS_MODAL'
   }
 }
 
-export const hideBrandsFilterModal = () => {
+export const hideFiltersModal = () => {
   return {
-    type: 'HIDE_BRANDS_FILTER_MODAL'
+    type: 'HIDE_FILTERS_MODAL'
   }
 }
 

@@ -18,7 +18,7 @@ import PrivacyPolicy from './components/Other/privacyPolicy'
 import TermsOfUse from './components/Other/termsOfUse'
 import ContactUs from './components/Contact/contactUs'
 import LocationModal from './components/Modals/locationModal'
-import BrandsFilterModal from './components/Modals/brandsFilterModal'
+import FiltersModal from './components/Modals/filtersModal'
 import { useLocationDetection } from './hooks/useLocationDetection'
 
 import HowItWorks from './components/HowItWorks/howItWorks'
@@ -37,7 +37,7 @@ export default function App () {
   const currencyModalVisible = useSelector(state => state.modals.currencyModalVisible)
   const searchModalVisible = useSelector(state => state.modals.searchModalVisible)
   const aboutModalVisible = useSelector(state => state.modals.aboutModalVisible)
-  const brandsFilterModalVisible = useSelector(state => state.modals.brandsFilterModalVisible)
+  const filtersModalVisible = useSelector(state => state.modals.filtersModalVisible)
   const deleteModalVisible = useSelector(state => state.modals.deleteModalVisible)
 
   return (
@@ -68,9 +68,9 @@ export default function App () {
           <LocationModal />
         </RemoveScroll>
       }
-      { brandsFilterModalVisible &&
+      { filtersModalVisible &&
         <RemoveScroll>
-          <BrandsFilterModal />
+          <FiltersModal />
         </RemoveScroll>
       }
       { currencyModalVisible &&

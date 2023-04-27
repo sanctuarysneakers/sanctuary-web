@@ -77,11 +77,11 @@ const sizeModalReducer = (state = false, action) => {
   }
 }
 
-const brandsFilterModalReducer = (state = false, action) => {
+const filtersModalReducer = (state = false, action) => {
   switch (action.type) {
-  case 'SHOW_BRANDS_FILTER_MODAL':
+  case 'SHOW_FILTERS_MODAL':
     return true
-  case 'HIDE_BRANDS_FILTER_MODAL':
+  case 'HIDE_FILTERS_MODAL':
     return false
   default:
     return state
@@ -100,7 +100,7 @@ const socialsModalReducer = (state = false, action) => {
 }
 
 const modals = combineReducers({
-  brandsFilterModalVisible: brandsFilterModalReducer,
+  filtersModalVisible: filtersModalReducer,
   sizeModalVisible: sizeModalReducer,
   searchModalVisible: searchModalReducer,
   locationPopupVisible: locationPopupReducer,
