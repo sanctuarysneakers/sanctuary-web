@@ -5,7 +5,7 @@ import { useParams } from 'react-router'
 import { showHomeSeach } from '../../redux/actions'
 import Catalog from './catalog'
 import Footer from '../Other/footer'
-import CategoryFilter from './categoryFilter'
+import BrandsFilter from './brandsFilter'
 
 export default function Browse () {
   const dispatch = useDispatch()
@@ -30,7 +30,7 @@ export default function Browse () {
             <h2> Search results for </h2>
             <h2> &apos;{searchTerm}&apos; </h2>
           </div>}
-          <CategoryFilter />
+          <BrandsFilter />
         </div>
       </div>
 

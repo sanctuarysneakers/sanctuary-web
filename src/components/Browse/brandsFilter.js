@@ -1,14 +1,14 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { showCategoryFilterModal } from '../../redux/actions'
+import { showBrandsFilterModal } from '../../redux/actions'
 import { ReactComponent as DownArrow } from '../../assets/images/arrowDown.svg'
 
-export default function CategoryFilter () {
+export default function BrandsFilter () {
   const dispatch = useDispatch()
 
   return (
-    <div className='category-filter' onClick={() => dispatch(showCategoryFilterModal())}>
-      <h4> Categories </h4>
+    <div className='brands-filter' onClick={() => dispatch(showBrandsFilterModal())}>
+      <h4> Brands </h4>
       <DownArrow />
     </div>
   )

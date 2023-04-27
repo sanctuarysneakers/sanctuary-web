@@ -1,4 +1,4 @@
-.category-filter {
+.brands-filter {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,12 +22,12 @@
   }
 }
 
-.category-filter:hover {
+.brands-filter:hover {
   background: #D9DEE9;
 }
 
 @media (min-width: 700px) and (max-width: 819px) {
-  .category-filter {
+  .brands-filter {
     min-width: 200px;
     height: 40px;
 
@@ -42,7 +42,7 @@
 }
 
 @media (min-width: 548px) and (max-width: 699px) {
-  .category-filter {
+  .brands-filter {
     min-width: 162px;
     height: 35px;
 
@@ -57,7 +57,7 @@
 }
 
 @media screen and (max-width: 547px) {
-  .category-filter {
+  .brands-filter {
     min-width: 335px;
     margin-left: 0px;
   }
