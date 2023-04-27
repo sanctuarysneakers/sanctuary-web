@@ -32,7 +32,6 @@ export default function useAPICall (callType, params) {
     const filters = {
       search: searchTerm,
       size,
-      // TODO: include sizeType field
       currency,
     }
 
