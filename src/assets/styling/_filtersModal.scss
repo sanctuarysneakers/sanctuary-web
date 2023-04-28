@@ -41,34 +41,47 @@
       }
     }
 
-    .filters-modal-text {
-      width: 400px;
-      margin: auto;
-      padding-top: 20px;
-
-      h1 {
-        font-size: 29.5px;
-        font-weight: 600;
-        color: black;
-        line-height: 45px;
+    .filters-modal-main {
+      height: 450px;
+      overflow-y: scroll;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      &::-webkit-scrollbar {
+        -webkit-appearance: none;
+        width: 0;
+        height: 0;
       }
 
-      p {
-        font-size: 16px;
-        font-weight: 400;
-        color: #919BB1;
-        line-height: 24px;
-        padding-top: 7px;
+      .filters-modal-text {
+        width: 475px;
+        margin: auto;
+        padding-top: 20px;
+  
+        h1 {
+          font-size: 26px;
+          font-weight: 600;
+          color: black;
+          line-height: 26px;
+        }
+  
+        p {
+          font-size: 16px;
+          font-weight: 400;
+          color: #919BB1;
+          line-height: 24px;
+          padding-top: 7px;
+        }
       }
-    }
-
-    .filters-modal-buttons {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 5px;
-      width: 400px;
-      padding-top: 18px;
-      margin: auto;
+  
+      .filters-modal-buttons {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5px;
+        width: 475px;
+        padding-top: 20px;
+        padding-bottom: 22px;
+        margin: auto;
+      }
     }
   }
 }
@@ -93,6 +106,7 @@
         }
 
         .filters-modal-buttons {
+          grid-template-columns: repeat(2, 1fr);
           width: 280px;
           padding-top: 17px;
         }
