@@ -32,7 +32,7 @@ export default function useAPICall (callType, params) {
     const filters = {
       search: searchTerm,
       size,
-      currency,
+      currency
     }
 
     const request = createRequestObject('browse', filters)
@@ -70,7 +70,7 @@ export default function useAPICall (callType, params) {
     try {
       const request = createRequestObject('iteminfo', {
         item_key: itemKey,
-        gender,
+        gender
       })
 
       const response = await fetch(request.url, request.headers)
@@ -80,7 +80,6 @@ export default function useAPICall (callType, params) {
       if (!itemInfo) throw new Error()
 
       return itemInfo
-    
     } catch (e) {
       history.replace('/item-not-supported')
       return null
@@ -142,7 +141,7 @@ export default function useAPICall (callType, params) {
     const filters = {
       model: itemInfo.model,
       silhouette: itemInfo.silhouette,
-      currency: currency,
+      currency
     }
     const request = createRequestObject('relateditems', filters)
 
