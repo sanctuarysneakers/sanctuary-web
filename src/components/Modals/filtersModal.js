@@ -28,7 +28,13 @@ export default function FiltersModal () {
           <div className='filters-modal-text'>
             <h1> Brands </h1>
           </div>
+          <div className='filters-modal-buttons'>
+            {brandOptions}
+          </div>
 
+          <div className='filters-modal-text'>
+            <h1> Size </h1>
+          </div>
           <div className='filters-modal-buttons'>
             {brandOptions}
           </div>
