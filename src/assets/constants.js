@@ -27,15 +27,22 @@ import DepopGrey from './images/depop-grey.svg'
 import KLEKTGrey from './images/klekt-grey.svg'
 import eBayGrey from './images/ebay-grey.svg'
 
-
 export const supportedCurrencies = [
-  'AUD', 'CAD', 'EUR', 'GBP', 'JPY', 
-  'USD', 'HKD', 'CHF', 'CNY', 'KRW',
+  'AUD', 'CAD', 'EUR', 'GBP', 'JPY',
+  'USD', 'HKD', 'CHF', 'CNY', 'KRW'
 ]
 
 export const currencySymbolMap = {
-  USD: '$', CAD: 'C$', EUR: '€', GBP: '£', JPY: '¥', 
-  AUD: 'A$', HKD: 'HK$', CHF: 'Fr$', CNY: 'CN¥', KRW: '₩',
+  USD: '$',
+  CAD: 'C$',
+  EUR: '€',
+  GBP: '£',
+  JPY: '¥',
+  AUD: 'A$',
+  HKD: 'HK$',
+  CHF: 'Fr$',
+  CNY: 'CN¥',
+  KRW: '₩'
 }
 
 export const currencySymbolMapWithAbbrev = {
@@ -48,7 +55,7 @@ export const currencySymbolMapWithAbbrev = {
   HKD: 'HKD - HK$',
   JPY: 'JPY - ¥',
   KRW: 'KRW - ₩',
-  USD: 'USD - $',
+  USD: 'USD - $'
 }
 
 export const currencyFlagMap = {
@@ -61,7 +68,7 @@ export const currencyFlagMap = {
   HKD: HongKong,
   JPY: Japan,
   KRW: Korea,
-  USD: UnitedStates,
+  USD: UnitedStates
 }
 
 export const websiteTextMap = {
@@ -72,7 +79,7 @@ export const websiteTextMap = {
   depop: 'Depop',
   klekt: 'KLEKT',
   ebay: 'eBay',
-  footlocker: 'Foot Locker',
+  footlocker: 'Foot Locker'
 }
 
 export const websiteLogoMapRegular = {
@@ -83,7 +90,7 @@ export const websiteLogoMapRegular = {
   depop: DepopIcon,
   klekt: KLEKT,
   ebay: eBay,
-  footlocker: FootLockerIcon,
+  footlocker: FootLockerIcon
 }
 
 export const websiteLogoMapGrey = {
@@ -94,15 +101,15 @@ export const websiteLogoMapGrey = {
   depop: DepopGrey,
   klekt: KLEKTGrey,
   ebay: eBayGrey,
-  footlocker: FootlockerGrey,
+  footlocker: FootlockerGrey
 }
 
 export const sneakerSizes = [
-    4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 
-    9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 14, 15
+  4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9,
+  9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 14, 15
 ]
 
 export const brands = [
-  'adidas', 'Air Jordan', 'ASICS', 'Converse', 
+  'adidas', 'Air Jordan', 'ASICS', 'Converse',
   'New Balance', 'Nike', 'Puma', 'Reebok', 'Under Armour'
 ]

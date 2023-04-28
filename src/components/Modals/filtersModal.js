@@ -20,9 +20,9 @@ export default function FiltersModal () {
     <SizeOption key={number} option={number} size={10} gender={'men'} />
   )
 
-  const womensSizeOptions = sneakerSizes.map((number) =>
-    <SizeOption key={number} option={number} size={10} gender={'women'} />
-  )
+  //   const womensSizeOptions = sneakerSizes.map((number) =>
+  //     <SizeOption key={number} option={number} size={10} gender={'women'} />
+  //   )
 
   return (
     <div className='filters-modal'>
@@ -43,7 +43,7 @@ export default function FiltersModal () {
             </div>
 
             <div className='filters-modal-text'>
-              <h1> Men's Sizes </h1>
+              <h1> Men&apos;s Sizes </h1>
             </div>
             <div className='filters-modal-buttons'>
               {mensSizeOptions}

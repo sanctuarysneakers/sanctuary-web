@@ -36,7 +36,7 @@ export default function CarouselCard ({ data, index, type, length }) {
       <Link
         to={{
           pathname: generateLink(),
-          state: data,
+          state: data
         }}
         className="hidden-link"
       >
@@ -64,7 +64,7 @@ export default function CarouselCard ({ data, index, type, length }) {
       <Link
         to={{
           pathname: generateLink(),
-          state: data,
+          state: data
         }}
         className="hidden-link"
       >
@@ -91,7 +91,7 @@ export default function CarouselCard ({ data, index, type, length }) {
       <Link
         to={{
           pathname: generateLink(),
-          state: data,
+          state: data
         }}
         onClick={(event) => relatedClick(event)}
         className="hidden-link"

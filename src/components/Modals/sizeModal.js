@@ -28,7 +28,7 @@ export default function SizeModal ({ gender }) {
               <Close />
             </button>
           </div>
-          
+
           <div className='size-modal-text'>
             <h1> Select your size </h1>
           </div>

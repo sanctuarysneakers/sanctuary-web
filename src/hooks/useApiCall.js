@@ -14,7 +14,6 @@ import {
 } from './scrapers'
 import { getLocation } from '../hooks/useLocationDetection'
 
-
 export default function useAPICall (callType, params) {
   const history = useHistory()
   const dispatch = useDispatch()
@@ -24,21 +23,19 @@ export default function useAPICall (callType, params) {
   const currency = useSelector(state => state.currency)
   const browseFilters = useSelector(state => state.browse.filters)
 
-
   function SafePromiseAll (promises, def = null) {
     return Promise.all(
       promises.map(p => p.catch(def))
     )
   }
 
-
   async function browse (searchTerm) {
     const filters = {
       search: searchTerm,
-      size: size,
-      currency: currency,
+      size,
+      currency,
       brands: browseFilters.brands,
-      sort: browseFilters.sort,
+      sort: browseFilters.sort
     }
     const request = createRequestObject('browse', filters)
 
@@ -54,7 +51,6 @@ export default function useAPICall (callType, params) {
       dispatch(browseCall([]))
     }
   }
-
 
   async function getItem (params) {
     if (location === null) { location = await getLocation() }
@@ -72,12 +68,11 @@ export default function useAPICall (callType, params) {
     )
   }
 
-
   async function getItemInfo (itemKey, gender) {
     try {
       const request = createRequestObject('iteminfo', {
         item_key: itemKey,
-        gender,
+        gender
       })
 
       const response = await fetch(request.url, request.headers)
@@ -87,13 +82,11 @@ export default function useAPICall (callType, params) {
       if (!itemInfo) throw new Error()
 
       return itemInfo
-    
     } catch (e) {
       history.replace('/item-not-supported')
       return null
     }
   }
-
 
   async function getItemPrices (item, size, gender) {
     const filter = {
@@ -122,7 +115,6 @@ export default function useAPICall (callType, params) {
     dispatch(setItemPricesLoading(false))
   }
 
-
   async function getItemListings (item, size, gender) {
     const filter = {
       size,
@@ -147,12 +139,11 @@ export default function useAPICall (callType, params) {
     dispatch(setItemListingsLoading(false))
   }
 
-
   async function getRelatedItems (itemInfo) {
     const filters = {
       model: itemInfo.model,
       silhouette: itemInfo.silhouette,
-      currency: currency,
+      currency
     }
     const request = createRequestObject('relateditems', filters)
 
@@ -169,7 +160,6 @@ export default function useAPICall (callType, params) {
     }
     setRelatedItemsLoading(false)
   }
-
 
   async function getFeaturedCollections () {
     const params = {
@@ -203,7 +193,6 @@ export default function useAPICall (callType, params) {
     dispatch(updateFeaturedCollections(featuredCollections))
   }
 
-
   useEffect(() => {
     if (callType === 'getitem') {
       getItem(params)
@@ -213,5 +202,4 @@ export default function useAPICall (callType, params) {
       browse(params.searchTerm)
     }
   }, [currency, size, browseFilters])
-  
 }
