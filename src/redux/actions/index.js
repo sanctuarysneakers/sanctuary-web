@@ -185,6 +185,18 @@ export const hideFiltersModal = () => {
   }
 }
 
+export const showSortByModal = () => {
+  return {
+    type: 'SHOW_SORT_BY_MODAL'
+  }
+}
+
+export const hideSortByModal = () => {
+  return {
+    type: 'HIDE_SORT_BY_MODAL'
+  }
+}
+
 export const showSizeModal = () => {
   return {
     type: 'SHOW_SIZE_MODAL'

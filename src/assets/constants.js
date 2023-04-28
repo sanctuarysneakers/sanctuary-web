@@ -113,3 +113,17 @@ export const brands = [
   'adidas', 'Air Jordan', 'ASICS', 'Converse',
   'New Balance', 'Nike', 'Puma', 'Reebok', 'Under Armour'
 ]
+
+export const sortByOptions = [
+  'relevance', 'trending', 'newest', 'price_low', 'price_high'
+]
+
+export const sortByOptionsFormattedMap = {
+  relevance: 'Relevance',
+  trending: 'Trending',
+  newest: 'Newest',
+  price_low: 'Price: Low to High',
+  price_high: 'Price: High to Low'
+}
+
+export const defaultSortBy = 'relevance'

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-
 import { useSelector } from 'react-redux'
 import useAPICall from '../../hooks/useApiCall'
 import createRequestObject from '../../hooks/createRequest'
@@ -9,10 +8,9 @@ import ItemCard from '../Item/itemCard'
 
 export default function Catalog ({ searchTerm }) {
   const browseData = useSelector(state => state.browse.browseData)
+  const browseFilters = useSelector(state => state.browse.filters)
   const currency = useSelector(state => state.currency)
   const size = useSelector(state => state.size)
-
-  const location = useSelector(state => state.location)
 
   const [items, updateItems] = useState(browseData)
   const [page, updatePage] = useState(1)
@@ -21,13 +19,16 @@ export default function Catalog ({ searchTerm }) {
   useAPICall('browse', { searchTerm })
 
   async function fetchMore () {
-    const request = createRequestObject('browse', {
-      currency,
-      size,
+    const filters = {
       search: searchTerm,
-      page: page + 1,
-      ship_to: location.country_code
-    })
+      size,
+      currency,
+      brands: browseFilters.brands,
+      gender: browseFilters.gender,
+      sort: browseFilters.sortBy,
+      page: page + 1
+    }
+    const request = createRequestObject('browse', filters)
 
     const response = await fetch(request.url, request.headers)
     const results = await response.json()

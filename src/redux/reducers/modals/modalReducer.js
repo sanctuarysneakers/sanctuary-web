@@ -88,6 +88,17 @@ const filtersModalReducer = (state = false, action) => {
   }
 }
 
+const sortByModalReducer = (state = false, action) => {
+  switch (action.type) {
+  case 'SHOW_SORT_BY_MODAL':
+    return true
+  case 'HIDE_SORT_BY_MODAL':
+    return false
+  default:
+    return state
+  }
+}
+
 const socialsModalReducer = (state = false, action) => {
   switch (action.type) {
   case 'SHOW_SOCIALS_MODAL':
@@ -101,6 +112,7 @@ const socialsModalReducer = (state = false, action) => {
 
 const modals = combineReducers({
   filtersModalVisible: filtersModalReducer,
+  sortByModalVisible: sortByModalReducer,
   sizeModalVisible: sizeModalReducer,
   searchModalVisible: searchModalReducer,
   locationPopupVisible: locationPopupReducer,

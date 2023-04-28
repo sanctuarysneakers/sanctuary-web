@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import { defaultSortBy } from '../../../assets/constants'
 
 const browseDataReducer = (state = [], action) => {
   switch (action.type) {
@@ -43,12 +44,12 @@ const genderReducer = (state = null, action) => {
   }
 }
 
-const sortReducer = (state = null, action) => {
+const sortByReducer = (state = defaultSortBy, action) => {
   switch (action.type) {
   case 'UPDATE_BROWSE_SORT':
     return action.payload
   case 'RESET_FILTERS':
-    return null
+    return defaultSortBy
   default:
     return state
   }
@@ -57,7 +58,7 @@ const sortReducer = (state = null, action) => {
 const filters = combineReducers({
   brands: brandsReducer,
   gender: genderReducer,
-  sort: sortReducer
+  sortBy: sortByReducer
 })
 
 const browse = combineReducers({

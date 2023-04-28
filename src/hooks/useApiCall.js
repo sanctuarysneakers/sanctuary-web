@@ -36,7 +36,7 @@ export default function useAPICall (callType, params) {
       currency,
       brands: browseFilters.brands,
       gender: browseFilters.gender,
-      sort: browseFilters.sort
+      sort: browseFilters.sortBy
     }
     const request = createRequestObject('browse', filters)
 

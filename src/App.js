@@ -19,6 +19,7 @@ import TermsOfUse from './components/Other/termsOfUse'
 import ContactUs from './components/Contact/contactUs'
 import LocationModal from './components/Modals/locationModal'
 import FiltersModal from './components/Modals/filtersModal'
+import SortByModal from './components/Modals/sortByModal'
 import { useLocationDetection } from './hooks/useLocationDetection'
 
 import HowItWorks from './components/HowItWorks/howItWorks'
@@ -38,6 +39,7 @@ export default function App () {
   const searchModalVisible = useSelector(state => state.modals.searchModalVisible)
   const aboutModalVisible = useSelector(state => state.modals.aboutModalVisible)
   const filtersModalVisible = useSelector(state => state.modals.filtersModalVisible)
+  const sortByModalVisible = useSelector(state => state.modals.sortByModalVisible)
   const deleteModalVisible = useSelector(state => state.modals.deleteModalVisible)
 
   return (
@@ -71,6 +73,11 @@ export default function App () {
       { filtersModalVisible &&
         <RemoveScroll>
           <FiltersModal />
+        </RemoveScroll>
+      }
+      { sortByModalVisible &&
+        <RemoveScroll>
+          <SortByModal />
         </RemoveScroll>
       }
       { currencyModalVisible &&
