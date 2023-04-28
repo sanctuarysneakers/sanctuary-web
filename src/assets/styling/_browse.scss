@@ -20,6 +20,11 @@
           line-height: 48px;
         }
       }
+
+      .browse-buttons {
+        display: flex;
+        gap: 12px;
+      }
     }
   }
 
@@ -95,12 +100,17 @@
         padding-bottom: 20px;
 
         .browse-results-text {
-          padding: 59px 0px;
+          padding-top: 50px;
+          padding-bottom: 20px;
 
           h2 {
             font-size: 28px;
             line-height: 42px;
           }
+        }
+
+        .browse-buttons {
+          flex-direction: column;
         }
       }
     }

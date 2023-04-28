@@ -1,4 +1,4 @@
-.filters-button {
+.sort-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8,6 +8,7 @@
   background: #E5E9F1;
   border-radius: 10px;
   text-align: center;
+  margin-left: 40px;
   cursor: pointer;
 
   h4 {
@@ -21,12 +22,12 @@
   }
 }
 
-.filters-button:hover {
+.sort-button:hover {
   background: #D9DEE9;
 }
 
 @media (min-width: 700px) and (max-width: 819px) {
-  .filters-button {
+  .sort-button {
     min-width: 200px;
     height: 40px;
 
@@ -41,7 +42,7 @@
 }
 
 @media (min-width: 548px) and (max-width: 699px) {
-  .filters-button {
+  .sort-button {
     min-width: 162px;
     height: 35px;
 
@@ -56,8 +57,9 @@
 }
 
 @media screen and (max-width: 547px) {
-  .filters-button {
+  .sort-button {
     min-width: 335px;
     margin-left: 0px;
   }
 }
+  
