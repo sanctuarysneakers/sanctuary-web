@@ -73,6 +73,13 @@ export const toggleBrowseBrand = brand => {
   }
 }
 
+export const updateBrowseGender = gender => {
+  return {
+    type: 'UPDATE_BROWSE_GENDER',
+    payload: gender
+  }
+}
+
 export const updateBrowseSort = sortBy => {
   return {
     type: 'UPDATE_BROWSE_SORT',

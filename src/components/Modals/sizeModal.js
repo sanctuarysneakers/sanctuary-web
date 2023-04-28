@@ -13,10 +13,16 @@ export default function SizeModal ({ gender }) {
   const wrapperRef = useRef(null)
   useOutsideAlerter(wrapperRef)
 
-  const size = useSelector(state => state.size)
+  const sizeState = useSelector(state => state.size)
 
-  const sizeOptions = sneakerSizes.map((number) =>
-    <SizeOption key={number} option={number} size={size} gender={gender} />
+  const sizeOptions = sneakerSizes.map((size) =>
+    <SizeOption
+      key={size}
+      sizeOption={size}
+      sizeState={sizeState}
+      gender={gender}
+      inBrowseFilter={false}
+    />
   )
 
   return (

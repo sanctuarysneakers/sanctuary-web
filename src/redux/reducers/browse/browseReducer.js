@@ -32,6 +32,17 @@ const brandsReducer = (state = [], action) => {
   }
 }
 
+const genderReducer = (state = null, action) => {
+  switch (action.type) {
+  case 'UPDATE_BROWSE_GENDER':
+    return action.payload
+  case 'RESET_FILTERS':
+    return null
+  default:
+    return state
+  }
+}
+
 const sortReducer = (state = null, action) => {
   switch (action.type) {
   case 'UPDATE_BROWSE_SORT':
@@ -45,6 +56,7 @@ const sortReducer = (state = null, action) => {
 
 const filters = combineReducers({
   brands: brandsReducer,
+  gender: genderReducer,
   sort: sortReducer
 })
 

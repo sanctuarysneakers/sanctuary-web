@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { hideFiltersModal } from '../../redux/actions'
 import useOutsideAlerter from '../../hooks/useOutsideAlerter'
 import BrandOption from '../Browse/brandOption'
@@ -12,17 +12,31 @@ export default function FiltersModal () {
   const dispatch = useDispatch()
   useOutsideAlerter(wrapperRef)
 
+  const sizeState = useSelector(state => state.size)
+
   const brandOptions = brands.map((brand) =>
-    <BrandOption key={brand} brand={brand}/>
+    <BrandOption key={brand} brand={brand} />
   )
 
-  const mensSizeOptions = sneakerSizes.map((number) =>
-    <SizeOption key={number} option={number} size={10} gender={'men'} />
+  const mensSizeOptions = sneakerSizes.map((size) =>
+    <SizeOption
+      key={size}
+      sizeOption={size}
+      sizeState={sizeState}
+      gender={'men'}
+      inBrowseFilter={true}
+    />
   )
 
-  //   const womensSizeOptions = sneakerSizes.map((number) =>
-  //     <SizeOption key={number} option={number} size={10} gender={'women'} />
-  //   )
+  const womensSizeOptions = sneakerSizes.map((size) =>
+    <SizeOption
+      key={size}
+      sizeOption={size}
+      sizeState={sizeState}
+      gender={'women'}
+      inBrowseFilter={true}
+    />
+  )
 
   return (
     <div className='filters-modal'>
@@ -47,6 +61,13 @@ export default function FiltersModal () {
             </div>
             <div className='filters-modal-buttons'>
               {mensSizeOptions}
+            </div>
+
+            <div className='filters-modal-text'>
+              <h1> Women&apos;s Sizes </h1>
+            </div>
+            <div className='filters-modal-buttons'>
+              {womensSizeOptions}
             </div>
           </div>
         </div>
