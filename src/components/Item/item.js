@@ -21,18 +21,17 @@ import Carousel from '../Home/Carousels/carousel'
 
 export default function Item () {
   const dispatch = useDispatch()
+  const navLocation = useLocation()
 
   const { itemKey, gender } = useParams()
   const currency = useSelector(state => state.currency)
   const size = useSelector(state => state.size)
 
-  const navLocation = useLocation()
-  const passedData = navLocation.itemInfo ? navLocation.itemInfo : null
   useAPICall('getitem', {
-    itemKey: decodeURIComponent(itemKey), // differentiates between urlkey and sku
-    size,
+    itemKey: decodeURIComponent(itemKey),
     gender,
-    fromBrowse: passedData
+    size,
+    fromBrowse: navLocation.state
   })
 
   const itemInfo = useSelector(state => state.item.itemInfo)
@@ -60,8 +59,8 @@ export default function Item () {
     <div className='item'>
       <HelmetProvider>
         <Helmet>
-          {itemInfo.modelName && <title>{`Sanctuary: ${itemInfo.modelName}`}</title>}
-          <meta property="og:title" content={itemInfo.modelName} />
+          {itemInfo.model && <title>{`Sanctuary: ${itemInfo.model}`}</title>}
+          <meta property="og:title" content={itemInfo.model} />
           <meta property="og:image" content={itemInfo.image} />
         </Helmet>
       </HelmetProvider>
@@ -93,7 +92,7 @@ export default function Item () {
                 </div>}
 
                 <div className='item-sneaker-model'>
-                  <h1> {itemInfo.modelName} </h1>
+                  <h1> {itemInfo.model} </h1>
                 </div>
 
                 {pricesLoading && <ItemLoader version={'info'} />}
@@ -117,7 +116,7 @@ export default function Item () {
 
                   <SizeFilter gender={gender} />
                   {sizeModalVisible && <SizeModal gender={gender} />}
-                  {socialsModalVisible && <SocialsModal itemName={itemInfo.modelName} price={`${currencySymbolMap[currency]}${itemPrices[0].price}`} url={window.location.href} image={itemInfo.image} />}
+                  {socialsModalVisible && <SocialsModal itemName={itemInfo.model} price={`${currencySymbolMap[currency]}${itemPrices[0].price}`} url={window.location.href} image={itemInfo.image} />}
                 </div>}
               </div>
             </div>

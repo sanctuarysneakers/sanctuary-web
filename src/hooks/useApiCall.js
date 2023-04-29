@@ -29,17 +29,13 @@ export default function useAPICall (callType, params) {
   }
 
   async function browse (searchTerm) {
-    const params = {
-      currency,
-      size,
-      ship_to: location.country_code
-    }
-
     const filters = {
-      search: searchTerm
+      search: searchTerm,
+      size,
+      currency
     }
 
-    const request = createRequestObject('browse', { ...params, ...filters })
+    const request = createRequestObject('browse', filters)
 
     try {
       const response = await fetch(request.url, request.headers)
@@ -72,52 +68,22 @@ export default function useAPICall (callType, params) {
 
   async function getItemInfo (itemKey, gender) {
     try {
-      const request = createRequestObject('browse', {
-        search: itemKey,
+      const request = createRequestObject('iteminfo', {
+        item_key: itemKey,
         gender
       })
 
       const response = await fetch(request.url, request.headers)
       if (!response.ok) throw new Error()
 
-      const results = await response.json()
-      const itemInfo = extractItemInfo(results, itemKey)
+      const itemInfo = await response.json()
+      if (!itemInfo) throw new Error()
 
-      if (!itemInfo) { throw Error() }
-
-      return {
-        sku: itemInfo.sku,
-        modelName: itemInfo.model,
-        image: itemInfo.image,
-        url: itemInfo.url,
-        urlKey: itemInfo.urlKey
-      }
+      return itemInfo
     } catch (e) {
-      console.log(e)
       history.replace('/item-not-supported')
       return null
     }
-  }
-
-  function extractItemInfo (results, itemKey) {
-    const itemKeyNoSpaces = itemKey.replaceAll(' ', '')
-    for (let x = 0; x < results.length; x++) {
-      const resultItem = results[x]
-      if (resultItem.sku.replaceAll('-', ' ') === itemKey || resultItem.sku === itemKey || resultItem.sku.includes(itemKey) || resultItem.urlKey === itemKey) {
-        return resultItem
-      }
-
-      // handles case where sku contains multiple skus separated by '/'
-      const skus = resultItem.sku.split('/')
-
-      // when searching by urlkey, the correct item info might not be the first result so need to loop through all
-      for (let i = 0; i < skus.length; i++) {
-        skus[i] = skus[i].replaceAll('-', ' ')
-        if (skus[i].includes(itemKey) || skus[i].includes(itemKeyNoSpaces)) { return resultItem }
-      }
-    }
-
-    return null
   }
 
   async function getItemPrices (item, size, gender) {
@@ -128,6 +94,7 @@ export default function useAPICall (callType, params) {
       postalCode: location.postal_code,
       currency
     }
+
     let results = await SafePromiseAll(
       [
         stockxLowestPrice(item, filter),
@@ -170,24 +137,23 @@ export default function useAPICall (callType, params) {
     dispatch(setItemListingsLoading(false))
   }
 
-  async function getRelatedItems (item) {
-    const params = {
-      search: item.modelName.replace('(W)', ''),
-      size,
-      currency,
-      ship_to: location.country_code
+  async function getRelatedItems (itemInfo) {
+    const filters = {
+      model: itemInfo.model,
+      silhouette: itemInfo.silhouette,
+      currency
     }
-
-    const request = createRequestObject('related', params)
+    const request = createRequestObject('relateditems', filters)
 
     try {
       const response = await fetch(request.url, request.headers)
       if (!response.ok) throw new Error()
+
       const results = await response.json()
+      if (!results.length) throw new Error()
 
       dispatch(updateRelatedItems(results))
     } catch (e) {
-      console.error(e, e.stack)
       dispatch(updateRelatedItems([]))
     }
     setRelatedItemsLoading(false)

@@ -27,17 +27,6 @@ export default function CarouselCard ({ data, index, type, length }) {
     }
   }
 
-  const getNavData = () => {
-    const itemInfo = {
-      sku: data.sku,
-      modelName: data.model,
-      image: data.image,
-      url: data.url,
-      urlKey: data.urlKey
-    }
-    return itemInfo
-  }
-
   let position
   if (index === 0) { position = 'carousel-card start' } else if (index === length - 1) { position = 'carousel-card end' } else position = 'carousel-card'
 
@@ -47,7 +36,7 @@ export default function CarouselCard ({ data, index, type, length }) {
       <Link
         to={{
           pathname: generateLink(),
-          itemInfo: getNavData()
+          state: data
         }}
         className="hidden-link"
       >
@@ -70,11 +59,12 @@ export default function CarouselCard ({ data, index, type, length }) {
         </div>
       </Link>
       }
+
       {(type === 'featuredCollection') &&
       <Link
         to={{
           pathname: generateLink(),
-          itemInfo: getNavData()
+          state: data
         }}
         className="hidden-link"
       >
@@ -96,11 +86,12 @@ export default function CarouselCard ({ data, index, type, length }) {
         </div>
       </Link>
       }
+
       {type === 'related' &&
       <Link
         to={{
           pathname: generateLink(),
-          itemInfo: null
+          state: data
         }}
         onClick={(event) => relatedClick(event)}
         className="hidden-link"

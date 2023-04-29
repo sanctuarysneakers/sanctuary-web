@@ -4,10 +4,10 @@ import createRequestObject from './createRequest'
 
 export async function stockxLowestPrice (item, filter) {
   try {
-    const modelName = item.modelName.replace('(W)', '')
+    const model = item.model.replace('(W)', '')
     const sku = item.sku.replace(' ', '-')
     const request = createRequestObject('stockx', {
-      model_name: modelName,
+      model_name: model,
       sku,
       size: filter.gender === 'women' ? filter.size - 1.5 : filter.size,
       currency: filter.currency,
@@ -25,10 +25,10 @@ export async function stockxLowestPrice (item, filter) {
 
 export async function footlockerLowestPrice (item, filter) {
   try {
-    const modelName = item.modelName.replace('(W)', '')
+    const model = item.model.replace('(W)', '')
     const sku = item.sku.replace(' ', '-')
     const request = createRequestObject('footlocker', {
-      model_name: modelName,
+      model_name: model,
       sku,
       size: filter.gender === 'women' ? filter.size - 1.5 : filter.size,
       currency: filter.currency,
@@ -48,9 +48,9 @@ export async function footlockerLowestPrice (item, filter) {
 
 export async function ebayLowestPrice (item, filter) {
   try {
-    const modelName = item.modelName.replace('(W)', '').concat(' ', item.sku)
+    const model = item.model.replace('(W)', '').concat(' ', item.sku)
     const request = createRequestObject('ebay', {
-      model_name: modelName,
+      model_name: model,
       size: filter.size,
       currency: filter.currency,
       ship_to: filter.country,
@@ -127,9 +127,9 @@ export async function flightclubLowestPrice (item, filter) {
 
 export async function ebayListings (item, filter) {
   try {
-    const modelName = item.modelName.replace('(W)', '')
+    const model = item.model.replace('(W)', '')
     const request = createRequestObject('ebaylistings', {
-      model_name: modelName,
+      model_name: model,
       size: filter.size,
       currency: filter.currency,
       ship_to: filter.country,
@@ -149,9 +149,9 @@ export async function ebayListings (item, filter) {
 
 export async function depopListings (item, filter) {
   try {
-    const modelName = item.modelName.replace('(W)', '')
+    const model = item.model.replace('(W)', '')
     const request = createRequestObject('depop', {
-      model_name: modelName,
+      model_name: model,
       size: filter.size,
       gender: filter.gender,
       currency: filter.currency,
@@ -171,9 +171,9 @@ export async function depopListings (item, filter) {
 
 export async function grailedListings (item, filter) {
   try {
-    const modelName = item.modelName.replace('(W)', '')
+    const model = item.model.replace('(W)', '')
     const request = createRequestObject('grailed', {
-      model_name: modelName,
+      model_name: model,
       size: filter.size,
       currency: filter.currency,
       ship_to: filter.country
@@ -191,7 +191,7 @@ export async function grailedListings (item, filter) {
 }
 
 export async function collectionItems (params) {
-  const request = createRequestObject('browse_collection', params)
+  const request = createRequestObject('browsecollection', params)
 
   try {
     const response = await fetch(request.url, request.headers)

@@ -15,19 +15,7 @@ export default function ItemCard ({ data }) {
     dispatch(setItemListingsLoading(true))
 
     const itemKey = data.sku ? encodeURIComponent(data.sku) : data.urlKey
-    // window.analytics.track(`browse_item_clicked`, {id: itemKey, gender: data.gender})
     return data.gender !== null ? `/item/${itemKey}/${data.gender}` : `/item/${itemKey}`
-  }
-
-  const getNavData = () => {
-    const itemInfo = {
-      sku: data.sku,
-      modelName: data.model,
-      image: data.image,
-      url: data.url,
-      urlKey: data.urlKey
-    }
-    return itemInfo
   }
 
   return (
@@ -35,7 +23,7 @@ export default function ItemCard ({ data }) {
       <Link
         to={{
           pathname: generateLink(),
-          itemInfo: getNavData()
+          state: data
         }}
         className="hidden-link"
       >
