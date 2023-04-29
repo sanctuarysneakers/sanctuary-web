@@ -64,48 +64,32 @@ export const setRelatedItemsLoading = isLoading => {
   }
 }
 
-// Filter Actions
+// Browse Filter Actions
 
-export const updateBrowseBrand = brand => {
+export const toggleBrowseBrand = brand => {
   return {
-    type: 'UPDATE_BROWSE_BRAND',
+    type: 'TOGGLE_BROWSE_BRAND',
     payload: brand
   }
 }
 
-export const updateBrowseSort = sortType => {
+export const updateBrowseGender = gender => {
+  return {
+    type: 'UPDATE_BROWSE_GENDER',
+    payload: gender
+  }
+}
+
+export const updateBrowseSort = sortBy => {
   return {
     type: 'UPDATE_BROWSE_SORT',
-    payload: sortType
+    payload: sortBy
   }
 }
 
-// Browse Filter Actions
-
-export const updateBrowseReleaseYears = releaseYears => {
+export const resetFilters = () => {
   return {
-    type: 'UPDATE_BROWSE_RELEASE_YEARS',
-    payload: releaseYears
-  }
-}
-
-export const updateBrowseSizeTypes = sizeTypes => {
-  return {
-    type: 'UPDATE_BROWSE_SIZE_TYPES',
-    payload: sizeTypes
-  }
-}
-
-export const updateBrowsePriceRanges = priceRanges => {
-  return {
-    type: 'UPDATE_BROWSE_PRICE_RANGES',
-    payload: priceRanges
-  }
-}
-
-export const clearFilter = () => {
-  return {
-    type: 'CLEAR_FILTER'
+    type: 'RESET_FILTERS'
   }
 }
 
@@ -189,15 +173,27 @@ export const hideSearchModal = () => {
   }
 }
 
-export const showCategoryFilterModal = () => {
+export const showFiltersModal = () => {
   return {
-    type: 'SHOW_CATEGORY_FILTER_MODAL'
+    type: 'SHOW_FILTERS_MODAL'
   }
 }
 
-export const hideCategoryFilterModal = () => {
+export const hideFiltersModal = () => {
   return {
-    type: 'HIDE_CATEGORY_FILTER_MODAL'
+    type: 'HIDE_FILTERS_MODAL'
+  }
+}
+
+export const showSortByModal = () => {
+  return {
+    type: 'SHOW_SORT_BY_MODAL'
+  }
+}
+
+export const hideSortByModal = () => {
+  return {
+    type: 'HIDE_SORT_BY_MODAL'
   }
 }
 

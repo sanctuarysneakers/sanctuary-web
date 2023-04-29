@@ -1,14 +1,14 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { showCategoryFilterModal } from '../../redux/actions'
+import { showSortByModal } from '../../redux/actions'
 import { ReactComponent as DownArrow } from '../../assets/images/arrowDown.svg'
 
-export default function CategoryFilter () {
+export default function SortByButton () {
   const dispatch = useDispatch()
 
   return (
-    <div className='category-filter' onClick={() => dispatch(showCategoryFilterModal())}>
-      <h4> Categories </h4>
+    <div className='sort-button' onClick={() => dispatch(showSortByModal())}>
+      <h4> Sort By </h4>
       <DownArrow />
     </div>
   )

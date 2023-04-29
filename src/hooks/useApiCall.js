@@ -21,6 +21,7 @@ export default function useAPICall (callType, params) {
   let location = useSelector(state => state.location)
   const size = useSelector(state => state.size)
   const currency = useSelector(state => state.currency)
+  const browseFilters = useSelector(state => state.browse.filters)
 
   function SafePromiseAll (promises, def = null) {
     return Promise.all(
@@ -32,9 +33,11 @@ export default function useAPICall (callType, params) {
     const filters = {
       search: searchTerm,
       size,
-      currency
+      currency,
+      brands: browseFilters.brands,
+      gender: browseFilters.gender,
+      sort: browseFilters.sortBy
     }
-
     const request = createRequestObject('browse', filters)
 
     try {
@@ -196,8 +199,8 @@ export default function useAPICall (callType, params) {
       getItem(params)
     } else if (callType === 'featuredcollections') {
       getFeaturedCollections()
-    } else {
+    } else if (callType === 'browse') {
       browse(params.searchTerm)
     }
-  }, [currency, size])
+  }, [currency, size, browseFilters])
 }

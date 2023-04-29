@@ -2,6 +2,7 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { RemoveScroll } from 'react-remove-scroll'
 import { useSelector } from 'react-redux'
+import { useLocationDetection } from './hooks/useLocationDetection'
 
 import Navbar from './components/Other/navbar'
 import Home from './components/Home/home'
@@ -18,14 +19,10 @@ import PrivacyPolicy from './components/Other/privacyPolicy'
 import TermsOfUse from './components/Other/termsOfUse'
 import ContactUs from './components/Contact/contactUs'
 import LocationModal from './components/Modals/locationModal'
-import CategoryFilterModal from './components/Modals/categoryFilterModal'
-
+import FiltersModal from './components/Modals/filtersModal'
+import SortByModal from './components/Modals/sortByModal'
 import Profile from './components/Accounts/profile'
-
-import { useLocationDetection } from './hooks/useLocationDetection'
-
 import HowItWorks from './components/HowItWorks/howItWorks'
-
 import Newsroom from './components/Newsroom/newsroom'
 import SanctuaryStory from './components/Newsroom/Articles/sanctuaryStory'
 import AdidasCarbon3D from './components/Newsroom/Articles/adidasCarbon3D'
@@ -40,7 +37,8 @@ export default function App () {
   const currencyModalVisible = useSelector(state => state.modals.currencyModalVisible)
   const searchModalVisible = useSelector(state => state.modals.searchModalVisible)
   const aboutModalVisible = useSelector(state => state.modals.aboutModalVisible)
-  const categoryFilterModalVisible = useSelector(state => state.modals.categoryFilterModalVisible)
+  const filtersModalVisible = useSelector(state => state.modals.filtersModalVisible)
+  const sortByModalVisible = useSelector(state => state.modals.sortByModalVisible)
   const deleteModalVisible = useSelector(state => state.modals.deleteModalVisible)
   return (
     <React.Fragment>
@@ -72,9 +70,14 @@ export default function App () {
           <LocationModal />
         </RemoveScroll>
       }
-      { categoryFilterModalVisible &&
+      { filtersModalVisible &&
         <RemoveScroll>
-          <CategoryFilterModal />
+          <FiltersModal />
+        </RemoveScroll>
+      }
+      { sortByModalVisible &&
+        <RemoveScroll>
+          <SortByModal />
         </RemoveScroll>
       }
       { currencyModalVisible &&

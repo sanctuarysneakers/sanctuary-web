@@ -1,0 +1,116 @@
+.filters-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  animation: fade-in-out 0.3s;
+
+  .filters-modal-content {
+    width: 550px;
+    height: 500px;
+    background: white;
+    border-radius: 23px;
+  }
+
+  .filters-modal-padding {
+    padding: 20px;
+
+    .filters-modal-close {
+      display: flex;
+      justify-content: flex-end;
+
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 100px;
+        background: #EEF1F6;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #E5E9F1;
+      }
+    }
+
+    .filters-modal-main {
+      height: 450px;
+      overflow-y: scroll;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      &::-webkit-scrollbar {
+        -webkit-appearance: none;
+        width: 0;
+        height: 0;
+      }
+
+      .filters-modal-text {
+        width: 475px;
+        margin: auto;
+        padding-top: 20px;
+  
+        h1 {
+          font-size: 26px;
+          font-weight: 600;
+          color: black;
+          line-height: 26px;
+        }
+  
+        p {
+          font-size: 16px;
+          font-weight: 400;
+          color: #919BB1;
+          line-height: 24px;
+          padding-top: 7px;
+        }
+      }
+  
+      .filters-modal-buttons {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5px;
+        width: 475px;
+        padding-top: 20px;
+        padding-bottom: 22px;
+        margin: auto;
+      }
+    }
+  }
+}
+
+// Mobile responsiveness
+@media screen and (max-width: 767px) {
+  .filters-modal {
+    .filters-modal-content {
+      width: 335px;
+      height: 500px;
+      border-radius: 22px;
+
+      .filters-modal-padding {
+        .filters-modal-text {
+          width: 280px;
+          padding-top: 35px;
+
+          h1 {
+            font-size: 26px;
+            line-height: 39px
+          }
+        }
+
+        .filters-modal-buttons {
+          grid-template-columns: repeat(2, 1fr);
+          width: 280px;
+          padding-top: 17px;
+        }
+      }
+    }
+  }
+}

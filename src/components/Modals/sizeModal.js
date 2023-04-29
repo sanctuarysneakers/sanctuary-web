@@ -1,10 +1,10 @@
 import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
-
 import { useDispatch, useSelector } from 'react-redux'
 import { hideSizeModal } from '../../redux/actions'
 import useOutsideAlerter from '../../hooks/useOutsideAlerter'
 import SizeOption from '../Item/sizeOption'
+import { sneakerSizes } from '../../assets/constants'
 import { ReactComponent as Close } from '../../assets/images/close.svg'
 
 export default function SizeModal ({ gender }) {
@@ -13,11 +13,17 @@ export default function SizeModal ({ gender }) {
   const wrapperRef = useRef(null)
   useOutsideAlerter(wrapperRef)
 
-  const size = useSelector(state => state.size)
+  const sizeState = useSelector(state => state.size)
 
-  const sneakerSizes = [4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 14, 15]
-  const sizeOptions = sneakerSizes.map((number) =>
-    <SizeOption key={number} option={number} size={size} gender={gender} />)
+  const sizeOptions = sneakerSizes.map((size) =>
+    <SizeOption
+      key={size}
+      sizeOption={size}
+      sizeState={sizeState}
+      gender={gender}
+      inBrowseFilter={false}
+    />
+  )
 
   return (
     <div className='size-modal'>
@@ -28,7 +34,7 @@ export default function SizeModal ({ gender }) {
               <Close />
             </button>
           </div>
-          d
+
           <div className='size-modal-text'>
             <h1> Select your size </h1>
           </div>
