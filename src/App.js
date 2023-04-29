@@ -19,6 +19,9 @@ import TermsOfUse from './components/Other/termsOfUse'
 import ContactUs from './components/Contact/contactUs'
 import LocationModal from './components/Modals/locationModal'
 import CategoryFilterModal from './components/Modals/categoryFilterModal'
+
+import Profile from './components/Accounts/profile'
+
 import { useLocationDetection } from './hooks/useLocationDetection'
 
 import HowItWorks from './components/HowItWorks/howItWorks'
@@ -39,7 +42,6 @@ export default function App () {
   const aboutModalVisible = useSelector(state => state.modals.aboutModalVisible)
   const categoryFilterModalVisible = useSelector(state => state.modals.categoryFilterModalVisible)
   const deleteModalVisible = useSelector(state => state.modals.deleteModalVisible)
-
   return (
     <React.Fragment>
       <Navbar />
@@ -48,7 +50,6 @@ export default function App () {
         <Route path="/home" component={Home} />
         <Route path="/browse/:searchTerm?" component={Browse} />
         <Route path="/item/:itemKey/:gender?" component={Item} />
-
         <Route path="/privacy-policy" component={PrivacyPolicy} />
         <Route path="/terms-of-use" component={TermsOfUse} />
         <Route path="/contact-us" component={ContactUs} />
@@ -60,6 +61,9 @@ export default function App () {
         <Route path="/newsroom-our-top-drops-of-2020" component={TopDrops2020} />
         <Route path="/newsroom-demystifying-the-sneaker-market" component={SneakerMarket} />
         <Route path="/item-not-supported" component={ItemNotSupported} />
+
+        <Route path="/profile" component={Profile} />
+
         <Route component={PageNotFound} />
       </Switch>
 
