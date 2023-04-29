@@ -1,3 +1,4 @@
+import { Auth0Provider } from '@auth0/auth0-react'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router } from 'react-router-dom'
@@ -17,7 +18,15 @@ ReactDOM.render(
     <Router>
       <PersistGate loading={<Loader />} persistor={persistor}>
         <ScrollToTop />
-        <App/>
+        <Auth0Provider
+          domain="dev-yvh7dco46en8g2mq.us.auth0.com"
+          clientId="LaMym7DUtn26Vl5JhEemlYOuVFp7edko"
+          authorizationParams={{
+            redirect_uri: 'https://sanctuarysneakers.com/'
+          }}
+        >
+          <App/>
+        </Auth0Provider>
       </PersistGate>
     </Router>
   </Provider>,

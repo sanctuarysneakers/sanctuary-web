@@ -2,6 +2,7 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { RemoveScroll } from 'react-remove-scroll'
 import { useSelector } from 'react-redux'
+import { useLocationDetection } from './hooks/useLocationDetection'
 
 import Navbar from './components/Other/navbar'
 import Home from './components/Home/home'
@@ -20,10 +21,8 @@ import ContactUs from './components/Contact/contactUs'
 import LocationModal from './components/Modals/locationModal'
 import FiltersModal from './components/Modals/filtersModal'
 import SortByModal from './components/Modals/sortByModal'
-import { useLocationDetection } from './hooks/useLocationDetection'
-
+import Profile from './components/Accounts/profile'
 import HowItWorks from './components/HowItWorks/howItWorks'
-
 import Newsroom from './components/Newsroom/newsroom'
 import SanctuaryStory from './components/Newsroom/Articles/sanctuaryStory'
 import AdidasCarbon3D from './components/Newsroom/Articles/adidasCarbon3D'
@@ -41,7 +40,6 @@ export default function App () {
   const filtersModalVisible = useSelector(state => state.modals.filtersModalVisible)
   const sortByModalVisible = useSelector(state => state.modals.sortByModalVisible)
   const deleteModalVisible = useSelector(state => state.modals.deleteModalVisible)
-
   return (
     <React.Fragment>
       <Navbar />
@@ -50,7 +48,6 @@ export default function App () {
         <Route path="/home" component={Home} />
         <Route path="/browse/:searchTerm?" component={Browse} />
         <Route path="/item/:itemKey/:gender?" component={Item} />
-
         <Route path="/privacy-policy" component={PrivacyPolicy} />
         <Route path="/terms-of-use" component={TermsOfUse} />
         <Route path="/contact-us" component={ContactUs} />
@@ -62,6 +59,9 @@ export default function App () {
         <Route path="/newsroom-our-top-drops-of-2020" component={TopDrops2020} />
         <Route path="/newsroom-demystifying-the-sneaker-market" component={SneakerMarket} />
         <Route path="/item-not-supported" component={ItemNotSupported} />
+
+        <Route path="/profile" component={Profile} />
+
         <Route component={PageNotFound} />
       </Switch>
 
