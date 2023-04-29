@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateBrowseSort } from '../../redux/actions'
 import PropTypes from 'prop-types'
-import { sortByOptionsFormattedMap } from '../../assets/constants'
+import { sortByOptionToDisplayText } from '../../assets/constants'
 
 export default function SortByOption ({ sortBy }) {
   const dispatch = useDispatch()
@@ -17,7 +17,7 @@ export default function SortByOption ({ sortBy }) {
     <div className={sortByState === sortBy ? 'sort-option current' : 'sort-option'}>
       <div className='sort-option-content' onClick={clickHandler}>
         <p className='sort-option-text'>
-          {sortByOptionsFormattedMap[sortBy]}
+          {sortByOptionToDisplayText[sortBy]}
         </p>
       </div>
     </div>
