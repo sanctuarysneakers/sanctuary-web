@@ -13,12 +13,8 @@ export default function SortByOption ({ sortBy }) {
     dispatch(updateBrowseSort(sortBy))
   }
 
-  const sortByOptionClassName = sortByState === sortBy
-    ? 'sort-option current'
-    : 'sort-option'
-
   return (
-    <div className={sortByOptionClassName}>
+    <div className={sortByState === sortBy ? 'sort-option current' : 'sort-option'}>
       <div className='sort-option-content' onClick={clickHandler}>
         <p className='sort-option-text'>
           {sortByOptionsFormattedMap[sortBy]}

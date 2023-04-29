@@ -118,7 +118,7 @@ export const sortByOptions = [
   'relevance', 'trending', 'newest', 'price_low', 'price_high'
 ]
 
-export const sortByOptionsFormattedMap = {
+export const sortByOptionToDisplayText = {
   relevance: 'Relevance',
   trending: 'Trending',
   newest: 'Newest',
