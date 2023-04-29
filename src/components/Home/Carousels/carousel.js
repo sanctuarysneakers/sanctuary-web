@@ -19,6 +19,6 @@ export default function Carousel ({ data, type }) {
 }
 
 Carousel.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.array,
   type: PropTypes.string
 }
