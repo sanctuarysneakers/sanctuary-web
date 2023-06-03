@@ -1,6 +1,4 @@
 /* eslint-disable no-return-assign */
-import { useAuth0 } from '@auth0/auth0-react'
-
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -11,7 +9,6 @@ import { ReactComponent as Search } from '../../assets/images/Search.svg'
 import { ReactComponent as Hamburger } from '../../assets/images/Hamburger.svg'
 
 export default function Navbar () {
-  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0()
   const [navbar, setNavbar] = useState(false)
 
   const dispatch = useDispatch()
@@ -52,27 +49,6 @@ export default function Navbar () {
             >
               Newsroom
             </Link>
-            {!isAuthenticated &&
-              <div className="login" onClick={() => loginWithRedirect()}>Log in</div>
-            }
-            {!isAuthenticated &&
-            <div className="create-account" onClick={() => loginWithRedirect()}>Sign up</div>
-            }
-            {isAuthenticated &&
-              <div className="logout"
-                onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
-                Log out
-              </div>
-            }
-            {isAuthenticated &&
-            <Link className='navbar-profile'
-              to='/profile'
-            >
-              <div className='navbar-profile-content'>
-                <img className='navbar-profile-picture' src={user.picture} alt={user.name} />
-              </div>
-            </Link>
-            }
           </div>
         </div>}
 
