@@ -1,4 +1,3 @@
-
 export const locationReducer = (state = null, action) => {
   switch (action.type) {
   case 'UPDATE_LOCATION':

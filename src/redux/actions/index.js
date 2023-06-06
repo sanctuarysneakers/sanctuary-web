@@ -1,4 +1,3 @@
-
 // Data Actions
 
 export const browseCall = data => {

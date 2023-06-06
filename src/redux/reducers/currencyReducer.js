@@ -1,4 +1,3 @@
-
 const currencyReducer = (state = 'USD', action) => {
   switch (action.type) {
   case 'UPDATE_CURRENCY':
