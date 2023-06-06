@@ -21,7 +21,6 @@ import ContactUs from './components/Contact/contactUs'
 import LocationModal from './components/Modals/locationModal'
 import FiltersModal from './components/Modals/filtersModal'
 import SortByModal from './components/Modals/sortByModal'
-import Profile from './components/Accounts/profile'
 import HowItWorks from './components/HowItWorks/howItWorks'
 import Newsroom from './components/Newsroom/newsroom'
 import SanctuaryStory from './components/Newsroom/Articles/sanctuaryStory'
@@ -59,8 +58,6 @@ export default function App () {
         <Route path="/newsroom-our-top-drops-of-2020" component={TopDrops2020} />
         <Route path="/newsroom-demystifying-the-sneaker-market" component={SneakerMarket} />
         <Route path="/item-not-supported" component={ItemNotSupported} />
-
-        <Route path="/profile" component={Profile} />
 
         <Route component={PageNotFound} />
       </Switch>

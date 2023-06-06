@@ -1,4 +1,3 @@
-
 const sizeReducer = (state = 10, action) => {
   switch (action.type) {
   case 'UPDATE_SIZE':
