@@ -1,25 +1,24 @@
 import React, { useState } from 'react'
-import firebase from '../../services/firebase.js'
+import { sendPasswordResetEmail } from 'firebase/auth'
+import { auth } from '../../firebaseConfig'
 import Footer from '../Other/footer'
 import sanctuary from '../../assets/images/logos/sanctuary-bird-black.png'
 
-export default function SignInEmail () {
+export default function ForgotPassword () {
   const [email, setEmail] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
 
-  const resetPassword = () => {
-    if (!email) {
-      setErrorMessage('Please enter a valid email address')
-    } else {
-      firebase.auth().sendPasswordResetEmail(email)
-        .then(() => {
-          setSuccessMessage('Thank You! We\'ve sent you an email with further instructions to reset your password.')
-          setEmail('')
-        })
-        .catch((error) => {
-          setErrorMessage(error)
-        })
+  const resetPassword = async () => {
+    try {
+      setErrorMessage('')
+      await sendPasswordResetEmail(auth, email)
+      setSuccessMessage('Thank You! We\'ve sent you an email with further instructions to reset your password.')
+      setEmail('')
+    } catch (error) {
+      if (error.code === 'auth/invalid-email') {
+        setErrorMessage('Email not recognized')
+      }
     }
   }
 

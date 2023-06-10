@@ -1,57 +1,73 @@
-// import React, { useEffect } from 'react'
-// import { useAuth0 } from '@auth0/auth0-react'
-// import Footer from '../Other/footer'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAuth, signOut } from 'firebase/auth'
 
-// export default function Profile () {
-//   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0()
-//   useEffect(() => {
-//     if (!isAuthenticated) {
-//       loginWithRedirect()
-//     }
-//   }, [isAuthenticated, user])
+import ProfileIcon from '../../assets/images/icons/profileIcon'
+import { setUser } from '../../redux/actions'
+import Footer from '../Other/footer'
 
-//   return (
-//     <div className='profile-page'>
+export default function Profile () {
+  const dispatch = useDispatch()
 
-//       {!isAuthenticated && <div className='not-signed-in'>
-//       </div>}
+  const user = useSelector(state => state.user)
 
-//       {user && <div className='profile-page-container'>
+  useEffect(() => {
+    if (!user) {
+      document.location.href = '/'
+    }
+  }, [user])
 
-//         <div className='profile-page-title'>
-//           <h1> Profile </h1>
-//           <p> BETA </p>
-//         </div>
+  const handleSignOut = async () => {
+    try {
+      const auth = getAuth()
+      await signOut(auth)
+      dispatch(setUser(null))
+      document.location.href = '/'
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  console.log('user: ', user)
+  return (
+    <div className='profile-page'>
 
-//         <div className='profile-page-header'>
+      {!user && <div className='not-signed-in'>
+      </div>}
 
-//           <div className='profile-picture'>
-//             <div className='profile-picture-container'>
-//               {user.picture !== null &&
-//               <img src={user.picture} alt='Profile' />
-//               }
-//             </div>
-//           </div>
+      {user && <div className='profile-page-container'>
 
-//           <div className='profile-text'>
-//             <h1> {user.name} </h1>
-//             <p> {user.email} </p>
-//           </div>
+        <div className='profile-page-title'>
+          <h1> Profile </h1>
+          <p> BETA </p>
+        </div>
 
-//         </div>
+        <div className='profile-page-header'>
 
-//         <div className='profile-page-options'>
-//           <div className='profile-page-options-container'>
+          <div className='profile-picture'>
+            <div className='profile-picture-container'>
+              <ProfileIcon />
+            </div>
+          </div>
 
-//             <div className='profile-sign-out' onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
-//               <p> Sign Out </p>
-//             </div>
-//           </div>
-//         </div>
+          <div className='profile-text'>
+            <h1> {user.email} </h1>
+            <p> {user.email} </p>
+          </div>
 
-//       </div>}
+        </div>
 
-//       <Footer color={'white'} />
-//     </div>
-//   )
-// }
+        <div className='profile-page-options'>
+          <div className='profile-page-options-container'>
+
+            <div className='profile-sign-out' onClick={handleSignOut}>
+              <p> Sign Out </p>
+            </div>
+          </div>
+        </div>
+
+      </div>}
+
+      <Footer color={'white'} />
+    </div>
+  )
+}

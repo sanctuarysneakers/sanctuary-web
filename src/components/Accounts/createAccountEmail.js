@@ -1,42 +1,38 @@
 import React, { useState } from 'react'
-import firebase from '../../services/firebase.js'
-import { useHistory, Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
-import { setRedirectUrl, hideHomeSearch } from '../../redux/actions'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '../../firebaseConfig'
+
+import { hideHomeSearch, setUser } from '../../redux/actions'
 import Footer from '../Other/footer'
 
 export default function CreateAccountEmail () {
-  const history = useHistory()
   const dispatch = useDispatch()
-
-  const redirect = useSelector(state => state.redirect)
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
 
-  const createAccountEmailPassword = () => {
-    if (password !== confirmPassword) {
-      setErrorMessage('Passwords do not match.')
-    } else if (name === '') {
-      setErrorMessage('Please enter your name.')
-    } else {
-      firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(async (r) => {
-          r.user.updateProfile({ displayName: name })
-          if (redirect) {
-            const redirectCopy = redirect
-            dispatch(setRedirectUrl(null))
-            const jwt = await r.user.getIdToken()
-            window.location.href = `${redirectCopy}id_token=${jwt}&refresh_token=${r.user.refreshToken}`
-          }
-          history.push('/')
-        }).catch(e => {
-          setErrorMessage(e.message)
-        })
+  const authenticateUser = async () => {
+    setErrorMessage('')
+    try {
+      const user = await createUserWithEmailAndPassword(auth, email, password)
+      dispatch(setUser(user))
+      document.location.href = '/'
+    } catch (error) {
+      if (error.code === 'auth/invalid-email') {
+        setErrorMessage('Email not recognized')
+      } else if (error.code === 'auth/email-already-in-use') {
+        setErrorMessage('Email already in use')
+      } else if (error.code === 'auth/weak-password') {
+        setErrorMessage('Password must be at least 6 characters')
+      } else {
+        setErrorMessage('Internal error')
+        console.log('error: ', error)
+      }
     }
   }
 
@@ -82,21 +78,11 @@ export default function CreateAccountEmail () {
               onChange={event => setPassword(event.target.value)}
             />
           </div>
-
-          <div className='confirm-password-input'>
-            <input
-              className="inputBox"
-              type="password"
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChange={event => setConfirmPassword(event.target.value)}
-            />
-          </div>
         </div>
 
         <div className='email-form-bottom'>
 
-          <button onClick={createAccountEmailPassword}>
+          <button onClick={authenticateUser}>
             Sign Up
           </button>
 
