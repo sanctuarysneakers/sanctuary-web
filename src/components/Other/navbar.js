@@ -2,9 +2,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAuth, signOut } from 'firebase/auth'
 import { useMediaQuery } from 'react-responsive'
-import { setUser, showSearchModal, showHamburgerModal } from '../../redux/actions'
+import { showSearchModal, showHamburgerModal } from '../../redux/actions'
 import { ReactComponent as SanctuaryLogo } from '../../assets/images/SanctuaryLogo.svg'
 import { ReactComponent as Search } from '../../assets/images/Search.svg'
 import { ReactComponent as Hamburger } from '../../assets/images/Hamburger.svg'
@@ -22,17 +21,6 @@ export default function Navbar () {
       setNavbar(true)
     } else {
       setNavbar(false)
-    }
-  }
-
-  const handleSignOut = async () => {
-    try {
-      const auth = getAuth()
-      await signOut(auth)
-      dispatch(setUser(null))
-      document.location.href = '/'
-    } catch (error) {
-      console.log(error)
     }
   }
 
@@ -71,12 +59,6 @@ export default function Navbar () {
               onClick={() => document.location.href = '/create-account-email'}>
               Sign up
             </div>
-            }
-            {user &&
-              <div className="logout"
-                onClick={handleSignOut}>
-                Log out
-              </div>
             }
             {user &&
             <Link className='navbar-profile'
