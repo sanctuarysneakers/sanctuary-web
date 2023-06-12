@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { hideHomeSearch, setUser } from '../../redux/actions'
 import { Link } from 'react-router-dom'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-
 import { auth } from '../../firebaseConfig'
-import { hideHomeSearch, setUser } from '../../redux/actions'
 import Footer from '../Other/footer'
 
 export default function SignInEmail () {
@@ -13,6 +12,7 @@ export default function SignInEmail () {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+
   const signInEmailPassword = async () => {
     try {
       setErrorMessage('')
@@ -32,7 +32,6 @@ export default function SignInEmail () {
           setErrorMessage('Internal error')
           console.log('error:', error)
         }
-        return
       }
     } catch (error) {
       console.log(error.code, error.message)
