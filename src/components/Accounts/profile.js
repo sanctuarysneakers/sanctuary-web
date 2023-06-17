@@ -27,7 +27,6 @@ export default function Profile () {
       console.log(error)
     }
   }
-  console.log('user: ', user)
   return (
     <div className='profile-page'>
 

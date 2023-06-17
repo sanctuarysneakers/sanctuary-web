@@ -11,7 +11,6 @@ import Footer from '../Other/footer'
 export default function CreateAccountEmail () {
   const dispatch = useDispatch()
 
-  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
@@ -20,7 +19,7 @@ export default function CreateAccountEmail () {
     setErrorMessage('')
     try {
       const user = await createUserWithEmailAndPassword(auth, email, password)
-      dispatch(setUser(user))
+      dispatch(setUser(user.user))
       document.location.href = '/'
     } catch (error) {
       if (error.code === 'auth/invalid-email') {
@@ -52,14 +51,6 @@ export default function CreateAccountEmail () {
         </p>}
 
         <div className='email-form-input-create-account'>
-          <div className='name-input'>
-            <input
-              className="inputBox"
-              placeholder="Name"
-              value={name}
-              onChange={event => setName(event.target.value)}
-            />
-          </div>
           <div className='email-input'>
             <input
               className="inputBox"
