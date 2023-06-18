@@ -4,6 +4,10 @@ import { RemoveScroll } from 'react-remove-scroll'
 import { useSelector } from 'react-redux'
 import { useLocationDetection } from './hooks/useLocationDetection'
 
+import CreateAccountEmail from './components/Accounts/createAccountEmail'
+import SignInEmail from './components/Accounts/signInEmail'
+import ForgotPassword from './components/Accounts/forgotPassword'
+import Profile from './components/Accounts/profile'
 import Navbar from './components/Other/navbar'
 import Home from './components/Home/home'
 import Browse from './components/Browse/browse'
@@ -51,6 +55,10 @@ export default function App () {
         <Route path="/terms-of-use" component={TermsOfUse} />
         <Route path="/contact-us" component={ContactUs} />
         <Route path="/how-it-works" component={HowItWorks} />
+        <Route path="/create-account-email" component={CreateAccountEmail} />
+        <Route path="/sign-in-email" component={SignInEmail} />
+        <Route path="/forgot-password" component={ForgotPassword} />
+        <Route path="/profile" component={Profile} />
         <Route path="/newsroom" component={Newsroom} />
         <Route path="/newsroom-sanctuary-our-story" component={SanctuaryStory} />
         <Route path="/newsroom-buy-your-pair" component={BuyYourPair} />

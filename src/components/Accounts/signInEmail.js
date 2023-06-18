@@ -1,34 +1,41 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import firebase from '../../services/firebase.js'
-import { useHistory, Link } from 'react-router-dom'
-
-import { setRedirectUrl, hideHomeSearch } from '../../redux/actions'
+import { useDispatch } from 'react-redux'
+import { hideHomeSearch, setUser } from '../../redux/actions'
+import { Link } from 'react-router-dom'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '../../firebaseConfig'
 import Footer from '../Other/footer'
 
 export default function SignInEmail () {
   const dispatch = useDispatch()
-  const history = useHistory()
-
-  const redirect = useSelector(state => state.redirect)
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
 
-  const signInEmailPassword = () => {
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(async (r) => {
-        if (redirect) {
-          const redirectCopy = redirect
-          dispatch(setRedirectUrl(null))
-          const jwt = await r.user.getIdToken()
-          window.location.href = `${redirectCopy}id_token=${jwt}&refresh_token=${r.user.refreshToken}`
+  const signInEmailPassword = async () => {
+    try {
+      setErrorMessage('')
+      let user
+      try {
+        user = await signInWithEmailAndPassword(auth, email, password)
+        dispatch(setUser(user._tokenResponse))
+        document.location.href = '/'
+      } catch (error) {
+        if (error.code === 'auth/invalid-email') {
+          setErrorMessage('Email not recognized')
+        } else if (error.code === 'auth/wrong-password') {
+          setErrorMessage('Incorrect password')
+        } else if (error.code === 'auth/too-many-requests') {
+          setErrorMessage('Account temporarily blocked due to too many failed login attempts. Reset password or try again later.')
+        } else {
+          setErrorMessage('Internal error')
+          console.log('error:', error)
         }
-        history.push('/')
-      }).catch(e => {
-        setErrorMessage(e.message)
-      })
+      }
+    } catch (error) {
+      console.log(error.code, error.message)
+    }
   }
 
   dispatch(hideHomeSearch())
@@ -37,7 +44,6 @@ export default function SignInEmail () {
     <div className='email-form'>
       <div className='email-form-content'>
         <div className='email-form-header'>
-          {/* <img src={sanctuary} alt='Sanctuary' /> */}
           <h2> Log in </h2>
           <p> Welcome back, </p>
           <p> your perfect pair of shoes awaits you. </p>
@@ -68,7 +74,7 @@ export default function SignInEmail () {
           </div>
 
           <div className='forgot-password'>
-            <Link className='forgot-password-text' to="/sign-in-forgot-password">
+            <Link className='forgot-password-text' to="/forgot-password">
               Forgot Password?
             </Link>
           </div>

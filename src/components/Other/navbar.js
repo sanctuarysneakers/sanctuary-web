@@ -1,14 +1,16 @@
 /* eslint-disable no-return-assign */
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useMediaQuery } from 'react-responsive'
 import { showSearchModal, showHamburgerModal } from '../../redux/actions'
 import { ReactComponent as SanctuaryLogo } from '../../assets/images/SanctuaryLogo.svg'
 import { ReactComponent as Search } from '../../assets/images/Search.svg'
 import { ReactComponent as Hamburger } from '../../assets/images/Hamburger.svg'
+import ProfileIcon from '../../assets/images/icons/profileIcon'
 
 export default function Navbar () {
+  const user = useSelector(state => state.user)
   const [navbar, setNavbar] = useState(false)
 
   const dispatch = useDispatch()
@@ -49,6 +51,24 @@ export default function Navbar () {
             >
               Newsroom
             </Link>
+            {!user &&
+              <div className="login" onClick={() => { document.location.href = '/sign-in-email' }}>Log in</div>
+            }
+            {!user &&
+            <div className="create-account"
+              onClick={() => document.location.href = '/create-account-email'}>
+              Sign up
+            </div>
+            }
+            {user &&
+            <Link className='navbar-profile'
+              to='/profile'
+            >
+              <div className='navbar-profile-content'>
+                <ProfileIcon className='navbar-profile-picture'/>
+              </div>
+            </Link>
+            }
           </div>
         </div>}
 
