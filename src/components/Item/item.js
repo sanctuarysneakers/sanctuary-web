@@ -8,7 +8,7 @@ import SizeFilter from './sizeFilter'
 import SizeModal from '../Modals/sizeModal'
 import SocialsModal from '../Modals/socialsModal'
 import useAPICall from '../../hooks/useApiCall'
-import { addToPortfolio } from '../../api/portfolio'
+import { addToPortfolio } from '../../api/portfolioData'
 import ItemPrice from './itemPrice'
 import ItemListing from './itemListing'
 import ItemLoader from './itemLoader'
@@ -61,7 +61,7 @@ export default function Item() {
             length={itemListings.length} />
     )
 
-    const addToPortfolio = () => {
+    const portflioAdd = () => {
         addToPortfolio({
             user_id: user.uid,
             sku: itemInfo.sku,
@@ -71,7 +71,7 @@ export default function Item() {
             price: itemPrices[0].price,
             currency: currency
         })
-    } 
+    }
 
     return (
         <div className='item'>
@@ -86,7 +86,7 @@ export default function Item() {
             <div className='item-sneaker'>
                 <div className='item-sneaker-wrapper'>
                     <div className='item-sneaker-actions'>
-                        {user && <button className='item-portflio' onClick={() => addToPortfolio()}>
+                        {user && <button className='item-portflio' onClick={portflioAdd}>
                             <Add />
                         </button>}
 
