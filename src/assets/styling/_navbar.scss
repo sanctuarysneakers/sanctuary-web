@@ -1,129 +1,123 @@
 .navbar {
-    position: sticky;
-    position: -webkit-sticky;
-    top: 0px;
-    z-index: 2;
-    width: 100%;
-    background: white;
-    transition: 0.2s;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0px;
+  z-index: 2;
+  width: 100%;
+  background: white;
+  transition: 0.2s;
 
-    .navbar-content {
-        margin: 0px auto;
-        padding: 0px 40px;
+  .navbar-content {
+    margin: 0px auto;
+    padding: 0px 40px;
 
-        // Styling for desktop navbar links
-        .desktop-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 70px;
+    // Styling for desktop navbar links
+    .desktop-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
 
-            .sanctuary-logo {
-                width: 125px;
-                height: 100%;
-                cursor: pointer;
+      .sanctuary-logo {
+        width: 125px;
+        height: 100%;
 
-                svg {
-                    width: 125px;
-                    height: 100%;
-                }
-            }
+        svg {
+          width: 125px;
+          height: 100%;
+        }
+      }
 
-            .navbar-links {
-                display: flex;
-                align-items: center;
+      .navbar-links {
+        display: flex;
+        align-items: center;
 
-                svg {
-                    padding-top: 2px;
-                    cursor: pointer;
-                }
-
-                svg:hover {
-                    path {
-                        stroke: #646464;
-                    }
-
-                    rect {
-                        fill: #646464;
-                    }
-                }
-
-                a {
-                    font-size: 15px;
-                    font-weight: 400;
-                    color: black;
-                    letter-spacing: -0.28px;
-                    text-decoration: none;
-                    padding-left: 30px;
-                }
-
-                a:hover {
-                    color: #646464;
-                }
-
-                .create-account {
-                    font-weight: 500;
-                    color: #EC3E26;
-                }
-
-                .create-account:hover {
-                    color: #FF6C5C;
-                }
-
-                .navbar-profile {
-                    .navbar-profile-content {
-                        width: 30px;
-                        height: 30px;
-                        border-radius: 100px;
-                        overflow: hidden;
-
-                        .navbar-profile-picture {
-                            width: 100%;
-                            height: 100%;
-                        }
-
-                        .profileIcon {
-                            svg {
-                                width: 30px;
-                                height: auto;
-                            }
-                        }
-                    }
-                }
-            }
+        svg {
+          padding-top: 2px;
+          cursor: pointer;
         }
 
-        // Styling for mobile navbar links
-        .mobile-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 60px;
+        svg:hover {
+          path {
+            stroke: #646464;
+          }
 
-            .hamburger-icon {
-                svg {
-                    display: block;
-                }
-            }
-
-            .sanctuary-logo {
-                width: 110px;
-                height: 100%;
-                cursor: pointer;
-
-                svg {
-                    width: 110px;
-                    height: 100%;
-                }
-            }
-
-            svg {
-                cursor: pointer;
-            }
+          rect {
+            fill: #646464;
+          }
         }
+
+        a, .login, .logout {
+          font-size: 15px;
+          font-weight: 400;
+          color: black;
+          letter-spacing: -0.28px;
+          text-decoration: none;
+          padding-left: 30px;
+          cursor: pointer;
+        }
+
+        a:hover {
+          color: #646464;
+        }
+
+        .create-account {
+          margin-left: 30px;
+          font-weight: 500;
+          color: #EC3E26;
+          cursor: pointer;
+        }
+
+        .create-account:hover {
+          color: #FF6C5C;
+        }
+
+        .navbar-profile {
+          .navbar-profile-content {
+            width: 30px;
+            height: 30px;
+            border-radius: 100px;
+            overflow: hidden;
+
+            .navbar-profile-picture {
+              width: 100%;
+              height: 100%;
+            }
+          }
+        }
+      }
     }
+
+    // Styling for mobile navbar links
+    .mobile-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+
+      .hamburger-icon {
+        svg {
+          display: block;
+        }
+      }
+
+      .sanctuary-logo {
+        width: 110px;
+        height: 100%;
+
+        svg {
+          width: 110px;
+          height: 100%;
+        }
+      }
+
+      svg {
+        cursor: pointer;
+      }
+    }
+  }
 }
 
 .navbar.active {
-    box-shadow: 0px 1px 10px rgba(0,0,0,0.1);
+  box-shadow: 0px 1px 10px rgba(0,0,0,0.1);
 }

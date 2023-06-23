@@ -7,7 +7,6 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@mui/material": "^5",
-    "firebase": "^8",
     "firebaseui": "^4",
     "react": "^17",
     "react-div-100vh": "^0.5",
@@ -23,7 +22,7 @@
     "react-remove-scroll": "^2",
     "react-responsive": "^8",
     "react-router-dom": "^5",
-    "react-scripts": "3.4.1",
+    "react-scripts": "^5.0.1",
     "react-share": "^4",
     "react-slick": "^0.29",
     "react-text-loop-next": "^0.0.3",
@@ -53,5 +52,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^8.37.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.32.2",
+    "firebase": "^9.22.2"
   }
 }

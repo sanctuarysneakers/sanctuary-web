@@ -1,31 +1,39 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import { updateSize, setItemPricesLoading, setItemListingsLoading, hideSizeModal } from '../../redux/actions'
+import PropTypes from 'prop-types'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateSize, updateBrowseGender, setItemPricesLoading, setItemListingsLoading, hideSizeModal } from '../../redux/actions'
 
-export default function SizeOption({ option, size, gender }) {
+export default function SizeOption ({ sizeOption, sizeState, gender, inBrowseFilter }) {
+  const dispatch = useDispatch()
 
-    const dispatch = useDispatch()
+  const browseGender = useSelector(state => state.browse.filters.gender)
 
-    const genderSymbol = (gender === 'men') ? 'M' : 'W'
+  const isCurrent = sizeOption === sizeState && gender === browseGender
+  const genderSymbol = gender === 'men' ? 'M' : 'W'
 
-    const handleSizeChange = () => {
-        dispatch(updateSize(option))
-        dispatch(hideSizeModal())
-        dispatch(setItemPricesLoading(true))
-        dispatch(setItemListingsLoading(true))
-        //window.analytics.track(`item_size_selection`, {size: option});
-    }
-    
-    return (
-        <div className={(option === size) ? 'size-option current' : 'size-option'}>
+  const handleSizeChange = () => {
+    dispatch(updateSize(sizeOption))
+    dispatch(hideSizeModal())
+    dispatch(setItemPricesLoading(true))
+    dispatch(setItemListingsLoading(true))
 
-            <div className='size-option-content' onClick={handleSizeChange}>
-                <p className={(option === size) ? 'size-option-text current' : 'size-option-text'}>
-                    US {genderSymbol} {option}
-                </p>
-            </div>
+    if (inBrowseFilter) { dispatch(updateBrowseGender(gender)) }
+  }
 
-        </div>
-    )
+  return (
+    <div className={isCurrent ? 'size-option current' : 'size-option'}>
+      <div className='size-option-content' onClick={handleSizeChange}>
+        <p className={isCurrent ? 'size-option-text current' : 'size-option-text'}>
+          US {genderSymbol} {sizeOption}
+        </p>
+      </div>
+    </div>
+  )
+}
 
+SizeOption.propTypes = {
+  sizeOption: PropTypes.string,
+  sizeState: PropTypes.number,
+  gender: PropTypes.string,
+  inBrowseFilter: PropTypes.bool
 }

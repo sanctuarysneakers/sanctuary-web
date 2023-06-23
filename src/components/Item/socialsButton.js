@@ -3,11 +3,10 @@ import { useDispatch } from 'react-redux'
 import { showSocialsModal } from '../../redux/actions'
 import { FaShareSquare } from 'react-icons/fa'
 
-export default function SocialsButton() {
+export default function SocialsButton () {
+  const dispatch = useDispatch()
 
-    const dispatch = useDispatch()
-
-    return (
-        <FaShareSquare onClick={() => dispatch(showSocialsModal())}/> 
-    )
+  return (
+    <FaShareSquare onClick={() => dispatch(showSocialsModal())}/>
+  )
 }

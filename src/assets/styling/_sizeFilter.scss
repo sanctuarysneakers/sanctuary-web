@@ -1,27 +1,27 @@
 .size-filter {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    max-width: 360px;
-    min-width: 280px;
-    height: 45px;
-    background: #E5E9F1;
-    border-radius: 10px;
-    text-align: center;
-    margin: auto;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 360px;
+  min-width: 280px;
+  height: 45px;
+  background: #E5E9F1;
+  border-radius: 10px;
+  text-align: center;
+  margin: auto;
+  cursor: pointer;
 
-    h4 {
-        font-size: 16.5px;
-        font-weight: 500;
-        color: #777F93;
-    }
+  h4 {
+    font-size: 16.5px;
+    font-weight: 500;
+    color: #777F93;
+  }
 
-    svg {
-        padding-left: 7px;
-    }
+  svg {
+    padding-left: 7px;
+  }
 }
 
 .size-filter:hover {
-    background: #D9DEE9;
+  background: #D9DEE9;
 }

@@ -1,112 +1,122 @@
 .browse {
-    .browse-results {
-        background: #F7F9FC;
+  .browse-results {
+    background: #F7F9FC;
 
-        .browse-results-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            max-width: 1000px;
-            padding: 0px 20px;
-            margin: auto;
+    .browse-results-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1000px;
+      padding: 0px 20px;
+      margin: auto;
 
-            .browse-results-text {
-                padding: 89px 0px;
-                
-                h2 {
-                    font-size: 36px;
-                    font-weight: 600;
-                    color: black;
-                    line-height: 48px;
-                }
-            }
+      .browse-results-text {
+        padding: 89px 0px;
+        
+        h2 {
+          font-size: 36px;
+          font-weight: 600;
+          color: black;
+          line-height: 48px;
         }
-    }
+      }
 
-    .browse-catalog {
-        background: #F7F9FC;
-        padding-bottom: 166px;
+      .browse-buttons {
+        display: flex;
+        gap: 12px;
+      }
     }
+  }
+
+  .browse-catalog {
+    background: #F7F9FC;
+    padding-bottom: 166px;
+  }
 }
 
 @media (min-width: 820px) and (max-width: 1099px) {
-    .browse {
-        .browse-results {
-            .browse-results-content {
-                max-width: 747px;
-            }
-        }
+  .browse {
+    .browse-results {
+      .browse-results-content {
+        max-width: 747px;
+      }
     }
+  }
 }
 
 @media (min-width: 700px) and (max-width: 819px) {
-    .browse {
-        .browse-results {
-            .browse-results-content {
-                max-width: 622px;
-                
-                .browse-results-text {
-                    padding: 59px 0px;
+  .browse {
+    .browse-results {
+      .browse-results-content {
+        max-width: 622px;
+        
+        .browse-results-text {
+          padding: 59px 0px;
 
-                    h2 {
-                        font-size: 28px;
-                        line-height: 42px;
-                    }
-                }
-            }
+          h2 {
+            font-size: 28px;
+            line-height: 42px;
+          }
         }
-
-        .browse-catalog {
-            padding-bottom: 100px;
-        }
+      }
     }
+
+    .browse-catalog {
+      padding-bottom: 100px;
+    }
+  }
 }
 
 @media (min-width: 548px) and (max-width: 699px) {
-    .browse {
-        .browse-results {
-            .browse-results-content {
-                max-width: 508px;
+  .browse {
+    .browse-results {
+      .browse-results-content {
+        max-width: 508px;
 
-                .browse-results-text {
-                    padding: 59px 0px;
-                    
-                    h2 {
-                        font-size: 28px;
-                        line-height: 42px;
-                    }
-                }
-            }
+        .browse-results-text {
+          padding: 59px 0px;
+          
+          h2 {
+            font-size: 28px;
+            line-height: 42px;
+          }
         }
-
-        .browse-catalog {
-            padding-bottom: 100px;
-        }
+      }
     }
+
+    .browse-catalog {
+      padding-bottom: 100px;
+    }
+  }
 }
 
 @media screen and (max-width: 547px) {
-    .browse {
-        .browse-results {
-            .browse-results-content {
-                flex-direction: column;
-                align-items: flex-start;
-                max-width: 335px;
-                padding-bottom: 20px;
+  .browse {
+    .browse-results {
+      .browse-results-content {
+        flex-direction: column;
+        align-items: flex-start;
+        max-width: 335px;
+        padding-bottom: 20px;
 
-                .browse-results-text {
-                    padding: 59px 0px;
+        .browse-results-text {
+          padding-top: 50px;
+          padding-bottom: 20px;
 
-                    h2 {
-                        font-size: 28px;
-                        line-height: 42px;
-                    }
-                }
-            }
+          h2 {
+            font-size: 28px;
+            line-height: 42px;
+          }
         }
 
-        .browse-catalog {
-            padding-bottom: 100px;
+        .browse-buttons {
+          flex-direction: column;
         }
+      }
     }
+
+    .browse-catalog {
+      padding-bottom: 100px;
+    }
+  }
 }

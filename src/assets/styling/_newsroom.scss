@@ -1,140 +1,140 @@
 .newsroom {
-    background-color: #F7F9FC;
+  background-color: #F7F9FC;
 
-    .newsroom-content {
-        max-width: 1000px;
-        margin: 0px auto;
-        padding-left: 20px;
-        padding-right: 20px;
-        padding-bottom: 166px;
+  .newsroom-content {
+    max-width: 1000px;
+    margin: 0px auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 166px;
 
-        .newsroom-header {
-            width: 600px;
-            text-align: center;
-            margin: 0px auto;
-            padding: 145px 0px;
+    .newsroom-header {
+      width: 600px;
+      text-align: center;
+      margin: 0px auto;
+      padding: 145px 0px;
 
-            .newsroom-header-logo {
-                display: flex;
-                justify-content: center;
+      .newsroom-header-logo {
+        display: flex;
+        justify-content: center;
 
-                svg {
-                    width: auto;
-                    height: 44px;
-                    padding-top: 20px;
-                    padding-right: 3px;
-                }
-
-                h1 {
-                    font-size: 58px;
-                    font-weight: 600;
-                    color: #2F3033;
-                    line-height: 87px;
-                    letter-spacing: -0.8px;
-                }
-            }
-
-            p {
-                font-size: 24px;
-                font-weight: 300;
-                color: #2F3033;
-                line-height: 34px;
-                letter-spacing: -0.41px;
-                padding-top: 10px;
-            }
+        svg {
+          width: auto;
+          height: 44px;
+          padding-top: 20px;
+          padding-right: 3px;
         }
 
-        .newsroom-latest-articles {
-            h2 {
-                font-size: 28px;
-                font-weight: 600;
-                color: black;
-            }
+        h1 {
+          font-size: 58px;
+          font-weight: 600;
+          color: #2F3033;
+          line-height: 87px;
+          letter-spacing: -0.8px;
+        }
+      }
 
-            .newsroom-featured-article {
-                position: relative;
-                width: 100%;
-                height: 440px;
-                border-radius: 18px;
-                margin-top: 25px;
-                overflow: hidden;
-                cursor: pointer;
-
-                .newsroom-featured-image {
-                    height: 100%;
-                    background-position: center;
-                    background-size: cover;
-                }
-
-                .newsroom-featured-gradient {
-                    position: absolute;
-                    bottom: 0;
-                    left: 0;
-                    display: flex;
-                    align-items: flex-end;
-                    width: 100%;
-                    height: 200px;
-                    background: linear-gradient(0deg, hsla(0, 0%, 0%, 1) 0%, hsla(0, 0%, 0%, 0) 100%);
-
-                    .newsroom-featured-text {
-                        padding: 50px;
-
-                        p {
-                            font-size: 16px;
-                            font-weight: 600;
-                            color: white;
-                        }
-
-                        h4 {
-                            font-size: 36px;
-                            font-weight: 600;
-                            color: white;
-                            line-height: 45px;
-                            letter-spacing: -0.41px;
-                            padding-top: 10px;
-                        }
-                    }
-                }
-            }
-
-            .newsroom-all-articles {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 27.5px;
-                padding-top: 28px;
-            }
-        }  
+      p {
+        font-size: 24px;
+        font-weight: 300;
+        color: #2F3033;
+        line-height: 34px;
+        letter-spacing: -0.41px;
+        padding-top: 10px;
+      }
     }
+
+    .newsroom-latest-articles {
+      h2 {
+        font-size: 28px;
+        font-weight: 600;
+        color: black;
+      }
+
+      .newsroom-featured-article {
+        position: relative;
+        width: 100%;
+        height: 440px;
+        border-radius: 18px;
+        margin-top: 25px;
+        overflow: hidden;
+        cursor: pointer;
+
+        .newsroom-featured-image {
+          height: 100%;
+          background-position: center;
+          background-size: cover;
+        }
+
+        .newsroom-featured-gradient {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          display: flex;
+          align-items: flex-end;
+          width: 100%;
+          height: 200px;
+          background: linear-gradient(0deg, hsla(0, 0%, 0%, 1) 0%, hsla(0, 0%, 0%, 0) 100%);
+
+          .newsroom-featured-text {
+            padding: 50px;
+
+            p {
+              font-size: 16px;
+              font-weight: 600;
+              color: white;
+            }
+
+            h4 {
+              font-size: 36px;
+              font-weight: 600;
+              color: white;
+              line-height: 45px;
+              letter-spacing: -0.41px;
+              padding-top: 10px;
+            }
+          }
+        }
+      }
+
+      .newsroom-all-articles {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 27.5px;
+        padding-top: 28px;
+      }
+    }  
+  }
 }
 
 @media (min-width: 740px) and (max-width: 1069px) {
-    .newsroom {
-        .newsroom-content {
-            max-width: 690px;
-            padding-bottom: 100px;
+  .newsroom {
+    .newsroom-content {
+      max-width: 690px;
+      padding-bottom: 100px;
 
-            .newsroom-header {
-                width: 450px;
-                padding: 100px 0px;
+      .newsroom-header {
+        width: 450px;
+        padding: 100px 0px;
 
-                .newsroom-header-logo {
-                    svg {
-                        height: 27px;
-                        padding-top: 12px;
-                    }
-    
-                    h1 {
-                        font-size: 38px;
-                        line-height: 54px;
-                        letter-spacing: -0.41px;
-                    }
-                }
+        .newsroom-header-logo {
+          svg {
+            height: 27px;
+            padding-top: 12px;
+          }
+  
+          h1 {
+            font-size: 38px;
+            line-height: 54px;
+            letter-spacing: -0.41px;
+          }
+        }
 
-                p {
-                    font-size: 18px;
-                    line-height: 25px;
-                    letter-spacing: -0.28px;
-                    padding-top: 8px;
+        p {
+          font-size: 18px;
+          line-height: 25px;
+          letter-spacing: -0.28px;
+                padding-top: 8px;
                 }
             }
 

@@ -1,32 +1,32 @@
 .currency-filter {
-    display: flex;
-    justify-content: space-between;
-    width: 88px;
+  display: flex;
+  justify-content: space-between;
+  width: 88px;
+  height: 20px;
+  cursor: pointer;
+
+  h4 {
+    font-size: 13px;
+    font-weight: 400;
+    color: #919BB1;
+  }
+
+  .currency-filter-flag {
+    width: 20px;
     height: 20px;
-    cursor: pointer;
 
-    h4 {
-        font-size: 13px;
-        font-weight: 400;
-        color: #919BB1;
+    img {
+      width: 20px;
+      height: auto;
+      border-radius: 100px;
+      box-sizing: border-box;
+      border: 1px solid #E5E9F1; 
     }
-
-    .currency-filter-flag {
-        width: 20px;
-        height: 20px;
-
-        img {
-            width: 20px;
-            height: auto;
-            border-radius: 100px;
-            box-sizing: border-box;
-            border: 1px solid #E5E9F1; 
-        }
-    }
+  }
 }
 
 .currency-filter:hover {
-    h4 {
-        color: #4A525E;
-    }
+  h4 {
+    color: #4A525E;
+  }
 }

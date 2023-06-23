@@ -1,91 +1,70 @@
-import { combineReducers } from 'redux' 
+import { combineReducers } from 'redux'
+import { defaultSortBy } from '../../../assets/constants'
 
-
-const browseDataReducer = (state=[], action) => {
-    switch (action.type) {
-        case 'BROWSE_CALL':
-            return action.payload
-        default:
-            return state
-    }
+const browseDataReducer = (state = [], action) => {
+  switch (action.type) {
+  case 'BROWSE_CALL':
+    return action.payload
+  default:
+    return state
+  }
 }
 
-const featuredCollectionsReducer = (state=[], action) => {
-    switch (action.type) {
-        case 'UPDATE_FEATURED_COLLECTIONS':
-            return action.payload
-        default:
-            return state
-    }
+const featuredCollectionsReducer = (state = [], action) => {
+  switch (action.type) {
+  case 'UPDATE_FEATURED_COLLECTIONS':
+    return action.payload
+  default:
+    return state
+  }
 }
 
-//filters
-
-const brandReducer = (state=null, action) => {
-    switch(action.type) {
-        case 'UPDATE_BROWSE_BRAND':
-            return action.payload
-        default:
-            return state
-    }
+const brandsReducer = (state = [], action) => {
+  switch (action.type) {
+  case 'TOGGLE_BROWSE_BRAND':
+    // if brand is already in state remove it, otherwise add it
+    return state.includes(action.payload)
+      ? state.filter(brand => brand !== action.payload)
+      : [...state, action.payload]
+  case 'RESET_FILTERS':
+    return []
+  default:
+    return state
+  }
 }
 
-const sortReducer = (state=null, action) => {
-    switch(action.type) {
-        case 'UPDATE_BROWSE_SORT':
-            return action.payload
-        default:
-            return state
-    }
+const genderReducer = (state = null, action) => {
+  switch (action.type) {
+  case 'UPDATE_BROWSE_GENDER':
+    return action.payload
+  case 'RESET_FILTERS':
+    return null
+  default:
+    return state
+  }
 }
 
-const priceRangeReducer = (state=null, action) => {
-    switch(action.type) {
-        case 'UPDATE_BROWSE_PRICE_RANGES':
-            return action.payload
-        default:
-            return state
-    }
+const sortByReducer = (state = defaultSortBy, action) => {
+  switch (action.type) {
+  case 'UPDATE_BROWSE_SORT':
+    return action.payload
+  case 'RESET_FILTERS':
+    return defaultSortBy
+  default:
+    return state
+  }
 }
 
-const sizeTypeReducer = (state=null, action) => {
-    switch(action.type) {
-        case 'UPDATE_BROWSE_SIZE_TYPES':
-            return action.payload
-        default:
-            return state
-    }
-}
-
-const releaseYearReducer = (state=null, action) => {
-    switch(action.type) {
-        case 'UPDATE_BROWSE_RELEASE_YEARS':
-            return action.payload
-        default:
-            return state
-    }
-}
-
-const browseFilters = combineReducers({
-    brand: brandReducer, 
-    sort: sortReducer, 
-    priceRanges: priceRangeReducer, 
-    sizeTypes: sizeTypeReducer, 
-    releaseYears: releaseYearReducer
+const filters = combineReducers({
+  brands: brandsReducer,
+  gender: genderReducer,
+  sortBy: sortByReducer
 })
-
-const browseFiltersReducerWrapper = (state, action) => { 
-    if (action.type === 'RESET_FILTERS') {
-      state = undefined
-    }
-    return browseFilters(state, action)
-}
 
 const browse = combineReducers({
-    browseData: browseDataReducer, 
-    featuredCollections: featuredCollectionsReducer,   
-    filters: browseFiltersReducerWrapper,
+  browseData: browseDataReducer,
+  featuredCollections: featuredCollectionsReducer,
+  filters
 })
 
-export default browse 
-
+export default browse

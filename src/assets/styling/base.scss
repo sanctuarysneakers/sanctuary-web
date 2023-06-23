@@ -41,9 +41,12 @@
 @import "./currencyOption";
 @import "./itemNoResults";
 @import "./hamburgerModal";
-@import "./categoryFilterModal";
-@import "./categoryFilter";
-@import "./categoryOption";
+@import "./filtersModal";
+@import "./filtersButton";
+@import "./sortModal";
+@import "./sortButton";
+@import "./sortOption";
+@import "./brandsOption";
 @import "./articleCard";
 @import "./nextArticles";
 @import "./brandCard";
@@ -72,33 +75,33 @@
 @import "swiper/components/navigation/navigation";
 
 body {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
-    color: $text-color;
-    background: #FFFFFF;
-    margin: 0;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  color: $text-color;
+  background: #FFFFFF;
+  margin: 0;
 
-    // width: 100vw;
-    width: auto;
-    height: 100%;
-    overflow-x: hidden;
+  // width: 100vw;
+  width: auto;
+  height: 100%;
+  overflow-x: hidden;
 }
 
 html {
-    scroll-behavior: auto;
+  scroll-behavior: auto;
 }
 
 .hidden-link {
-    color: inherit;
-    text-decoration: inherit;
-    /* If you want to implement it in very old browser-versions */
-    -webkit-user-select: none; /* Chrome/Safari */ 
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* IE10+ */
+  color: inherit;
+  text-decoration: inherit;
+  /* If you want to implement it in very old browser-versions */
+  -webkit-user-select: none; /* Chrome/Safari */ 
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
 
-    /* The rule below is not implemented in browsers yet */
-    -o-user-select: none;
+  /* The rule below is not implemented in browsers yet */
+  -o-user-select: none;
 
-    /* The rule below is implemented in most browsers by now */
-    user-select: none;
+  /* The rule below is implemented in most browsers by now */
+  user-select: none;
 }

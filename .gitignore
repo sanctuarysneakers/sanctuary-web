@@ -6,6 +6,7 @@ yarn.lock
 debug.log
 
 .netlify
+.expo
 .DS_Store
 .vscode
 .env
