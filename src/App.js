@@ -64,7 +64,7 @@ export default function App () {
         <Route path="/sign-in-email" component={SignInEmail} />
         <Route path="/forgot-password" component={ForgotPassword} />
         <Route path="/profile" component={Profile} />
-        <ProtectedRoute path="/portfolio" component={Portfolio} isEnabled={user !== null} />
+        <Route path="/portfolio" component={Portfolio} />
         <ProtectedRoute path="/portfolio-item" component={PortfolioItem} isEnabled={user !== null} />
         <Route path="/newsroom" component={Newsroom} />
         <Route path="/newsroom-sanctuary-our-story" component={SanctuaryStory} />

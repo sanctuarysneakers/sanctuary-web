@@ -118,7 +118,6 @@ export default function Item () {
                 {pricesLoading && <ItemLoader version={'info'} />}
                 {!pricesLoading && <div className='item-sneaker-price-details'>
                   {itemPrices.length
-
                     ? <Link to={{ pathname: itemPrices[0].url }} className="hidden-link" target="_blank" rel="noopener noreferrer">
                       <div className='item-sneaker-price'>
                         <h2>
