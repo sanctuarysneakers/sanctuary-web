@@ -84,7 +84,7 @@ export default function Item () {
       <div className='item-sneaker'>
         <div className='item-sneaker-wrapper'>
           <div className='item-sneaker-actions'>
-            {user && <button className='item-portflio' onClick={portflioAdd}>
+            {user && <button className='add-to-portfolio-btn' onClick={portflioAdd}>
               <Add />
             </button>}
 

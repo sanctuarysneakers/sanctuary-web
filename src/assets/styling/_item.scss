@@ -12,12 +12,13 @@
         justify-content: flex-end;
         margin-top: 30px;
 
-        .item-sneaker-share {
+        .item-sneaker-share, .add-to-portfolio-btn {
           display: flex;
           align-items: center;
           justify-content: center;
           width: 40px;
           height: 40px;
+          margin-left: 10px;
           border-radius: 100%;
           background-color: #F3F3F4;
           cursor: pointer;
@@ -28,7 +29,7 @@
           }
         }
 
-        .item-sneaker-share:hover {
+        .item-sneaker-share:hover, .add-to-portfolio-btn:hover {
           background-color: #E6E6E7;
         }
       }
@@ -550,7 +551,7 @@
         .item-sneaker-actions {
           margin-top: 10px;
   
-          .item-sneaker-share {
+          .item-sneaker-share, .add-to-portfolio-btn {
             width: 28px;
             height: 28px;
   
