@@ -120,7 +120,7 @@ export default function Portfolio () {
 
           <img src={Splash} alt='Splash icon'/>
 
-          <Link onClick={() => { document.location.href = '/sign-in' }} to='/sign-in'>
+          <Link onClick={() => { document.location.href = '/sign-in-email' }} to='/sign-in-email'>
             Get Started Today
           </Link>
         </div>

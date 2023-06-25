@@ -166,7 +166,7 @@ export default function useAPICall (callType, params) {
     const params = {
       currency,
       size,
-      ship_to: location.country_code
+      ship_to: location?.country_code
     }
 
     const featuredCollectionRequests = [

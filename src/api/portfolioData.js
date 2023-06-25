@@ -1,5 +1,5 @@
 import { SafePromiseAll } from './helpers'
-import { getItemPrices } from './aggregator'
+import { goatLowestPrice } from './dataSources'
 
 const api = 'https://hdwj2rvqkb.us-west-2.awsapprunner.com'
 // const api = 'http://localhost:8000'
@@ -20,8 +20,15 @@ export async function getPortfolio (userID, currency, location) {
 }
 
 async function getItemCurrentPrice (item, size, gender, currency, location) {
-  const prices = await getItemPrices(item.data, size, gender, currency, location)
-  item.currentPrice = prices[0].price
+  const filter = {
+    size,
+    gender,
+    country: location.country_code,
+    postalCode: location.postal_code,
+    currency
+  }
+  const goatPriceObject = await goatLowestPrice(item.data, filter)
+  item.currentPrice = goatPriceObject.price
   return item
 }
 
