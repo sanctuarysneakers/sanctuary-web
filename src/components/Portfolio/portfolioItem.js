@@ -1,10 +1,12 @@
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useLocation } from 'react-router'
-import { updatePortfolioData, updateItemInfo, setItemPricesLoading, setItemListingsLoading } from '../../redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
-import { removeFromPortfolio } from '../../api/portfolioData'
-import { currencySymbolMap } from '../../assets/constants'
+import {
+  updateItemInfo, setItemPricesLoading, setItemListingsLoading
+} from '../../redux/actions'
+import { removeFromPortfolio } from '../../api/portfolioFunctions'
+import { brandColors, currencySymbolMap } from '../../assets/constants'
 import GraphDown from '../../assets/images/downwards-light-desktop.svg'
 import GraphUp from '../../assets/images/upwards-light-desktop.svg'
 import GraphStraight from '../../assets/images/straight-light-desktop.svg'
@@ -15,21 +17,16 @@ export default function PortfolioItem () {
   const location = useLocation()
   const history = useHistory()
 
-  const portfolio = useSelector(state => state.portfolio)
   const currency = useSelector(state => state.currency)
 
   const item = location.itemInfo
-  const modelName = item.data.modelName
-  const recordID = item.record_id
-  const image = item.data.image
-  const price = Math.round(item.price)
-  const currentPrice = Math.round(item.currentPrice)
+  const price = item.price
+  const currentPrice = item.currentPrice
   const priceChange = currentPrice - price
   const percentChange = (priceChange / price * 100).toFixed(2)
-  const color = priceChange === 0 ? 'grey' : (priceChange > 0 ? 'green' : 'red')
+  const color = percentChange === 0 ? 'textGrey' : (percentChange > 0 ? 'upwards' : 'downwards')
   const graph = priceChange === 0 ? GraphStraight : (priceChange > 0 ? GraphUp : GraphDown)
 
-  // TODO: add code to link to item page for this sneaker
   const generateLink = () => {
     dispatch(updateItemInfo({}))
     dispatch(setItemPricesLoading(true))
@@ -39,23 +36,9 @@ export default function PortfolioItem () {
     return item.gender === null ? `/item/${itemKey}` : `/item/${itemKey}/${item.gender}`
   }
 
-  const getNavData = () => {
-    const itemInfo = {
-      sku: item.sku ? item.sku.replaceAll('-', ' ') : null,
-      modelName: item.data.modelName,
-      image: item.data.image,
-      url: item.data.url,
-      urlKey: item.data.urlKey
-    }
-    return itemInfo
-  }
-
-  const removeItemHandler = (recordID) => {
+  const removeHandler = async () => {
+    await removeFromPortfolio(item.record_id)
     history.push('/portfolio')
-    removeFromPortfolio(recordID) // removes from database
-    const newPortfolio = portfolio?.portfolioData.filter(item =>
-      item.record_id !== recordID)
-    dispatch(updatePortfolioData(newPortfolio))
   }
 
   return (
@@ -64,17 +47,17 @@ export default function PortfolioItem () {
         <div className='portfolio-item-stats'>
           <div className='portfolio-item-img-model'>
             <div className='portfolio-item-img'>
-              <img className='portfolio' src={image} alt='sneaker' />
+              <img className='portfolio' src={item.data.image} alt='sneaker' />
             </div>
 
-            <h1>{modelName}</h1>
+            <h1>{item.data.model}</h1>
           </div>
 
           <h1 className='portfolio-item-price'>
             {currencySymbolMap[currency]}{currentPrice}.00
           </h1>
 
-          <p style={{ color }}>
+          <p style={{ color: brandColors[color] }}>
             {currencySymbolMap[currency]}{(priceChange)}.00 ({percentChange}%)
           </p>
         </div>
@@ -83,7 +66,10 @@ export default function PortfolioItem () {
           <img src={graph} alt='graph' />
         </div>
 
-        <Link className='portfolio-item-button' to={{ pathname: generateLink(), itemInfo: getNavData() }}>
+        <Link
+          className='portfolio-item-button'
+          to={{ pathname: generateLink(), state: item.data }}
+        >
           View Listing
         </Link>
 
@@ -97,13 +83,8 @@ export default function PortfolioItem () {
             <div className='portfolio-item-performance-info'>
               <div className='portfolio-item-performance-info-content'>
                 <div className='portfolio-item-performance-info-text'>
-                  <h2>
-                    Sneaker Size
-                  </h2>
-
-                  <p>
-                    Mens
-                  </p>
+                  <h2>Sneaker Size</h2>
+                  <p>Mens</p>
                 </div>
 
                 <p className='portfolio-item-performance-value'>
@@ -115,13 +96,8 @@ export default function PortfolioItem () {
             <div className='portfolio-item-performance-info'>
               <div className='portfolio-item-performance-info-content'>
                 <div className='portfolio-item-performance-info-text'>
-                  <h2>
-                    Market Order
-                  </h2>
-
-                  <p>
-                    {item.add_date}
-                  </p>
+                  <h2>Market Order</h2>
+                  <p>{item.add_date}</p>
                 </div>
 
                 <p className='portfolio-item-performance-value'>
@@ -133,13 +109,8 @@ export default function PortfolioItem () {
             <div className='portfolio-item-performance-info'>
               <div className='portfolio-item-performance-info-content'>
                 <div className='portfolio-item-performance-info-text'>
-                  <h2>
-                    Price Change
-                  </h2>
-
-                  <p>
-                    All Time
-                  </p>
+                  <h2>Price Change</h2>
+                  <p>All Time</p>
                 </div>
 
                 <p className='portfolio-item-performance-value'>
@@ -151,13 +122,8 @@ export default function PortfolioItem () {
             <div className='portfolio-item-performance-info'>
               <div className='portfolio-item-performance-info-content'>
                 <div className='portfolio-item-performance-info-text'>
-                  <h2>
-                    Percent Change
-                  </h2>
-
-                  <p>
-                    All Time
-                  </p>
+                  <h2>Percent Change</h2>
+                  <p>All Time</p>
                 </div>
 
                 <p className='portfolio-item-performance-value'>
@@ -169,13 +135,8 @@ export default function PortfolioItem () {
             <div className='portfolio-item-performance-info'>
               <div className='portfolio-item-performance-info-content last'>
                 <div className='portfolio-item-performance-info-text'>
-                  <h2>
-                    Total Return
-                  </h2>
-
-                  <p>
-                    All Time
-                  </p>
+                  <h2>Total Return</h2>
+                  <p>All Time</p>
                 </div>
 
                 <p className='portfolio-item-performance-value'>
@@ -185,7 +146,7 @@ export default function PortfolioItem () {
             </div>
           </div>
 
-          <button className='portfolio-item-remove' onClick={() => removeItemHandler(recordID)}>
+          <button className='portfolio-item-remove' onClick={removeHandler}>
             Remove from portfolio
           </button>
         </div>

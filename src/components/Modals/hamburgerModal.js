@@ -1,4 +1,3 @@
-/* eslint-disable no-return-assign */
 import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { hideHamburgerModal } from '../../redux/actions'
@@ -33,21 +32,36 @@ export default function HamburgerModal () {
           </div>
 
           <div className='hamburger-modal-links'>
-            <div className='hamburger-modal-option' onClick={() => document.location.href = '/browse'}>
+            <div className='hamburger-modal-option'
+              onClick={() => { document.location.href = '/browse' }}
+            >
               <div className='hamburger-modal-option-content'>
                 <p> Browse </p>
                 <RightArrow />
               </div>
             </div>
 
-            <div className='hamburger-modal-option' onClick={() => document.location.href = '/newsroom'}>
+            <div className='hamburger-modal-option'
+              onClick={() => { document.location.href = '/portfolio' }}
+            >
+              <div className='hamburger-modal-option-content'>
+                <p> Portfolio </p>
+                <RightArrow />
+              </div>
+            </div>
+
+            <div className='hamburger-modal-option'
+              onClick={() => { document.location.href = '/newsroom' }}
+            >
               <div className='hamburger-modal-option-content'>
                 <p> Newsroom </p>
                 <RightArrow />
               </div>
             </div>
 
-            <div className='hamburger-modal-option' onClick={() => document.location.href = '/how-it-works'}>
+            <div className='hamburger-modal-option'
+              onClick={() => { document.location.href = '/how-it-works' }}
+            >
               <div className='hamburger-modal-option-content last'>
                 <p> How it Works </p>
                 <RightArrow />

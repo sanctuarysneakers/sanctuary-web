@@ -1,12 +1,10 @@
-export default function createRequestObject (type, filter) {
-  const api = 'https://rkzmvt26dg.us-west-2.awsapprunner.com'
-  //   const api = 'http://127.0.0.1:8080'
-  const autosuggestAPI = 'https://2fwotdvm2o-dsn.algolia.net'
+import { apiURL, autosuggestAPI } from '../assets/constants'
 
+export default function createRequestObject (type, filter) {
   switch (type) {
   case 'browse':
     return {
-      url: `${api}/browse`,
+      url: `${apiURL}/browse`,
       headers: {
         method: 'POST',
         headers: {
@@ -17,7 +15,7 @@ export default function createRequestObject (type, filter) {
     }
   case 'browsecollection':
     return {
-      url: `${api}/browsecollection`,
+      url: `${apiURL}/browsecollection`,
       headers: {
         method: 'POST',
         headers: {
@@ -28,77 +26,77 @@ export default function createRequestObject (type, filter) {
     }
   case 'iteminfo':
     return {
-      url: `${api}/iteminfo?` + new URLSearchParams(filter),
+      url: `${apiURL}/iteminfo?` + new URLSearchParams(filter),
       headers: {
         method: 'GET'
       }
     }
   case 'relateditems':
     return {
-      url: `${api}/relateditems?` + new URLSearchParams(filter),
+      url: `${apiURL}/relateditems?` + new URLSearchParams(filter),
       headers: {
         method: 'GET'
       }
     }
   case 'stockx':
     return {
-      url: `${api}/lowestprices?source=stockx&` + new URLSearchParams(filter),
+      url: `${apiURL}/lowestprices?source=stockx&` + new URLSearchParams(filter),
       headers: {
         method: 'GET'
       }
     }
   case 'footlocker':
     return {
-      url: `${api}/lowestprices?source=footlocker&` + new URLSearchParams(filter),
+      url: `${apiURL}/lowestprices?source=footlocker&` + new URLSearchParams(filter),
       headers: {
         method: 'GET'
       }
     }
   case 'ebay':
     return {
-      url: `${api}/lowestprices?source=ebay&` + new URLSearchParams(filter),
+      url: `${apiURL}/lowestprices?source=ebay&` + new URLSearchParams(filter),
       headers: {
         method: 'GET'
       }
     }
   case 'klekt':
     return {
-      url: `${api}/lowestprices?source=klekt&` + new URLSearchParams(filter),
+      url: `${apiURL}/lowestprices?source=klekt&` + new URLSearchParams(filter),
       headers: {
         method: 'GET'
       }
     }
   case 'goat':
     return {
-      url: `${api}/lowestprices?source=goat&` + new URLSearchParams(filter),
+      url: `${apiURL}/lowestprices?source=goat&` + new URLSearchParams(filter),
       headers: {
         method: 'GET'
       }
     }
   case 'flightclub':
     return {
-      url: `${api}/lowestprices?source=flightclub&` + new URLSearchParams(filter),
+      url: `${apiURL}/lowestprices?source=flightclub&` + new URLSearchParams(filter),
       headers: {
         method: 'GET'
       }
     }
   case 'ebaylistings':
     return {
-      url: `${api}/listings?source=ebay&` + new URLSearchParams(filter),
+      url: `${apiURL}/listings?source=ebay&` + new URLSearchParams(filter),
       headers: {
         method: 'GET'
       }
     }
   case 'depop':
     return {
-      url: `${api}/listings?source=depop&` + new URLSearchParams(filter),
+      url: `${apiURL}/listings?source=depop&` + new URLSearchParams(filter),
       headers: {
         method: 'GET'
       }
     }
   case 'grailed':
     return {
-      url: `${api}/listings?source=grailed&` + new URLSearchParams(filter),
+      url: `${apiURL}/listings?source=grailed&` + new URLSearchParams(filter),
       headers: {
         method: 'GET'
       }
@@ -122,9 +120,37 @@ export default function createRequestObject (type, filter) {
         })
       }
     }
+  case 'portfolio_get':
+    return {
+      url: `${apiURL}/portfolio?` + new URLSearchParams(filter),
+      headers: {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    }
+  case 'portfolio_add':
+    return {
+      url: `${apiURL}/portfolio`,
+      headers: {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(filter)
+      }
+    }
+  case 'portfolio_remove':
+    return {
+      url: `${apiURL}/portfolio?` + new URLSearchParams(filter),
+      headers: {
+        method: 'DELETE'
+      }
+    }
   default:
     return {
-      url: `${api}/browse`,
+      url: `${apiURL}/browse`,
       headers: {
         method: 'POST',
         headers: {

@@ -1,18 +1,18 @@
 import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import { getLocation } from '../hooks/useLocationDetection'
+import createRequestObject from '../api/createRequest'
+import { SafePromiseAll } from '../api/helpers'
+import { getPortfolioData, getPortfolioStats } from '../api/portfolioFunctions'
+import { getItemInfo, getItemPrices, getItemListings, getRelatedItems } from '../api/aggregator'
+import { collectionItems } from '../api/dataSources'
 import {
   browseCall, updateItemInfo, updateItemPrices, updateItemListings,
-  updateRelatedItems, setRelatedItemsLoading, setItemPricesLoading, setItemListingsLoading,
-  updateFeaturedCollections
+  updateRelatedItems, setRelatedItemsLoading, setItemPricesLoading,
+  setItemListingsLoading, updateFeaturedCollections, setPortfolioLoading,
+  updatePortfolioData, updatePortfolioStats
 } from '../redux/actions'
-import createRequestObject from '../api/createRequest'
-import {
-  stockxLowestPrice, footlockerLowestPrice, goatLowestPrice, flightclubLowestPrice,
-  ebayLowestPrice, klektLowestPrice, grailedListings, ebayListings, depopListings,
-  collectionItems
-} from '../api/dataSources'
-import { getLocation } from '../hooks/useLocationDetection'
 
 export default function useAPICall (callType, params) {
   const history = useHistory()
@@ -22,12 +22,7 @@ export default function useAPICall (callType, params) {
   const size = useSelector(state => state.size)
   const currency = useSelector(state => state.currency)
   const browseFilters = useSelector(state => state.browse.filters)
-
-  function SafePromiseAll (promises, def = null) {
-    return Promise.all(
-      promises.map(p => p.catch(def))
-    )
-  }
+  const user = useSelector(state => state.user)
 
   async function browse (searchTerm) {
     const filters = {
@@ -54,118 +49,30 @@ export default function useAPICall (callType, params) {
   }
 
   async function getItem (params) {
-    if (location === null) { location = await getLocation() }
+    if (!location) { location = await getLocation() }
 
     const itemInfo = params.fromBrowse ? params.fromBrowse : await getItemInfo(params.itemKey, params.gender)
+    if (!itemInfo) { history.replace('/item-not-supported') }
+
     dispatch(updateItemInfo(itemInfo))
 
-    await SafePromiseAll(
-      [
-        getItemPrices(itemInfo, params.size, params.gender),
-        getItemListings(itemInfo, params.size, params.gender),
-        getRelatedItems(itemInfo)
-      ],
-      []
-    )
-  }
+    const results = await SafePromiseAll([
+      getItemPrices(itemInfo, size, params.gender, currency, location),
+      getItemListings(itemInfo, size, params.gender, currency, location),
+      getRelatedItems(itemInfo, size, currency, location)
+    ], [])
 
-  async function getItemInfo (itemKey, gender) {
-    try {
-      const request = createRequestObject('iteminfo', {
-        item_key: itemKey,
-        gender
-      })
-
-      const response = await fetch(request.url, request.headers)
-      if (!response.ok) throw new Error()
-
-      const itemInfo = await response.json()
-      if (!itemInfo) throw new Error()
-
-      return itemInfo
-    } catch (e) {
-      history.replace('/item-not-supported')
-      return null
-    }
-  }
-
-  async function getItemPrices (item, size, gender) {
-    const filter = {
-      size,
-      gender,
-      country: location.country_code,
-      postalCode: location.postal_code,
-      currency
-    }
-
-    let results = await SafePromiseAll(
-      [
-        stockxLowestPrice(item, filter),
-        ebayLowestPrice(item, filter),
-        flightclubLowestPrice(item, filter),
-        goatLowestPrice(item, filter),
-        klektLowestPrice(item, filter),
-        footlockerLowestPrice(item, filter)
-      ]
-    )
-    results = results.filter(elements => { return elements !== null })
-    results = results.filter(r => r.price !== 0)
-    results.sort((a, b) => a.price - b.price)
-
-    dispatch(updateItemPrices(results))
+    dispatch(updateItemPrices(results[0].filter(item => Object.keys(item).length !== 0)))
+    dispatch(updateItemListings(results[1].filter(item => Object.keys(item).length !== 0)))
+    dispatch(updateRelatedItems(results[2]))
     dispatch(setItemPricesLoading(false))
-  }
-
-  async function getItemListings (item, size, gender) {
-    const filter = {
-      size,
-      gender,
-      country: location.country_code,
-      postalCode: location.postal_code,
-      currency
-    }
-
-    let results = await SafePromiseAll(
-      [
-        ebayListings(item, filter),
-        depopListings(item, filter),
-        grailedListings(item, filter)
-      ]
-    )
-    results = results.flat()
-    results = results.filter(elements => { return elements !== null })
-    results = results.filter(r => r.price !== 0)
-    results.sort((a, b) => a.price - b.price)
-    dispatch(updateItemListings(results))
     dispatch(setItemListingsLoading(false))
-  }
-
-  async function getRelatedItems (itemInfo) {
-    const filters = {
-      model: itemInfo.model,
-      silhouette: itemInfo.silhouette,
-      currency
-    }
-    const request = createRequestObject('relateditems', filters)
-
-    try {
-      const response = await fetch(request.url, request.headers)
-      if (!response.ok) throw new Error()
-
-      const results = await response.json()
-      if (!results.length) throw new Error()
-
-      dispatch(updateRelatedItems(results))
-    } catch (e) {
-      dispatch(updateRelatedItems([]))
-    }
-    setRelatedItemsLoading(false)
+    dispatch(setRelatedItemsLoading(false))
   }
 
   async function getFeaturedCollections () {
     const params = {
       currency,
-      size,
       ship_to: location.country_code
     }
 
@@ -194,13 +101,29 @@ export default function useAPICall (callType, params) {
     dispatch(updateFeaturedCollections(featuredCollections))
   }
 
+  async function getPortfolio () {
+    if (user) {
+      dispatch(setPortfolioLoading(true))
+
+      const data = await getPortfolioData(user.localId, currency, location)
+      dispatch(updatePortfolioData(data))
+
+      const stats = getPortfolioStats(data)
+      dispatch(updatePortfolioStats(stats))
+
+      dispatch(setPortfolioLoading(false))
+    }
+  }
+
   useEffect(() => {
     if (callType === 'getitem') {
       getItem(params)
     } else if (callType === 'featuredcollections') {
       getFeaturedCollections()
+    } else if (callType === 'portfolio') {
+      getPortfolio()
     } else if (callType === 'browse') {
       browse(params.searchTerm)
     }
-  }, [currency, size, browseFilters])
+  }, [user, currency, size, browseFilters])
 }
