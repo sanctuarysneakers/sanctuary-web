@@ -1,12 +1,9 @@
 import { combineReducers } from 'redux'
 
-const portfolioReducer = (state = [], action) => {
-  switch (action.type) {
-  case 'UPDATE_PORTFOLIO_DATA':
-    return action.payload
-  default:
-    return state
-  }
+const portfolioStatsInitialState = {
+  total: 0,
+  priceChange: 0,
+  percentChange: 0
 }
 
 const loadingPortfolioReducer = (state = true, action) => {
@@ -18,9 +15,28 @@ const loadingPortfolioReducer = (state = true, action) => {
   }
 }
 
+const portfolioDataReducer = (state = [], action) => {
+  switch (action.type) {
+  case 'UPDATE_PORTFOLIO_DATA':
+    return action.payload
+  default:
+    return state
+  }
+}
+
+const portfolioStatsReducer = (state = portfolioStatsInitialState, action) => {
+  switch (action.type) {
+  case 'UPDATE_PORTFOLIO_STATS':
+    return action.payload
+  default:
+    return state
+  }
+}
+
 const portfolio = combineReducers({
-  portfolioData: portfolioReducer,
-  loadingPortfolio: loadingPortfolioReducer
+  loadingPortfolio: loadingPortfolioReducer,
+  data: portfolioDataReducer,
+  stats: portfolioStatsReducer
 })
 
 export default portfolio

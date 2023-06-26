@@ -1,7 +1,5 @@
-/* eslint-disable no-return-assign */
 import React from 'react'
 import PropTypes from 'prop-types'
-
 import { Link } from 'react-router-dom'
 import CurrencyFilter from '../Currency/currencyFilter'
 import { ReactComponent as SanctuaryFooterLogo } from '../../assets/images/SanctuaryFooterLogo.svg'
@@ -17,7 +15,7 @@ export default function Footer ({ color }) {
         <div className='footer-links'>
           <div className='footer-links-logos'>
             <div className='footer-logo'
-              onClick={() => document.location.href = '/'}>
+              onClick={() => { document.location.href = '/' }}>
               <SanctuaryFooterLogo />
             </div>
 
@@ -65,15 +63,15 @@ export default function Footer ({ color }) {
               <div className='footer-link-text second'>
                 <h2> Discover </h2>
 
-                <Link onClick={() => document.location.href = '/browse'} to='/browse'>
+                <Link onClick={() => { document.location.href = '/browse' }} to='/browse'>
                   Browse
                 </Link>
 
-                <Link onClick={() => document.location.href = '/newsroom'} to='/newsroom'>
+                <Link onClick={() => { document.location.href = '/newsroom' }} to='/newsroom'>
                   Newsroom
                 </Link>
 
-                <Link onClick={() => document.location.href = '/how-it-works'} to='/how-it-works'>
+                <Link onClick={() => { document.location.href = '/how-it-works' }} to='/how-it-works'>
                   How it Works
                 </Link>
               </div>
@@ -84,15 +82,15 @@ export default function Footer ({ color }) {
               <div className='footer-link-text last'>
                 <h2> Support </h2>
 
-                <Link onClick={() => document.location.href = '/privacy-policy'} to='/privacy-policy'>
+                <Link onClick={() => { document.location.href = '/privacy-policy' }} to='/privacy-policy'>
                   Privacy Policy
                 </Link>
 
-                <Link onClick={() => document.location.href = '/terms-of-use'} to='/terms-of-use'>
+                <Link onClick={() => { document.location.href = '/terms-of-use' }} to='/terms-of-use'>
                   Terms of Use
                 </Link>
 
-                <Link onClick={() => document.location.href = '/contact-us'} to='/contact-us'>
+                <Link onClick={() => { document.location.href = '/contact-us' }} to='/contact-us'>
                   Contact Us
                 </Link>
               </div>

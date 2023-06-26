@@ -1,16 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { brandColors, currencySymbolMap } from '../../assets/constants'
 import { ReactComponent as RightArrow } from '../../assets/images/RightArrow.svg'
 
 export default function PortfolioCard ({ item }) {
-  const modelName = item.data.modelName
-  const image = item.data.image
-  const price = Math.round(item.price)
-  const currentPrice = Math.round(item.currentPrice)
-  const priceChange = currentPrice - price
-  const percentChange = (priceChange / price * 100).toFixed(2)
-  const color = priceChange === 0 ? 'grey' : (priceChange > 0 ? 'green' : 'red')
+  const currency = useSelector(state => state.currency)
+  const percentChange = (((item.currentPrice - item.price) / item.price) * 100).toFixed(2)
+  const color = percentChange === 0 ? 'textGrey' : (percentChange > 0 ? 'upwards' : 'downwards')
 
   return (
     <div className='portfolio-card'>
@@ -20,31 +18,22 @@ export default function PortfolioCard ({ item }) {
       }}>
         <div className='portfolio-card-info'>
           <div className='portfolio-card-sneaker'>
-            <img src={image} alt='sneaker' />
+            <img src={item.data.image} alt='sneaker' />
           </div>
 
           <div className='portfolio-card-model'>
-            <h2>
-              {modelName}
-            </h2>
-
-            <p>
-              Size {item.size}
-            </p>
-
-            <p>
-              New
-            </p>
+            <h2>{item.data.model}</h2>
+            <p>Size {item.size}</p>
+            <p>New</p>
           </div>
         </div>
 
         <div className='portfolio-card-price'>
           <div className='portfolio-card-price-data'>
             <h2>
-              ${Math.round(item.currentPrice)}
+              {currencySymbolMap[currency]}{item.currentPrice.toLocaleString('en')}
             </h2>
-
-            <h4 style={{ color }}>
+            <h4 style={{ color: brandColors[color] }}>
               {percentChange}%
             </h4>
           </div>

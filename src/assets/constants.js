@@ -8,7 +8,6 @@ import Korea from './images/korea.png'
 import Swiss from './images/swiss.svg'
 import UnitedKingdom from './images/unitedKingdom.svg'
 import UnitedStates from './images/unitedStates.svg'
-
 import StockXIcon from './images/stockxIcon.png'
 import GOAT from './images/goat.svg'
 import GrailedIcon from './images/grailedIcon.jpg'
@@ -17,7 +16,6 @@ import DepopIcon from './images/depopIcon.svg'
 import KLEKT from './images/klekt.svg'
 import FootLockerIcon from './images/footlockerIcon.svg'
 import eBay from './images/ebay.svg'
-
 import StockXGrey from './images/stockx.png'
 import GOATGrey from './images/goat-grey.svg'
 import GrailedGrey from './images/grailed-grey.svg'
@@ -26,6 +24,19 @@ import FootlockerGrey from './images/footlocker-grey.svg'
 import DepopGrey from './images/depop-grey.svg'
 import KLEKTGrey from './images/klekt-grey.svg'
 import eBayGrey from './images/ebay-grey.svg'
+
+export const apiURL = 'https://rkzmvt26dg.us-west-2.awsapprunner.com'
+export const autosuggestAPI = 'https://2fwotdvm2o-dsn.algolia.net'
+
+export const brandColors = {
+  primary: '#EC3E26',
+  primaryGrey: '#F2F2F6',
+  secondaryGrey: '#EBEBF0',
+  textGrey: '#8A8A8D',
+  upwards: '#4DC88D',
+  downwards: '#FF4C30',
+  background: '#FFFFFF'
+}
 
 export const supportedCurrencies = [
   'AUD', 'CAD', 'EUR', 'GBP', 'JPY',

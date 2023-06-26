@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { updatePortfolioData, setPortfolioLoading } from '../../redux/actions'
-import { getPortfolio } from '../../api/portfolioData'
+import { useSelector } from 'react-redux'
+import { brandColors, currencySymbolMap } from '../../assets/constants'
 import PortfolioCard from './portfolioCard'
 import Footer from '../Other/footer'
 import GraphDown from '../../assets/images/downwards-dark-desktop.svg'
@@ -12,58 +11,25 @@ import GraphStraight from '../../assets/images/straight-dark-desktop.svg'
 import LoadingAssets from './loadingAssets'
 import LoadingPortfolio from './loadingPortfolio'
 import Splash from '../../assets/images/aboutDrawing2.png'
+import useAPICall from '../../hooks/useApiCall'
 
 export default function Portfolio () {
-  const dispatch = useDispatch()
-
-  const [totalBalance, setTotalBalance] = useState(0)
-  const [priceChange, setPriceChange] = useState(0)
-  const [percentChange, setPercentChange] = useState(0)
-  const [color, setColor] = useState('black')
-  const [graph, setGraph] = useState(GraphStraight)
-
   const user = useSelector(state => state.user)
   const currency = useSelector(state => state.currency)
-  const location = useSelector(state => state.location)
-  const portfolio = useSelector(state => state.portfolio.portfolioData)
   const loadingPortfolio = useSelector(state => state.portfolio.loadingPortfolio)
+  const portfolio = useSelector(state => state.portfolio.data)
+  const stats = useSelector(state => state.portfolio.stats)
 
-  useEffect(() => {
-    if (user) {
-      async function fetchPortfolio () {
-        const data = await getPortfolio(user.localId, currency, location)
-        dispatch(updatePortfolioData(data))
-        dispatch(setPortfolioLoading(false))
-      }
-      fetchPortfolio()
-    }
-  }, [currency])
+  useAPICall('portfolio', null)
 
-  useEffect(() => {
-    if (user) {
-      let price = 0
-      let priceChange = 0
-      let initialPrice = 0
+  const symbol = currencySymbolMap[currency]
+  const color = stats.priceChange === 0 ? 'textGrey' : (stats.priceChange > 0 ? 'upwards' : 'downwards')
+  const graph = stats.priceChange === 0 ? GraphStraight : (stats.priceChange > 0 ? GraphUp : GraphDown)
+  const percentChange = isNaN(stats.percentChange) ? 0 : stats.percentChange
 
-      for (let i = 0; i < portfolio.length; i++) {
-        price += portfolio[i].currentPrice
-        initialPrice += portfolio[i].price
-        priceChange += (portfolio[i].currentPrice - portfolio[i].price)
-      }
-
-      setTotalBalance(price)
-      setPriceChange(priceChange)
-      const newPercentChange = (priceChange / initialPrice * 100).toFixed(2)
-      if (!isNaN(newPercentChange)) {
-        setPercentChange((priceChange / initialPrice * 100).toFixed(2))
-      } else {
-        setPercentChange(0)
-      }
-
-      priceChange === 0 ? setColor('#8A8A8D') : (priceChange > 0 ? setColor('#34A853') : setColor('#EC3E26'))
-      priceChange === 0 ? setGraph(GraphStraight) : (priceChange > 0 ? setGraph(GraphUp) : setGraph(GraphDown))
-    }
-  }, [portfolio])
+  const portfolioComponents = portfolio.map((item, index) =>
+    <PortfolioCard key={item.record_id} item={item} index={index} />
+  )
 
   return (
     <div className='portfolio'>
@@ -75,11 +41,16 @@ export default function Portfolio () {
         <div className='portfolio-analytics'>
           <div className='portfolio-stats'>
             <p> Total Balance </p>
-            {!loadingPortfolio && <h1> ${totalBalance}.00 </h1>}
-            {!loadingPortfolio && <h4 style={{ color }}>
-              ${(priceChange)}.00 ({percentChange}%)
-            </h4>}
+
             {loadingPortfolio && <LoadingPortfolio />}
+
+            {!loadingPortfolio && <h1>
+              {symbol}{stats.total.toLocaleString('en')}.00
+            </h1>}
+
+            {!loadingPortfolio && <h4 style={{ color: brandColors[color] }}>
+              {symbol}{stats.priceChange.toLocaleString('en')}.00 ({percentChange}%)
+            </h4>}
           </div>
 
           {!loadingPortfolio && <img src={graph} alt='Portfolio trendline'/>}
@@ -99,15 +70,13 @@ export default function Portfolio () {
           <h3> My Portfolio </h3>
 
           <div className='portfolio-catalog'>
-            {!loadingPortfolio && portfolio && portfolio.length !== 0 && portfolio.map((item) => (
-              <PortfolioCard key={item.record_id} item={item} />
-            ))}
-
             {loadingPortfolio && <div>
               <LoadingAssets />
               <LoadingAssets />
               <LoadingAssets />
             </div>}
+
+            {!loadingPortfolio && portfolioComponents}
           </div>
         </div>
       </div>}

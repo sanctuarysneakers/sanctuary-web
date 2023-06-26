@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom'
 import { RemoveScroll } from 'react-remove-scroll'
 import { useSelector } from 'react-redux'
 import { useLocationDetection } from './hooks/useLocationDetection'
-
 import ProtectedRoute from './components/Routes/protectedRoute'
 import Navbar from './components/Other/navbar'
 import CreateAccountEmail from './components/Accounts/createAccountEmail'

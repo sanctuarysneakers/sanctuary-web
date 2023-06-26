@@ -1,4 +1,3 @@
-/* eslint-disable no-return-assign */
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import FadeIn from 'react-fade-in'
@@ -39,7 +38,9 @@ export default function Newsroom () {
         <div className='newsroom-latest-articles'>
           <h2> Latest Articles </h2>
 
-          <div className='newsroom-featured-article' onClick={() => document.location.href = `${ArticleData[0].path}`}>
+          <div className='newsroom-featured-article'
+            onClick={() => { document.location.href = `${ArticleData[0].path}` }}
+          >
             <div className='newsroom-featured-image' style={featuredImage} />
 
             <div className='newsroom-featured-gradient'>
