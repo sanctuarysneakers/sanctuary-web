@@ -1,5 +1,5 @@
 import { SafePromiseAll } from './helpers'
-import { getItemPrices } from './aggregator'
+import { goatLowestPrice } from './dataSources'
 import createRequestObject from './createRequest'
 
 export async function getPortfolioData (userID, currency, location) {
@@ -92,8 +92,12 @@ export function getPortfolioStats (portfolio) {
 }
 
 async function itemWithCurrentPrice (item, size, gender, currency, location) {
-  const results = await getItemPrices(item.data, size, gender, currency, location)
-  const prices = results.map(r => r.price).filter(price => price) // filter out undefined
-  item.currentPrice = prices[0]
+  const filter = {
+    size,
+    currency,
+    country: location.country_code
+  }
+  const goatPriceObject = await goatLowestPrice(item.data, filter)
+  item.currentPrice = goatPriceObject.price
   return item
 }
