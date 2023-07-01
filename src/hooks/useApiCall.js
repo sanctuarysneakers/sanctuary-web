@@ -73,7 +73,7 @@ export default function useAPICall (callType, params) {
   async function getFeaturedCollections () {
     const params = {
       currency,
-      ship_to: location.country_code
+      ship_to: location?.country_code
     }
 
     const featuredCollectionRequests = [
