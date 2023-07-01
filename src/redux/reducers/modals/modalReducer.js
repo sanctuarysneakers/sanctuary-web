@@ -66,11 +66,11 @@ const locationPopupReducer = (state = false, action) => {
   }
 }
 
-const portfolioModalReducer = (state = false, action) => {
+const portfolioItemModalReducer = (state = false, action) => {
   switch (action.type) {
-  case 'SHOW_PORTFOLIO_MODAL':
+  case 'SHOW_PORTFOLIO_ITEM_MODAL':
     return true
-  case 'HIDE_PORTFOLIO_MODAL':
+  case 'HIDE_PORTFOLIO_ITEM_MODAL':
     return false
   default:
     return state
@@ -132,7 +132,7 @@ const modals = combineReducers({
   deleteModalVisible: deleteModalVisibleReducer,
   hamburgerModalVisible: hamburgerModalVisibleReducer,
   socialsModalVisible: socialsModalReducer,
-  portfolioModalVisible: portfolioModalReducer
+  portfolioItemModalVisible: portfolioItemModalReducer
 })
 
 export default modals

@@ -95,10 +95,10 @@ export const updatePortfolioStats = portfolioStats => {
   }
 }
 
-export const updatePortfolioModalData = portfolioModalData => {
+export const updatePortfolioItemModalData = portfolioItemModalData => {
   return {
-    type: 'UPDATE_PORTFOLIO_MODAL_DATA',
-    payload: portfolioModalData
+    type: 'UPDATE_PORTFOLIO_ITEM_MODAL_DATA',
+    payload: portfolioItemModalData
   }
 }
 
@@ -291,15 +291,15 @@ export const hideSocialsModal = () => {
   }
 }
 
-export const showPortfolioModal = () => {
+export const showPortfolioItemModal = () => {
   return {
-    type: 'SHOW_PORTFOLIO_MODAL'
+    type: 'SHOW_PORTFOLIO_ITEM_MODAL'
   }
 }
 
-export const hidePortfolioModal = () => {
+export const hidePortfolioItemModal = () => {
   return {
-    type: 'HIDE_PORTFOLIO_MODAL'
+    type: 'HIDE_PORTFOLIO_ITEM_MODAL'
   }
 }
 

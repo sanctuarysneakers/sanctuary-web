@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom'
 import { RemoveScroll } from 'react-remove-scroll'
 import { useSelector } from 'react-redux'
 import { useLocationDetection } from './hooks/useLocationDetection'
-import ProtectedRoute from './components/Routes/protectedRoute'
 import Navbar from './components/Other/navbar'
 import CreateAccountEmail from './components/Accounts/createAccountEmail'
 import SignInEmail from './components/Accounts/signInEmail'
@@ -13,13 +12,12 @@ import Home from './components/Home/home'
 import Browse from './components/Browse/browse'
 import Item from './components/Item/item'
 import Portfolio from './components/Portfolio/portfolio'
-import PortfolioItem from './components/Portfolio/portfolioItem'
+import PortfolioItemModal from './components/Portfolio/portfolioItemModal'
 import AboutModal from './components/Modals/aboutModal'
 import HamburgerModal from './components/Modals/hamburgerModal'
 import DeleteModal from './components/Modals/deleteModal'
 import SearchModal from './components/Modals/searchModal'
 import CurrencyModal from './components/Modals/currencyModal'
-import PortfolioModal from './components/Modals/portfolioModal'
 import PageNotFound from './components/Other/pageNotFound'
 import ItemNotSupported from './components/Other/itemNotSupported'
 import PrivacyPolicy from './components/Other/privacyPolicy'
@@ -39,10 +37,9 @@ import BuyYourPair from './components/Newsroom/Articles/buyYourPair'
 export default function App () {
   useLocationDetection()
 
-  const user = useSelector(state => state.user)
   const locationPopup = useSelector(state => state.modals.locationPopupVisible)
   const currencyModalVisible = useSelector(state => state.modals.currencyModalVisible)
-  const portfolioModalVisible = useSelector(state => state.modals.portfolioModalVisible)
+  const portfolioItemModalVisible = useSelector(state => state.modals.portfolioItemModalVisible)
   const searchModalVisible = useSelector(state => state.modals.searchModalVisible)
   const aboutModalVisible = useSelector(state => state.modals.aboutModalVisible)
   const filtersModalVisible = useSelector(state => state.modals.filtersModalVisible)
@@ -66,7 +63,6 @@ export default function App () {
         <Route path="/forgot-password" component={ForgotPassword} />
         <Route path="/profile" component={Profile} />
         <Route path="/portfolio" component={Portfolio} />
-        <ProtectedRoute path="/portfolio-item" component={PortfolioItem} isEnabled={user !== null} />
         <Route path="/newsroom" component={Newsroom} />
         <Route path="/newsroom-sanctuary-our-story" component={SanctuaryStory} />
         <Route path="/newsroom-buy-your-pair" component={BuyYourPair} />
@@ -98,9 +94,9 @@ export default function App () {
           <CurrencyModal />
         </RemoveScroll>
       }
-      { portfolioModalVisible &&
+      { portfolioItemModalVisible &&
         <RemoveScroll>
-          <PortfolioModal />
+          <PortfolioItemModal />
         </RemoveScroll>
       }
       { aboutModalVisible &&

@@ -8,13 +8,13 @@ import GraphDown from '../../assets/images/downwards-light-desktop.svg'
 import GraphUp from '../../assets/images/upwards-light-desktop.svg'
 import GraphStraight from '../../assets/images/straight-light-desktop.svg'
 import {
-  hidePortfolioModal,
+  hidePortfolioItemModal,
   updateItemInfo,
   setItemPricesLoading,
   setItemListingsLoading
 } from '../../redux/actions'
 
-export default function PortfolioModal () {
+export default function PortfolioItemModal () {
   const dispatch = useDispatch()
   const wrapperRef = useRef(null)
 
@@ -39,7 +39,7 @@ export default function PortfolioModal () {
 
   const removeHandler = async () => {
     await removeFromPortfolio(item.record_id)
-    dispatch(hidePortfolioModal())
+    dispatch(hidePortfolioItemModal())
   }
 
   console.log(item)
@@ -47,7 +47,7 @@ export default function PortfolioModal () {
   return (
     <div className='portfolio-modal'>
       <div className='portfolio-modal-close'>
-        <button onClick={() => dispatch(hidePortfolioModal())}>
+        <button onClick={() => dispatch(hidePortfolioItemModal())}>
           <Close />
         </button>
       </div>
@@ -79,7 +79,7 @@ export default function PortfolioModal () {
 
             <Link
               className='portfolio-item-button'
-              onClick={() => dispatch(hidePortfolioModal())}
+              onClick={() => dispatch(hidePortfolioItemModal())}
               to={{ pathname: generateLink(), state: item.data }}
             >
               View Listing

@@ -33,9 +33,9 @@ const portfolioStatsReducer = (state = portfolioStatsInitialState, action) => {
   }
 }
 
-const portfolioModalDataReducer = (state = {}, action) => {
+const portfolioItemModalDataReducer = (state = {}, action) => {
   switch (action.type) {
-  case 'UPDATE_PORTFOLIO_MODAL_DATA':
+  case 'UPDATE_PORTFOLIO_ITEM_MODAL_DATA':
     return action.payload
   default:
     return state
@@ -46,7 +46,7 @@ const portfolio = combineReducers({
   loadingPortfolio: loadingPortfolioReducer,
   data: portfolioDataReducer,
   stats: portfolioStatsReducer,
-  modalData: portfolioModalDataReducer
+  modalData: portfolioItemModalDataReducer
 })
 
 export default portfolio

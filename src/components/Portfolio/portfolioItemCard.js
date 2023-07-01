@@ -1,19 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
-import { showPortfolioModal, updatePortfolioModalData } from '../../redux/actions'
+import { showPortfolioItemModal, updatePortfolioItemModalData } from '../../redux/actions'
 import { brandColors, currencySymbolMap } from '../../assets/constants'
 import { ReactComponent as RightArrow } from '../../assets/images/RightArrow.svg'
 
-export default function PortfolioCard ({ item }) {
+export default function PortfolioItemCard ({ item }) {
   const dispatch = useDispatch()
   const currency = useSelector(state => state.currency)
   const percentChange = (((item.currentPrice - item.price) / item.price) * 100).toFixed(2)
   const color = percentChange === 0 ? 'textGrey' : (percentChange > 0 ? 'upwards' : 'downwards')
 
   const handleClick = () => {
-    dispatch(updatePortfolioModalData(item))
-    dispatch(showPortfolioModal())
+    dispatch(updatePortfolioItemModalData(item))
+    dispatch(showPortfolioItemModal())
   }
 
   return (
@@ -48,6 +48,6 @@ export default function PortfolioCard ({ item }) {
   )
 }
 
-PortfolioCard.propTypes = {
+PortfolioItemCard.propTypes = {
   item: PropTypes.object
 }

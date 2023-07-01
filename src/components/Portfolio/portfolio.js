@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { brandColors, currencySymbolMap } from '../../assets/constants'
-import PortfolioCard from './portfolioCard'
+import PortfolioItemCard from './portfolioItemCard'
 import Footer from '../Other/footer'
 import GraphDown from '../../assets/images/downwards-dark-desktop.svg'
 import GraphUp from '../../assets/images/upwards-dark-desktop.svg'
@@ -28,7 +28,7 @@ export default function Portfolio () {
   const percentChange = isNaN(stats.percentChange) ? 0 : stats.percentChange
 
   const portfolioComponents = portfolio.map((item, index) =>
-    <PortfolioCard key={item.record_id} item={item} index={index} />
+    <PortfolioItemCard key={item.record_id} item={item} index={index} />
   )
 
   return (
