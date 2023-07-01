@@ -29,8 +29,7 @@ export async function getPortfolioData (userID, currency, location) {
 export async function addToPortfolio (data) {
   try {
     const request = createRequestObject('portfolio_add', data)
-    const response = await fetch(request.url, request.headers)
-    return await response.text()
+    return fetch(request.url, request.headers)
   } catch (err) {
     console.log(err)
   }
