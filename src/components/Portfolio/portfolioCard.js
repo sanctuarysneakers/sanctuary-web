@@ -1,21 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { showPortfolioModal, updatePortfolioModalData } from '../../redux/actions'
 import { brandColors, currencySymbolMap } from '../../assets/constants'
 import { ReactComponent as RightArrow } from '../../assets/images/RightArrow.svg'
 
 export default function PortfolioCard ({ item }) {
+  const dispatch = useDispatch()
   const currency = useSelector(state => state.currency)
   const percentChange = (((item.currentPrice - item.price) / item.price) * 100).toFixed(2)
   const color = percentChange === 0 ? 'textGrey' : (percentChange > 0 ? 'upwards' : 'downwards')
 
+  const handleClick = () => {
+    dispatch(updatePortfolioModalData(item))
+    dispatch(showPortfolioModal())
+  }
+
   return (
     <div className='portfolio-card'>
-      <Link className='portfolio-card-content' to={{
-        pathname: 'portfolio-item',
-        itemInfo: item
-      }}>
+      <div className='portfolio-card-content' onClick={handleClick}>
         <div className='portfolio-card-info'>
           <div className='portfolio-card-sneaker'>
             <img src={item.data.image} alt='sneaker' />
@@ -40,7 +43,7 @@ export default function PortfolioCard ({ item }) {
 
           <RightArrow />
         </div>
-      </Link>
+      </div>
     </div>
   )
 }

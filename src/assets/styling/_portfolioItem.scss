@@ -1,5 +1,7 @@
 .portfolio-item {
     background-color: white;
+    border-top-left-radius: 23px;
+    border-top-right-radius: 23px;
 
     .portfolio-item-info {
         display: flex;
@@ -21,7 +23,7 @@
                     width: 50px;
                     height: 50px;
                     border-radius: 999px;
-                    background-color: #F2F2F4;
+                    box-shadow: inset 0 0 1px #848489;
 
                     img {
                         width: 35px;

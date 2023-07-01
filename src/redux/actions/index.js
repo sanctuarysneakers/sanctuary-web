@@ -95,6 +95,13 @@ export const updatePortfolioStats = portfolioStats => {
   }
 }
 
+export const updatePortfolioModalData = portfolioModalData => {
+  return {
+    type: 'UPDATE_PORTFOLIO_MODAL_DATA',
+    payload: portfolioModalData
+  }
+}
+
 // Browse Filter Actions
 
 export const toggleBrowseBrand = brand => {
@@ -281,6 +288,18 @@ export const showSocialsModal = () => {
 export const hideSocialsModal = () => {
   return {
     type: 'HIDE_SOCIALS_MODAL'
+  }
+}
+
+export const showPortfolioModal = () => {
+  return {
+    type: 'SHOW_PORTFOLIO_MODAL'
+  }
+}
+
+export const hidePortfolioModal = () => {
+  return {
+    type: 'HIDE_PORTFOLIO_MODAL'
   }
 }
 
