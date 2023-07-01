@@ -12,7 +12,7 @@ export async function stockxLowestPrice (item, filter) {
       ship_to: filter.country
     })
     const response = await fetch(request.url, request.headers)
-    if (!response.ok) return []
+    if (!response.ok) return {}
 
     const itemData = await response.json()
     return itemData
@@ -33,7 +33,7 @@ export async function footlockerLowestPrice (item, filter) {
       ship_to: filter.country
     })
     const response = await fetch(request.url, request.headers)
-    if (!response.ok) return []
+    if (!response.ok) return {}
 
     const itemData = await response.json()
     return itemData
@@ -120,7 +120,7 @@ export async function flightclubLowestPrice (item, filter) {
 
     return itemData
   } catch (e) {
-    return []
+    return {}
   }
 }
 

@@ -14,10 +14,10 @@ export async function getPortfolioData (userID, currency, location) {
     portfolio.forEach(item => { item.data = JSON.parse(item.data) })
 
     // Get current prices for each item
-    const reqs = portfolio.map(item => itemWithCurrentPrice(
+    const itemsWithCurrentPricePromises = portfolio.map(item => itemWithCurrentPrice(
       item, item.size, item.gender, currency, location
     ))
-    portfolio = await SafePromiseAll(reqs)
+    portfolio = await SafePromiseAll(itemsWithCurrentPricePromises)
 
     return portfolio
   } catch (err) {
@@ -29,8 +29,7 @@ export async function getPortfolioData (userID, currency, location) {
 export async function addToPortfolio (data) {
   try {
     const request = createRequestObject('portfolio_add', data)
-    const response = await fetch(request.url, request.headers)
-    return await response.text()
+    return fetch(request.url, request.headers)
   } catch (err) {
     console.log(err)
   }

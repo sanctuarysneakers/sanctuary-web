@@ -48,12 +48,6 @@ export default function Navbar () {
               Newsroom
             </Link>
 
-            {/* {!user &&
-              <div className="login"
-                onClick={() => { document.location.href = '/sign-in-email' }}>
-                Log in
-            </div>} */}
-
             {!user &&
             <div className="create-account"
               onClick={() => { document.location.href = '/sign-in-email' }}>

@@ -29,7 +29,7 @@ export async function getItemPrices (item, size, gender, currency, location) {
     currency
   }
 
-  let results = await SafePromiseAll([
+  const results = await SafePromiseAll([
     stockxLowestPrice(item, filter),
     footlockerLowestPrice(item, filter),
     ebayLowestPrice(item, filter),
@@ -38,10 +38,7 @@ export async function getItemPrices (item, size, gender, currency, location) {
     klektLowestPrice(item, filter)
   ])
 
-  results = results.filter(elements => { return elements !== null })
-  results = results.filter(r => r.price !== 0)
-  results.sort((a, b) => a.price - b.price)
-  return results
+  return filterAndSort(results)
 }
 
 export async function getItemListings (item, size, gender, currency, location) {
@@ -53,17 +50,13 @@ export async function getItemListings (item, size, gender, currency, location) {
     currency
   }
 
-  let results = await SafePromiseAll([
+  const results = await SafePromiseAll([
     ebayListings(item, filter),
     depopListings(item, filter),
     grailedListings(item, filter)
   ])
 
-  results = results.flat()
-  results = results.filter(elements => { return elements !== null })
-  results = results.filter(r => r.price !== 0)
-  results.sort((a, b) => a.price - b.price)
-  return results
+  return filterAndSort(results, true)
 }
 
 export async function getRelatedItems (itemInfo, currency) {
@@ -80,5 +73,14 @@ export async function getRelatedItems (itemInfo, currency) {
   const results = await response.json()
   if (!results.length) return []
 
+  return results
+}
+
+function filterAndSort (results, listings = false) {
+  if (listings) { results = results.flat() }
+
+  results = results.filter(elements => { return elements !== null })
+  results = results.filter(r => r.price !== 0)
+  results.sort((a, b) => a.price - b.price)
   return results
 }
