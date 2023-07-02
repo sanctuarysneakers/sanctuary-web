@@ -1,3 +1,12 @@
+// User Account Actions
+
+export const setUser = user => {
+  return {
+    type: 'SET_USER',
+    payload: user
+  }
+}
+
 // Data Actions
 
 export const browseCall = data => {
@@ -63,6 +72,36 @@ export const setRelatedItemsLoading = isLoading => {
   }
 }
 
+// Portfolio Actions
+
+export const setPortfolioLoading = isLoading => {
+  return {
+    type: 'LOADING_PORTFOLIO',
+    payload: isLoading
+  }
+}
+
+export const updatePortfolioData = portfolioData => {
+  return {
+    type: 'UPDATE_PORTFOLIO_DATA',
+    payload: portfolioData
+  }
+}
+
+export const updatePortfolioStats = portfolioStats => {
+  return {
+    type: 'UPDATE_PORTFOLIO_STATS',
+    payload: portfolioStats
+  }
+}
+
+export const updatePortfolioItemModalData = portfolioItemModalData => {
+  return {
+    type: 'UPDATE_PORTFOLIO_ITEM_MODAL_DATA',
+    payload: portfolioItemModalData
+  }
+}
+
 // Browse Filter Actions
 
 export const toggleBrowseBrand = brand => {
@@ -101,12 +140,32 @@ export const updateCurrency = currency => {
   }
 }
 
-// User Account Actions
-
-export const setUser = user => {
+export const updateSize = size => {
   return {
-    type: 'SET_USER',
-    payload: user
+    type: 'UPDATE_SIZE',
+    payload: size
+  }
+}
+
+// Location action
+
+export const updateLocation = json => {
+  return {
+    type: 'UPDATE_LOCATION',
+    payload: json
+  }
+}
+
+export const showLocationPopup = data => {
+  return {
+    type: 'SHOW_LOCATION_POPUP',
+    payload: data
+  }
+}
+
+export const hideLocationPopup = () => {
+  return {
+    type: 'HIDE_LOCATION_POPUP'
   }
 }
 
@@ -232,6 +291,18 @@ export const hideSocialsModal = () => {
   }
 }
 
+export const showPortfolioItemModal = () => {
+  return {
+    type: 'SHOW_PORTFOLIO_ITEM_MODAL'
+  }
+}
+
+export const hidePortfolioItemModal = () => {
+  return {
+    type: 'HIDE_PORTFOLIO_ITEM_MODAL'
+  }
+}
+
 // Search Bar visible/disable per page
 
 export const showHomeSeach = () => {
@@ -260,51 +331,11 @@ export const expandBar = () => {
   }
 }
 
-// Global Values
+// Misc
 
 export const recordSplashHeight = splashHeight => {
   return {
     type: 'RECORD_SPLASH_HEIGHT',
     payload: splashHeight
-  }
-}
-
-// Location action
-
-export const updateLocation = json => {
-  return {
-    type: 'UPDATE_LOCATION',
-    payload: json
-  }
-}
-
-export const showLocationPopup = data => {
-  return {
-    type: 'SHOW_LOCATION_POPUP',
-    payload: data
-  }
-}
-
-export const hideLocationPopup = () => {
-  return {
-    type: 'HIDE_LOCATION_POPUP'
-  }
-}
-
-// Update size
-
-export const updateSize = size => {
-  return {
-    type: 'UPDATE_SIZE',
-    payload: size
-  }
-}
-
-// Redirect action (mobile auth)
-
-export const setRedirectUrl = url => {
-  return {
-    type: 'SET_REDIRECT_URL',
-    payload: url
   }
 }

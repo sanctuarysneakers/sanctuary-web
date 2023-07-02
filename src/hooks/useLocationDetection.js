@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateLocation, updateCurrency } from '../redux/actions'
-import { supportedCurrencies } from '../assets/constants'
+import { apiURL, supportedCurrencies } from '../assets/constants'
 
 export async function getLocation () {
-  const response = await fetch('https://hdwj2rvqkb.us-west-2.awsapprunner.com/location')
+  const response = await fetch(`${apiURL}/location`)
   const data = await response.json()
   return data
 }

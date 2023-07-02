@@ -56,6 +56,10 @@
 @import "./homeApp";
 @import "./carousel";
 @import "./carouselCard";
+@import "./portfolio";
+@import "./portfolioItem";
+@import "./portfolioItemCard";
+@import "./portfolioItemModal";
 @import "./howItWorksSplash";
 @import "./howItWorksInfo";
 @import "./howItWorksSites";
@@ -65,6 +69,8 @@
 @import "./browseFilterDropdown";
 @import "./socialsModal";
 @import "./dynamicList";
+@import "./loadingPortfolio";
+@import "./loadingAssets";
 
 @import "swiper/swiper";
 @import "swiper/components/navigation/navigation";

@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { HelmetProvider } from 'react-helmet-async'
 import { useParams, useLocation } from 'react-router'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import { showSocialsModal } from '../../redux/actions'
+import { addToPortfolio } from '../../api/portfolioFunctions'
 import SizeFilter from './sizeFilter'
 import SizeModal from '../Modals/sizeModal'
 import SocialsModal from '../Modals/socialsModal'
@@ -13,8 +15,8 @@ import ItemListing from './itemListing'
 import ItemLoader from './itemLoader'
 import ItemNoResults from './itemNoResults'
 import Footer from '../Other/footer'
-import { showSocialsModal } from '../../redux/actions'
 import { ReactComponent as Share } from '../../assets/images/share.svg'
+import { ReactComponent as Add } from '../../assets/images/add-icon.svg'
 import { websiteLogoMapGrey, currencySymbolMap } from '../../assets/constants'
 import DynamicList from '../Other/dynamicList'
 import Carousel from '../Home/Carousels/carousel'
@@ -24,26 +26,21 @@ export default function Item () {
   const navLocation = useLocation()
 
   const { itemKey, gender } = useParams()
-  const currency = useSelector(state => state.currency)
+
+  const user = useSelector(state => state.user)
   const size = useSelector(state => state.size)
-
-  useAPICall('getitem', {
-    itemKey: decodeURIComponent(itemKey),
-    gender,
-    size,
-    fromBrowse: navLocation.state
-  })
-
+  const currency = useSelector(state => state.currency)
   const itemInfo = useSelector(state => state.item.itemInfo)
   const itemPrices = useSelector(state => state.item.itemPrices)
   const itemListings = useSelector(state => state.item.itemListings)
   const relatedItems = useSelector(state => state.item.relatedItems)
-
   const pricesLoading = useSelector(state => state.item.loadingItemPrices)
   const listingsLoading = useSelector(state => state.item.loadingItemListings)
   const relatedLoading = useSelector(state => state.item.relatedItemsLoading)
   const sizeModalVisible = useSelector(state => state.modals.sizeModalVisible)
   const socialsModalVisible = useSelector(state => state.modals.socialsModalVisible)
+
+  const [isAddedToPortfolio, setIsAddedToPortfolio] = useState(false)
 
   const priceComponents = itemPrices.map((item, index) =>
     <ItemPrice key={item.source} data={item} index={index}
@@ -54,6 +51,27 @@ export default function Item () {
     <ItemListing key={item.id} data={item} index={index}
       length={itemListings.length} />
   )
+
+  useAPICall('getitem', {
+    itemKey: decodeURIComponent(itemKey),
+    gender,
+    size,
+    fromBrowse: navLocation.state
+  })
+
+  const addToPortfolioHandler = async () => {
+    const newPortfolioEntry = {
+      user_id: user.localId,
+      sku: itemInfo.sku,
+      item_data: JSON.stringify(itemInfo),
+      size,
+      gender,
+      price: itemPrices[0].price,
+      currency
+    }
+    await addToPortfolio(newPortfolioEntry)
+    setIsAddedToPortfolio(true)
+  }
 
   return (
     <div className='item'>
@@ -68,6 +86,11 @@ export default function Item () {
       <div className='item-sneaker'>
         <div className='item-sneaker-wrapper'>
           <div className='item-sneaker-actions'>
+            {user && !isAddedToPortfolio && !pricesLoading &&
+            <button className='add-to-portfolio-btn' onClick={addToPortfolioHandler}>
+              <Add />
+            </button>}
+
             <div className='item-sneaker-share' onClick={() => dispatch(showSocialsModal())}>
               <Share />
             </div>
@@ -98,7 +121,6 @@ export default function Item () {
                 {pricesLoading && <ItemLoader version={'info'} />}
                 {!pricesLoading && <div className='item-sneaker-price-details'>
                   {itemPrices.length
-
                     ? <Link to={{ pathname: itemPrices[0].url }} className="hidden-link" target="_blank" rel="noopener noreferrer">
                       <div className='item-sneaker-price'>
                         <h2>

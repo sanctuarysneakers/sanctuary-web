@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-
+import { hideHomeSearch, setUser } from '../../redux/actions'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../firebaseConfig'
-
-import { hideHomeSearch, setUser } from '../../redux/actions'
 import Footer from '../Other/footer'
 
 export default function CreateAccountEmail () {

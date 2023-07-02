@@ -33,6 +33,17 @@ const deleteModalVisibleReducer = (state = false, action) => {
   }
 }
 
+const filtersModalReducer = (state = false, action) => {
+  switch (action.type) {
+  case 'SHOW_FILTERS_MODAL':
+    return true
+  case 'HIDE_FILTERS_MODAL':
+    return false
+  default:
+    return state
+  }
+}
+
 const hamburgerModalVisibleReducer = (state = false, action) => {
   switch (action.type) {
   case 'SHOW_HAMBURGER_MODAL':
@@ -49,6 +60,17 @@ const locationPopupReducer = (state = false, action) => {
   case 'SHOW_LOCATION_POPUP':
     return action.payload
   case 'HIDE_LOCATION_POPUP':
+    return false
+  default:
+    return state
+  }
+}
+
+const portfolioItemModalReducer = (state = false, action) => {
+  switch (action.type) {
+  case 'SHOW_PORTFOLIO_ITEM_MODAL':
+    return true
+  case 'HIDE_PORTFOLIO_ITEM_MODAL':
     return false
   default:
     return state
@@ -77,11 +99,11 @@ const sizeModalReducer = (state = false, action) => {
   }
 }
 
-const filtersModalReducer = (state = false, action) => {
+const socialsModalReducer = (state = false, action) => {
   switch (action.type) {
-  case 'SHOW_FILTERS_MODAL':
+  case 'SHOW_SOCIALS_MODAL':
     return true
-  case 'HIDE_FILTERS_MODAL':
+  case 'HIDE_SOCIALS_MODAL':
     return false
   default:
     return state
@@ -99,17 +121,6 @@ const sortByModalReducer = (state = false, action) => {
   }
 }
 
-const socialsModalReducer = (state = false, action) => {
-  switch (action.type) {
-  case 'SHOW_SOCIALS_MODAL':
-    return true
-  case 'HIDE_SOCIALS_MODAL':
-    return false
-  default:
-    return state
-  }
-}
-
 const modals = combineReducers({
   filtersModalVisible: filtersModalReducer,
   sortByModalVisible: sortByModalReducer,
@@ -120,7 +131,8 @@ const modals = combineReducers({
   currencyModalVisible: currencyModalReducer,
   deleteModalVisible: deleteModalVisibleReducer,
   hamburgerModalVisible: hamburgerModalVisibleReducer,
-  socialsModalVisible: socialsModalReducer
+  socialsModalVisible: socialsModalReducer,
+  portfolioItemModalVisible: portfolioItemModalReducer
 })
 
 export default modals

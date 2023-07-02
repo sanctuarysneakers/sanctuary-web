@@ -1,7 +1,5 @@
 import createRequestObject from './createRequest'
 
-// lowest prices
-
 export async function stockxLowestPrice (item, filter) {
   try {
     const model = item.model.replace('(W)', '')
@@ -34,12 +32,10 @@ export async function footlockerLowestPrice (item, filter) {
       currency: filter.currency,
       ship_to: filter.country
     })
-
     const response = await fetch(request.url, request.headers)
     if (!response.ok) return {}
 
     const itemData = await response.json()
-
     return itemData
   } catch (e) {
     return {}
@@ -48,7 +44,7 @@ export async function footlockerLowestPrice (item, filter) {
 
 export async function ebayLowestPrice (item, filter) {
   try {
-    const model = item.model.replace('(W)', '').concat(' ', item.sku)
+    const model = item.model.replace('(W)', '')
     const request = createRequestObject('ebay', {
       model_name: model,
       size: filter.size,
@@ -99,7 +95,9 @@ export async function goatLowestPrice (item, filter) {
 
     const response = await fetch(request.url, request.headers)
     if (!response.ok) return {}
+
     const itemData = await response.json()
+
     return itemData
   } catch (e) {
     return {}
@@ -114,16 +112,17 @@ export async function flightclubLowestPrice (item, filter) {
       currency: filter.currency,
       ship_to: filter.country
     })
+
     const response = await fetch(request.url, request.headers)
     if (!response.ok) return {}
+
     const itemData = await response.json()
+
     return itemData
   } catch (e) {
     return {}
   }
 }
-
-// listings
 
 export async function ebayListings (item, filter) {
   try {
@@ -140,7 +139,6 @@ export async function ebayListings (item, filter) {
     if (!response.ok) return []
 
     const itemData = await response.json()
-
     return itemData
   } catch (e) {
     return []
@@ -162,7 +160,6 @@ export async function depopListings (item, filter) {
     if (!response.ok) return []
 
     const itemData = await response.json()
-
     return itemData
   } catch (e) {
     return []
@@ -183,7 +180,6 @@ export async function grailedListings (item, filter) {
     if (!response.ok) return []
 
     const itemData = await response.json()
-
     return itemData
   } catch (e) {
     return []

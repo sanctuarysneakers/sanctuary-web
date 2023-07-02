@@ -12,6 +12,7 @@ import redirectReducer from './redirectReducer'
 import browseReducer from './browse/browseReducer'
 import itemReducer from './item/itemReducer'
 import modalReducer from './modals/modalReducer'
+import portfolioReducer from './portfolio/portfolioReducer'
 
 const globalReducer = combineReducers({
   size: sizeReducer,
@@ -23,7 +24,8 @@ const globalReducer = combineReducers({
 
   item: itemReducer,
   modals: modalReducer,
-  browse: browseReducer
+  browse: browseReducer,
+  portfolio: portfolioReducer
 })
 
 export default globalReducer

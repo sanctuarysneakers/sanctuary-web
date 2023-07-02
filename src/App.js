@@ -3,15 +3,16 @@ import { Switch, Route } from 'react-router-dom'
 import { RemoveScroll } from 'react-remove-scroll'
 import { useSelector } from 'react-redux'
 import { useLocationDetection } from './hooks/useLocationDetection'
-
+import Navbar from './components/Other/navbar'
 import CreateAccountEmail from './components/Accounts/createAccountEmail'
 import SignInEmail from './components/Accounts/signInEmail'
 import ForgotPassword from './components/Accounts/forgotPassword'
 import Profile from './components/Accounts/profile'
-import Navbar from './components/Other/navbar'
 import Home from './components/Home/home'
 import Browse from './components/Browse/browse'
 import Item from './components/Item/item'
+import Portfolio from './components/Portfolio/portfolio'
+import PortfolioItemModal from './components/Portfolio/portfolioItemModal'
 import AboutModal from './components/Modals/aboutModal'
 import HamburgerModal from './components/Modals/hamburgerModal'
 import DeleteModal from './components/Modals/deleteModal'
@@ -38,11 +39,13 @@ export default function App () {
 
   const locationPopup = useSelector(state => state.modals.locationPopupVisible)
   const currencyModalVisible = useSelector(state => state.modals.currencyModalVisible)
+  const portfolioItemModalVisible = useSelector(state => state.modals.portfolioItemModalVisible)
   const searchModalVisible = useSelector(state => state.modals.searchModalVisible)
   const aboutModalVisible = useSelector(state => state.modals.aboutModalVisible)
   const filtersModalVisible = useSelector(state => state.modals.filtersModalVisible)
   const sortByModalVisible = useSelector(state => state.modals.sortByModalVisible)
   const deleteModalVisible = useSelector(state => state.modals.deleteModalVisible)
+
   return (
     <React.Fragment>
       <Navbar />
@@ -59,6 +62,7 @@ export default function App () {
         <Route path="/sign-in-email" component={SignInEmail} />
         <Route path="/forgot-password" component={ForgotPassword} />
         <Route path="/profile" component={Profile} />
+        <Route path="/portfolio" component={Portfolio} />
         <Route path="/newsroom" component={Newsroom} />
         <Route path="/newsroom-sanctuary-our-story" component={SanctuaryStory} />
         <Route path="/newsroom-buy-your-pair" component={BuyYourPair} />
@@ -88,6 +92,11 @@ export default function App () {
       { currencyModalVisible &&
         <RemoveScroll>
           <CurrencyModal />
+        </RemoveScroll>
+      }
+      { portfolioItemModalVisible &&
+        <RemoveScroll>
+          <PortfolioItemModal />
         </RemoveScroll>
       }
       { aboutModalVisible &&

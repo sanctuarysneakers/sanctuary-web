@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAuth, signOut } from 'firebase/auth'
-
-import ProfileIcon from '../../assets/images/icons/profileIcon'
 import { setUser } from '../../redux/actions'
+import { getAuth, signOut } from 'firebase/auth'
+import ProfileIcon from '../../assets/images/icons/profileIcon'
 import Footer from '../Other/footer'
 
 export default function Profile () {

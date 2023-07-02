@@ -1,4 +1,3 @@
-/* eslint-disable no-return-assign */
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -8,7 +7,9 @@ export default function ArticleCard ({ data }) {
   }
 
   return (
-    <div className='article-card' onClick={() => document.location.href = `${data.path}` }>
+    <div className='article-card'
+      onClick={() => { document.location.href = `${data.path}` }}
+    >
       <div className='article-card-image' style={articleImage} />
 
       <div className='article-card-text'>
