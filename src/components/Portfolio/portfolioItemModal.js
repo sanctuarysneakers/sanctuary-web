@@ -39,10 +39,8 @@ export default function PortfolioItemModal () {
 
   const removeHandler = async () => {
     await removeFromPortfolio(item.record_id)
-    dispatch(hidePortfolioItemModal())
+    window.location.href = '/portfolio'
   }
-
-  console.log(item)
 
   return (
     <div className='portfolio-modal'>
