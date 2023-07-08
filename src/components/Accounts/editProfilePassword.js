@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getAuth, updatePassword } from 'firebase/auth'
-import { hideHomeSearch, setUser } from '../../redux/actions'
+import { setUser } from '../../redux/actions'
 import Footer from '../Other/footer'
 
 export default function EditProfilePassword () {
   const dispatch = useDispatch()
+  const auth = getAuth()
+
   const [newPassword, setNewPassword] = useState('')
   const [newConfirmPassword, setNewConfirmPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+
   const user = useSelector(state => state.user)
-
-  const auth = getAuth()
-
-  dispatch(hideHomeSearch())
 
   useEffect(() => {
     if (!user) {

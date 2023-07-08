@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getAuth, updateProfile } from 'firebase/auth'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { hideHomeSearch, setUser } from '../../redux/actions'
+import { setUser } from '../../redux/actions'
 import Footer from '../Other/footer'
 
 export default function EditProfileName () {
@@ -11,8 +11,6 @@ export default function EditProfileName () {
   const dispatch = useDispatch()
   const [newName, setNewName] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
-
-  dispatch(hideHomeSearch())
 
   const user = useSelector(state => state.user)
 

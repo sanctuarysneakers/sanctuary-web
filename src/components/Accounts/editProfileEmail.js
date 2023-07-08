@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getAuth, updateEmail } from 'firebase/auth'
 import { useSelector, useDispatch } from 'react-redux'
-import { hideHomeSearch, setUser } from '../../redux/actions'
+import { setUser } from '../../redux/actions'
 import Footer from '../Other/footer'
 
 export default function EditProfileEmail () {
@@ -11,8 +11,6 @@ export default function EditProfileEmail () {
   const [newEmail, setNewEmail] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const user = useSelector(state => state.user)
-
-  dispatch(hideHomeSearch())
 
   useEffect(() => {
     if (!user) {
