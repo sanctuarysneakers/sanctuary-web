@@ -33,6 +33,9 @@ import AdidasCarbon3D from './components/Newsroom/Articles/adidasCarbon3D'
 import TopDrops2020 from './components/Newsroom/Articles/topDrops2020'
 import SneakerMarket from './components/Newsroom/Articles/sneakerMarket'
 import BuyYourPair from './components/Newsroom/Articles/buyYourPair'
+import EditProfileName from './components/Accounts/editProfileName'
+import EditProfileEmail from './components/Accounts/editProfileEmail'
+import EditProfilePassword from './components/Accounts/editProfilePassword'
 
 export default function App () {
   useLocationDetection()
@@ -62,6 +65,9 @@ export default function App () {
         <Route path="/sign-in-email" component={SignInEmail} />
         <Route path="/forgot-password" component={ForgotPassword} />
         <Route path="/profile" component={Profile} />
+        <Route path="/profile-edit-name" component={EditProfileName} />
+        <Route path="/profile-edit-email" component={EditProfileEmail} />
+        <Route path="/profile-edit-password" component={EditProfilePassword} />
         <Route path="/portfolio" component={Portfolio} />
         <Route path="/newsroom" component={Newsroom} />
         <Route path="/newsroom-sanctuary-our-story" component={SanctuaryStory} />
