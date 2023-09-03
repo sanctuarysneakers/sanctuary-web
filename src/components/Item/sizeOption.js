@@ -9,7 +9,7 @@ export default function SizeOption ({ sizeOption, sizeState, gender, inBrowseFil
   const browseGender = useSelector(state => state.browse.filters.gender)
 
   const isCurrent = sizeOption === sizeState && gender === browseGender
-  const genderSymbol = gender === 'men' ? 'M' : 'W'
+  const genderSymbol = gender === 'women' ? 'W' : 'M'
 
   const handleSizeChange = () => {
     dispatch(updateSize(sizeOption))

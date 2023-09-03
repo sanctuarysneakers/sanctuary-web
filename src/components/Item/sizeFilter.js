@@ -7,7 +7,7 @@ import { ReactComponent as DownArrow } from '../../assets/images/arrowDown.svg'
 export default function SizeFilter ({ gender }) {
   const dispatch = useDispatch()
   const size = useSelector(state => state.size)
-  const genderSymbol = (gender === 'men') ? 'M' : 'W'
+  const genderSymbol = (gender === 'women') ? 'W' : 'M'
 
   return (
     <div className='size-filter' onClick={() => dispatch(showSizeModal())}>
