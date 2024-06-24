@@ -7,6 +7,7 @@ import { ReactComponent as SanctuaryLogo } from '../../assets/images/SanctuaryLo
 import { ReactComponent as Search } from '../../assets/images/Search.svg'
 import { ReactComponent as Hamburger } from '../../assets/images/Hamburger.svg'
 import ProfileIcon from '../../assets/images/icons/profileIcon'
+import SearchBox from '../Search/searchBox'
 
 export default function Navbar () {
   const dispatch = useDispatch()
@@ -33,9 +34,11 @@ export default function Navbar () {
           <Link className='sanctuary-logo' to='/'>
             <SanctuaryLogo />
           </Link>
-
           <div className='navbar-links'>
-            <Search onClick={() => dispatch(showSearchModal())} />
+            {
+              // <Search onClick={() => dispatch(showSearchModal())} />
+            }
+            <SearchBox/>
             <Link onClick={() => { document.location.href = '/browse' }} to='/browse'>
               Browse
             </Link>
