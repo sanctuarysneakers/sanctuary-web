@@ -13,7 +13,7 @@ export default function BuyYourPair () {
   return (
     <div className='newsroom-article'>
       <Helmet>
-        <title>Sanctuary: Newsroom</title>
+        <title>Colorway: Newsroom</title>
       </Helmet>
       <div className='newsroom-article-content'>
         <div className='newsroom-article-header'>
@@ -150,7 +150,7 @@ export default function BuyYourPair () {
 
           <p>
             Sneakers can be expensive. Luckily, you don&apos;t need to break the bank to find a pair you&apos;ll love.
-            At Sanctuary, we aggregate prices from all the best sneaker resale sites onto one platform.
+            At Colorway, we aggregate prices from all the best sneaker resale sites onto one platform.
             We&apos;ve done the heavy lifting for you; just name your shoe, and we&apos;ll show you the best deals.
           </p>
 

@@ -26,7 +26,7 @@ export default function ForgotPassword () {
     <div className='email-form'>
       <div className='email-form-content'>
         <div className='email-form-header'>
-          <img src={sanctuary} alt='Sanctuary' />
+          <img src={sanctuary} alt='Colorway' />
           <h2> Forgot Password </h2>
           <p> Enter your email address </p>
           <p> to reset your password. </p>

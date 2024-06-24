@@ -14,10 +14,10 @@ export default function TermsOfUse () {
     <div className="terms-of-use">
 
       <Helmet>
-        <title>Sanctuary Sneakers | Terms of Use</title>
+        <title>Colorway Sneakers | Terms of Use</title>
         <meta
           name="description"
-          content="Sanctuary Sneakers Terms of Use"
+          content="Colorway Sneakers Terms of Use"
         />
       </Helmet>
 
@@ -63,7 +63,7 @@ export default function TermsOfUse () {
                 <p>
                   <strong>Company</strong> (referred to as either &quot;the Company&quot;,
                   &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to
-                  Sanctuary Streetwear Marketplace Inc.
+                  Colorway Streetwear Marketplace Inc.
                 </p>
               </li>
 
@@ -97,7 +97,7 @@ export default function TermsOfUse () {
               </li>
 
               <li>
-                <p><strong>Website</strong> refers to Sanctuary, accessible from <a href="https://sanctuarysneakers.com/"
+                <p><strong>Website</strong> refers to Colorway, accessible from <a href="https://sanctuarysneakers.com/"
                   rel="external nofollow noopener noreferrer" target="_blank"> sanctuarysneakers.com</a></p>
               </li>
 
@@ -254,7 +254,7 @@ export default function TermsOfUse () {
             </div>
             <p>If you have any questions about these Terms and Conditions, You can contact us:</p>
             <ul>
-              <li><p>By email: contact@sanctuarysneakers.com</p></li>
+              <li><p>By email: contact@origionalcolorway.com</p></li>
             </ul>
             <img src={lastLogo} alt="shoes" />
 

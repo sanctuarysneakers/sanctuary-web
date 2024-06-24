@@ -92,7 +92,7 @@ export default function SignInEmail () {
           </div>
 
           <div className='account-terms-policy'>
-            <p> By signing in, you agree to Sanctuary&apos;s </p>
+            <p> By signing in, you agree to Colorway&apos;s </p>
             <div className='terms-policy-text'>
 
               <Link to="/privacy-policy" className='terms-policy-pop-up'>

@@ -34,7 +34,7 @@ export default function Portfolio () {
   return (
     <div className='portfolio'>
       <Helmet>
-        <title>Sanctuary: Portfolio</title>
+        <title>Colorway: Portfolio</title>
       </Helmet>
 
       {user && <div className='portfolio-dashboard'>

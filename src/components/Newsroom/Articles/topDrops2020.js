@@ -12,7 +12,7 @@ export default function TopDrops2020 () {
   return (
     <div className='newsroom-article'>
       <Helmet>
-        <title>Sanctuary: Newsroom</title>
+        <title>Colorway: Newsroom</title>
       </Helmet>
       <div className='newsroom-article-content'>
         <div className='newsroom-article-header'>
@@ -38,7 +38,7 @@ export default function TopDrops2020 () {
           <p> From major global events to the rise of a worldwide pandemic, it is safe to say that 2020 will not be
             forgotten anytime soon. Although it was a very busy year, 2020 gave the sneaker community many exciting
             releases, ranging from newly engineered designs to highly anticipated collaborations. As a year
-            to remember, here are some of Sanctuary’s favourite sneaker drops of 2020:
+            to remember, here are some of Colorway’s favourite sneaker drops of 2020:
           </p>
 
           <h4>Ben &amp; Jerry’s x Nike SB Dunk Low ‘Chunky Dunky’</h4>

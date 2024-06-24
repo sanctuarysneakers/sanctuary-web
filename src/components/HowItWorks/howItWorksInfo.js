@@ -19,7 +19,7 @@ export default function HowItWorksInfo () {
           <FadeIn visible={render} delay={350} transitionDuration={1200}>
             <h1>How it works.</h1>
             <p>
-              Sanctuary aims to provide the best possible deals on any
+              Colorway aims to provide the best possible deals on any
               streetwear or sneakers you could want. Our mission is to
               evolve the paradigm of fashion by leveraging big data,
               analytics, and artificial intelligence to provide one

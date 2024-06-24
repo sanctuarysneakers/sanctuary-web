@@ -12,7 +12,7 @@ export const ArticleData = [
     path: '/newsroom-buy-your-pair'
   },
   {
-    title: 'Sanctuary: Our story',
+    title: 'Colorway: Our story',
     date: 'April 20, 2021',
     image: Sanctuary3D,
     path: '/newsroom-sanctuary-our-story'

@@ -14,7 +14,7 @@ export default function ItemNotSupported () {
     <div className="pageNotFoundText">
       <div className='pageNotFoundText-content'>
         <Helmet>
-          <title>Sanctuary Sneakers | Item Not Supported</title>
+          <title>Colorway Sneakers | Item Not Supported</title>
           <meta
             name="description"
             content="Sorry, this item isn't supported yet."

@@ -4,9 +4,7 @@ import { use100vh } from 'react-div-100vh'
 import { useMediaQuery } from 'react-responsive'
 import { Helmet } from 'react-helmet'
 import { recordSplashHeight } from '../../redux/actions'
-import HomeSplash from './homeSplash'
 import HomeTrending from './homeTrending'
-import HomeNewsroom from './homeNewsroom'
 import HomeApp from './homeApp'
 import Footer from '../Other/footer'
 
@@ -24,21 +22,25 @@ export default function Home () {
   return (
     <div>
       <Helmet>
-        <title>Sanctuary: Sneaker Price Comparison and Market Data</title>
+        <title>Colorway: Sneaker Price Comparison and Market Data</title>
         <meta
           name="description"
-          content="Sanctuary Sneakers collects all available sneaker market data in one place so you can
-                             compare and find the best prices. Sanctuary lets you see real-time prices, new inventory,
+          content="Colorway Sneakers collects all available sneaker market data in one place so you can
+                             compare and find the best prices. Colorway lets you see real-time prices, new inventory,
                              and more information for both new and used sneakers from several trusted online stores so
                              you don't have to! Stay up-to-date with price drop alerts, and release reminders."
         />
       </Helmet>
 
-      <HomeSplash />
+      {
+        // <HomeSplash />
+      }
 
       <HomeTrending />
 
-      <HomeNewsroom />
+      {
+        // <HomeNewsroom />
+      }
 
       <HomeApp />
 

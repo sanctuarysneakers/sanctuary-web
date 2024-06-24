@@ -11,7 +11,7 @@ export default function AdidasCarbon3D () {
   return (
     <div className='newsroom-article'>
       <Helmet>
-        <title>Sanctuary: Newsroom</title>
+        <title>Colorway: Newsroom</title>
       </Helmet>
       <div className='newsroom-article-content'>
         <div className='newsroom-article-header'>

@@ -51,7 +51,7 @@ export default function HomeNewsroom () {
           <FadeIn visible={render} delay={350} transitionDuration={1500}>
             <h1> Everything you need to know about sneakers is here. </h1>
             <p>
-              Stay up to date with the latest Sanctuary news and original articles.
+              Stay up to date with the latest Colorway news and original articles.
               It&apos;s the ultimate place for all sneakerheads alike, curated by our team.
             </p>
             <div className='home-newsroom-read'
