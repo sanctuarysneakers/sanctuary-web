@@ -8,15 +8,24 @@
 }
 
 .footer-content {
-  max-width: 1000px;
+  max-width: 1800px;
   min-width: 280px;
   padding: 0px 20px;
   margin: auto;
 
   .footer-links {
     display: flex;
-    padding: 65px 0px;
+    padding: 25px 0px;
     border-bottom: 1px solid #D2DAE9;
+
+    .footer-list {
+      list-style-type: NONE;
+
+      .list-item {
+        display: inline;
+        padding: 0 15px;
+      }
+    }
 
     .footer-links-logos {
       padding-right: 120px;

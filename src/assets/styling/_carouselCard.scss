@@ -100,13 +100,14 @@
       margin-bottom: 0px;
 
       img {
-        width: 215px;
+        width: 200px;
       }
     }
 
     .carousel-card-text {
       width: 215px;
       margin-bottom: 16px;
+      margin-left: 4px;
 
       h2 {
         font-size: 18px;
@@ -125,6 +126,7 @@
     .carousel-card-price {
       width: 215px;
       margin-bottom: 20px;
+      text-align: center;
 
       p {
         font-size: 16px;

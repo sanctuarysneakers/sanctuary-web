@@ -44,11 +44,11 @@ export default function Navbar () {
             </Link>
 
             <Link onClick={() => { document.location.href = '/portfolio' }} to='/portfolio'>
-              Portfolio
+              Wishlist
             </Link>
 
             <Link onClick={() => { document.location.href = '/newsroom' }} to='/newsroom'>
-              Newsroom
+              Blog
             </Link>
 
             {!user &&
