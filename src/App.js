@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { RemoveScroll } from 'react-remove-scroll'
 import { useSelector } from 'react-redux'
 import { useLocationDetection } from './hooks/useLocationDetection'
+import { ThemeProvider } from 'styled-components'
 import Navbar from './components/Other/navbar'
 import CreateAccountEmail from './components/Accounts/createAccountEmail'
 import SignInEmail from './components/Accounts/signInEmail'
@@ -36,6 +37,8 @@ import BuyYourPair from './components/Newsroom/Articles/buyYourPair'
 import EditProfileName from './components/Accounts/editProfileName'
 import EditProfileEmail from './components/Accounts/editProfileEmail'
 import EditProfilePassword from './components/Accounts/editProfilePassword'
+import { GlobalStyles } from './components/Theme/globalStyles'
+import { lightTheme, darkTheme } from './components/Theme/Themes'
 
 export default function App () {
   useLocationDetection()
@@ -48,79 +51,92 @@ export default function App () {
   const filtersModalVisible = useSelector(state => state.modals.filtersModalVisible)
   const sortByModalVisible = useSelector(state => state.modals.sortByModalVisible)
   const deleteModalVisible = useSelector(state => state.modals.deleteModalVisible)
-
+  const [theme, setTheme] = useState('light')
+  const themeToggler = () => {
+    theme === 'light' ? setTheme('dark') : setTheme('light')
+  }
   return (
     <React.Fragment>
-      <Navbar />
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/home" component={Home} />
-        <Route path="/browse/:searchTerm?" component={Browse} />
-        <Route path="/item/:itemKey/:gender?" component={Item} />
-        <Route path="/privacy-policy" component={PrivacyPolicy} />
-        <Route path="/terms-of-use" component={TermsOfUse} />
-        <Route path="/contact-us" component={ContactUs} />
-        <Route path="/how-it-works" component={HowItWorks} />
-        <Route path="/create-account-email" component={CreateAccountEmail} />
-        <Route path="/sign-in-email" component={SignInEmail} />
-        <Route path="/forgot-password" component={ForgotPassword} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/profile-edit-name" component={EditProfileName} />
-        <Route path="/profile-edit-email" component={EditProfileEmail} />
-        <Route path="/profile-edit-password" component={EditProfilePassword} />
-        <Route path="/portfolio" component={Portfolio} />
-        <Route path="/newsroom" component={Newsroom} />
-        <Route path="/newsroom-sanctuary-our-story" component={SanctuaryStory} />
-        <Route path="/newsroom-buy-your-pair" component={BuyYourPair} />
-        <Route path="/newsroom-how-adidas-and-carbon-3d-are-revolutionizing-sneaker-production" component={AdidasCarbon3D} />
-        <Route path="/newsroom-our-top-drops-of-2020" component={TopDrops2020} />
-        <Route path="/newsroom-demystifying-the-sneaker-market" component={SneakerMarket} />
-        <Route path="/item-not-supported" component={ItemNotSupported} />
+      <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+        <GlobalStyles/>
+        <Navbar/>
+        <Switch>
+          <Route exact path="/" component={Home}/>
+          <Route path="/home" component={Home}/>
+          <Route path="/browse/:searchTerm?" component={Browse}/>
+          <Route path="/item/:itemKey/:gender?" component={Item}/>
+          <Route path="/privacy-policy" component={PrivacyPolicy}/>
+          <Route path="/terms-of-use" component={TermsOfUse}/>
+          <Route path="/contact-us" component={ContactUs}/>
+          <Route path="/how-it-works" component={HowItWorks}/>
+          <Route path="/create-account-email" component={CreateAccountEmail}/>
+          <Route path="/sign-in-email" component={SignInEmail}/>
+          <Route path="/forgot-password" component={ForgotPassword}/>
+          <Route path="/profile" component={Profile}/>
+          <Route path="/profile-edit-name" component={EditProfileName}/>
+          <Route path="/profile-edit-email" component={EditProfileEmail}/>
+          <Route path="/profile-edit-password" component={EditProfilePassword}/>
+          <Route path="/portfolio" component={Portfolio}/>
+          <Route path="/newsroom" component={Newsroom}/>
+          <Route path="/newsroom-sanctuary-our-story" component={SanctuaryStory}/>
+          <Route path="/newsroom-buy-your-pair" component={BuyYourPair}/>
+          <Route path="/newsroom-how-adidas-and-carbon-3d-are-revolutionizing-sneaker-production" component={AdidasCarbon3D}/>
+          <Route path="/newsroom-our-top-drops-of-2020" component={TopDrops2020}/>
+          <Route path="/newsroom-demystifying-the-sneaker-market" component={SneakerMarket}/>
+          <Route path="/item-not-supported" component={ItemNotSupported}/>
 
-        <Route component={PageNotFound} />
-      </Switch>
+          <Route component={PageNotFound}/>
+        </Switch>
 
-      { locationPopup &&
-        <RemoveScroll>
-          <LocationModal />
-        </RemoveScroll>
-      }
-      { filtersModalVisible &&
-        <RemoveScroll>
-          <FiltersModal />
-        </RemoveScroll>
-      }
-      { sortByModalVisible &&
-        <RemoveScroll>
-          <SortByModal />
-        </RemoveScroll>
-      }
-      { currencyModalVisible &&
-        <RemoveScroll>
-          <CurrencyModal />
-        </RemoveScroll>
-      }
-      { portfolioItemModalVisible &&
-        <RemoveScroll>
-          <PortfolioItemModal />
-        </RemoveScroll>
-      }
-      { aboutModalVisible &&
-        <RemoveScroll>
-          <AboutModal />
-        </RemoveScroll>
-      }
-      { deleteModalVisible &&
-        <RemoveScroll>
-          <DeleteModal />
-        </RemoveScroll>
-      }
-      { searchModalVisible &&
-        <RemoveScroll>
-          <SearchModal />
-        </RemoveScroll>
-      }
-      <HamburgerModal />
+        {
+          /*
+            Button is currently invisible. Can finish later
+          */
+        }
+        <button onClick={themeToggler}></button>
+
+        {locationPopup &&
+          <RemoveScroll>
+            <LocationModal/>
+          </RemoveScroll>
+        }
+        {filtersModalVisible &&
+          <RemoveScroll>
+            <FiltersModal/>
+          </RemoveScroll>
+        }
+        {sortByModalVisible &&
+          <RemoveScroll>
+            <SortByModal/>
+          </RemoveScroll>
+        }
+        {currencyModalVisible &&
+          <RemoveScroll>
+            <CurrencyModal/>
+          </RemoveScroll>
+        }
+        {portfolioItemModalVisible &&
+          <RemoveScroll>
+            <PortfolioItemModal/>
+          </RemoveScroll>
+        }
+        {aboutModalVisible &&
+          <RemoveScroll>
+            <AboutModal/>
+          </RemoveScroll>
+        }
+        {deleteModalVisible &&
+          <RemoveScroll>
+            <DeleteModal/>
+          </RemoveScroll>
+        }
+        {searchModalVisible &&
+          <RemoveScroll>
+            <SearchModal/>
+          </RemoveScroll>
+        }
+        <HamburgerModal/>
+      </ThemeProvider>
     </React.Fragment>
   )
 }

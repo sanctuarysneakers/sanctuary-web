@@ -10,3 +10,7 @@ debug.log
 .DS_Store
 .vscode
 .env
+/.env_web.env
+.idea
+/src/firebaseConfig_web_src.js.js
+.gitignore
