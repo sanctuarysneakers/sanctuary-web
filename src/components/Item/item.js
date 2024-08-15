@@ -77,7 +77,7 @@ export default function Item () {
     <div className='item'>
       <HelmetProvider>
         <Helmet>
-          {itemInfo.model && <title>{`Sanctuary: ${itemInfo.model}`}</title>}
+          {itemInfo.model && <title>{`Colorway: ${itemInfo.model}`}</title>}
           <meta property="og:title" content={itemInfo.model} />
           <meta property="og:image" content={itemInfo.image} />
         </Helmet>

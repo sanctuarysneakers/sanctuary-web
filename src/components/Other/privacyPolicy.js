@@ -14,10 +14,10 @@ export default function PrivacyPolicy () {
     <div className='privacy-policy'>
 
       <Helmet>
-        <title>Sanctuary Sneakers | Privacy Policy</title>
+        <title>Colorway Sneakers | Privacy Policy</title>
         <meta
           name="description"
-          content="Sanctuary Sneaker Privacy Policy"
+          content="Colorway Sneaker Privacy Policy"
         />
       </Helmet>
 
@@ -57,7 +57,7 @@ export default function PrivacyPolicy () {
               </li>
               <li>
                 <p><strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or
-                  &quot;Our&quot; in this Agreement) refers to Sanctuary Streetwear Marketplace Inc.</p>
+                  &quot;Our&quot; in this Agreement) refers to Colorway Streetwear Marketplace Inc.</p>
                 <p>For the purpose of the GDPR, the Company is the Data Controller.</p>
               </li>
               <li>
@@ -89,7 +89,7 @@ export default function PrivacyPolicy () {
                 </p>
               </li>
               <li>
-                <p><strong>Facebook Fan Page</strong> is a public profile named Sanctuary Sneakers specifically created by the
+                <p><strong>Facebook Fan Page</strong> is a public profile named Colorway Sneakers specifically created by the
                   Company on the Facebook social network, accessible from <a href="https://www.facebook.com/sanctuarysneakers" rel="external nofollow noopener noreferrer" target="_blank">facebook.com/sanctuarysneakers</a></p>
               </li>
               <li>
@@ -126,7 +126,7 @@ export default function PrivacyPolicy () {
                   Service or from the Service infrastructure itself (for example, the duration of a page visit).</p>
               </li>
               <li>
-                <p><strong>Website</strong> refers to Sanctuary, accessible from <a href="https://sanctuarysneakers.com/"
+                <p><strong>Website</strong> refers to Colorway, accessible from <a href="https://sanctuarysneakers.com/"
                   rel="external nofollow noopener noreferrer" target="_blank">sanctuarysneakers.com</a></p>
               </li>
               <li>
@@ -537,7 +537,7 @@ export default function PrivacyPolicy () {
             </div>
             <p>If you have any questions about this Privacy Policy, You can contact us:</p>
             <ul className='last-item'>
-              <li><p>By email: contact@sanctuarysneakers.com</p></li>
+              <li><p>By email: contact@origionalcolorway.com</p></li>
             </ul>
             <img src={lastLogo} alt="shoes" />
 

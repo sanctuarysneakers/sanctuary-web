@@ -34,7 +34,7 @@ export default function EditProfileEmail () {
 
         <div className='edit-profile-page-title'>
           <h1> Email </h1>
-          <p> Update your Sanctuary account email address. You will
+          <p> Update your Colorway account email address. You will
             use this new email address to log in.
           </p>
         </div>

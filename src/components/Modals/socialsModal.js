@@ -30,7 +30,7 @@ export default function SocialsModal ({ itemName, price, url, image }) {
   const wrapperRef = useRef(null)
   useOutsideAlerter(wrapperRef)
 
-  const title = `Check out the lowest prices for ${itemName}, available for as low as ${price}! Only on Sanctuary.`
+  const title = `Check out the lowest prices for ${itemName}, available for as low as ${price}! Only on Colorway.`
 
   return (
 
@@ -89,7 +89,7 @@ export default function SocialsModal ({ itemName, price, url, image }) {
               <LinkedinShareButton
                 url={url}
                 summary={title}
-                source="Sanctuary"
+                source="Colorway"
               >
                 <LinkedinIcon size={56} round />
               </LinkedinShareButton>

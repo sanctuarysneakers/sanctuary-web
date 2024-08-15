@@ -88,6 +88,30 @@ export default function useAPICall (callType, params) {
       {
         title: 'Ladies',
         promise: collectionItems({ ...params, collection_id: 'women-s-sneakers' })
+      },
+      {
+        title: 'School Fits',
+        promise: collectionItems({ ...params, collection_id: 'grade-school' })
+      },
+      {
+        title: 'Top Sneakers',
+        promise: collectionItems({ ...params, collection_id: 'top-sneakers' })
+      },
+      {
+        title: 'Popular Classics',
+        promise: collectionItems({ ...params, collection_id: 'trending-old' })
+      },
+      {
+        title: 'Best of 2022',
+        promise: collectionItems({ ...params, collection_id: 'shoes-2022' })
+      },
+      {
+        title: 'All Black',
+        promise: collectionItems({ ...params, collection_id: 'allblack' })
+      },
+      {
+        title: 'High Tops',
+        promise: collectionItems({ ...params, collection_id: 'high-tops' })
       }
     ]
 

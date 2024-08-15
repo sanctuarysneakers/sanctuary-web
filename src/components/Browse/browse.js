@@ -19,7 +19,7 @@ export default function Browse () {
   return (
     <div className='browse'>
       <Helmet>
-        <title>Sanctuary: Browse</title>
+        <title>Colorway: Browse</title>
       </Helmet>
       <div className='browse-results'>
         <div className='browse-results-content'>

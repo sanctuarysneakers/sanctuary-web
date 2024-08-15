@@ -79,7 +79,9 @@ export default function CarouselCard ({ data, index, type, length }) {
             </div>
 
             <div className='carousel-card-price'>
-              <p>Estimated</p>
+              {
+                // <p>Estimated</p>
+              }
               <h4>{currencySymbolMap[currency]}{data.price.toLocaleString('en')}</h4>
             </div>
           </div>

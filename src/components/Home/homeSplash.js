@@ -18,7 +18,7 @@ export default function HomeSplash () {
               <h1> At the best price. </h1>
             </div>
             <p>
-              Sanctuary compares prices from leading
+              Colorway compares prices from leading
               sneaker websites to find you the best deals.
             </p>
 

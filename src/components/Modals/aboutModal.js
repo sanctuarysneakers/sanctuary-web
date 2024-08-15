@@ -19,11 +19,11 @@ export default function AboutModal () {
     <div className="modal-about">
 
       <Helmet>
-        <title>Sanctuary Sneakers | About Us</title>
+        <title>Colorway Sneakers | About Us</title>
         <meta
           name="description"
           content="If you love sneakers, you've come to the right place!
-                    Sanctuary aims to provide the best possible deals on any
+                    Colorway aims to provide the best possible deals on any
                     streetwear or sneakers you could want. Our mission is to
                     evolve the paradigm of fashion by leveraging big data,
                     analytics, and artificial intelligence to provide one
@@ -48,7 +48,7 @@ export default function AboutModal () {
             </div>
             <img src={picture1} alt="shoes" />
             <p>
-              Sanctuary aims to provide the best possible deals on any
+              Colorway aims to provide the best possible deals on any
               streetwear or sneakers you could want. Our mission is to
               evolve the paradigm of fashion by leveraging big data,
               analytics, and artificial intelligence to provide one
@@ -99,13 +99,13 @@ export default function AboutModal () {
           <div className='cardThree-content'>
             <h1>More items, brands, and features soon!</h1>
             <p>
-              The Sanctuary team is built on a set of core values; namely,
+              The Colorway team is built on a set of core values; namely,
               innovation, creativity, and integrity. However, creating the
               best user experience, and ultimately helping our users as much
               as possible is our overarching focus.
             </p>
             <p>
-              You have found Sanctuary at a very early stage. We are currently
+              You have found Colorway at a very early stage. We are currently
               in early Alpha and have just begun our mission. Although our current
               stock is limited, and some functionality may be crude, we will be
               constantly updating, expanding, and improving the site. We have a team
@@ -125,7 +125,7 @@ export default function AboutModal () {
               we will get back to you shortly!
             </h2>
             <a className='contact-box'
-              href = "mailto: contact@sanctuarysneakers.com">
+              href = "mailto: contact@origionalcolorway.com">
               contact@sanctuarysneakers.com
             </a>
           </div>

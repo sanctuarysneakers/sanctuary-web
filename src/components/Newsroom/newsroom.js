@@ -18,7 +18,7 @@ export default function Newsroom () {
   return (
     <div className='newsroom'>
       <Helmet>
-        <title>Sanctuary: Newsroom</title>
+        <title>Colorway: Newsroom</title>
       </Helmet>
       <div className='newsroom-content'>
         <div className='newsroom-header'>
@@ -29,7 +29,7 @@ export default function Newsroom () {
             </div>
 
             <p>
-              Your source for the latest Sanctuary news, sneaker
+              Your source for the latest Colorway news, sneaker
               drops, and upcoming raffles.
             </p>
           </FadeIn>

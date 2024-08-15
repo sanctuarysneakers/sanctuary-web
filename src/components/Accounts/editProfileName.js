@@ -37,7 +37,7 @@ export default function EditProfileName () {
 
         <div className='edit-profile-page-title'>
           <h1> Name </h1>
-          <p> Update your Sanctuary account display name. </p>
+          <p> Update your Colorway account display name. </p>
         </div>
 
         <div className='edit-profile-page-content'>

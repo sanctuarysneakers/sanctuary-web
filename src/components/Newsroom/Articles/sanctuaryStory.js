@@ -11,12 +11,12 @@ export default function SanctuaryStory () {
   return (
     <div className='newsroom-article'>
       <Helmet>
-        <title>Sanctuary: Newsroom</title>
+        <title>Colorway: Newsroom</title>
       </Helmet>
       <div className='newsroom-article-content'>
         <div className='newsroom-article-header'>
           <h1>
-            Sanctuary: Our Story
+            Colorway: Our Story
           </h1>
 
           <div className='newsroom-article-profile'>
@@ -69,12 +69,12 @@ export default function SanctuaryStory () {
             The spread on sneaker prices leads us to the “shelf” problem stated above. With no price regulation on the
             resale market, sneaker prices fluctuate substantially across websites. For example, a pair of Air Jordan
             Fire Red 4s may be selling for $286 on StockX while the same model sells for $264 on FlightClub (these were
-            actual prices on January 31st, 2021). Alongside this problem emerged the concept of Sanctuary, and this is
+            actual prices on January 31st, 2021). Alongside this problem emerged the concept of Colorway, and this is
             our story:
           </p>
           <p>
-            Sanctuary aims to revolutionize the way sneakers and streetwear are bought and sold in the online marketplace.
-            Founded in April of 2020 by a group of Canadian University students, Sanctuary began as a simple concept that
+            Colorway aims to revolutionize the way sneakers and streetwear are bought and sold in the online marketplace.
+            Founded in April of 2020 by a group of Canadian University students, Colorway began as a simple concept that
             attempted to answer the following question: how can individuals find the best prices on sneakers? It seems
             like a simple question, but when factoring in the array of problems listed above, it becomes a complex
             issue.
@@ -103,19 +103,19 @@ export default function SanctuaryStory () {
             it. We’ve also recently added user accounts, and have hardly scratched the surface of our full functionality.
           </p>
           <p>
-            As for the future, there are many exciting things to come. Sanctuary aims to push the limits of what’s
+            As for the future, there are many exciting things to come. Colorway aims to push the limits of what’s
             possible - and by leveraging data, analytics, and artificial intelligence, our goal is to transform the
             fashion industry by creating a centralized platform that goes far beyond sneaker price comparison - rather,
             a community centred around innovation and the user experience.
 
           </p>
           <p>
-            Although we face a long road ahead, the future is bright. Each day provides a new chapter in Sanctuary’s
+            Although we face a long road ahead, the future is bright. Each day provides a new chapter in Colorway’s
             young-lived life, and through our core values of passion, innovation, creativity, and integrity, we aim to
             approach every scenario through the lens of opportunity.
           </p>
           <p>
-            Welcome to Sanctuary, and we hope you enjoy the ride!
+            Welcome to Colorway, and we hope you enjoy the ride!
           </p>
         </div>
       </div>

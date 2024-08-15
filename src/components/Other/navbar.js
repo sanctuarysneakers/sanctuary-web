@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useMediaQuery } from 'react-responsive'
 import { showSearchModal, showHamburgerModal } from '../../redux/actions'
-import { ReactComponent as SanctuaryLogo } from '../../assets/images/SanctuaryLogo.svg'
+import { ReactComponent as ColorwayLogo } from '../../assets/images/ColowayLogo.svg'
 import { ReactComponent as Search } from '../../assets/images/Search.svg'
 import { ReactComponent as Hamburger } from '../../assets/images/Hamburger.svg'
 import ProfileIcon from '../../assets/images/icons/profileIcon'
+import SearchBox from '../Search/searchBox'
 
 export default function Navbar () {
   const dispatch = useDispatch()
@@ -31,21 +32,23 @@ export default function Navbar () {
         {isDesktop && <div className='desktop-content'>
 
           <Link className='sanctuary-logo' to='/'>
-            <SanctuaryLogo />
+            <ColorwayLogo />
           </Link>
-
           <div className='navbar-links'>
-            <Search onClick={() => dispatch(showSearchModal())} />
+            {
+              // <Search onClick={() => dispatch(showSearchModal())} />
+            }
+            <SearchBox/>
             <Link onClick={() => { document.location.href = '/browse' }} to='/browse'>
               Browse
             </Link>
 
             <Link onClick={() => { document.location.href = '/portfolio' }} to='/portfolio'>
-              Portfolio
+              Wishlist
             </Link>
 
             <Link onClick={() => { document.location.href = '/newsroom' }} to='/newsroom'>
-              Newsroom
+              Blog
             </Link>
 
             {!user &&
@@ -72,7 +75,7 @@ export default function Navbar () {
             onClick={() => { document.location.href = '/' }}
             to='/'
           >
-            <SanctuaryLogo />
+            <ColorwayLogo />
           </Link>
 
           <Search onClick={() => dispatch(showSearchModal())} />

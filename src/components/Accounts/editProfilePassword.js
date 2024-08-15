@@ -40,7 +40,7 @@ export default function EditProfilePassword () {
 
         <div className='edit-profile-page-title'>
           <h1> Password </h1>
-          <p> Update your Sanctuary account password. This will
+          <p> Update your Colorway account password. This will
             be used for signing in from now on.
           </p>
         </div>

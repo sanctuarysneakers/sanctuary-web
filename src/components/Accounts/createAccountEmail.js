@@ -40,7 +40,7 @@ export default function CreateAccountEmail () {
       <div className='email-form-content'>
         <div className='email-form-header'>
           <h2> Sign Up </h2>
-          <p> Create your Sanctuary profile for a brand new </p>
+          <p> Create your Colorway profile for a brand new </p>
           <p> experience, personalized just for you. </p>
         </div>
 
@@ -81,7 +81,7 @@ export default function CreateAccountEmail () {
           </div>
 
           <div className='account-terms-policy'>
-            <p> By creating an account, you agree to Sanctuary&apos;s </p>
+            <p> By creating an account, you agree to Colorway&apos;s </p>
             <div className='terms-policy-text'>
 
               <Link to="/privacy-policy" className='terms-policy-pop-up'>

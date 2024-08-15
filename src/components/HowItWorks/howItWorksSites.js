@@ -30,7 +30,7 @@ export default function HowItWorksSites () {
           <FadeIn visible={renderText} delay={350} transitionDuration={1200}>
             <h1>We compare prices from all your favourite marketplaces.</h1>
             <p>
-              Always find the best sneaker deals. Sanctuary compares prices from
+              Always find the best sneaker deals. Colorway compares prices from
               StockX, GOAT, Flight Club, Grailed, eBay, Depop, and KLEKT with
               many more coming soon.
             </p>
